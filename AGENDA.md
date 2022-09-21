@@ -25,14 +25,14 @@ Monday
    - 9:00 AM   – Pandas 
    - 09 GeoPandas for open-source GIS (Mike) -     Projection, overlay, plotting, files, examples 
    - 10 Rasterio (Josh) 
-         Files and interaction with numpy 
+         -Files and interaction with numpy 
    - 11 Xarray (Andy) 
-           Manipulate data and thredds - get the data 
+           -Manipulate data and thredds - get the data 
    - Wrap-up: Pointing to some other packages (Joe)  
    - Scipy, sklearn, 
    - Resources for help 
 
- 
+
 # Part 1: Application of Python and Flopy to Groundwater Modeling 
 ## Thursday 
    - 01 FloPy introduction (Mike) 
