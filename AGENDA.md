@@ -2,18 +2,6 @@
  
 ## Part 0: Introduction to python for hydrologists
 Monday
-<<<<<<< HEAD
-   - Introductions and getting started  (Mike) 
-   - Python overview and Quick orientation to jupyter, environments, and hydroshare (Andy) 
-   - 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
-   - Python basics: activity ( - ) 
-   - 01 Functions and Scripts  (A: build a function) (Joe) 
-   - 02 Namespace, Modules, Packages, Objects (A: import and use own functions, etc) (Josh) 
-   - 03 Sys, Os, Shutil, Pathlib (A: include custom import paths) (Andy) 
-   - 04 Working with files, string formatting (Josh) 
-   - Recap and Questions 
-   - 5:00 PM    –    Class Adjourn 
-=======
 - Introductions and getting started  (Mike) 
 - Python overview and Quick orientation to jupyter, environments, and hydroshare (Andy) 
 - 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
@@ -24,7 +12,6 @@ Monday
 - 04 Working with files, string formatting (Josh) 
 - Recap and Questions 
 - 5:00 PM    –    Class Adjourn 
->>>>>>> 1271ddc (draft of revised 03_useful-std-library-modules.ipynb lesson with solutions)
  
 ## Tuesday
    - 05 Numpy (where, slicing, indexing, ….)(A: xmas for everyone) (Mike)  

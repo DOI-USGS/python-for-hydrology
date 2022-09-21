@@ -1,0 +1,65 @@
+# Based on github template: https://github.com/actions/starter-workflows/blob/main/ci/python-package.yml
+
+name: Tests
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # run every Monday at 9 AM UTC (3 am PST)
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.python-version }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        python-version: ['3.9']  # ['3.8', '3.x']
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+
+    - name: Fetch all Git tags
+      run: git fetch --prune --unshallow --tags
+
+    - name: Cache Miniconda
+      uses: actions/cache@v2.1.0
+      env:
+        # Increase this value to reset cache if environment.yml has changed
+        CACHE_NUMBER: 0
+      with:
+        path: ~/conda_pkgs_dir
+        key: ${{ runner.os }}-${{ matrix.python-version }}-${{
+             matrix.run-type }}-${{ env.CACHE_NUMBER }}-${{
+             hashFiles('ci/test_environment.yaml') }}
+
+    - name: Setup conda environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: true
+        activate-environment: pyclass
+        environment-file: installation/environment.yml
+        python-version: ${{ matrix.python-version }}
+        #condarc-file: ci/example-condarc.yml
+        auto-activate-base: false
+        use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+
+    - name: Conda info
+      shell: bash -l {0}
+      run: conda info
+    - name: Install Modflow-setup and ipykernel
+      shell: bash -l {0}
+      run: |
+        python -m ipykernel install --user --name pyclass --display-name "pyclass"
+    - name: Conda list
+      shell: bash -l {0}
+      run: conda list
+    - name: Run tests
+      shell: bash -l {0}
+      run: |
+        pytest -v
