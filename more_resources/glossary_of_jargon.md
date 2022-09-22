@@ -19,7 +19,7 @@ A jargon word for anything that is left over, redundant and getting in the way. 
 #### dogfooding
 Eating your own dog food, also called dogfooding, occurs when an organization uses its own product. This can be a way for an organization to test its products in real-world usage. Hence dogfooding can act as quality control, and eventually a kind of testimonial advertising. Once in the market, dogfooding demonstrates confidence in the developers' own products. In software development, this means using the code from a user's point of view.
  
-**DRY:** don't repeat yourself.
+**DRY** don't don't repeat yourself.
  
 #### God object
 In object-oriented programming, a God object is an object that knows too much or does too much. The God object is an example of an anti-pattern.
