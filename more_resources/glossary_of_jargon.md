@@ -1,10 +1,10 @@
 # Glossary of coding coding and software jargon
 
  
-#### Athens test  
+#### Athens test
 when a code runs from start to finish (compiled or script) without throwing an error, it passes the Athens test. This has no bearing on whether the code is performing the actual function it was designed for - it just means it is capable or executing without failure. For etymology, consult Steve Westenbroek :)
  
-#### boat anchor  
+#### boat anchor
 something obsolete, useless, and cumbersome – so-called because metaphorically its only productive use is to be thrown into the water as a boat mooring.
  
 #### code smell
@@ -38,6 +38,9 @@ A minimum viable product (MVP) is a version of a product with just enough featur
  
 #### munging
 verb (used with or without object), munged, mung·ing. Computer Slang. to manipulate (raw data), especially to convert (data) from one format to another: the munging of HTML content.
+
+#### PEBKAC
+problem exists between keyboard and computer. see also RTFM
  
 #### REPL
 Read-Eval-Print Loop
