@@ -2,52 +2,65 @@
  
 ## Part 0: Introduction to python for hydrologists
 Monday
-- Introductions and getting started  (Mike) 
-- Python overview and Quick orientation to jupyter, environments, and hydroshare (Andy) 
-- 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
-- Python basics: activity ( - ) 
-- 01 Functions and Scripts  (A: build a function) (Joe) 
-- 02 Namespace, Modules, Packages, Objects (A: import and use own functions, etc) (Josh) 
-- 03 Useful Standard Library modules (Andy) 
-- 04 Working with files, string formatting (Josh) 
-- Recap and Questions 
-- 5:00 PM    –    Class Adjourn 
+- 800-830: Introductions and getting started  (Mike) 
+- 830-900: Python overview and Quick orientation to jupyter, environments, and hydroshare (Andy) 
+- 900-1000: 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
+- 1000-1030: Python basics: activity ( - ) 
+- 1030-1100: Break
+- 1100-1200: 01 Functions and Scripts  (A: build a function) (Joe) 
+- 1200-1300: lunch
+- 1300-1500: 02 Namespace, Modules, Packages, Objects (A: import and use own functions, etc) (Josh) 
+- 1500-1530: Break
+- 1530-1630: 03 Useful Standard Library modules (Andy) 
+- 1630-1700: 04 Working with files, string formatting (Josh) 
+- 1700: Class Adjourn 
  
 ## Tuesday
-   - 05 Numpy (where, slicing, indexing, ….)(A: xmas for everyone) (Mike)  
-   - 06 Matplotlib (A: make a semi-complex plot, animation, PdfPages) (Joe) 
-   - 07 Theis exercise + VSCode IDE debugging, liveshare (Andy) 
-   - 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (various approaches), Raul’s https://github.com/raoulcollenteur/Python-Hydrology-Tools (Josh) 
-   - 4:30 PM    –   Recap and Questions 
-   - 5:00 PM    –    Class Adjourn 
- 
+- 800-830:  04 Working with files, string formatting (Josh) (continued)
+- 830-1030: 05 Numpy (where, slicing, indexing, ….)(A: xmas for everyone) (Mike)
+- 1030-1100: break
+- 1100-1200: 06 Matplotlib (A: make a semi-complex plot, animation, PdfPages) (Joe) 
+- 1200-1300: lunch
+- 1300-1400: 06 Matplotlib(A: make a semi-complex plot, animation, PdfPages) (Joe) (continued)
+- 1400-1430: break
+- 1430-1600: 07 Theis exercise + VSCode IDE debugging, liveshare (Andy) 
+- 1600-1700: 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (various approaches), Raul’s https://github.com/raoulcollenteur/Python-Hydrology-Tools (Josh) 
+- 1700: Class Adjourn
+- 
 ## Wednesday
-   - 9:00 AM   – Pandas 
-   - 09 GeoPandas for open-source GIS (Mike) -     Projection, overlay, plotting, files, examples 
-   - 10 Rasterio (Josh) 
-         -Files and interaction with numpy 
-   - 11 Xarray (Andy) 
-           -Manipulate data and thredds - get the data 
-   - Wrap-up: Pointing to some other packages (Joe)  
-   - Scipy, sklearn, 
-   - Resources for help 
-
+- 800-900: 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (various approaches), Raul’s https://github.com/raoulcollenteur/Python-Hydrology-Tools (Josh) (continued)
+- 900-1030: 09 GeoPandas for open-source GIS (Mike)
+- 1030-1100: break
+- 1100-1130: 09 GeoPandas for open-source GIS (Mike) (continued)
+- 1130-1200: 10 Rasterio (Josh) 
+- 1200-1300: lunch
+- 1300-1400: 10 Rasterio (Josh) (continued)
+- 1400-1430: break
+- 1430-1600: 11 Xarray (Andy) 
+- 1600-1700: Wrap-up: Pointing to some other packages (Joe)
+- 1700: class adjourn
 
 # Part 1: Application of Python and Flopy to Groundwater Modeling 
 ## Thursday 
-   - 01 FloPy introduction (Mike) 
-   - 02 Build your first model with FloPy (Joe) 
-   - 03 FloPy load and visualize models (Andy) 
-   - 04 New Intersection Capabilities, modelgrid (Josh) 
-   - 05 Class project (refactor to Freyberg) – overview and start - incorporate modelgrid, intersect, resampling raster etc. (no input data in LRC - all coords) (ALL) 
-   - 5:30PM  – Class Adjourn 
+- 800-830: 01 FloPy introduction (Mike) 
+- 830-930: 02 Build your first model with FloPy (Joe) 
+- 930-1000: break
+- 1000-1030: 02 Build your first model with FloPy (Joe) (continued)
+- 1030-1200: 03 FloPy load and visualize models (Andy) 
+- 1200-1300: lunch
+- 1300-1500: 04 New Intersection Capabilities, modelgrid (Josh) 
+- 1530-1600: break
+- 1600-1630: 05 Unstructured Grids Neuchatel stuff revisit with class project example (?) (Joe) 
+- 1630-1700: 06 Class project (refactor to Freyberg) – overview and start - incorporate modelgrid, intersect, resampling raster etc. (no input data in LRC - all coords) (ALL) 
+- 1700: class adjourn
  
 ## Friday
-   - Project Continued 
-   - 06  Run and process MF6T (Joe) 
-   - 07 Run and process MODPATH models (Josh) 
-   - 08 Streamflow Capture Analysis with FloPy – use class project (Mike) 
-   - 09 Unstructured Grids Neuchatel stuff revisit with class project example (?) (Joe) 
-   - 10 MODFLOW setup pick a test case (Andy) 
-   - 5:00PM  – Wrap Up 
-   - 5:30 PM  – Adjourn 
+- 800-1200: Project
+- 1200-1300: lunch
+- 1300-1430: 07 Streamflow Capture Analysis with FloPy – use class project (Mike) 
+- 1430-1500: break
+- 1500-1530: 08 MODFLOW setup pick a test case (Andy) 
+- 1530-1600: break
+- 1600-1630: 09 Run and process MF6T (Joe) 
+- 1630-1700: 10 Run and process MODPATH models (Josh) 
+- 1700: Wrap up
