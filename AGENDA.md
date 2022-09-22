@@ -2,16 +2,16 @@
  
 ## Part 0: Introduction to python for hydrologists
 Monday
-   - Introductions and getting started  (Mike) 
-   - Python overview and Quick orientation to jupyter, environments, and hydroshare (Andy) 
-   - 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
-   - Python basics: activity ( - ) 
-   - 01 Functions and Scripts  (A: build a function) (Joe) 
-   - 02 Namespace, Modules, Packages, Objects (A: import and use own functions, etc) (Josh) 
-   - 03 Sys, Os, Shutil, Pathlib (A: include custom import paths) (Andy) 
-   - 04 Working with files, string formatting (Josh) 
-   - Recap and Questions 
-   - 5:00 PM    –    Class Adjourn 
+- Introductions and getting started  (Mike) 
+- Python overview and Quick orientation to jupyter, environments, and hydroshare (Andy) 
+- 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
+- Python basics: activity ( - ) 
+- 01 Functions and Scripts  (A: build a function) (Joe) 
+- 02 Namespace, Modules, Packages, Objects (A: import and use own functions, etc) (Josh) 
+- 03 Useful Standard Library modules (Andy) 
+- 04 Working with files, string formatting (Josh) 
+- Recap and Questions 
+- 5:00 PM    –    Class Adjourn 
  
 ## Tuesday
    - 05 Numpy (where, slicing, indexing, ….)(A: xmas for everyone) (Mike)  
@@ -25,14 +25,14 @@ Monday
    - 9:00 AM   – Pandas 
    - 09 GeoPandas for open-source GIS (Mike) -     Projection, overlay, plotting, files, examples 
    - 10 Rasterio (Josh) 
-         Files and interaction with numpy 
+         -Files and interaction with numpy 
    - 11 Xarray (Andy) 
-           Manipulate data and thredds - get the data 
+           -Manipulate data and thredds - get the data 
    - Wrap-up: Pointing to some other packages (Joe)  
    - Scipy, sklearn, 
    - Resources for help 
 
- 
+
 # Part 1: Application of Python and Flopy to Groundwater Modeling 
 ## Thursday 
    - 01 FloPy introduction (Mike) 
