@@ -52,7 +52,15 @@ jobs:
     - name: Conda info
       shell: bash -l {0}
       run: conda info
-    - name: Install Modflow-setup and ipykernel
+    - name: Install Modflow executables
+      uses: modflowpy/install-modflow-action@v1
+      with:
+        path: ~/.local/bin
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Modflow version
+      shell: bash -l {0}
+      run: mf6 --version
+    - name: Install ipykernel
       shell: bash -l {0}
       run: |
         python -m ipykernel install --user --name pyclass --display-name "pyclass"
