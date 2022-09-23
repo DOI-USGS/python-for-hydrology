@@ -40,7 +40,8 @@ Monday
 - 1700: class adjourn
 
 # Part 1: Application of Python and Flopy to Groundwater Modeling 
-## Thursday 
+## Thursday
+NOTE: need to allocate time for people introductions
 - 800-830: 01 FloPy introduction (Mike) 
 - 830-930: 02 Build your first model with FloPy (Joe) 
 - 930-1000: break
