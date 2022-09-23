@@ -4,8 +4,7 @@
 Monday
 - 800-830: Introductions and getting started  (Mike) 
 - 830-900: Python overview and Quick orientation to jupyter, environments, and hydroshare (Andy) 
-- 900-1000: 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
-- 1000-1030: Python basics: activity ( - ) 
+- 900-1030: 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (Mike) 
 - 1030-1100: Break
 - 1100-1200: 01 Functions and Scripts  (A: build a function) (Joe) 
 - 1200-1300: lunch
