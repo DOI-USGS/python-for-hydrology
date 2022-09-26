@@ -46,7 +46,7 @@ NOTE: need to allocate time for people introductions
 - 830-930: 02 Build your first model with FloPy (Joe) 
 - 930-1000: break
 - 1000-1030: 02 Build your first model with FloPy (Joe) (continued)
-- 1030-1200: 03 FloPy load and visualize models (Andy) 
+- 1030-1200: 03 Loading and visualizing models with FloPy (Andy) 
 - 1200-1300: lunch
 - 1300-1500: 04 New Intersection Capabilities, modelgrid (Josh) 
 - 1530-1600: break
@@ -59,7 +59,7 @@ NOTE: need to allocate time for people introductions
 - 1200-1300: lunch
 - 1300-1430: 07 Streamflow Capture Analysis with FloPy – use class project (Mike) 
 - 1430-1500: break
-- 1500-1530: 08 MODFLOW setup pick a test case (Andy) 
+- 1500-1530: 08 Modflow-setup demo (Andy) 
 - 1530-1600: break
 - 1600-1630: 09 Run and process MF6T (Joe) 
 - 1630-1700: 10 Run and process MODPATH models (Josh) 
