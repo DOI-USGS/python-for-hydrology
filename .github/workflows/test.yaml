@@ -42,9 +42,12 @@ jobs:
       uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
+        python-version: ${{ matrix.python-version }}
+        mamba-version: "*"
+        channels: conda-forge,defaults
+        channel-priority: true
         activate-environment: pyclass
         environment-file: installation/environment.yml
-        python-version: ${{ matrix.python-version }}
         #condarc-file: ci/example-condarc.yml
         auto-activate-base: false
         use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
