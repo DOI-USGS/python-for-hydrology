@@ -1,0 +1,131 @@
+simulation:
+  sim_name: 'pleasant-lgr'
+  version: 'mf6'
+  sim_ws: 'pleasant-lgr/'
+
+model:
+  simulation: 'pleasant-lgr'
+  modelname: 'plsnt-lgr-inset'
+  options:
+    print_input: True
+    save_flows: True
+    newton: True
+    newton_under_relaxation: True
+  external_path: 'external/'
+  packages: ['dis',
+             'ic',
+             'npf',
+             'oc',
+             'sto',
+             'rch',
+             'sfr',
+             'lak',
+             'obs',
+             'wel',
+             'ims'
+  ]
+
+# parent model block is not needed as the pleasant_lgr_inset
+# model is set up as an LGR in the context of the pleasant_lgr_parent model
+
+# grid for LGR inset based on buffer distance around Pleasant Lake
+setup_grid:
+  source_data:
+    features_shapefile:
+      filename: 'pleasant-lake/source_data/shps/all_lakes.shp'
+      id_column: 'HYDROID'
+      include_ids: [600059060] # pleasant lake
+  dxy: 40  # grid spacing, in CRS units (meters)
+  buffer: 1000 # distance from feature(s) of interest to model boundary, in meters
+  epsg: 3070  # CRS (Wisconsin Transverse Mercator)
+
+dis:
+  options:
+    length_units: 'meters'
+  dimensions:
+    # nrow and ncol are based on the buffer distance and grid spacing
+    nlay: 5
+  source_data:
+    top:
+      filename: 'pleasant-lake/source_data/rasters/dem40m.tif' # DEM file; path relative to setup script
+      elevation_units: 'meters'
+    botm:
+      filenames:
+        1: 'pleasant-lake/source_data/rasters/botm0.tif'  # preprocessed surface for parent model layer 0 bottom
+        2: 'pleasant-lake/source_data/rasters/botm1.tif'  # preprocessed surface for parent model layer 1 bottom
+        3: 'pleasant-lake/source_data/rasters/botm2.tif'  # preprocessed surface for parent model layer 2 bottom
+        4: 'pleasant-lake/source_data/rasters/botm3.tif'  # preprocessed surface for parent model layer 3 bottom
+
+# Recharge and Well packages are inherited from the parent model
+# (since this is an LGR model
+#  and the packages are specified in the packages: list)
+
+# Lake Package
+lak:
+  options:
+    boundnames: True
+    save_flows: True
+    surfdep: 0.1  # undulations in lake bottom that affect GW discharge. Range in online instructions is 0.01-0.5. (Value from Trout Lake)
+  source_data:
+    # initial lakebed leakance rates
+    # for thin zone around lake perimeter
+    littoral_leakance: 0.045 # 1/d
+    # for interior of lake basin
+    profundal_leakance: 0.025 # 1/d
+    # polygon shapefile of lake footprints
+    littoral_zone_buffer_width: 40
+    lakes_shapefile:
+      filename: 'pleasant-lake/source_data/shps/all_lakes.shp'
+      id_column: 'HYDROID'
+      include_ids: [600059060] # pleasant lake
+    # setup lake precipitation and evaporation from PRISM data
+    climate:
+      filenames:
+        600059060: 'pleasant-lake/source_data/PRISM_ppt_tmean_stable_4km_189501_201901_43.9850_-89.5522.csv'
+      format: 'prism'
+      period_stats:
+        # for period 0, use average precip and evap for dates below
+        0: ['mean', '2012-01-01', '2018-12-31']  # average daily rate for model period for initial steady state
+        # for subsequent periods,
+        # average precip and evap to period start/end dates
+        1: 'mean'  # average daily rate or value for each month
+    # bathymetry file with lake depths to subtract off model top
+    bathymetry_raster:
+      filename: 'pleasant-lake/source_data/rasters/pleasant_bathymetry.tif'
+      length_units: 'meters'
+    # bathymetry file with stage/area/volume relationship
+    stage_area_volume_file:
+      filename: 'pleasant-lake/source_data/tables/area_stage_vol_Pleasant.csv'
+      length_units: 'meters'
+      id_column: 'hydroid'
+      column_mappings:
+        volume_m3: 'volume'
+  external_files: False  # option to write connectiondata table to external file
+
+sfr:
+  options:
+    save_flows: True
+  source_data:
+    flowlines:
+      nhdplus_paths: ['pleasant-lake/source_data/shps']
+    dem:
+      filename: 'pleasant-lake/source_data/rasters/dem40m.tif'
+      elevation_units: 'meters'
+  sfrmaker_options:
+    set_streambed_top_elevations_from_dem: True
+
+obs:
+  # same observation data that were applied to pleasant_lgr_parent model
+  # any observations not within the LGR extent are culled
+  source_data:
+    filenames: [
+      #'pleasant-lake/source_data/tables/nwis_heads_info_file.csv',
+                'pleasant-lake/source_data/tables/lake_sites.csv',  # some lakes are high-k; obs need to be in hydmod
+                'pleasant-lake/source_data/tables/wdnr_gw_sites.csv',
+                #'pleasant-lake/source_data/tables/uwsp_heads.csv',
+                #'pleasant-lake/source_data/tables/wgnhs_head_targets.csv'
+                     ]
+    column_mappings:
+      obsname: ['obsprefix', 'common_name']
+  drop_observations: ['10019209_lk'  # pleasant lake; monitored via the lake package obs
+  ]
