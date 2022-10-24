@@ -1,0 +1,1089 @@
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                          GROUNDWATER FLOW MODEL (GWF)
+                            VERSION 6.3.0 03/08/2022
+
+   MODFLOW 6 compiled Mar 10 2022 13:40:29 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.5.0
+                             Build 20211109_000000
+
+This software has been approved for release by the U.S. Geological 
+Survey (USGS). Although the software has been subjected to rigorous 
+review, the USGS reserves the right to update the software as needed 
+pursuant to further analysis and review. No warranty, expressed or 
+implied, is made by the USGS or the U.S. Government as to the 
+functionality of the software and related material nor shall the 
+fact of release constitute any such warranty. Furthermore, the 
+software is released on condition that neither the USGS nor the U.S. 
+Government shall be held liable for any damages resulting from its 
+authorized or unauthorized use. Also refer to the USGS Water 
+Resources Software User Rights Notice for complete use, copyright, 
+and distribution information.
+
+
+As a work of the United States Government, this USGS product is 
+in the public domain within the United States. You can copy, 
+modify, distribute, and perform the work, even for commercial 
+purposes, all without asking permission. Additionally, USGS 
+waives copyright and related rights in the work worldwide 
+through CC0 1.0 Universal Public Domain Dedication 
+(https://creativecommons.org/publicdomain/zero/1.0/).
+
+The following GNU Lesser General Public License (LGPL) libraries
+are used in this USGS product:
+
+    SPARSKIT version 2.0
+      ilut, luson, and qsplit 
+      (https://www-users.cse.umn.edu/~saad/software/SPARSKIT/)
+
+    RCM - Reverse Cuthill McKee Ordering
+      (https://people.math.sc.edu/Burkardt/f_src/rcm/rcm.html)
+
+    BLAS - Basic Linear Algebra Subprograms Level 1
+      (https://people.math.sc.edu/Burkardt/f_src/blas1_d/blas1_d.html)
+
+    SPARSEKIT - Sparse Matrix Utility Package
+      amux, dperm, dvperm, rperm, and cperm
+      (https://people.sc.fsu.edu/~jburkardt/f77_src/sparsekit/sparsekit.html)
+
+The following BSD-3 License libraries are used in this USGS product:
+
+    Modern Fortran DAG Library
+      Copyright (c) 2018, Jacob Williams
+      All rights reserved.
+      (https://github.com/jacobwilliams/daglib)
+
+MODFLOW 6 compiler options: -Isrc/libmf6core.a.p -Isrc -I../src
+-Isrc/libmf6_external.a.p -warn general -warn truncated_source -stand=f08 -g
+-traceback -O2 -g -fpe0 -diag-disable:7416 -diag-disable:7025
+-diag-disable:5268 -module src/libmf6core.a.p
+-gen-dep=src/libmf6core.a.p/Utilities_compilerversion.F90.o
+-gen-depformat=make -o src/libmf6core.a.p/Utilities_compilerversion.F90.o -c
+
+System command used to initiate simulation:
+mf6
+
+MODFLOW was compiled using uniform precision.
+
+Real Variables
+  KIND: 8
+  TINY (smallest non-zero value):    2.225074-308
+  HUGE (largest value):    1.797693+308
+  PRECISION: 15
+  BIT SIZE: 64
+
+Integer Variables
+  KIND: 4
+  HUGE (largest value): 2147483647
+  BIT SIZE: 32
+
+Long Integer Variables
+  KIND: 8
+  HUGE (largest value): 9223372036854775807
+  BIT SIZE: 64
+
+Logical Variables
+  KIND: 4
+  BIT SIZE: 32
+ 
+
+ OPENED project.disv
+ FILE TYPE:DISV6                  UNIT 1005   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED project.ic
+ FILE TYPE:IC6                    UNIT 1006   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED project.npf
+ FILE TYPE:NPF6                   UNIT 1007   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED project.rcha
+ FILE TYPE:RCH6                   UNIT 1008   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED project.sfr
+ FILE TYPE:SFR6                   UNIT 1009   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED project.wel
+ FILE TYPE:WEL6                   UNIT 1010   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED project.chd
+ FILE TYPE:CHD6                   UNIT 1011   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED project.oc
+ FILE TYPE:OC6                    UNIT 1012   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+ NAMEFILE OPTIONS:
+    FLOWS WILL BE SAVED TO BUDGET FILE SPECIFIED IN OUTPUT CONTROL
+    NEWTON-RAPHSON method enabled for the model.
+    NEWTON-RAPHSON UNDER-RELAXATION based on the bottom elevation of the model will be applied to the model.
+
+ DISV -- VERTEX GRID DISCRETIZATION PACKAGE, VERSION 1 : 12/23/2015 - INPUT READ FROM UNIT 1005
+
+
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+
+ PROCESSING DISCRETIZATION OPTIONS
+    MODEL LENGTH UNIT IS METERS
+ END OF DISCRETIZATION OPTIONS
+
+ PROCESSING DISCRETIZATION DIMENSIONS
+   NLAY = 3
+   NCPL = 2240
+   NVERT = 4908
+ END OF DISCRETIZATION DIMENSIONS
+
+ PROCESSING GRIDDATA
+ END PROCESSING GRIDDATA
+
+ PROCESSING VERTICES
+   SUCCESSFULLY READ 4908 (X,Y) COORDINATES
+   MINIMUM X COORDINATE =   -1.705302570000000E-13
+   MAXIMUM X COORDINATE =     5000.00000000000    
+   MINIMUM Y COORDINATE =    1.136868380000000E-13
+   MAXIMUM Y COORDINATE =     10000.0000000000    
+ END PROCESSING VERTICES
+
+ PROCESSING CELL2D
+   SUCCESSFULLY READ 2240 CELL2D INFORMATION ENTRIES
+   MINIMUM X CELL CENTER =   -1.705302570000000E-13
+   MAXIMUM X CELL CENTER =     5000.00000000000    
+   MINIMUM Y CELL CENTER =    1.136868380000000E-13
+   MAXIMUM Y CELL CENTER =     10000.0000000000    
+   MAXIMUM NUMBER OF CELL2D VERTICES IS 10 FOR CELL 2103
+ END PROCESSING VERTICES
+
+ NPF -- NODE PROPERTY FLOW PACKAGE, VERSION 1, 3/30/2015 INPUT READ FROM UNIT 1007
+
+
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+ PROCESSING NPF OPTIONS
+    SPECIFIC DISCHARGE WILL BE CALCULATED AT CELL CENTERS AND WRITTEN TO DATA-SPDIS IN BUDGET FILE WHEN REQUESTED.
+ END OF NPF OPTIONS
+
+ WEL   -- WEL PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1010
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+
+ PROCESSING WEL OPTIONS
+ END OF WEL OPTIONS
+
+ PROCESSING WEL DIMENSIONS
+    MAXBOUND =       6
+ END OF WEL DIMENSIONS
+
+ RCH   -- RCH PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1008
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+
+ PROCESSING RCH OPTIONS
+    RECHARGE INPUT WILL BE READ AS ARRAY(S).
+ END OF RCHA OPTIONS
+
+ CHD   -- CHD PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1011
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+
+ PROCESSING CHD OPTIONS
+ END OF CHD OPTIONS
+
+ PROCESSING CHD DIMENSIONS
+    MAXBOUND =     140
+ END OF CHD DIMENSIONS
+
+ SFR   -- SFR PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1009
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+
+ PROCESSING SFR OPTIONS
+    SFR BOUNDARIES HAVE NAMES IN LAST COLUMN.
+    SFR STAGES WILL BE PRINTED TO LISTING FILE.
+    SFR FLOWS WILL BE PRINTED TO LISTING FILE.
+
+ OPENED project.sfr.obs
+ FILE TYPE:OBS   UNIT 1014   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+    UNIT CONVERSION VALUE (86400.00000000000) SPECIFIED.
+ END OF SFR OPTIONS
+
+ PROCESSING SFR DIMENSIONS
+    NREACHES = 168
+ END OF SFR DIMENSIONS
+
+ PROCESSING SFR PACKAGEDATA
+ END OF SFR PACKAGEDATA
+
+ PROCESSING SFR CONNECTIONDATA
+ END OF SFR CONNECTIONDATA
+
+ IC -- INITIAL CONDITIONS PACKAGE, VERSION 8, 3/28/2015 INPUT READ FROM UNIT 1006
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+ PROCESSING GRIDDATA
+ END PROCESSING GRIDDATA
+ PROCESSING GRIDDATA
+
+                ICELLTYPE = 1
+ K33 not provided.  Assuming K33 = K.
+ K22 not provided.  Assuming K22 = K.
+ END PROCESSING GRIDDATA
+    BINARY GRID INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1015
+      FILE NAME: /Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part1_flopy/temp/voronoi/project.disv.grb
+
+ OPENED /Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part1_flopy/temp/voronoi/project.disv.grb
+ FILE TYPE:DATA(BINARY)   UNIT 1015   STATUS:REPLACE             
+ FORMAT:UNFORMATTED            ACCESS:STREAM              
+ ACTION:READWRITE           
+
+      THE LAST TIME STEP WILL BE PRINTED
+      THE LAST TIME STEP WILL BE PRINTED
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+
+ PROCESSING OC OPTIONS
+
+    BUDGET INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1016
+      FILE NAME: project.cbc
+
+ OPENED project.cbc
+ FILE TYPE:DATA(BINARY)   UNIT 1016   STATUS:REPLACE             
+ FORMAT:UNFORMATTED            ACCESS:STREAM              
+ ACTION:READWRITE           
+
+    HEAD INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1017
+      FILE NAME: project.hds
+
+ OPENED project.hds
+ FILE TYPE:DATA(BINARY)   UNIT 1017   STATUS:REPLACE             
+ FORMAT:UNFORMATTED            ACCESS:STREAM              
+ ACTION:READWRITE           
+
+ END OF OC OPTIONS
+
+The observation utility is active for "SFR_0"
+ # File generated by Flopy version 3.3.6 on 10/15/2022 at 07:03:54.
+
+Processing observation options:
+
+The PRINT_INPUT option has been specified.
+
+
+ OBSERVATIONS READ FROM FILE "project.sfr.obs"
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ NAME                                     TYPE                                       TIME         LOCATION DATA                              OUTPUT FILENAME                                                                 
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ UPSTREAM                                 CONTINUOUS  SFR                            ALL TIMES    "  UPSTREAM"                               sfr_obs.csv                                                                     
+ DOWNSTREAM                               CONTINUOUS  SFR                            ALL TIMES    "  DOWNSTREAM"                             sfr_obs.csv                                                                     
+ GAGE1                                    CONTINUOUS  DOWNSTREAM-FLOW                ALL TIMES    "  47"                                     sfr_obs.csv                                                                     
+ GAGE2                                    CONTINUOUS  EXT-OUTFLOW                    ALL TIMES    "  168"                                    sfr_obs.csv                                                                     
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+start timestep kper="1" kstp="1" mode="normal"
+
+
+ BEGIN READING OUTPUT CONTROL FOR STRESS PERIOD 1
+      ALL TIME STEPS WILL BE SAVED
+      ALL TIME STEPS WILL BE SAVED
+
+ END READING OUTPUT CONTROL FOR STRESS PERIOD 1
+
+                 RECHARGE =  0.1382400E-03
+
+ SLN_1 INNER ITERATION SUMMARY
+ --------------------------------------------------------------------------------------------------------------------------------------
+      TOTAL      OUTER      INNER                                                            MAXIMUM                                   
+  ITERATION  ITERATION  ITERATION  MAXIMUM CHANGE      MAXIMUM CHANGE MODEL-(CELLID)        RESIDUAL    MAXIMUM RESIDUAL MODEL-(CELLID)
+ --------------------------------------------------------------------------------------------------------------------------------------
+          1          1          1      -9.0362082                       1_GWF-(1,48)       86.970166                     1_GWF-(2,2019)
+          2          1          2     -0.96095922                       1_GWF-(2,52)       35.306132                     1_GWF-(2,2019)
+          3          1          3     -0.56065848                       1_GWF-(3,52)       9.2652453                       1_GWF-(2,52)
+          4          1          4     -0.17436420                       1_GWF-(2,52)       2.7701115                     1_GWF-(2,2096)
+          5          1          5 -5.90889973E-02                       1_GWF-(2,54)       1.1725484                      1_GWF-(2,125)
+          6          1          6 -1.27843135E-02                       1_GWF-(2,56)     -0.35139677                     1_GWF-(2,2188)
+          7          1          7  7.18919004E-03                     1_GWF-(1,2188)      0.25021161                      1_GWF-(2,125)
+          8          1          8 -2.80934720E-03                     1_GWF-(1,1804)      0.10421260                     1_GWF-(1,2206)
+          9          1          9 -1.95968428E-03                     1_GWF-(1,1726)  7.96561957E-02                     1_GWF-(1,2185)
+         10          1         10 -7.38929960E-04                     1_GWF-(1,1726)  3.30041062E-02                     1_GWF-(1,2184)
+         11          2          1      -1.1365718                     1_GWF-(3,1435)       30.907707                     1_GWF-(2,2019)
+         12          2          2     -0.57330829                       1_GWF-(3,52)       16.272412                     1_GWF-(2,2019)
+         13          2          3     -0.50146077                       1_GWF-(3,52)       7.5299848                     1_GWF-(2,2096)
+         14          2          4     -0.24953279                       1_GWF-(2,54)      -5.3598762                     1_GWF-(1,2200)
+         15          2          5      0.22012608                      1_GWF-(3,144)      -4.4111056                     1_GWF-(1,2200)
+         16          2          6      0.19000442                      1_GWF-(3,144)      -3.3579302                     1_GWF-(2,2194)
+         17          2          7      0.20165842                       1_GWF-(2,14)      -2.4448404                     1_GWF-(2,2179)
+         18          2          8      0.12975622                       1_GWF-(2,14)       2.0213354                     1_GWF-(2,1568)
+         19          2          9     -0.10793213                      1_GWF-(3,675)       1.6629011                     1_GWF-(2,1568)
+         20          2         10     -0.12010292                     1_GWF-(1,1435)       1.2443339                     1_GWF-(2,1568)
+         21          2         11     -0.13351041                     1_GWF-(1,1435)      0.89494594                     1_GWF-(2,1804)
+         22          2         12     -0.11832065                     1_GWF-(1,1435)      0.69011479                     1_GWF-(2,2194)
+         23          2         13     -0.10625119                     1_GWF-(1,1435)      0.69698979                     1_GWF-(1,2203)
+         24          2         14 -8.40391107E-02                     1_GWF-(1,1435)      0.62154825                     1_GWF-(2,2194)
+         25          2         15  5.21399508E-02                     1_GWF-(1,1422)      0.65884250                     1_GWF-(1,2203)
+         26          2         16  3.62795755E-02                     1_GWF-(1,1422)      0.42231776                     1_GWF-(2,1699)
+         27          2         17  3.06872087E-02                     1_GWF-(1,1422)      0.44260127                     1_GWF-(1,2203)
+         28          2         18 -2.19256810E-02                     1_GWF-(1,1027)      0.34664164                     1_GWF-(2,1048)
+         29          2         19 -2.03227876E-02                     1_GWF-(2,1123)      0.31774173                     1_GWF-(2,1048)
+         30          2         20 -1.22360697E-02                     1_GWF-(2,1290)      0.30046598                     1_GWF-(2,1048)
+         31          2         21 -1.35709291E-02                     1_GWF-(1,1421)      0.28497023                     1_GWF-(2,1320)
+         32          2         22 -8.01277888E-03                     1_GWF-(1,1421)      0.27630180                     1_GWF-(2,1320)
+         33          2         23 -2.40670130E-02                     1_GWF-(1,1421)      0.29135089                     1_GWF-(1,2186)
+         34          2         24  6.75662078E-04                      1_GWF-(3,128)      0.25008338                     1_GWF-(2,1320)
+         35          2         25  3.52510149E-03                     1_GWF-(1,1421)      0.25508456                     1_GWF-(2,1699)
+         36          2         26  1.44333087E-02                     1_GWF-(1,1421)      0.27009062                     1_GWF-(2,1320)
+         37          2         27  2.55783208E-02                     1_GWF-(1,1421)      0.29869395                     1_GWF-(2,1320)
+         38          2         28  5.61860359E-02                     1_GWF-(1,1421)      0.36064980                     1_GWF-(2,1320)
+         39          2         29      0.13575058                     1_GWF-(1,1421)      0.51099454                     1_GWF-(2,1320)
+         40          2         30      0.47855564                     1_GWF-(1,1421)       1.0388876                     1_GWF-(2,1320)
+         41          2         31      -3.8098952                     1_GWF-(1,1421)      -3.1643586                     1_GWF-(2,1320)
+         42          2         32       2.3737417                     1_GWF-(1,1421)     -0.54430493                     1_GWF-(2,1320)
+         43          2         33      0.24356627                     1_GWF-(1,1421)     -0.27521775                     1_GWF-(2,1320)
+         44          2         34  9.36469392E-02                     1_GWF-(1,1421)     -0.17127792                     1_GWF-(2,1320)
+         45          2         35  4.80454275E-02                     1_GWF-(1,1421)     -0.11777085                     1_GWF-(2,1320)
+         46          2         36  3.54172562E-02                     1_GWF-(1,1421) -7.80781533E-02                     1_GWF-(2,1320)
+         47          2         37  1.97497443E-02                     1_GWF-(1,1421) -5.57989953E-02                     1_GWF-(2,1320)
+         48          2         38  1.54733155E-02                     1_GWF-(1,1421) -3.81744654E-02                     1_GWF-(2,1699)
+         49          2         39  3.22076834E-02                     1_GWF-(1,1421) -3.66492456E-02                     1_GWF-(1,2185)
+         50          2         40 -2.10794090E-02                     1_GWF-(1,1421) -2.57808274E-02                     1_GWF-(2,1699)
+         51          2         41  3.50607219E-03                     1_GWF-(1,1421) -2.17299297E-02                     1_GWF-(2,1699)
+         52          2         42  1.14012972E-02                      1_GWF-(2,960) -1.99603180E-02                     1_GWF-(1,2185)
+         53          2         43 -2.05834666E-03                     1_GWF-(1,1421) -9.46298137E-03                     1_GWF-(2,1320)
+         54          2         44  9.68794815E-04                     1_GWF-(2,1175) -1.00488690E-02                     1_GWF-(2,2142)
+         55          3          1     -0.31871240                     1_GWF-(1,1435)      -3.7743564                     1_GWF-(2,1124)
+         56          3          2     -0.13118516                     1_GWF-(1,1435)       2.0931061                     1_GWF-(2,2236)
+         57          3          3     -0.15773547                     1_GWF-(1,1435)      -1.3928685                     1_GWF-(2,2068)
+         58          3          4     -0.11801402                     1_GWF-(1,1435)     -0.93118039                     1_GWF-(1,2200)
+         59          3          5     -0.12605501                     1_GWF-(1,1435)     -0.93479813                     1_GWF-(2,2068)
+         60          3          6     -0.13882878                     1_GWF-(1,1435)      0.71400849                     1_GWF-(2,1804)
+         61          3          7     -0.20327341                     1_GWF-(1,1435)     -0.64801481                     1_GWF-(2,2068)
+         62          3          8     -0.16012018                     1_GWF-(1,1435)      0.53244445                     1_GWF-(2,1726)
+         63          3          9     -0.14425911                     1_GWF-(1,1435)      0.45775220                     1_GWF-(2,1804)
+         64          3         10     -0.16254728                     1_GWF-(1,1435)      0.39662861                     1_GWF-(2,1699)
+         65          3         11     -0.18732760                     1_GWF-(1,1435)      0.38383035                     1_GWF-(2,2185)
+         66          3         12     -0.14646994                     1_GWF-(1,1435)      0.35007307                     1_GWF-(2,1699)
+         67          3         13     -0.13751586                     1_GWF-(1,1435)      0.31985327                     1_GWF-(2,1699)
+         68          3         14     -0.10407458                     1_GWF-(1,1435)      0.29804937                     1_GWF-(2,1699)
+         69          3         15 -7.81688356E-02                     1_GWF-(1,1435)      0.26601733                     1_GWF-(2,1699)
+         70          3         16 -4.58852122E-02                     1_GWF-(1,1435)      0.25194994                     1_GWF-(2,1699)
+         71          3         17 -3.32269748E-02                     1_GWF-(1,1421)      0.24212147                     1_GWF-(2,2186)
+         72          3         18 -1.18965105E-02                     1_GWF-(1,1421)      0.22042999                     1_GWF-(2,1699)
+         73          3         19 -6.18389090E-02                     1_GWF-(1,1421)      0.32288183                     1_GWF-(2,2185)
+         74          3         20 -6.92850620E-03                     1_GWF-(1,1421)      0.17744899                     1_GWF-(2,1699)
+         75          3         21 -6.25342967E-02                     1_GWF-(1,1421)      0.27128120                     1_GWF-(2,2142)
+         76          3         22 -4.64346703E-03                     1_GWF-(1,1421)      0.13657273                     1_GWF-(2,1699)
+         77          3         23 -1.04688031E-02                     1_GWF-(1,1421)      0.14820418                     1_GWF-(3,2118)
+         78          3         24 -3.05517036E-03                     1_GWF-(1,1421)      0.12910025                     1_GWF-(2,1699)
+         79          3         25 -1.56860746E-03                     1_GWF-(1,1421)      0.12714495                     1_GWF-(2,1699)
+         80          3         26  1.39883406E-03                     1_GWF-(1,1421)      0.12843881                     1_GWF-(2,1699)
+         81          3         27     -0.16226740                     1_GWF-(1,1421)      0.21791926                     1_GWF-(2,2184)
+         82          3         28  2.67109865E-03                     1_GWF-(2,1102)  4.28689514E-02                     1_GWF-(2,2184)
+         83          3         29  3.85819519E-03                      1_GWF-(2,278)  4.93823052E-02                     1_GWF-(2,2105)
+         84          3         30  6.49988305E-03                      1_GWF-(2,276)  4.73061266E-02                     1_GWF-(2,1063)
+         85          3         31  1.01078161E-02                      1_GWF-(2,277)  5.41609467E-02                     1_GWF-(2,1063)
+         86          3         32  2.07753961E-02                      1_GWF-(2,277)  6.75427989E-02                     1_GWF-(2,1063)
+         87          3         33  7.05932875E-02                      1_GWF-(2,278)      0.11251106                     1_GWF-(2,1062)
+         88          3         34      0.87153404                      1_GWF-(2,278)      0.65959757                     1_GWF-(2,1062)
+         89          3         35      -1.2678217                      1_GWF-(2,278)     -0.13633281                     1_GWF-(2,2164)
+         90          3         36      0.12941640                      1_GWF-(2,278) -5.06786250E-02                     1_GWF-(2,2164)
+         91          3         37  3.20271478E-02                      1_GWF-(2,278) -3.22916518E-02                     1_GWF-(2,2164)
+         92          3         38  1.54546296E-02                      1_GWF-(2,278) -1.93112823E-02                     1_GWF-(2,2164)
+         93          3         39  8.18488142E-03                      1_GWF-(2,278) -1.34139465E-02                     1_GWF-(2,2164)
+         94          3         40  4.84367446E-03                      1_GWF-(2,278) -9.23315106E-03                     1_GWF-(2,1062)
+         95          3         41  2.98751501E-03                      1_GWF-(2,278) -7.26196243E-03                     1_GWF-(2,1063)
+         96          3         42  2.06447269E-03                      1_GWF-(2,279) -5.99561421E-03                     1_GWF-(2,2106)
+         97          3         43  1.80572565E-03                     1_GWF-(1,1435) -5.09582478E-03                     1_GWF-(2,2106)
+         98          3         44  1.72485372E-03                     1_GWF-(1,1435) -4.23572501E-03                     1_GWF-(2,2141)
+         99          3         45  1.72041359E-03                     1_GWF-(1,1435) -3.31052922E-03                     1_GWF-(2,2141)
+        100          3         46  1.60799842E-03                     1_GWF-(1,1435) -2.44368264E-03                     1_GWF-(2,2142)
+        101          3         47  1.15732415E-03                     1_GWF-(1,1435) -1.76165237E-03                     1_GWF-(2,1064)
+        102          3         48  6.39282576E-04                     1_GWF-(1,1435) -1.41936359E-03                     1_GWF-(2,1063)
+        103          4          1     -0.13071873                     1_GWF-(1,1435)      0.77826998                     1_GWF-(2,1435)
+        104          4          2 -3.90681495E-02                     1_GWF-(1,1435)      0.37131571                     1_GWF-(2,1435)
+        105          4          3 -4.68445470E-02                     1_GWF-(1,1435)      0.29644524                     1_GWF-(2,1435)
+        106          4          4 -3.21524955E-02                     1_GWF-(1,1435)      0.20902678                     1_GWF-(2,1435)
+        107          4          5 -3.41652263E-02                     1_GWF-(1,1435)      0.17892280                     1_GWF-(2,1435)
+        108          4          6 -3.24792518E-02                     1_GWF-(1,1435)      0.14976560                     1_GWF-(2,1435)
+        109          4          7 -5.22488689E-02                     1_GWF-(1,1435)      0.12407967                     1_GWF-(2,1435)
+        110          4          8 -4.07225677E-02                     1_GWF-(1,1435)      0.11136076                     1_GWF-(2,1435)
+        111          4          9 -4.17695422E-02                     1_GWF-(1,1435)  9.68078866E-02                     1_GWF-(2,1435)
+        112          4         10 -5.34676401E-02                     1_GWF-(1,1435)  8.90884753E-02                     1_GWF-(2,1699)
+        113          4         11 -6.80209457E-02                     1_GWF-(1,1435)  8.50188625E-02                     1_GWF-(2,1699)
+        114          4         12 -6.23714374E-02                     1_GWF-(1,1435)  8.06810801E-02                     1_GWF-(2,1699)
+        115          4         13 -5.53992255E-02                     1_GWF-(1,1435)  7.52537714E-02                     1_GWF-(2,1699)
+        116          4         14 -4.54874562E-02                     1_GWF-(1,1435)  7.06652550E-02                     1_GWF-(2,1699)
+        117          4         15 -3.84253215E-02                     1_GWF-(1,1435)  6.30407314E-02                     1_GWF-(2,1699)
+        118          4         16 -3.19428031E-02                     1_GWF-(1,1435)  5.84306916E-02                     1_GWF-(2,1699)
+        119          4         17 -2.25160423E-02                     1_GWF-(1,1435)  5.43254323E-02                     1_GWF-(2,1699)
+        120          4         18 -1.26134964E-02                     1_GWF-(1,1435)  5.10268684E-02                     1_GWF-(2,1699)
+        121          4         19  5.05655426E-03                     1_GWF-(1,1435)  5.33938392E-02                     1_GWF-(2,1699)
+        122          4         20      0.10664556                     1_GWF-(1,1435)  3.87515612E-02                     1_GWF-(2,1807)
+        123          4         21 -3.31733553E-03                     1_GWF-(1,1421)  2.89884255E-02                     1_GWF-(2,1699)
+        124          4         22 -1.01909197E-02                     1_GWF-(1,1435)  2.73601873E-02                     1_GWF-(2,1699)
+        125          4         23 -3.80277846E-03                     1_GWF-(1,1435)  2.57249700E-02                     1_GWF-(2,1699)
+        126          4         24 -7.22608406E-03                     1_GWF-(1,1435)  2.34277452E-02                     1_GWF-(2,1699)
+        127          4         25 -5.07337839E-03                     1_GWF-(1,1435)  2.18632571E-02                     1_GWF-(2,1699)
+        128          4         26 -5.89471829E-03                     1_GWF-(1,1435)  2.00033044E-02                     1_GWF-(2,1699)
+        129          4         27 -4.10557000E-03                     1_GWF-(1,1435)  1.86522804E-02                     1_GWF-(2,1699)
+        130          4         28 -4.34140821E-03                     1_GWF-(1,1435)  1.71833419E-02                     1_GWF-(2,1699)
+        131          4         29 -3.57996440E-03                     1_GWF-(1,1435)  1.58938176E-02                     1_GWF-(2,1699)
+        132          4         30 -3.51308551E-03                     1_GWF-(1,1421)  1.45699088E-02                     1_GWF-(2,1699)
+        133          4         31 -2.69888611E-03                     1_GWF-(1,1421)  1.35529827E-02                     1_GWF-(2,1699)
+        134          4         32 -3.01376553E-03                     1_GWF-(1,1421)  1.24009549E-02                     1_GWF-(2,1699)
+        135          4         33 -4.40985835E-03                     1_GWF-(1,1421)  1.07342640E-02                     1_GWF-(2,1699)
+        136          4         34 -4.94535887E-03                     1_GWF-(1,1421)  8.84997971E-03                     1_GWF-(2,1699)
+        137          4         35 -5.54639359E-03                     1_GWF-(1,1421)  6.74020636E-03                     1_GWF-(2,1699)
+        138          4         36 -5.47822453E-03                     1_GWF-(1,1421)  4.64660660E-03                     1_GWF-(2,1699)
+        139          4         37 -4.30153341E-03                     1_GWF-(1,1421) -3.47482655E-03                     1_GWF-(2,1435)
+        140          4         38 -3.45896714E-03                     1_GWF-(1,1421) -3.57777922E-03                     1_GWF-(2,1435)
+        141          4         39 -2.30516747E-03                     1_GWF-(1,1421) -3.56097477E-03                     1_GWF-(2,1435)
+        142          4         40  1.51260463E-03                     1_GWF-(1,1435) -2.88979522E-03                     1_GWF-(2,1435)
+        143          4         41 -6.49097879E-04                     1_GWF-(1,1421) -2.77495585E-03                     1_GWF-(2,1435)
+        144          5          1 -1.55849272E-02                     1_GWF-(1,1435) -7.69554658E-02                     1_GWF-(2,1124)
+        145          5          2 -2.94724537E-03                     1_GWF-(1,1435) -2.70158586E-02                     1_GWF-(2,1033)
+        146          5          3 -2.50387771E-03                     1_GWF-(1,1435)  1.78781318E-02                     1_GWF-(2,1435)
+        147          5          4 -1.48180036E-03                     1_GWF-(1,1435)  8.98512874E-03                     1_GWF-(2,1435)
+        148          5          5 -1.30534331E-03                     1_GWF-(1,1435)  6.75703629E-03                     1_GWF-(2,1435)
+        149          5          6 -9.71250153E-04                     1_GWF-(1,1435) -5.21123105E-03                     1_GWF-(1,2200)
+        150          6          1  4.00085308E-04                     1_GWF-(3,1694) -8.51303390E-03                     1_GWF-(2,1124)
+ --------------------------------------------------------------------------------------------------------------------------------------
+
+
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1016 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL PROJECT          PACKAGE NPF             CONNECTED TO MODEL PROJECT          PACKAGE NPF              ON UNIT   1016 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              WEL IN MODEL PROJECT          PACKAGE PROJECT         CONNECTED TO MODEL PROJECT          PACKAGE WEL_0            ON UNIT   1016 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING             RCHA IN MODEL PROJECT          PACKAGE PROJECT         CONNECTED TO MODEL PROJECT          PACKAGE RCHA_0           ON UNIT   1016 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              CHD IN MODEL PROJECT          PACKAGE PROJECT         CONNECTED TO MODEL PROJECT          PACKAGE CHD_0            ON UNIT   1016 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              SFR IN MODEL PROJECT          PACKAGE PROJECT         CONNECTED TO MODEL PROJECT          PACKAGE SFR_0            ON UNIT   1016 AT TIME STEP      1, STRESS PERIOD      1
+
+ SFR PACKAGE (SFR_0) FLOW RATES   PERIOD      1   STEP        1
+ ----------------------------------------------------------------------------------------
+   NUMBER   CELLID                    RATE       NAME                                    
+ ----------------------------------------------------------------------------------------
+     1      (3,368)               367.01232      UPSTREAM                                
+     2      (3,369)               312.29446      UPSTREAM                                
+     3      (3,370)               341.80201      UPSTREAM                                
+     4      (3,371)               27.586287      UPSTREAM                                
+     5      (3,372)               26.993908      UPSTREAM                                
+     6      (3,373)               45.890424      UPSTREAM                                
+     7      (3,374)               318.50545      UPSTREAM                                
+     8      (3,375)               225.51371      UPSTREAM                                
+     9      (3,376)               214.44252      UPSTREAM                                
+     10     (3,377)               479.33946      UPSTREAM                                
+     11     (3,378)               417.86172      UPSTREAM                                
+     12     (3,379)               245.90007      UPSTREAM                                
+     13     (3,380)               78.599800      UPSTREAM                                
+     14     (3,381)               20.362770      UPSTREAM                                
+     15     (3,382)              -35.969944      UPSTREAM                                
+     16     (3,383)              -19.806032      UPSTREAM                                
+     17     (3,384)              -35.459627      UPSTREAM                                
+     18     (3,385)              -35.794666      UPSTREAM                                
+     19     (3,386)              -4.7976551      UPSTREAM                                
+     20     (3,387)               44.261843      UPSTREAM                                
+     21     (3,388)               45.921051      UPSTREAM                                
+     22     (3,389)               59.074218      UPSTREAM                                
+     23     (3,390)               53.762142      UPSTREAM                                
+     24     (3,391)               19.921698      UPSTREAM                                
+     25     (3,392)               5.2541857      UPSTREAM                                
+     26     (3,393)              -2.9663188      UPSTREAM                                
+     27     (3,394)               26.963777      UPSTREAM                                
+     28     (3,395)               291.08609      UPSTREAM                                
+     29     (3,396)               178.24705      UPSTREAM                                
+     30     (3,397)               153.75902      UPSTREAM                                
+     31     (3,398)               212.59473      UPSTREAM                                
+     32     (3,399)               34.206683      UPSTREAM                                
+     33     (3,400)               2.9629623      UPSTREAM                                
+     34     (3,401)              -2.8296251      UPSTREAM                                
+     35     (3,402)               10.143269      UPSTREAM                                
+     36     (3,403)               19.086910      UPSTREAM                                
+     37     (3,404)               97.509248      UPSTREAM                                
+     38     (3,405)               200.64752      UPSTREAM                                
+     39     (3,406)               176.67763      UPSTREAM                                
+     40     (3,407)               155.06902      UPSTREAM                                
+     41     (3,408)               140.70139      UPSTREAM                                
+     42     (3,409)               107.16401      UPSTREAM                                
+     43     (3,410)               21.965662      UPSTREAM                                
+     44     (3,411)               138.85563      UPSTREAM                                
+     45     (3,412)               111.57715      UPSTREAM                                
+     46     (3,413)               104.47642      UPSTREAM                                
+     47     (3,414)               130.81052      UPSTREAM                                
+     48     (3,415)               74.451251      DOWNSTREAM                              
+     49     (3,416)               73.253478      DOWNSTREAM                              
+     50     (3,417)              -12.706962      DOWNSTREAM                              
+     51     (3,418)              -11.744741      DOWNSTREAM                              
+     52     (3,419)              -15.050898      DOWNSTREAM                              
+     53     (3,420)              -20.941901      DOWNSTREAM                              
+     54     (3,421)               90.182791      DOWNSTREAM                              
+     55     (3,422)               70.665934      DOWNSTREAM                              
+     56     (3,423)               66.224283      DOWNSTREAM                              
+     57     (3,424)               68.995289      DOWNSTREAM                              
+     58     (3,425)              -7.9879630      DOWNSTREAM                              
+     59     (3,426)               12.029315      DOWNSTREAM                              
+     60     (3,427)               17.947381      DOWNSTREAM                              
+     61     (3,428)              -5.9702141      DOWNSTREAM                              
+     62     (3,429)               47.795081      DOWNSTREAM                              
+     63     (3,430)               42.347475      DOWNSTREAM                              
+     64     (3,431)               40.936383      DOWNSTREAM                              
+     65     (3,432)               56.183552      DOWNSTREAM                              
+     66     (3,433)              -33.421155      DOWNSTREAM                              
+     67     (3,434)              -33.180261      DOWNSTREAM                              
+     68     (3,435)              -22.279620      DOWNSTREAM                              
+     69     (3,436)              -37.852655      DOWNSTREAM                              
+     70     (3,437)              -50.413513      DOWNSTREAM                              
+     71     (3,438)              -41.383418      DOWNSTREAM                              
+     72     (3,439)              -75.812489      DOWNSTREAM                              
+     73     (3,440)              -94.434170      DOWNSTREAM                              
+     74     (3,441)              -85.206212      DOWNSTREAM                              
+     75     (3,442)              -57.318615      DOWNSTREAM                              
+     76     (3,443)               40.999684      DOWNSTREAM                              
+     77     (3,444)               30.571951      DOWNSTREAM                              
+     78     (3,445)               26.724272      DOWNSTREAM                              
+     79     (3,446)               26.406938      DOWNSTREAM                              
+     80     (3,447)               24.163319      DOWNSTREAM                              
+     81     (3,448)               36.325084      DOWNSTREAM                              
+     82     (3,449)              -23.994834      DOWNSTREAM                              
+     83     (3,450)              -42.491609      DOWNSTREAM                              
+     84     (3,451)              -26.423638      DOWNSTREAM                              
+     85     (3,452)              -18.670240      DOWNSTREAM                              
+     86     (3,453)              -3.9823606      DOWNSTREAM                              
+     87     (3,454)               0.12066839     DOWNSTREAM                              
+     88     (3,455)               2.1626528      DOWNSTREAM                              
+     89     (3,456)               1.9716835      DOWNSTREAM                              
+     90     (3,457)               14.781713      DOWNSTREAM                              
+     91     (3,458)               17.184043      DOWNSTREAM                              
+     92     (3,459)               10.026216      DOWNSTREAM                              
+     93     (3,460)               15.732425      DOWNSTREAM                              
+     94     (3,461)               25.362712      DOWNSTREAM                              
+     95     (3,501)              -0.20895288     DOWNSTREAM                              
+     96     (3,502)               0.0000000      DOWNSTREAM                              
+     97     (3,505)               0.0000000      DOWNSTREAM                              
+     98     (3,511)               0.0000000      DOWNSTREAM                              
+     99     (3,516)              -0.19506162     DOWNSTREAM                              
+    100     (3,517)               6.9144293      DOWNSTREAM                              
+    101     (3,521)              -0.12132958     DOWNSTREAM                              
+    102     (3,523)              -0.69932686     DOWNSTREAM                              
+    103     (3,534)               7.6568378      DOWNSTREAM                              
+    104     (3,538)               9.1034780      DOWNSTREAM                              
+    105     (3,540)              -1.3498345      DOWNSTREAM                              
+    106     (3,543)              -0.26790884     DOWNSTREAM                              
+    107     (3,550)               3.5439379      DOWNSTREAM                              
+    108     (3,563)              -2.7550634      DOWNSTREAM                              
+    109     (3,565)               8.2221207      DOWNSTREAM                              
+    110     (3,573)               12.119872      DOWNSTREAM                              
+    111     (3,579)              -6.0878285      DOWNSTREAM                              
+    112     (3,580)              -1.2092800      DOWNSTREAM                              
+    113     (3,581)              -2.8870947      DOWNSTREAM                              
+    114     (3,586)               15.426346      DOWNSTREAM                              
+    115     (3,607)              -17.264028      DOWNSTREAM                              
+    116     (3,617)               26.266768      DOWNSTREAM                              
+    117     (3,635)              -2.1742226      DOWNSTREAM                              
+    118     (3,636)              -2.1941121      DOWNSTREAM                              
+    119     (3,637)              -35.898861      DOWNSTREAM                              
+    120     (3,638)              -33.222880      DOWNSTREAM                              
+    121     (3,640)              -176.79166      DOWNSTREAM                              
+    122     (3,642)               29.623779      DOWNSTREAM                              
+    123     (3,644)              -41.066273      DOWNSTREAM                              
+    124     (3,650)              -160.43755      DOWNSTREAM                              
+    125     (3,719)              -6.6525380      DOWNSTREAM                              
+    126     (3,721)              -4.4749360      DOWNSTREAM                              
+    127     (3,722)              -42.005821      DOWNSTREAM                              
+    128     (3,724)              -35.438294      DOWNSTREAM                              
+    129     (3,1028)             -159.28408      DOWNSTREAM                              
+    130     (3,1032)             -96.024657      DOWNSTREAM                              
+    131     (3,1034)             -201.69717      DOWNSTREAM                              
+    132     (3,1037)             -70.355962      DOWNSTREAM                              
+    133     (3,1126)             -24.385225      DOWNSTREAM                              
+    134     (3,1127)             -18.413684      DOWNSTREAM                              
+    135     (3,1207)             -43.532423      DOWNSTREAM                              
+    136     (3,1239)             -40.678584      DOWNSTREAM                              
+    137     (3,1317)             -23.798391      DOWNSTREAM                              
+    138     (3,1378)             -8.0674330      DOWNSTREAM                              
+    139     (3,1454)             -434.91574      DOWNSTREAM                              
+    140     (3,1455)             -228.49265      DOWNSTREAM                              
+    141     (3,1458)             -149.84085      DOWNSTREAM                              
+    142     (3,1460)             -23.277045      DOWNSTREAM                              
+    143     (3,1461)             -73.107857      DOWNSTREAM                              
+    144     (3,1465)             -123.47435      DOWNSTREAM                              
+    145     (3,1498)             -133.96687      DOWNSTREAM                              
+    146     (3,1502)             -96.535600      DOWNSTREAM                              
+    147     (3,1503)             -378.61883      DOWNSTREAM                              
+    148     (3,1504)             -363.80668      DOWNSTREAM                              
+    149     (3,1530)             -82.385749      DOWNSTREAM                              
+    150     (3,1531)             -200.54335      DOWNSTREAM                              
+    151     (3,1532)             -306.56715      DOWNSTREAM                              
+    152     (3,1535)             -54.053421      DOWNSTREAM                              
+    153     (3,1543)             -479.68763      DOWNSTREAM                              
+    154     (3,1560)             -316.41847      DOWNSTREAM                              
+    155     (3,1569)             -220.01985      DOWNSTREAM                              
+    156     (3,1573)             -104.31501      DOWNSTREAM                              
+    157     (3,1680)             -524.73568      DOWNSTREAM                              
+    158     (3,1681)             -452.54220      DOWNSTREAM                              
+    159     (3,1684)             -462.13779      DOWNSTREAM                              
+    160     (3,1685)             -319.28369      DOWNSTREAM                              
+    161     (3,1686)             -315.76136      DOWNSTREAM                              
+    162     (3,1694)             -41.528461      DOWNSTREAM                              
+    163     (3,1762)             -391.39246      DOWNSTREAM                              
+    164     (3,1764)             -322.92780      DOWNSTREAM                              
+    165     (3,1774)             -805.26139      DOWNSTREAM                              
+    166     (3,1839)             -286.20002      DOWNSTREAM                              
+    167     (3,1883)             -57.764427      DOWNSTREAM                              
+    168     (3,1945)             -177.25972      DOWNSTREAM                              
+ ----------------------------------------------------------------------------------------
+
+
+
+
+ SFR_0 PACKAGE - SUMMARY OF FLOWS FOR EACH CONTROL VOLUME   PERIOD      1   STEP        1
+ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                                                                                     PERCENT   
+   NUMBER   CELLID                  INFLOW      OUTFLOW        GWF        RAINFALL   EVAPORATION     RUNOFF     EXT INFLOW  EXT OUTFLOW    STORAGE      IN - OUT    DIFFERENCE 
+ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     1      (3,368)               0.0000      -8.63633E+05 -367.05       0.0000       0.0000       0.0000       8.64000E+05  0.0000       0.0000       0.0000       0.0000     
+     2      (3,369)               8.63633E+05 -8.63321E+05 -312.33       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     3      (3,370)               8.63321E+05 -8.62979E+05 -341.86       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     4      (3,371)               8.62979E+05 -8.62951E+05 -27.602       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     5      (3,372)               8.62951E+05 -8.62924E+05 -27.007       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     6      (3,373)               8.62924E+05 -8.62878E+05 -45.904       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     7      (3,374)               8.62878E+05 -8.62560E+05 -318.55       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     8      (3,375)               8.62560E+05 -8.62334E+05 -225.53       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     9      (3,376)               8.62334E+05 -8.62120E+05 -214.45       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     10     (3,377)               8.62120E+05 -8.61640E+05 -479.40       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     11     (3,378)               8.61640E+05 -8.61222E+05 -417.94       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     12     (3,379)               8.61222E+05 -8.60976E+05 -245.96       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     13     (3,380)               8.60976E+05 -8.60898E+05 -78.627       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     14     (3,381)               8.60898E+05 -8.60877E+05 -20.394       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     15     (3,382)               8.60877E+05 -8.60913E+05  35.923       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     16     (3,383)               8.60913E+05 -8.60933E+05  19.758       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     17     (3,384)               8.60933E+05 -8.60968E+05  35.412       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     18     (3,385)               8.60968E+05 -8.61004E+05  35.732       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     19     (3,386)               8.61004E+05 -8.61009E+05  4.7337       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     20     (3,387)               8.61009E+05 -8.60965E+05 -44.325       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     21     (3,388)               8.60965E+05 -8.60919E+05 -45.964       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     22     (3,389)               8.60919E+05 -8.60860E+05 -59.134       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     23     (3,390)               8.60860E+05 -8.60806E+05 -53.839       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     24     (3,391)               8.60806E+05 -8.60786E+05 -19.980       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     25     (3,392)               8.60786E+05 -8.60780E+05 -5.3130       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     26     (3,393)               8.60780E+05 -8.60783E+05  2.8855       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     27     (3,394)               8.60783E+05 -8.60756E+05 -27.061       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     28     (3,395)               8.60756E+05 -8.60465E+05 -291.21       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     29     (3,396)               8.60465E+05 -8.60287E+05 -178.30       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     30     (3,397)               8.60287E+05 -8.60133E+05 -153.80       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     31     (3,398)               8.60133E+05 -8.59920E+05 -212.73       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     32     (3,399)               8.59920E+05 -8.59886E+05 -34.335       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     33     (3,400)               8.59886E+05 -8.59883E+05 -3.0308       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     34     (3,401)               8.59883E+05 -8.59886E+05  2.7700       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     35     (3,402)               8.59886E+05 -8.59875E+05 -10.253       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     36     (3,403)               8.59875E+05 -8.59856E+05 -19.196       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     37     (3,404)               8.59856E+05 -8.59758E+05 -97.638       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     38     (3,405)               8.59758E+05 -8.59558E+05 -200.73       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     39     (3,406)               8.59558E+05 -8.59381E+05 -176.74       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     40     (3,407)               8.59381E+05 -8.59226E+05 -155.15       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     41     (3,408)               8.59226E+05 -8.59085E+05 -140.78       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     42     (3,409)               8.59085E+05 -8.58978E+05 -107.29       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     43     (3,410)               8.58978E+05 -8.58956E+05 -22.125       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     44     (3,411)               8.58956E+05 -8.58817E+05 -139.10       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     45     (3,412)               8.58817E+05 -8.58705E+05 -111.73       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     46     (3,413)               8.58705E+05 -8.58600E+05 -104.60       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     47     (3,414)               8.58600E+05 -8.58469E+05 -130.97       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     48     (3,415)               8.58469E+05 -8.58395E+05 -74.615       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     49     (3,416)               8.58395E+05 -8.58321E+05 -73.404       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     50     (3,417)               8.58321E+05 -8.58334E+05  12.563       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     51     (3,418)               8.58334E+05 -8.58345E+05  11.569       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     52     (3,419)               8.58345E+05 -8.58360E+05  14.790       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     53     (3,420)               8.58360E+05 -8.58381E+05  20.627       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     54     (3,421)               8.58381E+05 -8.58290E+05 -90.491       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     55     (3,422)               8.58290E+05 -8.58219E+05 -70.866       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     56     (3,423)               8.58219E+05 -8.58153E+05 -66.417       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     57     (3,424)               8.58153E+05 -8.58084E+05 -69.233       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     58     (3,425)               8.58084E+05 -8.58092E+05  7.7313       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     59     (3,426)               8.58092E+05 -8.58079E+05 -12.454       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     60     (3,427)               8.58079E+05 -8.58061E+05 -18.283       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     61     (3,428)               8.58061E+05 -8.58066E+05  5.6425       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     62     (3,429)               8.58066E+05 -8.58018E+05 -48.198       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     63     (3,430)               8.58018E+05 -8.57976E+05 -42.383       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     64     (3,431)               8.57976E+05 -8.57935E+05 -40.971       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     65     (3,432)               8.57935E+05 -8.57878E+05 -56.497       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     66     (3,433)               8.57878E+05 -8.57911E+05  32.994       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     67     (3,434)               8.57911E+05 -8.57944E+05  32.761       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     68     (3,435)               8.57944E+05 -8.57966E+05  21.856       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     69     (3,436)               8.57966E+05 -8.58003E+05  37.260       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     70     (3,437)               8.58003E+05 -8.58053E+05  49.806       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     71     (3,438)               8.58053E+05 -8.58094E+05  40.824       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     72     (3,439)               8.58094E+05 -8.58169E+05  75.260       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     73     (3,440)               8.58169E+05 -8.58263E+05  93.760       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     74     (3,441)               8.58263E+05 -8.58347E+05  84.555       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     75     (3,442)               8.58347E+05 -8.58404E+05  56.643       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     76     (3,443)               8.58404E+05 -8.58362E+05 -41.630       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     77     (3,444)               8.58362E+05 -8.58332E+05 -30.734       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     78     (3,445)               8.58332E+05 -8.58305E+05 -26.873       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     79     (3,446)               8.58305E+05 -8.58278E+05 -26.538       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     80     (3,447)               8.58278E+05 -8.58254E+05 -24.288       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     81     (3,448)               8.58254E+05 -8.58217E+05 -36.863       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     82     (3,449)               8.58217E+05 -8.58240E+05  23.227       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     83     (3,450)               8.58240E+05 -8.58282E+05  41.574       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     84     (3,451)               8.58282E+05 -8.58308E+05  25.653       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     85     (3,452)               8.58308E+05 -8.58326E+05  18.131       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     86     (3,453)               8.58326E+05 -8.58329E+05  3.1964       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     87     (3,454)               8.58329E+05 -8.58328E+05 -0.93381      0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     88     (3,455)               8.58328E+05 -8.58326E+05 -2.2383       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     89     (3,456)               8.58326E+05 -8.58324E+05 -2.0477       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     90     (3,457)               8.58324E+05 -8.58309E+05 -15.102       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     91     (3,458)               8.58309E+05 -8.58291E+05 -17.654       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     92     (3,459)               8.58291E+05 -8.58281E+05 -10.429       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     93     (3,460)               8.58281E+05 -8.58264E+05 -16.154       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     94     (3,461)               8.58264E+05 -8.58239E+05 -25.710       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     95     (3,501)               8.58239E+05 -8.58239E+05  0.20829      0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     96     (3,502)               8.58239E+05 -8.58239E+05  0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     97     (3,505)               8.58239E+05 -8.58239E+05  0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     98     (3,511)               8.58239E+05 -8.58239E+05  0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+     99     (3,516)               8.58239E+05 -8.58239E+05  0.19452      0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    100     (3,517)               8.58239E+05 -8.58232E+05 -6.9154       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    101     (3,521)               8.58232E+05 -8.58232E+05  0.12097      0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    102     (3,523)               8.58232E+05 -8.58233E+05  0.69709      0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    103     (3,534)               8.58233E+05 -8.58225E+05 -7.6593       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    104     (3,538)               8.58225E+05 -8.58216E+05 -9.1094       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    105     (3,540)               8.58216E+05 -8.58218E+05  1.3451       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    106     (3,543)               8.58218E+05 -8.58218E+05  0.26727      0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    107     (3,550)               8.58218E+05 -8.58214E+05 -3.5454       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    108     (3,563)               8.58214E+05 -8.58217E+05  2.7449       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    109     (3,565)               8.58217E+05 -8.58209E+05 -8.2295       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    110     (3,573)               8.58209E+05 -8.58197E+05 -12.143       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    111     (3,579)               8.58197E+05 -8.58203E+05  6.0661       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    112     (3,580)               8.58203E+05 -8.58204E+05  1.2060       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    113     (3,581)               8.58204E+05 -8.58207E+05  2.8814       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    114     (3,586)               8.58207E+05 -8.58191E+05 -15.462       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    115     (3,607)               8.58191E+05 -8.58209E+05  17.208       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    116     (3,617)               8.58209E+05 -8.58182E+05 -26.366       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    117     (3,635)               8.58182E+05 -8.58184E+05  2.0760       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    118     (3,636)               8.58184E+05 -8.58186E+05  2.0702       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    119     (3,637)               8.58186E+05 -8.58222E+05  35.780       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    120     (3,638)               8.58222E+05 -8.58255E+05  33.114       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    121     (3,640)               8.58255E+05 -8.58432E+05  176.63       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    122     (3,642)               8.58432E+05 -8.58402E+05 -29.767       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    123     (3,644)               8.58402E+05 -8.58443E+05  40.930       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    124     (3,650)               8.58443E+05 -8.58603E+05  160.33       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    125     (3,719)               8.58603E+05 -8.58610E+05  6.4636       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    126     (3,721)               8.58610E+05 -8.58614E+05  4.1120       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    127     (3,722)               8.58614E+05 -8.58656E+05  41.697       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    128     (3,724)               8.58656E+05 -8.58691E+05  35.087       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    129     (3,1028)              8.58691E+05 -8.58850E+05  159.12       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    130     (3,1032)              8.58850E+05 -8.58946E+05  95.919       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    131     (3,1034)              8.58946E+05 -8.59147E+05  201.32       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    132     (3,1037)              8.59147E+05 -8.59217E+05  70.149       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    133     (3,1126)              8.59217E+05 -8.59241E+05  24.099       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    134     (3,1127)              8.59241E+05 -8.59260E+05  18.166       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    135     (3,1207)              8.59260E+05 -8.59303E+05  43.206       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    136     (3,1239)              8.59303E+05 -8.59343E+05  40.629       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    137     (3,1317)              8.59343E+05 -8.59367E+05  23.441       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    138     (3,1378)              8.59367E+05 -8.59375E+05  8.0647       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    139     (3,1454)              8.59375E+05 -8.59809E+05  434.46       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    140     (3,1455)              8.59809E+05 -8.60038E+05  228.20       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    141     (3,1458)              8.60038E+05 -8.60187E+05  149.68       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    142     (3,1460)              8.60187E+05 -8.60210E+05  22.801       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    143     (3,1461)              8.60210E+05 -8.60283E+05  73.012       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    144     (3,1465)              8.60283E+05 -8.60406E+05  123.23       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    145     (3,1498)              8.60406E+05 -8.60540E+05  133.44       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    146     (3,1502)              8.60540E+05 -8.60636E+05  96.195       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    147     (3,1503)              8.60636E+05 -8.61014E+05  378.25       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    148     (3,1504)              8.61014E+05 -8.61378E+05  363.52       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    149     (3,1530)              8.61378E+05 -8.61460E+05  81.924       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    150     (3,1531)              8.61460E+05 -8.61660E+05  200.14       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    151     (3,1532)              8.61660E+05 -8.61966E+05  305.96       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    152     (3,1535)              8.61966E+05 -8.62019E+05  53.519       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    153     (3,1543)              8.62019E+05 -8.62498E+05  479.15       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    154     (3,1560)              8.62498E+05 -8.62814E+05  315.77       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    155     (3,1569)              8.62814E+05 -8.63034E+05  219.68       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    156     (3,1573)              8.63034E+05 -8.63137E+05  103.60       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    157     (3,1680)              8.63137E+05 -8.63662E+05  524.48       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    158     (3,1681)              8.63662E+05 -8.64114E+05  452.42       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    159     (3,1684)              8.64114E+05 -8.64576E+05  461.48       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    160     (3,1685)              8.64576E+05 -8.64894E+05  318.70       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    161     (3,1686)              8.64894E+05 -8.65210E+05  315.29       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    162     (3,1694)              8.65210E+05 -8.65251E+05  40.821       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    163     (3,1762)              8.65251E+05 -8.65642E+05  390.97       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    164     (3,1764)              8.65642E+05 -8.65964E+05  322.04       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    165     (3,1774)              8.65964E+05 -8.66768E+05  804.69       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    166     (3,1839)              8.66768E+05 -8.67054E+05  285.32       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    167     (3,1883)              8.67054E+05 -8.67111E+05  57.688       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000       0.0000     
+    168     (3,1945)              8.67111E+05  0.0000       177.22       0.0000       0.0000       0.0000       0.0000      -8.67288E+05  0.0000       0.0000       0.0000     
+ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+ SFR PACKAGE (SFR_0) STAGES FOR EACH CONTROL VOLUME   PERIOD      1   STEP        1
+ ------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                                               STREAMBED    STREAMBED  
+ NAME                                       NUMBER   CELLID                  STAGE        DEPTH        WIDTH       GWF HEAD   CONDUCTANCE    GRADIENT  
+ ------------------------------------------------------------------------------------------------------------------------------------------------------
+ UPSTREAM                                     1      (3,368)               19.278       2.7822       5.0102       19.071       1769.1       0.41323    
+ UPSTREAM                                     2      (3,369)               19.256       2.7719       5.0393       19.161       3264.9       0.18834    
+ UPSTREAM                                     3      (3,370)               19.225       2.7574       5.0818       19.140       4029.6       0.16427    
+ UPSTREAM                                     4      (3,371)               19.188       2.7409       5.1316       19.182       4448.1       1.17835E-02
+ UPSTREAM                                     5      (3,372)               19.152       2.7248       5.1823       19.145       4110.8       1.22405E-02
+ UPSTREAM                                     6      (3,373)               19.118       2.7097       5.2301       19.106       3882.5       2.16475E-02
+ UPSTREAM                                     7      (3,374)               19.083       2.6945       5.2783       19.006       4107.3       0.13956    
+ UPSTREAM                                     8      (3,375)               19.063       2.6855       5.3061       18.601       487.94       0.82352    
+ UPSTREAM                                     9      (3,376)               19.059       2.6834       5.3117       18.568       436.85       0.87293    
+ UPSTREAM                                     10     (3,377)               19.043       2.6762       5.3334       18.889       3111.2       0.27188    
+ UPSTREAM                                     11     (3,378)               19.011       2.6620       5.3782       18.911       4183.7       0.17351    
+ UPSTREAM                                     12     (3,379)               18.980       2.6485       5.4219       18.895       2902.1       0.14499    
+ UPSTREAM                                     13     (3,380)               18.957       2.6386       5.4547       18.924       2375.8       5.59856E-02
+ UPSTREAM                                     14     (3,381)               18.933       2.6286       5.4891       18.926       3133.4       1.08705E-02
+ UPSTREAM                                     15     (3,382)               18.900       2.6148       5.5375       18.908       4554.3      -1.30010E-02
+ UPSTREAM                                     16     (3,383)               18.861       2.5989       5.5942       18.866       4403.9      -7.26731E-03
+ UPSTREAM                                     17     (3,384)               18.824       2.5838       5.6491       18.833       4183.0      -1.34595E-02
+ UPSTREAM                                     18     (3,385)               18.784       2.5674       5.7096       18.790       5202.4      -1.07187E-02
+ UPSTREAM                                     19     (3,386)               18.739       2.5496       5.7762       18.740       5058.4      -1.44748E-03
+ UPSTREAM                                     20     (3,387)               18.696       2.5327       5.8406       18.687       4773.4       1.38787E-02
+ UPSTREAM                                     21     (3,388)               18.662       2.5192       5.8924       18.647       3082.1       2.19600E-02
+ UPSTREAM                                     22     (3,389)               18.631       2.5069       5.9403       18.616       4117.9       2.08499E-02
+ UPSTREAM                                     23     (3,390)               18.591       2.4916       6.0008       18.580       4933.7       1.55635E-02
+ UPSTREAM                                     24     (3,391)               18.555       2.4776       6.0574       18.549       3471.0       8.06704E-03
+ UPSTREAM                                     25     (3,392)               18.525       2.4663       6.1034       18.523       3333.8       2.18685E-03
+ UPSTREAM                                     26     (3,393)               18.491       2.4536       6.1560       18.492       4375.6      -9.27138E-04
+ UPSTREAM                                     27     (3,394)               18.451       2.4386       6.2195       18.445       4882.9       7.42329E-03
+ UPSTREAM                                     28     (3,395)               18.414       2.4249       6.2766       18.329       3404.3       0.11320    
+ UPSTREAM                                     29     (3,396)               18.393       2.4169       6.3097       18.263       1370.9       0.17065    
+ UPSTREAM                                     30     (3,397)               18.381       2.4125       6.3277       18.255       1213.9       0.16545    
+ UPSTREAM                                     31     (3,398)               18.358       2.4039       6.3641       18.305       4003.4       6.87144E-02
+ UPSTREAM                                     32     (3,399)               18.320       2.3900       6.4251       18.313       4705.1       9.26103E-03
+ UPSTREAM                                     33     (3,400)               18.289       2.3789       6.4749       18.288       2376.6       1.56826E-03
+ UPSTREAM                                     34     (3,401)               18.270       2.3721       6.5060       18.271       2021.6      -1.74699E-03
+ UPSTREAM                                     35     (3,402)               18.245       2.3634       6.5456       18.242       3555.3       3.52607E-03
+ UPSTREAM                                     36     (3,403)               18.215       2.3529       6.5945       18.209       3302.0       7.05882E-03
+ UPSTREAM                                     37     (3,404)               18.186       2.3428       6.6416       18.156       3286.3       3.58205E-02
+ UPSTREAM                                     38     (3,405)               18.165       2.3352       6.6764       18.036       1554.0       0.15458    
+ UPSTREAM                                     39     (3,406)               18.153       2.3309       6.6955       17.991       1093.3       0.19258    
+ UPSTREAM                                     40     (3,407)               18.141       2.3266       6.7149       18.043       1594.2       0.11539    
+ UPSTREAM                                     41     (3,408)               18.127       2.3217       6.7375       18.035       1537.4       0.10799    
+ UPSTREAM                                     42     (3,409)               18.108       2.3151       6.7685       18.069       2743.9       4.57483E-02
+ UPSTREAM                                     43     (3,410)               18.080       2.3055       6.8149       18.073       3639.9       6.99284E-03
+ UPSTREAM                                     44     (3,411)               18.043       2.2930       6.8760       18.013       4717.8       3.36291E-02
+ UPSTREAM                                     45     (3,412)               18.010       2.2822       6.9298       17.968       2617.4       4.81173E-02
+ UPSTREAM                                     46     (3,413)               17.990       2.2753       6.9635       17.937       1972.0       5.93472E-02
+ UPSTREAM                                     47     (3,414)               17.970       2.2688       6.9959       17.916       2412.1       6.03124E-02
+ DOWNSTREAM                                   48     (3,415)               17.948       2.2615       7.0327       17.919       2558.3       3.21020E-02
+ DOWNSTREAM                                   49     (3,416)               17.927       2.2546       7.0682       17.894       2220.3       3.61115E-02
+ DOWNSTREAM                                   50     (3,417)               17.907       2.2480       7.1023       17.913       2362.7      -5.84279E-03
+ DOWNSTREAM                                   51     (3,418)               17.885       2.2408       7.1407       17.889       2776.7      -4.55721E-03
+ DOWNSTREAM                                   52     (3,419)               17.855       2.2313       7.1913       17.859       3980.1      -4.03036E-03
+ DOWNSTREAM                                   53     (3,420)               17.817       2.2195       7.2556       17.822       4565.9      -4.82230E-03
+ DOWNSTREAM                                   54     (3,421)               17.781       2.2080       7.3186       17.757       3773.5       2.47987E-02
+ DOWNSTREAM                                   55     (3,422)               17.753       2.1994       7.3653       17.724       2385.8       3.04397E-02
+ DOWNSTREAM                                   56     (3,423)               17.733       2.1931       7.4002       17.703       2208.1       3.06017E-02
+ DOWNSTREAM                                   57     (3,424)               17.712       2.1865       7.4369       17.685       2591.2       2.69672E-02
+ DOWNSTREAM                                   58     (3,425)               17.687       2.1790       7.4793       17.690       2961.6      -2.70836E-03
+ DOWNSTREAM                                   59     (3,426)               17.654       2.1689       7.5371       17.651       4569.1       2.61334E-03
+ DOWNSTREAM                                   60     (3,427)               17.619       2.1584       7.5986       17.614       3412.8       5.15721E-03
+ DOWNSTREAM                                   61     (3,428)               17.589       2.1496       7.6503       17.591       3277.6      -1.76835E-03
+ DOWNSTREAM                                   62     (3,429)               17.558       2.1404       7.7050       17.546       3776.1       1.21586E-02
+ DOWNSTREAM                                   63     (3,430)               17.540       2.1350       7.7370       17.414       335.44       0.12053    
+ DOWNSTREAM                                   64     (3,431)               17.537       2.1341       7.7421       17.409       319.80       0.12210    
+ DOWNSTREAM                                   65     (3,432)               17.524       2.1302       7.7656       17.503       2694.6       1.97986E-02
+ DOWNSTREAM                                   66     (3,433)               17.496       2.1220       7.8154       17.505       3676.6      -8.55078E-03
+ DOWNSTREAM                                   67     (3,434)               17.465       2.1130       7.8711       17.474       3438.5      -8.98288E-03
+ DOWNSTREAM                                   68     (3,435)               17.435       2.1045       7.9243       17.441       3330.1      -6.16696E-03
+ DOWNSTREAM                                   69     (3,436)               17.400       2.0948       7.9861       17.409       4491.3      -7.68128E-03
+ DOWNSTREAM                                   70     (3,437)               17.361       2.0839       8.0564       17.373       4395.0      -1.03221E-02
+ DOWNSTREAM                                   71     (3,438)               17.325       2.0738       8.1218       17.336       3833.4      -9.60134E-03
+ DOWNSTREAM                                   72     (3,439)               17.292       2.0649       8.1811       17.313       3605.3      -1.85069E-02
+ DOWNSTREAM                                   73     (3,440)               17.258       2.0556       8.2438       17.280       4223.4      -1.94642E-02
+ DOWNSTREAM                                   74     (3,441)               17.222       2.0460       8.3089       17.244       3891.2      -1.88480E-02
+ DOWNSTREAM                                   75     (3,442)               17.188       2.0369       8.3715       17.203       3878.7      -1.25844E-02
+ DOWNSTREAM                                   76     (3,443)               17.156       2.0284       8.4302       17.144       3390.4       1.01960E-02
+ DOWNSTREAM                                   77     (3,444)               17.137       2.0234       8.4648       17.103       882.54       2.90377E-02
+ DOWNSTREAM                                   78     (3,445)               17.130       2.0214       8.4785       17.097       805.28       2.77546E-02
+ DOWNSTREAM                                   79     (3,446)               17.123       2.0196       8.4908       17.086       711.78       3.09642E-02
+ DOWNSTREAM                                   80     (3,447)               17.117       2.0180       8.5020       17.081       672.67       2.99242E-02
+ DOWNSTREAM                                   81     (3,448)               17.102       2.0140       8.5296       17.089       2718.4       1.10809E-02
+ DOWNSTREAM                                   82     (3,449)               17.073       2.0065       8.5829       17.080       3823.8      -5.15809E-03
+ DOWNSTREAM                                   83     (3,450)               17.037       1.9972       8.6498       17.047       4367.2      -7.91058E-03
+ DOWNSTREAM                                   84     (3,451)               17.003       1.9884       8.7140       17.010       3473.4      -6.12127E-03
+ DOWNSTREAM                                   85     (3,452)               16.977       1.9819       8.7617       16.985       2341.3      -6.36754E-03
+ DOWNSTREAM                                   86     (3,453)               16.952       1.9757       8.8082       16.954       3306.7      -9.54574E-04
+ DOWNSTREAM                                   87     (3,454)               16.923       1.9683       8.8628       16.923       3318.0       2.85780E-05
+ DOWNSTREAM                                   88     (3,455)               16.907       1.9644       8.8929       16.900       315.85       5.35532E-03
+ DOWNSTREAM                                   89     (3,456)               16.904       1.9637       8.8981       16.898       315.77       4.87956E-03
+ DOWNSTREAM                                   90     (3,457)               16.897       1.9619       8.9112       16.886       1273.3       9.05348E-03
+ DOWNSTREAM                                   91     (3,458)               16.884       1.9585       8.9368       16.874       1810.2       7.37382E-03
+ DOWNSTREAM                                   92     (3,459)               16.869       1.9548       8.9646       16.863       1547.4       5.01148E-03
+ DOWNSTREAM                                   93     (3,460)               16.855       1.9514       8.9907       16.845       1601.6       7.56712E-03
+ DOWNSTREAM                                   94     (3,461)               16.842       1.9482       9.0149       16.823       1308.5       1.48761E-02
+ DOWNSTREAM                                   95     (3,501)               16.836       1.9468       9.0258       16.884       4.4258      -3.61734E-02
+ DOWNSTREAM                                   96     (3,502)               16.836       1.9468       9.0259       15.500       0.0000       1.0240     
+ DOWNSTREAM                                   97     (3,505)               16.836       1.9468       9.0259       15.500       0.0000       1.0239     
+ DOWNSTREAM                                   98     (3,511)               16.836       1.9468       9.0260       15.500       0.0000       1.0239     
+ DOWNSTREAM                                   99     (3,516)               16.836       1.9468       9.0260       16.886       3.9144      -3.81796E-02
+ DOWNSTREAM                                  100     (3,517)               16.836       1.9468       9.0261       16.043       8.7182       0.60763    
+ DOWNSTREAM                                  101     (3,521)               16.836       1.9468       9.0262       16.887       2.4075      -3.86105E-02
+ DOWNSTREAM                                  102     (3,523)               16.836       1.9467       9.0264       16.884       14.636      -3.66066E-02
+ DOWNSTREAM                                  103     (3,534)               16.836       1.9467       9.0266       16.311       14.588       0.40210    
+ DOWNSTREAM                                  104     (3,538)               16.836       1.9466       9.0270       16.513       28.156       0.24768    
+ DOWNSTREAM                                  105     (3,540)               16.836       1.9466       9.0274       16.884       27.827      -3.71577E-02
+ DOWNSTREAM                                  106     (3,543)               16.835       1.9465       9.0277       16.898       4.3181      -4.75230E-02
+ DOWNSTREAM                                  107     (3,550)               16.835       1.9465       9.0278       16.402       8.1797       0.33186    
+ DOWNSTREAM                                  108     (3,563)               16.835       1.9465       9.0283       16.885       55.787      -3.78241E-02
+ DOWNSTREAM                                  109     (3,565)               16.835       1.9464       9.0291       16.585       32.985       0.19089    
+ DOWNSTREAM                                  110     (3,573)               16.834       1.9462       9.0301       16.702       91.887       0.10099    
+ DOWNSTREAM                                  111     (3,579)               16.833       1.9460       9.0318       16.887       114.27      -4.07811E-02
+ DOWNSTREAM                                  112     (3,580)               16.833       1.9459       9.0329       16.896       19.227      -4.81360E-02
+ DOWNSTREAM                                  113     (3,581)               16.832       1.9458       9.0334       16.911       36.920      -5.98446E-02
+ DOWNSTREAM                                  114     (3,586)               16.832       1.9456       9.0349       16.725       144.14       8.18833E-02
+ DOWNSTREAM                                  115     (3,607)               16.830       1.9451       9.0384       16.892       275.89      -4.78522E-02
+ DOWNSTREAM                                  116     (3,617)               16.827       1.9444       9.0439       16.758       381.69       5.25816E-02
+ DOWNSTREAM                                  117     (3,635)               16.823       1.9436       9.0503       16.829       386.59      -4.29309E-03
+ DOWNSTREAM                                  118     (3,636)               16.820       1.9427       9.0575       16.824       478.16      -3.49881E-03
+ DOWNSTREAM                                  119     (3,637)               16.815       1.9416       9.0658       16.884       520.72      -5.25001E-02
+ DOWNSTREAM                                  120     (3,638)               16.811       1.9406       9.0741       16.880       477.82      -5.28813E-02
+ DOWNSTREAM                                  121     (3,640)               16.806       1.9394       9.0842       17.047       733.84      -0.18295    
+ DOWNSTREAM                                  122     (3,642)               16.800       1.9382       9.0948       16.745       534.01       4.20589E-02
+ DOWNSTREAM                                  123     (3,644)               16.795       1.9370       9.1042       16.865       592.15      -5.25058E-02
+ DOWNSTREAM                                  124     (3,650)               16.790       1.9359       9.1136       17.086       542.14      -0.22373    
+ DOWNSTREAM                                  125     (3,719)               16.785       1.9347       9.1239       16.795       682.52      -7.35752E-03
+ DOWNSTREAM                                  126     (3,721)               16.777       1.9327       9.1403       16.780       1281.7      -2.62892E-03
+ DOWNSTREAM                                  127     (3,722)               16.766       1.9301       9.1607       16.802       1159.3      -2.72001E-02
+ DOWNSTREAM                                  128     (3,724)               16.755       1.9276       9.1811       16.783       1279.6      -2.07266E-02
+ DOWNSTREAM                                  129     (3,1028)              16.747       1.9257       9.1972       16.994       645.15      -0.18433    
+ DOWNSTREAM                                  130     (3,1032)              16.742       1.9247       9.2064       16.954       452.71      -0.15814    
+ DOWNSTREAM                                  131     (3,1034)              16.734       1.9229       9.2224       16.873       1451.8      -0.10333    
+ DOWNSTREAM                                  132     (3,1037)              16.724       1.9207       9.2411       16.814       784.01      -6.65606E-02
+ DOWNSTREAM                                  133     (3,1126)              16.716       1.9189       9.2562       16.741       1007.2      -1.79175E-02
+ DOWNSTREAM                                  134     (3,1127)              16.708       1.9170       9.2720       16.729       874.88      -1.55398E-02
+ DOWNSTREAM                                  135     (3,1207)              16.699       1.9149       9.2889       16.738       1135.4      -2.82373E-02
+ DOWNSTREAM                                  136     (3,1239)              16.693       1.9136       9.3003       16.876       222.76      -0.13427    
+ DOWNSTREAM                                  137     (3,1317)              16.687       1.9122       9.3122       16.707       1194.4      -1.46248E-02
+ DOWNSTREAM                                  138     (3,1378)              16.682       1.9109       9.3224       17.227       14.795      -0.39963    
+ DOWNSTREAM                                  139     (3,1454)              16.675       1.9095       9.3365       16.936       1664.8      -0.19107    
+ DOWNSTREAM                                  140     (3,1455)              16.663       1.9071       9.3592       16.885       1031.5      -0.16148    
+ DOWNSTREAM                                  141     (3,1458)              16.656       1.9057       9.3732       16.898       620.22      -0.17575    
+ DOWNSTREAM                                  142     (3,1460)              16.647       1.9037       9.3908       16.663       1473.1      -1.14656E-02
+ DOWNSTREAM                                  143     (3,1461)              16.639       1.9018       9.4064       16.838       368.05      -0.14380    
+ DOWNSTREAM                                  144     (3,1465)              16.634       1.9007       9.4166       16.781       839.63      -0.10631    
+ DOWNSTREAM                                  145     (3,1498)              16.623       1.8983       9.4380       16.702       1689.4      -5.71488E-02
+ DOWNSTREAM                                  146     (3,1502)              16.611       1.8956       9.4616       16.699       1101.8      -6.29267E-02
+ DOWNSTREAM                                  147     (3,1503)              16.601       1.8935       9.4819       16.892       1301.9      -0.20826    
+ DOWNSTREAM                                  148     (3,1504)              16.591       1.8917       9.5013       16.958       991.76      -0.26197    
+ DOWNSTREAM                                  149     (3,1530)              16.581       1.8895       9.5217       16.640       1402.3      -4.18338E-02
+ DOWNSTREAM                                  150     (3,1531)              16.569       1.8870       9.5445       16.725       1289.3      -0.11040    
+ DOWNSTREAM                                  151     (3,1532)              16.556       1.8841       9.5715       16.718       1887.0      -0.11487    
+ DOWNSTREAM                                  152     (3,1535)              16.541       1.8809       9.6007       16.576       1545.4      -2.46286E-02
+ DOWNSTREAM                                  153     (3,1543)              16.527       1.8780       9.6284       16.807       1711.7      -0.19657    
+ DOWNSTREAM                                  154     (3,1560)              16.511       1.8749       9.6595       16.674       1938.5      -0.11399    
+ DOWNSTREAM                                  155     (3,1569)              16.498       1.8723       9.6851       16.705       1063.6      -0.14396    
+ DOWNSTREAM                                  156     (3,1573)              16.485       1.8695       9.7110       16.538       1967.7      -3.67584E-02
+ DOWNSTREAM                                  157     (3,1680)              16.473       1.8671       9.7354       17.061       891.57      -0.40672    
+ DOWNSTREAM                                  158     (3,1681)              16.467       1.8664       9.7473       17.384       493.61      -0.63252    
+ DOWNSTREAM                                  159     (3,1684)              16.458       1.8646       9.7677       16.701       1900.1      -0.16732    
+ DOWNSTREAM                                  160     (3,1685)              16.442       1.8616       9.7983       16.633       1670.1      -0.13097    
+ DOWNSTREAM                                  161     (3,1686)              16.429       1.8591       9.8243       16.661       1363.3      -0.15812    
+ DOWNSTREAM                                  162     (3,1694)              16.416       1.8563       9.8512       16.439       1768.8      -1.59692E-02
+ DOWNSTREAM                                  163     (3,1762)              16.403       1.8536       9.8768       16.725       1214.6      -0.21842    
+ DOWNSTREAM                                  164     (3,1764)              16.388       1.8507       9.9071       16.528       2307.6      -9.44625E-02
+ DOWNSTREAM                                  165     (3,1774)              16.371       1.8477       9.9408       16.870       1614.6      -0.33513    
+ DOWNSTREAM                                  166     (3,1839)              16.355       1.8447       9.9737       16.485       2204.4      -8.68578E-02
+ DOWNSTREAM                                  167     (3,1883)              16.345       1.8426       9.9946       16.609       218.68      -0.17622    
+ DOWNSTREAM                                  168     (3,1945)              16.343       1.8423       9.9983       17.218       202.62      -0.58336    
+ ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+ HEAD WILL BE SAVED ON UNIT 1017 AT END OF TIME STEP    1, STRESS PERIOD    1
+
+
+  SFR_0 BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+  ------------------------------------------------------------------------------
+
+     CUMULATIVE SFR_0      L**3       RATES FOR THIS TIME STEP      L**3/T
+     ------------------                 ------------------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 GWF =       10016.6332                   GWF =       10016.6332
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =      864000.0000            EXT-INFLOW =      864000.0000
+         EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+            TOTAL IN =      874016.6332              TOTAL IN =      874016.6332
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 GWF =        6728.1401                   GWF =        6728.1401
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =           0.0000            EXT-INFLOW =           0.0000
+         EXT-OUTFLOW =      867288.4930           EXT-OUTFLOW =      867288.4930
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+           TOTAL OUT =      874016.6332             TOTAL OUT =      874016.6332
+
+            IN - OUT =      -6.9849E-10              IN - OUT =      -6.9849E-10
+
+ PERCENT DISCREPANCY =          -0.00     PERCENT DISCREPANCY =          -0.00
+
+
+
+  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+  ---------------------------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME    
+     ------------------                 ------------------------                     ----------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 WEL =           0.0000                   WEL =           0.0000     WEL_0                            
+                RCHA =        6071.5155                  RCHA =        6071.5155     RCHA_0                           
+                 CHD =           0.0000                   CHD =           0.0000     CHD_0                            
+                 SFR =        6717.2279                   SFR =        6717.2279     SFR_0                            
+
+            TOTAL IN =       12788.7434              TOTAL IN =       12788.7434
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 WEL =        1905.1200                   WEL =        1905.1200     WEL_0                            
+                RCHA =           0.0000                  RCHA =           0.0000     RCHA_0                           
+                 CHD =         836.4308                   CHD =         836.4308     CHD_0                            
+                 SFR =       10045.3539                   SFR =       10045.3539     SFR_0                            
+
+           TOTAL OUT =       12786.9047             TOTAL OUT =       12786.9047
+
+            IN - OUT =           1.8387              IN - OUT =           1.8387
+
+ PERCENT DISCREPANCY =           0.01     PERCENT DISCREPANCY =           0.01
+
+
+
+
+         TIME SUMMARY AT END OF TIME STEP    1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH  86400.      1440.0      24.000      1.0000     2.73785E-03
+ STRESS PERIOD TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+         TOTAL TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+
+
+end timestep
+
