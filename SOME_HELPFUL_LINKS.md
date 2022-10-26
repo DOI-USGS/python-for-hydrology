@@ -6,10 +6,10 @@
 * Managing Conda Environments [https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html]
 
 ### cheat sheets
-* (conda)[https://conda.io/projects/conda/en/latest/user-guide/cheatsheet.html]
-* (pandas)[https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf]
-* (numpy)[http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0]
-* (data science packages)[https://www.utc.fr/~jlaforet/Suppl/python-cheatsheets.pdf]
+* [conda](https://conda.io/projects/conda/en/latest/user-guide/cheatsheet.html)
+* [pandas](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+* [numpy](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
+* [data science packages](https://www.utc.fr/~jlaforet/Suppl/python-cheatsheets.pdf)
 
 ### general python
 * Tutorial on General Python Programming [https://cscircles.cemc.uwaterloo.ca/]
