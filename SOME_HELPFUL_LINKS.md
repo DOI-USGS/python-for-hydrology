@@ -20,3 +20,6 @@
 * [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
 * [geopandas gallery](https://geopandas.org/en/stable/gallery/index.html)
 * [a hydrologic "data story" using pandas](https://code.usgs.gov/cdi/cdi-fy20/jupyter-data-stories/-/tree/main/examples/hydrologic_data_analysis)
+
+### more general references
+* [datetime formats](https://docs.python.org/3/library/datetime.html) (jump to the bottom of the page where it says "Format Codes")
