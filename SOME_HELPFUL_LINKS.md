@@ -23,5 +23,5 @@
 * [a hydrologic "data story" using pandas](https://code.usgs.gov/cdi/cdi-fy20/jupyter-data-stories/-/tree/main/examples/hydrologic_data_analysis)
 
 ### more general references
-* [numpy for matlabusers](https://numpy.org/doc/stable/user/numpy-for-matlab-users.html)
+* [numpy for matlab users](https://numpy.org/doc/stable/user/numpy-for-matlab-users.html)
 * [datetime formats](https://docs.python.org/3/library/datetime.html) (jump to the bottom of the page where it says "Format Codes")
