@@ -25,7 +25,7 @@ Monday
 - 1430-1600: 07 Theis exercise + VSCode IDE debugging, liveshare (Andy) 
 - 1600-1700: 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (various approaches), Raul’s https://github.com/raoulcollenteur/Python-Hydrology-Tools (Josh) 
 - 1700: Class Adjourn
-- 
+
 ## Wednesday
 - 800-900: 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (various approaches), Raul’s https://github.com/raoulcollenteur/Python-Hydrology-Tools (Josh) (continued)
 - 900-1030: 09 GeoPandas for open-source GIS (Mike)
