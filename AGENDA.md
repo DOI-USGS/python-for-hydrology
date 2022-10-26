@@ -41,9 +41,8 @@ Monday
 
 # Part 1: Application of Python and Flopy to Groundwater Modeling 
 ## Thursday
-NOTE: need to allocate time for people introductions
-- 800-830: 01 FloPy introduction (Mike) 
-- 830-930: 02 Build your first model with FloPy (Joe) 
+- 800-900: 01 Introductions and IT sorting (Mike)
+- 900-930: 02 Build your first model with FloPy (Joe) 
 - 930-1000: break
 - 1000-1030: 02 Build your first model with FloPy (Joe) (continued)
 - 1030-1200: 03 Loading and visualizing models with FloPy (Andy) 
