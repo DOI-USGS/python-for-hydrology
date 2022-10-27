@@ -15,7 +15,11 @@
 ### general python
 * [Tutorial on General Python Programming](https://cscircles.cemc.uwaterloo.ca/)
 * [Installing packages dynamically into an environment](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#working-in-development-mode)
-* [Flopy](https://github.com/modflowpy/flopy.git)
+
+### Flopy
+* [Flopy code](https://github.com/modflowpy/flopy.git)
+* [Flopy official documentation](https://flopy.readthedocs.io/en/3.3.5/)
+* [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
 
 ### some galleries
 * [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
