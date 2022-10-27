@@ -1,0 +1,33 @@
+name: mfsetup
+channels:
+- conda-forge
+- defaults
+dependencies:
+- python=3.*
+- ipython
+- jupyter
+- jupyterlab
+- notebook
+- ipykernel
+- matplotlib
+- pyyaml
+- numpy
+- scipy
+- xarray
+- netcdf4
+- pandas
+- gdal
+- fiona
+- rasterio>=1.0
+- rasterstats
+- shapely
+- rtree
+- pyproj>=2.0
+- pyshp
+- pip
+- pip:
+  - https://github.com/modflowpy/flopy/zipball/develop
+  - gis-utils
+  - https://github.com/aleaf/modflow-export/zipball/develop
+  - sfrmaker
+  - https://github.com/aleaf/modflow-setup/zipball/develop
