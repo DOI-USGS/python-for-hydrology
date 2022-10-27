@@ -22,6 +22,7 @@
 * [MODFLOW 6 -- online documentation](https://modflow6.readthedocs.io/en/latest/)
 * [MODFLOW 6 Example Problems -- overview](https://modflow6-examples.readthedocs.io/en/master/introduction.html)
 * [MODFLOW 6 Example Problems](https://modflow6-examples.readthedocs.io/en/master/examples.html)
+* [Flopy Tutorial Notebooks](https://github.com/modflowpy/flopy/blob/develop/docs/notebook_examples.md)
 * [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
 * [Another Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13259)
 
