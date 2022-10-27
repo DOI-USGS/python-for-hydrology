@@ -16,10 +16,15 @@
 * [Tutorial on General Python Programming](https://cscircles.cemc.uwaterloo.ca/)
 * [Installing packages dynamically into an environment](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#working-in-development-mode)
 
-### Flopy
+### Flopy and MODFLOW
 * [Flopy code](https://github.com/modflowpy/flopy.git)
 * [Flopy official documentation](https://flopy.readthedocs.io/en/3.3.5/)
+* [MODFLOW 6 -- online documentation](https://modflow6.readthedocs.io/en/latest/)
+* [MODFLOW 6 Example Problems -- overview](https://modflow6-examples.readthedocs.io/en/master/introduction.html)
+* [MODFLOW 6 Example Problems](https://modflow6-examples.readthedocs.io/en/master/examples.html)
 * [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
+* [Another Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13259)
+
 
 ### some galleries
 * [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
