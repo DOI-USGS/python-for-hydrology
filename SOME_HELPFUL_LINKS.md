@@ -11,6 +11,7 @@
 * [pandas](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
 * [numpy](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
 * [data science packages](https://www.utc.fr/~jlaforet/Suppl/python-cheatsheets.pdf)
+* [Jupyter Notebook/Lab keyboard shortcuts](https://towardsdatascience.com/jypyter-notebook-shortcuts-bf0101a98330)
 
 ### general python
 * [Tutorial on General Python Programming](https://cscircles.cemc.uwaterloo.ca/)
@@ -22,6 +23,7 @@
 * [MODFLOW 6 -- online documentation](https://modflow6.readthedocs.io/en/latest/)
 * [MODFLOW 6 Example Problems -- overview](https://modflow6-examples.readthedocs.io/en/master/introduction.html)
 * [MODFLOW 6 Example Problems](https://modflow6-examples.readthedocs.io/en/master/examples.html)
+* [Flopy Tutorial Notebooks](https://github.com/modflowpy/flopy/blob/develop/docs/notebook_examples.md)
 * [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
 * [Another Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13259)
 
