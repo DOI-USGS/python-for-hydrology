@@ -50,7 +50,7 @@ Monday
 - 1300-1500: 04 New Intersection Capabilities, modelgrid (Josh) 
 - 1530-1600: break
 - 1600-1630: 05 Unstructured Grids  (Joe) 
-- 1630-1700: 06 Class project – overview and start - incorporate modelgrid, intersect, resampling raster etc. (no input data in LRC - all coords) (ALL) 
+- 1630-1700: 06 Class project – overview and start - incorporate modelgrid, intersect, resampling raster etc. (ALL) 
 - 1700: class adjourn
  
 ## Friday
