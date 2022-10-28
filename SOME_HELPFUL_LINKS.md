@@ -27,6 +27,13 @@
 * [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
 * [Another Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13259)
 
+### modflow-setup and sfrmaker
+* [MODFLOW setup code and docs](https://github.com/doi-usgs/modflow-setup)
+* [MODFLOW setup paper](https://www.frontiersin.org/articles/10.3389/feart.2022.903965/full)
+* [SFRmaker code and docs](https://github.com/DOI-USGS/sfrmaker)
+* [SFRmaker paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13095)
+* A worked example/workflow using MODFLOW setup, SFRmaker, and PEST++
+* [workflow code](https://github.com/DOI-USGS/neversink_workflow) [paper](https://ngwa.onlinelibrary.wiley.com/doi/full/10.1111/gwat.13129)
 
 ### some galleries
 * [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
