@@ -31,5 +31,5 @@ sim_base.write_simulation()
 success, buff = sim_base.run_simulation()
 assert success, "flopy generated MODFLOW model did not run"
 
-msg = "Successful testing of class environment for gw1774"
+msg = "Successful testing of class environment for Part 1"
 print(msg)

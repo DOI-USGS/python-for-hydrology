@@ -30,7 +30,7 @@ mamba env create -f environment.yml
 
 # Download the class git repository
 
-Using the terminal you opened in the [previous step](#class-environment-installation-instructions), navigate to a directory where you want to download the class repository from the directory where you downloaded the `environment.yml` file. Once in the selected directory type the following command
+Using the terminal you opened in the [previous step](#class-environment-installation-instructions), navigate to a directory where you want to download the class repository to. Once in the selected directory, type the following command
 
 ```shell
 git clone https://github.com/DOI-USGS/python-for-hydrology.git
@@ -60,13 +60,13 @@ conda activate pyclass
 
 ## Test the basic class environment installation (Part 0)
 
-Test the class environment installation by typing the following command
+Test the basic class environment installation by typing the following command
 
 ```shell
 python test_installation.py
 ```
 
-If the basic class environment was successfully installed, `Successful testing of the basic class environment for gw1777` will be printed to the terminal. **Let one of the class instructors know if the basic class environment installation test is not successful.**
+If the basic class environment was successfully installed, `Successful testing of the basic class environment for Part 0` will be printed to the terminal. **Let one of the class instructors know if the basic class environment installation test is not successful.**
 
 ## Test the flopy installation (Part 1)
 
@@ -82,7 +82,7 @@ Then type the following command to test the flopy installation
 python test_flopy_installation.py
 ```
 
-If the class environment was successfully installed for Part 1 of the class, `Successful testing of class environment for gw1777` will be printed to the terminal. **Let one of the class instructors know if the class environment installation test is not successful for Part 1 of the class.**
+If the class environment was successfully installed for Part 1 of the class, `Successful testing of class environment for Part 1` will be printed to the terminal. **Let one of the class instructors know if the class environment installation test is not successful for Part 1 of the class.**
 
 
 
