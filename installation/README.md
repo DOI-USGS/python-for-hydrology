@@ -82,7 +82,7 @@ Then type the following command to test the flopy installation
 python test_flopy_installation.py
 ```
 
-If the class environment was successfully installed for Part 1 of the class, `Successful testing of class environment for Part 1` will be printed to the terminal. **Let one of the class instructors know if the class environment installation test is not successful for Part 1 of the class.**
+If the class environment was successfully installed for Part 1 of the class, `Successful testing of the class environment for Part 1` will be printed to the terminal. **Let one of the class instructors know if the class environment installation test is not successful for Part 1 of the class.**
 
 
 
