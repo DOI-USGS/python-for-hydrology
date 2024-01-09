@@ -48,17 +48,17 @@ Activate the class python environment by typing the following command
 conda activate pyclass
 ```
 
-## Test the basic class environment installation
+## Test the basic class environment installation (Part 0)
 
 Test the class environment installation by typing the following command
 
 ```shell
-python some_script_to_test_installation.py
+python test_installation.py
 ```
 
-If the basic class environment was successfully installed, `Successful testing of the basic class environment for gw1777` will be printed to the terminal.
+If the basic class environment was successfully installed, `Successful testing of the basic class environment for gw1777` will be printed to the terminal. Let one of the class instructors know if the basic class environment installation test is not successful.
 
-## Test the flopy installation (Part 2)
+## Test the flopy installation (Part 1)
 
 If taking part 2 of the class, install MODFLOW executables by typing
 
@@ -72,7 +72,7 @@ Then type the following command to test the flopy installation
 python test_flopy_installation.py
 ```
 
-If the class environment was successfully installed for Part 2 of the class, `Successful testing of class environment for gw1777` will be printed to the terminal.
+If the class environment was successfully installed for Part 2 of the class, `Successful testing of class environment for gw1777` will be printed to the terminal. Let one of the class instructors know if the class environment installation test is not successful for Part 1 of the class.
 
 
 
