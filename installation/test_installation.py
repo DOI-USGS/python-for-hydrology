@@ -123,5 +123,5 @@ assert (
 ), err_msg
 
 # final message
-msg = "Successful testing of the basic class environment for gw1777"
+msg = "Successful testing of the basic class environment for Part 0"
 print(msg)
