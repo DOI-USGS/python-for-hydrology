@@ -1,6 +1,6 @@
-# python installation instructions
+# <a id='py-install'></a>python installation instructions
 
-If you have another python distribution (Conda, Miniconda, Micromamba, Miniforge, _etc._) installed on your laptop skip to the [next step]((#class-environment-installation-instructions)). Otherwise,
+If you have another python distribution (Conda, Miniconda, Micromamba, Miniforge, _etc._) installed on your laptop skip to the [next step](#env-install). Otherwise,
 
 1. Download the appropriate version of [Miniforge for your operating system](https://github.com/conda-forge/miniforge?tab=readme-ov-file#miniforge3).
 
@@ -20,7 +20,7 @@ If you have another python distribution (Conda, Miniconda, Micromamba, Miniforge
 
    where `OS-arch` above is the operating system and architecture (MacOSX-x86_64, MacOSX-arm64, Linux-x86_64, or Linux-aarch64).
 
-# Class python environment installation instructions
+# <a id='env-install'></a>Class python environment installation instructions
 
 For Windows operating systems, open the "Miniforge Prompt" installed to the start menu. For MacOS and Linux operating systems, open a terminal. Navigate to the directory where you downloaded the `environment.yml` file that was included in the email with software installation instructions. Type the following command
 
@@ -28,9 +28,9 @@ For Windows operating systems, open the "Miniforge Prompt" installed to the star
 mamba env create -f environment.yml
 ```
 
-# Download the class git repository
+# Download the class git repository 
 
-Using the terminal you opened in the [previous step](#class-environment-installation-instructions), navigate to a directory where you want to download the class repository to. Once in the selected directory, type the following command
+Using the terminal you opened in the [previous step](#env-install), navigate to a directory where you want to download the class repository to. Once in the selected directory, type the following command
 
 ```shell
 git clone https://github.com/DOI-USGS/python-for-hydrology.git

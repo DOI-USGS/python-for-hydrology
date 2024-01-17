@@ -1,5 +1,8 @@
 import pathlib as pl
 
+print('This may take a few minutes....note that varius package versions will be printed')
+
+
 # numpy
 import numpy as np
 
@@ -55,7 +58,8 @@ parks = gp.read_file(
     )
 )
 assert isinstance(parks, gp.geodataframe.GeoDataFrame), err_msg
-
+if not pl.Path("temp").exists():
+    pl.Path("temp").mkdir()
 shp_path = pl.Path("temp/parks.shp")
 for ext in (".shp", ".dbf", ".prj", ".cpg", ".shx"):
     path = shp_path.with_suffix(ext)
