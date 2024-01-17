@@ -1,6 +1,8 @@
 import pathlib as pl
 import flopy
-
+import mfsetup
+print(f'flopy version is {flopy.__version__}')
+print(f'modflow-setup version is {mfsetup.__version__}')
 # create single domain model equivalent to base parallel model in the MODFLOW 6 repo
 name = "single"
 ws_single = pl.Path(f"temp/{name}")
