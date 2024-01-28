@@ -181,7 +181,8 @@ if __name__ == "__main__":
     # and a storativity (S) of 3 x 10$^{-4}$
     #
     # hint: you should get ``1.40636669``
-    value = theis(1000, 10, Q=4088, T=1000, S=3e-4)
+    s = theis(1000, 10, Q=4088, T=1000, S=3e-4)
+    assert np.allclose(s, 1.40636669)
 
     # Make a plot of drawdown over time for the same parameters
     times = np.logspace(-1, 1, 100)
