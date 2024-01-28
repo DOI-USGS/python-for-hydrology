@@ -3,7 +3,7 @@
 ## Part 0: Introduction to python for hydrologists
 Monday
 - 800-830: Introductions and getting started  (Mike) 
-- 830-900: Python overview and Quick orientation to jupyter, environments, and pixi/mamba/conda (Andy) 
+- 830-900: Python overview and Quick orientation to jupyter, environments, and mamba/conda (Andy) 
 - 900-1030: 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (A: word counting ) (Mike) 
 - 1030-1100: Break
 - 1100-1200: 01 Functions and Scripts  (A: build a function) (Joe) 
@@ -16,7 +16,7 @@ Monday
  
 ## Tuesday
 - 800-830:  04 Working with files, string formatting (Chris) (continued)
-- 830-1030: 05 Numpy (where, slicing, indexing, ….)(A: Mt. St. Helens) (Mike)
+- 830-1030: 05 Numpy (where, slicing, indexing)(A: Mt. St. Helens) (Mike)
 - 1030-1100: break
 - 1100-1200: 06 Matplotlib (A: make a semi-complex plot, animation, PdfPages) (Joe) 
 - 1200-1300: lunch
