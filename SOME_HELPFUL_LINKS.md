@@ -43,3 +43,4 @@
 ### more general references
 * [numpy for matlab users](https://numpy.org/doc/stable/user/numpy-for-matlab-users.html)
 * [datetime formats](https://docs.python.org/3/library/datetime.html) (jump to the bottom of the page where it says "Format Codes")
+* [Jupyter Lab Getting Started](https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html)
