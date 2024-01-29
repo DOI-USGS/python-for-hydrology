@@ -35,7 +35,7 @@ Monday
 - 1200-1300: lunch
 - 1300-1400: 10 Rasterio (Josh) (continued)
 - 1400-1430: break
-- 1430-1600: 11 Xarray/Xugrid/rioxarray(?) (Andy) 
+- 1430-1600: 11 Xarray/rioxarray (Andy) 
 - 1600-1700: Wrap-up: Pointing to some other packages and package management(Joe)
 - 1700: class adjourn
 
