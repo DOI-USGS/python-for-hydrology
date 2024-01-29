@@ -14,13 +14,17 @@ If you haven't yet, install VS Code [here](https://code.visualstudio.com/downloa
 
 ### Converting the Theis exercise notebook to a Python script
 Once VSCode is installed, 
-* open ``notebooks/part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb`` in Jupyter and from the ``File`` menu, select ``Download as`` and then ``Python (.py)``. This will create a python script version of the notebook and send it to your download folder.
-* copy the ``07b_Theis-exercise-solution.py`` file to the ``part0_python_intro`` folder
+* Open ``notebooks/part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb`` in Jupyter 
+* From the ``File`` menu, select ``Save and Export Notebook as`` and then ``Executable Script``. This will create a python script version of the notebook (``07a_Theis-exercise-solution.py``)
+* Save ``07a_Theis-exercise-solution.py`` to the ``notebooks/part0_python_intro`` folder (or copy it there from your Downloads folder).
 
 ### Launching VSCode
-* ?open an Anaconda prompt at the root folder for the class (containing the AGENDA.md file) and with the ``pyclass`` environment activated, type ``code .``
+* Open a fresh Miniforge prompt from the Start menu and navigate to the root folder for the class (containing the ``AGENDA.md`` file).
+* Activate the class python environment (``conda activate pyclass``) if needed. 
+* Then type ``code .``
+* If prompted, click "Yes, I trust the authors"
 
-### Launching VSCode
+### Getting started
 See [here](https://code.visualstudio.com/docs/getstarted/userinterface) for an overview of the VSCode user interface.
 
 Once VSCode is launched, click on [the Extensions icon](https://code.visualstudio.com/docs/editor/extension-marketplace) on the activity bar on the left. Install the following extensions:  
@@ -58,7 +62,7 @@ Let's use Partial Diff to compare our script to the class solution. Assuming the
 
 ### Debugging  
 * Place a break point anywhere below the first ``theis()`` call in the ``__main__`` part of the script. 
-* Then go to either ``Run --> Start Debugging`` or click on the debug icon in the Activity Bar and choose ``Run and Debug``. The debugger should run to the break point.
+* Then go to either ``Run --> Start Debugging`` or click on the debug icon in the Activity Bar and choose ``Run and Debug``. Choose ``Python File`` if prompted for a configuration. The debugger should run to the break point.
 
 Often it is prudent to include internal checks in code, regardless of the context. There are a number of ways to do this; a simple one is an ``assert`` statement that checks a condition.
 
@@ -73,7 +77,7 @@ Often it is prudent to include internal checks in code, regardless of the contex
 #### The debug working directory
 Import ``pathlib`` and type ``pathlib.Path.cwd()`` in the debug console. Note that the current directory is the root folder for the class (where we launched VSCode). VSCode is structured around projects, which include everything in a folder that was opened (and any subfolders). By default, the working directory for debugging is set at the root level for the project. We can change this (and other debugging settings), by creating a configuration file called ``launch.json``, which lives inside of a ``.vscode/`` folder at the root level of the project.
 
-* After stopping the debugging session, make a default ``launch.json`` by clicking on the debug icon in the Activity Bar and then ``create a launch.json file``. Choose ``Python`` and then ``Python File``. A new tab will open up with ``launch.json``. Add ``"cwd": "${fileDirname}"`` at the bottom (don't forget the preceding comma!) so that the file looks like this:
+* After stopping the debugging session, make a default ``launch.json`` by clicking on the debug icon in the Activity Bar and then ``create a launch.json file``. Choose ``Python File`` if prompted for a configuration. A new tab will open up with ``launch.json``. Add ``"cwd": "${fileDirname}"`` at the bottom (don't forget the preceding comma!) so that the file looks like this:
 
     ```
     {

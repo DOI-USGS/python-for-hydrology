@@ -125,10 +125,10 @@ def get_distance(x0, y0, x1, y1):
     return np.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2)
 
 
-def theis_xy(x, y, pw_xy, t, Q=1.16, T=100, S=0.0001):
+def theis_xy(x, y, pumping_well_xy, t, Q=1.16, T=100, S=0.0001):
     """Use the Theis equation to get drawdown
     in a confined aquifer at any x, y point(s),
-    for a pumping well at (x, y) location pw_xy,
+    for a pumping well at (x, y) location pumping_well_xy,
     pumping at rate Q, for time t.
 
     Parameters
@@ -137,7 +137,7 @@ def theis_xy(x, y, pw_xy, t, Q=1.16, T=100, S=0.0001):
         x-coordinates for computing drawdown.
     y : float or list-like of floats
         y-coordinates for computing drawdown.
-    pw_xy : tuple
+    pumping_well_xy : tuple
         (x, y) location of the pumping well
     t : float or list-like of floats
         Times to calculate drawdown at (T)
@@ -166,7 +166,7 @@ def theis_xy(x, y, pw_xy, t, Q=1.16, T=100, S=0.0001):
     s = []
     for ts in t:
         s_t = []
-        r = get_distance(x, y, *pw_xy)
+        r = get_distance(x, y, *pumping_well_xy)
         s_xy = theis(r, t, Q=Q, T=T, S=S)
         s_t.append(s_xy)
         s_t = np.reshape(s_t, np.shape(x))
@@ -181,7 +181,8 @@ if __name__ == "__main__":
     # and a storativity (S) of 3 x 10$^{-4}$
     #
     # hint: you should get ``1.40636669``
-    value = theis(1000, 10, Q=4088, T=1000, S=3e-4)
+    s = theis(1000, 10, Q=4088, T=1000, S=3e-4)
+    assert np.allclose(s, 1.40636669)
 
     # Make a plot of drawdown over time for the same parameters
     times = np.logspace(-1, 1, 100)
@@ -192,9 +193,9 @@ if __name__ == "__main__":
     plt.xlabel("Time, in days")
 
     x, y = np.meshgrid(np.arange(2000), np.arange(2000))
-    pw_xy = (1000, 1000)
+    pumping_well_xy = (1000, 1000)
 
-    s = theis_xy(x, y, pw_xy, 10, Q=4088, T=1000, S=3e-4)
+    s = theis_xy(x, y, pumping_well_xy, 10, Q=4088, T=1000, S=3e-4)
 
     plt.imshow(s[0])
 
