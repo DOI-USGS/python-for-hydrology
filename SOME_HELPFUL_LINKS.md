@@ -12,6 +12,7 @@
 * [numpy](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
 * [data science packages](https://www.utc.fr/~jlaforet/Suppl/python-cheatsheets.pdf)
 * [Jupyter Notebook/Lab keyboard shortcuts](https://towardsdatascience.com/jypyter-notebook-shortcuts-bf0101a98330)
+* [Numpy for MATLAB Users](https://numpy.org/doc/stable/user/numpy-for-matlab-users.html)
 
 ### general python
 * [Tutorial on General Python Programming](https://cscircles.cemc.uwaterloo.ca/)
