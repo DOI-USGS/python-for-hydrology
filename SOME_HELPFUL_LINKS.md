@@ -5,6 +5,7 @@
 * [General information on conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html)
 * [Managing Conda Environments](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 * [Tutorial introduction to conda enviroments](https://towardsdatascience.com/getting-started-with-python-environments-using-conda-32e9f2779307)
+* [Conda-pack](https://conda.github.io/conda-pack/)
 
 ### cheat sheets
 * [conda](https://conda.io/projects/conda/en/latest/user-guide/cheatsheet.html)
@@ -28,13 +29,13 @@
 * [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
 * [Another Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13259)
 
-### modflow-setup and sfrmaker
-* [MODFLOW setup code and docs](https://github.com/doi-usgs/modflow-setup)
-* [MODFLOW setup paper](https://www.frontiersin.org/articles/10.3389/feart.2022.903965/full)
+### Modflow-setup and SFRmaker
+* [Modflow-setup code and docs](https://github.com/doi-usgs/modflow-setup)
+* [Modflow-setup paper](https://www.frontiersin.org/articles/10.3389/feart.2022.903965/full)
 * [SFRmaker code and docs](https://github.com/DOI-USGS/sfrmaker)
 * [SFRmaker paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13095)
-* A worked example/workflow using MODFLOW setup, SFRmaker, and PEST++
-* [workflow code](https://github.com/DOI-USGS/neversink_workflow) [paper](https://ngwa.onlinelibrary.wiley.com/doi/full/10.1111/gwat.13129)
+* [A worked example/workflow using Modflow-setup, SFRmaker, and PEST++](https://github.com/DOI-USGS/neversink_workflow)
+* [A worked example/workflow Groundwater paper](https://ngwa.onlinelibrary.wiley.com/doi/full/10.1111/gwat.13129)
 
 ### some galleries
 * [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
