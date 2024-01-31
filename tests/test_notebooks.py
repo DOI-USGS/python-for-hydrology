@@ -10,8 +10,10 @@ import pytest
 xfail_notebooks = {
     '00_python_basics_review.ipynb': 'intentional error',
     '01_functions_scripts.ipynb': 'intentional error',
+    '06_matplotlib.ipynb': 'notebook intentionally incomplete',
     '00_python_basics_review__solutions.ipynb': 'intentional error',
     '01_functions_script__solution.ipynb': 'intentional error',
+    
     
 }
 def included_notebooks():
