@@ -47,7 +47,7 @@ Monday
 - 1000-1030: 02 Build your first model with FloPy (Joe) (continued)
 - 1030-1200: 03 Loading and visualizing models with FloPy (Andy) 
 - 1200-1300: lunch
-- 1300-1500: 04 Intersection Capabilities, modelgrid (Josh) 
+- 1300-1530: 04 Intersection Capabilities, modelgrid (Josh) 
 - 1530-1600: break
 - 1600-1630: 05 Unstructured Grids  (Chris) 
 - 1630-1700: 06 Class project – overview and start - incorporate modelgrid, intersect, resampling raster etc. (ALL) 
