@@ -6,7 +6,10 @@ notebook_count = 0
 
 skipnbs = ['10_Rasterio.ipynb',
            '11_xarray_mt_rainier_precip.ipynb',
-           '09_Geopandas_ABQ.ipynb']
+           '09_Geopandas_ABQ.ipynb',
+           '03_Loading_and_visualizing_models.ipynb',
+           '08_Modflow-setup-demo.ipynb'
+           ]
 
 for [path, subdirs, files] in os.walk('.'):
     for cf in files:
