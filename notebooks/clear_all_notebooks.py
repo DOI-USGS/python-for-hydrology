@@ -9,7 +9,9 @@ skip_notebooks = [
     '11_xarray_mt_rainier_precip.ipynb',
     '09_Geopandas_ABQ.ipynb',
     '03_Loading_and_visualizing_models.ipynb',
-    '08_Modflow-setup-demo.ipynb'
+    '07-stream_capture_voronoi.ipynb',
+    '08_Modflow-setup-demo.ipynb',
+    '10_modpath-demo.ipynb'
     ]
 
 for [path, subdirs, files] in os.walk('.'):
