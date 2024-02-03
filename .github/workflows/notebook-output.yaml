@@ -1,6 +1,6 @@
 # Based on github template: https://github.com/actions/starter-workflows/blob/main/ci/python-package.yml
 
-name: Tests
+name: "Check Notebook Output"
 
 on:
   schedule:
@@ -16,8 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
-        python-version: ['3.11']
+        os: [ubuntu-latest]
 
     steps:
     - name: Checkout source
@@ -31,14 +30,13 @@ jobs:
     - name: Setup Micromamba
       uses: mamba-org/setup-micromamba@main
       with:
-        environment-file: installation/environment.yml
-        cache-environment: false
-        cache-downloads: false
-        # persist on the same day.
-        # cache-environment-key: environment-${{ steps.date.outputs.date }}
-        # cache-downloads-key: downloads-${{ steps.date.outputs.date }}
+        # the create command looks like this:
+        # `micromamba create -n test-env python=3.10 numpy`
+        environment-name: test-env
         create-args: >-
-          python=${{ matrix.python-version }}
+          python=3.11
+          pytest
+
         init-shell: >-
           bash
           powershell
@@ -46,22 +44,10 @@ jobs:
     - name: Conda info
       shell: bash -l {0}
       run: micromamba info
-    - name: Install Modflow executables
-      uses: modflowpy/install-modflow-action@v1
-      with:
-        path: ~/.local/bin
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Modflow version
-      shell: bash -l {0}
-      run: mf6 --version
-    - name: Install ipykernel
-      shell: bash -l {0}
-      run: |
-        python -m ipykernel install --user --name pyclass --display-name "pyclass"
     - name: Conda list
       shell: bash -l {0}
       run: micromamba list
     - name: Run tests
       shell: bash -l {0}
       run: |
-        pytest tests/test_notebooks.py -v
+        pytest tests/test_notebook_output.py -v
