@@ -49,6 +49,6 @@ def test_notebook_output(notebook):
         for item in data['cells']:
             for k, v in item.items():
                 if item['cell_type'] == 'code':
-                    assert not any (item['outputs']), (f"{notebook} as output "
+                    assert not any (item['outputs']), (f"{notebook} has output "
                                 "but is not listed in notebooks/clean_all_notebooks.py "
                                 "as excepted!")
