@@ -1,0 +1,53 @@
+# Based on github template: https://github.com/actions/starter-workflows/blob/main/ci/python-package.yml
+
+name: "Check Notebook Output"
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # run every Monday at 9 AM UTC (3 am PST)
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.python-version }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+
+    - name: Fetch all Git tags
+      run: git fetch --prune --unshallow --tags
+
+    - name: Setup Micromamba
+      uses: mamba-org/setup-micromamba@main
+      with:
+        # the create command looks like this:
+        # `micromamba create -n test-env python=3.10 numpy`
+        environment-name: test-env
+        create-args: >-
+          python=3.11
+          pytest
+
+        init-shell: >-
+          bash
+          powershell
+
+    - name: Conda info
+      shell: bash -l {0}
+      run: micromamba info
+    - name: Conda list
+      shell: bash -l {0}
+      run: micromamba list
+    - name: Run tests
+      shell: bash -l {0}
+      run: |
+        pytest tests/test_notebook_output.py -v

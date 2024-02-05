@@ -4,7 +4,7 @@ name: Tests
 
 on:
   schedule:
-    - cron: '0 0 * * *' # run every Monday at 9 AM UTC (3 am PST)
+    - cron: '0 9 * * 1' # run every Monday at 9 AM UTC (3 am PST)
   push:
   pull_request:
   workflow_dispatch:
@@ -64,4 +64,4 @@ jobs:
     - name: Run tests
       shell: bash -l {0}
       run: |
-        pytest tests -v
+        pytest tests/test_notebooks.py -v

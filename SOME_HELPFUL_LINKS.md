@@ -5,6 +5,7 @@
 * [General information on conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html)
 * [Managing Conda Environments](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 * [Tutorial introduction to conda enviroments](https://towardsdatascience.com/getting-started-with-python-environments-using-conda-32e9f2779307)
+* [Conda-pack](https://conda.github.io/conda-pack/)
 
 ### cheat sheets
 * [conda](https://conda.io/projects/conda/en/latest/user-guide/cheatsheet.html)
@@ -12,6 +13,7 @@
 * [numpy](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
 * [data science packages](https://www.utc.fr/~jlaforet/Suppl/python-cheatsheets.pdf)
 * [Jupyter Notebook/Lab keyboard shortcuts](https://towardsdatascience.com/jypyter-notebook-shortcuts-bf0101a98330)
+* [Numpy for MATLAB Users](https://numpy.org/doc/stable/user/numpy-for-matlab-users.html)
 
 ### general python
 * [Tutorial on General Python Programming](https://cscircles.cemc.uwaterloo.ca/)
@@ -27,13 +29,13 @@
 * [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
 * [Another Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13259)
 
-### modflow-setup and sfrmaker
-* [MODFLOW setup code and docs](https://github.com/doi-usgs/modflow-setup)
-* [MODFLOW setup paper](https://www.frontiersin.org/articles/10.3389/feart.2022.903965/full)
+### Modflow-setup and SFRmaker
+* [Modflow-setup code and docs](https://github.com/doi-usgs/modflow-setup)
+* [Modflow-setup paper](https://www.frontiersin.org/articles/10.3389/feart.2022.903965/full)
 * [SFRmaker code and docs](https://github.com/DOI-USGS/sfrmaker)
 * [SFRmaker paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13095)
-* A worked example/workflow using MODFLOW setup, SFRmaker, and PEST++
-* [workflow code](https://github.com/DOI-USGS/neversink_workflow) [paper](https://ngwa.onlinelibrary.wiley.com/doi/full/10.1111/gwat.13129)
+* [A worked example/workflow using Modflow-setup, SFRmaker, and PEST++](https://github.com/DOI-USGS/neversink_workflow)
+* [A worked example/workflow Groundwater paper](https://ngwa.onlinelibrary.wiley.com/doi/full/10.1111/gwat.13129)
 
 ### some galleries
 * [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
@@ -43,3 +45,4 @@
 ### more general references
 * [numpy for matlab users](https://numpy.org/doc/stable/user/numpy-for-matlab-users.html)
 * [datetime formats](https://docs.python.org/3/library/datetime.html) (jump to the bottom of the page where it says "Format Codes")
+* [Jupyter Lab Getting Started](https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html)

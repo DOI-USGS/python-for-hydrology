@@ -35,7 +35,7 @@ Monday
 - 1200-1300: lunch
 - 1300-1400: 10 Rasterio (Josh) (continued)
 - 1400-1430: break
-- 1430-1600: 11 Xarray/Xugrid/rioxarray(?) (Andy) 
+- 1430-1600: 11 Xarray/rioxarray (Andy) 
 - 1600-1700: Wrap-up: Pointing to some other packages and package management(Joe)
 - 1700: class adjourn
 
@@ -47,7 +47,7 @@ Monday
 - 1000-1030: 02 Build your first model with FloPy (Joe) (continued)
 - 1030-1200: 03 Loading and visualizing models with FloPy (Andy) 
 - 1200-1300: lunch
-- 1300-1500: 04 Intersection Capabilities, modelgrid (Josh) 
+- 1300-1530: 04 Intersection Capabilities, modelgrid (Josh) 
 - 1530-1600: break
 - 1600-1630: 05 Unstructured Grids  (Chris) 
 - 1630-1700: 06 Class project – overview and start - incorporate modelgrid, intersect, resampling raster etc. (ALL) 
