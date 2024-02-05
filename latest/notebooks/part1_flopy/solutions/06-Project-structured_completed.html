@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>06: FloPy class project: Structured grid version &mdash; Python for Hydrology 1.0a documentation</title>
+  <title>Make a structured model grid &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
@@ -61,27 +61,24 @@
 <li class="toctree-l2"><a class="reference internal" href="03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../05-unstructured-grids.html">05: FloPy Model Grids</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">06: FloPy class project: Structured grid version</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Make-a-structured-model-grid">Make a structured model grid</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Intersect-the-modelgrid-with-the-shapefiles">Intersect the modelgrid with the shapefiles</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Make a structured model grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Intersect-the-modelgrid-with-the-shapefiles">Intersect the modelgrid with the shapefiles</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Create-an-intersection-object">Create an intersection object</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid">Intersect inactive and active shapefiles with the modelgrid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Intersect-well-shapefile-with-the-modelgrid">Intersect well shapefile with the modelgrid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Intersect-river-shapefile-with-the-modelgrid">Intersect river shapefile with the modelgrid</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Intersect-constant-head-line-with-the-modelgrid">Intersect constant head line with the modelgrid</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Resample-the-raster-data-to-the-modelgrid">Resample the raster data to the modelgrid</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Plot-the-resampled-data">Plot the resampled data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Create-an-intersection-object">Create an intersection object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid">Intersect inactive and active shapefiles with the modelgrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Intersect-well-shapefile-with-the-modelgrid">Intersect well shapefile with the modelgrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Intersect-river-shapefile-with-the-modelgrid">Intersect river shapefile with the modelgrid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Intersect-constant-head-line-with-the-modelgrid">Intersect constant head line with the modelgrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Resample-the-raster-data-to-the-modelgrid">Resample the raster data to the modelgrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-resampled-data">Plot the resampled data</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Build-the-model-data">Build the model data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Build-the-model">Build the model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Write-the-model-files">Write the model files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Run-the-model">Run the model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Post-process-the-results">Post-process the results</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#Build-the-model-data">Build the model data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Build-the-model">Build the model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Write-the-model-files">Write the model files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Run-the-model">Run the model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Post-process-the-results">Post-process the results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
@@ -117,7 +114,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../part1.html">Part 1 flopy</a></li>
-      <li class="breadcrumb-item active">06: FloPy class project: Structured grid version</li>
+      <li class="breadcrumb-item active">Make a structured model grid</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/notebooks/part1_flopy/solutions/06-Project-structured_completed.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -127,9 +124,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="06:-FloPy-class-project:-Structured-grid-version">
-<h1>06: FloPy class project: Structured grid version<a class="headerlink" href="#06:-FloPy-class-project:-Structured-grid-version" title="Link to this heading">¶</a></h1>
-<div class="nbinput nblast docutils container">
+  <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -156,7 +151,7 @@
 </div>
 </div>
 <p>Load a few raster files</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
@@ -165,6 +160,60 @@
 <span class="n">kaq</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Raster</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../data_project/aquifer_k.asc&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">CPLE_OpenFailedError</span>                      Traceback (most recent call last)
+File <span class="ansi-green-fg">rasterio/_base.pyx:310</span>, in <span class="ansi-cyan-fg">rasterio._base.DatasetBase.__init__</span><span class="ansi-blue-fg">()</span>
+
+File <span class="ansi-green-fg">rasterio/_base.pyx:221</span>, in <span class="ansi-cyan-fg">rasterio._base.open_dataset</span><span class="ansi-blue-fg">()</span>
+
+File <span class="ansi-green-fg">rasterio/_err.pyx:221</span>, in <span class="ansi-cyan-fg">rasterio._err.exc_wrap_pointer</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">CPLE_OpenFailedError</span>: ../data_project/aquifer_bottom.asc: No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">RasterioIOError</span>                           Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[3], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> bottom <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">utils</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">Raster</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">load</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">../data_project/aquifer_bottom.asc</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> top <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>utils<span style="color: rgb(98,98,98)">.</span>Raster<span style="color: rgb(98,98,98)">.</span>load(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">../data_project/aquifer_top.asc</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> kaq <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>utils<span style="color: rgb(98,98,98)">.</span>Raster<span style="color: rgb(98,98,98)">.</span>load(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">../data_project/aquifer_k.asc</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/rasters.py:759</span>, in <span class="ansi-cyan-fg">Raster.load</span><span class="ansi-blue-fg">(raster)</span>
+<span class="ansi-green-intense-fg ansi-bold">    743</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    744</span> <span style="color: rgb(175,0,0)">Static method to load a raster file</span>
+<span class="ansi-green-intense-fg ansi-bold">    745</span> <span style="color: rgb(175,0,0)">into the raster object</span>
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    755</span>
+<span class="ansi-green-intense-fg ansi-bold">    756</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    757</span> rasterio <span style="color: rgb(98,98,98)">=</span> import_optional_dependency(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">rasterio</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-fg">--&gt; 759</span> dataset <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">rasterio</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">open</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">raster</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    760</span> array <span style="color: rgb(98,98,98)">=</span> dataset<span style="color: rgb(98,98,98)">.</span>read()
+<span class="ansi-green-intense-fg ansi-bold">    761</span> bands <span style="color: rgb(98,98,98)">=</span> dataset<span style="color: rgb(98,98,98)">.</span>indexes
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterio/env.py:451</span>, in <span class="ansi-cyan-fg">ensure_env_with_credentials.&lt;locals&gt;.wrapper</span><span class="ansi-blue-fg">(*args, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    448</span>     session <span style="color: rgb(98,98,98)">=</span> DummySession()
+<span class="ansi-green-intense-fg ansi-bold">    450</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> env_ctor(session<span style="color: rgb(98,98,98)">=</span>session):
+<span class="ansi-green-fg">--&gt; 451</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">f</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwds</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterio/__init__.py:304</span>, in <span class="ansi-cyan-fg">open</span><span class="ansi-blue-fg">(fp, mode, driver, width, height, count, crs, transform, dtype, nodata, sharing, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    301</span> path <span style="color: rgb(98,98,98)">=</span> _parse_path(raw_dataset_path)
+<span class="ansi-green-intense-fg ansi-bold">    303</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> mode <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">r</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-fg">--&gt; 304</span>     dataset <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">DatasetReader</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">driver</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">driver</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">sharing</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">sharing</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    305</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> mode <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">r+</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-intense-fg ansi-bold">    306</span>     dataset <span style="color: rgb(98,98,98)">=</span> get_writer_for_path(path, driver<span style="color: rgb(98,98,98)">=</span>driver)(
+<span class="ansi-green-intense-fg ansi-bold">    307</span>         path, mode, driver<span style="color: rgb(98,98,98)">=</span>driver, sharing<span style="color: rgb(98,98,98)">=</span>sharing, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs
+<span class="ansi-green-intense-fg ansi-bold">    308</span>     )
+
+File <span class="ansi-green-fg">rasterio/_base.pyx:312</span>, in <span class="ansi-cyan-fg">rasterio._base.DatasetBase.__init__</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">RasterioIOError</span>: ../data_project/aquifer_bottom.asc: No such file or directory
+</pre></div></div>
 </div>
 <p>Load a few shapefiles with geopandas</p>
 <div class="nbinput docutils container">
@@ -181,24 +230,78 @@
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">CPLE_OpenFailedError</span>                      Traceback (most recent call last)
+File <span class="ansi-green-fg">fiona/ogrext.pyx:136</span>, in <span class="ansi-cyan-fg">fiona.ogrext.gdal_open_vector</span><span class="ansi-blue-fg">()</span>
+
+File <span class="ansi-green-fg">fiona/_err.pyx:291</span>, in <span class="ansi-cyan-fg">fiona._err.exc_wrap_pointer</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">CPLE_OpenFailedError</span>: ../data_project/Flowline_river.shp: No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">DriverError</span>                               Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[4], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> river <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gpd</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">read_file</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">../data_project/Flowline_river.shp</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> inactive <span style="color: rgb(98,98,98)">=</span> gpd<span style="color: rgb(98,98,98)">.</span>read_file(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">../data_project/inactive_area.shp</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> active <span style="color: rgb(98,98,98)">=</span> gpd<span style="color: rgb(98,98,98)">.</span>read_file(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">../data_project/active_area.shp</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/geopandas/io/file.py:297</span>, in <span class="ansi-cyan-fg">_read_file</span><span class="ansi-blue-fg">(filename, bbox, mask, rows, engine, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    294</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-intense-fg ansi-bold">    295</span>         path_or_bytes <span style="color: rgb(98,98,98)">=</span> filename
+<span class="ansi-green-fg">--&gt; 297</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">_read_file_fiona</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-intense-fg ansi-bold">    298</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">path_or_bytes</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">from_bytes</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">rows</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">rows</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span>
+<span class="ansi-green-intense-fg ansi-bold">    299</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    301</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-intense-fg ansi-bold">    302</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">unknown engine </span><span style="color: rgb(175,0,0)">&#39;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>engine<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/geopandas/io/file.py:338</span>, in <span class="ansi-cyan-fg">_read_file_fiona</span><span class="ansi-blue-fg">(path_or_bytes, from_bytes, bbox, mask, rows, where, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    335</span>     reader <span style="color: rgb(98,98,98)">=</span> fiona<span style="color: rgb(98,98,98)">.</span>open
+<span class="ansi-green-intense-fg ansi-bold">    337</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> fiona_env():
+<span class="ansi-green-fg">--&gt; 338</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span class="ansi-yellow-bg">reader</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">path_or_bytes</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> features:
+<span class="ansi-green-intense-fg ansi-bold">    339</span>         crs <span style="color: rgb(98,98,98)">=</span> features<span style="color: rgb(98,98,98)">.</span>crs_wkt
+<span class="ansi-green-intense-fg ansi-bold">    340</span>         <span style="color: rgb(95,135,135)"># attempt to get EPSG code</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/fiona/env.py:457</span>, in <span class="ansi-cyan-fg">ensure_env_with_credentials.&lt;locals&gt;.wrapper</span><span class="ansi-blue-fg">(*args, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    454</span>     session <span style="color: rgb(98,98,98)">=</span> DummySession()
+<span class="ansi-green-intense-fg ansi-bold">    456</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> env_ctor(session<span style="color: rgb(98,98,98)">=</span>session):
+<span class="ansi-green-fg">--&gt; 457</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">f</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwds</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/fiona/__init__.py:292</span>, in <span class="ansi-cyan-fg">open</span><span class="ansi-blue-fg">(fp, mode, driver, schema, crs, encoding, layer, vfs, enabled_drivers, crs_wkt, allow_unsupported_drivers, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    289</span>     path <span style="color: rgb(98,98,98)">=</span> parse_path(fp)
+<span class="ansi-green-intense-fg ansi-bold">    291</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> mode <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> (<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">a</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">r</span><span style="color: rgb(175,0,0)">&#34;</span>):
+<span class="ansi-green-fg">--&gt; 292</span>     colxn <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">Collection</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-intense-fg ansi-bold">    293</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    294</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    295</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">driver</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">driver</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    296</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    297</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    298</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">enabled_drivers</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">enabled_drivers</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    299</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">allow_unsupported_drivers</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">allow_unsupported_drivers</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    300</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span>
+<span class="ansi-green-intense-fg ansi-bold">    301</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    302</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> mode <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">w</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-intense-fg ansi-bold">    303</span>     colxn <span style="color: rgb(98,98,98)">=</span> Collection(
+<span class="ansi-green-intense-fg ansi-bold">    304</span>         path,
+<span class="ansi-green-intense-fg ansi-bold">    305</span>         mode,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    314</span>         <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs
+<span class="ansi-green-intense-fg ansi-bold">    315</span>     )
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/fiona/collection.py:243</span>, in <span class="ansi-cyan-fg">Collection.__init__</span><span class="ansi-blue-fg">(self, path, mode, driver, schema, crs, encoding, layer, vsi, archive, enabled_drivers, crs_wkt, ignore_fields, ignore_geometry, include_fields, wkt_version, allow_unsupported_drivers, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    241</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mode <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">r</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-intense-fg ansi-bold">    242</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>session <span style="color: rgb(98,98,98)">=</span> Session()
+<span class="ansi-green-fg">--&gt; 243</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">session</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">start</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    244</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mode <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> (<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">a</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">w</span><span style="color: rgb(175,0,0)">&#34;</span>):
+<span class="ansi-green-intense-fg ansi-bold">    245</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>session <span style="color: rgb(98,98,98)">=</span> WritingSession()
+
+File <span class="ansi-green-fg">fiona/ogrext.pyx:588</span>, in <span class="ansi-cyan-fg">fiona.ogrext.Session.start</span><span class="ansi-blue-fg">()</span>
+
+File <span class="ansi-green-fg">fiona/ogrext.pyx:143</span>, in <span class="ansi-cyan-fg">fiona.ogrext.gdal_open_vector</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">DriverError</span>: ../data_project/Flowline_river.shp: No such file or directory
 </pre></div></div>
 </div>
 <p>Plot the shapefiles with geopandas</p>
@@ -213,78 +316,23 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_8_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_8_1.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[5], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> ax <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">river</span><span style="color: rgb(98,98,98)">.</span>plot(color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cyan</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> active<span style="color: rgb(98,98,98)">.</span>plot(ax<span style="color: rgb(98,98,98)">=</span>ax, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">blue</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> inactive<span style="color: rgb(98,98,98)">.</span>plot(ax<span style="color: rgb(98,98,98)">=</span>ax, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">white</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river&#39; is not defined
+</pre></div></div>
 </div>
 <section id="Make-a-structured-model-grid">
-<h2>Make a structured model grid<a class="headerlink" href="#Make-a-structured-model-grid" title="Link to this heading">¶</a></h2>
+<h1>Make a structured model grid<a class="headerlink" href="#Make-a-structured-model-grid" title="Link to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -304,17 +352,18 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_grid</span> <span class="o">=</span> <span class="n">StructuredGrid</span><span class="p">(</span>
-    <span class="n">delc</span><span class="o">=</span><span class="n">delc</span><span class="p">,</span> <span class="n">delr</span><span class="o">=</span><span class="n">delr</span><span class="p">,</span> <span class="n">nlay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">ttop</span><span class="p">,</span> <span class="n">botm</span><span class="o">=</span><span class="n">tbotm</span>
+    <span class="n">delc</span><span class="o">=</span><span class="n">delc</span><span class="p">,</span> <span class="n">delr</span><span class="o">=</span><span class="n">delr</span><span class="p">,</span> <span class="n">nlay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span>
+    <span class="n">top</span><span class="o">=</span><span class="n">ttop</span><span class="p">,</span> <span class="n">botm</span><span class="o">=</span><span class="n">tbotm</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <section id="Intersect-the-modelgrid-with-the-shapefiles">
-<h3>Intersect the modelgrid with the shapefiles<a class="headerlink" href="#Intersect-the-modelgrid-with-the-shapefiles" title="Link to this heading">¶</a></h3>
+<h2>Intersect the modelgrid with the shapefiles<a class="headerlink" href="#Intersect-the-modelgrid-with-the-shapefiles" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 <section id="Create-an-intersection-object">
-<h2>Create an intersection object<a class="headerlink" href="#Create-an-intersection-object" title="Link to this heading">¶</a></h2>
+<h1>Create an intersection object<a class="headerlink" href="#Create-an-intersection-object" title="Link to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -325,7 +374,7 @@
 </div>
 </section>
 <section id="Intersect-inactive-and-active-shapefiles-with-the-modelgrid">
-<h2>Intersect inactive and active shapefiles with the modelgrid<a class="headerlink" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<h1>Intersect inactive and active shapefiles with the modelgrid<a class="headerlink" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid" title="Link to this heading">¶</a></h1>
 <p>After all of the intersection operations, take a look at the data contained in the returned objects</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -339,12 +388,15 @@
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[9], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> bedrock <span style="color: rgb(98,98,98)">=</span> ix<span style="color: rgb(98,98,98)">.</span>intersect(<span class="ansi-yellow-bg">inactive</span><span style="color: rgb(98,98,98)">.</span>geometry[<span style="color: rgb(98,98,98)">0</span>])
+<span class="ansi-green-intense-fg ansi-bold">      2</span> active_cells <span style="color: rgb(98,98,98)">=</span> ix<span style="color: rgb(98,98,98)">.</span>intersect(active<span style="color: rgb(98,98,98)">.</span>geometry[<span style="color: rgb(98,98,98)">0</span>])
+
+<span class="ansi-red-fg">NameError</span>: name &#39;inactive&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -356,22 +408,21 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(rec.array([((0, 0), &lt;POLYGON ((62.5 10000, 62.5 9937.5, 0 9937.5, 0 10000, 62.5 10000))&gt;, 3906.25),
-            ((0, 1), &lt;POLYGON ((125 10000, 125 9937.5, 62.5 9937.5, 62.5 10000, 125 10000))&gt;, 3906.25),
-            ((0, 2), &lt;POLYGON ((187.5 10000, 187.5 9937.5, 125 9937.5, 125 10000, 187.5 10000))&gt;, 3906.25),
-            ((0, 3), &lt;POLYGON ((250 10000, 250 9937.5, 187.5 9937.5, 187.5 10000, 250 10000))&gt;, 3906.25)],
-           dtype=[(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;areas&#39;, &#39;&lt;f8&#39;)]),
- dtype((numpy.record, [(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;areas&#39;, &#39;&lt;f8&#39;)])))
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[10], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">active_cells</span>[:<span style="color: rgb(98,98,98)">4</span>], active_cells<span style="color: rgb(98,98,98)">.</span>dtype
+
+<span class="ansi-red-fg">NameError</span>: name &#39;active_cells&#39; is not defined
 </pre></div></div>
 </div>
 </section>
 <section id="Intersect-well-shapefile-with-the-modelgrid">
-<h2>Intersect well shapefile with the modelgrid<a class="headerlink" href="#Intersect-well-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<h1>Intersect well shapefile with the modelgrid<a class="headerlink" href="#Intersect-well-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -386,10 +437,17 @@
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[11], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> well_cells <span style="color: rgb(98,98,98)">=</span> []
+<span class="ansi-green-fg">----&gt; 2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> g <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span class="ansi-yellow-bg">wells</span><span style="color: rgb(98,98,98)">.</span>geometry:
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     v <span style="color: rgb(98,98,98)">=</span> ix<span style="color: rgb(98,98,98)">.</span>intersect(g)
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     well_cells <span style="color: rgb(98,98,98)">+</span><span style="color: rgb(98,98,98)">=</span> v[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>]<span style="color: rgb(98,98,98)">.</span>tolist()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;wells&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -406,12 +464,12 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[(33, 61), (41, 49), (77, 53), (101, 37), (113, 21), (133, 45)]
+[]
 </pre></div></div>
 </div>
 </section>
 <section id="Intersect-river-shapefile-with-the-modelgrid">
-<h2>Intersect river shapefile with the modelgrid<a class="headerlink" href="#Intersect-river-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<h1>Intersect river shapefile with the modelgrid<a class="headerlink" href="#Intersect-river-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -423,10 +481,14 @@
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[13], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> river_cells <span style="color: rgb(98,98,98)">=</span> ix<span style="color: rgb(98,98,98)">.</span>intersect(<span class="ansi-yellow-bg">river</span><span style="color: rgb(98,98,98)">.</span>geometry[<span style="color: rgb(98,98,98)">0</span>])
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -438,21 +500,20 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(rec.array([((0, 53), &lt;LINESTRING (3347.204 10000, 3351.371 9937.5)&gt;, 62.63873491),
-            ((1, 53), &lt;LINESTRING (3351.371 9937.5, 3355.537 9875)&gt;, 62.63873491),
-            ((2, 53), &lt;LINESTRING (3355.537 9875, 3359.704 9812.5)&gt;, 62.63873491),
-            ((3, 53), &lt;LINESTRING (3359.704 9812.5, 3363.599 9754.072, 3364.797 9750)&gt;, 62.80215445)],
-           dtype=[(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;lengths&#39;, &#39;&lt;f8&#39;)]),
- dtype((numpy.record, [(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;lengths&#39;, &#39;&lt;f8&#39;)])))
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[14], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">river_cells</span>[:<span style="color: rgb(98,98,98)">4</span>], river_cells<span style="color: rgb(98,98,98)">.</span>dtype
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_cells&#39; is not defined
 </pre></div></div>
 </div>
 <section id="Intersect-constant-head-line-with-the-modelgrid">
-<h3>Intersect constant head line with the modelgrid<a class="headerlink" href="#Intersect-constant-head-line-with-the-modelgrid" title="Link to this heading">¶</a></h3>
+<h2>Intersect constant head line with the modelgrid<a class="headerlink" href="#Intersect-constant-head-line-with-the-modelgrid" title="Link to this heading">¶</a></h2>
 <p>Use a line with two points to defined the location of the constant head cells. The line verticase are <code class="docutils literal notranslate"><span class="pre">[(1250,</span> <span class="pre">0.1),</span> <span class="pre">(4250,</span> <span class="pre">0.1)]</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
@@ -488,9 +549,9 @@
 </div>
 </section>
 <section id="Resample-the-raster-data-to-the-modelgrid">
-<h3>Resample the raster data to the modelgrid<a class="headerlink" href="#Resample-the-raster-data-to-the-modelgrid" title="Link to this heading">¶</a></h3>
+<h2>Resample the raster data to the modelgrid<a class="headerlink" href="#Resample-the-raster-data-to-the-modelgrid" title="Link to this heading">¶</a></h2>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">resample_to_grid()</span></code> method on each raster object.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
@@ -508,16 +569,47 @@
 <span class="p">)</span>
 <span class="n">rkaq</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">kaq</span><span class="o">.</span><span class="n">resample_to_grid</span><span class="p">(</span>
-        <span class="n">base_grid</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="n">kaq</span><span class="o">.</span><span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">extrapolate_edges</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">base_grid</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="n">kaq</span><span class="o">.</span><span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+        <span class="n">extrapolate_edges</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
     <span class="o">*</span> <span class="mf">86400.0</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[17], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> rtop <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">top</span><span style="color: rgb(98,98,98)">.</span>resample_to_grid(
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     base_grid,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     band<span style="color: rgb(98,98,98)">=</span>top<span style="color: rgb(98,98,98)">.</span>bands[<span style="color: rgb(98,98,98)">0</span>],
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     method<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">linear</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     extrapolate_edges<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>,
+<span class="ansi-green-intense-fg ansi-bold">      6</span> )
+<span class="ansi-green-intense-fg ansi-bold">      7</span> rbot <span style="color: rgb(98,98,98)">=</span> bottom<span style="color: rgb(98,98,98)">.</span>resample_to_grid(
+<span class="ansi-green-intense-fg ansi-bold">      8</span>     base_grid,
+<span class="ansi-green-intense-fg ansi-bold">      9</span>     band<span style="color: rgb(98,98,98)">=</span>bottom<span style="color: rgb(98,98,98)">.</span>bands[<span style="color: rgb(98,98,98)">0</span>],
+<span class="ansi-green-intense-fg ansi-bold">     10</span>     method<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">linear</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">     11</span>     extrapolate_edges<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>,
+<span class="ansi-green-intense-fg ansi-bold">     12</span> )
+<span class="ansi-green-intense-fg ansi-bold">     13</span> rkaq <span style="color: rgb(98,98,98)">=</span> (
+<span class="ansi-green-intense-fg ansi-bold">     14</span>     kaq<span style="color: rgb(98,98,98)">.</span>resample_to_grid(
+<span class="ansi-green-intense-fg ansi-bold">     15</span>         base_grid, band<span style="color: rgb(98,98,98)">=</span>kaq<span style="color: rgb(98,98,98)">.</span>bands[<span style="color: rgb(98,98,98)">0</span>], method<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">linear</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     18</span>     <span style="color: rgb(98,98,98)">*</span> <span style="color: rgb(98,98,98)">86400.0</span>
+<span class="ansi-green-intense-fg ansi-bold">     19</span> )
+
+<span class="ansi-red-fg">NameError</span>: name &#39;top&#39; is not defined
+</pre></div></div>
+</div>
 </section>
 <section id="Plot-the-resampled-data">
-<h3>Plot the resampled data<a class="headerlink" href="#Plot-the-resampled-data" title="Link to this heading">¶</a></h3>
+<h2>Plot the resampled data<a class="headerlink" href="#Plot-the-resampled-data" title="Link to this heading">¶</a></h2>
 <p>Plot the aquifer top, bottom, and hydraulic conductivity. Also plot the aquifer thickness.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
@@ -529,11 +621,26 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[18], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(modelgrid<span style="color: rgb(98,98,98)">=</span>base_grid)
+<span class="ansi-green-fg">----&gt; 2</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(<span class="ansi-yellow-bg">rtop</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> mm<span style="color: rgb(98,98,98)">.</span>plot_grid(lw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">0.5</span><span style="color: rgb(175,0,0)">&#34;</span>);
+
+<span class="ansi-red-fg">NameError</span>: name &#39;rtop&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_29_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_29_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_28_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_28_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -546,11 +653,26 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[19], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(modelgrid<span style="color: rgb(98,98,98)">=</span>base_grid)
+<span class="ansi-green-fg">----&gt; 2</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(<span class="ansi-yellow-bg">rbot</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> mm<span style="color: rgb(98,98,98)">.</span>plot_grid(lw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">0.5</span><span style="color: rgb(175,0,0)">&#34;</span>);
+
+<span class="ansi-red-fg">NameError</span>: name &#39;rbot&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_30_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_30_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_29_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_29_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -564,11 +686,27 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[20], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(modelgrid<span style="color: rgb(98,98,98)">=</span>base_grid)
+<span class="ansi-green-fg">----&gt; 2</span> cb <span style="color: rgb(98,98,98)">=</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(<span class="ansi-yellow-bg">rtop</span> <span style="color: rgb(98,98,98)">-</span> rbot)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> mm<span style="color: rgb(98,98,98)">.</span>plot_grid(lw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">0.5</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> plt<span style="color: rgb(98,98,98)">.</span>colorbar(cb);
+
+<span class="ansi-red-fg">NameError</span>: name &#39;rtop&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_31_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_31_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_30_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_30_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -576,26 +714,42 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">modelgrid</span><span class="o">=</span><span class="n">base_grid</span><span class="p">)</span>
-<span class="n">cb</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">rkaq</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">rkaq</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;jet&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cb</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[21], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(modelgrid<span style="color: rgb(98,98,98)">=</span>base_grid)
+<span class="ansi-green-fg">----&gt; 2</span> cb <span style="color: rgb(98,98,98)">=</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(<span class="ansi-yellow-bg">rkaq</span>, cmap<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">jet</span><span style="color: rgb(175,0,0)">&#34;</span>, vmin<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">1</span>, vmax<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">10</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> mm<span style="color: rgb(98,98,98)">.</span>plot_grid(lw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">0.5</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> plt<span style="color: rgb(98,98,98)">.</span>colorbar(cb);
+
+<span class="ansi-red-fg">NameError</span>: name &#39;rkaq&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_32_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_32_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_31_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_31_1.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="Build-the-model-data">
-<h2>Build the model data<a class="headerlink" href="#Build-the-model-data" title="Link to this heading">¶</a></h2>
+<h1>Build the model data<a class="headerlink" href="#Build-the-model-data" title="Link to this heading">¶</a></h1>
 <p><em>Create the bottom of each model layer</em></p>
 <p>Assume that the thickness of each layer at a row, column location is equal.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
@@ -607,9 +761,25 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[22], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> botm <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>zeros(shape3d, dtype<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(0,135,0)">float</span>)
+<span class="ansi-green-fg">----&gt; 2</span> botm[<span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">1</span>, :, :] <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">rbot</span>[:, :]
+<span class="ansi-green-intense-fg ansi-bold">      3</span> layer_thickness <span style="color: rgb(98,98,98)">=</span> (rtop <span style="color: rgb(98,98,98)">-</span> rbot) <span style="color: rgb(98,98,98)">/</span> nlay
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> k <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">reversed</span>(<span style="color: rgb(0,135,0)">range</span>(nlay <span style="color: rgb(98,98,98)">-</span> <span style="color: rgb(98,98,98)">1</span>)):
+
+<span class="ansi-red-fg">NameError</span>: name &#39;rbot&#39; is not defined
+</pre></div></div>
+</div>
 <p><em>Create the idomain array</em></p>
 <p>Use the intersection data from the active and inactive shapefiles to create the idomain array</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
@@ -621,110 +791,194 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[23], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> idomain <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>zeros((nlay, nrow, ncol), dtype<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(0,135,0)">float</span>)
+<span class="ansi-green-fg">----&gt; 2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> i, j <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span class="ansi-yellow-bg">active_cells</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>]:
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     idomain[:, i, j] <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">1</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> i, j <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> bedrock[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>]:
+
+<span class="ansi-red-fg">NameError</span>: name &#39;active_cells&#39; is not defined
+</pre></div></div>
+</div>
+<p><em>A more pythonic approach</em></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idomain_bool</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idomain_bool</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">active_cells</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))]</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[25], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> idomain_bool[<span style="color: rgb(0,135,0)">tuple</span>(<span style="color: rgb(0,135,0)">zip</span>(<span style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">active_cells</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>]<span style="color: rgb(98,98,98)">.</span>tolist()))] <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;active_cells&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idomain_bool</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">bedrock</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))]</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[26], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> idomain_bool[<span style="color: rgb(0,135,0)">tuple</span>(<span style="color: rgb(0,135,0)">zip</span>(<span style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">bedrock</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>]<span style="color: rgb(98,98,98)">.</span>tolist()))] <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;bedrock&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">idomain_bool</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x7f839276a1d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_40_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_40_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idomain_bool</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[False, False, False, ..., False, False, False],
+       [False, False, False, ..., False, False, False],
+       [False, False, False, ..., False, False, False],
+       ...,
+       [False, False, False, ..., False, False, False],
+       [False, False, False, ..., False, False, False],
+       [False, False, False, ..., False, False, False]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idomain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">idomain</span><span class="p">[</span><span class="n">idomain_bool</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">idomain</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x7f839aa5ced0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_42_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_42_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idomain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">idomain</span><span class="p">,</span> <span class="n">idomain</span><span class="p">,</span> <span class="n">idomain</span><span class="p">])</span>
+<span class="n">idomain</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(3, 160, 80)
+</pre></div></div>
+</div>
 <p><em>Build the well package stress period data</em></p>
 <ul class="simple">
 <li><p>The pumping rates are in the <code class="docutils literal notranslate"><span class="pre">wells</span></code> geopandas dataframe</p></li>
-<li><p>Pumping rates are in m/sec</p></li>
+<li><p>Pumping rates are in m<span class="math notranslate nohighlight">\(^3\)</span>/sec</p></li>
 <li><p>The wells are located in model layer 3</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wells</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[31], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">wells</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;wells&#39; is not defined
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>FID</th>
-      <th>Q</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>-0.00820</td>
-      <td>POINT (3875.000 7875.000)</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>-0.00410</td>
-      <td>POINT (3125.000 7375.000)</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>-0.00390</td>
-      <td>POINT (3375.000 5125.000)</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>3</td>
-      <td>-0.00083</td>
-      <td>POINT (2375.000 3625.000)</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4</td>
-      <td>-0.00072</td>
-      <td>POINT (1375.000 2875.000)</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>5</td>
-      <td>-0.00430</td>
-      <td>POINT (2875.000 1625.000)</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">well_spd</span> <span class="o">=</span> <span class="p">[]</span>
@@ -734,27 +988,20 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[2, 33, 61, -708.48],
- [2, 41, 49, -354.24],
- [2, 77, 53, -336.96],
- [2, 101, 37, -71.712],
- [2, 113, 21, -62.208000000000006],
- [2, 133, 45, -371.52]]
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[32], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> well_spd <span style="color: rgb(98,98,98)">=</span> []
+<span class="ansi-green-fg">----&gt; 2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> (i, j), q <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">zip</span>(well_cells, <span class="ansi-yellow-bg">wells</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Q</span><span style="color: rgb(175,0,0)">&#34;</span>]):
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     well_spd<span style="color: rgb(98,98,98)">.</span>append([<span style="color: rgb(98,98,98)">2</span>, i, j, q <span style="color: rgb(98,98,98)">*</span> <span style="color: rgb(98,98,98)">86400.0</span>])
+<span class="ansi-green-intense-fg ansi-bold">      4</span> well_spd
+
+<span class="ansi-red-fg">NameError</span>: name &#39;wells&#39; is not defined
 </pre></div></div>
 </div>
 <p><em>Build the river package stress period data</em></p>
@@ -770,7 +1017,7 @@
 <p>Use the upstream and downstream values to interpolate the river sediment thickness, bottom, width, and stage for each river cell.</p>
 <p>The river cells will be conected to model layer 1. The river bottom, width, and stage values should be calculated at the center of the river reach.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_kv</span> <span class="o">=</span> <span class="mf">3.5</span>
@@ -782,7 +1029,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_length</span> <span class="o">=</span> <span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -791,16 +1038,21 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-12419.290359618695
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[34], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> river_length <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">river_cells</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">lengths</span><span style="color: rgb(175,0,0)">&#34;</span>]<span style="color: rgb(98,98,98)">.</span>sum()
+<span class="ansi-green-intense-fg ansi-bold">      2</span> river_length
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_cells&#39; is not defined
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_thickness_slope</span> <span class="o">=</span> <span class="p">(</span>
@@ -809,32 +1061,86 @@
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[35], line 3</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> river_thickness_slope <span style="color: rgb(98,98,98)">=</span> (
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     river_thickness_down <span style="color: rgb(98,98,98)">-</span> river_thickness_up
+<span class="ansi-green-fg">----&gt; 3</span> ) <span style="color: rgb(98,98,98)">/</span> <span class="ansi-yellow-bg">river_length</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_length&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_bot_slope</span> <span class="o">=</span> <span class="p">(</span><span class="n">river_bot_down</span> <span class="o">-</span> <span class="n">river_bot_up</span><span class="p">)</span> <span class="o">/</span> <span class="n">river_length</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[36], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> river_bot_slope <span style="color: rgb(98,98,98)">=</span> (river_bot_down <span style="color: rgb(98,98,98)">-</span> river_bot_up) <span style="color: rgb(98,98,98)">/</span> <span class="ansi-yellow-bg">river_length</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_length&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_width_slope</span> <span class="o">=</span> <span class="p">(</span><span class="n">river_width_down</span> <span class="o">-</span> <span class="n">river_width_up</span><span class="p">)</span> <span class="o">/</span> <span class="n">river_length</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[37], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> river_width_slope <span style="color: rgb(98,98,98)">=</span> (river_width_down <span style="color: rgb(98,98,98)">-</span> river_width_up) <span style="color: rgb(98,98,98)">/</span> <span class="ansi-yellow-bg">river_length</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_length&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stage_slope</span> <span class="o">=</span> <span class="p">(</span><span class="n">stage_down</span> <span class="o">-</span> <span class="n">stage_up</span><span class="p">)</span> <span class="o">/</span> <span class="n">river_length</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[38], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> stage_slope <span style="color: rgb(98,98,98)">=</span> (stage_down <span style="color: rgb(98,98,98)">-</span> stage_up) <span style="color: rgb(98,98,98)">/</span> <span class="ansi-yellow-bg">river_length</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_length&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boundname</span> <span class="o">=</span> <span class="s2">&quot;upstream&quot;</span>
@@ -857,6 +1163,7 @@
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlay</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">river_bot</span> <span class="o">-</span> <span class="n">river_thickness</span> <span class="o">&gt;</span> <span class="n">botm</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]:</span>
             <span class="n">riv_layer</span> <span class="o">=</span> <span class="n">k</span>
+            <span class="k">break</span>
 
     <span class="n">river_spd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
         <span class="p">[</span><span class="n">riv_layer</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">river_stage</span><span class="p">,</span> <span class="n">conductance</span><span class="p">,</span> <span class="n">river_bot</span><span class="p">,</span> <span class="n">boundname</span><span class="p">]</span>
@@ -867,50 +1174,161 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-([[2,
-   0,
-   53,
-   16.597225984480367,
-   2186.8547136345433,
-   16.494956335418845,
-   &#39;upstream&#39;],
-  [2,
-   1,
-   53,
-   16.591677953441096,
-   2176.0166873198878,
-   16.484869006256535,
-   &#39;upstream&#39;]],
- [[2,
-   158,
-   50,
-   15.508347242017402,
-   1480.5598623536812,
-   14.515176803668005,
-   &#39;downstream&#39;],
-  [2,
-   159,
-   50,
-   15.502770376374766,
-   1460.266817949857,
-   14.50503704795412,
-   &#39;downstream&#39;]])
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[39], line 5</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> total_length <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">0.0</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> river_spd <span style="color: rgb(98,98,98)">=</span> []
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> idx, (cellid, length) <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">enumerate</span>(
+<span class="ansi-green-fg">----&gt; 5</span>     <span style="color: rgb(0,135,0)">zip</span>(<span class="ansi-yellow-bg">river_cells</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>], river_cells[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">lengths</span><span style="color: rgb(175,0,0)">&#34;</span>])
+<span class="ansi-green-intense-fg ansi-bold">      6</span> ):
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> total_length <span style="color: rgb(98,98,98)">&gt;</span><span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">5000.0</span> <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> boundname <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">upstream</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-intense-fg ansi-bold">      8</span>         boundname <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">downstream</span><span style="color: rgb(175,0,0)">&#34;</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_cells&#39; is not defined
+</pre></div></div>
+</div>
+<p><em>A more pythonic approach</em></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xmid</span> <span class="o">=</span> <span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">]</span>
+<span class="n">xp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">xp</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[40], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> xmid <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">river_cells</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">lengths</span><span style="color: rgb(175,0,0)">&#34;</span>]<span style="color: rgb(98,98,98)">.</span>cumsum() <span style="color: rgb(98,98,98)">-</span> <span style="color: rgb(98,98,98)">0.5</span> <span style="color: rgb(98,98,98)">*</span> river_cells[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">lengths</span><span style="color: rgb(175,0,0)">&#34;</span>]
+<span class="ansi-green-intense-fg ansi-bold">      2</span> xp <span style="color: rgb(98,98,98)">=</span> [<span style="color: rgb(98,98,98)">0</span>, river_cells[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">lengths</span><span style="color: rgb(175,0,0)">&#34;</span>]<span style="color: rgb(98,98,98)">.</span>cumsum()[<span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">1</span>]]
+<span class="ansi-green-intense-fg ansi-bold">      3</span> xp
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_cells&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv_stage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">xmid</span><span class="p">,</span> <span class="n">xp</span><span class="p">,</span> <span class="p">[</span><span class="n">stage_up</span><span class="p">,</span> <span class="n">stage_down</span><span class="p">])</span>
+<span class="n">riv_thick</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">xmid</span><span class="p">,</span> <span class="n">xp</span><span class="p">,</span> <span class="p">[</span><span class="n">river_thickness_up</span><span class="p">,</span> <span class="n">river_thickness_down</span><span class="p">])</span>
+<span class="n">riv_bot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">xmid</span><span class="p">,</span> <span class="n">xp</span><span class="p">,</span> <span class="p">[</span><span class="n">river_bot_up</span><span class="p">,</span> <span class="n">river_bot_down</span><span class="p">])</span>
+<span class="n">riv_wid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">xmid</span><span class="p">,</span> <span class="n">xp</span><span class="p">,</span> <span class="p">[</span><span class="n">river_width_up</span><span class="p">,</span> <span class="n">river_width_down</span><span class="p">])</span>
+<span class="n">riv_cond</span> <span class="o">=</span> <span class="n">river_kv</span> <span class="o">*</span> <span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">riv_wid</span> <span class="o">/</span> <span class="n">riv_thick</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[41], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> riv_stage <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>interp(<span class="ansi-yellow-bg">xmid</span>, xp, [stage_up, stage_down])
+<span class="ansi-green-intense-fg ansi-bold">      2</span> riv_thick <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>interp(xmid, xp, [river_thickness_up, river_thickness_down])
+<span class="ansi-green-intense-fg ansi-bold">      3</span> riv_bot <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>interp(xmid, xp, [river_bot_up, river_bot_down])
+
+<span class="ansi-red-fg">NameError</span>: name &#39;xmid&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv_bot_elev</span> <span class="o">=</span> <span class="n">riv_bot</span> <span class="o">-</span> <span class="n">riv_thick</span>
+<span class="n">riv_layer</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">riv_bot_elev</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">botm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[42], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> riv_bot_elev <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">riv_bot</span> <span style="color: rgb(98,98,98)">-</span> riv_thick
+<span class="ansi-green-intense-fg ansi-bold">      2</span> riv_layer <span style="color: rgb(98,98,98)">=</span> [<span style="color: rgb(98,98,98)">0</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> riv_bot_elev[idx] <span style="color: rgb(98,98,98)">&gt;</span> botm[<span style="color: rgb(98,98,98)">0</span>, i, j] <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> <span style="color: rgb(98,98,98)">1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> idx, (i, j) <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">enumerate</span>(river_cells[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>])]
+
+<span class="ansi-red-fg">NameError</span>: name &#39;riv_bot&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv_bndname</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">riv_cond</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;upstream&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;|S10&quot;</span><span class="p">)</span>
+<span class="n">riv_bndname</span><span class="p">[</span><span class="n">xmid</span> <span class="o">&gt;</span> <span class="mf">5000.</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;downstream&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[43], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> riv_bndname <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>full(<span class="ansi-yellow-bg">riv_cond</span><span style="color: rgb(98,98,98)">.</span>shape, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">upstream</span><span style="color: rgb(175,0,0)">&#34;</span>, dtype<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">|S10</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> riv_bndname[xmid <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">5000.</span>] <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">downstream</span><span style="color: rgb(175,0,0)">&#34;</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;riv_cond&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_spd</span> <span class="o">=</span> <span class="p">[(</span><span class="n">riv_layer</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">riv_stage</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">riv_cond</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">riv_bot</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">riv_bndname</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">))</span>
+             <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">])]</span>
+<span class="n">river_spd</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">river_spd</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[44], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> river_spd <span style="color: rgb(98,98,98)">=</span> [(riv_layer[idx], i, j, riv_stage[idx], riv_cond[idx], riv_bot[idx], riv_bndname[idx]<span style="color: rgb(98,98,98)">.</span>decode(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">UTF-8</span><span style="color: rgb(175,0,0)">&#39;</span>))
+<span class="ansi-green-fg">----&gt; 2</span>              <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> idx, (i,j) <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">enumerate</span>(<span class="ansi-yellow-bg">river_cells</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cellids</span><span style="color: rgb(175,0,0)">&#34;</span>])]
+<span class="ansi-green-intense-fg ansi-bold">      3</span> river_spd[:<span style="color: rgb(98,98,98)">2</span>], river_spd[<span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">2</span>:]
+
+<span class="ansi-red-fg">NameError</span>: name &#39;river_cells&#39; is not defined
 </pre></div></div>
 </div>
 <p><em>Define river observations</em></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv_obs</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;riv_obs.csv&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">(</span><span class="s2">&quot;UPSTREAM&quot;</span><span class="p">,</span> <span class="s2">&quot;RIV&quot;</span><span class="p">,</span> <span class="s2">&quot;UPSTREAM&quot;</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">&quot;DOWNSTREAM&quot;</span><span class="p">,</span> <span class="s2">&quot;RIV&quot;</span><span class="p">,</span> <span class="s2">&quot;DOWNSTREAM&quot;</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;more_riv_obs.csv&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;RIV&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;gage2&quot;</span><span class="p">,</span> <span class="s2">&quot;RIV&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
     <span class="p">],</span>
 <span class="p">}</span>
 </pre></div>
@@ -919,7 +1337,7 @@
 <p><em>Define the constant head cells</em></p>
 <p>Assume the constant head cells are located in all three layers and have values equal to the downstream river stage (<code class="docutils literal notranslate"><span class="pre">stage_down</span></code>). Make sure the constant head stage is greater that the bottom of the layer.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chd_spd</span> <span class="o">=</span> <span class="p">[]</span>
@@ -932,13 +1350,12 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-([(1, 159, 21, 15.5), (2, 159, 21, 15.5)],
- [(1, 159, 59, 15.5), (2, 159, 59, 15.5)])
+([], [])
 </pre></div></div>
 </div>
 <p><em>Define recharge rates</em></p>
@@ -946,7 +1363,7 @@
 <li><p>The recharge rate is 0.16000000E-08 m/sec</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recharge_rate</span> <span class="o">=</span> <span class="mf">0.16000000e-08</span> <span class="o">*</span> <span class="mf">86400.0</span>
@@ -955,7 +1372,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -965,7 +1382,7 @@
 </div>
 </section>
 <section id="Build-the-model">
-<h2>Build the model<a class="headerlink" href="#Build-the-model" title="Link to this heading">¶</a></h2>
+<h1>Build the model<a class="headerlink" href="#Build-the-model" title="Link to this heading">¶</a></h1>
 <p>Build a steady-state model using the data that you have created. Packages to create:</p>
 <ul class="simple">
 <li><p>Simulation</p></li>
@@ -982,7 +1399,7 @@
 <li><p>OC (Save <code class="docutils literal notranslate"><span class="pre">HEAD</span> <span class="pre">ALL</span></code> and <code class="docutils literal notranslate"><span class="pre">BUDGET</span> <span class="pre">ALL</span></code>)</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span>
@@ -990,7 +1407,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="n">model_ws</span><span class="p">,</span> <span class="n">exe_name</span><span class="o">=</span><span class="s2">&quot;mf6&quot;</span><span class="p">)</span>
@@ -1002,7 +1419,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwf</span><span class="p">(</span>
@@ -1014,8 +1431,8 @@
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dis</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfdis</span><span class="p">(</span>
@@ -1055,11 +1472,39 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[51], line 9</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> dis <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfdis(
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     gwf,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     length_units<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">meters</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     nlay<span style="color: rgb(98,98,98)">=</span>nlay,
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     nrow<span style="color: rgb(98,98,98)">=</span>nrow,
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     ncol<span style="color: rgb(98,98,98)">=</span>ncol,
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     delr<span style="color: rgb(98,98,98)">=</span>delr,
+<span class="ansi-green-intense-fg ansi-bold">      8</span>     delc<span style="color: rgb(98,98,98)">=</span>delc,
+<span class="ansi-green-fg">----&gt; 9</span>     top<span style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">rtop</span>,
+<span class="ansi-green-intense-fg ansi-bold">     10</span>     botm<span style="color: rgb(98,98,98)">=</span>botm,
+<span class="ansi-green-intense-fg ansi-bold">     11</span>     idomain<span style="color: rgb(98,98,98)">=</span>idomain,
+<span class="ansi-green-intense-fg ansi-bold">     12</span> )
+<span class="ansi-green-intense-fg ansi-bold">     13</span> ic <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfic(gwf, strt<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">40.0</span>)
+<span class="ansi-green-intense-fg ansi-bold">     14</span> npf <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfnpf(
+<span class="ansi-green-intense-fg ansi-bold">     15</span>     gwf, save_specific_discharge<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, k<span style="color: rgb(98,98,98)">=</span>[rkaq, rkaq, rkaq], icelltype<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">1</span>
+<span class="ansi-green-intense-fg ansi-bold">     16</span> )
+
+<span class="ansi-red-fg">NameError</span>: name &#39;rtop&#39; is not defined
+</pre></div></div>
+</div>
 </section>
 <section id="Write-the-model-files">
-<h2>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading">¶</a></h2>
+<h1>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
@@ -1077,25 +1522,13 @@ writing simulation...
   writing solution package ims_-1...
   writing model project...
     writing model name file...
-    writing package dis...
-    writing package ic...
-    writing package npf...
-    writing package rcha_0...
-    writing package riv_0...
-INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;riv&#39;, &#39;dimensions&#39;) changed to 249 based on size of stress_period_data
-    writing package obs_0...
-    writing package wel_0...
-INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) changed to 6 based on size of stress_period_data
-    writing package chd_0...
-INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;chd&#39;, &#39;dimensions&#39;) changed to 102 based on size of stress_period_data
-    writing package oc...
 </pre></div></div>
 </div>
 </section>
 <section id="Run-the-model">
-<h2>Run the model<a class="headerlink" href="#Run-the-model" title="Link to this heading">¶</a></h2>
+<h1>Run the model<a class="headerlink" href="#Run-the-model" title="Link to this heading">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
@@ -1107,12 +1540,12 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;chd&#39;, &#39;dimensions&#39;) c
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mf6
+FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
                             VERSION 6.4.2 06/28/2023
 
-   MODFLOW 6 compiled Jun 28 2023 18:34:54 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled Jul 05 2023 20:29:14 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -1130,34 +1563,38 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:14:38
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 21:29:07
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
-    Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:14:39
- Elapsed run time:  1.007 Seconds
+ERROR REPORT:
 
- Normal termination of simulation.
+  1. Required block &#34;PACKAGES&#34; not found.  Found end of file instead.
+
+UNIT ERROR REPORT:
+
+  1. Error occurred while reading file
+     &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/
+     notebooks/part1_flopy/temp/structured/project.nam&#39;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(True, [])
+(False, [])
 </pre></div></div>
 </div>
 </section>
 <section id="Post-process-the-results">
-<h2>Post-process the results<a class="headerlink" href="#Post-process-the-results" title="Link to this heading">¶</a></h2>
+<h1>Post-process the results<a class="headerlink" href="#Post-process-the-results" title="Link to this heading">¶</a></h1>
 <p>Use <code class="docutils literal notranslate"><span class="pre">gwf.output.</span></code> method to get the observations.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myobs</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">riv</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">obs</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
@@ -1166,16 +1603,26 @@ and distribution information.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39;), (&#39;DOWNSTREAM&#39;, &#39;&lt;f8&#39;)])
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[54], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> myobs <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gwf</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">riv</span><span style="color: rgb(98,98,98)">.</span>output<span style="color: rgb(98,98,98)">.</span>obs()<span style="color: rgb(98,98,98)">.</span>get_data()
+<span class="ansi-green-intense-fg ansi-bold">      2</span> myobs<span style="color: rgb(98,98,98)">.</span>dtype
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfmodel.py:183</span>, in <span class="ansi-cyan-fg">MFModel.__getattr__</span><span class="ansi-blue-fg">(self, item)</span>
+<span class="ansi-green-intense-fg ansi-bold">    181</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> package <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-intense-fg ansi-bold">    182</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> package
+<span class="ansi-green-fg">--&gt; 183</span> <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">AttributeError</span>(item)
+
+<span class="ansi-red-fg">AttributeError</span>: riv
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myobs</span><span class="p">[</span><span class="s2">&quot;UPSTREAM&quot;</span><span class="p">],</span> <span class="n">myobs</span><span class="p">[</span><span class="s2">&quot;DOWNSTREAM&quot;</span><span class="p">]</span>
@@ -1183,26 +1630,43 @@ dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(array([-1298.31584]), array([-2308.12346]))
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[55], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">myobs</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">UPSTREAM</span><span style="color: rgb(175,0,0)">&#34;</span>], myobs[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">DOWNSTREAM</span><span style="color: rgb(175,0,0)">&#34;</span>]
+
+<span class="ansi-red-fg">NameError</span>: name &#39;myobs&#39; is not defined
 </pre></div></div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">gwf.output.</span></code> method to get the heads and specific discharge. Make a map and cross-sections of the data using <code class="docutils literal notranslate"><span class="pre">flopy.plot</span></code> methods. Plot specific discharge vectors on the map and cross-sections.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[56], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> head <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gwf</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">output</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">head</span>()<span style="color: rgb(98,98,98)">.</span>get_data()
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;MF6Output&#39; object has no attribute &#39;head&#39;
+</pre></div></div>
+</div>
 <p>fpth = “/Users/jdhughes/Documents/Training/python-for-hydrology/notebooks/part1_flopy/data_project/aquifer_top.asc” np.savetxt(fpth, head[0] + 2.)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span><span class="o">.</span><span class="n">get_unique_record_names</span><span class="p">()</span>
@@ -1210,21 +1674,20 @@ dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[b&#39;    FLOW-JA-FACE&#39;,
- b&#39;      DATA-SPDIS&#39;,
- b&#39;             WEL&#39;,
- b&#39;             RIV&#39;,
- b&#39;            RCHA&#39;,
- b&#39;             CHD&#39;]
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[57], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">gwf</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">output</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">budget</span>()<span style="color: rgb(98,98,98)">.</span>get_unique_record_names()
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;MF6Output&#39; object has no attribute &#39;budget&#39;
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spdis</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;DATA-SPDIS&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -1234,8 +1697,24 @@ dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[58], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> spdis <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gwf</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">output</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">budget</span>()<span style="color: rgb(98,98,98)">.</span>get_data(text<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">DATA-SPDIS</span><span style="color: rgb(175,0,0)">&#34;</span>)[<span style="color: rgb(98,98,98)">0</span>]
+<span class="ansi-green-intense-fg ansi-bold">      2</span> qx, qy, qz <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>utils<span style="color: rgb(98,98,98)">.</span>postprocessing<span style="color: rgb(98,98,98)">.</span>get_specific_discharge(
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     spdis, gwf, head<span style="color: rgb(98,98,98)">=</span>head
+<span class="ansi-green-intense-fg ansi-bold">      4</span> )
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;MF6Output&#39; object has no attribute &#39;budget&#39;
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
@@ -1275,33 +1754,34 @@ dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[59], line 9</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> fig, ax <span style="color: rgb(98,98,98)">=</span> plt<span style="color: rgb(98,98,98)">.</span>subplots(
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     ncols<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">1</span>,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     nrows<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">1</span>,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     subplot_kw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(0,135,0)">dict</span>(aspect<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">equal</span><span style="color: rgb(175,0,0)">&#34;</span>),
+<span class="ansi-green-intense-fg ansi-bold">      7</span> )
+<span class="ansi-green-intense-fg ansi-bold">      8</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(model<span style="color: rgb(98,98,98)">=</span>gwf, ax<span style="color: rgb(98,98,98)">=</span>ax, layer<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0</span>)
+<span class="ansi-green-fg">----&gt; 9</span> cb <span style="color: rgb(98,98,98)">=</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(<span class="ansi-yellow-bg">head</span>, masked_values<span style="color: rgb(98,98,98)">=</span>[<span style="color: rgb(98,98,98)">1e30</span>], vmin<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">10</span>, vmax<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">30</span>)
+<span class="ansi-green-intense-fg ansi-bold">     10</span> river<span style="color: rgb(98,98,98)">.</span>plot(color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cyan</span><span style="color: rgb(175,0,0)">&#34;</span>, ax<span style="color: rgb(98,98,98)">=</span>mm<span style="color: rgb(98,98,98)">.</span>ax)
+<span class="ansi-green-intense-fg ansi-bold">     11</span> mm<span style="color: rgb(98,98,98)">.</span>plot_grid(lw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">0.5</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;head&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_71_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_71_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_84_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_84_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
@@ -1340,29 +1820,35 @@ dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[60], line 10</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> fig, ax <span style="color: rgb(98,98,98)">=</span> plt<span style="color: rgb(98,98,98)">.</span>subplots(
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     ncols<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">1</span>,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     nrows<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">1</span>,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     subplot_kw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(0,135,0)">dict</span>(aspect<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">equal</span><span style="color: rgb(175,0,0)">&#34;</span>),
+<span class="ansi-green-intense-fg ansi-bold">      7</span> )
+<span class="ansi-green-intense-fg ansi-bold">      9</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(model<span style="color: rgb(98,98,98)">=</span>gwf, ax<span style="color: rgb(98,98,98)">=</span>ax, layer<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0</span>)
+<span class="ansi-green-fg">---&gt; 10</span> cb <span style="color: rgb(98,98,98)">=</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(<span class="ansi-yellow-bg">gwf</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">dis</span><span style="color: rgb(98,98,98)">.</span>top<span style="color: rgb(98,98,98)">.</span>array, masked_values<span style="color: rgb(98,98,98)">=</span>[<span style="color: rgb(98,98,98)">1e30</span>], vmin<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">15</span>, vmax<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">30</span>)
+<span class="ansi-green-intense-fg ansi-bold">     11</span> river<span style="color: rgb(98,98,98)">.</span>plot(color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cyan</span><span style="color: rgb(175,0,0)">&#34;</span>, ax<span style="color: rgb(98,98,98)">=</span>mm<span style="color: rgb(98,98,98)">.</span>ax)
+<span class="ansi-green-intense-fg ansi-bold">     12</span> mm<span style="color: rgb(98,98,98)">.</span>plot_grid(lw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">0.5</span><span style="color: rgb(175,0,0)">&#34;</span>, zorder<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">11</span>)
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfmodel.py:183</span>, in <span class="ansi-cyan-fg">MFModel.__getattr__</span><span class="ansi-blue-fg">(self, item)</span>
+<span class="ansi-green-intense-fg ansi-bold">    181</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> package <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-intense-fg ansi-bold">    182</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> package
+<span class="ansi-green-fg">--&gt; 183</span> <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">AttributeError</span>(item)
+
+<span class="ansi-red-fg">AttributeError</span>: dis
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_72_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_72_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_85_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_85_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1373,7 +1859,6 @@ dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39
 </pre></div>
 </div>
 </div>
-</section>
 </section>
 
 
