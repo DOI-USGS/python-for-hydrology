@@ -10,9 +10,11 @@ skip_notebooks = [
     '10_Rasterio.ipynb',
     '11_xarray_mt_rainier_precip.ipynb',
     '09_Geopandas_ABQ.ipynb',
-    '03_Loading_and_visualizing_models.ipynb',
+    #'03_Loading_and_visualizing_models-solutions.ipynb',
+    '05-unstructured-grids.ipynb',
     '07-stream_capture_voronoi.ipynb',
     '08_Modflow-setup-demo.ipynb',
+    '09-gwt-voronoi-demo.ipynb',
     '10_modpath-demo.ipynb'
     ]
 
