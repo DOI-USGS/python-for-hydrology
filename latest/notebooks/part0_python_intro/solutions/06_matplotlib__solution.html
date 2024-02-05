@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>06: matplotlib — 2D and 3D plotting &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="06a: Using Matplotlib to Create Animation" href="../06b_matplotlib_animation.html" />
+    <link rel="prev" title="05: NumPy exercise solutions" href="05_numpy__solutions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../part0.html">     Part 0: Introduction to Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_functions_script__solution.html">01: Functions and scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03_useful-std-library-modules.html">03: Useful standard library modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html">03: Solutions to Useful standard library modules exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_files_and_strings.html">04: File input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05_numpy.html">05: NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_numpy__solutions.html">05: NumPy exercise solutions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#The-matplotlib-object-oriented-API">The <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> object-oriented API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Inset-figures">Inset figures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Figures-with-subplots">Figures with subplots</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Legends,-labels-and-titles">Legends, labels and titles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Setting-colors,-linewidths,-linetypes">Setting colors, linewidths, linetypes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Colors">Colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Line-and-marker-styles">Line and marker styles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Simple-plots-of-NWIS-data">Simple plots of NWIS data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#More-figure-customization">More figure customization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Adjusting-figure-layout">Adjusting figure layout</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Figure-size,-aspect-ratio-and-DPI">Figure size, aspect ratio and DPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Saving-figures">Saving figures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#What-formats-are-available-and-which-ones-should-be-used-for-best-quality?">What formats are available and which ones should be used for best quality?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Formatting-text:-\LaTeX,-fontsize,-font-family">Formatting text: <span class="math notranslate nohighlight">\(\LaTeX\)</span>, fontsize, font family</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Control-over-axis-appearance">Control over axis appearance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-range">Plot range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Logarithmic-scale">Logarithmic scale</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Placement-of-ticks-and-custom-tick-labels">Placement of ticks and custom tick labels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Axis-grid">Axis grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Twin-axes">Twin axes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Other-2D-plot-styles">Other 2D plot styles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Histograms">Histograms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Text-annotation">Text annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Colormap-and-contour-figures">Colormap and contour figures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pcolor">pcolor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imshow">imshow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#contour">contour</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Miscellaneous-topics">Miscellaneous topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Using-FloPy-styles-to-make-figures-for-USGS-publications">Using FloPy styles to make figures for USGS publications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-animations-with-matplotlib">Creating animations with matplotlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Using-PdfPages-to-create-multi-page-PDFs">Using PdfPages to create multi-page PDFs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../06b_matplotlib_animation.html">06a: Using Matplotlib to Create Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07a_Theis-exercise-solution.html">07: Using functions to solve an equation– The Theis example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07b_VSCode.html">07b: VSCode Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../part0.html">Part 0: General Python Exercises</a></li>
+      <li class="breadcrumb-item active">06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/notebooks/part0_python_intro/solutions/06_matplotlib__solution.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="06:-matplotlib-—-2D-and-3D-plotting">
+<h1>06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting<a class="headerlink" href="#06:-matplotlib-—-2D-and-3D-plotting" title="Link to this heading">¶</a></h1>
+<p>This IPython Notebook is based on a notebook developed by J.R. Johansson (<a class="reference external" href="mailto:jrjohansson&#37;&#52;&#48;gmail&#46;com">jrjohansson<span>&#64;</span>gmail<span>&#46;</span>com</a> <span class="math notranslate nohighlight">\(-\)</span> <a class="reference external" href="http://jrjohansson.github.io">http://jrjohansson.github.io</a>)</p>
+<p>The latest version of this <a class="reference external" href="http://ipython.org/notebook.html">jupyter notebook</a> lecture is available at <a class="reference external" href="https://github.com/jrjohansson/scientific-python-lectures/blob/master/Lecture-4-Matplotlib.ipynb">https://github.com/jrjohansson/scientific-python-lectures/blob/master/Lecture-4-Matplotlib.ipynb</a>.</p>
+<p>The other notebooks in this lecture series are indexed at <a class="reference external" href="https://github.com/jrjohansson/scientific-python-lectures">https://github.com/jrjohansson/scientific-python-lectures</a>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
+
+<span class="n">output_path</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/matplotlib&quot;</span><span class="p">)</span>
+<span class="n">output_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is an excellent 2D and 3D graphics library for generating scientific figures. Some of the many advantages of this library include:</p>
+<ul class="simple">
+<li><p>Easy to get started</p></li>
+<li><p>Support for <span class="math notranslate nohighlight">\(\LaTeX\)</span> formatted labels and texts</p></li>
+<li><p>Great control of every element in a figure, including figure size and DPI.</p></li>
+<li><p>High-quality output in many formats, including PNG, PDF, SVG, EPS.</p></li>
+<li><p>GUI for interactively exploring figures <em>and</em> support for headless generation of figure files (useful for batch jobs).</p></li>
+</ul>
+<p>One of the of the key features of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> that that makes <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> highly suitable for generating figures for scientific publications is that all aspects of the figure can be controlled <em>programmatically</em>. This is important for reproducibility and convenient when one needs to regenerate the figure with updated data or change its appearance.</p>
+<p>Import the <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> module under the name <code class="docutils literal notranslate"><span class="pre">plt</span></code> (a better approach to using <code class="docutils literal notranslate"><span class="pre">python</span></code> packages since the <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> namespace is explicitly defined):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<p>Find the Errorbar subsampling example in the matplotlib gallery. Copy the code in to the empty code block below and execute the code.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>Congratulations you have created your first <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure. Let’s go further down the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> rabbit hole.</p>
+</section>
+<section id="The-matplotlib-object-oriented-API">
+<h2>The <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> object-oriented API<a class="headerlink" href="#The-matplotlib-object-oriented-API" title="Link to this heading">¶</a></h2>
+<p>The main idea with object-oriented programming is to have objects that one can apply functions and actions on, and no object or program states should be global (such as the MATLAB-like API). The real advantage of this approach becomes apparent when more than one figure is created, or when a figure contains more than one subplot.</p>
+<p>When using the object-oriented API a reference to the newly created figure instance is stored in the <code class="docutils literal notranslate"><span class="pre">fig</span></code> variable, and from it a new axis instance <code class="docutils literal notranslate"><span class="pre">axes</span></code> is created using the <code class="docutils literal notranslate"><span class="pre">add_axes</span></code> method in the <code class="docutils literal notranslate"><span class="pre">Figure</span></code> class instance <code class="docutils literal notranslate"><span class="pre">fig</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="n">axes</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span>
+    <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+<span class="p">)</span>  <span class="c1"># left, bottom, width, height (range 0 to 1)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_9_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_9_0.png" />
+</div>
+</div>
+<section id="Inset-figures">
+<h3>Inset figures<a class="headerlink" href="#Inset-figures" title="Link to this heading">¶</a></h3>
+<p>Although a little bit more code is involved, the advantage is that you now have full control of where the plot axes are placed, and you can easily add more than one axis to the figure:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="n">axes1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>  <span class="c1"># main axes</span>
+<span class="n">axes2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>  <span class="c1"># inset axes</span>
+
+<span class="c1"># main figure</span>
+<span class="n">axes1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">axes1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">axes1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">axes1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+
+<span class="c1"># insert</span>
+<span class="n">axes2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="n">axes2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">axes2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">axes2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;insert title&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_11_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_11_0.png" />
+</div>
+</div>
+<p>Copy the code in the previous block to the empty code block below. Then we will modify the location of the inset. The coordinates of the plots are in page coordinates <code class="docutils literal notranslate"><span class="pre">(fig.add_axes([lowerleftx,</span> <span class="pre">lowerlefty,</span> <span class="pre">xlen,</span> <span class="pre">ylen]))</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Figures-with-subplots">
+<h3>Figures with subplots<a class="headerlink" href="#Figures-with-subplots" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_16_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_16_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Legends,-labels-and-titles">
+<h2>Legends, labels and titles<a class="headerlink" href="#Legends,-labels-and-titles" title="Link to this heading">¶</a></h2>
+<p>Now that the basics of how to create a figure canvas and add axes instances to the canvas have been covered, methods for decorating a figure with titles, axis labels, and legends will be covered.</p>
+<p><strong>Figure titles</strong></p>
+<p>A title can be added to each axis instance in a figure. To set the title, use the <code class="docutils literal notranslate"><span class="pre">set_title</span></code> method in the axes instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Axis labels</strong></p>
+<p>Similarly, the labels of the X and Y axes can be set with the methods <code class="docutils literal notranslate"><span class="pre">set_xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">set_ylabel</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Legends</strong></p>
+<p>Legends for curves in a figure can be added in two ways. One method is to use the <code class="docutils literal notranslate"><span class="pre">legend</span></code> method of the axis object and pass a list/tuple of legend texts for the previously defined curves:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;curve1&#39;</span><span class="p">,</span> <span class="s1">&#39;curve2&#39;</span><span class="p">,</span> <span class="s1">&#39;curve3&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The method described above follows the MATLAB API. It is somewhat prone to errors and unflexible if curves are added to or removed from the figure (resulting in a wrongly labelled curve).</p>
+<p>A better method is to use the <code class="docutils literal notranslate"><span class="pre">label=&quot;label</span> <span class="pre">text&quot;</span></code> keyword argument when plots or other objects are added to the figure, and then using the <code class="docutils literal notranslate"><span class="pre">legend</span></code> method without arguments to add the legend to the figure:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span>
+    <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+<span class="p">)</span>  <span class="c1"># left, bottom, width, height (range 0 to 1)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;curve1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;curve2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_18_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_18_0.png" />
+</div>
+</div>
+<p>The advantage with this method is that if curves are added or removed from the figure, the legend is automatically updated accordingly.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">legend</span></code> function takes an optional keywork argument <code class="docutils literal notranslate"><span class="pre">loc</span></code> that can be used to specify where in the figure the legend is to be drawn. The allowed values of <code class="docutils literal notranslate"><span class="pre">loc</span></code> are numerical codes for the various places the legend can be drawn. See <a class="reference external" href="http://">http://</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.org/users/legend_guide.html#legend-location for details. Some of the most common <code class="docutils literal notranslate"><span class="pre">loc</span></code> values are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># let `matplotlib` decide the optimal location</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># upper right corner</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># upper left corner</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># lower left corner</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># lower right corner</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Alternatively, location keywords can also be used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="Setting-colors,-linewidths,-linetypes">
+<h2>Setting colors, linewidths, linetypes<a class="headerlink" href="#Setting-colors,-linewidths,-linetypes" title="Link to this heading">¶</a></h2>
+<section id="Colors">
+<h3>Colors<a class="headerlink" href="#Colors" title="Link to this heading">¶</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, the colors of lines and other graphical elements can be defined in a number of ways. First of all, MATLAB-like syntax can be used where <code class="docutils literal notranslate"><span class="pre">'b'</span></code> means blue, <code class="docutils literal notranslate"><span class="pre">'g'</span></code> means green, etc. The MATLAB API for selecting line styles are also supported: where, for example, ‘b.-’ means a blue line with dots:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MATLAB style line color and style</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># blue line with dots</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;b.-&quot;</span><span class="p">)</span>
+<span class="c1"># green dashed line</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;g--&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_20_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_20_0.png" />
+</div>
+</div>
+<p>Colors can also be defined by their names or RGB hex codes and optionally provide an alpha value using the <code class="docutils literal notranslate"><span class="pre">color</span></code> and <code class="docutils literal notranslate"><span class="pre">alpha</span></code> keyword arguments:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># half-transparant red</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># RGB hex code for a bluish color</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1155dd&quot;</span><span class="p">)</span>
+<span class="c1"># RGB hex code for a greenish color</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#15cc55&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_22_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_22_0.png" />
+</div>
+</div>
+</section>
+<section id="Line-and-marker-styles">
+<h3>Line and marker styles<a class="headerlink" href="#Line-and-marker-styles" title="Link to this heading">¶</a></h3>
+<p>The line width can be changed using the <code class="docutils literal notranslate"><span class="pre">linewidth</span></code> or <code class="docutils literal notranslate"><span class="pre">lw</span></code> keyword argument. The line style can be selected using the <code class="docutils literal notranslate"><span class="pre">linestyle</span></code> or <code class="docutils literal notranslate"><span class="pre">ls</span></code> keyword arguments:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.00</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.00</span><span class="p">)</span>
+
+<span class="c1"># possible linestype options ‘-‘, ‘–’, ‘-.’, ‘:’, ‘steps’</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+<span class="c1"># custom dash</span>
+<span class="p">(</span><span class="n">line</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.50</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">set_dashes</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>  <span class="c1"># format: line length, space length, ...</span>
+
+<span class="c1"># possible marker symbols: marker = &#39;+&#39;, &#39;o&#39;, &#39;*&#39;, &#39;s&#39;, &#39;,&#39;, &#39;.&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, ...</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+
+<span class="c1"># marker size and color</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">13</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span>
+    <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span>
+    <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_24_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_24_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Simple-plots-of-NWIS-data">
+<h2>Simple plots of NWIS data<a class="headerlink" href="#Simple-plots-of-NWIS-data" title="Link to this heading">¶</a></h2>
+<p>We will use a the USGS <code class="docutils literal notranslate"><span class="pre">dataretrival</span></code> package to retrieve NWIS data as a pandas dataframe. We will talk more about pandas later</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dataretrieval.nwis</span> <span class="k">as</span> <span class="nn">nwis</span>
+</pre></div>
+</div>
+</div>
+<p>Below we retrieve data for two sites and make a simple <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plot.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site</span> <span class="o">=</span> <span class="s2">&quot;07010000&quot;</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2015-10-01&quot;</span>
+<span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2016-09-30&quot;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_record</span><span class="p">(</span>
+    <span class="n">sites</span><span class="o">=</span><span class="n">site</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;iv&quot;</span><span class="p">,</span>
+    <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+    <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>00060</th>
+      <th>00060_cd</th>
+      <th>site_no</th>
+      <th>00065</th>
+      <th>00065_cd</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015-10-01 05:00:00+00:00</th>
+      <td>167000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>8.95</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2015-10-01 06:00:00+00:00</th>
+      <td>166000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>8.94</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2015-10-01 07:00:00+00:00</th>
+      <td>166000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>8.89</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2015-10-01 08:00:00+00:00</th>
+      <td>166000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>8.86</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2015-10-01 09:00:00+00:00</th>
+      <td>165000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>8.79</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2016-10-01 00:00:00+00:00</th>
+      <td>333000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>20.57</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2016-10-01 01:00:00+00:00</th>
+      <td>333000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>20.56</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2016-10-01 02:00:00+00:00</th>
+      <td>333000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>20.51</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2016-10-01 03:00:00+00:00</th>
+      <td>331000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>20.44</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2016-10-01 04:00:00+00:00</th>
+      <td>331000.0</td>
+      <td>A</td>
+      <td>07010000</td>
+      <td>20.42</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+<p>8783 rows × 5 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;00060&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+datetime
+2015-10-01 05:00:00+00:00    167000.0
+2015-10-01 06:00:00+00:00    166000.0
+2015-10-01 07:00:00+00:00    166000.0
+2015-10-01 08:00:00+00:00    166000.0
+2015-10-01 09:00:00+00:00    165000.0
+                               ...
+2016-10-01 00:00:00+00:00    333000.0
+2016-10-01 01:00:00+00:00    333000.0
+2016-10-01 02:00:00+00:00    333000.0
+2016-10-01 03:00:00+00:00    331000.0
+2016-10-01 04:00:00+00:00    331000.0
+Name: 00060, Length: 8783, dtype: float64
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;00060&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Axes: xlabel=&#39;datetime&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_31_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_31_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="More-figure-customization">
+<h2>More figure customization<a class="headerlink" href="#More-figure-customization" title="Link to this heading">¶</a></h2>
+<section id="Adjusting-figure-layout">
+<h3>Adjusting figure layout<a class="headerlink" href="#Adjusting-figure-layout" title="Link to this heading">¶</a></h3>
+<p>That was easy, but it isn’t so pretty with overlapping figure axes and labels, right?</p>
+<p>Overlapping figures can be dealt with using the <code class="docutils literal notranslate"><span class="pre">fig.tight_layout</span></code> method, which automatically adjusts the positions of the axes on the figure canvas so that there is no overlapping content:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_37_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_37_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Figure-size,-aspect-ratio-and-DPI">
+<h2>Figure size, aspect ratio and DPI<a class="headerlink" href="#Figure-size,-aspect-ratio-and-DPI" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> allows the aspect ratio, DPI and figure size to be specified when the <code class="docutils literal notranslate"><span class="pre">Figure</span></code> object is created, using the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> and <code class="docutils literal notranslate"><span class="pre">dpi</span></code> keyword arguments. <code class="docutils literal notranslate"><span class="pre">figsize</span></code> is a tuple of the width and height of the figure in inches, and <code class="docutils literal notranslate"><span class="pre">dpi</span></code> is the dots-per-inch (pixel per inch). To create an 800x400 pixel, 100 dots-per-inch figure, we can do:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_41_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_41_0.png" />
+</div>
+</div>
+</section>
+<section id="Saving-figures">
+<h2>Saving figures<a class="headerlink" href="#Saving-figures" title="Link to this heading">¶</a></h2>
+<p>To save a figure to a file, the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> method in the <code class="docutils literal notranslate"><span class="pre">Figure</span></code> class is used:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_path</span> <span class="o">/</span> <span class="s2">&quot;filename.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The DPI can also optionally be specified and different different output formats selected:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_path</span> <span class="o">/</span> <span class="s2">&quot;filename.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="What-formats-are-available-and-which-ones-should-be-used-for-best-quality?">
+<h3>What formats are available and which ones should be used for best quality?<a class="headerlink" href="#What-formats-are-available-and-which-ones-should-be-used-for-best-quality?" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> can generate high-quality output in a number formats, including PNG, JPG, EPS, SVG, and PDF. For scientific papers, use PDF whenever possible. (<span class="math notranslate nohighlight">\(\LaTeX\)</span> documents compiled with <code class="docutils literal notranslate"><span class="pre">pdflatex</span></code> can include PDFs using the <code class="docutils literal notranslate"><span class="pre">includegraphics</span></code> command <span class="math notranslate nohighlight">\(-\)</span> PDFs can also be edited using Adobe Illustrator and other similar graphics programs).</p>
+<p>The figure type (pdf, png, <em>etc.</em>) can be changed simply by changing the file extension.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_path</span> <span class="o">/</span> <span class="s2">&quot;filename.svg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Formatting-text:-\LaTeX,-fontsize,-font-family">
+<h2>Formatting text: <span class="math notranslate nohighlight">\(\LaTeX\)</span>, fontsize, font family<a class="headerlink" href="#Formatting-text:-\LaTeX,-fontsize,-font-family" title="Link to this heading">¶</a></h2>
+<p>The figure above is functional, but it does not (yet) satisfy the criteria for a figure used in a publication. First and foremost, it may be neccesary to use <span class="math notranslate nohighlight">\(\LaTeX\)</span> formatted text, and second, it may be necessary to adjust the font size to appear right in a publication.</p>
+<p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> has great support for <span class="math notranslate nohighlight">\(\LaTeX\)</span>. All that is required to incorporate <span class="math notranslate nohighlight">\(\LaTeX\)</span> text is to encapsulate any text (legend, title, label, etc.) in dollar signs. For example, <code class="docutils literal notranslate"><span class="pre">'$y=x^3$'</span></code>.</p>
+<p>But here we can run into a slightly subtle problem with <span class="math notranslate nohighlight">\(\LaTeX\)</span> code and Python text strings. In <span class="math notranslate nohighlight">\(\LaTeX\)</span>, the backslash is frequently used in commands, for example <code class="docutils literal notranslate"><span class="pre">\alpha</span></code> to produce the symbol <span class="math notranslate nohighlight">\(\alpha\)</span>. But the backslash already has a meaning in Python strings (the escape code character). To avoid Python messing up our latex code, we need to use “raw” text strings. Raw text strings are prepended with an ‘<code class="docutils literal notranslate"><span class="pre">r</span></code>’, like <code class="docutils literal notranslate"><span class="pre">r'\alpha'</span></code> instead of <code class="docutils literal notranslate"><span class="pre">'\alpha'</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$y = \alpha^2$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$y = \alpha^3$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\alpha$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_49_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_49_0.png" />
+</div>
+</div>
+</section>
+<section id="Control-over-axis-appearance">
+<h2>Control over axis appearance<a class="headerlink" href="#Control-over-axis-appearance" title="Link to this heading">¶</a></h2>
+<p>The appearance of the axes is an important aspect of a figure that often must be modified to make publication quality graphics. It also may be necessary to control where the ticks and labels are placed, modify the font size and possibly the labels used on the axes. Methods for controlling axis properties and appearance in a <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure are explored in this section.</p>
+<section id="Plot-range">
+<h3>Plot range<a class="headerlink" href="#Plot-range" title="Link to this heading">¶</a></h3>
+<p>Axes ranges can be configured using the <code class="docutils literal notranslate"><span class="pre">set_ylim</span></code> and <code class="docutils literal notranslate"><span class="pre">set_xlim</span></code> methods in the axis object, or <code class="docutils literal notranslate"><span class="pre">axis('tight')</span></code> for automatrically getting “tightly fitted” axes ranges:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;default axes ranges&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;tight axes&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;custom axes range&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_51_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_51_0.png" />
+</div>
+</div>
+</section>
+<section id="Logarithmic-scale">
+<h3>Logarithmic scale<a class="headerlink" href="#Logarithmic-scale" title="Link to this heading">¶</a></h3>
+<p>It is also possible to set a logarithmic scale for one or both axes. This functionality is in fact only one application of a more general transformation system in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. Each of the axes’ scales are set seperately using <code class="docutils literal notranslate"><span class="pre">set_xscale</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yscale</span></code> methods which accept one parameter (with the value “log” in this case):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Normal scale&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Logarithmic scale (y)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_53_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_53_0.png" />
+</div>
+</div>
+<p>Logarithmic scales can also be specified using <code class="docutils literal notranslate"><span class="pre">semilogx()</span></code>, <code class="docutils literal notranslate"><span class="pre">semilogy()</span></code>, or <code class="docutils literal notranslate"><span class="pre">loglog()</span></code>. What are the differences in the figures plotted using <code class="docutils literal notranslate"><span class="pre">.set_yscale(&quot;log&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">.semilogy()</span></code>?</p>
+</section>
+<section id="Placement-of-ticks-and-custom-tick-labels">
+<h3>Placement of ticks and custom tick labels<a class="headerlink" href="#Placement-of-ticks-and-custom-tick-labels" title="Link to this heading">¶</a></h3>
+<p>The axis ticks can be explicitly set using with <code class="docutils literal notranslate"><span class="pre">set_xticks</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yticks</span></code>, which both take a list of values for where on the axis the ticks are to be placed. The <code class="docutils literal notranslate"><span class="pre">set_xticklabels</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yticklabels</span></code> methods can be used to provide a list of custom text labels for each tick location:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span>
+    <span class="p">[</span><span class="sa">r</span><span class="s2">&quot;$\alpha$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\beta$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\gamma$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\delta$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\epsilon$&quot;</span><span class="p">],</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">yticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">yticks</span><span class="p">)</span>
+<span class="c1"># use LaTeX formatted labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s2">&quot;$</span><span class="si">%.1f</span><span class="s2">$&quot;</span> <span class="o">%</span> <span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">yticks</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_55_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_55_0.png" />
+</div>
+</div>
+<p>There are a number of more advanced methods for controlling major and minor tick placement in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figures, such as automatic placement according to different policies. See <a class="reference external" href="http://">http://</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.org/api/ticker_api.html for details.</p>
+</section>
+<section id="Axis-grid">
+<h3>Axis grid<a class="headerlink" href="#Axis-grid" title="Link to this heading">¶</a></h3>
+<p>With the <code class="docutils literal notranslate"><span class="pre">grid</span></code> method in the axis object, grid lines can be turned on and off. The appearance of the grid lines can also be customized using the same keyword arguments as the <code class="docutils literal notranslate"><span class="pre">plot</span></code> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># default grid appearance</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># custom grid appearance</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_57_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_57_0.png" />
+</div>
+</div>
+</section>
+<section id="Twin-axes">
+<h3>Twin axes<a class="headerlink" href="#Twin-axes" title="Link to this heading">¶</a></h3>
+<p>Sometimes it is useful to have dual x or y axes in a figure; for example, when plotting curves with different units together. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> supports this with the <code class="docutils literal notranslate"><span class="pre">twinx</span></code> and <code class="docutils literal notranslate"><span class="pre">twiny</span></code> functions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;area $(m^2)$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">():</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;volume $(m^3)$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">():</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_59_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_59_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Other-2D-plot-styles">
+<h2>Other 2D plot styles<a class="headerlink" href="#Other-2D-plot-styles" title="Link to this heading">¶</a></h2>
+<p>In addition to the regular <code class="docutils literal notranslate"><span class="pre">plot</span></code> method, there are a number of other functions for generating different kind of plots. See the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plot gallery for a complete list of available plot types: <a class="reference external" href="http://">http://</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.org/gallery.html. Some of the more useful ones are show below:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">xx</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xx</span><span class="p">)))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;scatter&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;step&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;fill_between&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_61_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_61_0.png" />
+</div>
+</div>
+<section id="Histograms">
+<h3>Histograms<a class="headerlink" href="#Histograms" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A histogram</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Default histogram&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Cumulative detailed histogram&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">n</span><span class="p">)));</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_63_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_63_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Text-annotation">
+<h2>Text annotation<a class="headerlink" href="#Text-annotation" title="Link to this heading">¶</a></h2>
+<p>Annotating text in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figures can be done using the <code class="docutils literal notranslate"><span class="pre">text</span></code> function. It supports LaTeX formatting just like axis label texts and titles:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">xx</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">xx</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\alpha y=x^2$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$y=x^3$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_65_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_65_0.png" />
+</div>
+</div>
+</section>
+<section id="Colormap-and-contour-figures">
+<h2>Colormap and contour figures<a class="headerlink" href="#Colormap-and-contour-figures" title="Link to this heading">¶</a></h2>
+<p>Colormaps and contour figures are useful for plotting functions of two variables. A colormap will be used to encode one dimension of the data in most of these functions. There are a number of predefined colormaps. It is relatively straightforward to define custom colormaps. For a list of pre-defined colormaps, see: <a class="reference external" href="http://www.scipy.org/Cookbook/">http://www.scipy.org/Cookbook/</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>/Show_colormaps</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">phi_ext</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">0.5</span>
+
+
+<span class="k">def</span> <span class="nf">flux_qubit_potential</span><span class="p">(</span><span class="n">phi_m</span><span class="p">,</span> <span class="n">phi_p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="mi">2</span>
+        <span class="o">+</span> <span class="n">alpha</span>
+        <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi_m</span><span class="p">)</span>
+        <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi_ext</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">phi_p</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">phi_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">phi_p</span><span class="p">,</span> <span class="n">phi_m</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">flux_qubit_potential</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<section id="pcolor">
+<h3>pcolor<a class="headerlink" href="#pcolor" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span>
+    <span class="n">X</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span>
+    <span class="n">Y</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span>
+    <span class="n">Z</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu</span><span class="p">,</span>
+    <span class="n">vmin</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+    <span class="n">vmax</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_70_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_70_0.png" />
+</div>
+</div>
+</section>
+<section id="imshow">
+<h3>imshow<a class="headerlink" href="#imshow" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">Z</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu</span><span class="p">,</span>
+    <span class="n">vmin</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+    <span class="n">vmax</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">im</span><span class="o">.</span><span class="n">set_interpolation</span><span class="p">(</span><span class="s2">&quot;bilinear&quot;</span><span class="p">)</span>
+
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_72_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_72_0.png" />
+</div>
+</div>
+</section>
+<section id="contour">
+<h3>contour<a class="headerlink" href="#contour" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">cnt</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span>
+    <span class="n">Z</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu</span><span class="p">,</span>
+    <span class="n">vmin</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+    <span class="n">vmax</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_74_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_74_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Miscellaneous-topics">
+<h2>Miscellaneous topics<a class="headerlink" href="#Miscellaneous-topics" title="Link to this heading">¶</a></h2>
+<section id="Using-FloPy-styles-to-make-figures-for-USGS-publications">
+<h3>Using FloPy styles to make figures for USGS publications<a class="headerlink" href="#Using-FloPy-styles-to-make-figures-for-USGS-publications" title="Link to this heading">¶</a></h3>
+<p>FloPy’s plotting routines can be used with built in styles from the <code class="docutils literal notranslate"><span class="pre">styles</span></code> module. The <code class="docutils literal notranslate"><span class="pre">styles</span></code> module takes advantage of matplotlib’s temporary styling routines by reading in pre-built style sheets. Two different types of styles have been built for flopy: <code class="docutils literal notranslate"><span class="pre">USGSMap()</span></code> and <code class="docutils literal notranslate"><span class="pre">USGSPlot()</span></code> styles which can be used to create report quality figures. The styles module also contains a number of methods that can be used for adding axis labels, text, annotations, headings, removing tick lines,
+and updating the current font.</p>
+<p>Addition information on use of flopy styles can be found in <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb</a> and <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">flopy.plot</span> <span class="kn">import</span> <span class="n">styles</span>
+</pre></div>
+</div>
+</div>
+<section id="Make-a-timeseries">
+<h4>Make a timeseries<a class="headerlink" href="#Make-a-timeseries" title="Link to this heading">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># styles.set_font_type(&quot;sans-serif&quot;, &quot;Courier New&quot;)</span>
+<span class="k">with</span> <span class="n">styles</span><span class="o">.</span><span class="n">USGSPlot</span><span class="p">():</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+    <span class="n">styles</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_79_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_79_0.png" />
+</div>
+</div>
+<p>Change the font used in the timeseries plot above. The fonts available to matplotlib can be found using</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import matplotlib.font_manager
+matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
+</pre></div>
+</div>
+<p>A possible option is family <code class="docutils literal notranslate"><span class="pre">sans-serif</span></code> fontname <code class="docutils literal notranslate"><span class="pre">Arial</span> <span class="pre">Narrow</span></code>.</p>
+</section>
+<section id="Make-a-map">
+<h4>Make a map<a class="headerlink" href="#Make-a-map" title="Link to this heading">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">styles</span><span class="o">.</span><span class="n">USGSMap</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_82_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_82_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Creating-animations-with-matplotlib">
+<h3>Creating animations with matplotlib<a class="headerlink" href="#Creating-animations-with-matplotlib" title="Link to this heading">¶</a></h3>
+<p>We will animate the sine function over the range of 0 to 2<span class="math notranslate nohighlight">\(\pi\)</span>. The first step is to make a numpy array from 0 to 2 using <code class="docutils literal notranslate"><span class="pre">arange</span></code> to define the variable <code class="docutils literal notranslate"><span class="pre">x</span></code>. Start with a interval of <code class="docutils literal notranslate"><span class="pre">x</span></code> on the order of 0.1.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((21,),
+ array([0. , 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. , 1.1, 1.2,
+        1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2. ]))
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+
+    <span class="n">i1</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="n">i1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="n">i1</span><span class="p">],</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">title_text</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;2.2f</span><span class="si">}</span><span class="s2"> $\pi$&quot;</span><span class="p">)</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_85_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_06_matplotlib__solution_85_0.png" />
+</div>
+</div>
+<p>Modify the animation to show the sine function for the full range of 0 to 2<span class="math notranslate nohighlight">\(\pi\)</span> but show the time as a point on the curve that moves in time.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Using-PdfPages-to-create-multi-page-PDFs">
+<h3>Using PdfPages to create multi-page PDFs<a class="headerlink" href="#Using-PdfPages-to-create-multi-page-PDFs" title="Link to this heading">¶</a></h3>
+<p>Use your sine function plot to create a pdf for each time. A PdfPages example can be found in the matplotlib gallery at <a class="reference external" href="https://matplotlib.org/stable/gallery/misc/multipage_pdf.html">https://matplotlib.org/stable/gallery/misc/multipage_pdf.html</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="kn">import</span> <span class="n">PdfPages</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">/multipage_pdf.pdf&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">PdfPages</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)):</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Page </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{:6.2f}</span><span class="s2"> $\pi$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xx</span><span class="p">))</span>
+        <span class="n">pdf</span><span class="o">.</span><span class="n">savefig</span><span class="p">()</span>  <span class="c1"># saves the current figure into a pdf page</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="05_numpy__solutions.html" class="btn btn-neutral float-left" title="05: NumPy exercise solutions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../06b_matplotlib_animation.html" class="btn btn-neutral float-right" title="06a: Using Matplotlib to Create Animation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

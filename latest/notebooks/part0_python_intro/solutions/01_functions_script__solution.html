@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>01: Functions and scripts &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="02: Namespace, modules, packages, and objects" href="02_Namespace_objects_modules_packages__solution.html" />
+    <link rel="prev" title="Part 0: General Python Exercises" href="../../../part0.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../part0.html">     Part 0: Introduction to Python</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">01: Functions and scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Why-use-functions?">Why use functions?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#An-object-oriented-preview-aside:-terminology-alert!!!">An object oriented preview aside: terminology alert!!!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#back-to-functions">back to functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Your-turn">Your turn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#More-on-functions:-lambda-functions">More on functions: <code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Your turn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Scripts">Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Your turn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Your turn</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03_useful-std-library-modules.html">03: Useful standard library modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html">03: Solutions to Useful standard library modules exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_files_and_strings.html">04: File input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05_numpy.html">05: NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_numpy__solutions.html">05: NumPy exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_matplotlib__solution.html">06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06b_matplotlib_animation.html">06a: Using Matplotlib to Create Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07a_Theis-exercise-solution.html">07: Using functions to solve an equation– The Theis example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07b_VSCode.html">07b: VSCode Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../part0.html">Part 0: General Python Exercises</a></li>
+      <li class="breadcrumb-item active">01: Functions and scripts</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/notebooks/part0_python_intro/solutions/01_functions_script__solution.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="01:-Functions-and-scripts">
+<h1>01: Functions and scripts<a class="headerlink" href="#01:-Functions-and-scripts" title="Link to this heading">¶</a></h1>
+<section id="Why-use-functions?">
+<h2>Why use functions?<a class="headerlink" href="#Why-use-functions?" title="Link to this heading">¶</a></h2>
+<p>functions are a great coding tool! They allow to setup reusable bits of code that you might need over and over. Using functions, you only have the write the code once, and, if you need to change it, only change it once.</p>
+<p>We can create a function that writes the Fibonacci series to an arbitrary boundary:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Print a Fibonacci series up to n.&quot;&quot;&quot;</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">fib</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function fib in module __main__:
+
+fib(n)
+    Print a Fibonacci series up to n.
+
+</pre></div></div>
+</div>
+<p>Now call the function we just defined:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fib</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89
+144
+233
+377
+610
+987
+1597
+</pre></div></div>
+</div>
+<p>The keyword <code class="docutils literal notranslate"><span class="pre">def</span></code> introduces a function definition. It must be followed by the function name and the parenthesized list of formal parameters or arguments. The statements that form the body of the function start at the next line, and must be indented.</p>
+<p>The first statement of the function body can optionally be a string literal; this string literal is the function’s documentation string, or docstring. (More about docstrings can be found in the section Documentation Strings.) There are tools which use docstrings to automatically produce online or printed documentation, or to let the user interactively browse through code; it’s good practice to include docstrings in code that you write, so make a habit of it.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>The execution of a function introduces a new symbol table used for the local variables of the function. More precisely, all variable assignments in a function store the value in the local symbol table; whereas variable references first look in the local symbol table, then in the local symbol tables of enclosing functions, then in the global symbol table, and finally in the table of built-in names. Thus, global variables cannot be directly assigned a value within a function (unless named in a
+global statement), although they may be referenced. In plain english, that means the varaibles that are formed and used within a function can only be used within the function, unless they are <code class="docutils literal notranslate"><span class="pre">return</span></code>-ed - they are sent back.</p>
+<p>The actual parameters (arguments) to a function call are introduced in the local symbol table of the called function when it is called; thus, arguments are passed using call by value (where the value is always an object reference, not the value of the object). [1] When a function calls another function, a new local symbol table is created for that call.</p>
+<p>A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function. This value can be assigned to another name which can then also be used as a function. This serves as a general renaming mechanism:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fib</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;function __main__.fib(n)&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">?</span>fib
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">Signature:</span> fib<span class="ansi-blue-fg">(</span>n<span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">Docstring:</span> Print a Fibonacci series up to n.
+<span class="ansi-red-fg">File:</span>      /var/folders/4x/bmhyjcdn3mgfdvkk_jgz6bsrlnfk3t/T/ipykernel_46966/2487284216.py
+<span class="ansi-red-fg">Type:</span>      function
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">fib</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89
+144
+</pre></div></div>
+</div>
+<p>Coming from other languages, you might object that fib is not a function but a procedure since it doesn’t return a value. In fact, even functions without a return statement do return a value, albeit a rather boring one. This value is called <code class="docutils literal notranslate"><span class="pre">None</span></code> (it’s a built-in name equivalent to null or not defined). Writing the value <code class="docutils literal notranslate"><span class="pre">None</span></code> is normally suppressed by the interpreter if it would be the only value written. You can see it if you really want to using print:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fib</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+None
+</pre></div></div>
+</div>
+<p>It is simple to write a function that returns a list of the numbers of the Fibonacci series, instead of printing it:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fib2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  <span class="c1"># return Fibonacci series up to n</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list containing the Fibonacci series up to n.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># see below</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fib2</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f100</span> <span class="o">=</span> <span class="n">fib2</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># call it</span>
+<span class="n">f100</span>  <span class="c1"># write the result</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+</pre></div></div>
+</div>
+<p>This example, as usual, demonstrates some new Python features:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">return</span></code> statement returns with a value from a function. return without an expression argument returns None. Falling off the end of a function also returns None.</p>
+</section>
+<section id="An-object-oriented-preview-aside:-terminology-alert!!!">
+<h2>An object oriented preview aside: terminology alert!!!<a class="headerlink" href="#An-object-oriented-preview-aside:-terminology-alert!!!" title="Link to this heading">¶</a></h2>
+<p>The statement <code class="docutils literal notranslate"><span class="pre">result.append(a)</span></code> calls a method of the <code class="docutils literal notranslate"><span class="pre">list</span></code> type object instance <code class="docutils literal notranslate"><span class="pre">result</span></code>. A method is simply a function that ‘belongs’ to an object and is named obj.methodname, where obj is some object (this may be an expression), and methodname is the name of a method that is defined by the object’s type. Different types define different methods. Methods of different types may have the same name without causing ambiguity. (It is possible to define your own object types and methods,
+using classes, see Classes) The method append() shown in the example is defined for list objects; it adds a new element at the end of the list. In this example it is equivalent to result = result + [a], but more efficient.</p>
+</section>
+<section id="back-to-functions">
+<h2>back to functions<a class="headerlink" href="#back-to-functions" title="Link to this heading">¶</a></h2>
+<p>It is also possible to define functions with a variable number of arguments. In <code class="docutils literal notranslate"><span class="pre">python</span></code>, there are three forms function arguments which can be combined. Each of these forms get used a lot.</p>
+<p>The most user-friendly form of a function argument is to specify an argument which has a default value. This creates a function that can be called with fewer arguments, but that also allows greater flexility in controlling the behaviro within the function itself.</p>
+<p>For example:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">def</span> <span class="nf">thiem</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span> <span class="n">h0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A very simple example function</span>
+<span class="sd">    with a mixture of argument types.</span>
+<span class="sd">    Solves the Thiem equation:</span>
+
+<span class="sd">    h = (Q/2piT)*(ln(R/r)) + h0</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    T: transmissivity</span>
+<span class="sd">    r: distance from pumping to observation</span>
+<span class="sd">    Q: pumping rate</span>
+<span class="sd">    R: distance to &quot;zero&quot; influence</span>
+<span class="sd">    h0: initial head</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    h: head</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">first_term</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="mf">3.14159</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">second_term</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">R</span> <span class="o">/</span> <span class="n">r</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">first_term</span> <span class="o">*</span> <span class="n">second_term</span><span class="p">)</span> <span class="o">+</span> <span class="n">h0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">thiem</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function thiem in module __main__:
+
+thiem(T, r, Q=1000.0, R=10000000000.0, h0=0.0)
+    A very simple example function
+    with a mixture of argument types.
+    Solves the Thiem equation:
+
+    h = (Q/2piT)*(ln(R/r)) + h0
+
+    Parameters
+    ----------
+
+    T: transmissivity
+    r: distance from pumping to observation
+    Q: pumping rate
+    R: distance to &#34;zero&#34; influence
+    h0: initial head
+
+    Returns
+    -------
+    h: head
+
+</pre></div></div>
+</div>
+<p>This function <em>requires</em> both <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>. All the rest use the defaults if not explicitly passed in. The default values are evaluated at the point of function definition in the defining scope.</p>
+<p>Giving only mandatory arguments: <code class="docutils literal notranslate"><span class="pre">T</span></code>=100.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=300.0</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thiem</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+27.568951478843925
+</pre></div></div>
+</div>
+<p>Giving one of the optional arguments using the implied position of <code class="docutils literal notranslate"><span class="pre">Q</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code>=100.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=300.0, <code class="docutils literal notranslate"><span class="pre">Q</span></code>=500.0</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thiem</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.2756895147884393
+</pre></div></div>
+</div>
+<p>Giving one of the optional arguments using the explicit argument name: <code class="docutils literal notranslate"><span class="pre">T</span></code>=100.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=300.0, <code class="docutils literal notranslate"><span class="pre">Q</span></code>=500.0</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thiem</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">500.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+13.784475739421962
+</pre></div></div>
+</div>
+</section>
+<section id="Your-turn">
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Link to this heading">¶</a></h2>
+<p>1.) What is the thiem solution for <code class="docutils literal notranslate"><span class="pre">T</span></code>=1000.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=20.0?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>2.) What is the Thiem solution for <code class="docutils literal notranslate"><span class="pre">T</span></code>=1000.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=20.0, <code class="docutils literal notranslate"><span class="pre">h0</span></code>=40.0?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>3.) What is the Thiem solution for <code class="docutils literal notranslate"><span class="pre">T</span></code>=1000.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=20.0, <code class="docutils literal notranslate"><span class="pre">Q</span></code>=2000.0, <code class="docutils literal notranslate"><span class="pre">h0</span></code>=40.0</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>4.) What is the Thiem solution for <code class="docutils literal notranslate"><span class="pre">T</span></code>=1000.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=20.0, <code class="docutils literal notranslate"><span class="pre">Q</span></code>=2000.0, <code class="docutils literal notranslate"><span class="pre">h0</span></code>=40.0 if there is a lake 2000.0 units away?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>5.) using a loop to accumulate Thiem results for <code class="docutils literal notranslate"><span class="pre">T</span></code>=1000.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=3000.0 for <code class="docutils literal notranslate"><span class="pre">Q</span></code> values ranging from 100.0 to 2000.0 by 100.0</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>6.) redefine the Thiem function to take a list as the <code class="docutils literal notranslate"><span class="pre">Q</span></code> argument and return a list of <code class="docutils literal notranslate"><span class="pre">h</span></code> results. Call the new function <code class="docutils literal notranslate"><span class="pre">thiem_list()</span></code>. Then call <code class="docutils literal notranslate"><span class="pre">thiem_list()</span></code> using the same Q as in 5.) above</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">thiem_list</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="p">[</span><span class="mf">1000.0</span><span class="p">],</span> <span class="n">R</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span> <span class="n">h0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A very simple example function</span>
+<span class="sd">    with a mixture of argument types.</span>
+<span class="sd">    Solves the Thiem equation:</span>
+
+<span class="sd">    h = (Q/2piT)*(ln(R/r)) + h0</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    T: transmissivity</span>
+<span class="sd">    r: distance from pumping to observation</span>
+<span class="sd">    Q: pumping rate</span>
+<span class="sd">    R: distance to &quot;zero&quot; influence</span>
+<span class="sd">    h0: initial head</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    h: list of head s</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">Q</span><span class="p">:</span>
+        <span class="n">first_term</span> <span class="o">=</span> <span class="n">q</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="mf">3.14159</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
+        <span class="n">second_term</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">R</span> <span class="o">/</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">first_term</span> <span class="o">*</span> <span class="n">second_term</span><span class="p">)</span> <span class="o">+</span> <span class="n">h0</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thiem_list</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.029317448718566664, 0.05863489743713333, 0.0879523461557]
+</pre></div></div>
+</div>
+</section>
+<section id="More-on-functions:-lambda-functions">
+<h2>More on functions: <code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions<a class="headerlink" href="#More-on-functions:-lambda-functions" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions are a special type of function known as an “in-line” function. They are present in virtually all modern programming langauges (not Fortran, that’s not modern) and are usually high-optimized. They allow you to quickly define a simple-ish function that can only accept a single, <em>required</em> argument. The only reason to introduce them is because they appear frequently when using a python library named <code class="docutils literal notranslate"><span class="pre">pandas</span></code> that we will cover later.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">square</span></code> is actually a function that squares (or attempts to) the single required argument that it is given</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">square</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;function __main__.&lt;lambda&gt;(x)&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+10000
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span><span class="p">(</span><span class="s2">&quot;not gonna work&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[22], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">square</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">not gonna work</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
+
+Cell <span class="ansi-green-fg">In[20], line 1</span>, in <span class="ansi-cyan-fg">&lt;lambda&gt;</span><span class="ansi-blue-fg">(x)</span>
+<span class="ansi-green-fg">----&gt; 1</span> square <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">lambda</span> x: <span class="ansi-yellow-bg">x</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">x</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> square
+
+<span class="ansi-red-fg">TypeError</span>: can&#39;t multiply sequence by non-int of type &#39;str&#39;
+</pre></div></div>
+</div>
+</section>
+<section id="id1">
+<h2>Your turn<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p><em>Define a</em> <code class="docutils literal notranslate"><span class="pre">lambda</span></code> <em>function that raises a number to the power of 3 then divides by 3</em></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">power3</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">power3</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><em>In a loop, pass you function all integers from 1 to 100</em></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p><em>Rewrite the Thiem function from above as a</em> <code class="docutils literal notranslate"><span class="pre">lambda</span></code> <em>function that only accepts an argument for one variable (you chose) then “sweep” over that varaible with a</em> <code class="docutils literal notranslate"><span class="pre">range</span></code> <em>of values in loop</em></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Scripts">
+<h2>Scripts<a class="headerlink" href="#Scripts" title="Link to this heading">¶</a></h2>
+<p>If you quit from the Python interpreter and enter it again, the definitions you have made (functions and variables - <em>e.g.</em> ALL YOUR HARD WORK) are lost. Therefore, if you want to write a somewhat longer program, you are better off using a text editor to prepare the input for the interpreter and running it with that file as input instead. This is known as creating a script. As your program gets longer, you may want to split it into several files for easier maintenance. You may also want to use a
+handy function that you’ve written in several programs without copying its definition into each program.</p>
+<p>To support this, Python has a way to put definitions in a file and use them in a script or in an interactive instance of the interpreter. Such a file is called a module; definitions from a module can be imported into other modules or into the main module (the collection of variables that you have access to in a script executed at the top level and in calculator mode).</p>
+<p>A module is a file containing Python definitions and statements. The file name is the module name with the suffix .py appended. Within a module, the module’s name (as a string) is available as the value of the global variable <strong>name</strong>.</p>
+</section>
+<section id="id2">
+<h2>Your turn<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<p><em>Using a text editor, put the</em> <code class="docutils literal notranslate"><span class="pre">thiem()</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">thiem_list()</span></code> <em>in to a file named</em> <code class="docutils literal notranslate"><span class="pre">thiem_functions.py</span></code>. <em>Make sure you put the file in the same directory as the notebooks we are using. Test that you have everything working by typing</em> <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">thiem_functions</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">thiem_functions</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thiem_functions</span> <span class="kn">import</span> <span class="n">thiem</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thiem_functions</span> <span class="kn">import</span> <span class="n">thiem</span> <span class="k">as</span> <span class="n">thm</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thiem</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><em>call both functions in the</em> <code class="docutils literal notranslate"><span class="pre">thiem_function</span></code> <em>module using the correct signature (a.k.a arguments)</em></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thiem_functions</span><span class="o">.</span><span class="n">thiem</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>A module can contain executable statements as well as function definitions. These statements are intended to initialize the module. They are executed only the first time the module name is encountered in an import statement. [1] (They are also run if the file is executed as a script.)</p>
+<p>Each module has its own private symbol table, which is used as the global symbol table by all functions defined in the module. Thus, the author of a module can use global variables in the module without worrying about accidental clashes with a user’s global variables. On the other hand, if you know what you are doing you can touch a module’s global variables with the same notation used to refer to its functions, modname.itemname.</p>
+<p>Modules can import other modules. It is customary but not required to place all import statements at the beginning of a module (or script, for that matter). The imported module names are placed in the importing module’s global symbol table.</p>
+<p>There is a variant of the import statement that imports names from a module directly into the importing module’s symbol table. For example:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thiem_functions</span> <span class="kn">import</span> <span class="n">thiem</span><span class="p">,</span> <span class="n">thiem_list</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thiem</span><span class="p">(</span><span class="mf">500.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Your turn<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<p><em>Using a text editor, create a new python script that</em> <code class="docutils literal notranslate"><span class="pre">import</span></code><em>s the</em> <code class="docutils literal notranslate"><span class="pre">thiem_functions</span></code> <em>module and uses it to calculate some results. Then run your new script from the command line</em></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../../part0.html" class="btn btn-neutral float-left" title="Part 0: General Python Exercises" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_Namespace_objects_modules_packages__solution.html" class="btn btn-neutral float-right" title="02: Namespace, modules, packages, and objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

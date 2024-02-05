@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>07: Using functions to solve an equation– The Theis example &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="07b: VSCode Tutorial" href="../07b_VSCode.html" />
+    <link rel="prev" title="06a: Using Matplotlib to Create Animation" href="../06b_matplotlib_animation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../part0.html">     Part 0: Introduction to Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_functions_script__solution.html">01: Functions and scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03_useful-std-library-modules.html">03: Useful standard library modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html">03: Solutions to Useful standard library modules exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_files_and_strings.html">04: File input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05_numpy.html">05: NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_numpy__solutions.html">05: NumPy exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_matplotlib__solution.html">06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06b_matplotlib_animation.html">06a: Using Matplotlib to Create Animation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">07: Using functions to solve an equation– The Theis example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imports">imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Step-1)">Step 1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Step-2)">Step 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Step-3)">Step 3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Step-4)">Step 4)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Step-5)">Step 5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Step-6)">Step 6)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../07b_VSCode.html">07b: VSCode Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../part0.html">Part 0: General Python Exercises</a></li>
+      <li class="breadcrumb-item active">07: Using functions to solve an equation– The Theis example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/notebooks/part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="07:-Using-functions-to-solve-an-equation---The-Theis-example">
+<h1>07: Using functions to solve an equation– The Theis example<a class="headerlink" href="#07:-Using-functions-to-solve-an-equation---The-Theis-example" title="Link to this heading">¶</a></h1>
+<p>In this exercise we will implement the Theis equation in Python using functions, to evaluate drawdown in hydraulic head from pumping at a well.</p>
+<section id="Background">
+<h2>Background<a class="headerlink" href="#Background" title="Link to this heading">¶</a></h2>
+<p>The Theis (1935) equation is used to calculate drawdown for two-dimensional radial groundwater flow to a point source in an infinite, homogeneous aquifer. The Theis equation was derived from heat transfer literature (with the mathematical help of C.I. Lubin) and is defined as:</p>
+<p><span class="math">\begin{equation}
+s = \frac{Q}{4 \pi T} W(u)
+\end{equation}</span></p>
+<div class="line-block">
+<div class="line">where</div>
+<div class="line"><span class="math notranslate nohighlight">\(s\)</span> is drawdown [L],</div>
+<div class="line"><span class="math notranslate nohighlight">\(Q\)</span> is the pumping rate [L<span class="math notranslate nohighlight">\(^3\)</span>/T],</div>
+<div class="line"><span class="math notranslate nohighlight">\(T\)</span> is the aquifer transmissivity [L<span class="math notranslate nohighlight">\(^2\)</span>/T],</div>
+<div class="line"><span class="math notranslate nohighlight">\(u\)</span> is a dimensionless time parameter [unitless], and</div>
+<div class="line"><span class="math notranslate nohighlight">\(W(u)\)</span> is the Well function (exponential integral <span class="math notranslate nohighlight">\(E_1\)</span>) [unitless]. The exponential integral is available in <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code> as the <code class="docutils literal notranslate"><span class="pre">exp1()</span></code> function.</div>
+</div>
+<p>The dimensionless time parameter is defined as:</p>
+<p><span class="math">\begin{equation}
+u = \frac{r^2S}{4Tt}
+\end{equation}</span></p>
+<div class="line-block">
+<div class="line">where</div>
+<div class="line"><span class="math notranslate nohighlight">\(r\)</span> is the distance from the pumping well to a point where drawdown is observed [L],</div>
+<div class="line"><span class="math notranslate nohighlight">\(S\)</span> is storativity [unitless], and</div>
+<div class="line"><span class="math notranslate nohighlight">\(t\)</span> is the time since pumping began.</div>
+</div>
+<p>Storativity is defined as:</p>
+<p><span class="math">\begin{equation}
+S = S_s b
+\end{equation}</span></p>
+<div class="line-block">
+<div class="line">where</div>
+<div class="line"><span class="math notranslate nohighlight">\(S_s\)</span> is specific storage [1/L] and</div>
+<div class="line"><span class="math notranslate nohighlight">\(b\)</span> is the thickness of the aquifer.</div>
+</div>
+</section>
+<section id="imports">
+<h2>imports<a class="headerlink" href="#imports" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">exp1</span> <span class="k">as</span> <span class="n">W</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-1)">
+<h2>Step 1)<a class="headerlink" href="#Step-1)" title="Link to this heading">¶</a></h2>
+<p>Make a function for the Theis equation. The function should include a <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">Numpy-style docstring</a> that documents the inputs and what the function returns.</p>
+<p><span class="math">\begin{equation}
+s = \frac{Q}{4 \pi T} W(u)
+\end{equation}</span></p>
+<p>hints: * since this also includes the dimensionless time parameter, the inputs are <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(S\)</span> * we imported <span class="math notranslate nohighlight">\(W\)</span> above from <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">theis</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1.16</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the Theis equation to get drawdown</span>
+<span class="sd">    in a confined aquifer at a distance r</span>
+<span class="sd">    from a well pumping at rate Q, for time t.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    r : float or array or floats</span>
+<span class="sd">        Distance to the pumping well (L)</span>
+<span class="sd">    t : float or list-like of floats</span>
+<span class="sd">        Times to calculate drawdown at (T)</span>
+<span class="sd">    Q : float</span>
+<span class="sd">        Pumping rate (L3/T)</span>
+<span class="sd">    T : float</span>
+<span class="sd">        Aquifer transmissivity (L2/T)</span>
+<span class="sd">    S : float</span>
+<span class="sd">        Aquifer storativity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    s : float array</span>
+<span class="sd">        Drawdown for all values of r or t</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    If r is a 1 or 2D array, t must be scalar.</span>
+<span class="sd">    If t is non-scalar (list-like), r must be scalar.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; theis(1000, 10, Q=4088, T=1000, S=3e-4)</span>
+<span class="sd">    array([1.40636669])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># coerce time input into a numpy array</span>
+    <span class="c1"># (so that we can use the same code</span>
+    <span class="c1">#  for vector or scalar inputs of t)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="c1"># dimensionless time parameter</span>
+    <span class="c1"># (only compute for non-zero times)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">S</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">T</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-2)">
+<h2>Step 2)<a class="headerlink" href="#Step-2)" title="Link to this heading">¶</a></h2>
+<p>Use the eqn. from Step 1) to compute drawdown at a distance of 1,000m, at 10 days, assuming a pumping rate of 4,088 m/day, transmissivity (T) of 1,000 m/day, and a storativity (S) of 3 x 10<span class="math notranslate nohighlight">\(^{-4}\)</span></p>
+<p>hint: you should get <code class="docutils literal notranslate"><span class="pre">1.40636669</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theis</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mi">4088</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1.40636669])
+</pre></div></div>
+</div>
+</section>
+<section id="Step-3)">
+<h2>Step 3)<a class="headerlink" href="#Step-3)" title="Link to this heading">¶</a></h2>
+<p>Make a plot of drawdown over time for the same parameters as in Step 2)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">theis</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mi">4088</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Drawdown, in meters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time, in days&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;Time, in days&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_07a_Theis-exercise-solution_8_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_07a_Theis-exercise-solution_8_1.png" />
+</div>
+</div>
+</section>
+<section id="Step-4)">
+<h2>Step 4)<a class="headerlink" href="#Step-4)" title="Link to this heading">¶</a></h2>
+<p>Make a new function that accepts arrays of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> locations, and a pumping well location (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>), and returns a corresponding array of <span class="math notranslate nohighlight">\(s\)</span> (drawdown) locations, for any number of times. This new function should call the function created in Step 1). To do this, you will need an additional function to compute the distance to the pumping well <span class="math notranslate nohighlight">\(r\)</span> for any <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> location.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the distance between two points.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x0 : float or array-like</span>
+<span class="sd">        x-coordinate(s) for computing distance</span>
+<span class="sd">    y0 : float or array-like</span>
+<span class="sd">        y-coordinate(s) for computing distance</span>
+<span class="sd">    x1 : float</span>
+<span class="sd">        x-coordinate to compute distance from</span>
+<span class="sd">    y1 : float</span>
+<span class="sd">        y-coordinate to compute distance from</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    distance : float or array</span>
+<span class="sd">        Distance of each point defined by x0, y0 from</span>
+<span class="sd">        x1, y1.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x1</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y1</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">theis_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pumping_well_xy</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1.16</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the Theis equation to get drawdown</span>
+<span class="sd">    in a confined aquifer at any x, y point(s),</span>
+<span class="sd">    for a pumping well at (x, y) location pumping_well_xy,</span>
+<span class="sd">    pumping at rate Q, for time t.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float or list-like of floats</span>
+<span class="sd">        x-coordinates for computing drawdown.</span>
+<span class="sd">    y : float or list-like of floats</span>
+<span class="sd">        y-coordinates for computing drawdown.</span>
+<span class="sd">    pumping_well_xy : tuple</span>
+<span class="sd">        (x, y) location of the pumping well</span>
+<span class="sd">    t : float or list-like of floats</span>
+<span class="sd">        Times to calculate drawdown at (T)</span>
+<span class="sd">    Q : float</span>
+<span class="sd">        Pumping rate (L3/T)</span>
+<span class="sd">    T : float</span>
+<span class="sd">        Aquifer transmissivity (L2/T)</span>
+<span class="sd">    S : float</span>
+<span class="sd">        Aquifer storativity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    s : list of arrays</span>
+<span class="sd">        Arrays of drawdown (of same shape as x and y),</span>
+<span class="sd">        at each time in t.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+        <span class="n">s_t</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="n">pumping_well_xy</span><span class="p">)</span>
+        <span class="n">s_xy</span> <span class="o">=</span> <span class="n">theis</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="n">Q</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="n">S</span><span class="p">)</span>
+        <span class="n">s_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s_xy</span><span class="p">)</span>
+        <span class="n">s_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">s_t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Step-5)">
+<h2>Step 5)<a class="headerlink" href="#Step-5)" title="Link to this heading">¶</a></h2>
+<p>Use the function from Step 4) to make a 2D plot of drawdown at 10 days, on a 2,000 x 2,000 meter grid (with an origin of 0, 0), with the pumping well located at 1000, 1000.</p>
+<p>hint: if the function is taking too long to run, try calling function from step 1) with <em>vectors</em> of x,y instead of <em>scalars</em>. It should run in less than a second.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2000</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2000</span><span class="p">))</span>
+<span class="n">pumping_well_xy</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">theis_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pumping_well_xy</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mi">4088</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 67.2 ms, sys: 22.4 ms, total: 89.6 ms
+Wall time: 88.4 ms
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theis_xy</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mi">4088</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[array([1.40636669])]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x1314cb1d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_07a_Theis-exercise-solution_14_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_07a_Theis-exercise-solution_14_1.png" />
+</div>
+</div>
+</section>
+<section id="Step-6)">
+<h2>Step 6)<a class="headerlink" href="#Step-6)" title="Link to this heading">¶</a></h2>
+<p>With <span class="math notranslate nohighlight">\(s\)</span> returned as an array for a given set of x, y locations, we can now use <em>superposition</em> (adding drawdowns together) to evalute the effects of multiple pumping wells. Try calling the function from Step 4) again with a well at 500, 500. The <span class="math notranslate nohighlight">\(s\)</span> output can be added to the results from Step 5) to get a composite map of drawdown with the two wells pumping.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">theis_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mi">4088</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">theis_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mi">4088</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+
+<span class="n">s_total</span> <span class="o">=</span> <span class="n">s1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">s2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">s_total</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">s_total</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;a list of 5 text.Text objects&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_07a_Theis-exercise-solution_16_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_07a_Theis-exercise-solution_16_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../06b_matplotlib_animation.html" class="btn btn-neutral float-left" title="06a: Using Matplotlib to Create Animation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../07b_VSCode.html" class="btn btn-neutral float-right" title="07b: VSCode Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

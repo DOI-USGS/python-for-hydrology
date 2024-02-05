@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10: MODPATH demonstration &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Bonus examples" href="../../bonus_examples.html" />
+    <link rel="prev" title="09: Demonstration of MODFLOW 6 Groundwater Transport" href="09-gwt-voronoi-demo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-unstructured-grids.html">05: FloPy Model Grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10: MODPATH demonstration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Groundwater-Modeling-and-Python-Programming">Groundwater Modeling and Python Programming</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Define-the-workspace-and-model-names.">Define the workspace and model names.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-MODFLOW-6-Model">Load the MODFLOW 6 Model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Load-the-groundwater-flow-model">Load the groundwater flow model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Change-the-workspace">Change the workspace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Write-the-model-files">Write the model files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-and-Run-the-MODPATH-model">Create and Run the MODPATH model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch.">Lets plot the model grid and the location of the contamination patch.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Create-the-MODPATH-particle-data">Create the MODPATH particle data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Create-the-MODPATH-7-files">Create the MODPATH 7 files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Write-MODPATH-7-files-and-run-the-model">Write MODPATH 7 files and run the model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Post-Process-the-MODFLOW-and-MODPATH-Results">Post-Process the MODFLOW and MODPATH Results</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files">Load MODFLOW and MODPATH results from the heads and pathline files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-the-heads-and-pathlines">Plot the heads and pathlines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Export-the-pathlines-to-a-shapefile">Export the pathlines to a shapefile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Load-the-shapefile-into-geopandas">Load the shapefile into geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Show-the-dataframe">Show the dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-the-geopandas-dataframe-on-the-modelgrid">Plot the geopandas dataframe on the modelgrid</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
+      <li class="breadcrumb-item active">10: MODPATH demonstration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/part1_flopy/10_modpath-demo.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="10:-MODPATH-demonstration">
+<h1>10: MODPATH demonstration<a class="headerlink" href="#10:-MODPATH-demonstration" title="Link to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">flopy.utils.gridintersect</span> <span class="kn">import</span> <span class="n">GridIntersect</span>
+<span class="kn">import</span> <span class="nn">flopy</span>
+</pre></div>
+</div>
+</div>
+<section id="Groundwater-Modeling-and-Python-Programming">
+<h2>Groundwater Modeling and Python Programming<a class="headerlink" href="#Groundwater-Modeling-and-Python-Programming" title="Link to this heading">¶</a></h2>
+<p>In this exercise, we will use MODPATH to simulate advective transport with the Freyberg flow model. For this exercise, we will use a quadtree version of the Freyberg model.</p>
+<p>The location of the contamination patch and the nodes that the define bounding cells of the patch are calculated below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># patch upper left and lower right</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mf">250.</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">250.</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="p">(</span><span class="mi">40</span> <span class="o">-</span> <span class="mi">14</span><span class="p">)</span> <span class="o">*</span> <span class="mf">250.</span><span class="p">,</span> <span class="p">(</span><span class="mi">40</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)</span> <span class="o">*</span> <span class="mf">250.</span>
+
+<span class="n">csx</span><span class="p">,</span> <span class="n">csy</span> <span class="o">=</span> <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">],</span> <span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]</span>
+<span class="n">polygon</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">))]</span>
+<span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">),</span> <span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((250.0, 7250.0), (750.0, 6500.0))
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<section id="Define-the-workspace-and-model-names.">
+<h3>Define the workspace and model names.<a class="headerlink" href="#Define-the-workspace-and-model-names." title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_ws</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data/quadtree&#39;</span><span class="p">)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;temp/ex10a&quot;</span><span class="p">)</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span>
+<span class="n">name_mp</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_mp&quot;</span>
+<span class="n">exe_name</span> <span class="o">=</span> <span class="s1">&#39;mf6&#39;</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Load-the-MODFLOW-6-Model">
+<h2>Load the MODFLOW 6 Model<a class="headerlink" href="#Load-the-MODFLOW-6-Model" title="Link to this heading">¶</a></h2>
+<p>Load a simulation object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.MFSimulation().load()</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">exe_name</span><span class="o">=</span><span class="n">exe_name</span><span class="p">,</span>
+                                    <span class="n">sim_ws</span><span class="o">=</span><span class="n">load_ws</span><span class="p">,</span> <span class="n">verbosity_level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Load-the-groundwater-flow-model">
+<h3>Load the groundwater flow model<a class="headerlink" href="#Load-the-groundwater-flow-model" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
+</pre></div></div>
+</div>
+</section>
+<section id="Change-the-workspace">
+<h3>Change the workspace<a class="headerlink" href="#Change-the-workspace" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">set_sim_path</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Write-the-model-files">
+<h3>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Run the simulation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(True, [])
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Create-and-Run-the-MODPATH-model">
+<h2>Create and Run the MODPATH model<a class="headerlink" href="#Create-and-Run-the-MODPATH-model" title="Link to this heading">¶</a></h2>
+<section id="Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch.">
+<h3>Lets plot the model grid and the location of the contamination patch.<a class="headerlink" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch." title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_inactive</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e534eb&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_17_0.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_17_0.png" />
+</div>
+</div>
+<p>Find the node numbers of the contamination patch using the groundwater model grid object and the <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility. The <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility has an <code class="docutils literal notranslate"><span class="pre">intersect</span></code> method that can be used to identified cellids from points, lines, and polygons.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gx</span> <span class="o">=</span> <span class="n">GridIntersect</span><span class="p">(</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">gx</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">)</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">cellids</span>
+<span class="n">nodes</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1352, 1353, 1459, 1460, 1581, 1582], dtype=object)
+</pre></div></div>
+</div>
+</section>
+<section id="Create-the-MODPATH-particle-data">
+<h3>Create the MODPATH particle data<a class="headerlink" href="#Create-the-MODPATH-particle-data" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">CellDataType</span><span class="p">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">NodeParticleData</span><span class="p">(</span><span class="n">subdivisiondata</span><span class="o">=</span><span class="p">[</span><span class="n">sd</span><span class="p">],</span>
+                                   <span class="n">nodes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">nodes</span><span class="p">))</span>
+<span class="c1"># create forward particle group</span>
+<span class="n">fpth</span> <span class="o">=</span> <span class="n">name_mp</span> <span class="o">+</span> <span class="s1">&#39;.sloc&#39;</span>
+<span class="n">pg</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">ParticleGroupNodeTemplate</span><span class="p">(</span><span class="n">particlegroupname</span><span class="o">=</span><span class="s1">&#39;contaminant&#39;</span><span class="p">,</span>
+                                             <span class="n">particledata</span><span class="o">=</span><span class="n">p</span><span class="p">,</span>
+                                             <span class="n">filename</span><span class="o">=</span><span class="n">fpth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Create-the-MODPATH-7-files">
+<h3>Create the MODPATH 7 files<a class="headerlink" href="#Create-the-MODPATH-7-files" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create modpath files</span>
+<span class="n">mp</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7</span><span class="p">(</span><span class="n">modelname</span><span class="o">=</span><span class="n">name_mp</span><span class="p">,</span> <span class="n">flowmodel</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span>
+                            <span class="n">exe_name</span><span class="o">=</span><span class="s1">&#39;mp7&#39;</span><span class="p">,</span> <span class="n">model_ws</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
+<span class="n">mpbas</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7Bas</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">porosity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">mpsim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7Sim</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">simulationtype</span><span class="o">=</span><span class="s1">&#39;pathline&#39;</span><span class="p">,</span>
+                                  <span class="n">trackingdirection</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span>
+                                  <span class="n">weaksinkoption</span><span class="o">=</span><span class="s1">&#39;pass_through&#39;</span><span class="p">,</span>
+                                  <span class="n">weaksourceoption</span><span class="o">=</span><span class="s1">&#39;pass_through&#39;</span><span class="p">,</span>
+                                  <span class="n">referencetime</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+                                  <span class="n">stoptimeoption</span><span class="o">=</span><span class="s1">&#39;extend&#39;</span><span class="p">,</span>
+                                  <span class="n">particlegroups</span><span class="o">=</span><span class="n">pg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Write-MODPATH-7-files-and-run-the-model">
+<h3>Write MODPATH 7 files and run the model<a class="headerlink" href="#Write-MODPATH-7-files-and-run-the-model" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write modpath datasets</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">write_input</span><span class="p">()</span>
+
+<span class="c1"># run modpath</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">run_model</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mp7
+
+MODPATH Version 7.2.001
+Program compiled Aug 01 2021 12:57:00 with IFORT compiler (ver. 19.10.3)
+
+
+Run particle tracking simulation ...
+Processing Time Step     1 Period     1.  Time =  1.00000E+00  Steady-state flow
+
+Particle Summary:
+         0 particles are pending release.
+         0 particles remain active.
+         0 particles terminated at boundary faces.
+         0 particles terminated at weak sink cells.
+         0 particles terminated at weak source cells.
+       162 particles terminated at strong source/sink cells.
+         0 particles terminated in cells with a specified zone number.
+         0 particles were stranded in inactive or dry cells.
+         0 particles were unreleased.
+         0 particles have an unknown status.
+
+Normal termination.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(True, [])
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Post-Process-the-MODFLOW-and-MODPATH-Results">
+<h2>Post-Process the MODFLOW and MODPATH Results<a class="headerlink" href="#Post-Process-the-MODFLOW-and-MODPATH-Results" title="Link to this heading">¶</a></h2>
+<section id="Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files">
+<h3>Load MODFLOW and MODPATH results from the heads and pathline files<a class="headerlink" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files" title="Link to this heading">¶</a></h3>
+<p>Load the MODFLOW heads</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hobj</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hds</span> <span class="o">=</span> <span class="n">hobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Load the pathline file</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppth</span> <span class="o">=</span><span class="n">ws</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_mp</span><span class="si">}</span><span class="s2">.mppth&quot;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PathlineFile</span><span class="p">(</span><span class="n">ppth</span><span class="p">)</span>
+<span class="n">p0</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_alldata</span><span class="p">()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>time</th>
+      <th>k</th>
+      <th>particleid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>291.666656</td>
+      <td>7041.666504</td>
+      <td>25.157747</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>292.265228</td>
+      <td>7053.434082</td>
+      <td>24.259151</td>
+      <td>1066.623169</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>296.871582</td>
+      <td>7187.314941</td>
+      <td>18.867577</td>
+      <td>9176.828125</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>298.295715</td>
+      <td>7250.000000</td>
+      <td>17.837860</td>
+      <td>11656.656250</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>327.380127</td>
+      <td>7500.000000</td>
+      <td>17.041315</td>
+      <td>17482.574219</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Plot-the-heads-and-pathlines">
+<h3>Plot the heads and pathlines<a class="headerlink" href="#Plot-the-heads-and-pathlines" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_pathline</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e534eb&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_32_0.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_32_0.png" />
+</div>
+</div>
+</section>
+<section id="Export-the-pathlines-to-a-shapefile">
+<h3>Export the pathlines to a shapefile<a class="headerlink" href="#Export-the-pathlines-to-a-shapefile" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spth</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">ws</span> <span class="o">/</span> <span class="s1">&#39;pathline.shp&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_shapefile</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">mg</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="n">one_per_particle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shpname</span><span class="o">=</span><span class="n">spth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;names&#39;: [&#39;x&#39;, &#39;y&#39;, &#39;z&#39;, &#39;time&#39;, &#39;k&#39;, &#39;particleid&#39;], &#39;formats&#39;: [&#39;&lt;f4&#39;, &#39;&lt;f4&#39;, &#39;&lt;f4&#39;, &#39;&lt;f4&#39;, &#39;&lt;i4&#39;, &#39;&lt;i4&#39;], &#39;offsets&#39;: [20, 24, 28, 16, 32, 0], &#39;itemsize&#39;: 60}
+No CRS information for writing a .prj file.
+Supply an valid coordinate system reference to the attached modelgrid object or .export() method.
+</pre></div></div>
+</div>
+</section>
+<section id="Load-the-shapefile-into-geopandas">
+<h3>Load the shapefile into geopandas<a class="headerlink" href="#Load-the-shapefile-into-geopandas" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rshp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">spth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+</section>
+<section id="Show-the-dataframe">
+<h3>Show the dataframe<a class="headerlink" href="#Show-the-dataframe" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rshp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
+  warnings.warn(
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>time</th>
+      <th>k</th>
+      <th>particleid</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>292.265228</td>
+      <td>7053.434082</td>
+      <td>24.259151</td>
+      <td>1066.623169</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (291.667 7041.667, 292.265 7053.434)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>296.871582</td>
+      <td>7187.314941</td>
+      <td>18.867577</td>
+      <td>9176.828125</td>
+      <td>2</td>
+      <td>1</td>
+      <td>LINESTRING (292.265 7053.434, 296.872 7187.315)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>298.295715</td>
+      <td>7250.000000</td>
+      <td>17.837860</td>
+      <td>11656.656250</td>
+      <td>3</td>
+      <td>1</td>
+      <td>LINESTRING (296.872 7187.315, 298.296 7250.000)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>327.380127</td>
+      <td>7500.000000</td>
+      <td>17.041315</td>
+      <td>17482.574219</td>
+      <td>3</td>
+      <td>1</td>
+      <td>LINESTRING (298.296 7250.000, 327.380 7500.000)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>351.953125</td>
+      <td>7750.000000</td>
+      <td>14.886883</td>
+      <td>21403.548828</td>
+      <td>3</td>
+      <td>1</td>
+      <td>LINESTRING (327.380 7500.000, 351.953 7750.000)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Plot-the-geopandas-dataframe-on-the-modelgrid">
+<h3>Plot the geopandas dataframe on the modelgrid<a class="headerlink" href="#Plot-the-geopandas-dataframe-on-the-modelgrid" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_shapes</span><span class="p">(</span><span class="n">rshp</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span> <span class="c1">#, edgecolor=&quot;b&quot;)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_40_1.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_40_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="09-gwt-voronoi-demo.html" class="btn btn-neutral float-left" title="09: Demonstration of MODFLOW 6 Groundwater Transport" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../bonus_examples.html" class="btn btn-neutral float-right" title="Bonus examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

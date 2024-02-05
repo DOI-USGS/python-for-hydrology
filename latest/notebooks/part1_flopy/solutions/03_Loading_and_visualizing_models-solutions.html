@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>03: Loading and visualizing groundwater models &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="04: Modelgrid and intersection" href="04_Modelgrid_and_intersection_solution.html" />
+    <link rel="prev" title="Building and post-processing a MODFLOW 6 model" href="02-Building-Post-Processing-MODFLOW6__solutions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02-Building-Post-Processing-MODFLOW6__solutions.html">Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">03: Loading and visualizing groundwater models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Required-executables">Required executables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Operations">Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#The-Pleasant-Lake-example">The Pleasant Lake example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#load-a-preexisting-MODFLOW-6-model">load a preexisting MODFLOW 6 model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#On-a-map">On a map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Exporting-the-model-grid-to-a-shapefile">Exporting the model grid to a shapefile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Making-a-cross-section-through-the-model">Making a cross section through the model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#By-row-or-column">By row or column</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Along-an-arbitrary-line">Along an arbitrary line</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#An-aside-on-working-with-model-input-as-numpy-arrays">An aside on working with model input as numpy arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ndarray-example:-plot-spatial-average-recharge-by-stress-period"><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> example: plot spatial average recharge by stress period</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Tabular-data-example:-plot-pumping-by-stress-period">Tabular data example: plot pumping by stress period</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Exercise:-plot-pumping-for-the-well-at-cellid:-2,-24,-2">Exercise: plot pumping for the well at cellid: 2, 24, 2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Solution:">Solution:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Run-the-model-first-to-get-the-output">Run the model first to get the output</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Getting-the-output">Getting the output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-head-and-surface-water-flux-results">Plot head and surface water flux results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Zoom-in-on-the-lake">Zoom in on the lake</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Exporting-Rasters">Exporting Rasters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Exercise:-evaluating-overpressurization">Exercise: evaluating overpressurization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Solution">Solution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-a-cross-section-of-the-head-solution-with-the-water-table">Plot a cross section of the head solution with the water table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Using-boundnames-to-define-observations">Using boundnames to define observations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Check-the-model-mass-balance-error">Check the model mass balance error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Make-a-stacked-bar-plot-of-the-global-mass-balance">Make a stacked bar plot of the global mass balance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#References">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-unstructured-grids.html">05: FloPy Model Grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10_modpath-demo.html">10: MODPATH demonstration</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../part1.html">Part 1 flopy</a></li>
+      <li class="breadcrumb-item active">03: Loading and visualizing groundwater models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/notebooks/part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="03:-Loading-and-visualizing-groundwater-models">
+<h1>03: Loading and visualizing groundwater models<a class="headerlink" href="#03:-Loading-and-visualizing-groundwater-models" title="Link to this heading">¶</a></h1>
+<p>This exercise, we will load an existing model into Flopy, run the model and then use <a class="reference external" href="https://pandas.pydata.org/">pandas</a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> and <a class="reference external" href="https://www.numpy.org/">numpy</a> to look at the results and compare them to observed data. We will also export model input and output to shapefiles and rasters.</p>
+<section id="Required-executables">
+<h2>Required executables<a class="headerlink" href="#Required-executables" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>MODFLOW-6; available here: <a class="reference external" href="https://github.com/MODFLOW-USGS/executables">https://github.com/MODFLOW-USGS/executables</a></p></li>
+</ul>
+</section>
+<section id="Operations">
+<h2>Operations<a class="headerlink" href="#Operations" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>reading tabular data from a file or url using the powerful <code class="docutils literal notranslate"><span class="pre">`pandas.read_csv</span></code> &lt;<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a>&gt;`__ method</p></li>
+<li><p>geting <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>s of Hydmod, SFR, and global mass balance output</p></li>
+<li><p>converting model times to real date-times to allow plotting against other temporally-referenced data</p></li>
+<li><p>quickly subsetting data by category, attribute values, times, index position, etc.</p></li>
+<li><p>computing quantiles and other basic statistics</p></li>
+<li><p>making plots using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and the built-in hooks to it in <code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></li>
+<li><p>GIS and PDF export, and making a summary table with the <code class="docutils literal notranslate"><span class="pre">`modflow-export</span></code> &lt;<a class="reference external" href="https://github.com/aleaf/modflow-export">https://github.com/aleaf/modflow-export</a>&gt;`__ package</p></li>
+</ul>
+</section>
+<section id="The-Pleasant-Lake-example">
+<h2>The Pleasant Lake example<a class="headerlink" href="#The-Pleasant-Lake-example" title="Link to this heading">¶</a></h2>
+<p>The example model is a simplified version of the MODFLOW-6 model published by Fienen et al (2022, 2021; Figure 1), who used a multi-scale modeling approach to evaluate the effects of agricultural groundwater abstraction on the ecology of Pleasant Lake in central Wisconsin, USA. The original report and model files are available at the links below.</p>
+<p>Example model details * Transient MODFLOW-6 simulation with monthly stress periods for calendar year 2012 * units of meters and days * 4 layers; 200 meter uniform grid spacing * layers 1-3 represent surficial deposits * layer 4 represents Paleozoic bedrock (sandstone) * Transient specified head perimeter boundary (CHD package) from a regional model solution * Recharge specified with RCHa * Streams specified with SFR * Pleasant Lake simulated with the Lake Package * Head observations
+specified with the OBS utility</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">flopy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make an output folder</span>
+<span class="n">output_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;03-output&#39;</span><span class="p">)</span>
+<span class="n">output_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="load-a-preexisting-MODFLOW-6-model">
+<h3>load a preexisting MODFLOW 6 model<a class="headerlink" href="#load-a-preexisting-MODFLOW-6-model" title="Link to this heading">¶</a></h3>
+<p>Because this is MODFLOW 6, we need to load the simulation first, and then get the model.</p>
+<div class="line-block">
+<div class="line"><strong>Note:</strong> To avoid loading certain packages (that may be too slow) use the <code class="docutils literal notranslate"><span class="pre">load_only</span></code> argument to specify the packages that should be loaded.</div>
+<div class="line">e.g. <code class="docutils literal notranslate"><span class="pre">load_only=['dis']</span></code></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">sim_ws</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../data/pleasant-lake/&#39;</span><span class="p">)</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;pleasant&#39;</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">sim_ws</span><span class="p">),</span> <span class="n">exe_name</span><span class="o">=</span><span class="s1">&#39;mf6&#39;</span><span class="p">,</span>
+                                  <span class="c1">#load_only=[&#39;dis&#39;]</span>
+                         <span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">model_names</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;pleasant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Visualizing-the-model">
+<h4>Visualizing the model<a class="headerlink" href="#Visualizing-the-model" title="Link to this heading">¶</a></h4>
+<p>First let’s check that the model grid is correctly located. It is, in this case, because the model has the origin and rotation specified in the DIS package.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+xll:552400.0; yll:387200.0; rotation:0.0; units:meters; lenuni:2
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">get_package_list</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;DIS&#39;,
+ &#39;IC&#39;,
+ &#39;NPF&#39;,
+ &#39;STO&#39;,
+ &#39;RCHA_0&#39;,
+ &#39;OC&#39;,
+ &#39;CHD_OBS&#39;,
+ &#39;CHD_0&#39;,
+ &#39;SFR_OBS&#39;,
+ &#39;SFR_0&#39;,
+ &#39;LAK_OBS&#39;,
+ &#39;LAK_LAKTAB&#39;,
+ &#39;LAK_0&#39;,
+ &#39;WEL_0&#39;,
+ &#39;OBS_3&#39;]
+</pre></div></div>
+</div>
+<p>However, in order to write shapefiles with a <code class="docutils literal notranslate"><span class="pre">.prj</span></code> file that specifies the coordinate references system (CRS), we need to assign one to the grid (there currently is no CRS input for MODFLOW 6). We can do this by simply specifying an <a class="reference external" href="https://epsg.io/">EPSG code</a> to the <code class="docutils literal notranslate"><span class="pre">epsg</span></code> attribute (in this case 3070 for Wisconsin Transverse Mercator).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">epsg</span> <span class="o">=</span> <span class="mi">3070</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="On-a-map">
+<h3>On a map<a class="headerlink" href="#On-a-map" title="Link to this heading">¶</a></h3>
+<p>We can plot the model in the CRS using the <code class="docutils literal notranslate"><span class="pre">PlotMapView</span></code> object. More examples in the Flopy demo here (for unstructured grids too!): <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;WEL&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;LAK&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;SFR&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;CHD&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x16b295710&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_12_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_12_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_13_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_13_0.png" />
+</div>
+</div>
+</section>
+<section id="Exporting-the-model-grid-to-a-shapefile">
+<h3>Exporting the model grid to a shapefile<a class="headerlink" href="#Exporting-the-model-grid-to-a-shapefile" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">write_shapefile</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;pleasant_grid.shp&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Making-a-cross-section-through-the-model">
+<h3>Making a cross section through the model<a class="headerlink" href="#Making-a-cross-section-through-the-model" title="Link to this heading">¶</a></h3>
+<p>more examples in the Flopy demo here: <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb</a></p>
+</section>
+</section>
+<section id="By-row-or-column">
+<h2>By row or column<a class="headerlink" href="#By-row-or-column" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
+<span class="n">xs</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;LAK&quot;</span><span class="p">)</span>
+<span class="n">xs</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;SFR&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.PatchCollection at 0x16b311dd0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_18_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_18_1.png" />
+</div>
+</div>
+</section>
+<section id="Along-an-arbitrary-line">
+<h2>Along an arbitrary line<a class="headerlink" href="#Along-an-arbitrary-line" title="Link to this heading">¶</a></h2>
+<p>(and in Geographic Coordinates)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">xs_line</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">552400</span><span class="p">,</span> <span class="mi">393000</span><span class="p">),</span> <span class="p">(</span><span class="mi">552400</span> <span class="o">+</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">393000</span> <span class="o">-</span> <span class="mi">4000</span><span class="p">)]</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                                 <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">xs_line</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                                 <span class="n">geographic_coords</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
+
+<span class="n">pc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">npf</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">pc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Hydraulic Conductivity, in m/day&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x16b43bbd0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_20_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_20_1.png" />
+</div>
+</div>
+<section id="An-aside-on-working-with-model-input-as-numpy-arrays">
+<h3>An aside on working with model input as numpy arrays<a class="headerlink" href="#An-aside-on-working-with-model-input-as-numpy-arrays" title="Link to this heading">¶</a></h3>
+<p>Every input to MODFOW is attached to a Flopy object (with the attribute name of the variable) as a numpy <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> (for ndarray-type data) or a <code class="docutils literal notranslate"><span class="pre">recarray</span></code> for tabular or list-type data. For example, we can access the recharge array (4D– nper x nlay x nrow x ncol) with:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>m.rcha.recharge.array
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ndarray-example:-plot-spatial-average-recharge-by-stress-period">
+<h2><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> example: plot spatial average recharge by stress period<a class="headerlink" href="#ndarray-example:-plot-spatial-average-recharge-by-stress-period" title="Link to this heading">¶</a></h2>
+<p>To minimize extra typing, it often makes sense to reassign the numpy array to a new variable to work with it further.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rch_inches</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">rcha</span><span class="o">.</span><span class="n">recharge</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">365.25</span> <span class="o">/</span> <span class="mf">.3048</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rch_inches</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">rch_inches</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.lines.Line2D at 0x16b4f4890&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_23_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_23_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">rcha</span><span class="o">.</span><span class="n">recharge</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([ 34681.345768  ,   3936.71297726,   4173.97054668,  32372.63194945,
+        67273.4195892 , 111815.619908  ,    857.271577  ,    564.02517632,
+         1314.61455638,    504.22246896,   9767.05138672,   4700.137398  ,
+         3202.62911   ])
+</pre></div></div>
+</div>
+</section>
+<section id="Tabular-data-example:-plot-pumping-by-stress-period">
+<h2>Tabular data example: plot pumping by stress period<a class="headerlink" href="#Tabular-data-example:-plot-pumping-by-stress-period" title="Link to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line">Most tabular input for the ‘basic’ stress packages (Constant Head, Drain, General Head, RIV, WEL, etc) are accessable via a <code class="docutils literal notranslate"><span class="pre">stress_period_data</span></code> attribute.</div>
+<div class="line">* To access the data, we have to call another <code class="docutils literal notranslate"><span class="pre">.data</span></code> attribute, which gives us a dictionary of <code class="docutils literal notranslate"><span class="pre">recarray</span></code>s by stress period.</div>
+<div class="line">* Any one of these can be converted to a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> individually, or we can make a dataframe of all of them with a simple loop.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">kper</span><span class="p">,</span> <span class="n">ra</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">wel</span><span class="o">.</span><span class="n">stress_period_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;per&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kper</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cellid</th>
+      <th>q</th>
+      <th>boundname</th>
+      <th>per</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-396.867</td>
+      <td>pleasant_2-13-2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(2, 17, 2)</td>
+      <td>-409.900</td>
+      <td>pleasant_2-9-2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(3, 23, 44)</td>
+      <td>0.000</td>
+      <td>pleasant_3-12-23</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>(3, 25, 26)</td>
+      <td>0.000</td>
+      <td>pleasant_3-13-14</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>(3, 24, 54)</td>
+      <td>-878.654</td>
+      <td>pleasant_3-13-28</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Now we can sum by stress period, or plot individual wells across stress periods</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;per&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="s1">&#39;q&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total pumpage by Stress period&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$m^3$/day&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0, 0.5, &#39;$m^3$/day&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_28_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_28_1.png" />
+</div>
+</div>
+<section id="Exercise:-plot-pumping-for-the-well-at-cellid:-2,-24,-2">
+<h3>Exercise: plot pumping for the well at cellid: 2, 24, 2<a class="headerlink" href="#Exercise:-plot-pumping-for-the-well-at-cellid:-2,-24,-2" title="Link to this heading">¶</a></h3>
+<p>About many gallons did this well pump in stress periods 1 through 12?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;boundname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;pleasant_2-13-2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;per&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Axes: xlabel=&#39;per&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_30_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_30_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Solution:">
+<h2>Solution:<a class="headerlink" href="#Solution:" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>get the pumping rates by stress period</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;boundname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;pleasant_2-13-2&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">rates</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cellid</th>
+      <th>q</th>
+      <th>boundname</th>
+      <th>per</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>0.0000</td>
+      <td>pleasant_2-13-2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>0.0000</td>
+      <td>pleasant_2-13-2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-926.7360</td>
+      <td>pleasant_2-13-2</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-4428.3600</td>
+      <td>pleasant_2-13-2</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-5699.1800</td>
+      <td>pleasant_2-13-2</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-1027.5000</td>
+      <td>pleasant_2-13-2</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-99.1399</td>
+      <td>pleasant_2-13-2</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>0.0000</td>
+      <td>pleasant_2-13-2</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Google “python get days in month” or similar (simply using 30.4 would be fine too for an approximate answer)</p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">calendar</span>
+<span class="n">rates</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">calendar</span><span class="o">.</span><span class="n">monthrange</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span><span class="n">m</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">rates</span><span class="p">[</span><span class="s1">&#39;per&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>multiply the days by the daily pumping rate to get the totals; convert units and sum</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cellid</th>
+      <th>q</th>
+      <th>boundname</th>
+      <th>per</th>
+      <th>days</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>0.0000</td>
+      <td>pleasant_2-13-2</td>
+      <td>1</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>0.0000</td>
+      <td>pleasant_2-13-2</td>
+      <td>4</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-926.7360</td>
+      <td>pleasant_2-13-2</td>
+      <td>5</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-4428.3600</td>
+      <td>pleasant_2-13-2</td>
+      <td>6</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-5699.1800</td>
+      <td>pleasant_2-13-2</td>
+      <td>7</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-1027.5000</td>
+      <td>pleasant_2-13-2</td>
+      <td>8</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>-99.1399</td>
+      <td>pleasant_2-13-2</td>
+      <td>9</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(2, 24, 2)</td>
+      <td>0.0000</td>
+      <td>pleasant_2-13-2</td>
+      <td>10</td>
+      <td>31</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates</span><span class="p">[</span><span class="s1">&#39;gallons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">rates</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">264.172</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rates</span><span class="p">[</span><span class="s1">&#39;gallons&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-98,557,525.66559602
+</pre></div></div>
+</div>
+</section>
+<section id="Run-the-model-first-to-get-the-output">
+<h2>Run the model first to get the output<a class="headerlink" href="#Run-the-model-first-to-get-the-output" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mf6
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                            VERSION 6.4.2 06/28/2023
+
+   MODFLOW 6 compiled Jun 28 2023 18:34:54 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
+                             Build 20220726_000000
+
+This software has been approved for release by the U.S. Geological
+Survey (USGS). Although the software has been subjected to rigorous
+review, the USGS reserves the right to update the software as needed
+pursuant to further analysis and review. No warranty, expressed or
+implied, is made by the USGS or the U.S. Government as to the
+functionality of the software and related material nor shall the
+fact of release constitute any such warranty. Furthermore, the
+software is released on condition that neither the USGS nor the U.S.
+Government shall be held liable for any damages resulting from its
+authorized or unauthorized use. Also refer to the USGS Water
+Resources Software User Rights Notice for complete use, copyright,
+and distribution information.
+
+
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:35:34
+
+ Writing simulation list file: mfsim.lst
+ Using Simulation name file: mfsim.nam
+
+    Solving:  Stress period:     1    Time step:     1
+    Solving:  Stress period:     2    Time step:     1
+    Solving:  Stress period:     3    Time step:     1
+    Solving:  Stress period:     4    Time step:     1
+    Solving:  Stress period:     5    Time step:     1
+    Solving:  Stress period:     6    Time step:     1
+    Solving:  Stress period:     7    Time step:     1
+    Solving:  Stress period:     8    Time step:     1
+    Solving:  Stress period:     9    Time step:     1
+    Solving:  Stress period:    10    Time step:     1
+    Solving:  Stress period:    11    Time step:     1
+    Solving:  Stress period:    12    Time step:     1
+    Solving:  Stress period:    13    Time step:     1
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:35:37
+ Elapsed run time:  3.229 Seconds
+
+
+WARNING REPORT:
+
+  1. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;pleasant.sfr&#39; WAS
+     DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
+ Normal termination of simulation.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(True, [])
+</pre></div></div>
+</div>
+<section id="Getting-the-output">
+<h3>Getting the output<a class="headerlink" href="#Getting-the-output" title="Link to this heading">¶</a></h3>
+<p>With MODFLOW 6 models, we can get the output from the model object, without having to reference additional files. Sometimes though, it may be easier to read the file directly.</p>
+<p>The head solution is reported for each layer. * We can use the <code class="docutils literal notranslate"><span class="pre">get_water_table</span></code> utility to get a 2D surface of the water table position in each cell. * To accurately portray the water table around the lake, we can read the lake stage from the observation file and assign it to the relevant cells in the water table array. * Otherwise, depending on how the lake is constructed, the lake area would be shown as a nodata/no-flow area, or as the heads in the groundwater system below the lakebed.
+* In this case, we are getting the solution from the initial steady-state period</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flopy.utils.postprocessing</span> <span class="kn">import</span> <span class="n">get_water_table</span>
+<span class="kn">from</span> <span class="nn">mfexport.utils</span> <span class="kn">import</span> <span class="n">get_water_table</span>
+
+<span class="n">hds</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">kstpkper</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">wt</span> <span class="o">=</span> <span class="n">get_water_table</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=-</span><span class="mf">1e30</span><span class="p">)</span>
+
+<span class="c1"># add the lake stage to the water table</span>
+<span class="n">lak_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;lake1.obs.csv&#39;</span><span class="p">)</span>
+<span class="n">stage</span> <span class="o">=</span> <span class="n">lak_output</span><span class="p">[</span><span class="s1">&#39;STAGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cnd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">lak</span><span class="o">.</span><span class="n">connectiondata</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+<span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cnd</span><span class="p">[</span><span class="s1">&#39;cellid&#39;</span><span class="p">])</span>
+<span class="n">wt</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage</span>
+
+<span class="n">cbc</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
+<span class="n">lak</span> <span class="o">=</span> <span class="n">cbc</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;lak&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sfr</span> <span class="o">=</span> <span class="n">cbc</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;sfr&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Plot-head-and-surface-water-flux-results">
+<h3>Plot head and surface water flux results<a class="headerlink" href="#Plot-head-and-surface-water-flux-results" title="Link to this heading">¶</a></h3>
+<p>We can add output to a PlotMapView instance as arrays</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">280</span><span class="p">,</span> <span class="mi">315</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ctr</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">wt</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
+                        <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">ctr</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline_spacing</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lak</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">sfr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Leakage, in m$^3$/day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Northing, WTM meters&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Easting, WTM meters&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_43_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_43_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="n">wt</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x176ac2490&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_45_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_45_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Zoom-in-on-the-lake">
+<h2>Zoom in on the lake<a class="headerlink" href="#Zoom-in-on-the-lake" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">280</span><span class="p">,</span> <span class="mi">315</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="mi">554500</span><span class="p">,</span> <span class="mi">557500</span><span class="p">,</span> <span class="mi">388500</span><span class="p">,</span> <span class="mi">392000</span><span class="p">))</span>
+<span class="n">ctr</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">wt</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
+                        <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">ctr</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline_spacing</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lak</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">sfr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Leakage, in m$^3$/day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Northing, WTM meters&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Easting, WTM meters&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_47_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_47_0.png" />
+</div>
+</div>
+<section id="Exporting-Rasters">
+<h3>Exporting Rasters<a class="headerlink" href="#Exporting-Rasters" title="Link to this heading">¶</a></h3>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">export_array</span></code> utility to make a GeoTIFF of any 2D array on a structured grid. For example, make a raster of the simulated water table.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flopy.export.utils</span> <span class="kn">import</span> <span class="n">export_array</span>
+
+<span class="n">export_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;water_table.tif&#39;</span><span class="p">),</span> <span class="n">wt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pyproj/crs/crs.py:1293: UserWarning: You will likely lose important projection information when converting to a PROJ string from another format. See: https://proj.org/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems
+  proj = self._crs.to_proj4(version=version)
+</pre></div></div>
+</div>
+</section>
+<section id="Exercise:-evaluating-overpressurization">
+<h3>Exercise: evaluating overpressurization<a class="headerlink" href="#Exercise:-evaluating-overpressurization" title="Link to this heading">¶</a></h3>
+<p>A common issue with groundwater flow models is overpressurization- where heads above the land surface are simulated. Sometimes, these indicate natural wetlands that aren’t explicitly simulated in the model, but other times they are a sign of unrealistic parameters. Use the information in this lesson to answer the following questions:</p>
+<ol class="arabic simple">
+<li><p>Does this model solution have any overpressiuzation? If so, where? Is it appropriate?</p></li>
+<li><p>What is the maximum value of overpressurization?</p></li>
+<li><p>What is the maximum depth to water simulated? Where are the greatest depths to water? Do they look appropriate?</p></li>
+</ol>
+</section>
+</section>
+<section id="Solution">
+<h2>Solution<a class="headerlink" href="#Solution" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Make a numpy array of overpressurization and get the max and min values</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="n">wt</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span>
+<span class="n">op</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">op</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(11.120818299999996, -76.35338698486277)
+</pre></div></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Plot it</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">op</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x176e764d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_54_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_54_1.png" />
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Export a raster of overpressurization so we can compare it against air photos (or mapped wetlands if we have them!)</p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">export_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;op.tif&#39;</span><span class="p">),</span> <span class="n">op</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The highest levels of overpressurization correspond to Pleasant Lake, where the model top represents the lake bottom. Other areas of <em>OP</em> appear to correspond to lakes or wetlands, especially the spring complex south of Pleasant Lake, where Tagatz Creek originates.</p>
+<p>The greatest depths to water correspond to a topographic high in the southwest part of the model domain. A cross section through the area confirms that it is a bedrock high that rises more than 50 meters above the surrounding topography, so a depth to water of 76 meters in this area seems reasonable.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">62</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_58_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_58_0.png" />
+</div>
+</div>
+<section id="Plot-a-cross-section-of-the-head-solution-with-the-water-table">
+<h3>Plot a cross section of the head solution with the water table<a class="headerlink" href="#Plot-a-cross-section-of-the-head-solution-with-the-water-table" title="Link to this heading">¶</a></h3>
+<p>We can also view output in cross section. In this case, <code class="docutils literal notranslate"><span class="pre">PlotMatView</span></code> plots the head solution where the model is saturated. We can add the water table we created above that includes the lake surface.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">xs_line</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">552400</span><span class="p">,</span> <span class="mi">393000</span><span class="p">),</span> <span class="p">(</span><span class="mi">552400</span> <span class="o">+</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">393000</span> <span class="o">-</span> <span class="mi">4000</span><span class="p">)]</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                                 <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">xs_line</span><span class="p">},</span>
+                                 <span class="c1">#line={&quot;row&quot;: 32},</span>
+                                 <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                                 <span class="n">geographic_coords</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
+<span class="n">pc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">hds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+<span class="n">ctr</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">hds</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">wt</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span>
+    <span class="n">ctr</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline_spacing</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_60_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_60_0.png" />
+</div>
+</div>
+<section id="Getting-observation-output-two-ways">
+<h4>Getting observation output two ways<a class="headerlink" href="#Getting-observation-output-two-ways" title="Link to this heading">¶</a></h4>
+<p>Above we obtained a DataFrame of output for pleasant lake by reading in the relevant file with pandas. We can do this for heads too.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">headobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;pleasant.head.obs&#39;</span><span class="p">)</span>
+<span class="n">headobs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>00400037_UWSP</th>
+      <th>00400037_UWSP.1</th>
+      <th>00400037_UWSP.2</th>
+      <th>00400037_UWSP.3</th>
+      <th>00400041_UWSP</th>
+      <th>00400041_UWSP.1</th>
+      <th>00400041_UWSP.2</th>
+      <th>00400041_UWSP.3</th>
+      <th>10019264_LK</th>
+      <th>...</th>
+      <th>YH229.2</th>
+      <th>YH229.3</th>
+      <th>YQ987</th>
+      <th>YQ987.1</th>
+      <th>YQ987.2</th>
+      <th>YQ987.3</th>
+      <th>YS864</th>
+      <th>YS864.1</th>
+      <th>YS864.2</th>
+      <th>YS864.3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>310.161509</td>
+      <td>310.152440</td>
+      <td>310.146632</td>
+      <td>309.972583</td>
+      <td>294.571188</td>
+      <td>294.533753</td>
+      <td>294.507520</td>
+      <td>294.460828</td>
+      <td>287.057064</td>
+      <td>...</td>
+      <td>301.671867</td>
+      <td>301.833545</td>
+      <td>302.314533</td>
+      <td>302.324774</td>
+      <td>302.335628</td>
+      <td>302.712518</td>
+      <td>312.448733</td>
+      <td>312.427510</td>
+      <td>312.400785</td>
+      <td>312.395162</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>32.0</td>
+      <td>310.114717</td>
+      <td>310.114717</td>
+      <td>310.108406</td>
+      <td>309.932164</td>
+      <td>294.496467</td>
+      <td>294.460880</td>
+      <td>294.436082</td>
+      <td>294.403306</td>
+      <td>287.002266</td>
+      <td>...</td>
+      <td>301.609129</td>
+      <td>301.772555</td>
+      <td>302.230838</td>
+      <td>302.244670</td>
+      <td>302.258673</td>
+      <td>302.652591</td>
+      <td>312.387007</td>
+      <td>312.383407</td>
+      <td>312.353905</td>
+      <td>312.348160</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>61.0</td>
+      <td>310.078745</td>
+      <td>310.078745</td>
+      <td>310.072239</td>
+      <td>309.894409</td>
+      <td>294.432037</td>
+      <td>294.396652</td>
+      <td>294.372019</td>
+      <td>294.340104</td>
+      <td>286.969376</td>
+      <td>...</td>
+      <td>301.559509</td>
+      <td>301.721138</td>
+      <td>302.179090</td>
+      <td>302.193726</td>
+      <td>302.208416</td>
+      <td>302.605806</td>
+      <td>312.345221</td>
+      <td>312.339465</td>
+      <td>312.307319</td>
+      <td>312.299521</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>92.0</td>
+      <td>310.051664</td>
+      <td>310.051664</td>
+      <td>310.048010</td>
+      <td>309.878756</td>
+      <td>294.459305</td>
+      <td>294.424027</td>
+      <td>294.399453</td>
+      <td>294.367593</td>
+      <td>287.008239</td>
+      <td>...</td>
+      <td>301.576502</td>
+      <td>301.736277</td>
+      <td>302.211276</td>
+      <td>302.221966</td>
+      <td>302.233239</td>
+      <td>302.614153</td>
+      <td>312.367330</td>
+      <td>312.340335</td>
+      <td>312.309477</td>
+      <td>312.304597</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>122.0</td>
+      <td>310.100468</td>
+      <td>310.085611</td>
+      <td>310.082751</td>
+      <td>309.915603</td>
+      <td>294.568056</td>
+      <td>294.532587</td>
+      <td>294.507949</td>
+      <td>294.476668</td>
+      <td>287.084117</td>
+      <td>...</td>
+      <td>301.647729</td>
+      <td>301.809016</td>
+      <td>302.261779</td>
+      <td>302.269823</td>
+      <td>302.278917</td>
+      <td>302.655915</td>
+      <td>312.416061</td>
+      <td>312.379106</td>
+      <td>312.355470</td>
+      <td>312.358140</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 550 columns</p>
+</div></div>
+</div>
+<p>Head observations can also be accessed via the <code class="docutils literal notranslate"><span class="pre">.ouput</span></code> attribute for their respective package. First we have to find the name associated with that package though. We can get this by calling <code class="docutils literal notranslate"><span class="pre">get_package_list()</span></code>. Looks like <code class="docutils literal notranslate"><span class="pre">&quot;OBS_3&quot;</span></code> is it.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">get_package_list</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;DIS&#39;,
+ &#39;IC&#39;,
+ &#39;NPF&#39;,
+ &#39;STO&#39;,
+ &#39;RCHA_0&#39;,
+ &#39;OC&#39;,
+ &#39;CHD_OBS&#39;,
+ &#39;CHD_0&#39;,
+ &#39;SFR_OBS&#39;,
+ &#39;SFR_0&#39;,
+ &#39;LAK_OBS&#39;,
+ &#39;LAK_LAKTAB&#39;,
+ &#39;LAK_0&#39;,
+ &#39;WEL_0&#39;,
+ &#39;OBS_3&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#m.obs_3.output.obs()</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Using-boundnames-to-define-observations">
+<h3>Using boundnames to define observations<a class="headerlink" href="#Using-boundnames-to-define-observations" title="Link to this heading">¶</a></h3>
+<p>In MODFLOW 6, we can use boundnames to create observations for groups of cells. For example, in this model, each head value specified in the Constant Head Package has a <code class="docutils literal notranslate"><span class="pre">boundname</span></code> of east, west, north or south, to indicate the side of the model perimeter it’s on. The Constant Head Observation Utility input is then set up like so:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>BEGIN options
+END options
+
+BEGIN continuous  FILEOUT  pleasant.chd.obs.output.csv
+# obsname obstype ID
+  east  chd  east
+  west  chd  west
+  north  chd  north
+  south  chd  south
+END continuous  FILEOUT  pleasant.chd.obs.output.csv
+</pre></div>
+</div>
+<p>The resulting observation output can be found in <code class="docutils literal notranslate"><span class="pre">pleasant.chd.obs.output.csv</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;pleasant.chd.obs.output.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>EAST</th>
+      <th>WEST</th>
+      <th>NORTH</th>
+      <th>SOUTH</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1.0</th>
+      <td>1.0</td>
+      <td>-34777.280407</td>
+      <td>6212.364587</td>
+      <td>17421.976405</td>
+      <td>-9693.429003</td>
+    </tr>
+    <tr>
+      <th>32.0</th>
+      <td>32.0</td>
+      <td>-34508.241761</td>
+      <td>6363.316750</td>
+      <td>17572.839997</td>
+      <td>-9487.079654</td>
+    </tr>
+    <tr>
+      <th>61.0</th>
+      <td>61.0</td>
+      <td>-34204.575946</td>
+      <td>6300.560999</td>
+      <td>17485.626670</td>
+      <td>-9557.938536</td>
+    </tr>
+    <tr>
+      <th>92.0</th>
+      <td>92.0</td>
+      <td>-34234.775964</td>
+      <td>5908.645868</td>
+      <td>17351.380660</td>
+      <td>-9853.127093</td>
+    </tr>
+    <tr>
+      <th>122.0</th>
+      <td>122.0</td>
+      <td>-34721.889213</td>
+      <td>5359.082084</td>
+      <td>17203.878073</td>
+      <td>-10100.990732</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<section id="Plotting-global-mass-balance-from-the-listing-file">
+<h4>Plotting global mass balance from the listing file<a class="headerlink" href="#Plotting-global-mass-balance-from-the-listing-file" title="Link to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Mf6ListBudget</span></code> and <code class="docutils literal notranslate"><span class="pre">MfListBudget</span></code> (for earlier MODFLOW versions) utilities can assemble the global mass balance output (printed in the Listing file) into a DataFrame. A <code class="docutils literal notranslate"><span class="pre">start_datetime</span></code> can be added to convert the MODFLOW time to actual dates.</p>
+<p><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">start_datetime</span></code> functionality is unaware of steady-state periods, so if we put in the actual model start date of 2012-01-01, the 1-day initial steady-state will be included, resulting in the stress periods being offset by one day. Also note that the dates here represent the <em>end</em> of each stress period.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flopy.utils</span> <span class="kn">import</span> <span class="n">Mf6ListBudget</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mfl</span> <span class="o">=</span> <span class="n">Mf6ListBudget</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;pleasant.list&#39;</span><span class="p">)</span>
+<span class="n">flux</span><span class="p">,</span> <span class="n">vol</span> <span class="o">=</span> <span class="n">mfl</span><span class="o">.</span><span class="n">get_dataframes</span><span class="p">(</span><span class="n">start_datetime</span><span class="o">=</span><span class="s1">&#39;2011-12-30&#39;</span><span class="p">)</span>
+<span class="n">flux</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>STO-SS_IN</th>
+      <th>STO-SY_IN</th>
+      <th>WEL_IN</th>
+      <th>RCHA_IN</th>
+      <th>CHD_IN</th>
+      <th>SFR_IN</th>
+      <th>LAK_IN</th>
+      <th>TOTAL_IN</th>
+      <th>STO-SS_OUT</th>
+      <th>STO-SY_OUT</th>
+      <th>WEL_OUT</th>
+      <th>RCHA_OUT</th>
+      <th>CHD_OUT</th>
+      <th>SFR_OUT</th>
+      <th>LAK_OUT</th>
+      <th>TOTAL_OUT</th>
+      <th>IN-OUT</th>
+      <th>PERCENT_DISCREPANCY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2011-12-31</th>
+      <td>0.0000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>33188.867188</td>
+      <td>23435.904297</td>
+      <td>349.638306</td>
+      <td>3680.284180</td>
+      <td>60654.695312</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>2383.022705</td>
+      <td>0.0</td>
+      <td>44272.273438</td>
+      <td>11781.069336</td>
+      <td>2217.934814</td>
+      <td>60654.296875</td>
+      <td>0.396000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2012-01-31</th>
+      <td>6.7081</td>
+      <td>25877.734375</td>
+      <td>0.0</td>
+      <td>3485.810791</td>
+      <td>23184.136719</td>
+      <td>518.563782</td>
+      <td>3719.994385</td>
+      <td>56792.949219</td>
+      <td>0.241800</td>
+      <td>156.215195</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>43243.300781</td>
+      <td>11221.008789</td>
+      <td>2172.376465</td>
+      <td>56793.144531</td>
+      <td>-0.195200</td>
+      <td>-0.0</td>
+    </tr>
+    <tr>
+      <th>2012-02-29</th>
+      <td>6.5506</td>
+      <td>24792.722656</td>
+      <td>0.0</td>
+      <td>3771.585449</td>
+      <td>23037.080078</td>
+      <td>680.194580</td>
+      <td>3735.312012</td>
+      <td>56023.445312</td>
+      <td>0.001131</td>
+      <td>20.584900</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>43013.406250</td>
+      <td>10831.583008</td>
+      <td>2157.964844</td>
+      <td>56023.539062</td>
+      <td>-0.094266</td>
+      <td>-0.0</td>
+    </tr>
+    <tr>
+      <th>2012-03-31</th>
+      <td>0.5149</td>
+      <td>3190.234619</td>
+      <td>0.0</td>
+      <td>30861.951172</td>
+      <td>23084.673828</td>
+      <td>687.003601</td>
+      <td>3648.997559</td>
+      <td>61473.375000</td>
+      <td>1.263200</td>
+      <td>4260.674316</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>43912.550781</td>
+      <td>11090.963867</td>
+      <td>2208.054443</td>
+      <td>61473.503906</td>
+      <td>-0.129200</td>
+      <td>-0.0</td>
+    </tr>
+    <tr>
+      <th>2012-04-30</th>
+      <td>0.0000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>64854.593750</td>
+      <td>22838.197266</td>
+      <td>377.562012</td>
+      <td>3493.942871</td>
+      <td>91564.296875</td>
+      <td>9.284800</td>
+      <td>32114.669922</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>45098.117188</td>
+      <td>12015.685547</td>
+      <td>2326.493896</td>
+      <td>91564.250000</td>
+      <td>0.044994</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flux</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Index([&#39;STO-SS_IN&#39;, &#39;STO-SY_IN&#39;, &#39;WEL_IN&#39;, &#39;RCHA_IN&#39;, &#39;CHD_IN&#39;, &#39;SFR_IN&#39;,
+       &#39;LAK_IN&#39;, &#39;TOTAL_IN&#39;, &#39;STO-SS_OUT&#39;, &#39;STO-SY_OUT&#39;, &#39;WEL_OUT&#39;, &#39;RCHA_OUT&#39;,
+       &#39;CHD_OUT&#39;, &#39;SFR_OUT&#39;, &#39;LAK_OUT&#39;, &#39;TOTAL_OUT&#39;, &#39;IN-OUT&#39;,
+       &#39;PERCENT_DISCREPANCY&#39;],
+      dtype=&#39;object&#39;)
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Check-the-model-mass-balance-error">
+<h3>Check the model mass balance error<a class="headerlink" href="#Check-the-model-mass-balance-error" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flux</span><span class="p">[</span><span class="s1">&#39;PERCENT_DISCREPANCY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Axes: &gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_73_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_73_1.png" />
+</div>
+</div>
+</section>
+<section id="Make-a-stacked-bar-plot-of-the-global-mass-balance">
+<h3>Make a stacked bar plot of the global mass balance<a class="headerlink" href="#Make-a-stacked-bar-plot-of-the-global-mass-balance" title="Link to this heading">¶</a></h3>
+<p>Note: This works best if the in and out columns are aligned, such that <code class="docutils literal notranslate"><span class="pre">STO-SY_IN</span></code> and <code class="docutils literal notranslate"><span class="pre">STO-SY_OUT</span></code> are both colored orange, for example.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">in_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;STO-SS_IN&#39;</span><span class="p">,</span> <span class="s1">&#39;STO-SY_IN&#39;</span><span class="p">,</span> <span class="s1">&#39;WEL_IN&#39;</span><span class="p">,</span> <span class="s1">&#39;RCHA_IN&#39;</span><span class="p">,</span> <span class="s1">&#39;CHD_IN&#39;</span><span class="p">,</span> <span class="s1">&#39;SFR_IN&#39;</span><span class="p">,</span> <span class="s1">&#39;LAK_IN&#39;</span><span class="p">]</span>
+<span class="n">out_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_IN&#39;</span><span class="p">,</span> <span class="s1">&#39;_OUT&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">in_cols</span><span class="p">]</span>
+<span class="n">flux</span><span class="p">[</span><span class="n">in_cols</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="p">(</span><span class="o">-</span><span class="n">flux</span><span class="p">[</span><span class="n">out_cols</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.lines.Line2D at 0x1770593d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_75_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_75_1.png" />
+</div>
+</div>
+</section>
+<section id="References">
+<h3>References<a class="headerlink" href="#References" title="Link to this heading">¶</a></h3>
+<p>Fienen, M. N., Haserodt, M. J., Leaf, A. T., and Westenbroek, S. M. (2022). Simulation of regional groundwater flow and groundwater/lake interactions in the central Sands, Wisconsin. U.S. Geological Survey Scientific Investigations Report 2022-5046. doi:10.3133/sir20225046</p>
+<p>Fienen, M. N., Haserodt, M. J., and Leaf, A. T. (2021). MODFLOW models used to simulate groundwater flow in the Wisconsin Central Sands Study Area, 2012-2018. New York: U.S. Geological Survey Data Release. doi:10.5066/P9BVFSGJ</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02-Building-Post-Processing-MODFLOW6__solutions.html" class="btn btn-neutral float-left" title="Building and post-processing a MODFLOW 6 model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="04_Modelgrid_and_intersection_solution.html" class="btn btn-neutral float-right" title="04: Modelgrid and intersection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

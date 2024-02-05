@@ -1,0 +1,1205 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "6264d3bb",
+   "metadata": {},
+   "source": [
+    "# 04: File input and output\n",
+    "\n",
+    "In this exercise we will be learning about using python to work with file input and output. We will also learn a little about reading and writing ascii files. \n",
+    "\n",
+    "### Initialization of Notebook\n",
+    "\n",
+    "Populate the interactive namespace with the python packages we will be using in this exercise"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "8cc6bb20",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import sys\n",
+    "import pathlib as pl\n",
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "# set up the path to our data\n",
+    "pthnb = pl.Path('../data/fileio')\n",
+    "assert pthnb.is_dir()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "236f62c2",
+   "metadata": {},
+   "source": [
+    "### Additional reading and supporting documentation\n",
+    "\n",
+    "http://openbookproject.net/thinkcs/python/english3e/files.html"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "65676ef7",
+   "metadata": {},
+   "source": [
+    "### About files\n",
+    "While a program is running, its data is stored in random access memory (RAM). RAM is fast and inexpensive, but it is also **volatile**, which means that when the program ends, or the computer shuts down, data in RAM disappears. To make data available the next time the computer is turned on and the program is started, it has to be written to a non-volatile storage medium, such a hard drive, usb drive, or CD-RW.\n",
+    "\n",
+    "Data on **non-volatile** storage media is stored in named locations on the media called **files**. By reading and writing files, programs can save information between program runs.\n",
+    "\n",
+    "Working with files is a lot like working with a notebook. To use a notebook, it has to be opened. When done, it has to be closed. While the notebook is open, it can either be read from or written to. In either case, the notebook holder knows where they are. They can read the whole notebook in its natural order or they can skip around.\n",
+    "\n",
+    "All of this applies to files as well. To open a file, we specify its name and indicate whether we want to read or write.\n",
+    "\n",
+    "### Writing our first file\n",
+    "Let’s begin with a simple program that writes three lines of text into a file:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "5b1095c5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fname = pthnb / 'test.txt'\n",
+    "myfile = open(fname, 'w')\n",
+    "myfile.write('My first file written from Python\\n')\n",
+    "myfile.write('---------------------------------\\n')\n",
+    "myfile.write('Hello, world!\\n')\n",
+    "myfile.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "66b01ba8",
+   "metadata": {},
+   "source": [
+    "Opening a file creates what we call a file **handle**. In this example, the variable myfile refers to the new handle object. Our program calls methods on the handle, and this makes changes to the actual file which is usually located on our disk.\n",
+    "\n",
+    "On line 1, the open function takes two arguments. The first is the name of the file, and the second is the mode. Mode \"w\" means that we are opening the file for writing.\n",
+    "\n",
+    "With mode \"w\", if there is no file named test.txt on the disk, it will be created. If there already is one, it will be replaced by the file we are writing.\n",
+    "\n",
+    "To put data in the file we invoke the write method on the handle, shown in lines 2, 3 and 4 above. In bigger programs, lines 2–4 will usually be replaced by a loop that writes many more lines into the file.\n",
+    "\n",
+    "Closing the file handle (line 5) tells the system that we are done writing and makes the disk file available for reading by other programs (or by our own program)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8c837396",
+   "metadata": {},
+   "source": [
+    "### A better way to write a file, with `with`.\n",
+    "\n",
+    "The python `with` statement allows us to create a file handle that automatically closes after the code exits the with statement. This not only reduces the amount of code that exists, it also ensures that file handles are not not left open as the code progresses."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "d7240d58",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "myfile is closed: True\n"
+     ]
+    }
+   ],
+   "source": [
+    "with open(fname, \"w\") as myfile:\n",
+    "    myfile.write('My first file written from Python using with!\\n')\n",
+    "    myfile.write('---------------------------------\\n')\n",
+    "    myfile.write('Hello, world!\\n')\n",
+    "\n",
+    "print(f\"myfile is closed: {myfile.closed}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "e2c43782",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# how do we create and write a multi-line string?\n",
+    "s = (\n",
+    "    \"My first file written from Pyton using with!\\n\"\n",
+    "    \"--------------------------------------------\\n\"\n",
+    "    \"Hello, world!\\n\"\n",
+    ")\n",
+    "with open(fname, \"w\") as myfile:\n",
+    "    myfile.write(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1c01bf3c",
+   "metadata": {},
+   "source": [
+    "### Reading a file one line-at-a-time\n",
+    "\n",
+    "Now that the file exists on our disk, we can open it, this time for reading, and read all the lines in the file, one at a time. This time, the mode argument is `'r'` for reading:\n",
+    "\n",
+    "We can also use the `with open() as` convention for reading files:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "9c0abd01",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "My first file written from Pyton using with!\n",
+      "--------------------------------------------\n",
+      "Hello, world!\n"
+     ]
+    }
+   ],
+   "source": [
+    "with open(fname, \"r\") as mynewhandle:\n",
+    "    while True:                          # keep reading forever\n",
+    "        theline = mynewhandle.readline() # try to read the next line\n",
+    "        if len(theline) == 0:            # if there are no more lines\n",
+    "            break                        # leave the loop\n",
+    "        # now process the line we've just read\n",
+    "        print(theline.rstrip())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a7d044de",
+   "metadata": {},
+   "source": [
+    "In bigger programs, we’d squeeze more extensive logic into the body of the loop at the `print` statement. For example, if each line of the file contained the name and email address of one of our friends, perhaps we’d split the line into some pieces and call a function to send the friend a party invitation.\n",
+    "\n",
+    "We suppress the newline character (`'\\n'`) in the string `theline` using `.rstrip()`. Why? \n",
+    "\n",
+    "This is because the string already has its own newline : the `readline` method in line 3 returns everything up to and including the newline character. This also explains the end-of-file detection logic: when there are no more lines to be read from the file, `readline` returns an empty string — one that does not even have a newline at the end, hence its length is 0.\n",
+    "\n",
+    "See [python's string documentation](https://docs.python.org/3.9/library/string.html) for more information on common string operations."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a32def48",
+   "metadata": {},
+   "source": [
+    "### A second way to read file input\n",
+    "\n",
+    "Instead of using the `readline()` method we can loop over the handle object read a file line by line."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "2b9c5d3a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "My first file written from Pyton using with!\n",
+      "--------------------------------------------\n",
+      "Hello, world!\n"
+     ]
+    }
+   ],
+   "source": [
+    "with open(fname, \"r\") as myloophandle:\n",
+    "    for line in myloophandle:\n",
+    "        # process the line\n",
+    "        print(line.strip())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "5d5fdb8b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['My first file written from Pyton using with!\\n', '--------------------------------------------\\n', 'Hello, world!\\n']\n",
+      "Is file closed? False\n",
+      "Is file closed? True\n"
+     ]
+    }
+   ],
+   "source": [
+    "# can we use list comprehension to read a file?\n",
+    "myfilehandle = open(fname, \"r\")\n",
+    "lines_in_file = [line for line in myfilehandle]\n",
+    "print(lines_in_file)\n",
+    "\n",
+    "# but, the file is still open\n",
+    "print(\"Is file closed?\", myfilehandle.closed)\n",
+    "\n",
+    "# so it would need to be closed\n",
+    "myfilehandle.close()\n",
+    "\n",
+    "# now it's closed\n",
+    "print(\"Is file closed?\", myfilehandle.closed)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "36cd23fb",
+   "metadata": {},
+   "source": [
+    "This approach is much easier, but both methods (looping over the object and `readline()`) have applications for reading input. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "25559ccb",
+   "metadata": {},
+   "source": [
+    "### What if we open a file that does not exist\n",
+    "If we try to open a file that does not exist, we get an error:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "4c8d4763",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[Errno 2] No such file or directory: 'wharrah.txt'\n"
+     ]
+    }
+   ],
+   "source": [
+    "try:\n",
+    "    mynewhandle = open('wharrah.txt', 'r')\n",
+    "except Exception as e:\n",
+    "    print(e) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "adbd3686",
+   "metadata": {},
+   "source": [
+    "### Class Activity 1\n",
+    "\n",
+    "Write and read your own file. Use the completed code blocks above as a template. **Don't be ashamed to adapt code you got from someone else or on the internet to accomplish something useful.**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "b15e6d13",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# In class we created ten files and wrote the name of the file\n",
+    "# to the file itself.  Here is how we do that:\n",
+    "\n",
+    "for i in range(10):\n",
+    "    name = \"myfile\" + str(i) + \".txt\"\n",
+    "    fpth = pthnb / name\n",
+    "    with open(fpth, \"w\") as myfilehandle:\n",
+    "        myfilehandle.write(name)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "40ddafbb",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "id": "09da2347",
+   "metadata": {},
+   "source": [
+    "### File paths\n",
+    "\n",
+    "Files on non-volatile storage media are organized by a set of rules known as a **file system**. File systems are made up of files and **directories**, which are containers for both files and other directories.\n",
+    "\n",
+    "By default, when we create a new file by opening it goes in the current directory (wherever we were when we ran the program). Similarly, when we open a file for reading, Python looks for it in the current directory. In the above example, we have used `os.path.join()` to write the file to a specific directory rather than the directory we are running this notebook from. If `'test.txt'` was used in the `open` statement, the file would have been written to the current working directory. The current working directory can be determined using:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "0cbb7843",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part0_python_intro/solutions\n"
+     ]
+    }
+   ],
+   "source": [
+    "# The os module used to be the preferred way to access\n",
+    "# the current working directory; now we use pathlib\n",
+    "# os.getcwd()\n",
+    "\n",
+    "cwd = pl.Path.cwd()\n",
+    "print(cwd)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3a60f550",
+   "metadata": {},
+   "source": [
+    "Determine the directory that we wrote `'test.txt'` (`fname`) to in the blank code block below using `os.path.abspath()`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "98f4cff6",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "../data/fileio/test.txt\n",
+      "/Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part0_python_intro/data/fileio/test.txt\n"
+     ]
+    }
+   ],
+   "source": [
+    "# os.path.abspath(fname)\n",
+    "print(fname)\n",
+    "\n",
+    "# to get the absolute path using pathlib, we use .resolve()\n",
+    "print(fname.resolve())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "81d4f4b9",
+   "metadata": {},
+   "source": [
+    "On Windows, a full path could look like `'C:\\\\temp\\\\somefile.txt'`, while on MacOSX, Linux, and Unix systems the full path could be `'/home/jimmy/somefile.txt'`. Because backslashes are used to escape things like newlines and tabs, we need to write two backslashes in a literal string to get one! So the length of these two strings is the same!\n",
+    "\n",
+    "We cannot use `/` or `\\` as part of a filename; they are reserved as a delimiter between directory and filenames.\n",
+    "\n",
+    "`os.path` includes a number of useful methods for manipulating pathnames. For example, `os.path.normpath(path)` can be used to take Unix style paths into paths that can be used with Windows.\n",
+    "\n",
+    "Take a look at https://docs.python.org/3.9/library/os.path.html for more information of `os.path` methods."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "98746627",
+   "metadata": {},
+   "source": [
+    "### Turning a file into a list of lines\n",
+    "\n",
+    "It is often useful to fetch data from a disk file and turn it into a list of lines. Suppose we have a file containing our friends and their email addresses, one per line in the file. But we’d like the lines sorted into alphabetical order. A good plan is to read everything into a list of lines, then sort the list, then write the sorted list back to another file, and then read the sorted file and print the data from the file:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "6b9c4370",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Annihilator, Morbo, , morbo@futurama.org\n",
+      "Brannigan, Zapp, , brannigan@futurama.org\n",
+      "Clampazzo, Francis, X., clamps@futurama.org\n",
+      "Conrad, Hermes, , hermes@futurama.org\n",
+      "Farnsworth, Hubert, J., professor@futurama.org\n",
+      "Fry, Philip, J., fry@futurama.org\n",
+      "Kroker, Kif, , kif@futurama.org\n",
+      "Mousepad, Joey, , mousepad@futurama.org\n",
+      "Nibbler, Lord, , nibbler@fututama.org\n",
+      "Rodriguez, Bender, Bending, bender@futurama.org\n",
+      "Turanga, Leela, , leela@futurama.org\n",
+      "Wernstrom, Ogden, , wernstrom@futurama.org\n",
+      "Wong, Amy, , amy@futurama.org\n",
+      "Zoidberg, John, A., zoidberg@futurama.org\n",
+      "van Schoonhoven, Linda, , vanschoonhoven@futurama.org\n"
+     ]
+    }
+   ],
+   "source": [
+    "fname = pthnb / 'friends.txt'\n",
+    "with open(fname, 'r') as f:\n",
+    "    xs = f.readlines()\n",
+    "\n",
+    "xs.sort()\n",
+    "\n",
+    "gname = pthnb / 'sortedfriends.txt'\n",
+    "with open(gname, 'w') as g:\n",
+    "    for v in xs:\n",
+    "        g.write(v)\n",
+    "\n",
+    "        \n",
+    "with open(gname, \"r\") as foo:\n",
+    "    for line in foo:\n",
+    "        print(line.strip())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "462f4723",
+   "metadata": {},
+   "source": [
+    "### Adding data from a file to a list of select data\n",
+    "\n",
+    "It is also useful to fetch data from a disk file, extracting the data from the lines read from the disk file, and add select data to a list. We will read the the names of our friends from the sorted file we just created, and add the last name, the first name and the email address to a list. We will then print the list:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "7c4e9941",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Annihilator         , Morbo      : morbo@futurama.org\n",
+      "Brannigan           , Zapp       : brannigan@futurama.org\n",
+      "Clampazzo           , Francis    : clamps@futurama.org\n",
+      "Conrad              , Hermes     : hermes@futurama.org\n",
+      "Farnsworth          , Hubert     : professor@futurama.org\n",
+      "Fry                 , Philip     : fry@futurama.org\n",
+      "Kroker              , Kif        : kif@futurama.org\n",
+      "Mousepad            , Joey       : mousepad@futurama.org\n",
+      "Nibbler             , Lord       : nibbler@fututama.org\n",
+      "Rodriguez           , Bender     : bender@futurama.org\n",
+      "Turanga             , Leela      : leela@futurama.org\n",
+      "Wernstrom           , Ogden      : wernstrom@futurama.org\n",
+      "Wong                , Amy        : amy@futurama.org\n",
+      "Zoidberg            , John       : zoidberg@futurama.org\n",
+      "van Schoonhoven     , Linda      : vanschoonhoven@futurama.org\n"
+     ]
+    }
+   ],
+   "source": [
+    "mynewhandle = open(gname, 'r')\n",
+    "with open(gname, \"r\") as foo:\n",
+    "    mylist = []\n",
+    "    for line in foo: \n",
+    "        t = line.strip().split(',')\n",
+    "        mylist.append([t[0].strip(), t[1].strip(), t[3].strip()])\n",
+    "\n",
+    "for ln, fn, e in mylist:\n",
+    "    print(f'{ln :20s}, {fn :11s}: {e}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b1812a7f",
+   "metadata": {},
+   "source": [
+    "### Class Activity 2\n",
+    "\n",
+    "1. What does the `split()` method do?\n",
+    "2. What does `fn[0]` do? What would `fn[:2]` do? What is `mylist[2]`?\n",
+    "\n",
+    "Use the empty code blocks below to answer these questions. **Remember it os ok to use the internet to help figure out what's going on.**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "eca4cfc0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['x', ' y', ' z']"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# example of split to show getting back a list of strings\n",
+    "s = \"x, y, z\"\n",
+    "s.split(\",\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0eefa513",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "id": "86d9127e",
+   "metadata": {},
+   "source": [
+    "### String format statements\n",
+    "\n",
+    "“Format specifications” are used within replacement fields contained within a format string \"f-string\" to define how individual values are presented. They can also be passed directly to the built-in `format()` function. Each formattable type may define how the format specification is to be interpreted.\n",
+    "\n",
+    "Most built-in types implement the following options for format specifications, although some of the formatting options are only supported by the numeric types.\n",
+    "\n",
+    "A general convention is that an empty format string (`''`) produces the same result as if you had called `str()` on the value. A non-empty format string typically modifies the result.\n",
+    "\n",
+    "**The general form of a standard format specifier is:**\n",
+    "\n",
+    "* format_spec :   `[[fill]align][sign][#][0][width][,][.precision][type]`\n",
+    "\n",
+    "* fill        :   `<any character> `\n",
+    "\n",
+    "* align       :   `'<'.  '>'.  '='.  '^'`\n",
+    "\n",
+    "* sign        :   `'+', '-', ' '` \n",
+    "\n",
+    "* width       :   `integer`\n",
+    "\n",
+    "* precision   :   `integer`\n",
+    "\n",
+    "* type        :  `'b', 'c', 'd', 'e', 'E', 'f', 'F', 'g', 'G', 'n', 'o', 's', 'x', 'X', ,'%'`\n",
+    "\n",
+    "If a valid *align* value is specified, it can be preceded by a *fill* character that can be any character and defaults to a space if omitted. Note that it is not possible to use { and } as *fill* `char` while using the `str.format()` and \"f-string\" methods; this limitation however doesn’t affect the `format()` function.\n",
+    "\n",
+    "**The meaning of the various alignment options is as follows:**\n",
+    "\n",
+    "**Option**\n",
+    "\n",
+    "* `'<'`\t: Forces the field to be left-aligned within the available space (this is the default for most objects).\n",
+    "* `'>'`\t: Forces the field to be right-aligned within the available space (this is the default for numbers).\n",
+    "* `'='`\t: Forces the padding to be placed after the sign (if any) but before the digits. This is used for printing fields in the form ‘+000000120’. : This alignment option is only valid for numeric types.\n",
+    "* `'^'`\t: Forces the field to be centered within the available space.\n",
+    "\n",
+    "Note that unless a minimum field width is defined, the field width will always be the same size as the data to fill it, so that the alignment option has no meaning in this case.\n",
+    "\n",
+    "The sign option is only valid for number types, and can be one of the following:\n",
+    "\n",
+    "**Option**\n",
+    "\n",
+    "* `'+'`\t: indicates that a sign should be used for both positive as well as negative numbers.\n",
+    "* `'-'`\t: indicates that a sign should be used only for negative numbers (this is the default behavior).\n",
+    "* `space`\t: indicates that a leading space should be used on positive numbers, and a minus sign on negative numbers.\n",
+    "\n",
+    "The `','` option signals the use of a comma for a thousands separator.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d65d78e4",
+   "metadata": {},
+   "source": [
+    "#### Let's look at the `str.format()` method first\n",
+    "\n",
+    "A great explanation with examples for the `str.format()` and older formatting methods can be found at [pyformat](https://pyformat.info/)\n",
+    "\n",
+    "Accessing arguments by position:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "86de60d5",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "a, b, c\n",
+      "a, b, c\n",
+      "c, b, a\n",
+      "c, b, a\n",
+      "abracadabra\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('{0}, {1}, {2}'.format('a', 'b', 'c'))\n",
+    "print('{}, {}, {}'.format('a', 'b', 'c'))  # 2.7+ only\n",
+    "print('{2}, {1}, {0}'.format('a', 'b', 'c'))\n",
+    "print('{2}, {1}, {0}'.format(*'abc'))      # unpacking argument sequence\n",
+    "print('{0}{1}{0}'.format('abra', 'cad')) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "731fd0a1",
+   "metadata": {},
+   "source": [
+    "Accessing arguments by name:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "efb539fc",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Coordinates: 37.24N, -115.81W\n",
+      "Coordinates: 37.24N, -115.81W\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('Coordinates: {latitude}, {longitude}'.format(latitude='37.24N', longitude='-115.81W'))\n",
+    "coord = {'latitude': '37.24N', 'longitude': '-115.81W'}\n",
+    "print('Coordinates: {latitude}, {longitude}'.format(**coord))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "c5833d09",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "X: 3;  Y: 5\n"
+     ]
+    }
+   ],
+   "source": [
+    "coord = (3, 5)\n",
+    "print('X: {0[0]};  Y: {0[1]}'.format(coord))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0206d674",
+   "metadata": {},
+   "source": [
+    "#### f-strings: a better solution in most cases\n",
+    "\n",
+    "f-strings are a relatively new, but powerful feature for string formatting. \n",
+    "\n",
+    "Construction of an f string is similar to the `str.format`, however we no longer need to add a `.format()` call to the end of the string. \n",
+    "\n",
+    "The call signiture for f-strings is:\n",
+    "\n",
+    "```python\n",
+    "f\"{some_variable}\"\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "1050362d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "abc = \"abc\"\n",
+    "a, b, c = \"abc\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "fb8541ba",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "a, b, c\n",
+      "c, a, b\n",
+      "a, b, c\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f\"{a}, {b}, {c}\")\n",
+    "print(f\"{c}, {a}, {b}\")\n",
+    "print(f\"{abc[0]}, {abc[1]}, {abc[2]}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "188f124e",
+   "metadata": {},
+   "source": [
+    "Aligning text and specifying a width"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "9f3f4f1a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "left aligned                  \n",
+      "                 right aligned\n",
+      "           centered           \n",
+      "***********centered***********\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f\"{'left aligned' :<30}\")\n",
+    "print(f\"{'right aligned' :>30}\")\n",
+    "print(f\"{'centered' :^30}\")\n",
+    "print(f\"{'centered' :*^30}\") # use '*' as a fill character"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cf47fc55",
+   "metadata": {},
+   "source": [
+    "Replacing %+f, %-f, and % f and specifying a sign:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "95ce430a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "+3.140000; -3.140000\n",
+      " 3.140000; -3.140000\n",
+      " 3.140000; -3.140000\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f'{3.14 :+f}; {-3.14 :+f}')  # show it always\n",
+    "print(f'{3.14 : f}; {-3.14 : f}')  # show a space for positive numbers\n",
+    "print(f' {3.14 :-f}; {-3.14 :-f}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "002b6440",
+   "metadata": {},
+   "source": [
+    "Using the comma as a thousands separator:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "70a7522e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1,234,567,890\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f'{1234567890 :,}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "44cf05b2",
+   "metadata": {},
+   "source": [
+    "Expressing a percentage:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "b18326f0",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Correct answers: 88.64%\n"
+     ]
+    }
+   ],
+   "source": [
+    "points = 19.5\n",
+    "total = 22\n",
+    "print(f'Correct answers: {points/total :.2%}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0efe783e",
+   "metadata": {},
+   "source": [
+    "Self describing formatting:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "8d21bec8",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "correct_answers= 88.64%\n"
+     ]
+    }
+   ],
+   "source": [
+    "correct_answers = points/total\n",
+    "print(f\"{correct_answers= :.2%}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "267bc0ce",
+   "metadata": {},
+   "source": [
+    "Using type-specific formatting:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "4d2767c2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2010-07-04 12:15:58\n"
+     ]
+    }
+   ],
+   "source": [
+    "import datetime\n",
+    "dt = datetime.datetime(2010, 7, 4, 12, 15, 58)\n",
+    "print(f'{dt :%Y-%m-%d %H:%M:%S}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9ec5de37",
+   "metadata": {},
+   "source": [
+    "More string formatting examples can be found in the [python documentation](https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "4117ef27",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "                              \n",
+      "              *               \n",
+      "             * *              \n",
+      "            * * *             \n",
+      "           * * * *            \n",
+      "          * * * * *           \n",
+      "         * * * * * *          \n",
+      "        * * * * * * *         \n",
+      "       * * * * * * * *        \n",
+      "      * * * * * * * * *       \n"
+     ]
+    }
+   ],
+   "source": [
+    "# in class we made a holiday tree using an f-string\n",
+    "\n",
+    "for i in range(10):\n",
+    "    s = f\"{i * '* ': ^30}\"\n",
+    "    print(s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "13d9f940",
+   "metadata": {},
+   "source": [
+    "## Class Activity 3\n",
+    "Use the empty code blocks below to write the following:\n",
+    "\n",
+    "1. print `'MODFLOW', 1., 1999`. Enter them in this order in the `str.format` or `f-string` method but print them in reverse order.\n",
+    "2. print `'MODFLOW', 'SUTRA'` left and right justified in 25 character strings using the `f-string` method.\n",
+    "3. create a variable called modflow and one called sutra and print them in a self describing string."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "b915ab66",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "MODFLOW 1.0 1999\n",
+      "1999 1.0 MODFLOW\n"
+     ]
+    }
+   ],
+   "source": [
+    "x, y, z = \"MODFLOW\", 1., 1999\n",
+    "s = f\"{x} {y} {z}\"\n",
+    "print(s)\n",
+    "\n",
+    "# in reverse\n",
+    "s = f\"{z} {y} {x}\"\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "b2e3d509",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "MODFLOW                  \n",
+      "                    SUTRA\n",
+      "012345678901234567890123456789\n"
+     ]
+    }
+   ],
+   "source": [
+    "x, y = \"MODFLOW\", \"SUTRA\"\n",
+    "print(f\"{x:<25}\")\n",
+    "print(f\"{y:>25}\")\n",
+    "print(3*\"0123456789\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bea10ae3",
+   "metadata": {},
+   "source": [
+    "### Reading and interpreting fixed format data from a string\n",
+    "The following example shows how python can be used to parse a fixed format string with touching numbers. This can be difficult to do in other programming languages."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "8bda24d9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99, 10.1, 11.11, 12.12, 13.13, 14.14, 15.15, 16.16, 17.17, 18.18, 19.19, 20.2]\n"
+     ]
+    }
+   ],
+   "source": [
+    "d = '01.1102.2203.3304.4405.5506.6607.7708.8809.9910.1011.1112.1213.1314.1415.1516.1617.1718.1819.1920.20'\n",
+    "rawdata = []\n",
+    "width = 5\n",
+    "istart, istop = 0, width\n",
+    "for idx in range(0, len(d), width):\n",
+    "    rawdata.append(d[istart:istop])\n",
+    "    istart = istop\n",
+    "    istop += width\n",
+    "\n",
+    "fd = [float(dat) for dat in rawdata]\n",
+    "print(fd)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e64ab02e",
+   "metadata": {},
+   "source": [
+    "### Reading the whole file at once\n",
+    "\n",
+    "Another way of working with text files is to read the complete contents of the file into a string, and then to use our string-processing skills to work with the contents.\n",
+    "\n",
+    "We’d normally use this method of processing files if we were not interested in the line structure of the file. Prior to the `split()`, we replace all commas (`','`) in the line with no space (`''`) and double spaces (`'  '`) with a single space (`' '`). And finally, we replace the line termination string (`'\\n'`) with a comma and a space (`', '`). So here is how we might count the number of words in a file:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "62039b75",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Loading file: ../data/fileio/sortedfriends.txt\n",
+      "There are 51 words in the file.\n",
+      "Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Clampazzo Francis X. clamps@futurama.org, Conrad Hermes hermes@futurama.org, Farnsworth Hubert J. professor@futurama.org, Fry Philip J. fry@futurama.org, Kroker Kif kif@futurama.org, Mousepad Joey mousepad@futurama.org, Nibbler Lord nibbler@fututama.org, Rodriguez Bender Bending bender@futurama.org, Turanga Leela leela@futurama.org, Wernstrom Ogden wernstrom@futurama.org, Wong Amy amy@futurama.org, Zoidberg John A. zoidberg@futurama.org, van Schoonhoven Linda vanschoonhoven@futurama.org, \n"
+     ]
+    }
+   ],
+   "source": [
+    "print(f\"Loading file: {gname}\")\n",
+    "with open(gname) as f:\n",
+    "    content = f.read()\n",
+    "\n",
+    "# remove commas and double spaces from line\n",
+    "content = content.replace(',','')\n",
+    "content = content.replace('  ',' ')\n",
+    "# replace line ending with \", \"\n",
+    "content = content.replace('\\n',', ')\n",
+    "\n",
+    "words = content.split()\n",
+    "print(f'There are {len(words)} words in the file.')\n",
+    "\n",
+    "print(f'{content}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "939346ef",
+   "metadata": {},
+   "source": [
+    "Notice here that we left out the `'r'` mode in the `open()` statement. By default, if we don’t supply the mode, Python opens the file for reading."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a3228a7c",
+   "metadata": {},
+   "source": [
+    "### An example\n",
+    "\n",
+    "Many useful line-processing programs will read a text file line-at-a-time and do some minor processing as they write the lines to an output file. They might number the lines in the output file, or insert extra blank lines after every 60 lines to make it convenient for printing on sheets of paper, or extract some specific columns only from each line in the source file, or only print lines that contain a specific substring. We call this kind of program a filter.\n",
+    "\n",
+    "Here is a filter that copies one file to another, omitting any lines that begin with #:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "3177bc27",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def file_filter(oldfile, newfile):\n",
+    "    with open(oldfile) as infile:\n",
+    "        with open(newfile, \"w\") as outfile:\n",
+    "            for line in infile:\n",
+    "                if line.startswith(\"#\"):\n",
+    "                    continue\n",
+    "                    \n",
+    "                # put additional processing logic here\n",
+    "                outfile.write(line)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "221cedf6",
+   "metadata": {},
+   "source": [
+    "The `continue` statement skips over the remaining lines in the current iteration of the loop, but the loop will still iterate. This style looks a bit contrived here, but it is often useful to say *“get the lines we’re not concerned with out of the way early, so that we have cleaner more focused logic in the meaty part of the loop that might be written around line 9.”*\n",
+    "\n",
+    "If the first character of `text` is a hash mark, the flow of execution goes to the top of the loop, ready to start processing the next line. If the `text` does not start with \"#\", the code falls through to do the processing at line 9, in this example, writing the line into the new file.\n",
+    "\n",
+    "Let’s consider one more case: suppose our original file contained empty lines. At the  `if len(text) == 0` line, would this program do anything with the emtpy line? Yes! Recall that a blank line always includes the newline character in the string it returns. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "39ac5185",
+   "metadata": {},
+   "source": [
+    "### Class Activity 4\n",
+    "Let's use the `file_filter` function to remove the comment lines from `'FileWithComments.txt'` and create `'FileWithOutComments.txt'`. Use one of the approaches discussed above to open, read, and print data in both files after calling the `file_filter` function. Remember to use the pl.Path() approach to access the file in the `pthnb` directory. \n",
+    "\n",
+    "Use the blank code block below to complete this activity."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c2beb56c",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "90c0b9f9",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

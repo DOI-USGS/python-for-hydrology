@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>06: FloPy class project: Structured grid version &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="06: FloPy class project: Quadtree grid version" href="06-Project-quadtree.html" />
+    <link rel="prev" title="05: FloPy Model Grids" href="../05-unstructured-grids.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02-Building-Post-Processing-MODFLOW6__solutions.html">Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-unstructured-grids.html">05: FloPy Model Grids</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">06: FloPy class project: Structured grid version</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Make-a-structured-model-grid">Make a structured model grid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Intersect-the-modelgrid-with-the-shapefiles">Intersect the modelgrid with the shapefiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-an-intersection-object">Create an intersection object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid">Intersect inactive and active shapefiles with the modelgrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Intersect-well-shapefile-with-the-modelgrid">Intersect well shapefile with the modelgrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Intersect-river-shapefile-with-the-modelgrid">Intersect river shapefile with the modelgrid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Intersect-constant-head-line-with-the-modelgrid">Intersect constant head line with the modelgrid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Resample-the-raster-data-to-the-modelgrid">Resample the raster data to the modelgrid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-the-resampled-data">Plot the resampled data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Build-the-model-data">Build the model data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Build-the-model">Build the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Write-the-model-files">Write the model files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Run-the-model">Run the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Post-process-the-results">Post-process the results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10_modpath-demo.html">10: MODPATH demonstration</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../part1.html">Part 1 flopy</a></li>
+      <li class="breadcrumb-item active">06: FloPy class project: Structured grid version</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/notebooks/part1_flopy/solutions/06-Project-structured_completed.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="06:-FloPy-class-project:-Structured-grid-version">
+<h1>06: FloPy class project: Structured grid version<a class="headerlink" href="#06:-FloPy-class-project:-Structured-grid-version" title="Link to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">shapely</span>
+<span class="kn">import</span> <span class="nn">shapefile</span>
+<span class="kn">import</span> <span class="nn">flopy</span>
+<span class="kn">from</span> <span class="nn">flopy.utils.gridgen</span> <span class="kn">import</span> <span class="n">Gridgen</span>
+<span class="kn">from</span> <span class="nn">flopy.discretization</span> <span class="kn">import</span> <span class="n">StructuredGrid</span><span class="p">,</span> <span class="n">VertexGrid</span>
+<span class="kn">from</span> <span class="nn">flopy.utils.triangle</span> <span class="kn">import</span> <span class="n">Triangle</span> <span class="k">as</span> <span class="n">Triangle</span>
+<span class="kn">from</span> <span class="nn">flopy.utils.voronoi</span> <span class="kn">import</span> <span class="n">VoronoiGrid</span>
+<span class="kn">from</span> <span class="nn">flopy.utils.gridintersect</span> <span class="kn">import</span> <span class="n">GridIntersect</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_ws</span> <span class="o">=</span> <span class="s2">&quot;../temp/structured/&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>Load a few raster files</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bottom</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Raster</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../data_project/aquifer_bottom.asc&quot;</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Raster</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../data_project/aquifer_top.asc&quot;</span><span class="p">)</span>
+<span class="n">kaq</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Raster</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../data_project/aquifer_k.asc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Load a few shapefiles with geopandas</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../data_project/Flowline_river.shp&quot;</span><span class="p">)</span>
+<span class="n">inactive</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../data_project/inactive_area.shp&quot;</span><span class="p">)</span>
+<span class="n">active</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../data_project/active_area.shp&quot;</span><span class="p">)</span>
+<span class="n">wells</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../data_project/pumping_well_locations.shp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<p>Plot the shapefiles with geopandas</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">)</span>
+<span class="n">active</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="n">inactive</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">wells</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
+  warnings.warn(
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
+  warnings.warn(
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
+  warnings.warn(
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
+  warnings.warn(
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_8_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_8_1.png" />
+</div>
+</div>
+<section id="Make-a-structured-model-grid">
+<h2>Make a structured model grid<a class="headerlink" href="#Make-a-structured-model-grid" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlay</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">80</span>
+<span class="n">shape2d</span><span class="p">,</span> <span class="n">shape3d</span> <span class="o">=</span> <span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="p">(</span><span class="n">nlay</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span>
+<span class="n">xlen</span><span class="p">,</span> <span class="n">ylen</span> <span class="o">=</span> <span class="mf">5000.0</span><span class="p">,</span> <span class="mf">10000.0</span>
+<span class="n">delr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">ncol</span><span class="p">,</span> <span class="n">xlen</span> <span class="o">/</span> <span class="n">ncol</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">delc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ylen</span> <span class="o">/</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">ttop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">shape2d</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">tbotm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">shape3d</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_grid</span> <span class="o">=</span> <span class="n">StructuredGrid</span><span class="p">(</span>
+    <span class="n">delc</span><span class="o">=</span><span class="n">delc</span><span class="p">,</span> <span class="n">delr</span><span class="o">=</span><span class="n">delr</span><span class="p">,</span> <span class="n">nlay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">ttop</span><span class="p">,</span> <span class="n">botm</span><span class="o">=</span><span class="n">tbotm</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Intersect-the-modelgrid-with-the-shapefiles">
+<h3>Intersect the modelgrid with the shapefiles<a class="headerlink" href="#Intersect-the-modelgrid-with-the-shapefiles" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+<section id="Create-an-intersection-object">
+<h2>Create an intersection object<a class="headerlink" href="#Create-an-intersection-object" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ix</span> <span class="o">=</span> <span class="n">GridIntersect</span><span class="p">(</span><span class="n">base_grid</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;vertex&quot;</span><span class="p">,</span> <span class="n">rtree</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Intersect-inactive-and-active-shapefiles-with-the-modelgrid">
+<h2>Intersect inactive and active shapefiles with the modelgrid<a class="headerlink" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<p>After all of the intersection operations, take a look at the data contained in the returned objects</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bedrock</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">inactive</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">active_cells</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">active</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">active_cells</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">active_cells</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(rec.array([((0, 0), &lt;POLYGON ((62.5 10000, 62.5 9937.5, 0 9937.5, 0 10000, 62.5 10000))&gt;, 3906.25),
+            ((0, 1), &lt;POLYGON ((125 10000, 125 9937.5, 62.5 9937.5, 62.5 10000, 125 10000))&gt;, 3906.25),
+            ((0, 2), &lt;POLYGON ((187.5 10000, 187.5 9937.5, 125 9937.5, 125 10000, 187.5 10000))&gt;, 3906.25),
+            ((0, 3), &lt;POLYGON ((250 10000, 250 9937.5, 187.5 9937.5, 187.5 10000, 250 10000))&gt;, 3906.25)],
+           dtype=[(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;areas&#39;, &#39;&lt;f8&#39;)]),
+ dtype((numpy.record, [(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;areas&#39;, &#39;&lt;f8&#39;)])))
+</pre></div></div>
+</div>
+</section>
+<section id="Intersect-well-shapefile-with-the-modelgrid">
+<h2>Intersect well shapefile with the modelgrid<a class="headerlink" href="#Intersect-well-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">well_cells</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">wells</span><span class="o">.</span><span class="n">geometry</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="n">well_cells</span> <span class="o">+=</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">well_cells</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[(33, 61), (41, 49), (77, 53), (101, 37), (113, 21), (133, 45)]
+</pre></div></div>
+</div>
+</section>
+<section id="Intersect-river-shapefile-with-the-modelgrid">
+<h2>Intersect river shapefile with the modelgrid<a class="headerlink" href="#Intersect-river-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_cells</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">river</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_cells</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">river_cells</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(rec.array([((0, 53), &lt;LINESTRING (3347.204 10000, 3351.371 9937.5)&gt;, 62.63873491),
+            ((1, 53), &lt;LINESTRING (3351.371 9937.5, 3355.537 9875)&gt;, 62.63873491),
+            ((2, 53), &lt;LINESTRING (3355.537 9875, 3359.704 9812.5)&gt;, 62.63873491),
+            ((3, 53), &lt;LINESTRING (3359.704 9812.5, 3363.599 9754.072, 3364.797 9750)&gt;, 62.80215445)],
+           dtype=[(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;lengths&#39;, &#39;&lt;f8&#39;)]),
+ dtype((numpy.record, [(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;lengths&#39;, &#39;&lt;f8&#39;)])))
+</pre></div></div>
+</div>
+<section id="Intersect-constant-head-line-with-the-modelgrid">
+<h3>Intersect constant head line with the modelgrid<a class="headerlink" href="#Intersect-constant-head-line-with-the-modelgrid" title="Link to this heading">¶</a></h3>
+<p>Use a line with two points to defined the location of the constant head cells. The line verticase are <code class="docutils literal notranslate"><span class="pre">[(1250,</span> <span class="pre">0.1),</span> <span class="pre">(4250,</span> <span class="pre">0.1)]</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">constant_cells</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span>
+    <span class="p">[(</span><span class="mi">1250</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="mi">4250</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)],</span> <span class="n">shapetype</span><span class="o">=</span><span class="s2">&quot;linestring&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">constant_cells</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">constant_cells</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(rec.array([((159, 20), &lt;LINESTRING (1250 0.1, 1312.5 0.1)&gt;, 62.5),
+            ((159, 21), &lt;LINESTRING (1312.5 0.1, 1375 0.1)&gt;, 62.5),
+            ((159, 22), &lt;LINESTRING (1375 0.1, 1437.5 0.1)&gt;, 62.5),
+            ((159, 23), &lt;LINESTRING (1437.5 0.1, 1500 0.1)&gt;, 62.5)],
+           dtype=[(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;lengths&#39;, &#39;&lt;f8&#39;)]),
+ dtype((numpy.record, [(&#39;cellids&#39;, &#39;O&#39;), (&#39;ixshapes&#39;, &#39;O&#39;), (&#39;lengths&#39;, &#39;&lt;f8&#39;)])))
+</pre></div></div>
+</div>
+</section>
+<section id="Resample-the-raster-data-to-the-modelgrid">
+<h3>Resample the raster data to the modelgrid<a class="headerlink" href="#Resample-the-raster-data-to-the-modelgrid" title="Link to this heading">¶</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">resample_to_grid()</span></code> method on each raster object.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rtop</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">resample_to_grid</span><span class="p">(</span>
+    <span class="n">base_grid</span><span class="p">,</span>
+    <span class="n">band</span><span class="o">=</span><span class="n">top</span><span class="o">.</span><span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+    <span class="n">extrapolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">rbot</span> <span class="o">=</span> <span class="n">bottom</span><span class="o">.</span><span class="n">resample_to_grid</span><span class="p">(</span>
+    <span class="n">base_grid</span><span class="p">,</span>
+    <span class="n">band</span><span class="o">=</span><span class="n">bottom</span><span class="o">.</span><span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+    <span class="n">extrapolate_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">rkaq</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">kaq</span><span class="o">.</span><span class="n">resample_to_grid</span><span class="p">(</span>
+        <span class="n">base_grid</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="n">kaq</span><span class="o">.</span><span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">extrapolate_edges</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="o">*</span> <span class="mf">86400.0</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Plot-the-resampled-data">
+<h3>Plot the resampled data<a class="headerlink" href="#Plot-the-resampled-data" title="Link to this heading">¶</a></h3>
+<p>Plot the aquifer top, bottom, and hydraulic conductivity. Also plot the aquifer thickness.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">modelgrid</span><span class="o">=</span><span class="n">base_grid</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">rtop</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_29_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_29_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">modelgrid</span><span class="o">=</span><span class="n">base_grid</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">rbot</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_30_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_30_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">modelgrid</span><span class="o">=</span><span class="n">base_grid</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">rtop</span> <span class="o">-</span> <span class="n">rbot</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cb</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_31_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_31_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">modelgrid</span><span class="o">=</span><span class="n">base_grid</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">rkaq</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cb</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_32_0.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_32_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Build-the-model-data">
+<h2>Build the model data<a class="headerlink" href="#Build-the-model-data" title="Link to this heading">¶</a></h2>
+<p><em>Create the bottom of each model layer</em></p>
+<p>Assume that the thickness of each layer at a row, column location is equal.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">botm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape3d</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">botm</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">rbot</span><span class="p">[:,</span> <span class="p">:]</span>
+<span class="n">layer_thickness</span> <span class="o">=</span> <span class="p">(</span><span class="n">rtop</span> <span class="o">-</span> <span class="n">rbot</span><span class="p">)</span> <span class="o">/</span> <span class="n">nlay</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nlay</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="n">botm</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">botm</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layer_thickness</span>
+</pre></div>
+</div>
+</div>
+<p><em>Create the idomain array</em></p>
+<p>Use the intersection data from the active and inactive shapefiles to create the idomain array</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idomain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nlay</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">active_cells</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">]:</span>
+    <span class="n">idomain</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">bedrock</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">]:</span>
+    <span class="n">idomain</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<p><em>Build the well package stress period data</em></p>
+<ul class="simple">
+<li><p>The pumping rates are in the <code class="docutils literal notranslate"><span class="pre">wells</span></code> geopandas dataframe</p></li>
+<li><p>Pumping rates are in m/sec</p></li>
+<li><p>The wells are located in model layer 3</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wells</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>FID</th>
+      <th>Q</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>-0.00820</td>
+      <td>POINT (3875.000 7875.000)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>-0.00410</td>
+      <td>POINT (3125.000 7375.000)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>-0.00390</td>
+      <td>POINT (3375.000 5125.000)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>-0.00083</td>
+      <td>POINT (2375.000 3625.000)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>-0.00072</td>
+      <td>POINT (1375.000 2875.000)</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>-0.00430</td>
+      <td>POINT (2875.000 1625.000)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">well_spd</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">well_cells</span><span class="p">,</span> <span class="n">wells</span><span class="p">[</span><span class="s2">&quot;Q&quot;</span><span class="p">]):</span>
+    <span class="n">well_spd</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">q</span> <span class="o">*</span> <span class="mf">86400.0</span><span class="p">])</span>
+<span class="n">well_spd</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[2, 33, 61, -708.48],
+ [2, 41, 49, -354.24],
+ [2, 77, 53, -336.96],
+ [2, 101, 37, -71.712],
+ [2, 113, 21, -62.208000000000006],
+ [2, 133, 45, -371.52]]
+</pre></div></div>
+</div>
+<p><em>Build the river package stress period data</em></p>
+<ul class="simple">
+<li><p>Calculate the length of the river using the <code class="docutils literal notranslate"><span class="pre">&quot;lengths&quot;</span></code> key.</p></li>
+<li><p>The vertical hydraulic conductivity of the river bed sediments is 3.5 m/d.</p></li>
+<li><p>The thickness of river bottom sediments at the upstream (North) and downstream (South) end of the river is 0.5 and 1.5 meters, respectively.</p></li>
+<li><p>The river bottom at the upstream and downstream end of the river is 16.5 and 14.5 meters, respectively. The river width at the upstream and downstream end of the river is 5.0 and 10.0 meters, respectively.</p></li>
+<li><p>The river stage at the upstream and downstream end of the river is 16.6 and 15.5 meters, respectively.</p></li>
+<li><p>Use the boundname <code class="docutils literal notranslate"><span class="pre">upstream</span></code> for river cells where the upstream end of the river cell is less than 5000 m from the North end of the model. Use the boundname <code class="docutils literal notranslate"><span class="pre">downstream</span></code> for all other river cells.</p></li>
+<li><p>Make sure the river cell is in the upper most layer where the river bottom exceeds the bottom of the cell.</p></li>
+</ul>
+<p>Use the upstream and downstream values to interpolate the river sediment thickness, bottom, width, and stage for each river cell.</p>
+<p>The river cells will be conected to model layer 1. The river bottom, width, and stage values should be calculated at the center of the river reach.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_kv</span> <span class="o">=</span> <span class="mf">3.5</span>
+<span class="n">river_thickness_up</span><span class="p">,</span> <span class="n">river_thickness_down</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span>
+<span class="n">river_bot_up</span><span class="p">,</span> <span class="n">river_bot_down</span> <span class="o">=</span> <span class="mf">16.5</span><span class="p">,</span> <span class="mf">14.5</span>
+<span class="n">river_width_up</span><span class="p">,</span> <span class="n">river_width_down</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span>
+<span class="n">stage_up</span><span class="p">,</span> <span class="n">stage_down</span> <span class="o">=</span> <span class="mf">16.6</span><span class="p">,</span> <span class="mf">15.5</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_length</span> <span class="o">=</span> <span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">river_length</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+12419.290359618695
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_thickness_slope</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">river_thickness_down</span> <span class="o">-</span> <span class="n">river_thickness_up</span>
+<span class="p">)</span> <span class="o">/</span> <span class="n">river_length</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_bot_slope</span> <span class="o">=</span> <span class="p">(</span><span class="n">river_bot_down</span> <span class="o">-</span> <span class="n">river_bot_up</span><span class="p">)</span> <span class="o">/</span> <span class="n">river_length</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_width_slope</span> <span class="o">=</span> <span class="p">(</span><span class="n">river_width_down</span> <span class="o">-</span> <span class="n">river_width_up</span><span class="p">)</span> <span class="o">/</span> <span class="n">river_length</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stage_slope</span> <span class="o">=</span> <span class="p">(</span><span class="n">stage_down</span> <span class="o">-</span> <span class="n">stage_up</span><span class="p">)</span> <span class="o">/</span> <span class="n">river_length</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boundname</span> <span class="o">=</span> <span class="s2">&quot;upstream&quot;</span>
+<span class="n">total_length</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">river_spd</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">cellid</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+    <span class="nb">zip</span><span class="p">(</span><span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">],</span> <span class="n">river_cells</span><span class="p">[</span><span class="s2">&quot;lengths&quot;</span><span class="p">])</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="n">total_length</span> <span class="o">&gt;=</span> <span class="mf">5000.0</span> <span class="ow">and</span> <span class="n">boundname</span> <span class="o">==</span> <span class="s2">&quot;upstream&quot;</span><span class="p">:</span>
+        <span class="n">boundname</span> <span class="o">=</span> <span class="s2">&quot;downstream&quot;</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">length</span>
+    <span class="n">total_length</span> <span class="o">+=</span> <span class="n">dx</span>
+    <span class="n">river_thickness</span> <span class="o">=</span> <span class="n">river_thickness_up</span> <span class="o">+</span> <span class="n">river_thickness_slope</span> <span class="o">*</span> <span class="n">total_length</span>
+    <span class="n">river_bot</span> <span class="o">=</span> <span class="n">river_bot_up</span> <span class="o">+</span> <span class="n">river_bot_slope</span> <span class="o">*</span> <span class="n">total_length</span>
+    <span class="n">river_width</span> <span class="o">=</span> <span class="n">river_width_up</span> <span class="o">+</span> <span class="n">river_width_slope</span> <span class="o">*</span> <span class="n">total_length</span>
+    <span class="n">river_stage</span> <span class="o">=</span> <span class="n">stage_up</span> <span class="o">+</span> <span class="n">stage_slope</span> <span class="o">*</span> <span class="n">total_length</span>
+    <span class="n">conductance</span> <span class="o">=</span> <span class="n">river_kv</span> <span class="o">*</span> <span class="n">length</span> <span class="o">*</span> <span class="n">river_width</span> <span class="o">/</span> <span class="n">river_thickness</span>
+
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">cellid</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlay</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">river_bot</span> <span class="o">-</span> <span class="n">river_thickness</span> <span class="o">&gt;</span> <span class="n">botm</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]:</span>
+            <span class="n">riv_layer</span> <span class="o">=</span> <span class="n">k</span>
+
+    <span class="n">river_spd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">riv_layer</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">river_stage</span><span class="p">,</span> <span class="n">conductance</span><span class="p">,</span> <span class="n">river_bot</span><span class="p">,</span> <span class="n">boundname</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">total_length</span> <span class="o">+=</span> <span class="n">dx</span>
+<span class="n">river_spd</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">river_spd</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+([[2,
+   0,
+   53,
+   16.597225984480367,
+   2186.8547136345433,
+   16.494956335418845,
+   &#39;upstream&#39;],
+  [2,
+   1,
+   53,
+   16.591677953441096,
+   2176.0166873198878,
+   16.484869006256535,
+   &#39;upstream&#39;]],
+ [[2,
+   158,
+   50,
+   15.508347242017402,
+   1480.5598623536812,
+   14.515176803668005,
+   &#39;downstream&#39;],
+  [2,
+   159,
+   50,
+   15.502770376374766,
+   1460.266817949857,
+   14.50503704795412,
+   &#39;downstream&#39;]])
+</pre></div></div>
+</div>
+<p><em>Define river observations</em></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv_obs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;riv_obs.csv&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;UPSTREAM&quot;</span><span class="p">,</span> <span class="s2">&quot;RIV&quot;</span><span class="p">,</span> <span class="s2">&quot;UPSTREAM&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;DOWNSTREAM&quot;</span><span class="p">,</span> <span class="s2">&quot;RIV&quot;</span><span class="p">,</span> <span class="s2">&quot;DOWNSTREAM&quot;</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><em>Define the constant head cells</em></p>
+<p>Assume the constant head cells are located in all three layers and have values equal to the downstream river stage (<code class="docutils literal notranslate"><span class="pre">stage_down</span></code>). Make sure the constant head stage is greater that the bottom of the layer.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chd_spd</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">constant_cells</span><span class="p">[</span><span class="s2">&quot;cellids&quot;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlay</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">stage_down</span> <span class="o">&gt;</span> <span class="n">botm</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">idomain</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">chd_spd</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">stage_down</span><span class="p">))</span>
+<span class="n">chd_spd</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">chd_spd</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+([(1, 159, 21, 15.5), (2, 159, 21, 15.5)],
+ [(1, 159, 59, 15.5), (2, 159, 59, 15.5)])
+</pre></div></div>
+</div>
+<p><em>Define recharge rates</em></p>
+<ul class="simple">
+<li><p>The recharge rate is 0.16000000E-08 m/sec</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recharge_rate</span> <span class="o">=</span> <span class="mf">0.16000000e-08</span> <span class="o">*</span> <span class="mf">86400.0</span>
+<span class="n">recharge_rate</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.00013824
+</pre></div></div>
+</div>
+</section>
+<section id="Build-the-model">
+<h2>Build the model<a class="headerlink" href="#Build-the-model" title="Link to this heading">¶</a></h2>
+<p>Build a steady-state model using the data that you have created. Packages to create:</p>
+<ul class="simple">
+<li><p>Simulation</p></li>
+<li><p>TDIS (1 stress period, <code class="docutils literal notranslate"><span class="pre">TIME_UNITS='days'</span></code>)</p></li>
+<li><p>IMS (default parameters)</p></li>
+<li><p>GWF model (<code class="docutils literal notranslate"><span class="pre">SAVE_FLOWS=True</span></code>)</p></li>
+<li><p>DIS (<code class="docutils literal notranslate"><span class="pre">LENGTH_UNITS='meters'</span></code>)</p></li>
+<li><p>IC (<code class="docutils literal notranslate"><span class="pre">STRT=40.</span></code>)</p></li>
+<li><p>NPF (Unconfined, same K for all layers, <code class="docutils literal notranslate"><span class="pre">SAVE_SPECIFIC_DISCHARGE=True</span></code>, <code class="docutils literal notranslate"><span class="pre">icelltype=1</span></code>)</p></li>
+<li><p>RCH (array based)</p></li>
+<li><p>RIV (<code class="docutils literal notranslate"><span class="pre">BOUNDNAMES=True</span></code>,add <code class="docutils literal notranslate"><span class="pre">RIV</span></code> observations for defined boundnames)</p></li>
+<li><p>CHD</p></li>
+<li><p>WEL</p></li>
+<li><p>OC (Save <code class="docutils literal notranslate"><span class="pre">HEAD</span> <span class="pre">ALL</span></code> and <code class="docutils literal notranslate"><span class="pre">BUDGET</span> <span class="pre">ALL</span></code>)</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="n">model_ws</span><span class="p">,</span> <span class="n">exe_name</span><span class="o">=</span><span class="s2">&quot;mf6&quot;</span><span class="p">)</span>
+<span class="n">tdis</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowTdis</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;days&quot;</span><span class="p">)</span>
+<span class="n">ims</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowIms</span><span class="p">(</span>
+    <span class="n">sim</span><span class="p">,</span> <span class="n">outer_maximum</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">inner_maximum</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">linear_acceleration</span><span class="o">=</span><span class="s2">&quot;bicgstab&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwf</span><span class="p">(</span>
+    <span class="n">sim</span><span class="p">,</span>
+    <span class="n">modelname</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">save_flows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">newtonoptions</span><span class="o">=</span><span class="s2">&quot;NETWON UNDER_RELAXATION&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dis</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfdis</span><span class="p">(</span>
+    <span class="n">gwf</span><span class="p">,</span>
+    <span class="n">length_units</span><span class="o">=</span><span class="s2">&quot;meters&quot;</span><span class="p">,</span>
+    <span class="n">nlay</span><span class="o">=</span><span class="n">nlay</span><span class="p">,</span>
+    <span class="n">nrow</span><span class="o">=</span><span class="n">nrow</span><span class="p">,</span>
+    <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span>
+    <span class="n">delr</span><span class="o">=</span><span class="n">delr</span><span class="p">,</span>
+    <span class="n">delc</span><span class="o">=</span><span class="n">delc</span><span class="p">,</span>
+    <span class="n">top</span><span class="o">=</span><span class="n">rtop</span><span class="p">,</span>
+    <span class="n">botm</span><span class="o">=</span><span class="n">botm</span><span class="p">,</span>
+    <span class="n">idomain</span><span class="o">=</span><span class="n">idomain</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ic</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfic</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">strt</span><span class="o">=</span><span class="mf">40.0</span><span class="p">)</span>
+<span class="n">npf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfnpf</span><span class="p">(</span>
+    <span class="n">gwf</span><span class="p">,</span> <span class="n">save_specific_discharge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="p">[</span><span class="n">rkaq</span><span class="p">,</span> <span class="n">rkaq</span><span class="p">,</span> <span class="n">rkaq</span><span class="p">],</span> <span class="n">icelltype</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">rch</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfrcha</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">recharge</span><span class="o">=</span><span class="n">recharge_rate</span><span class="p">)</span>
+<span class="n">riv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfriv</span><span class="p">(</span>
+    <span class="n">gwf</span><span class="p">,</span> <span class="n">boundnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stress_period_data</span><span class="o">=</span><span class="n">river_spd</span>
+<span class="p">)</span>
+<span class="n">riv</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span>
+    <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.riv.obs&quot;</span><span class="p">,</span>
+    <span class="n">digits</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">print_input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">continuous</span><span class="o">=</span><span class="n">riv_obs</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">wel</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfwel</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">stress_period_data</span><span class="o">=</span><span class="n">well_spd</span><span class="p">)</span>
+<span class="n">chd</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfchd</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">stress_period_data</span><span class="o">=</span><span class="n">chd_spd</span><span class="p">)</span>
+<span class="n">oc</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfoc</span><span class="p">(</span>
+    <span class="n">gwf</span><span class="p">,</span>
+    <span class="n">head_filerecord</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.hds&quot;</span><span class="p">,</span>
+    <span class="n">budget_filerecord</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.cbc&quot;</span><span class="p">,</span>
+    <span class="n">saverecord</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="s2">&quot;ALL&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;BUDGET&quot;</span><span class="p">,</span> <span class="s2">&quot;ALL&quot;</span><span class="p">)],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Write-the-model-files">
+<h2>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+writing simulation...
+  writing simulation name file...
+  writing simulation tdis package...
+  writing solution package ims_-1...
+  writing model project...
+    writing model name file...
+    writing package dis...
+    writing package ic...
+    writing package npf...
+    writing package rcha_0...
+    writing package riv_0...
+INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;riv&#39;, &#39;dimensions&#39;) changed to 249 based on size of stress_period_data
+    writing package obs_0...
+    writing package wel_0...
+INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) changed to 6 based on size of stress_period_data
+    writing package chd_0...
+INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;chd&#39;, &#39;dimensions&#39;) changed to 102 based on size of stress_period_data
+    writing package oc...
+</pre></div></div>
+</div>
+</section>
+<section id="Run-the-model">
+<h2>Run the model<a class="headerlink" href="#Run-the-model" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mf6
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                            VERSION 6.4.2 06/28/2023
+
+   MODFLOW 6 compiled Jun 28 2023 18:34:54 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
+                             Build 20220726_000000
+
+This software has been approved for release by the U.S. Geological
+Survey (USGS). Although the software has been subjected to rigorous
+review, the USGS reserves the right to update the software as needed
+pursuant to further analysis and review. No warranty, expressed or
+implied, is made by the USGS or the U.S. Government as to the
+functionality of the software and related material nor shall the
+fact of release constitute any such warranty. Furthermore, the
+software is released on condition that neither the USGS nor the U.S.
+Government shall be held liable for any damages resulting from its
+authorized or unauthorized use. Also refer to the USGS Water
+Resources Software User Rights Notice for complete use, copyright,
+and distribution information.
+
+
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:14:38
+
+ Writing simulation list file: mfsim.lst
+ Using Simulation name file: mfsim.nam
+
+    Solving:  Stress period:     1    Time step:     1
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:14:39
+ Elapsed run time:  1.007 Seconds
+
+ Normal termination of simulation.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(True, [])
+</pre></div></div>
+</div>
+</section>
+<section id="Post-process-the-results">
+<h2>Post-process the results<a class="headerlink" href="#Post-process-the-results" title="Link to this heading">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">gwf.output.</span></code> method to get the observations.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myobs</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">riv</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">obs</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+<span class="n">myobs</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39;), (&#39;DOWNSTREAM&#39;, &#39;&lt;f8&#39;)])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myobs</span><span class="p">[</span><span class="s2">&quot;UPSTREAM&quot;</span><span class="p">],</span> <span class="n">myobs</span><span class="p">[</span><span class="s2">&quot;DOWNSTREAM&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(array([-1298.31584]), array([-2308.12346]))
+</pre></div></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">gwf.output.</span></code> method to get the heads and specific discharge. Make a map and cross-sections of the data using <code class="docutils literal notranslate"><span class="pre">flopy.plot</span></code> methods. Plot specific discharge vectors on the map and cross-sections.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>fpth = “/Users/jdhughes/Documents/Training/python-for-hydrology/notebooks/part1_flopy/data_project/aquifer_top.asc” np.savetxt(fpth, head[0] + 2.)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span><span class="o">.</span><span class="n">get_unique_record_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[b&#39;    FLOW-JA-FACE&#39;,
+ b&#39;      DATA-SPDIS&#39;,
+ b&#39;             WEL&#39;,
+ b&#39;             RIV&#39;,
+ b&#39;            RCHA&#39;,
+ b&#39;             CHD&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spdis</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;DATA-SPDIS&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">qx</span><span class="p">,</span> <span class="n">qy</span><span class="p">,</span> <span class="n">qz</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">postprocessing</span><span class="o">.</span><span class="n">get_specific_discharge</span><span class="p">(</span>
+    <span class="n">spdis</span><span class="p">,</span> <span class="n">gwf</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">head</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">mm</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_vector</span><span class="p">(</span><span class="n">qx</span><span class="p">,</span> <span class="n">qy</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span>
+    <span class="n">head</span><span class="p">,</span>
+    <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">],</span>
+    <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+    <span class="n">linewidths</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span>
+    <span class="n">cs</span><span class="p">,</span>
+    <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%1.0f</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">inline_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># mm.plot_inactive(ibound=idomain)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">mm</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;../figures/freyberg-structured.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
+  warnings.warn(
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_71_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_71_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">river</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">mm</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_inactive</span><span class="p">(</span><span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span>
+    <span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">linestyles</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+    <span class="n">linewidths</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span>
+    <span class="n">cs</span><span class="p">,</span>
+    <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%1.0f</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">inline_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">mm</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;../figures/freyberg-structured-grid.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
+  warnings.warn(
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
+  srs = pd.Series(*args, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
+  super().__init__(data, index=index, name=name, **kwargs)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_72_1.png" src="../../../_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_72_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../05-unstructured-grids.html" class="btn btn-neutral float-left" title="05: FloPy Model Grids" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="06-Project-quadtree.html" class="btn btn-neutral float-right" title="06: FloPy class project: Quadtree grid version" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

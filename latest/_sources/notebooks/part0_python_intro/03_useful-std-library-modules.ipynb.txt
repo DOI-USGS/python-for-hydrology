@@ -1,0 +1,1215 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 03: Useful standard library modules\n",
+    "(pathlib, shutil, sys, os, subprocess, zipfile, etc.)\n",
+    "\n",
+    "These packages are part of the standard python library and provide very useful functionality for working with your operating system and files.  This notebook will provide explore these packages and demonstrate some of their functionality.  Online documentation is at https://docs.python.org/3/library/.\n",
+    "\n",
+    "\n",
+    "#### Topics covered:\n",
+    "* **``pathlib``**:\n",
+    "    * listing files\n",
+    "    * creating, moving and deleting files\n",
+    "    * absolute vs relative paths\n",
+    "    * useful path object attributes\n",
+    "* **``shutil``**: \n",
+    "    * copying, moving and deleting files AND folders\n",
+    "* **``sys``**: \n",
+    "    * python and platform information\n",
+    "    * command line arguments\n",
+    "    * modifying the python path to import code from other locations\n",
+    "* **``os``**:\n",
+    "    * changing the working directory\n",
+    "    * recursive iteration through folder structures\n",
+    "    * accessing environmental variables\n",
+    "* **``subprocess``**: \n",
+    "    * running system commands and checking the results\n",
+    "* **``zipfile``**:\n",
+    "    * creating and extracting from zip archives"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "from pathlib import Path\n",
+    "import shutil\n",
+    "import subprocess\n",
+    "import sys\n",
+    "import zipfile"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## ``pathlib`` — Object-oriented filesystem paths\n",
+    "Pathlib provides convenient \"pathlike\" objects for working with file paths across platforms (meaning paths or operations done with pathlib work the same on Windows or POSIX systems (Linux, OSX, etc)). The main entry point for users is the ``Path()`` class.\n",
+    "\n",
+    "further reading:  \n",
+    "https://treyhunner.com/2018/12/why-you-should-be-using-pathlib/  \n",
+    "https://docs.python.org/3/library/pathlib.html"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Make a ``Path()`` object for the current folder"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cwd = Path('.')\n",
+    "cwd"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Listing files"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for f in cwd.iterdir():\n",
+    "    print(f)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### List just the notebooks using the ``.glob()`` method"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for nb in cwd.glob('*.ipynb'):\n",
+    "    print(nb)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Note: ``.glob()`` works across folders too\n",
+    "List all notebooks for both class components"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for nb in cwd.glob('../*/*.ipynb'):\n",
+    "    print(nb)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### But ``glob`` results aren't sorted alphabetically!\n",
+    "(and the sorting is platform-dependent)\n",
+    "\n",
+    "https://arstechnica.com/information-technology/2019/10/chemists-discover-cross-platform-python-scripts-not-so-cross-platform/?comments=1&post=38113333\n",
+    "\n",
+    "we can easily sort them by casting the results to a list"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sorted(list(cwd.glob('../*/*.ipynb')))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Note:** There is also a glob module in the standard python library that works directly with string paths"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import glob\n",
+    "sorted(list(glob.glob('../*/*.ipynb')))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### List just the subfolders"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "[f for f in cwd.iterdir() if f.is_dir()]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Create a new path for the data subfolder"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_path = cwd / 'data'\n",
+    "data_path"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### or an individual file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f = cwd / '00_python_basics_review.ipynb'\n",
+    "f"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### check if it exists, or if it's a directory"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f.exists(), f.is_dir()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating files and folders\n",
+    "\n",
+    "#### make a new subdirectory"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new_folder = cwd / 'more_files'\n",
+    "new_folder"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new_folder.exists()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new_folder.mkdir(); new_folder.exists()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that if you try to run the above cell twice, you'll get an error that the folder already exists\n",
+    "``exist_ok=True`` supresses these errors."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new_folder.mkdir(exist_ok=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### make a new subfolder within a new subfolder\n",
+    "The ``parents=True`` argument allows for making subfolders within new subfolders"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "(new_folder / 'subfolder').mkdir(exist_ok=True, parents=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### absolute vs. relative pathing\n",
+    "\n",
+    "Get the absolute location of the current working directory"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "abs_cwd = Path.cwd()\n",
+    "abs_cwd"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Go up two levels to the course repository"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class_root = (abs_cwd / '../../')\n",
+    "class_root"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Simplify or resolve the path"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class_root = class_root.resolve()\n",
+    "class_root"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Get the cwd relative to the course repository"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "abs_cwd.relative_to(class_root)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "check if this is an absolute or relative path"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "abs_cwd.relative_to(class_root).is_absolute()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "abs_cwd.is_absolute()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**gottcha:** `Path.relative_to()` only works when the first path is a subpath of the second path, or if both paths are aboslute\n",
+    "\n",
+    "For example, try executing this line: \n",
+    "\n",
+    "```python\n",
+    "Path('../part1_flopy/').relative_to('data')\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If you need a relative path that will work robustly in a script, `os.path.relpath` might be a better choice"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "os.path.relpath('../part1_flopy/', 'data')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "os.path.relpath('data', '../part1_flopy/')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### useful attributes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "abs_cwd.parent"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "abs_cwd.parent.parent"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f.name"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f.suffix"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f.with_suffix('.junk')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f.stem"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Moving and deleting files\n",
+    "\n",
+    "Make a file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fname = Path('new_file.txt')\n",
+    "with open(fname, 'w') as dest:\n",
+    "    dest.write(\"A new text file.\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fname.exists()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Delete the file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fname.unlink()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fname.exists()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Delete the empty folder we made above\n",
+    "Note: this only works for empty directories (use ``shutil.rmtree()`` very carefully for removing folders and all contents within)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Path('more_files/subfolder/').rmdir()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## ``shutil`` — High-level file operations\n",
+    "module for copying, moving, and deleting files and directories.\n",
+    "\n",
+    "https://docs.python.org/3/library/shutil.html\n",
+    "\n",
+    "The functions from shutil that you may find useful are:\n",
+    "\n",
+    "    shutil.copy()\n",
+    "    shutil.copy2()  # this preserves most metadata (i.e. dates); unlike copy()\n",
+    "    shutil.copytree()\n",
+    "    shutil.move()\n",
+    "    shutil.rmtree()  #obviously, you need to be careful with this one!\n",
+    "    \n",
+    "Give these guys a shot and see what they do.  Remember, you can always get help by typing:\n",
+    "\n",
+    "    help(shutil.copy)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#try them here.  Be careful!"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "shutil.rmtree(new_folder)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## ``sys`` — System-specific parameters and functions\n",
+    "\n",
+    "### Getting information about python and the os\n",
+    "where python is installed"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(sys.prefix)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(sys.version_info)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sys.platform"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Adding command line arguments to a script\n",
+    "Here the command line arguments reflect that we're running a Juptyer Notebook. \n",
+    "\n",
+    "In a python script, command line arguments are listed after the first item in the list."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sys.argv"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "jp-MarkdownHeadingCollapsed": true
+   },
+   "source": [
+    "### Exercise: Make a script with a command line argument using sys.argv\n",
+    "\n",
+    "1) Using a text editor such as VSCode, make a new ``*.py`` file with the following contents:\n",
+    "\n",
+    "```python\n",
+    "import sys\n",
+    "\n",
+    "if len(sys.argv) > 1:\n",
+    "    for argument in sys.argv[1:]:\n",
+    "        print(argument)\n",
+    "else:\n",
+    "    print(\"usage is: python <script name>.py argument\")\n",
+    "    quit()\n",
+    "```\n",
+    "\n",
+    "2) Try running the script at the command line"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### modifying the python path\n",
+    "\n",
+    "If you haven't seen `sys.path` already mentioned in a python script, you will soon.  `sys.path` is a list of directories.  This path list is used by python to search for python modules and packages.  If for some reason, you want to use a python package or  module that is not installed in the main python folder, you can add the directory containing your module to sys.path.\n",
+    "\n",
+    "Any packages installed by linking the source code in place (i.e. ``pip install -e .`` will also show up here."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for pth in sys.path:\n",
+    "    print(pth)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Using ``sys.path`` to import code from an arbitrary location\n",
+    "\n",
+    "1) Using a text editor such as VSCode (or ``pathlib`` and python) make a new ``*.py`` file in another folder (anything in the same folder as this notebook can already be imported). For example:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "subfolder = Path('another_subfolder/scripts')\n",
+    "subfolder.mkdir(exist_ok=True, parents=True)\n",
+    "\n",
+    "with open(subfolder / 'mycode.py', 'w') as dest:\n",
+    "    dest.write(\"stuff = {'this is': 'a dictionary'}\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now add this folder to the python path"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sys.path.append('another_subfolder/scripts')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Code can be imported by calling the containing module"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from mycode import stuff\n",
+    "\n",
+    "stuff"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Note**: Generally, importing code using ``sys.path`` is considered bad practice, because \n",
+    "\n",
+    "* it can hide dependencies.    \n",
+    "\n",
+    "    * from the information above, we don't know whether ``mycode`` is a package that is installed, a module in the current folder, or anywhere else for that matter.\n",
+    "    * Similarly, we know that any modules from ``'another_subfolder/scripts'`` can be imported, but we don't know which modules in that folder are needed without some additional checking.\n",
+    "\n",
+    "* importing code using ``sys.path`` is also sensitive to the location of the script relative to the path. If the script is moved or used on someone else's computer with a different file structure, it'll break.\n",
+    "\n",
+    "In general, [installing reusable code in a package is the best way to go](https://nsls-ii.github.io/scientific-python-cookiecutter/). Packages provide a framework for organizing, documenting, testing and sharing code in a way that is easily understood by others.\n",
+    "\n",
+    "Whatever you do, avoid importing with an `*` (i.e. ``from mycode import *``) at all costs. This imports everything from the namespace of a module, which can lead to unintended consequences."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## ``os`` — Miscellaneous operating system interfaces¶\n",
+    "Historically, the ``os.path`` module was the de facto standard for file and path manipulation. Since python 3.4 however, ``pathlib`` is generally cleaner and easier to use for most of these operations. But there are some exceptions.\n",
+    "\n",
+    "### Changing the current working directory\n",
+    "``pathlib`` doesn't do this.   \n",
+    "Note: this can obviously lead to trouble in scripts, so should usually be avoided, but sometimes it is necessary."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Example of changing the working directory\n",
+    "old_wd = os.getcwd()\n",
+    "\n",
+    "# Go up one directory\n",
+    "os.chdir('..')\n",
+    "cwd = os.getcwd()\n",
+    "print ('Now in: ', cwd)\n",
+    "\n",
+    "# Change back to original\n",
+    "os.chdir(old_wd)\n",
+    "cwd = os.getcwd()\n",
+    "print('Switched back to: ', cwd)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### os.walk\n",
+    "\n",
+    "os.walk() is a great way to recursively generate all the file names and folders in a directory.  The following shows how it can be used to identify large directories."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pth = Path('..')\n",
+    "results = list(os.walk(pth))\n",
+    "results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Make a more readable list of just the jupyter notebooks\n",
+    "Note: the key advantage of ``os.walk`` over ``glob`` is the recursion-- individual subfolder levels don't need to be known or specified a priori."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for root, dirs, files in os.walk(pth):\n",
+    "    for f in files:\n",
+    "        filepath = Path(root, f)\n",
+    "        if filepath.suffix == '.ipynb':\n",
+    "            print(filepath)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Accessing environmental variables"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "os.environ"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Example: get the location of the current python (Conda) environment"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "os.environ['CONDA_PREFIX']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## ``subprocess`` — Subprocess management\n",
+    "\n",
+    "The subprocess module offers a way to execute system commands, for example MODFLOW, or any operating system command that you can type at the command line.\n",
+    "\n",
+    "The recommended approach to invoking subprocesses is to use the ``run()`` function for all use cases it can handle. For more advanced use cases, the underlying ``Popen`` interface can be used directly.\n",
+    "\n",
+    "Take a look at the following help descriptions for ``run``.\n",
+    "\n",
+    "Note, that on Windows, you may have to specify \"shell=True\" in order to access system commands."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "help(subprocess.run)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# if on mac/unix\n",
+    "print(subprocess.run(['ls', '-l'], shell=True))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# if on windows\n",
+    "print(subprocess.run(['dir'], shell=True))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## ``zipfile`` — Work with ZIP archives\n",
+    "\n",
+    "#### zip up one of the files in data/"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with zipfile.ZipFile('junk.zip', 'w') as dest:\n",
+    "    dest.write('data/xarray/daymet_prcp_rainier_1980-2018.nc')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### now extract it"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with zipfile.ZipFile('junk.zip') as src:\n",
+    "    src.extract('data/xarray/daymet_prcp_rainier_1980-2018.nc', path='extracted_data')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Testing Your Skills with a truly awful example:\n",
+    "\n",
+    "#### the problem:\n",
+    "Pretend that the file `data/fileio/netcdf_data.zip` contains some climate data (in the NetCDF format with the ``*.nc`` extension) that we downloaded. If you open `data/fileio/netcdf_data.zip`, you'll see that within a subfolder `zipped` are a bunch of additional subfolders, each for a different year. Within each subfolder is another zipfile. Within each of these zipfiles is yet another subfolder, inside of which is the actual data file we want (`prcp.nc`). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with zipfile.ZipFile('data/netcdf_data.zip') as src:\n",
+    "    for f in src.namelist()[:10]:\n",
+    "        print(f)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### the goal:\n",
+    "To extract all of these `prcp.nc` files into a single folder, after renaming them with their respective years (obtained from their enclosing folders or zip files). e.g.  \n",
+    "```\n",
+    "prcp_1980.nc\n",
+    "prcp_1981.nc\n",
+    "...\n",
+    "```\n",
+    "This will allow us to open them together as a dataset in `xarray` (more on that later). Does this sound awful? I'm not making this up. This is the kind of structure you get when downloading tiles of climate data with the [Daymet Tile Selection Tool](https://daymet.ornl.gov/gridded/)\n",
+    "\n",
+    "#### hint:\n",
+    "you might find these functions helpful:\n",
+    "```\n",
+    "ZipFile.extractall\n",
+    "ZipFile.extract\n",
+    "Path.glob\n",
+    "Path.mkdir\n",
+    "Path.stem\n",
+    "Path.parent\n",
+    "Path.name\n",
+    "shutil.move\n",
+    "Path.rmdir()\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### hint: start by using ``ZipFile.extractall()`` to extract all of the individual zip files from the main zip archive\n",
+    "This extracts the entire contents of the zip file to a designated folder"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "output_folder = Path('03-output')\n",
+    "output_folder.mkdir(exist_ok=True)\n",
+    "\n",
+    "with zipfile.ZipFile('data/netcdf_data.zip') as src:\n",
+    "    src.extractall(output_folder)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Make a list of the zipfiles"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "zipfiles = list(output_folder.glob('netcdf_data/zipped/*/*.zip'))\n",
+    "zipfiles[:5]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Part 1: extract with a single file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f = zipfiles[0]\n",
+    "f"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 1a) Use ``ZipFile.namelist()`` (as above) list the contents\n",
+    "\n",
+    "This will yield the name of the ``*.nc`` file that we need to extract"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 1b) Use ``ZipFile.extract()`` to extract the ``*.nc`` file to the destination folder\n",
+    "(you may need to create the destination folder first)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 1c) Move the extracted file out of any enclosing subfolders, and rename to ``prcp_<year>.nc``\n",
+    "(so that if we repeat this for subsequent files, the extracted ``*.nc`` files will end up in the same place)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### 1d) Remove the extra subfolders that were extracted"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Bonus Application -- Using ``os`` to find the location of an executable\n",
+    "\n",
+    "There are often times that you run an executable that is nested somewhere deep within your system path.  It can often be a good idea to know exactly where that executable is located.  This might help you one day from accidently using an older version of an executable, such as MODFLOW."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Define two functions to help determine 'which' program you are using\n",
+    "def is_exe(fpath):\n",
+    "    \"\"\"\n",
+    "    Return True if fpath is an executable, otherwise return False\n",
+    "    \"\"\"\n",
+    "    return os.path.isfile(fpath) and os.access(fpath, os.X_OK)\n",
+    "\n",
+    "def which(program):\n",
+    "    \"\"\"\n",
+    "    Locate the program and return its full path.  Return\n",
+    "    None if the program cannot be located.\n",
+    "    \"\"\"\n",
+    "    fpath, fname = os.path.split(program)\n",
+    "    if fpath:\n",
+    "        if is_exe(program):\n",
+    "            return program\n",
+    "    else:\n",
+    "        # test for exe in current working directory\n",
+    "        if is_exe(program):\n",
+    "            return program\n",
+    "        # test for exe in path statement\n",
+    "        for path in os.environ[\"PATH\"].split(os.pathsep):\n",
+    "            path = path.strip('\"')\n",
+    "            exe_file = os.path.join(path, program)\n",
+    "            if is_exe(exe_file):\n",
+    "                return exe_file\n",
+    "    return None"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "which('mf6')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "language_info": {
+   "name": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>04: File input and output &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="05: NumPy" href="../05_numpy.html" />
+    <link rel="prev" title="03: Solutions to Useful standard library modules exercises" href="03_useful-std-library-modules-solutions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../part0.html">     Part 0: Introduction to Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_functions_script__solution.html">01: Functions and scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03_useful-std-library-modules.html">03: Useful standard library modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html">03: Solutions to Useful standard library modules exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules-solutions.html#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">04: File input and output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Initialization-of-Notebook">Initialization of Notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Additional-reading-and-supporting-documentation">Additional reading and supporting documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#About-files">About files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Writing-our-first-file">Writing our first file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#A-better-way-to-write-a-file,-with-with.">A better way to write a file, with <code class="docutils literal notranslate"><span class="pre">with</span></code>.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Reading-a-file-one-line-at-a-time">Reading a file one line-at-a-time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#A-second-way-to-read-file-input">A second way to read file input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#What-if-we-open-a-file-that-does-not-exist">What if we open a file that does not exist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Class-Activity-1">Class Activity 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#File-paths">File paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Turning-a-file-into-a-list-of-lines">Turning a file into a list of lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Adding-data-from-a-file-to-a-list-of-select-data">Adding data from a file to a list of select data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Class-Activity-2">Class Activity 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#String-format-statements">String format statements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Let's-look-at-the-str.format()-method-first">Let’s look at the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> method first</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#f-strings:-a-better-solution-in-most-cases">f-strings: a better solution in most cases</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Reading-and-interpreting-fixed-format-data-from-a-string">Reading and interpreting fixed format data from a string</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Reading-the-whole-file-at-once">Reading the whole file at once</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#An-example">An example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Class-Activity-4">Class Activity 4</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../05_numpy.html">05: NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_numpy__solutions.html">05: NumPy exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_matplotlib__solution.html">06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06b_matplotlib_animation.html">06a: Using Matplotlib to Create Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07a_Theis-exercise-solution.html">07: Using functions to solve an equation– The Theis example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07b_VSCode.html">07b: VSCode Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../part0.html">Part 0: General Python Exercises</a></li>
+      <li class="breadcrumb-item active">04: File input and output</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/notebooks/part0_python_intro/solutions/04_files_and_strings.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="04:-File-input-and-output">
+<h1>04: File input and output<a class="headerlink" href="#04:-File-input-and-output" title="Link to this heading">¶</a></h1>
+<p>In this exercise we will be learning about using python to work with file input and output. We will also learn a little about reading and writing ascii files.</p>
+<section id="Initialization-of-Notebook">
+<h2>Initialization of Notebook<a class="headerlink" href="#Initialization-of-Notebook" title="Link to this heading">¶</a></h2>
+<p>Populate the interactive namespace with the python packages we will be using in this exercise</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># set up the path to our data</span>
+<span class="n">pthnb</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../data/fileio&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">pthnb</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Additional-reading-and-supporting-documentation">
+<h2>Additional reading and supporting documentation<a class="headerlink" href="#Additional-reading-and-supporting-documentation" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="http://openbookproject.net/thinkcs/python/english3e/files.html">http://openbookproject.net/thinkcs/python/english3e/files.html</a></p>
+</section>
+<section id="About-files">
+<h2>About files<a class="headerlink" href="#About-files" title="Link to this heading">¶</a></h2>
+<p>While a program is running, its data is stored in random access memory (RAM). RAM is fast and inexpensive, but it is also <strong>volatile</strong>, which means that when the program ends, or the computer shuts down, data in RAM disappears. To make data available the next time the computer is turned on and the program is started, it has to be written to a non-volatile storage medium, such a hard drive, usb drive, or CD-RW.</p>
+<p>Data on <strong>non-volatile</strong> storage media is stored in named locations on the media called <strong>files</strong>. By reading and writing files, programs can save information between program runs.</p>
+<p>Working with files is a lot like working with a notebook. To use a notebook, it has to be opened. When done, it has to be closed. While the notebook is open, it can either be read from or written to. In either case, the notebook holder knows where they are. They can read the whole notebook in its natural order or they can skip around.</p>
+<p>All of this applies to files as well. To open a file, we specify its name and indicate whether we want to read or write.</p>
+</section>
+<section id="Writing-our-first-file">
+<h2>Writing our first file<a class="headerlink" href="#Writing-our-first-file" title="Link to this heading">¶</a></h2>
+<p>Let’s begin with a simple program that writes three lines of text into a file:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="n">pthnb</span> <span class="o">/</span> <span class="s1">&#39;test.txt&#39;</span>
+<span class="n">myfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;My first file written from Python</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;---------------------------------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Hello, world!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">myfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Opening a file creates what we call a file <strong>handle</strong>. In this example, the variable myfile refers to the new handle object. Our program calls methods on the handle, and this makes changes to the actual file which is usually located on our disk.</p>
+<p>On line 1, the open function takes two arguments. The first is the name of the file, and the second is the mode. Mode “w” means that we are opening the file for writing.</p>
+<p>With mode “w”, if there is no file named test.txt on the disk, it will be created. If there already is one, it will be replaced by the file we are writing.</p>
+<p>To put data in the file we invoke the write method on the handle, shown in lines 2, 3 and 4 above. In bigger programs, lines 2–4 will usually be replaced by a loop that writes many more lines into the file.</p>
+<p>Closing the file handle (line 5) tells the system that we are done writing and makes the disk file available for reading by other programs (or by our own program).</p>
+</section>
+<section id="A-better-way-to-write-a-file,-with-with.">
+<h2>A better way to write a file, with <code class="docutils literal notranslate"><span class="pre">with</span></code>.<a class="headerlink" href="#A-better-way-to-write-a-file,-with-with." title="Link to this heading">¶</a></h2>
+<p>The python <code class="docutils literal notranslate"><span class="pre">with</span></code> statement allows us to create a file handle that automatically closes after the code exits the with statement. This not only reduces the amount of code that exists, it also ensures that file handles are not not left open as the code progresses.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
+    <span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;My first file written from Python using with!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;---------------------------------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Hello, world!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;myfile is closed: </span><span class="si">{</span><span class="n">myfile</span><span class="o">.</span><span class="n">closed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+myfile is closed: True
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># how do we create and write a multi-line string?</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;My first file written from Pyton using with!</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;--------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Hello, world!</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
+    <span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Reading-a-file-one-line-at-a-time">
+<h2>Reading a file one line-at-a-time<a class="headerlink" href="#Reading-a-file-one-line-at-a-time" title="Link to this heading">¶</a></h2>
+<p>Now that the file exists on our disk, we can open it, this time for reading, and read all the lines in the file, one at a time. This time, the mode argument is <code class="docutils literal notranslate"><span class="pre">'r'</span></code> for reading:</p>
+<p>We can also use the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">open()</span> <span class="pre">as</span></code> convention for reading files:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mynewhandle</span><span class="p">:</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>                          <span class="c1"># keep reading forever</span>
+        <span class="n">theline</span> <span class="o">=</span> <span class="n">mynewhandle</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="c1"># try to read the next line</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">theline</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>            <span class="c1"># if there are no more lines</span>
+            <span class="k">break</span>                        <span class="c1"># leave the loop</span>
+        <span class="c1"># now process the line we&#39;ve just read</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">theline</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+My first file written from Pyton using with!
+--------------------------------------------
+Hello, world!
+</pre></div></div>
+</div>
+<p>In bigger programs, we’d squeeze more extensive logic into the body of the loop at the <code class="docutils literal notranslate"><span class="pre">print</span></code> statement. For example, if each line of the file contained the name and email address of one of our friends, perhaps we’d split the line into some pieces and call a function to send the friend a party invitation.</p>
+<p>We suppress the newline character (<code class="docutils literal notranslate"><span class="pre">'\n'</span></code>) in the string <code class="docutils literal notranslate"><span class="pre">theline</span></code> using <code class="docutils literal notranslate"><span class="pre">.rstrip()</span></code>. Why?</p>
+<p>This is because the string already has its own newline : the <code class="docutils literal notranslate"><span class="pre">readline</span></code> method in line 3 returns everything up to and including the newline character. This also explains the end-of-file detection logic: when there are no more lines to be read from the file, <code class="docutils literal notranslate"><span class="pre">readline</span></code> returns an empty string — one that does not even have a newline at the end, hence its length is 0.</p>
+<p>See <a class="reference external" href="https://docs.python.org/3.9/library/string.html">python’s string documentation</a> for more information on common string operations.</p>
+</section>
+<section id="A-second-way-to-read-file-input">
+<h2>A second way to read file input<a class="headerlink" href="#A-second-way-to-read-file-input" title="Link to this heading">¶</a></h2>
+<p>Instead of using the <code class="docutils literal notranslate"><span class="pre">readline()</span></code> method we can loop over the handle object read a file line by line.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">myloophandle</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">myloophandle</span><span class="p">:</span>
+        <span class="c1"># process the line</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+My first file written from Pyton using with!
+--------------------------------------------
+Hello, world!
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># can we use list comprehension to read a file?</span>
+<span class="n">myfilehandle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">lines_in_file</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">myfilehandle</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lines_in_file</span><span class="p">)</span>
+
+<span class="c1"># but, the file is still open</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is file closed?&quot;</span><span class="p">,</span> <span class="n">myfilehandle</span><span class="o">.</span><span class="n">closed</span><span class="p">)</span>
+
+<span class="c1"># so it would need to be closed</span>
+<span class="n">myfilehandle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># now it&#39;s closed</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is file closed?&quot;</span><span class="p">,</span> <span class="n">myfilehandle</span><span class="o">.</span><span class="n">closed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;My first file written from Pyton using with!\n&#39;, &#39;--------------------------------------------\n&#39;, &#39;Hello, world!\n&#39;]
+Is file closed? False
+Is file closed? True
+</pre></div></div>
+</div>
+<p>This approach is much easier, but both methods (looping over the object and <code class="docutils literal notranslate"><span class="pre">readline()</span></code>) have applications for reading input.</p>
+</section>
+<section id="What-if-we-open-a-file-that-does-not-exist">
+<h2>What if we open a file that does not exist<a class="headerlink" href="#What-if-we-open-a-file-that-does-not-exist" title="Link to this heading">¶</a></h2>
+<p>If we try to open a file that does not exist, we get an error:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">mynewhandle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;wharrah.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Errno 2] No such file or directory: &#39;wharrah.txt&#39;
+</pre></div></div>
+</div>
+</section>
+<section id="Class-Activity-1">
+<h2>Class Activity 1<a class="headerlink" href="#Class-Activity-1" title="Link to this heading">¶</a></h2>
+<p>Write and read your own file. Use the completed code blocks above as a template. <strong>Don’t be ashamed to adapt code you got from someone else or on the internet to accomplish something useful.</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># In class we created ten files and wrote the name of the file</span>
+<span class="c1"># to the file itself.  Here is how we do that:</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;myfile&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span>
+    <span class="n">fpth</span> <span class="o">=</span> <span class="n">pthnb</span> <span class="o">/</span> <span class="n">name</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fpth</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfilehandle</span><span class="p">:</span>
+        <span class="n">myfilehandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="File-paths">
+<h2>File paths<a class="headerlink" href="#File-paths" title="Link to this heading">¶</a></h2>
+<p>Files on non-volatile storage media are organized by a set of rules known as a <strong>file system</strong>. File systems are made up of files and <strong>directories</strong>, which are containers for both files and other directories.</p>
+<p>By default, when we create a new file by opening it goes in the current directory (wherever we were when we ran the program). Similarly, when we open a file for reading, Python looks for it in the current directory. In the above example, we have used <code class="docutils literal notranslate"><span class="pre">os.path.join()</span></code> to write the file to a specific directory rather than the directory we are running this notebook from. If <code class="docutils literal notranslate"><span class="pre">'test.txt'</span></code> was used in the <code class="docutils literal notranslate"><span class="pre">open</span></code> statement, the file would have been written to the current working directory. The
+current working directory can be determined using:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The os module used to be the preferred way to access</span>
+<span class="c1"># the current working directory; now we use pathlib</span>
+<span class="c1"># os.getcwd()</span>
+
+<span class="n">cwd</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part0_python_intro/solutions
+</pre></div></div>
+</div>
+<p>Determine the directory that we wrote <code class="docutils literal notranslate"><span class="pre">'test.txt'</span></code> (<code class="docutils literal notranslate"><span class="pre">fname</span></code>) to in the blank code block below using <code class="docutils literal notranslate"><span class="pre">os.path.abspath()</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># os.path.abspath(fname)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+<span class="c1"># to get the absolute path using pathlib, we use .resolve()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fname</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+../data/fileio/test.txt
+/Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part0_python_intro/data/fileio/test.txt
+</pre></div></div>
+</div>
+<p>On Windows, a full path could look like <code class="docutils literal notranslate"><span class="pre">'C:\\temp\\somefile.txt'</span></code>, while on MacOSX, Linux, and Unix systems the full path could be <code class="docutils literal notranslate"><span class="pre">'/home/jimmy/somefile.txt'</span></code>. Because backslashes are used to escape things like newlines and tabs, we need to write two backslashes in a literal string to get one! So the length of these two strings is the same!</p>
+<p>We cannot use <code class="docutils literal notranslate"><span class="pre">/</span></code> or <code class="docutils literal notranslate"><span class="pre">\</span></code> as part of a filename; they are reserved as a delimiter between directory and filenames.</p>
+<p><code class="docutils literal notranslate"><span class="pre">os.path</span></code> includes a number of useful methods for manipulating pathnames. For example, <code class="docutils literal notranslate"><span class="pre">os.path.normpath(path)</span></code> can be used to take Unix style paths into paths that can be used with Windows.</p>
+<p>Take a look at <a class="reference external" href="https://docs.python.org/3.9/library/os.path.html">https://docs.python.org/3.9/library/os.path.html</a> for more information of <code class="docutils literal notranslate"><span class="pre">os.path</span></code> methods.</p>
+</section>
+<section id="Turning-a-file-into-a-list-of-lines">
+<h2>Turning a file into a list of lines<a class="headerlink" href="#Turning-a-file-into-a-list-of-lines" title="Link to this heading">¶</a></h2>
+<p>It is often useful to fetch data from a disk file and turn it into a list of lines. Suppose we have a file containing our friends and their email addresses, one per line in the file. But we’d like the lines sorted into alphabetical order. A good plan is to read everything into a list of lines, then sort the list, then write the sorted list back to another file, and then read the sorted file and print the data from the file:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="n">pthnb</span> <span class="o">/</span> <span class="s1">&#39;friends.txt&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+<span class="n">xs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+<span class="n">gname</span> <span class="o">=</span> <span class="n">pthnb</span> <span class="o">/</span> <span class="s1">&#39;sortedfriends.txt&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">:</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gname</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">foo</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">foo</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Annihilator, Morbo, , morbo@futurama.org
+Brannigan, Zapp, , brannigan@futurama.org
+Clampazzo, Francis, X., clamps@futurama.org
+Conrad, Hermes, , hermes@futurama.org
+Farnsworth, Hubert, J., professor@futurama.org
+Fry, Philip, J., fry@futurama.org
+Kroker, Kif, , kif@futurama.org
+Mousepad, Joey, , mousepad@futurama.org
+Nibbler, Lord, , nibbler@fututama.org
+Rodriguez, Bender, Bending, bender@futurama.org
+Turanga, Leela, , leela@futurama.org
+Wernstrom, Ogden, , wernstrom@futurama.org
+Wong, Amy, , amy@futurama.org
+Zoidberg, John, A., zoidberg@futurama.org
+van Schoonhoven, Linda, , vanschoonhoven@futurama.org
+</pre></div></div>
+</div>
+</section>
+<section id="Adding-data-from-a-file-to-a-list-of-select-data">
+<h2>Adding data from a file to a list of select data<a class="headerlink" href="#Adding-data-from-a-file-to-a-list-of-select-data" title="Link to this heading">¶</a></h2>
+<p>It is also useful to fetch data from a disk file, extracting the data from the lines read from the disk file, and add select data to a list. We will read the the names of our friends from the sorted file we just created, and add the last name, the first name and the email address to a list. We will then print the list:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mynewhandle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">gname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gname</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">foo</span><span class="p">:</span>
+    <span class="n">mylist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">foo</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="n">mylist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">t</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()])</span>
+
+<span class="k">for</span> <span class="n">ln</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">mylist</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ln</span><span class="w"> </span><span class="si">:</span><span class="s1">20s</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">fn</span><span class="w"> </span><span class="si">:</span><span class="s1">11s</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Annihilator         , Morbo      : morbo@futurama.org
+Brannigan           , Zapp       : brannigan@futurama.org
+Clampazzo           , Francis    : clamps@futurama.org
+Conrad              , Hermes     : hermes@futurama.org
+Farnsworth          , Hubert     : professor@futurama.org
+Fry                 , Philip     : fry@futurama.org
+Kroker              , Kif        : kif@futurama.org
+Mousepad            , Joey       : mousepad@futurama.org
+Nibbler             , Lord       : nibbler@fututama.org
+Rodriguez           , Bender     : bender@futurama.org
+Turanga             , Leela      : leela@futurama.org
+Wernstrom           , Ogden      : wernstrom@futurama.org
+Wong                , Amy        : amy@futurama.org
+Zoidberg            , John       : zoidberg@futurama.org
+van Schoonhoven     , Linda      : vanschoonhoven@futurama.org
+</pre></div></div>
+</div>
+</section>
+<section id="Class-Activity-2">
+<h2>Class Activity 2<a class="headerlink" href="#Class-Activity-2" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>What does the <code class="docutils literal notranslate"><span class="pre">split()</span></code> method do?</p></li>
+<li><p>What does <code class="docutils literal notranslate"><span class="pre">fn[0]</span></code> do? What would <code class="docutils literal notranslate"><span class="pre">fn[:2]</span></code> do? What is <code class="docutils literal notranslate"><span class="pre">mylist[2]</span></code>?</p></li>
+</ol>
+<p>Use the empty code blocks below to answer these questions. <strong>Remember it os ok to use the internet to help figure out what’s going on.</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example of split to show getting back a list of strings</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;x, y, z&quot;</span>
+<span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;x&#39;, &#39; y&#39;, &#39; z&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="String-format-statements">
+<h2>String format statements<a class="headerlink" href="#String-format-statements" title="Link to this heading">¶</a></h2>
+<p>“Format specifications” are used within replacement fields contained within a format string “f-string” to define how individual values are presented. They can also be passed directly to the built-in <code class="docutils literal notranslate"><span class="pre">format()</span></code> function. Each formattable type may define how the format specification is to be interpreted.</p>
+<p>Most built-in types implement the following options for format specifications, although some of the formatting options are only supported by the numeric types.</p>
+<p>A general convention is that an empty format string (<code class="docutils literal notranslate"><span class="pre">''</span></code>) produces the same result as if you had called <code class="docutils literal notranslate"><span class="pre">str()</span></code> on the value. A non-empty format string typically modifies the result.</p>
+<p><strong>The general form of a standard format specifier is:</strong></p>
+<ul class="simple">
+<li><p>format_spec : <code class="docutils literal notranslate"><span class="pre">[[fill]align][sign][#][0][width][,][.precision][type]</span></code></p></li>
+<li><p>fill : <code class="docutils literal notranslate"><span class="pre">&lt;any</span> <span class="pre">character&gt;</span></code></p></li>
+<li><p>align : <code class="docutils literal notranslate"><span class="pre">'&lt;'.</span>&#160; <span class="pre">'&gt;'.</span>&#160; <span class="pre">'='.</span>&#160; <span class="pre">'^'</span></code></p></li>
+<li><p>sign : <code class="docutils literal notranslate"><span class="pre">'+',</span> <span class="pre">'-',</span> <span class="pre">'</span> <span class="pre">'</span></code></p></li>
+<li><p>width : <code class="docutils literal notranslate"><span class="pre">integer</span></code></p></li>
+<li><p>precision : <code class="docutils literal notranslate"><span class="pre">integer</span></code></p></li>
+<li><p>type : <code class="docutils literal notranslate"><span class="pre">'b',</span> <span class="pre">'c',</span> <span class="pre">'d',</span> <span class="pre">'e',</span> <span class="pre">'E',</span> <span class="pre">'f',</span> <span class="pre">'F',</span> <span class="pre">'g',</span> <span class="pre">'G',</span> <span class="pre">'n',</span> <span class="pre">'o',</span> <span class="pre">'s',</span> <span class="pre">'x',</span> <span class="pre">'X',</span> <span class="pre">,'%'</span></code></p></li>
+</ul>
+<p>If a valid <em>align</em> value is specified, it can be preceded by a <em>fill</em> character that can be any character and defaults to a space if omitted. Note that it is not possible to use { and } as <em>fill</em> <code class="docutils literal notranslate"><span class="pre">char</span></code> while using the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> and “f-string” methods; this limitation however doesn’t affect the <code class="docutils literal notranslate"><span class="pre">format()</span></code> function.</p>
+<p><strong>The meaning of the various alignment options is as follows:</strong></p>
+<p><strong>Option</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'&lt;'</span></code> : Forces the field to be left-aligned within the available space (this is the default for most objects).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'&gt;'</span></code> : Forces the field to be right-aligned within the available space (this is the default for numbers).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'='</span></code> : Forces the padding to be placed after the sign (if any) but before the digits. This is used for printing fields in the form ‘+000000120’. : This alignment option is only valid for numeric types.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'^'</span></code> : Forces the field to be centered within the available space.</p></li>
+</ul>
+<p>Note that unless a minimum field width is defined, the field width will always be the same size as the data to fill it, so that the alignment option has no meaning in this case.</p>
+<p>The sign option is only valid for number types, and can be one of the following:</p>
+<p><strong>Option</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'+'</span></code> : indicates that a sign should be used for both positive as well as negative numbers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'-'</span></code> : indicates that a sign should be used only for negative numbers (this is the default behavior).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">space</span></code> : indicates that a leading space should be used on positive numbers, and a minus sign on negative numbers.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">','</span></code> option signals the use of a comma for a thousands separator.</p>
+<section id="Let's-look-at-the-str.format()-method-first">
+<h3>Let’s look at the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> method first<a class="headerlink" href="#Let's-look-at-the-str.format()-method-first" title="Link to this heading">¶</a></h3>
+<p>A great explanation with examples for the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> and older formatting methods can be found at <a class="reference external" href="https://pyformat.info/">pyformat</a></p>
+<p>Accessing arguments by position:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">, </span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">))</span>  <span class="c1"># 2.7+ only</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{2}</span><span class="s1">, </span><span class="si">{1}</span><span class="s1">, </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{2}</span><span class="s1">, </span><span class="si">{1}</span><span class="s1">, </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="s1">&#39;abc&#39;</span><span class="p">))</span>      <span class="c1"># unpacking argument sequence</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}{1}{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;abra&#39;</span><span class="p">,</span> <span class="s1">&#39;cad&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a, b, c
+a, b, c
+c, b, a
+c, b, a
+abracadabra
+</pre></div></div>
+</div>
+<p>Accessing arguments by name:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coordinates: </span><span class="si">{latitude}</span><span class="s1">, </span><span class="si">{longitude}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="s1">&#39;37.24N&#39;</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="s1">&#39;-115.81W&#39;</span><span class="p">))</span>
+<span class="n">coord</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="s1">&#39;37.24N&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="s1">&#39;-115.81W&#39;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coordinates: </span><span class="si">{latitude}</span><span class="s1">, </span><span class="si">{longitude}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">coord</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Coordinates: 37.24N, -115.81W
+Coordinates: 37.24N, -115.81W
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;X: </span><span class="si">{0[0]}</span><span class="s1">;  Y: </span><span class="si">{0[1]}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">coord</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+X: 3;  Y: 5
+</pre></div></div>
+</div>
+</section>
+<section id="f-strings:-a-better-solution-in-most-cases">
+<h3>f-strings: a better solution in most cases<a class="headerlink" href="#f-strings:-a-better-solution-in-most-cases" title="Link to this heading">¶</a></h3>
+<p>f-strings are a relatively new, but powerful feature for string formatting.</p>
+<p>Construction of an f string is similar to the <code class="docutils literal notranslate"><span class="pre">str.format</span></code>, however we no longer need to add a <code class="docutils literal notranslate"><span class="pre">.format()</span></code> call to the end of the string.</p>
+<p>The call signiture for f-strings is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">some_variable</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abc</span> <span class="o">=</span> <span class="s2">&quot;abc&quot;</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;abc&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">abc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">abc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a, b, c
+c, a, b
+a, b, c
+</pre></div></div>
+</div>
+<p>Aligning text and specifying a width</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;left aligned&#39;</span><span class="w"> </span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;right aligned&#39;</span><span class="w"> </span><span class="si">:</span><span class="s2">&gt;30</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;centered&#39;</span><span class="w"> </span><span class="si">:</span><span class="s2">^30</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;centered&#39;</span><span class="w"> </span><span class="si">:</span><span class="s2">*^30</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># use &#39;*&#39; as a fill character</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+left aligned
+                 right aligned
+           centered
+***********centered***********
+</pre></div></div>
+</div>
+<p>Replacing %+f, %-f, and % f and specifying a sign:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mf">3.14</span><span class="w"> </span><span class="si">:</span><span class="s1">+f</span><span class="si">}</span><span class="s1">; </span><span class="si">{</span><span class="o">-</span><span class="mf">3.14</span><span class="w"> </span><span class="si">:</span><span class="s1">+f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># show it always</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mf">3.14</span><span class="w"> </span><span class="si">:</span><span class="s1"> f</span><span class="si">}</span><span class="s1">; </span><span class="si">{</span><span class="o">-</span><span class="mf">3.14</span><span class="w"> </span><span class="si">:</span><span class="s1"> f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># show a space for positive numbers</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="mf">3.14</span><span class="w"> </span><span class="si">:</span><span class="s1">-f</span><span class="si">}</span><span class="s1">; </span><span class="si">{</span><span class="o">-</span><span class="mf">3.14</span><span class="w"> </span><span class="si">:</span><span class="s1">-f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
++3.140000; -3.140000
+ 3.140000; -3.140000
+ 3.140000; -3.140000
+</pre></div></div>
+</div>
+<p>Using the comma as a thousands separator:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mi">1234567890</span><span class="w"> </span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1,234,567,890
+</pre></div></div>
+</div>
+<p>Expressing a percentage:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="mf">19.5</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">22</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Correct answers: </span><span class="si">{</span><span class="n">points</span><span class="o">/</span><span class="n">total</span><span class="w"> </span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Correct answers: 88.64%
+</pre></div></div>
+</div>
+<p>Self describing formatting:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correct_answers</span> <span class="o">=</span> <span class="n">points</span><span class="o">/</span><span class="n">total</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">correct_answers</span><span class="si">= :</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+correct_answers= 88.64%
+</pre></div></div>
+</div>
+<p>Using type-specific formatting:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">58</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dt</span><span class="w"> </span><span class="si">:</span><span class="s1">%Y-%m-%d %H:%M:%S</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2010-07-04 12:15:58
+</pre></div></div>
+</div>
+<p>More string formatting examples can be found in the <a class="reference external" href="https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting">python documentation</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># in class we made a holiday tree using an f-string</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="s1">&#39;* &#39;</span><span class="si">:</span><span class="s2"> ^30</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+              *
+             * *
+            * * *
+           * * * *
+          * * * * *
+         * * * * * *
+        * * * * * * *
+       * * * * * * * *
+      * * * * * * * * *
+</pre></div></div>
+</div>
+<section id="Class-Activity-3">
+<h4>Class Activity 3<a class="headerlink" href="#Class-Activity-3" title="Link to this heading">¶</a></h4>
+<p>Use the empty code blocks below to write the following:</p>
+<ol class="arabic simple">
+<li><p>print <code class="docutils literal notranslate"><span class="pre">'MODFLOW',</span> <span class="pre">1.,</span> <span class="pre">1999</span></code>. Enter them in this order in the <code class="docutils literal notranslate"><span class="pre">str.format</span></code> or <code class="docutils literal notranslate"><span class="pre">f-string</span></code> method but print them in reverse order.</p></li>
+<li><p>print <code class="docutils literal notranslate"><span class="pre">'MODFLOW',</span> <span class="pre">'SUTRA'</span></code> left and right justified in 25 character strings using the <code class="docutils literal notranslate"><span class="pre">f-string</span></code> method.</p></li>
+<li><p>create a variable called modflow and one called sutra and print them in a self describing string.</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="s2">&quot;MODFLOW&quot;</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mi">1999</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">z</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="c1"># in reverse</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">z</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MODFLOW 1.0 1999
+1999 1.0 MODFLOW
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;MODFLOW&quot;</span><span class="p">,</span> <span class="s2">&quot;SUTRA&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">&lt;25</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">:</span><span class="s2">&gt;25</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="s2">&quot;0123456789&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MODFLOW
+                    SUTRA
+012345678901234567890123456789
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="Reading-and-interpreting-fixed-format-data-from-a-string">
+<h2>Reading and interpreting fixed format data from a string<a class="headerlink" href="#Reading-and-interpreting-fixed-format-data-from-a-string" title="Link to this heading">¶</a></h2>
+<p>The following example shows how python can be used to parse a fixed format string with touching numbers. This can be difficult to do in other programming languages.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="s1">&#39;01.1102.2203.3304.4405.5506.6607.7708.8809.9910.1011.1112.1213.1314.1415.1516.1617.1718.1819.1920.20&#39;</span>
+<span class="n">rawdata</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">istart</span><span class="p">,</span> <span class="n">istop</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">width</span>
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="n">width</span><span class="p">):</span>
+    <span class="n">rawdata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">istart</span><span class="p">:</span><span class="n">istop</span><span class="p">])</span>
+    <span class="n">istart</span> <span class="o">=</span> <span class="n">istop</span>
+    <span class="n">istop</span> <span class="o">+=</span> <span class="n">width</span>
+
+<span class="n">fd</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span> <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="n">rawdata</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99, 10.1, 11.11, 12.12, 13.13, 14.14, 15.15, 16.16, 17.17, 18.18, 19.19, 20.2]
+</pre></div></div>
+</div>
+</section>
+<section id="Reading-the-whole-file-at-once">
+<h2>Reading the whole file at once<a class="headerlink" href="#Reading-the-whole-file-at-once" title="Link to this heading">¶</a></h2>
+<p>Another way of working with text files is to read the complete contents of the file into a string, and then to use our string-processing skills to work with the contents.</p>
+<p>We’d normally use this method of processing files if we were not interested in the line structure of the file. Prior to the <code class="docutils literal notranslate"><span class="pre">split()</span></code>, we replace all commas (<code class="docutils literal notranslate"><span class="pre">','</span></code>) in the line with no space (<code class="docutils literal notranslate"><span class="pre">''</span></code>) and double spaces (<code class="docutils literal notranslate"><span class="pre">'</span>&#160; <span class="pre">'</span></code>) with a single space (<code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">'</span></code>). And finally, we replace the line termination string (<code class="docutils literal notranslate"><span class="pre">'\n'</span></code>) with a comma and a space (<code class="docutils literal notranslate"><span class="pre">',</span> <span class="pre">'</span></code>). So here is how we might count the number of words in a file:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading file: </span><span class="si">{</span><span class="n">gname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># remove commas and double spaces from line</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="c1"># replace line ending with &quot;, &quot;</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+
+<span class="n">words</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span><span class="si">}</span><span class="s1"> words in the file.&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Loading file: ../data/fileio/sortedfriends.txt
+There are 51 words in the file.
+Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Clampazzo Francis X. clamps@futurama.org, Conrad Hermes hermes@futurama.org, Farnsworth Hubert J. professor@futurama.org, Fry Philip J. fry@futurama.org, Kroker Kif kif@futurama.org, Mousepad Joey mousepad@futurama.org, Nibbler Lord nibbler@fututama.org, Rodriguez Bender Bending bender@futurama.org, Turanga Leela leela@futurama.org, Wernstrom Ogden wernstrom@futurama.org, Wong Amy amy@futurama.org, Zoidberg John A. zoidberg@futurama.org, van Schoonhoven Linda vanschoonhoven@futurama.org,
+</pre></div></div>
+</div>
+<p>Notice here that we left out the <code class="docutils literal notranslate"><span class="pre">'r'</span></code> mode in the <code class="docutils literal notranslate"><span class="pre">open()</span></code> statement. By default, if we don’t supply the mode, Python opens the file for reading.</p>
+</section>
+<section id="An-example">
+<h2>An example<a class="headerlink" href="#An-example" title="Link to this heading">¶</a></h2>
+<p>Many useful line-processing programs will read a text file line-at-a-time and do some minor processing as they write the lines to an output file. They might number the lines in the output file, or insert extra blank lines after every 60 lines to make it convenient for printing on sheets of paper, or extract some specific columns only from each line in the source file, or only print lines that contain a specific substring. We call this kind of program a filter.</p>
+<p>Here is a filter that copies one file to another, omitting any lines that begin with #:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">file_filter</span><span class="p">(</span><span class="n">oldfile</span><span class="p">,</span> <span class="n">newfile</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">oldfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">newfile</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># put additional processing logic here</span>
+                <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">continue</span></code> statement skips over the remaining lines in the current iteration of the loop, but the loop will still iterate. This style looks a bit contrived here, but it is often useful to say <em>“get the lines we’re not concerned with out of the way early, so that we have cleaner more focused logic in the meaty part of the loop that might be written around line 9.”</em></p>
+<p>If the first character of <code class="docutils literal notranslate"><span class="pre">text</span></code> is a hash mark, the flow of execution goes to the top of the loop, ready to start processing the next line. If the <code class="docutils literal notranslate"><span class="pre">text</span></code> does not start with “#”, the code falls through to do the processing at line 9, in this example, writing the line into the new file.</p>
+<p>Let’s consider one more case: suppose our original file contained empty lines. At the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">len(text)</span> <span class="pre">==</span> <span class="pre">0</span></code> line, would this program do anything with the emtpy line? Yes! Recall that a blank line always includes the newline character in the string it returns.</p>
+</section>
+<section id="Class-Activity-4">
+<h2>Class Activity 4<a class="headerlink" href="#Class-Activity-4" title="Link to this heading">¶</a></h2>
+<p>Let’s use the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function to remove the comment lines from <code class="docutils literal notranslate"><span class="pre">'FileWithComments.txt'</span></code> and create <code class="docutils literal notranslate"><span class="pre">'FileWithOutComments.txt'</span></code>. Use one of the approaches discussed above to open, read, and print data in both files after calling the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function. Remember to use the pl.Path() approach to access the file in the <code class="docutils literal notranslate"><span class="pre">pthnb</span></code> directory.</p>
+<p>Use the blank code block below to complete this activity.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_useful-std-library-modules-solutions.html" class="btn btn-neutral float-left" title="03: Solutions to Useful standard library modules exercises" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../05_numpy.html" class="btn btn-neutral float-right" title="05: NumPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

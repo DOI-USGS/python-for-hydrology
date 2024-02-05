@@ -1,0 +1,104 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 06a: Using Matplotlib to Create Animation\n",
+    "\n",
+    "This notebooks shows how to create an animation that will run and play inside a notebook.  The animation can also be written to a video file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "import matplotlib.animation as animation"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def get_y(x, a, b, c, d):\n",
+    "    y = a * np.sin(b * x + c) + d\n",
+    "    return y\n",
+    "\n",
+    "fig, ax = plt.subplots()\n",
+    "x = np.linspace(0, 2 * np.pi, 100)\n",
+    "\n",
+    "a = 1\n",
+    "b = 1\n",
+    "c = 0\n",
+    "d = 0\n",
+    "y0 = get_y(x, a, b, c, d)\n",
+    "\n",
+    "line = ax.plot(x, y0, 'b-', clip_on=False)\n",
+    "line = line[0]\n",
+    "\n",
+    "xd = np.pi\n",
+    "yd = get_y(xd, a, b, c, d)\n",
+    "dot = ax.plot(xd, yd, 'ro', ms=10, clip_on=False)\n",
+    "dot = dot[0]\n",
+    "\n",
+    "ax.set_xlim(0, 2 * np.pi)\n",
+    "ax.set_ylim(-a, a)\n",
+    "\n",
+    "frames = 50\n",
+    "\n",
+    "def update(i):\n",
+    "\n",
+    "    dt = 2 * np.pi / frames\n",
+    "    c = i * dt\n",
+    "\n",
+    "    # for each frame, update the data stored on each artist.\n",
+    "    y = get_y(x, a, b, c, d)\n",
+    "    line.set_xdata(x)\n",
+    "    line.set_ydata(y)\n",
+    "\n",
+    "    yd = get_y(xd, a, b, c, d)\n",
+    "    dot.set_ydata([yd])\n",
+    "\n",
+    "    return line,\n",
+    "\n",
+    "ani = animation.FuncAnimation(fig=fig, func=update, frames=frames)\n",
+    "plt.close()\n",
+    "\n",
+    "from IPython.display import HTML\n",
+    "HTML(ani.to_jshtml())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# the following can be used to save the animation to a file\n",
+    "# ext = \"mp4\" # mac mp4\n",
+    "ext = \"avi\" # windows avi\n",
+    "ani.save(f\"sin_animation.{ext}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "language_info": {
+   "name": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

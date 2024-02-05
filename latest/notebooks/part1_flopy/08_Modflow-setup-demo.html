@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>08: Modflow-setup demonstration &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="09: Demonstration of MODFLOW 6 Groundwater Transport" href="09-gwt-voronoi-demo.html" />
+    <link rel="prev" title="07: Evaluating stream capture with a Voronoi grid" href="solutions/07-stream_capture_voronoi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-unstructured-grids.html">05: FloPy Model Grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">08: Modflow-setup demonstration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Example-problem">Example problem</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Just-make-a-model-grid">Just make a model grid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Working-directory-gottcha">Working directory gottcha</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Write-shapefiles-of-the-inset-and-parent-modelgrids">Write shapefiles of the inset and parent modelgrids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Build-the-whole-model">Build the whole model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-inset-and-parent-model-grids-with-Lake-Package-connections-by-layer">Plot the inset and parent model grids with Lake Package connections by layer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#write-the-MODFLOW-input-files">write the MODFLOW input files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Run-the-model">Run the model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-the-results">Plot the results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Read-the-output-and-post-process-the-3D-head-results-into-2D-water-table(s)">Read the output and post-process the 3D head results into 2D water table(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Then-combine-the-parent-and-inset-model-head-results">Then combine the parent and inset model head results</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Make-the-plot">Make the plot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#References">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_modpath-demo.html">10: MODPATH demonstration</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
+      <li class="breadcrumb-item active">08: Modflow-setup demonstration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/part1_flopy/08_Modflow-setup-demo.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="08:-Modflow-setup-demonstration">
+<h1>08: Modflow-setup demonstration<a class="headerlink" href="#08:-Modflow-setup-demonstration" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://github.com/DOI-USGS/modflow-setup">Modflow-setup</a> is a python package for rapid, automated construction of MODFLOW models. Often in modeling projects, construction of the basic model structure (discretization, boundary conditions, etc) consumes a lot of time that could be spent on effective history matching, uncertainty quantification and forecast scenario development. Modflow-setup aims to speed up construction of the base model in a way that is robust and repeatable.
+Grid-independent source data such as shapefiles and rasters are specified in a single configuration file, along with the desired packages and their options. Modflow-setup reads the configuration and the source data, and within a few minutes, produces an external array-based MODFLOW model that is amenable to parameter estimation and uncertainty quantification using PEST (e.g. <a class="reference external" href="https://doi.org/10.1016/j.envsoft.2021.105022">White et al, 2021</a>). Detailed description of Modflow-setup is provided
+by <a class="reference external" href="https://www.frontiersin.org/articles/10.3389/feart.2022.903965">Leaf and Fienen (2022)</a> and in <a class="reference external" href="https://doi-usgs.github.io/modflow-setup/latest/">online documentation</a>.</p>
+<section id="Example-problem">
+<h2>Example problem<a class="headerlink" href="#Example-problem" title="Link to this heading">¶</a></h2>
+<p>Here we demonstrate Modflow-setup with a simplified version of the Pleasant Lake model published by Fienen et al (2022), who used a multi-scale modeling approach to evaluate the effects of agricultural groundwater abstraction on the ecology of Pleasant Lake in central Wisconsin, USA. The original report and model files are available at the links below. Figure 1 shows the original published model, which included a regional model to simulate distant boundaries, an intermediate model to capture the
+effects of agricultural pumping, and a tightly coupled local grid refinement (LGR) submodel to simulate groundwater/lake interactions at a fine scale.</p>
+<p><img alt="5d63c1b96872409e895952e1adb5b761" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, intermediate and LGR inset models, as well as the irrigation wells considered.</p>
+<p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller intermediate model domain is used at a coarser cell spacing of 40 meters. The smaller domain is for illustration purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
+<p>Example model details * Transient (monthly) MODFLOW-6 simulation for calendar year 2012, with a dynamically linked parent model (200m grid resolution) and local grid refinement (LGR) inset model (40m resolution). * The LGR parent model is itself a Telescopic Mesh Refinment (TMR) inset from a transient regional MODFLOW-6 model (via specified heads along the perimeter) * 5 layers; Layer 1 in the regional model is subdivided evenly into two layers in the LGR models (by assigning the first bottom
+surface to layer 1 instead of layer 0). The other layers align with subsequent regional model layers. * Starting heads are resampled from the regional model binary output * Parent model RCHa, NPF, STO, and WEL input are copied from the regional model * SFR package is constructed from an NHDPlus v2 dataset (path to NHDPlus files in the same structure as the <a class="reference external" href="https://nhdplus.com/NHDPlus/NHDPlusV2_data.php">downloads from the NHDPlus website</a>) * Head observations are specified from csv files
+* LGR inset model extent is based on a buffer distance around a feature of interest (the lake). * LGR inset model DIS, IC, NPF, STO and RCHa input are rediscretized from the parent model input. * The Lake package is created from a polygon feature, bathymetry raster, stage-area-volume file and climate data from <a class="reference external" href="https://prism.oregonstate.edu/">PRISM</a>. * Lake package observations are set up automatically (with an output file for each lake)</p>
+<div class="line-block">
+<div class="line">The model input is specified in two configuration files that can be viewed with VSCode or any YAML-aware text editor:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">data/pleasant_lgr_parent.yml</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">data/pleasant_lgr_inset.yml</span></code></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">griddata</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">patheffects</span>
+<span class="kn">import</span> <span class="nn">flopy</span>
+<span class="kn">from</span> <span class="nn">mfsetup</span> <span class="kn">import</span> <span class="n">MF6model</span>
+
+<span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<section id="Just-make-a-model-grid">
+<h3>Just make a model grid<a class="headerlink" href="#Just-make-a-model-grid" title="Link to this heading">¶</a></h3>
+<p>Oftentimes at the start of a modeling project, we want to quickly test different grid resolutions and extents before attempting to build the model. We can do this with Modflow-setup by creating a model instance and then running the <code class="docutils literal notranslate"><span class="pre">setup_grid()</span></code> method. A model grid instance is created from the <code class="docutils literal notranslate"><span class="pre">setup_grid:</span></code> block in the configuration file.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">MF6model</span><span class="p">(</span><span class="n">cfg</span><span class="o">=</span><span class="s1">&#39;data/pleasant_lgr_parent.yml&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">setup_grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Since this model has local-grid refinement, it actually consists of two models: a parent built from <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_parent.yml</span></code>, and an inset built from <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_inset.yml</span></code>, which is referenced within <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_parent.yml</span></code>. The two sub-models are connected and solved simulataneously within the same MODFLOW 6 simulation. A model grid is made for each sub-model. The model grids are instances of the <code class="docutils literal notranslate"><span class="pre">MFsetupGrid</span></code> grid class, a subclass of the Flopy <code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code> class with some
+added functionality.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+5 layer(s), 24 row(s), 26 column(s)
+delr: [200.00...200.00] meters
+delc: [200.00...200.00] meters
+CRS: EPSG:3070
+length units: meters
+xll: 553200.0; yll: 388000.0; rotation: 0.0
+Bounds: (553200.0, 558400.0, 388000.0, 392800.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">inset</span><span class="p">[</span><span class="s1">&#39;plsnt-lgr-inset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modelgrid</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+70 row(s), 80 column(s)
+delr: [40.00...40.00] meters
+delc: [40.00...40.00] meters
+CRS: EPSG:3070
+length units: meters
+xll: 554200.0; yll: 389000.0; rotation: 0.0
+Bounds: (554200.0, 557400.0, 389000.0, 391800.0)
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Working-directory-gottcha">
+<h2>Working directory gottcha<a class="headerlink" href="#Working-directory-gottcha" title="Link to this heading">¶</a></h2>
+<p>Currently, to facilitate working with external files in Flopy, <strong>Modflow-setup changes the working directory to the model workspace</strong>. In the context of a flat script that only builds the model, this is fine, but in a notebook or other workflows, this can potentially cause confusion.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PosixPath(&#39;/Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lgr&#39;)
+</pre></div></div>
+</div>
+<section id="Write-shapefiles-of-the-inset-and-parent-modelgrids">
+<h3>Write shapefiles of the inset and parent modelgrids<a class="headerlink" href="#Write-shapefiles-of-the-inset-and-parent-modelgrids" title="Link to this heading">¶</a></h3>
+<p>A shapefile of the grid bounding box is written by default on creation of the model grid, to the location specified by <code class="docutils literal notranslate"><span class="pre">output_files:</span> <span class="pre">grid_file:</span></code> in the <code class="docutils literal notranslate"><span class="pre">setup_grid:</span></code> block (default is <code class="docutils literal notranslate"><span class="pre">&lt;model</span> <span class="pre">workspace&gt;/postproc/shps/</span></code>). A shapefile of the grid cells as polygon features can be written as below:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">write_shapefile</span><span class="p">(</span><span class="s1">&#39;postproc/shps/plsnt-lgr-parent_grid.shp&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">inset</span><span class="p">[</span><span class="s1">&#39;plsnt-lgr-inset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">write_shapefile</span><span class="p">(</span><span class="s1">&#39;postproc/shps/plsnt-lgr-inset_grid.shp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+creating shapely Polygons of grid cells...
+finished in 0.02s
+
+writing postproc/shps/plsnt-lgr-parent_grid.shp... Done
+creating shapely Polygons of grid cells...
+finished in 0.27s
+
+writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
+</pre></div></div>
+</div>
+<section id="Change-the-working-directory-back-to-the-notebook-location">
+<h4>Change the working directory back to the notebook location<a class="headerlink" href="#Change-the-working-directory-back-to-the-notebook-location" title="Link to this heading">¶</a></h4>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Build-the-whole-model">
+<h3>Build the whole model<a class="headerlink" href="#Build-the-whole-model" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">MF6model</span><span class="o">.</span><span class="n">setup_from_yaml</span><span class="p">(</span><span class="s1">&#39;data/pleasant_lgr_parent.yml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>a <code class="docutils literal notranslate"><span class="pre">MF6model</span></code> instance (subclass of <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwf</span></code>) is returned</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Pleasant Lake test case version 0.1.post300.dev0+g976f359
+Parent model: /Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lake//pleasant
+5 layer(s), 24 row(s), 26 column(s)
+delr: [200.00...200.00] meters
+delc: [200.00...200.00] meters
+CRS: EPSG:3070
+length units: meters
+xll: 553200.0; yll: 388000.0; rotation: 0.0
+Bounds: (553200.0, 558400.0, 388000.0, 392800.0)
+Packages: dis ic npf sto rcha_0 oc chd_0 obs_0 sfr_0 wel_0 obs_1 obs_2
+13 period(s):
+ per start_datetime end_datetime  perlen  steady  nstp
+   0     2012-01-01   2012-01-01     1.0    True     1
+   1     2012-01-01   2012-02-01    31.0   False     1
+   2     2012-02-01   2012-03-01    29.0   False     1
+   ...
+  12     2012-12-01   2013-01-01    31.0   False     1
+</pre></div></div>
+</div>
+<p>information from the configuration file is stored in an attached <code class="docutils literal notranslate"><span class="pre">cfg</span></code> dictionary</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;metadata&#39;, &#39;simulation&#39;, &#39;model&#39;, &#39;parent&#39;, &#39;postprocessing&#39;, &#39;setup_grid&#39;, &#39;dis&#39;, &#39;tdis&#39;, &#39;ic&#39;, &#39;npf&#39;, &#39;sto&#39;, &#39;rch&#39;, &#39;sfr&#39;, &#39;high_k_lakes&#39;, &#39;lak&#39;, &#39;mvr&#39;, &#39;chd&#39;, &#39;drn&#39;, &#39;ghb&#39;, &#39;riv&#39;, &#39;wel&#39;, &#39;oc&#39;, &#39;obs&#39;, &#39;ims&#39;, &#39;mfsetup_options&#39;, &#39;filename&#39;, &#39;maw&#39;, &#39;external_files&#39;, &#39;intermediate_data&#39;, &#39;grid&#39;])
+</pre></div></div>
+</div>
+<p>the <code class="docutils literal notranslate"><span class="pre">cfg</span></code> dictionary contains both information from the configuration file, and MODFLOW input (such as external text file arrays) that was developed from the original source data. Internally in Modflow-setup, MODFLOW input in <code class="docutils literal notranslate"><span class="pre">cfg</span></code> is fed to the various Flopy object constructors.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;dis&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+defaultdict(dict,
+            {&#39;remake_top&#39;: True,
+             &#39;options&#39;: {&#39;length_units&#39;: &#39;meters&#39;},
+             &#39;dimensions&#39;: {&#39;nlay&#39;: 5, &#39;nrow&#39;: 24, &#39;ncol&#39;: 26},
+             &#39;griddata&#39;: {&#39;top&#39;: [{&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_top.dat&#39;}],
+              &#39;botm&#39;: [{&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_botm_000.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_botm_001.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_botm_002.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_botm_003.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_botm_004.dat&#39;}],
+              &#39;idomain&#39;: [{&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_idomain_000.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_idomain_001.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_idomain_002.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_idomain_003.dat&#39;},
+               {&#39;filename&#39;: &#39;./external/plsnt-lgr-parent_idomain_004.dat&#39;}]},
+             &#39;top_filename_fmt&#39;: &#39;top.dat&#39;,
+             &#39;botm_filename_fmt&#39;: &#39;botm_{:03d}.dat&#39;,
+             &#39;idomain_filename_fmt&#39;: &#39;idomain_{:03d}.dat&#39;,
+             &#39;minimum_layer_thickness&#39;: 1,
+             &#39;drop_thin_cells&#39;: True,
+             &#39;source_data&#39;: {&#39;top&#39;: {&#39;filename&#39;: &#39;/Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/dem40m.tif&#39;,
+               &#39;elevation_units&#39;: &#39;meters&#39;},
+              &#39;botm&#39;: {&#39;filenames&#39;: {1: &#39;/Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/botm0.tif&#39;,
+                2: &#39;/Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/botm1.tif&#39;,
+                3: &#39;/Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/botm2.tif&#39;,
+                4: &#39;/Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/botm3.tif&#39;}}},
+             &#39;nlay&#39;: {internal}
+             (4)})
+</pre></div></div>
+</div>
+<p>The inset LGR model is attached to the parent within an <code class="docutils literal notranslate"><span class="pre">inset</span></code> dictionary</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">inset</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post300.dev0+g976f359
+ Parent model: ./plsnt-lgr-parent
+ 5 layer(s), 70 row(s), 80 column(s)
+ delr: [40.00...40.00] meters
+ delc: [40.00...40.00] meters
+ CRS: EPSG:3070
+ length units: meters
+ xll: 554200.0; yll: 389000.0; rotation: 0.0
+ Bounds: (554200.0, 557400.0, 389000.0, 391800.0)
+ Packages: dis ic npf sto rcha_0 oc sfr_0 lak_0 obs_0 obs_1
+ 13 period(s):
+  per start_datetime end_datetime  perlen  steady  nstp
+    0     2012-01-01   2012-01-01     1.0    True     1
+    1     2012-01-01   2012-02-01    31.0   False     1
+    2     2012-02-01   2012-03-01    29.0   False     1
+    ...
+   12     2012-12-01   2013-01-01    31.0   False     1}
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Plot-the-inset-and-parent-model-grids-with-Lake-Package-connections-by-layer">
+<h2>Plot the inset and parent model grids with Lake Package connections by layer<a class="headerlink" href="#Plot-the-inset-and-parent-model-grids-with-Lake-Package-connections-by-layer" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inset</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">inset</span><span class="p">[</span><span class="s1">&#39;plsnt-lgr-inset&#39;</span><span class="p">]</span>
+
+<span class="c1"># Get the parent model grid extent</span>
+<span class="c1"># to set plot limits later</span>
+<span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">extent</span>
+
+<span class="c1"># Make the plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">parent_mv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">inset_mv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">inset</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">parent_mv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;SFR&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">inset_mv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;SFR&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">lcp</span> <span class="o">=</span> <span class="n">parent_mv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lci</span> <span class="o">=</span> <span class="n">inset_mv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Get the lake connections</span>
+<span class="n">vconn</span> <span class="o">=</span> <span class="n">inset</span><span class="o">.</span><span class="n">lak</span><span class="o">.</span><span class="n">connectiondata</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">inset</span><span class="o">.</span><span class="n">lak</span><span class="o">.</span><span class="n">connectiondata</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="s1">&#39;claktype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">]</span>
+<span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">vconn</span><span class="p">[</span><span class="s1">&#39;cellid&#39;</span><span class="p">])</span>
+<span class="n">lakeconnections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">inset</span><span class="o">.</span><span class="n">nrow</span><span class="p">,</span> <span class="n">inset</span><span class="o">.</span><span class="n">ncol</span><span class="p">))</span>
+<span class="n">lakeconnections</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="n">lakeconnections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">lakeconnections</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">lakeconnections</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">qmi</span> <span class="o">=</span> <span class="n">inset_mv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lakeconnections</span><span class="p">)</span>
+
+<span class="c1"># re-limit the plot to the parent model extent</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">qmi</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Lake connection layer&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Easting, in WTM meters (epsg: 3070)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Northing, in WTM meters (epsg: 3070)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0, 0.5, &#39;Northing, in WTM meters (epsg: 3070)&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_24_1.png" src="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_24_1.png" />
+</div>
+</div>
+<section id="write-the-MODFLOW-input-files">
+<h3>write the MODFLOW input files<a class="headerlink" href="#write-the-MODFLOW-input-files" title="Link to this heading">¶</a></h3>
+<p>(just like you would for a Flopy model)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">write_input</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+writing simulation...
+  writing simulation name file...
+  writing simulation tdis package...
+  writing solution package ims_-1...
+  writing package pleasant-lgr.mvr...
+  writing package pleasant-lgr.gwfgwf...
+  writing model plsnt-lgr-parent...
+    writing model name file...
+    writing package dis...
+    writing package ic...
+    writing package npf...
+    writing package sto...
+    writing package rcha_0...
+    writing package oc...
+    writing package chd_0...
+INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;chd&#39;, &#39;dimensions&#39;) changed to 247 based on size of stress_period_data
+    writing package obs_0...
+    writing package sfr_0...
+    writing package wel_0...
+INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) changed to 5 based on size of stress_period_data
+    writing package obs_1...
+    writing package obs_2...
+  writing model plsnt-lgr-inset...
+    writing model name file...
+    writing package dis...
+    writing package ic...
+    writing package npf...
+    writing package sto...
+    writing package rcha_0...
+    writing package oc...
+    writing package sfr_0...
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+WARNING: Unable to resolve dimension of (&#39;gwf6&#39;, &#39;sfr&#39;, &#39;connectiondata&#39;, &#39;connectiondata&#39;, &#39;ic&#39;) based on shape &#34;nconifno&#34;.
+    writing package lak_0...
+    writing package obs_0...
+    writing package obs_1...
+SFRmaker v. 0.11.2
+
+Running Flopy v. 3.5.0 diagnostics...
+passed.
+
+Checking for continuity in segment and reach numbering...
+passed.
+
+Checking for increasing segment numbers in downstream direction...
+passed.
+
+Checking for circular routing...
+passed.
+
+Checking reach connections for proximity...
+2 segments with non-adjacent reaches found.
+At segments:
+1 2
+
+2 segments with non-adjacent reaches found.
+At segments:
+1 2
+
+
+Checking for model cells with multiple non-zero SFR conductances...
+passed.
+
+Checking for streambed tops of less than -10...
+passed.
+
+Checking for streambed tops of greater than 15000...
+passed.
+
+Checking segment_data for downstream rises in streambed elevation...
+Segment elevup and elevdn not specified for nstrm=-15 and isfropt=1
+passed.
+
+Checking reach_data for downstream rises in streambed elevation...
+4 reaches encountered with strtop &lt; strtop of downstream reach.
+Elevation rises:
+k i j iseg ireach strtop strtopdn d_strtop reachID diff
+4 19 15 2 1 290.3638610839844 294.76507568359375 4.401214599609375 7 -4.401214599609375
+4 19 16 2 2 290.3638610839844 293.5867614746094 3.222900390625 8 -3.222900390625
+4 20 16 2 3 290.3638610839844 292.6883850097656 2.32452392578125 9 -2.32452392578125
+4 21 16 2 4 290.3638610839844 292.11285400390625 1.748992919921875 10 -1.748992919921875
+
+
+Checking reach_data for inconsistencies between streambed elevations and the model grid...
+passed.
+
+Checking segment_data for inconsistencies between segment end elevations and the model grid...
+Segment elevup and elevdn not specified for nstrm=-15 and isfropt=1
+passed.
+
+Checking for streambed slopes of less than 0.0001...
+passed.
+
+Checking for streambed slopes of greater than 1.0...
+passed.
+
+wrote plsnt-lgr-parent_SFR.chk
+wrote plsnt-lgr-parent.sfr.obs
+converting reach and segment data to package data...
+wrote /Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lgr/external/plsnt-lgr-parent_packagedata.dat
+wrote /Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lgr/plsnt-lgr-parent.sfr
+</pre></div></div>
+</div>
+</section>
+<section id="Run-the-model">
+<h3>Run the model<a class="headerlink" href="#Run-the-model" title="Link to this heading">¶</a></h3>
+<p><strong>Note:</strong> Running the model through Flopy (as below) requires specification of the MODFLOW executable. In Flopy, the executable is specified via the <code class="docutils literal notranslate"><span class="pre">exe_name</span></code> argument to the simulation constructor for MODFLOW 6, or model constructor for previous MODFLOW versions. Similarly, in Modflow-setup, the <code class="docutils literal notranslate"><span class="pre">exe_name</span></code> is specified in the <code class="docutils literal notranslate"><span class="pre">simulation:</span></code> or <code class="docutils literal notranslate"><span class="pre">model:</span></code> block of the <a class="reference external" href="https://doi-usgs.github.io/modflow-setup/latest/config-file-gallery.html#pleasant-lake-test-case">configuration file</a>.
+This example assumes that a MODFLOW 6 executable with the name “mf6” either resides in the model workspace, or is included in the system path.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mf6
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                            VERSION 6.4.2 06/28/2023
+
+   MODFLOW 6 compiled Jun 28 2023 18:34:54 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
+                             Build 20220726_000000
+
+This software has been approved for release by the U.S. Geological
+Survey (USGS). Although the software has been subjected to rigorous
+review, the USGS reserves the right to update the software as needed
+pursuant to further analysis and review. No warranty, expressed or
+implied, is made by the USGS or the U.S. Government as to the
+functionality of the software and related material nor shall the
+fact of release constitute any such warranty. Furthermore, the
+software is released on condition that neither the USGS nor the U.S.
+Government shall be held liable for any damages resulting from its
+authorized or unauthorized use. Also refer to the USGS Water
+Resources Software User Rights Notice for complete use, copyright,
+and distribution information.
+
+
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/02/02 14:40:45
+
+ Writing simulation list file: mfsim.lst
+ Using Simulation name file: mfsim.nam
+
+    Solving:  Stress period:     1    Time step:     1
+    Solving:  Stress period:     2    Time step:     1
+    Solving:  Stress period:     3    Time step:     1
+    Solving:  Stress period:     4    Time step:     1
+    Solving:  Stress period:     5    Time step:     1
+    Solving:  Stress period:     6    Time step:     1
+    Solving:  Stress period:     7    Time step:     1
+    Solving:  Stress period:     8    Time step:     1
+    Solving:  Stress period:     9    Time step:     1
+    Solving:  Stress period:    10    Time step:     1
+    Solving:  Stress period:    11    Time step:     1
+    Solving:  Stress period:    12    Time step:     1
+    Solving:  Stress period:    13    Time step:     1
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/02/02 14:40:51
+ Elapsed run time:  5.602 Seconds
+
+
+WARNING REPORT:
+
+  1. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;plsnt-lgr-parent.sfr&#39;
+     WAS DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
+  2. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;plsnt-lgr-inset.sfr&#39;
+     WAS DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
+ Normal termination of simulation.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(True, [])
+</pre></div></div>
+</div>
+</section>
+<section id="Plot-the-results">
+<h3>Plot the results<a class="headerlink" href="#Plot-the-results" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PosixPath(&#39;/Users/aleaf/Documents/Python_course/python-for-hydrology/notebooks/part1_flopy/data/pleasant-lgr&#39;)
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Read-the-output-and-post-process-the-3D-head-results-into-2D-water-table(s)">
+<h2>Read the output and post-process the 3D head results into 2D water table(s)<a class="headerlink" href="#Read-the-output-and-post-process-the-3D-head-results-into-2D-water-table(s)" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">flopy.utils.binaryfile</span> <span class="k">as</span> <span class="nn">bf</span>
+<span class="kn">from</span> <span class="nn">flopy.utils.postprocessing</span> <span class="kn">import</span> <span class="n">get_water_table</span>
+
+<span class="n">lgr_parent_headsobj</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">HeadFile</span><span class="p">(</span><span class="s1">&#39;plsnt-lgr-parent.hds&#39;</span><span class="p">)</span>
+<span class="n">lgr_inset_headsobj</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">HeadFile</span><span class="p">(</span><span class="s1">&#39;plsnt-lgr-inset.hds&#39;</span><span class="p">)</span>
+
+<span class="c1"># read the head results for the last stress period</span>
+<span class="n">kper</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">lgr_parent_hds</span> <span class="o">=</span> <span class="n">lgr_parent_headsobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">kstpkper</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">kper</span><span class="p">))</span>
+<span class="n">lgr_inset_hds</span> <span class="o">=</span> <span class="n">lgr_inset_headsobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">kstpkper</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">kper</span><span class="p">))</span>
+
+<span class="c1"># Get the water table elevation from the 3D head results</span>
+<span class="n">inset_wt</span> <span class="o">=</span> <span class="n">get_water_table</span><span class="p">(</span><span class="n">lgr_inset_hds</span><span class="p">)</span>
+<span class="n">parent_wt</span> <span class="o">=</span> <span class="n">get_water_table</span><span class="p">(</span><span class="n">lgr_parent_hds</span><span class="p">)</span>
+
+<span class="c1"># put in the lake level (not included in head output)</span>
+<span class="n">lake_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;lake1.obs.csv&#39;</span><span class="p">)</span>
+<span class="n">stage</span> <span class="o">=</span> <span class="n">lake_results</span><span class="p">[</span><span class="s1">&#39;STAGE&#39;</span><span class="p">][</span><span class="n">kper</span><span class="p">]</span>
+<span class="n">inset_wt</span><span class="p">[</span><span class="n">inset</span><span class="o">.</span><span class="n">lakarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage</span>
+
+<span class="c1"># get the cell budget using the .output attribute</span>
+<span class="c1"># (instead of the binaryfile utility directly)</span>
+<span class="n">cbc</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
+<span class="n">inset_cbc</span> <span class="o">=</span> <span class="n">inset</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
+<span class="n">lak</span> <span class="o">=</span> <span class="n">inset_cbc</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;lak&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">parent_sfr</span> <span class="o">=</span> <span class="n">cbc</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;sfr&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">inset_sfr</span> <span class="o">=</span> <span class="n">inset_cbc</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;sfr&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Then-combine-the-parent-and-inset-model-head-results">
+<h2>Then combine the parent and inset model head results<a class="headerlink" href="#Then-combine-the-parent-and-inset-model-head-results" title="Link to this heading">¶</a></h2>
+<p>(into a single grid at the inset model resolution; for a nicer looking plot)</p>
+<p>Note: We could skip this step and simply work with the parent and inset models individually in the same plot (as we are doing below with the grids and boundary conditions). However, if we want to create continuous contours of the head solution, we need to first resample it to a single grid (usually at the finer inset model resolution) that spans the whole model domain.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make the single grid</span>
+<span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">bounds</span>
+<span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">yi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mi">40</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Xi</span><span class="p">,</span> <span class="n">Yi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
+
+<span class="c1"># make a single set of points</span>
+<span class="c1"># including both parent and inset cell centers</span>
+<span class="c1"># and water table values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">xcellcenters</span><span class="p">[</span><span class="o">~</span><span class="n">parent_wt</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">ycellcenters</span><span class="p">[</span><span class="o">~</span><span class="n">parent_wt</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">inset</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">xcellcenters</span><span class="p">[</span><span class="o">~</span><span class="n">inset_wt</span><span class="o">.</span><span class="n">mask</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">inset</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">ycellcenters</span><span class="p">[</span><span class="o">~</span><span class="n">inset_wt</span><span class="o">.</span><span class="n">mask</span><span class="p">])</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">parent_wt</span><span class="p">[</span><span class="o">~</span><span class="n">parent_wt</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">inset_wt</span><span class="p">[</span><span class="o">~</span><span class="n">inset_wt</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># interpolate the results from the points</span>
+<span class="c1"># onto the single inset resolution grid</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">griddata</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">Yi</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<section id="Make-the-plot">
+<h3>Make the plot<a class="headerlink" href="#Make-the-plot" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>include the parent and inset model grids</p></li>
+<li><p>show the head contours for the combined parent/inset simulation</p></li>
+<li><p>show “leakage” results for the Lake and SFR packages (neg. values indicate groundwater discharge to surface water)</p></li>
+</ul>
+<p>Note: Leakage (cell by cell flow) reported by MODFLOW is volumetric, so the apparent parent model values will be higher, simply because they contain more length of stream than the inset model cells.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">layer</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="c1"># create Flopy plot objects</span>
+<span class="n">parent_mv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">)</span>
+<span class="n">inset_mv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">inset</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">)</span>
+
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+<span class="n">parent_mv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">parent_sfr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">inset_mv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lak</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">inset_mv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">inset_sfr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Leakage, in m$^3$/day&#39;</span><span class="p">)</span>
+
+<span class="c1"># contour the combined inset/parent head results</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">290</span><span class="p">,</span> <span class="mi">315</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ctr</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">Yi</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">ctr</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">inline_spacing</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">path_effects</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">patheffects</span><span class="o">.</span><span class="n">withStroke</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)])</span>
+
+<span class="c1"># plot the grid cell edges</span>
+<span class="n">lcp</span> <span class="o">=</span> <span class="n">parent_mv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lci</span> <span class="o">=</span> <span class="n">inset_mv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Northing, in Wisconsin Transverse Mercator (meters)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;</span><span class="p">)</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_36_1.png" src="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_36_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">¶</a></h2>
+<p>Fienen, M. N., Haserodt, M. J., Leaf, A. T., and Westenbroek, S. M. (2022). Simulation of regional groundwater flow and groundwater/lake interactions in the central Sands, Wisconsin. U.S. Geological Survey Scientific Investigations Report 2022-5046. doi:10.3133/sir20225046</p>
+<p>Leaf, A.T. and Fienen, M.N. (2022) Modflow-setup: Robust automation of groundwater model construction. Front. Earth Sci. 10:903965. doi: 10.3389/feart.2022.903965</p>
+<p>Westenbroek, S. M., Engott, J. A., Kelson, V. A., and Hunt, R. J. (2018). SWB Version 2.0—a soil-water-balance code for estimating net infiltration and other 1152 water-budget components. U.S. Geological Survey Techniques and Methods, book 6, 118. chap. A59. doi:10.3133/tm6A59</p>
+<p>White, J. T., Hemmings, B., Fienen, M. N., and Knowling, M. J. (2021). Towards improved environmental modeling outcomes: Enabling low-cost access to high- 1157 dimensional, geostatistical-based decision-support analyses. Environ. Model. Softw. 139, 105022. doi:10.1016/j.envsoft.2021.105022</p>
+<p>Wisconsin Department of Natural Resources (WDNR) (2021). Central Sands Lake study report: Findings and recommendations. Rep. Wis. State Legislature. 1162 doi:10.5281/zenodo.5708791</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="solutions/07-stream_capture_voronoi.html" class="btn btn-neutral float-left" title="07: Evaluating stream capture with a Voronoi grid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="09-gwt-voronoi-demo.html" class="btn btn-neutral float-right" title="09: Demonstration of MODFLOW 6 Groundwater Transport" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

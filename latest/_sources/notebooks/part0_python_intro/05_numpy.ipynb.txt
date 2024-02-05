@@ -1,0 +1,1759 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 05: NumPy\n",
+    "\n",
+    "This notebook demonstrates how to import and use the Numpy module to work with arrays. The NumPy library includes (among other things) ways of storing and manipulating data that are more efficient than standard Python arrays. Using NumPy with numerical data is much faster than using Python lists or tuples.\n",
+    "\n",
+    "### References\n",
+    "[Numpy documentation](https://docs.scipy.org/doc/)  \n",
+    "The [Scipy lecture notes](http://scipy-lectures.org/intro/numpy/index.html) provide a pretty comprehensive demo of the core features of numpy.\n",
+    "\n",
+    "\n",
+    "\n",
+    "### Outline\n",
+    "* Loading Numpy\n",
+    "* Creating a Numpy Array\n",
+    "* Array Operations\n",
+    "* Accessing Array Elements\n",
+    "* Reshaping and Stacking Arrays\n",
+    "* Record Arrays\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "from pathlib import Path\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "#this line sets up the directory paths that we will be using\n",
+    "datapath = Path('data/numpy/')\n",
+    "print('Data will be loaded from the following directory: ', datapath)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Importing Numpy\n",
+    "The first step is to import the numpy module.  It's not a requirement, but almost a requirement to rename it as `np` as part of the import statement as follows.\n",
+    "\n",
+    "Note that at any time, you can enter the name of an object or method and the \"?\" to see help.  Also remember that shift-tab will bring help."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Many packages, including Numpy, have a `__version__` attribute.  It is a good idea to be aware of what package version you are using."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#To see the version of numpy that was loaded, enter the following command\n",
+    "print('I am running numpy version: ', np.__version__)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Numpy Arrays\n",
+    "***\n",
+    "\n",
+    "Numpy `array` objects (also called ndarray) are the cental data structure for `numpy`. Let's check out how to make arrays:\n",
+    "1. Convert a list or tuple into an array\n",
+    "2. Use a numpy function\n",
+    "3. Read from a file"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating a Numpy Array from a List\n",
+    "The following is an example of converting a list into a numpy array using the numpy [array](http://wiki.scipy.org/Numpy_Example_List#array) function."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#create a new list\n",
+    "lst = [1, 3, 5, 7]\n",
+    "\n",
+    "#convert the list into a new array\n",
+    "a = np.array(lst)\n",
+    "\n",
+    "#print some information about the new array\n",
+    "print('The array is: ', a)\n",
+    "print('The type of an array is: ', type(a))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that the following does not work.  Brackets are required so that the input is a list.\n",
+    "\n",
+    "```python\n",
+    "a = np.array(1, 2, 3)\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Every array contains additional information that is stored as an attribute as part of the array.  These attributes include the dimension (ndim) and the array shape (shape), for example."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('The number of dimensions for a: ', a.ndim)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('The shape of a: ', a.shape)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('The type of a: ', a.dtype)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A two-dimensional array can be created by providing two lists within brackets to the numpy array function."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#create a new list\n",
+    "lst1 = [1, 3, 5, 7]\n",
+    "lst2 = [9, 12, 14, 32]\n",
+    "\n",
+    "#convert the list into a new array\n",
+    "a = np.array([lst1, lst2])\n",
+    "\n",
+    "#print some information about the new array\n",
+    "print('The array is: ')\n",
+    "print(a)\n",
+    "print('The type of the array is: ', type(a))\n",
+    "print('The dimension of the array is: ', a.ndim)\n",
+    "print('The shape of the array is: ', a.shape)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We could also skip the step of creating two lists and just put them right into the `np.array` function as follows."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "np.array([[1, 3, 5, 7],[9, 12, 14, 32]])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Array Generating Functions\n",
+    "\n",
+    "There are many different functions for creating numpy arrays.  They are described [here](http://docs.scipy.org/doc/numpy/reference/routines.array-creation.html).  \n",
+    "\n",
+    "Here are a few common array generating functions with links to their descriptions:\n",
+    "\n",
+    "* [empty](https://numpy.org/doc/stable/reference/generated/numpy.empty.html#numpy.empty)\n",
+    "* [zeros](https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros)\n",
+    "* [full](https://numpy.org/doc/stable/reference/generated/numpy.full.html#numpy.full)\n",
+    "* [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones)\n",
+    "* [arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange)\n",
+    "* [linspace](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace)\n",
+    "\n",
+    "empty, zeros, and ones will all create a new array, and they all have the same syntax.  The only difference is the value that will be assigned to all of the array elements upon initialization.  The syntax for creating an empty array is:\n",
+    "\n",
+    "    a = np.empty( (shape), dtype )\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Create an empty array\n",
+    "print(np.empty((2,2), dtype=int))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You are probably asking, what is this junk?  When you use `np.empty`, the only guarantee is that none of the values will be initialized.  You'll get whatever garbage was in that memory address.  You will only want to use `np.empty` if you know that you will be filling the array with meaningful values.\n",
+    "\n",
+    "The `dtype` is the type of array to create.  Some common examples are `int` (INTEGER), `float` (a floating point, or REAL for you FORTRAN people).  Numpy also has some of its own, like `np.int32`, `np.int64`, `np.float32`, `np.float64`, etc. if you want to specify resolution\n",
+    "\n",
+    "Here is an empty float array."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = np.empty((3,3), dtype=float)\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As you might expect, `np.zeros` and `np.ones` make arrays with values initialized one zero and one, respectively."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(np.ones((3,3,3), int))\n",
+    "print(np.zeros((2,2,2), float))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Input and Output\n",
+    "\n",
+    "Numpy has a great set of tools for saving arrays to files and reading arrays from files.  Details on these tools are [here](http://docs.scipy.org/doc/numpy/reference/routines.io.html).\n",
+    "\n",
+    "The following are the common ones:\n",
+    "\n",
+    "* [loadtxt](http://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html#numpy.loadtxt)\n",
+    "* [savetxt](http://docs.scipy.org/doc/numpy/reference/generated/numpy.savetxt.html#numpy.savetxt)\n",
+    "\n",
+    "We will now test these functions using data in the `data` directory.  In this folder, there is a file called `mt_st_helens_before.dat`.  This file is a simple text array with a grid of elevations for Mt. St Helens prior to the 1980 eruption.  We can read this array using the `loadtxt` function as follows."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "before = np.loadtxt(datapath / 'mt_st_helens_before.dat', dtype=np.float32)\n",
+    "print(before.shape, before.dtype)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can very quickly plot a two-dimensional numpy array using the `imshow` function from `matplotlib`. Spoiler alert: we will talk about `matplotlib` a bunch later."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.imshow(before)\n",
+    "plt.colorbar()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## TEST YOUR SKILLS #0\n",
+    "\n",
+    "1. Write the Mt. St. Helens array (before) to a new file called `mynewarray.dat` in the same folder as `mt_st_helens_before.dat`. Explore different formats (see the note under [documentation](https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html) for more) and see if you can read it back in again. What are the file size ramifications of format choices?\n",
+    "2. Take a look at `bottom_commented.dat` in a text editor.  What about this file?  Can you read this file using `loadtxt` without having to manually change the file?  Hint: look at the `loadtxt` arguments."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Skill Test 0.0\n",
+    "#use np.savetxt here to write before to mynewarray.dat in the same folder (datapath). \n",
+    "# What other options are there? What are some advantages/disadvantages?\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Skill Test 0.1\n",
+    "\n",
+    "filename = datapath / 'bottom_commented.dat'\n",
+    "\n",
+    "# fill this in\n",
+    "#bot2 = \n",
+    "#print bot2.shape, bot2.dtype"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Array Operations\n",
+    "***\n",
+    "It is very easy to perform arithmetic operations on arrays. So we can easily add and subtract arrays and use them in `numpy` functions. \n",
+    ">pro tip: These operations, generally, are _element-wise_ -- so, don't expect matrix maths to be the result. That comes later..."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#add\n",
+    "a = np.ones((100, 100))\n",
+    "a = a + 1\n",
+    "print(a)\n",
+    "\n",
+    "#powers, division\n",
+    "a = a ** 2.73 / 75\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### remember the behavior of lists?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = [1,2,3,4]\n",
+    "a*2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = np.array(a)\n",
+    "a*2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Lists are general, but `numpy` is for the maths ..."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### There is so much you can do with numpy arrays and the available functions.  For a list of the mathematical functions look [here](http://docs.scipy.org/doc/numpy/reference/routines.math.html)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#or how about a sin function\n",
+    "x = np.linspace(0, 2*np.pi)\n",
+    "y = np.sin(x)\n",
+    "print(x, y)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# An x, y plot can be quickly generated using plt.plot()\n",
+    "plt.plot(x, y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Accessing Array Elements\n",
+    "\n",
+    "Okay, now for the good stuff...\n",
+    "\n",
+    "Numpy arrays are zero based, which means the first position is referenced as 0.  If you are a FORTRAN person or a MATLAB person, THIS WILL CAUSE YOU GREAT GRIEF!  You will be burned by the fact that the first element in an array is not `a[1]`.  It is `a[0]`.  You will accept it, eventually, and then you will find zero-based arrays to be more intuitive, maybe.\n",
+    "\n",
+    "Let's do some array slicing to see how all of this works."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#create an array with 10 equally spaced values\n",
+    "a = np.linspace(50, 60, 10)\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#we can access the first value as\n",
+    "print('The first value is: ', a[0])\n",
+    "\n",
+    "#the last value is\n",
+    "print('The last value is: ', a[9])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Okay, this is all good. Now there is another cool part of numpy arrays, and that is that we can use negative index numbers.  So instead of a[9], we could also say a[-1]."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('The last value is: ', a[-1])\n",
+    "\n",
+    "#hmm.  Does that mean?  yup.\n",
+    "print('The second to last value is: ', a[-2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Accessing Parts of an Array\n",
+    "\n",
+    "So how do we access parts of an array?  The formal syntax for a one dimensional array is:\n",
+    "\n",
+    "    array[idxstart : idxstop : idxstride]\n",
+    "    \n",
+    "where idxstart is the zero-based array position to start; idxstop is the zero-based index to go up to, BUT NOT INCLUDE, and idxstride is the number of values to skip.  The following are valid array slides:\n",
+    "\n",
+    "    a[:]    #all elements\n",
+    "    a[0:-1] #all elements\n",
+    "    a[2:10] #elements in the third position up to elements in the 10th position\n",
+    "    a[::2]  #start in position 0 and include every other element\n",
+    "    a[::-1] #start at the end and reverse the order\n",
+    "\n",
+    "The following are some examples.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#make a fresh array with 30 values\n",
+    "a = np.arange(30)\n",
+    "print('a=', a)\n",
+    "\n",
+    "#print values from the beginning up to but not including the 10th value\n",
+    "print('a[:10]: ', a[:10])\n",
+    "\n",
+    "#or print the values from postion 20 to the end\n",
+    "print('a[90:]', a[20:])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This is all good, but what if want to skip over values.  Then we can also enter a stride. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Print every second value\n",
+    "print(a[::2])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Print every 5th value from 5 to 25\n",
+    "print(a[5::5])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Note** the slice notation `5::5` above is actually shorthand for the built-in slice object"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a[slice(50, None, 5)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "And this all works for multi-dimensional arrays as well.  So we can access parts of a multi-dimensional array, just separate the slice commands with a `','`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = np.ones((10, 10), dtype=int)\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#now lets set the upper left quadrant of a to 2\n",
+    "a[:5, :5] = 2\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Accessing Array Elements Using an Index List or Array\n",
+    "\n",
+    "If we know the array indices that we want to access, we can specify them in a list and pass that list to the array through the brackets."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = np.random.random(10)\n",
+    "print(a)\n",
+    "print('values in 2, 3, and 7 positions', a[[2, 3, 7]])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#this also works for multi dimensions\n",
+    "icoord = np.arange(10)\n",
+    "jcoord = icoord\n",
+    "a = np.zeros((10, 10), dtype='int')\n",
+    "a[icoord, jcoord] = 1\n",
+    "print(a)  #hey, its the identity matrix!\n",
+    "\n",
+    "#what do you think?  Do you think numpy has an identity function?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Boolean indexing\n",
+    "conditional statements can also be used to slice arrays\n",
+    "what if we want to identify nodata in the Mt. St. Helens array, which have a value of 0, and convert them to nodata?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "before"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### comparing arrays"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "[Value Comparisons](https://docs.python.org/3.9/reference/expressions.html?highlight=bitwise#value-comparisons) yield Boolean True/False results and include `==`,`<`,`<=`,`>=`,`!=` (the last being \"not equal\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "before==0 "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "before != 0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# use a Boolean result to operate on an array\n",
+    "before[before == 0] = np.nan"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "before"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "or, what if we want to identify cells with elevations above 2000 meters?\n",
+    "`before > 2000` returns `True` for each position in the array that meets this condition (yellow in plot below), `False` everywhere else (purple)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.imshow(before > 2000)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### this can be applied, element-by-element to entire arrays"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = np.random.random((5,5))\n",
+    "b = a.copy()\n",
+    "c = b.copy() \n",
+    "c[0,0] = 99 # tweak a single entry in c"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a==b"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b==c"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# are they the same shape and have all the xam\n",
+    "np.array_equal(a, b), np.array_equal(b,c)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Logical operations: `any` and `all`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "np.any(a==c), np.all(a==c)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### [Bitwise operations](https://docs.python.org/3.9/reference/expressions.html?highlight=bitwise#binary-bitwise-operations) are required to compare Boolean (and other binary) arrays and include \"and\" `&` and \"or\" `|`. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# compare two binary arrays\n",
+    "a=np.random.random((5,5))\n",
+    "little = a<.2\n",
+    "big = a>.6"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "little"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "big"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "little & big # can't be both, right?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "little | big"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a[little | big] = 0\n",
+    "a"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    ">pro tip: If you stack the comparison together with bitwise comparisons, you need to wrap those in (). This may seem abstract but will be important soon. Like really soon."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a[(a>.3) & (a<.5)] = 9\n",
+    "a"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### there are times when it's useful to have a list of indices meeting some condition. [`np.where`](https://numpy.org/doc/stable/reference/generated/numpy.where.html) will hook you up. (also check out [`nonzero`](https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html) and [`argwhere`](https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html) for some nuanced options)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = np.random.random((3,3))\n",
+    "a"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "idx = np.where(a<0.5)\n",
+    "idx"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a[idx]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## TEST YOUR SKILLS #1\n",
+    "Let's calculate the amount of material lost from Mt. St. Helens in the 1980 eruption. We have the before and after elevation arrays in the data folder noted in the next cell. We will need to load them up. \n",
+    "- The before and after files are the same dimensions, but they have some zeros around the edges indicating \"nodata\" values. \n",
+    "- Check to see - are the zeros in the same place in both arrays? (`np.where` and friends can help with that). \n",
+    "- If there are no-data zeros in one array at a different location than the other array, what happens if you look at the difference?\n",
+    "- assume each pixel is 25 x 25 feet and the elevation arrays are provided in meters to calculate a volumetric difference between before and after arrays."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "before_file = datapath / 'mt_st_helens_before.dat'\n",
+    "after_file = datapath / 'mt_st_helens_after.dat'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Views vs. Copies\n",
+    "***\n",
+    "**Slice indexing returns a view** That means if you change the slice, you change the original 🤔 "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b = a[:2, :2]\n",
+    "b[1,1] = 10"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### how can this happen??? `id()` returns the memory location a value is stored in within the computer"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## first check out where `a` and `b` are located"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "id(a), id(b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### ok, but what about the actual data?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "id(a[1,1]), id(b[1,1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "id(a[1,0]), id(b[1,0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Array and Boolean indexing returns a copy**. Operations on the copy do not affect the original array."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "list(range(2))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c = a[a>.4]\n",
+    "c"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c[1] = 20\n",
+    "c"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### again, we can look at these memory addresses to confirm what's happening"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "id(a), id(c)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "id(a[1]), id(c[1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reshaping and Stacking Arrays\n",
+    "\n",
+    "Reshaping of arrays is easy to do with the `np.reshape` function.  The function works by taking an array and desired shape, and then returning a new array with that shape.  Note, however, that the requested shape must be consistent with the array that is passed in.  The syntax is:\n",
+    "\n",
+    "    np.reshape(a, (newshape))\n",
+    "\n",
+    "Arrays also have a reshape method, which means you can use the following form:\n",
+    "\n",
+    "    a.reshape( (newshape) )\n",
+    "    \n",
+    "Example follows."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = np.arange(9)\n",
+    "print('a: ', a)\n",
+    "b = np.reshape(a, (3,3))\n",
+    "print('b: ', b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### just to hammer home to `view` vs. `copy` behavior, look at `a` and `b` more closely"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b.base"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b[1,1] = 999"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "id(a[1]), id(b[0,1]), id(b.base[1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## hstack and vstack\n",
+    "\n",
+    "hstack and vstack can be used to add columns to an array or rows to an array."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#vstack example -- add a row to an array\n",
+    "a = np.zeros((3, 3), dtype=float)\n",
+    "print(a)\n",
+    "b = np.vstack((a, np.array([2, 2, 2])))\n",
+    "print(b)\n",
+    "print('The shape of b is ', b.shape)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Flattening arrays\n",
+    "oftentimes we need to flatten a 2D array to one dimension\n",
+    "the `ndarray.flat` attribute provides a means of iterating over a numpy array in one-dimension"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "[value for value in b.flat]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "if we need a 1D copy returned instead, we can use the `ndarray.flatten` method"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b.flatten()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "`.ravel()` returns a view instead of a copy when possible"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c = b.ravel()\n",
+    "c[1] = 4\n",
+    "b"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "c"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## TEST YOUR SKILLS #2\n",
+    "\n",
+    "1. In an earlier exercise, you made x and y using the following lines of code.  Now use vstack to add another row to y that has the cosine of x.  Then plot them both on the same figure.\n",
+    "- hint `plt.plot(x,y)` makes plots of arrays x and y"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = np.linspace(0, 2*np.pi)    \n",
+    "y = np.sin(x)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Masking an Array\n",
+    "\n",
+    "Masking is the process of performing array operations on a specific set of cells, called a mask.  A mask is a logical array with the same shape as the array it is applied to.  Here is an example."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#create a 10 by 10 array\n",
+    "a = np.arange(100).reshape((10,10))\n",
+    "print('a:\\n', a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('mask array for a == 1:\\n', a[:, :] == 1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# We can create a mask array as follows\n",
+    "# enclosing the conditional statement in parentheses is added for clarity\n",
+    "mask = (a[:,:]>=75)\n",
+    "print(mask)\n",
+    "\n",
+    "#Now we can use the mask to set values\n",
+    "a[mask] = 100\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Multi-Conditional Masking\n",
+    "\n",
+    "For more complicated masks, we can bring back the bitwise operators from above (`&`, `|`, and `^`)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b = a.copy()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mask = (b[:,:]>50) & (b[:,:]<75)\n",
+    "print(b)\n",
+    "plt.imshow(mask)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b[mask] = 200\n",
+    "print(b)\n",
+    "plt.imshow(b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Masked arrays provide a convient away to explicitly handle nan values in the same object"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "b_masked = np.ma.masked_array(b, mask=mask)\n",
+    "plt.imshow(b_masked)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Record Arrays\n",
+    "\n",
+    "Record arrays, also known as structured arrays, are a great way to store columns of data that have different types.  They can be created by specifying a dtype that defines the columns.  For example:\n",
+    "\n",
+    "    dtype=[('x', int), ('y', float), ('z', int)]) \n",
+    "    \n",
+    "Now, let's use this dtype to create an array with ones in it."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dtype=[('x', int), ('y', float), ('z', int)]\n",
+    "a = np.ones( (10), dtype=dtype)\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#we can access each column by using the column names\n",
+    "print(a['x'])\n",
+    "print(a['y'])\n",
+    "print(a['z'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#we can also change how we view the record array so that we can access columns more easily\n",
+    "a = a.view(np.recarray)\n",
+    "print(a.x)\n",
+    "print(a.y)\n",
+    "print(a.z)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#to add a column, use vstack!\n",
+    "dt = [('name', 'S15')]\n",
+    "string_column = np.empty((10), dtype=dt).view(np.recarray)\n",
+    "string_column.name = 'text string'\n",
+    "\n",
+    "#we can use a merge_arrays function to add a column\n",
+    "import numpy.lib.recfunctions as rfn\n",
+    "b = rfn.merge_arrays((a, string_column), flatten = True, usemask = False)\n",
+    "\n",
+    "#we need to convert b to a recarray to access individual columns as before\n",
+    "b = b.view(np.recarray)\n",
+    "print('Now we have appended string_column to a: \\n', b)\n",
+    "print('b is of shape: ', b.shape)\n",
+    "print(b.dtype.names)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Testing your Skills\n",
+    "\n",
+    "1. Become familiar with recarrays by creating one that has four columns and 100 rows.  In the first column, put an integer that starts at 99 and decreases to 0.  In the second column, put a text string that has 'row n', where n is the actual row value.  In the third column put a random number, and in the fourth column, put your name.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#do the exercise here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## genfromtxt and Record Arrays\n",
+    "\n",
+    "genfromtxt can automatically create a record array if the following arguments are provided (dtype=None, names=True).  When these arguments are set this way, genfromtxt will automatically determine the type for each column and will use the first non-commented line of the data file as column labels.  \n",
+    "\n",
+    "In the 03_numpy folder, there is a csv file called ahf.csv.  This file contains airborne helicopter measurements of elevation taken at points in the everglades.  This data was downloaded from: http://sofia.usgs.gov/exchange/desmond/desmondelev.html.\n",
+    "\n",
+    "In the following cell, we use genfromtxt to load this csv file into a recarray.  The beauty of this is that genfromtxt automatically determines the type of information in each columns and fills the array accordingly.  When this is done correctly, we can access each column in the array using the column text identifier as follows."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#specify the file name\n",
+    "fname = datapath / 'ahf.csv'\n",
+    "print('Data will be loaded from: ', fname)\n",
+    "\n",
+    "#load the array\n",
+    "a = np.genfromtxt(fname, dtype=None, names=True, delimiter=',')\n",
+    "\n",
+    "#print information about the array\n",
+    "print('dypte contains the column information: ', a.dtype)\n",
+    "print()\n",
+    "print('this is the array: ', a)\n",
+    "print()\n",
+    "print('this is just the column names: ', a.dtype.names)\n",
+    "print()\n",
+    "\n",
+    "#now we can create scatter plot of the points very easily using the plt.scatter command\n",
+    "#the nice thing here is that we access the array columns directly using the column names\n",
+    "plt.scatter(a['X_UTM'], a['Y_UTM'], c=a['ELEV_M'], s=10)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reading a Wrapped MODFLOW Array\n",
+    "\n",
+    "It is unlikely that there will be time for this, but the following function is a quick hack that can be used to read a MODFLOW external array where the columns are wrapped.  Note that you cannot use `np.genfromtxt` or `np.loadtxt` to do this if the columns are wrapped.\n",
+    "\n",
+    "Keep this little function in your back pocket in case you need it one day.  If you have time, read bottom.txt in the 04_numpy directory and plot it.  This array has 142 rows and 113 columns."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# This is a little goodie that you might need one day.\n",
+    "def readarray(fname, nrow, ncol):\n",
+    "    f = open(fname, 'r')\n",
+    "    arraylist = []\n",
+    "    for line in f:\n",
+    "        linelist = line.strip().split()\n",
+    "        for v in linelist:\n",
+    "            dtype = np.int\n",
+    "            if '.' in v:\n",
+    "                dtype = np.float\n",
+    "            arraylist.append(dtype(v))\n",
+    "    f.close()\n",
+    "    return np.reshape(np.array(arraylist[:ncol*nrow]), (nrow, ncol))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#read bottom.txt here"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# answer for earlier sk test\n",
+    "dt=[('col1', int), ('col2', 'S10'), ('col3', float), ('col4', 'S20')]\n",
+    "myrecarray = np.zeros((100), dtype=dt).view(np.recarray)\n",
+    "myrecarray.col1[:] = np.arange(99,-1, -1)\n",
+    "myrecarray.col2[:] = 'row '\n",
+    "myrecarray.col3[:] = np.random.random((100))\n",
+    "myrecarray.col4[:] = 'cdl'\n",
+    "print(myrecarray.dtype.names)\n",
+    "print(myrecarray)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Flow around a cylinder (from Mark Bakker)\n",
+    "\n",
+    "The radial and tangential components of the velocity vector $\\vec{v}=(v_r,v_\\theta)$ for inviscid fluid flow around a cylinder are given by\n",
+    "\n",
+    "$\\begin{split}\n",
+    "v_r&=U(1-R^2/r^2)\\cos(\\theta) \\qquad r\\ge R \\\\\n",
+    "v_\\theta&=-U(1+R^2/r^2)\\sin(\\theta) \\qquad r\\ge R\n",
+    "\\end{split}$\n",
+    "\n",
+    "and is zero otherwise. The $x$ and $y$ components of the velocity vector may be obtained from the radial and tangential components as\n",
+    "\n",
+    "$\\begin{split}\n",
+    "v_x&=v_r\\cos(\\theta) - v_\\theta\\sin(\\theta) \\\\\n",
+    "v_y &= v_r\\sin(\\theta) + v_\\theta\\cos(\\theta) \n",
+    "\\end{split}$\n",
+    "\n",
+    "1. Write a function that returns the $x$ and $y$ components of the velocity vector for fluid flow around a cylinder with $R=1.5$ and $U=2$.\n",
+    "\n",
+    "2. Test your function by making sure that at $(x,y) = (2,3)$ the velocity vector is $(v_x,v_y)=(2.1331, -0.3195)$.\n",
+    "\n",
+    "3. Compute the $x$ and $y$ components of the velocity vector on a grid of 50 by 50 points where `x` varies from -4 to +4, and `y` varies from -3 to 3. \n",
+    "\n",
+    "4. Plot the `vx` and `vy` arrays using `plt.imshow`.\n",
+    "\n",
+    "5. Create a stream plot using the cool function `plt.streamplot`, which takes four arguments: `x`, `y`, `vx`, `vy`.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 1D Solute Transport\n",
+    "\n",
+    "A simple 1D transport analytical solution (Zheng and Bennet page 174; orignally from Ogata and Banks, 1961):\n",
+    "\n",
+    "$\\frac{C}{C_0} = \\frac{1}{2} \\left [ erfc \\left ( \\frac{x - v t}{\\sqrt{4Dt}} \\right ) + exp \\left ( \\frac{xv}{D} \\right ) erfc \\left ( \\frac{x + v t}{\\sqrt{4Dt}} \\right )  \\right ]$\n",
+    "\n",
+    "Make a plot of solute concentration as a function of distance and also as a function of time for different values of velocity and dispersion coefficient."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "pyclass",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python",
+   "version": "3.11.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>07b: VSCode Tutorial &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="08: Working with tabular data in Pandas" href="solutions/08_pandas.html" />
+    <link rel="prev" title="07: Using functions to solve an equation– The Theis example" href="solutions/07a_Theis-exercise-solution.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="solutions/01_functions_script__solution.html">01: Functions and scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules.html">03: Useful standard library modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_useful-std-library-modules-solutions.html">03: Solutions to Useful standard library modules exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_useful-std-library-modules-solutions.html#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_useful-std-library-modules-solutions.html#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_files_and_strings.html">04: File input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_numpy.html">05: NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/05_numpy__solutions.html">05: NumPy exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06_matplotlib__solution.html">06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06b_matplotlib_animation.html">06a: Using Matplotlib to Create Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07a_Theis-exercise-solution.html">07: Using functions to solve an equation– The Theis example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">07b: VSCode Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting started</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#converting-the-theis-exercise-notebook-to-a-python-script">Converting the Theis exercise notebook to a Python script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#launching-vscode">Launching VSCode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Getting started</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#linting">Linting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cleaning-up-the-script">Cleaning up the script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-partial-diff-plugin-to-compare-two-pieces-of-code">Using the Partial Diff plugin to compare two pieces of code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#debugging">Debugging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plotting">Plotting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#automatic-docstring-generation">Automatic docstring generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#code-navigation">Code navigation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#liveshare">Liveshare</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/08_pandas.html">08: Working with tabular data in Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part0.html">Part 0: General Python Exercises</a></li>
+      <li class="breadcrumb-item active">07b: VSCode Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/part0_python_intro/07b_VSCode.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="b-vscode-tutorial">
+<h1>07b: VSCode Tutorial<a class="headerlink" href="#b-vscode-tutorial" title="Link to this heading">¶</a></h1>
+<p>In this tutorial we will explore using an integrated development environment (IDE) for python programming. IDEs offer many advantages over Jupyter Notebooks, particularly for developing production code that will be reused many times and shared with others. The advantages of IDEs include:</p>
+<ul class="simple">
+<li><p><em>Linting</em> to catch errors, dead code, and other code quality issues</p></li>
+<li><p>automatic docstring generation and other auto completion</p></li>
+<li><p>code navigation (jumping to function definitions, etc.)</p></li>
+<li><p>interactive debugging (including plotting)</p></li>
+<li><p>support for automated testing and version control</p></li>
+<li><p>unlike Notebooks, code is always executed in the same order (as it would be by another user), thereby increasing the chances for reproducibility.</p></li>
+</ul>
+<p>VSCode offers the above advantages, and many other features through Extensions (plugins) that can be created by anyone. VSCode is also free and works well with large files (GB in size). The Live Share plugin allows for real-time code collaboration and debugging with multiple people.</p>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
+<p>If you haven’t yet, install VS Code <a class="reference external" href="https://code.visualstudio.com/download">here</a>.</p>
+<section id="converting-the-theis-exercise-notebook-to-a-python-script">
+<h3>Converting the Theis exercise notebook to a Python script<a class="headerlink" href="#converting-the-theis-exercise-notebook-to-a-python-script" title="Link to this heading">¶</a></h3>
+<p>Once VSCode is installed,</p>
+<ul class="simple">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb</span></code> in Jupyter</p></li>
+<li><p>From the <code class="docutils literal notranslate"><span class="pre">File</span></code> menu, select <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">and</span> <span class="pre">Export</span> <span class="pre">Notebook</span> <span class="pre">as</span></code> and then <code class="docutils literal notranslate"><span class="pre">Executable</span> <span class="pre">Script</span></code>. This will create a python script version of the notebook (<code class="docutils literal notranslate"><span class="pre">07a_Theis-exercise-solution.py</span></code>)</p></li>
+<li><p>Save <code class="docutils literal notranslate"><span class="pre">07a_Theis-exercise-solution.py</span></code> to the <code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro</span></code> folder (or copy it there from your Downloads folder).</p></li>
+</ul>
+</section>
+<section id="launching-vscode">
+<h3>Launching VSCode<a class="headerlink" href="#launching-vscode" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Open a fresh Miniforge prompt from the Start menu and navigate to the root folder for the class (containing the <code class="docutils literal notranslate"><span class="pre">AGENDA.md</span></code> file).</p></li>
+<li><p>Activate the class python environment (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">pyclass</span></code>) if needed.</p></li>
+<li><p>Then type <code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">.</span></code></p></li>
+<li><p>If prompted, click “Yes, I trust the authors”</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Getting started<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>See <a class="reference external" href="https://code.visualstudio.com/docs/getstarted/userinterface">here</a> for an overview of the VSCode user interface.</p>
+<p>Once VSCode is launched, click on <a class="reference external" href="https://code.visualstudio.com/docs/editor/extension-marketplace">the Extensions icon</a> on the activity bar on the left. Install the following extensions:</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>Python indent</p></li>
+<li><p>Pylance</p></li>
+<li><p>Partial Diff</p></li>
+<li><p>Jupyter</p></li>
+<li><p>Code spell checker</p></li>
+<li><p>autoDocstring</p></li>
+</ul>
+<p>You may find other cool extensions that you want too. A key indicator of an extension’s quality is the number of downloads.</p>
+</section>
+<section id="linting">
+<h3>Linting<a class="headerlink" href="#linting" title="Link to this heading">¶</a></h3>
+<p>Now let’s open the script we copied earlier (<code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro/07a_Theis-exercise-solution.py</span></code>). You can do this from the File Explorer on the left side of the screen.</p>
+<ul class="simple">
+<li><p>as you scroll down through the script, note that “ts” is grayed out in the statement <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">ts</span> <span class="pre">in</span> <span class="pre">t:</span></code> on line 213. This is the linter telling us that this variable is declared but never used. This is “dead code” that we want remove by refactoring.</p></li>
+<li><p>similarly, note further down that the variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are underlined on lines 253 and 254. The linter is warning us that these variables were never declared. This is because their declarations were wrapped in the <code class="docutils literal notranslate"><span class="pre">get_ipython().run_cell_magic</span></code> statement on line 232, in translation of the notebook to a script.</p></li>
+</ul>
+</section>
+<section id="cleaning-up-the-script">
+<h3>Cleaning up the script<a class="headerlink" href="#cleaning-up-the-script" title="Link to this heading">¶</a></h3>
+<p>Let’s clean up the script so that</p>
+<ul class="simple">
+<li><p>the initial background information is within a docstring (bracketed by triple quotes), instead of commented line by line. We can quickly do this with <a class="reference external" href="https://code.visualstudio.com/docs/editor/codebasics#_column-box-selection">column selection</a>.</p></li>
+<li><p>all imports are at the top (below the initial docstring)</p></li>
+<li><p>all functions are next below the imports, each surrounded by <a class="reference external" href="https://peps.python.org/pep-0008/#blank-lines">two blank lines</a>.</p></li>
+<li><p>two lines below the last function, add the statement: <code class="docutils literal notranslate"><span class="pre">&quot;if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>, which <a class="reference external" href="https://stackoverflow.com/questions/419163/what-does-if-name-main-do">denotes the main body of the script (that gets executed when the script is called)</a>.</p></li>
+</ul>
+<p>To make the script easier to work with, you may want to also turn on Word Wrap (from the <code class="docutils literal notranslate"><span class="pre">View</span></code> menu) and <a class="reference external" href="https://code.visualstudio.com/docs/editor/codebasics#_folding">fold all of the code</a> (control + k + 0).</p>
+</section>
+<section id="using-the-partial-diff-plugin-to-compare-two-pieces-of-code">
+<h3>Using the Partial Diff plugin to compare two pieces of code<a class="headerlink" href="#using-the-partial-diff-plugin-to-compare-two-pieces-of-code" title="Link to this heading">¶</a></h3>
+<p>Let’s use Partial Diff to compare our script to the class solution. Assuming the Partial Diff Extension was installed earlier,</p>
+<ul class="simple">
+<li><p>open the class solution (<code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro/solutions/07a_Theis-exercise-solution.py</span></code>)</p></li>
+<li><p>within the solution, highlight any body of code; then right click and <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">Text</span> <span class="pre">for</span> <span class="pre">Compare</span></code></p></li>
+<li><p>then within your script, highlight the body of code to compare; right click and <code class="docutils literal notranslate"><span class="pre">Compare</span> <span class="pre">Text</span> <span class="pre">with</span> <span class="pre">Previous</span> <span class="pre">Solution</span></code>.</p></li>
+<li><p>Partial Diff will open up a third window showing the differences</p></li>
+</ul>
+</section>
+<section id="debugging">
+<h3>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Place a break point anywhere below the first <code class="docutils literal notranslate"><span class="pre">theis()</span></code> call in the <code class="docutils literal notranslate"><span class="pre">__main__</span></code> part of the script.</p></li>
+<li><p>Then go to either <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">--&gt;</span> <span class="pre">Start</span> <span class="pre">Debugging</span></code> or click on the debug icon in the Activity Bar and choose <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">and</span> <span class="pre">Debug</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">File</span></code> if prompted for a configuration. The debugger should run to the break point.</p></li>
+</ul>
+<p>Often it is prudent to include internal checks in code, regardless of the context. There are a number of ways to do this; a simple one is an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement that checks a condition.</p>
+<ul>
+<li><p>Add an <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> </code> in front of the first <code class="docutils literal notranslate"><span class="pre">theis()</span></code> call to assign the results to a variable, and then right below, the following <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">1.40636669</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This checks that the resulting drawdown is equal to the number on the right within a certain tolerance.</p>
+</li>
+<li><p>try pasting the above assert statement into the debug console at the bottom of your screen. You can also highlight it, right click and <code class="docutils literal notranslate"><span class="pre">Evaluate</span> <span class="pre">in</span> <span class="pre">Debug</span> <span class="pre">Console</span></code>.</p></li>
+</ul>
+<section id="the-debug-working-directory">
+<h4>The debug working directory<a class="headerlink" href="#the-debug-working-directory" title="Link to this heading">¶</a></h4>
+<p>Import <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> and type <code class="docutils literal notranslate"><span class="pre">pathlib.Path.cwd()</span></code> in the debug console. Note that the current directory is the root folder for the class (where we launched VSCode). VSCode is structured around projects, which include everything in a folder that was opened (and any subfolders). By default, the working directory for debugging is set at the root level for the project. We can change this (and other debugging settings), by creating a configuration file called <code class="docutils literal notranslate"><span class="pre">launch.json</span></code>, which lives inside of a <code class="docutils literal notranslate"><span class="pre">.vscode/</span></code> folder at the root level of the project.</p>
+<ul>
+<li><p>After stopping the debugging session, make a default <code class="docutils literal notranslate"><span class="pre">launch.json</span></code> by clicking on the debug icon in the Activity Bar and then <code class="docutils literal notranslate"><span class="pre">create</span> <span class="pre">a</span> <span class="pre">launch.json</span> <span class="pre">file</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">File</span></code> if prompted for a configuration. A new tab will open up with <code class="docutils literal notranslate"><span class="pre">launch.json</span></code>. Add <code class="docutils literal notranslate"><span class="pre">&quot;cwd&quot;:</span> <span class="pre">&quot;${fileDirname}&quot;</span></code> at the bottom (don’t forget the preceding comma!) so that the file looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;Python: Current File&quot;,
+            &quot;type&quot;: &quot;python&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;program&quot;: &quot;${file}&quot;,
+            &quot;console&quot;: &quot;integratedTerminal&quot;,
+            &quot;cwd&quot;: &quot;${fileDirname}&quot;
+        }
+    ]
+}
+
+</pre></div>
+</div>
+</li>
+<li><p>run the debugger again. <code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code> should show the <code class="docutils literal notranslate"><span class="pre">part0_python_intro</span></code> folder.</p></li>
+</ul>
+</section>
+<section id="the-run-and-debug-view">
+<h4>The Run and Debug view<a class="headerlink" href="#the-run-and-debug-view" title="Link to this heading">¶</a></h4>
+<p>The Run and Debug view on the left (available via the Activity Bar) shows the current variables in the namespace, and an additional “Watch” panel where we can add specific variables that we want to observe as the script executes.</p>
+<ul class="simple">
+<li><p>Add a watch for the <code class="docutils literal notranslate"><span class="pre">s</span></code> variable by clicking the <code class="docutils literal notranslate"><span class="pre">+</span></code> sign on the upper right part of the panel.</p></li>
+<li><p>Now put a breakpoint at the <code class="docutils literal notranslate"><span class="pre">return</span></code> statement of the <code class="docutils literal notranslate"><span class="pre">theis_xy</span></code> function.</p></li>
+<li><p>continue with the debugger (via the <code class="docutils literal notranslate"><span class="pre">Run</span></code> menu or debugging toolbar). Execution should stop again at the return statement where we just placed the breakpoint. Notice that <code class="docutils literal notranslate"><span class="pre">s</span></code> has changed in the Watch panel. There are also now two layers in the “Call Stack” box below– one for the <code class="docutils literal notranslate"><span class="pre">theis_xy()</span></code> function that we are in, and one for the enclosing the main script.</p></li>
+<li><p>step out to the main script by clicking the second item in the call stack (labeled <code class="docutils literal notranslate"><span class="pre">&lt;module&gt;</span></code>). Notice that <code class="docutils literal notranslate"><span class="pre">s</span></code> has changed again, reflecting the current state of <code class="docutils literal notranslate"><span class="pre">s</span></code> in that namespace. Notice also that the time-drawdown plot from Step 3 in the original notebook has popped up.</p></li>
+</ul>
+</section>
+</section>
+<section id="plotting">
+<h3>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">¶</a></h3>
+<p>During a debug session, as long as matplotlib has been imported, one can make plots via the Debug Console or by putting plotting code in the script.</p>
+</section>
+<section id="automatic-docstring-generation">
+<h3>Automatic docstring generation<a class="headerlink" href="#automatic-docstring-generation" title="Link to this heading">¶</a></h3>
+<p>Right click at the beginning of the first line <em>below</em> the <code class="docutils literal notranslate"><span class="pre">def</span></code> statement for any of the functions and choose <code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">docstring</span></code>. The autoDocstring extension should make a new template for a numpy docstring that includes all of the parameters listed in the function signature.</p>
+</section>
+<section id="code-navigation">
+<h3><a class="reference external" href="https://code.visualstudio.com/docs/editor/editingevolved">Code navigation</a><a class="headerlink" href="#code-navigation" title="Link to this heading">¶</a></h3>
+<p>In the main part of the script, right click on one of the function calls (e.g. <code class="docutils literal notranslate"><span class="pre">theis</span></code>) and choose <code class="docutils literal notranslate"><span class="pre">Go</span> <span class="pre">to</span> <span class="pre">Definition</span></code>. VSCode should take you to where the function is defined. Right clicking on <code class="docutils literal notranslate"><span class="pre">theis</span></code> after the <code class="docutils literal notranslate"><span class="pre">def</span></code> and then <code class="docutils literal notranslate"><span class="pre">Go</span> <span class="pre">to</span> <span class="pre">References</span></code> opens a “peek” window with a list of all of the times <code class="docutils literal notranslate"><span class="pre">theis()</span></code> is called. Clicking on one of them takes you to that location in the script.</p>
+<p>Navigation works across modules and packages too. If you right click on <code class="docutils literal notranslate"><span class="pre">np.meshgrid</span></code> in the main part of the script and <code class="docutils literal notranslate"><span class="pre">Go</span> <span class="pre">to</span> <span class="pre">Definition</span></code>, VSCode takes you to the relevant code in <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
+</section>
+<section id="liveshare">
+<h3>Liveshare<a class="headerlink" href="#liveshare" title="Link to this heading">¶</a></h3>
+<p>We will demo the Live Share extension during the class. In the meantime, you can learn more about it <a class="reference external" href="https://code.visualstudio.com/learn/collaboration/live-share">here</a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="solutions/07a_Theis-exercise-solution.html" class="btn btn-neutral float-left" title="07: Using functions to solve an equation– The Theis example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="solutions/08_pandas.html" class="btn btn-neutral float-right" title="08: Working with tabular data in Pandas" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glossary of coding coding and software jargon &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=feab032e"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html"> Contributing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"> Glossary of jargon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#athens-test">Athens test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boat-anchor">Boat anchor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-smell">Code smell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-integration-ci">Continuous integration (CI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cruft">Cruft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dogfooding">Dogfooding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#god-object">God object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kludge">Kludge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lint">Lint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lmgtfy">lmgtfy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minimum-viable-product">Minimum viable product</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#munging">Munging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pebkac">PEBKAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#repl">REPL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rtfm">RTFM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#software-regression">Software regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stranded-development">Stranded development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#technical-debt">Technical debt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-driven-development-tdd">Test-driven development (TDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#you-aren-t-gonna-need-it-yagni">“You aren’t gonna need it” (YAGNI)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Glossary of coding coding and software jargon</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/glossary_of_jargon.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="glossary-of-coding-coding-and-software-jargon">
+<h1>Glossary of coding coding and software jargon<a class="headerlink" href="#glossary-of-coding-coding-and-software-jargon" title="Link to this heading">¶</a></h1>
+<section id="athens-test">
+<h2>Athens test<a class="headerlink" href="#athens-test" title="Link to this heading">¶</a></h2>
+<p>When a code runs from start to finish (compiled or script) without throwing an error, it passes the Athens test. This has no bearing on whether the code is performing the actual function it was designed for - it just means it is capable of executing without failure. For etymology, consult Steve Westenbroek :)</p>
+</section>
+<section id="boat-anchor">
+<h2>Boat anchor<a class="headerlink" href="#boat-anchor" title="Link to this heading">¶</a></h2>
+<p>Something obsolete, useless, and cumbersome – so-called because metaphorically its only productive use is to be thrown into the water as a boat mooring.</p>
+</section>
+<section id="code-smell">
+<h2>Code smell<a class="headerlink" href="#code-smell" title="Link to this heading">¶</a></h2>
+<p>In computer programming, a code smell is any characteristic in the source code of a program that possibly indicates a deeper problem. Determining what is and is not a code smell is subjective, and varies by language, developer, and development methodology. … It is also a term used by agile programmers.</p>
+</section>
+<section id="continuous-integration-ci">
+<h2>Continuous integration (CI)<a class="headerlink" href="#continuous-integration-ci" title="Link to this heading">¶</a></h2>
+<p>A development practice where developers integrate code into a shared repository frequently, preferably several times a day. Each integration can then be verified by an automated build and automated tests.</p>
+</section>
+<section id="cruft">
+<h2>Cruft<a class="headerlink" href="#cruft" title="Link to this heading">¶</a></h2>
+<p>A jargon word for anything that is left over, redundant and getting in the way. It is used particularly for defective, superseded, useless, superfluous, or dysfunctional elements in computer software.</p>
+</section>
+<section id="dogfooding">
+<h2>Dogfooding<a class="headerlink" href="#dogfooding" title="Link to this heading">¶</a></h2>
+<p>Eating your own dog food, also called dogfooding, occurs when an organization uses its own product. This can be a way for an organization to test its products in real-world usage. Hence dogfooding can act as quality control, and eventually a kind of testimonial advertising. Once in the market, dogfooding demonstrates confidence in the developers’ own products. In software development, this means using the code from a user’s point of view.</p>
+<p><strong>DRY</strong> don’t don’t repeat yourself.</p>
+</section>
+<section id="god-object">
+<h2>God object<a class="headerlink" href="#god-object" title="Link to this heading">¶</a></h2>
+<p>In object-oriented programming, a God object is an object that knows too much or does too much. The God object is an example of an anti-pattern.</p>
+</section>
+<section id="kludge">
+<h2>Kludge<a class="headerlink" href="#kludge" title="Link to this heading">¶</a></h2>
+<p>A kludge or kluge (/klʌdʒ, kluːdʒ/) is a workaround or quick-and-dirty solution that is clumsy, inelegant, inefficient, difficult to extend and hard to maintain.</p>
+</section>
+<section id="lint">
+<h2>Lint<a class="headerlink" href="#lint" title="Link to this heading">¶</a></h2>
+<p>Lint, or a linter, is a tool that analyzes source code to flag programming errors, bugs, stylistic errors, and suspicious constructs. The term originates from a Unix utility that examined C language source code.</p>
+</section>
+<section id="lmgtfy">
+<h2>lmgtfy<a class="headerlink" href="#lmgtfy" title="Link to this heading">¶</a></h2>
+<p>Let me Google that for you. https://lmgtfy.com/</p>
+</section>
+<section id="minimum-viable-product">
+<h2>Minimum viable product<a class="headerlink" href="#minimum-viable-product" title="Link to this heading">¶</a></h2>
+<p>A minimum viable product (MVP) is a version of a product with just enough features to satisfy early customers and provide feedback for future product development. Gathering insights from an MVP is often less expensive than developing a product with more features, which increases costs and risk if the product fails, for example, due to incorrect assumptions.</p>
+</section>
+<section id="munging">
+<h2>Munging<a class="headerlink" href="#munging" title="Link to this heading">¶</a></h2>
+<p>Verb (used with or without object), munged, mung·ing. Computer Slang. To manipulate (raw data), especially to convert (data) from one format to another: the munging of HTML content.</p>
+</section>
+<section id="pebkac">
+<h2>PEBKAC<a class="headerlink" href="#pebkac" title="Link to this heading">¶</a></h2>
+<p>Problem exists between keyboard and computer. see also RTFM</p>
+</section>
+<section id="repl">
+<h2>REPL<a class="headerlink" href="#repl" title="Link to this heading">¶</a></h2>
+<p>Read-Eval-Print Loop</p>
+</section>
+<section id="rtfm">
+<h2>RTFM<a class="headerlink" href="#rtfm" title="Link to this heading">¶</a></h2>
+<p>Read the f—ing manual.</p>
+</section>
+<section id="software-regression">
+<h2>Software regression<a class="headerlink" href="#software-regression" title="Link to this heading">¶</a></h2>
+<p>A bug that makes a feature stop functioning as intended after a certain event (for example, when features or code are added or refactored). One goal of testing is to prevent software regression.</p>
+</section>
+<section id="stranded-development">
+<h2>Stranded development<a class="headerlink" href="#stranded-development" title="Link to this heading">¶</a></h2>
+<p>When code development branches in different directions that are further developed by not re-integrated with the main branch. Can lead to duplication of effort and makes maintenance difficult.</p>
+</section>
+<section id="technical-debt">
+<h2>Technical debt<a class="headerlink" href="#technical-debt" title="Link to this heading">¶</a></h2>
+<p>Technical debt (also known as design debt or code debt, but can be also related to other technical endeavors) is a concept in software development that reflects the implied cost of additional rework caused by choosing an easy (limited) solution now instead of using a better approach that would take longer. [JRR: Seems like there should be a corresponding inverse, say, Technical Surplus: implied cost of over-engineering the solution from the start.]</p>
+</section>
+<section id="test-driven-development-tdd">
+<h2>Test-driven development (TDD)<a class="headerlink" href="#test-driven-development-tdd" title="Link to this heading">¶</a></h2>
+<p>A software development process that relies on the repetition of a very short development cycle: requirements are turned into very specific test cases, then the code is improved so that the tests pass. This is opposed to software development that allows code to be added that is not proven to meet requirements. In the context of scientific programming, the idea is to start new code development with a test function that describes what needs to be done, and a small piece of test data that mimics the (large) real dataset that needs to be processed. The new code (usually a function) can then be written and tested rapidly against the test data set (via the test function). When the test finally passes, the new code can be run with the real dataset. This can greatly speed development (faster runtimes) and when the code is developed, a test is already in place to prevent future regressions to the code when new features are added.</p>
+</section>
+<section id="you-aren-t-gonna-need-it-yagni">
+<h2>“You aren’t gonna need it” (YAGNI)<a class="headerlink" href="#you-aren-t-gonna-need-it-yagni" title="Link to this heading">¶</a></h2>
+<p>A principle of extreme programming (XP) that states a programmer should not add functionality until deemed necessary. XP co-founder Ron Jeffries has written: “Always implement things when you actually need them, never when you just foresee that you need them.”</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributing.html" class="btn btn-neutral float-left" title="Contributing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
