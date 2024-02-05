@@ -1,0 +1,81 @@
+# from pyproj: https://github.com/pyproj4/pyproj/blob/master/.github/workflows/build_docs.yaml
+name: Publish Docs
+
+on:
+  push:
+    branches:
+      - main
+      - '*docs*'
+  release:
+    types: [ created ]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    name: Publish Docs
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+
+    - name: Fetch all Git tags
+      run: git fetch --prune --unshallow --tags
+
+    - name: Setup Micromamba
+      uses: mamba-org/setup-micromamba@v1
+      with:
+        environment-file: docs/docs-environment.yml
+        cache-environment: false
+        cache-downloads: false
+
+    - name: Conda info
+      shell: bash -l {0}
+      run: micromamba info
+    - name: Install Modflow executables
+      uses: modflowpy/install-modflow-action@v1
+      with:
+        path: ~/.local/bin
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Modflow version
+      shell: bash -l {0}
+      run: mf6 --version
+    - name: Install ipykernel
+      shell: bash -l {0}
+      run: |
+        python -m ipykernel install --user --name pyclass --display-name "pyclass"
+    - name: Conda list
+      shell: bash -l {0}
+      run: micromamba list
+    - name: Run tests
+      shell: bash -l {0}
+      run: |
+        pytest tests/test_notebook_output.py
+
+    - name: Build docs
+      shell: bash -l {0}
+      run: |
+        set -e
+        make -C docs html
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      if: ${{ github.event_name == 'release' }}
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: docs/build/html
+        CLEAN: false
+        TARGET_FOLDER: ${{ github.ref }}
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      if: ${{ github.event_name == 'push' }}
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: docs/build/html
+        CLEAN: false
+        TARGET_FOLDER: latest
