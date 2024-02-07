@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10: MODPATH demonstration &mdash; Python for Hydrology 1.0a documentation</title>
+  <title>Groundwater Modeling and Python Programming &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
@@ -76,31 +76,32 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">10: MODPATH demonstration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Groundwater-Modeling-and-Python-Programming">Groundwater Modeling and Python Programming</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Define-the-workspace-and-model-names.">Define the workspace and model names.</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Groundwater Modeling and Python Programming</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Define-the-workspace-and-model-names.">Define the workspace and model names.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Load-the-MODFLOW-6-Model">Load the MODFLOW 6 Model</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Load-the-MODFLOW-6-Model">Load the MODFLOW 6 Model</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Load-the-groundwater-flow-model">Load the groundwater flow model</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Change-the-workspace">Change the workspace</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Write-the-model-files">Write the model files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-groundwater-flow-model">Load the groundwater flow model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Change-the-workspace">Change the workspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Write-the-model-files">Write the model files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Create-and-Run-the-MODPATH-model">Create and Run the MODPATH model</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Create-and-Run-the-MODPATH-model">Create and Run the MODPATH model</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch.">Lets plot the model grid and the location of the contamination patch.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Create-the-MODPATH-particle-data">Create the MODPATH particle data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Create-the-MODPATH-7-files">Create the MODPATH 7 files</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Write-MODPATH-7-files-and-run-the-model">Write MODPATH 7 files and run the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch.">Lets plot the model grid and the location of the contamination patch.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-the-MODPATH-particle-data">Create the MODPATH particle data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-the-MODPATH-7-files">Create the MODPATH 7 files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Write-MODPATH-7-files-and-run-the-model">Write MODPATH 7 files and run the model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Post-Process-the-MODFLOW-and-MODPATH-Results">Post-Process the MODFLOW and MODPATH Results</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Post-Process-the-MODFLOW-and-MODPATH-Results">Post-Process the MODFLOW and MODPATH Results</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files">Load MODFLOW and MODPATH results from the heads and pathline files</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Plot-the-heads-and-pathlines">Plot the heads and pathlines</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Export-the-pathlines-to-a-shapefile">Export the pathlines to a shapefile</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Load-the-shapefile-into-geopandas">Load the shapefile into geopandas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Show-the-dataframe">Show the dataframe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Plot-the-geopandas-dataframe-on-the-modelgrid">Plot the geopandas dataframe on the modelgrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files">Load MODFLOW and MODPATH results from the heads and pathline files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-heads-and-pathlines">Plot the heads and pathlines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Export-the-pathlines-to-a-shapefile">Export the pathlines to a shapefile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-shapefile-into-geopandas">Load the shapefile into geopandas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Show-the-dataframe">Show the dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-geopandas-dataframe-on-the-modelgrid">Plot the geopandas dataframe on the modelgrid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Export-the-data-to-VTK-(Visualization-ToolKit)-format-for-a-3d-representation">Export the data to VTK (Visualization ToolKit) format for a 3d representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista">Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -134,7 +135,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
-      <li class="breadcrumb-item active">10: MODPATH demonstration</li>
+      <li class="breadcrumb-item active">Groundwater Modeling and Python Programming</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/notebooks/part1_flopy/10_modpath-demo.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -144,23 +145,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="10:-MODPATH-demonstration">
-<h1>10: MODPATH demonstration<a class="headerlink" href="#10:-MODPATH-demonstration" title="Link to this heading">¶</a></h1>
-<div class="nbinput nblast docutils container">
+  <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">from</span> <span class="nn">flopy.utils.gridintersect</span> <span class="kn">import</span> <span class="n">GridIntersect</span>
 <span class="kn">import</span> <span class="nn">flopy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
 <section id="Groundwater-Modeling-and-Python-Programming">
-<h2>Groundwater Modeling and Python Programming<a class="headerlink" href="#Groundwater-Modeling-and-Python-Programming" title="Link to this heading">¶</a></h2>
+<h1>Groundwater Modeling and Python Programming<a class="headerlink" href="#Groundwater-Modeling-and-Python-Programming" title="Link to this heading">¶</a></h1>
 <p>In this exercise, we will use MODPATH to simulate advective transport with the Freyberg flow model. For this exercise, we will use a quadtree version of the Freyberg model.</p>
 <p>The location of the contamination patch and the nodes that the define bounding cells of the patch are calculated below.</p>
 <div class="nbinput docutils container">
@@ -188,7 +189,7 @@
 </div>
 <hr class="docutils" />
 <section id="Define-the-workspace-and-model-names.">
-<h3>Define the workspace and model names.<a class="headerlink" href="#Define-the-workspace-and-model-names." title="Link to this heading">¶</a></h3>
+<h2>Define the workspace and model names.<a class="headerlink" href="#Define-the-workspace-and-model-names." title="Link to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -201,22 +202,109 @@
 </pre></div>
 </div>
 </div>
-</section>
-</section>
 <section id="Load-the-MODFLOW-6-Model">
-<h2>Load the MODFLOW 6 Model<a class="headerlink" href="#Load-the-MODFLOW-6-Model" title="Link to this heading">¶</a></h2>
+<h3>Load the MODFLOW 6 Model<a class="headerlink" href="#Load-the-MODFLOW-6-Model" title="Link to this heading">¶</a></h3>
 <p>Load a simulation object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.MFSimulation().load()</span></code>.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">exe_name</span><span class="o">=</span><span class="n">exe_name</span><span class="p">,</span>
-                                    <span class="n">sim_ws</span><span class="o">=</span><span class="n">load_ws</span><span class="p">,</span> <span class="n">verbosity_level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                                    <span class="n">sim_ws</span><span class="o">=</span><span class="n">load_ws</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+loading simulation...
+  loading simulation name file...
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:2743</span>, in <span class="ansi-cyan-fg">MFPackage.load</span><span class="ansi-blue-fg">(self, strict)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2742</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">-&gt; 2743</span>     fd_input_file <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">open</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-intense-fg ansi-bold">   2744</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">datautil</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">clean_filename</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_file_path</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">r</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">   2745</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2746</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">OSError</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/quadtree/mfsim.nam&#39;
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">MFDataException</span>                           Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[4], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> sim <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">mf6</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">MFSimulation</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">load</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">sim_name</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">name</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">exe_name</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">exe_name</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-yellow-bg">                                    </span><span class="ansi-yellow-bg">sim_ws</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">load_ws</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/modflow/mfsimulation.py:136</span>, in <span class="ansi-cyan-fg">MFSimulation.load</span><span class="ansi-blue-fg">(cls, sim_name, version, exe_name, sim_ws, strict, verbosity_level, load_only, verify_data, write_headers, lazy_io, use_pandas)</span>
+<span class="ansi-green-intense-fg ansi-bold">    121</span> <span style="color: rgb(175,0,255)">@classmethod</span>
+<span class="ansi-green-intense-fg ansi-bold">    122</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">load</span>(
+<span class="ansi-green-intense-fg ansi-bold">    123</span>     <span style="color: rgb(0,135,0)">cls</span>,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    134</span>     use_pandas<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>,
+<span class="ansi-green-intense-fg ansi-bold">    135</span> ):
+<span class="ansi-green-fg">--&gt; 136</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">mfsimbase</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">MFSimulationBase</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">load</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-intense-fg ansi-bold">    137</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">cls</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    138</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">sim_name</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    139</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">version</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    140</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">exe_name</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    141</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">sim_ws</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    142</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">strict</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    143</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">verbosity_level</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    144</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">load_only</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    145</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">verify_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    146</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">write_headers</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    147</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">lazy_io</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    148</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">use_pandas</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    149</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfsimbase.py:775</span>, in <span class="ansi-cyan-fg">MFSimulationBase.load</span><span class="ansi-blue-fg">(cls_child, sim_name, version, exe_name, sim_ws, strict, verbosity_level, load_only, verify_data, write_headers, lazy_io, use_pandas)</span>
+<span class="ansi-green-intense-fg ansi-bold">    773</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> verbosity_level<span style="color: rgb(98,98,98)">.</span>value <span style="color: rgb(98,98,98)">&gt;</span><span style="color: rgb(98,98,98)">=</span> VerbosityLevel<span style="color: rgb(98,98,98)">.</span>normal<span style="color: rgb(98,98,98)">.</span>value:
+<span class="ansi-green-intense-fg ansi-bold">    774</span>     <span style="color: rgb(0,135,0)">print</span>(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">  loading simulation name file...</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-fg">--&gt; 775</span> <span class="ansi-yellow-bg">instance</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">name_file</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">load</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">strict</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    777</span> <span style="color: rgb(95,135,135)"># load TDIS file</span>
+<span class="ansi-green-intense-fg ansi-bold">    778</span> tdis_pkg <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">tdis</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>mfstructure<span style="color: rgb(98,98,98)">.</span>MFStructure()<span style="color: rgb(98,98,98)">.</span>get_version_string()<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">&#34;</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:2752</span>, in <span class="ansi-cyan-fg">MFPackage.load</span><span class="ansi-blue-fg">(self, strict)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2748</span>         message <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">File </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span style="color: rgb(175,0,0)"> of type </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span style="color: rgb(175,0,0)"> could not be opened.</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(98,98,98)">.</span>format(
+<span class="ansi-green-intense-fg ansi-bold">   2749</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_file_path(), <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>package_type
+<span class="ansi-green-intense-fg ansi-bold">   2750</span>         )
+<span class="ansi-green-intense-fg ansi-bold">   2751</span>         type_, value_, traceback_ <span style="color: rgb(98,98,98)">=</span> sys<span style="color: rgb(98,98,98)">.</span>exc_info()
+<span class="ansi-green-fg">-&gt; 2752</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MFDataException(
+<span class="ansi-green-intense-fg ansi-bold">   2753</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>model_name,
+<span class="ansi-green-intense-fg ansi-bold">   2754</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>package_name,
+<span class="ansi-green-intense-fg ansi-bold">   2755</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>path,
+<span class="ansi-green-intense-fg ansi-bold">   2756</span>             <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">loading package file</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">   2757</span>             <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>,
+<span class="ansi-green-intense-fg ansi-bold">   2758</span>             inspect<span style="color: rgb(98,98,98)">.</span>stack()[<span style="color: rgb(98,98,98)">0</span>][<span style="color: rgb(98,98,98)">3</span>],
+<span class="ansi-green-intense-fg ansi-bold">   2759</span>             type_,
+<span class="ansi-green-intense-fg ansi-bold">   2760</span>             value_,
+<span class="ansi-green-intense-fg ansi-bold">   2761</span>             traceback_,
+<span class="ansi-green-intense-fg ansi-bold">   2762</span>             message,
+<span class="ansi-green-intense-fg ansi-bold">   2763</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_simulation_data<span style="color: rgb(98,98,98)">.</span>debug,
+<span class="ansi-green-intense-fg ansi-bold">   2764</span>         )
+<span class="ansi-green-intense-fg ansi-bold">   2766</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-intense-fg ansi-bold">   2767</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_load_blocks(fd_input_file, strict)
+
+<span class="ansi-red-fg">MFDataException</span>: An error occurred in package &#34;None&#34;. The error occurred while loading package file in the &#34;load&#34; method.
+Additional Information:
+(1) File /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/quadtree/mfsim.nam of type nam could not be opened.
+</pre></div></div>
+</div>
+</section>
+</section>
 <section id="Load-the-groundwater-flow-model">
-<h3>Load the groundwater flow model<a class="headerlink" href="#Load-the-groundwater-flow-model" title="Link to this heading">¶</a></h3>
+<h2>Load the groundwater flow model<a class="headerlink" href="#Load-the-groundwater-flow-model" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -227,18 +315,23 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[5], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> gwf <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">sim</span><span style="color: rgb(98,98,98)">.</span>get_model(name)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> gwf<span style="color: rgb(98,98,98)">.</span>modelgrid
+
+<span class="ansi-red-fg">NameError</span>: name &#39;sim&#39; is not defined
 </pre></div></div>
 </div>
 </section>
 <section id="Change-the-workspace">
-<h3>Change the workspace<a class="headerlink" href="#Change-the-workspace" title="Link to this heading">¶</a></h3>
-<div class="nbinput nblast docutils container">
+<h2>Change the workspace<a class="headerlink" href="#Change-the-workspace" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
@@ -246,16 +339,42 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[6], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">sim</span><span style="color: rgb(98,98,98)">.</span>set_sim_path(ws)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;sim&#39; is not defined
+</pre></div></div>
+</div>
 </section>
 <section id="Write-the-model-files">
-<h3>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading">¶</a></h3>
-<div class="nbinput nblast docutils container">
+<h2>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[7], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">sim</span><span style="color: rgb(98,98,98)">.</span>write_simulation()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;sim&#39; is not defined
+</pre></div></div>
 </div>
 <p>Run the simulation.</p>
 <div class="nbinput docutils container">
@@ -267,20 +386,24 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(True, [])
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[8], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">sim</span><span style="color: rgb(98,98,98)">.</span>run_simulation()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;sim&#39; is not defined
 </pre></div></div>
 </div>
-</section>
-</section>
 <section id="Create-and-Run-the-MODPATH-model">
-<h2>Create and Run the MODPATH model<a class="headerlink" href="#Create-and-Run-the-MODPATH-model" title="Link to this heading">¶</a></h2>
+<h3>Create and Run the MODPATH model<a class="headerlink" href="#Create-and-Run-the-MODPATH-model" title="Link to this heading">¶</a></h3>
+</section>
+</section>
 <section id="Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch.">
-<h3>Lets plot the model grid and the location of the contamination patch.<a class="headerlink" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch." title="Link to this heading">¶</a></h3>
+<h2>Lets plot the model grid and the location of the contamination patch.<a class="headerlink" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch." title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -298,11 +421,27 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[9], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> fig, ax <span style="color: rgb(98,98,98)">=</span> plt<span style="color: rgb(98,98,98)">.</span>subplots(figsize<span style="color: rgb(98,98,98)">=</span>(<span style="color: rgb(98,98,98)">5</span>, <span style="color: rgb(98,98,98)">9</span>))
+<span class="ansi-green-fg">----&gt; 2</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(<span class="ansi-yellow-bg">gwf</span>, layer<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0</span>, ax<span style="color: rgb(98,98,98)">=</span>ax)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> mm<span style="color: rgb(98,98,98)">.</span>plot_bc(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">SFR</span><span style="color: rgb(175,0,0)">&#39;</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">b</span><span style="color: rgb(175,0,0)">&#34;</span>, plotAll<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-intense-fg ansi-bold">      5</span> mm<span style="color: rgb(98,98,98)">.</span>plot_bc(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">WEL</span><span style="color: rgb(175,0,0)">&#39;</span>, plotAll<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_17_0.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_17_0.png" />
+<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_16_1.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_16_1.png" />
 </div>
 </div>
 <p>Find the node numbers of the contamination patch using the groundwater model grid object and the <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility. The <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility has an <code class="docutils literal notranslate"><span class="pre">intersect</span></code> method that can be used to identified cellids from points, lines, and polygons.</p>
@@ -318,18 +457,24 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([1352, 1353, 1459, 1460, 1581, 1582], dtype=object)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[10], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> gx <span style="color: rgb(98,98,98)">=</span> GridIntersect(<span class="ansi-yellow-bg">gwf</span><span style="color: rgb(98,98,98)">.</span>modelgrid)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> results <span style="color: rgb(98,98,98)">=</span> gx<span style="color: rgb(98,98,98)">.</span>intersect(polygon, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">Polygon</span><span style="color: rgb(175,0,0)">&#39;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> nodes <span style="color: rgb(98,98,98)">=</span> results<span style="color: rgb(98,98,98)">.</span>cellids
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
 </pre></div></div>
 </div>
 </section>
 <section id="Create-the-MODPATH-particle-data">
-<h3>Create the MODPATH particle data<a class="headerlink" href="#Create-the-MODPATH-particle-data" title="Link to this heading">¶</a></h3>
-<div class="nbinput nblast docutils container">
+<h2>Create the MODPATH particle data<a class="headerlink" href="#Create-the-MODPATH-particle-data" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
@@ -345,10 +490,28 @@ array([1352, 1353, 1459, 1460, 1581, 1582], dtype=object)
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[11], line 4</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span style="color: rgb(95,135,135)"># create</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> sd <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>modpath<span style="color: rgb(98,98,98)">.</span>CellDataType()
+<span class="ansi-green-intense-fg ansi-bold">      3</span> p <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>modpath<span style="color: rgb(98,98,98)">.</span>NodeParticleData(subdivisiondata<span style="color: rgb(98,98,98)">=</span>[sd],
+<span class="ansi-green-fg">----&gt; 4</span>                                    nodes<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(0,135,0)">list</span>(<span class="ansi-yellow-bg">nodes</span>))
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span style="color: rgb(95,135,135)"># create forward particle group</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> fpth <span style="color: rgb(98,98,98)">=</span> name_mp <span style="color: rgb(98,98,98)">+</span> <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">.sloc</span><span style="color: rgb(175,0,0)">&#39;</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;nodes&#39; is not defined
+</pre></div></div>
+</div>
 </section>
 <section id="Create-the-MODPATH-7-files">
-<h3>Create the MODPATH 7 files<a class="headerlink" href="#Create-the-MODPATH-7-files" title="Link to this heading">¶</a></h3>
-<div class="nbinput nblast docutils container">
+<h2>Create the MODPATH 7 files<a class="headerlink" href="#Create-the-MODPATH-7-files" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
@@ -363,12 +526,35 @@ array([1352, 1353, 1459, 1460, 1581, 1582], dtype=object)
                                   <span class="n">referencetime</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
                                   <span class="n">stoptimeoption</span><span class="o">=</span><span class="s1">&#39;extend&#39;</span><span class="p">,</span>
                                   <span class="n">particlegroups</span><span class="o">=</span><span class="n">pg</span><span class="p">)</span>
+<span class="n">help</span><span class="p">(</span><span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7Sim</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[12], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span style="color: rgb(95,135,135)"># create modpath files</span>
+<span class="ansi-green-fg">----&gt; 2</span> mp <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>modpath<span style="color: rgb(98,98,98)">.</span>Modpath7(modelname<span style="color: rgb(98,98,98)">=</span>name_mp, flowmodel<span style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">gwf</span>,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>                             exe_name<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">mp7</span><span style="color: rgb(175,0,0)">&#39;</span>, model_ws<span style="color: rgb(98,98,98)">=</span>ws)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> mpbas <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>modpath<span style="color: rgb(98,98,98)">.</span>Modpath7Bas(mp, porosity<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.1</span>)
+<span class="ansi-green-intense-fg ansi-bold">      5</span> mpsim <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>modpath<span style="color: rgb(98,98,98)">.</span>Modpath7Sim(mp, simulationtype<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">pathline</span><span style="color: rgb(175,0,0)">&#39;</span>,
+<span class="ansi-green-intense-fg ansi-bold">      6</span>                                   trackingdirection<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">forward</span><span style="color: rgb(175,0,0)">&#39;</span>,
+<span class="ansi-green-intense-fg ansi-bold">      7</span>                                   weaksinkoption<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">pass_through</span><span style="color: rgb(175,0,0)">&#39;</span>,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span>                                   stoptimeoption<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">extend</span><span style="color: rgb(175,0,0)">&#39;</span>,
+<span class="ansi-green-intense-fg ansi-bold">     11</span>                                   particlegroups<span style="color: rgb(98,98,98)">=</span>pg)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
+</div>
 </section>
 <section id="Write-MODPATH-7-files-and-run-the-model">
-<h3>Write MODPATH 7 files and run the model<a class="headerlink" href="#Write-MODPATH-7-files-and-run-the-model" title="Link to this heading">¶</a></h3>
+<h2>Write MODPATH 7 files and run the model<a class="headerlink" href="#Write-MODPATH-7-files-and-run-the-model" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -381,52 +567,30 @@ array([1352, 1353, 1459, 1460, 1581, 1582], dtype=object)
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mp7
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[13], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span style="color: rgb(95,135,135)"># write modpath datasets</span>
+<span class="ansi-green-fg">----&gt; 2</span> <span class="ansi-yellow-bg">mp</span><span style="color: rgb(98,98,98)">.</span>write_input()
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span style="color: rgb(95,135,135)"># run modpath</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> mp<span style="color: rgb(98,98,98)">.</span>run_model()
 
-MODPATH Version 7.2.001
-Program compiled Aug 01 2021 12:57:00 with IFORT compiler (ver. 19.10.3)
-
-
-Run particle tracking simulation ...
-Processing Time Step     1 Period     1.  Time =  1.00000E+00  Steady-state flow
-
-Particle Summary:
-         0 particles are pending release.
-         0 particles remain active.
-         0 particles terminated at boundary faces.
-         0 particles terminated at weak sink cells.
-         0 particles terminated at weak source cells.
-       162 particles terminated at strong source/sink cells.
-         0 particles terminated in cells with a specified zone number.
-         0 particles were stranded in inactive or dry cells.
-         0 particles were unreleased.
-         0 particles have an unknown status.
-
-Normal termination.
+<span class="ansi-red-fg">NameError</span>: name &#39;mp&#39; is not defined
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(True, [])
-</pre></div></div>
-</div>
-</section>
-</section>
 <section id="Post-Process-the-MODFLOW-and-MODPATH-Results">
-<h2>Post-Process the MODFLOW and MODPATH Results<a class="headerlink" href="#Post-Process-the-MODFLOW-and-MODPATH-Results" title="Link to this heading">¶</a></h2>
+<h3>Post-Process the MODFLOW and MODPATH Results<a class="headerlink" href="#Post-Process-the-MODFLOW-and-MODPATH-Results" title="Link to this heading">¶</a></h3>
+</section>
+</section>
 <section id="Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files">
-<h3>Load MODFLOW and MODPATH results from the heads and pathline files<a class="headerlink" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files" title="Link to this heading">¶</a></h3>
+<h2>Load MODFLOW and MODPATH results from the heads and pathline files<a class="headerlink" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files" title="Link to this heading">¶</a></h2>
 <p>Load the MODFLOW heads</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
@@ -434,13 +598,39 @@ Normal termination.
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[14], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> hobj <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gwf</span><span style="color: rgb(98,98,98)">.</span>output<span style="color: rgb(98,98,98)">.</span>head()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hds</span> <span class="o">=</span> <span class="n">hobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[15], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> hds <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">hobj</span><span style="color: rgb(98,98,98)">.</span>get_data()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;hobj&#39; is not defined
+</pre></div></div>
 </div>
 <p>Load the pathline file</p>
 <div class="nbinput docutils container">
@@ -450,96 +640,74 @@ Normal termination.
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppth</span> <span class="o">=</span><span class="n">ws</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_mp</span><span class="si">}</span><span class="s2">.mppth&quot;</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PathlineFile</span><span class="p">(</span><span class="n">ppth</span><span class="p">)</span>
 <span class="n">p0</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_alldata</span><span class="p">()</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[16], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> ppth <span style="color: rgb(98,98,98)">=</span>ws <span style="color: rgb(98,98,98)">/</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>name_mp<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">.mppth</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-fg">----&gt; 2</span> p <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">utils</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">PathlineFile</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">ppth</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> p0 <span style="color: rgb(98,98,98)">=</span> p<span style="color: rgb(98,98,98)">.</span>get_alldata()
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/modpathfile.py:453</span>, in <span class="ansi-cyan-fg">PathlineFile.__init__</span><span class="ansi-blue-fg">(self, filename, verbose)</span>
+<span class="ansi-green-intense-fg ansi-bold">    447</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">__init__</span>(<span style="color: rgb(0,135,0)">self</span>, filename: Union[<span style="color: rgb(0,135,0)">str</span>, os<span style="color: rgb(98,98,98)">.</span>PathLike], verbose<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>):
+<span class="ansi-green-intense-fg ansi-bold">    448</span> <span style="color: rgb(188,188,188)">    </span><span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    449</span> <span style="color: rgb(175,0,0)">    Class constructor.</span>
+<span class="ansi-green-intense-fg ansi-bold">    450</span>
+<span class="ansi-green-intense-fg ansi-bold">    451</span> <span style="color: rgb(175,0,0)">    &#34;&#34;&#34;</span>
+<span class="ansi-green-fg">--&gt; 453</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">super</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg" style="color: rgb(0,0,255)">__init__</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">filename</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">verbose</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">verbose</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">output_type</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">pathline</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    455</span>     <span style="color: rgb(95,135,135)"># set data dtype and read pathline data</span>
+<span class="ansi-green-intense-fg ansi-bold">    456</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>version <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(98,98,98)">7</span>:
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/modpathfile.py:44</span>, in <span class="ansi-cyan-fg">_ModpathSeries.__init__</span><span class="ansi-blue-fg">(self, filename, verbose, output_type)</span>
+<span class="ansi-green-intense-fg ansi-bold">     41</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>verbose <span style="color: rgb(98,98,98)">=</span> verbose
+<span class="ansi-green-intense-fg ansi-bold">     42</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>output_type <span style="color: rgb(98,98,98)">=</span> output_type<span style="color: rgb(98,98,98)">.</span>upper()
+<span class="ansi-green-fg">---&gt; 44</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_build_index</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     46</span> <span style="color: rgb(95,135,135)"># set output type</span>
+<span class="ansi-green-intense-fg ansi-bold">     47</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>outdtype <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_get_outdtype()
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/modpathfile.py:55</span>, in <span class="ansi-cyan-fg">_ModpathSeries._build_index</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">     53</span> compact <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
+<span class="ansi-green-intense-fg ansi-bold">     54</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>skiprows <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">0</span>
+<span class="ansi-green-fg">---&gt; 55</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>file <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">open</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">fname</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">r</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     56</span> <span class="ansi-bold" style="color: rgb(0,135,0)">while</span> <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>:
+<span class="ansi-green-intense-fg ansi-bold">     57</span>     line <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>file<span style="color: rgb(98,98,98)">.</span>readline()
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/temp/ex10a/project_mp.mppth&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p0</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[17], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">p0</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>x</th>
-      <th>y</th>
-      <th>z</th>
-      <th>time</th>
-      <th>k</th>
-      <th>particleid</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>291.666656</td>
-      <td>7041.666504</td>
-      <td>25.157747</td>
-      <td>0.000000</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>292.265228</td>
-      <td>7053.434082</td>
-      <td>24.259151</td>
-      <td>1066.623169</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>296.871582</td>
-      <td>7187.314941</td>
-      <td>18.867577</td>
-      <td>9176.828125</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>298.295715</td>
-      <td>7250.000000</td>
-      <td>17.837860</td>
-      <td>11656.656250</td>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>327.380127</td>
-      <td>7500.000000</td>
-      <td>17.041315</td>
-      <td>17482.574219</td>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;p0&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Plot-the-heads-and-pathlines">
-<h3>Plot the heads and pathlines<a class="headerlink" href="#Plot-the-heads-and-pathlines" title="Link to this heading">¶</a></h3>
+<h2>Plot the heads and pathlines<a class="headerlink" href="#Plot-the-heads-and-pathlines" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
@@ -549,26 +717,97 @@ Normal termination.
 <span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">mm</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
-<span class="n">mm</span><span class="o">.</span><span class="n">plot_pathline</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
-<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_pathline</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e534eb&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[18], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> fig, ax <span style="color: rgb(98,98,98)">=</span> plt<span style="color: rgb(98,98,98)">.</span>subplots(figsize<span style="color: rgb(98,98,98)">=</span>(<span style="color: rgb(98,98,98)">5</span>, <span style="color: rgb(98,98,98)">9</span>))
+<span class="ansi-green-fg">----&gt; 2</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(model<span style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">gwf</span>, layer<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0</span>, ax<span style="color: rgb(98,98,98)">=</span>ax)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(hds, masked_values<span style="color: rgb(98,98,98)">=</span>[<span style="color: rgb(98,98,98)">1e30</span>])
+<span class="ansi-green-intense-fg ansi-bold">      5</span> mm<span style="color: rgb(98,98,98)">.</span>plot_bc(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">SFR</span><span style="color: rgb(175,0,0)">&#39;</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">b</span><span style="color: rgb(175,0,0)">&#39;</span>, plotAll<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_32_0.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_32_0.png" />
+<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_32_1.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_32_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PathlineFile</span><span class="p">(</span><span class="n">ppth</span><span class="p">)</span>
+<span class="n">p0</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_alldata</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">recarray</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p0</span><span class="p">):</span>
+    <span class="n">dft</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">recarray</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df</span><span class="p">,</span> <span class="n">dft</span><span class="p">),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">74001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)):</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">times</span><span class="p">[</span><span class="n">ix</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="p">])]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">tmp</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;magma&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="si">}</span><span class="s2"> days&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[19], line 3</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> fig, ax <span style="color: rgb(98,98,98)">=</span> plt<span style="color: rgb(98,98,98)">.</span>subplots(figsize<span style="color: rgb(98,98,98)">=</span>(<span style="color: rgb(98,98,98)">5</span>, <span style="color: rgb(98,98,98)">9</span>))
+<span class="ansi-green-fg">----&gt; 3</span> mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(model<span style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">gwf</span>, ax<span style="color: rgb(98,98,98)">=</span>ax, layer<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(hds, masked_values<span style="color: rgb(98,98,98)">=</span>[<span style="color: rgb(98,98,98)">1e30</span>])
+<span class="ansi-green-intense-fg ansi-bold">      5</span> mm<span style="color: rgb(98,98,98)">.</span>plot_bc(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">SFR</span><span style="color: rgb(175,0,0)">&#39;</span>, color<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">b</span><span style="color: rgb(175,0,0)">&#39;</span>, plotAll<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_33_1.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_33_1.png" />
 </div>
 </div>
 </section>
 <section id="Export-the-pathlines-to-a-shapefile">
-<h3>Export the pathlines to a shapefile<a class="headerlink" href="#Export-the-pathlines-to-a-shapefile" title="Link to this heading">¶</a></h3>
+<h2>Export the pathlines to a shapefile<a class="headerlink" href="#Export-the-pathlines-to-a-shapefile" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spth</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">ws</span> <span class="o">/</span> <span class="s1">&#39;pathline.shp&#39;</span><span class="p">)</span>
@@ -581,16 +820,20 @@ Normal termination.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;names&#39;: [&#39;x&#39;, &#39;y&#39;, &#39;z&#39;, &#39;time&#39;, &#39;k&#39;, &#39;particleid&#39;], &#39;formats&#39;: [&#39;&lt;f4&#39;, &#39;&lt;f4&#39;, &#39;&lt;f4&#39;, &#39;&lt;f4&#39;, &#39;&lt;i4&#39;, &#39;&lt;i4&#39;], &#39;offsets&#39;: [20, 24, 28, 16, 32, 0], &#39;itemsize&#39;: 60}
-No CRS information for writing a .prj file.
-Supply an valid coordinate system reference to the attached modelgrid object or .export() method.
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[20], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> spth <span style="color: rgb(98,98,98)">=</span> pl<span style="color: rgb(98,98,98)">.</span>Path(ws <span style="color: rgb(98,98,98)">/</span> <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">pathline.shp</span><span style="color: rgb(175,0,0)">&#39;</span>)
+<span class="ansi-green-fg">----&gt; 2</span> <span class="ansi-yellow-bg">p</span><span style="color: rgb(98,98,98)">.</span>write_shapefile(p0, mg<span style="color: rgb(98,98,98)">=</span>gwf<span style="color: rgb(98,98,98)">.</span>modelgrid, one_per_particle<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, shpname<span style="color: rgb(98,98,98)">=</span>spth)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;p&#39; is not defined
 </pre></div></div>
 </div>
 </section>
 <section id="Load-the-shapefile-into-geopandas">
-<h3>Load the shapefile into geopandas<a class="headerlink" href="#Load-the-shapefile-into-geopandas" title="Link to this heading">¶</a></h3>
+<h2>Load the shapefile into geopandas<a class="headerlink" href="#Load-the-shapefile-into-geopandas" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rshp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">spth</span><span class="p">)</span>
@@ -600,158 +843,107 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">CPLE_OpenFailedError</span>                      Traceback (most recent call last)
+File <span class="ansi-green-fg">fiona/ogrext.pyx:136</span>, in <span class="ansi-cyan-fg">fiona.ogrext.gdal_open_vector</span><span class="ansi-blue-fg">()</span>
+
+File <span class="ansi-green-fg">fiona/_err.pyx:291</span>, in <span class="ansi-cyan-fg">fiona._err.exc_wrap_pointer</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">CPLE_OpenFailedError</span>: temp/ex10a/pathline.shp: No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">DriverError</span>                               Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[21], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> rshp <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gpd</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">read_file</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">spth</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/geopandas/io/file.py:297</span>, in <span class="ansi-cyan-fg">_read_file</span><span class="ansi-blue-fg">(filename, bbox, mask, rows, engine, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    294</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-intense-fg ansi-bold">    295</span>         path_or_bytes <span style="color: rgb(98,98,98)">=</span> filename
+<span class="ansi-green-fg">--&gt; 297</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">_read_file_fiona</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-intense-fg ansi-bold">    298</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">path_or_bytes</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">from_bytes</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">rows</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">rows</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span>
+<span class="ansi-green-intense-fg ansi-bold">    299</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    301</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-intense-fg ansi-bold">    302</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">unknown engine </span><span style="color: rgb(175,0,0)">&#39;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>engine<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/geopandas/io/file.py:338</span>, in <span class="ansi-cyan-fg">_read_file_fiona</span><span class="ansi-blue-fg">(path_or_bytes, from_bytes, bbox, mask, rows, where, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    335</span>     reader <span style="color: rgb(98,98,98)">=</span> fiona<span style="color: rgb(98,98,98)">.</span>open
+<span class="ansi-green-intense-fg ansi-bold">    337</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> fiona_env():
+<span class="ansi-green-fg">--&gt; 338</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span class="ansi-yellow-bg">reader</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">path_or_bytes</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> features:
+<span class="ansi-green-intense-fg ansi-bold">    339</span>         crs <span style="color: rgb(98,98,98)">=</span> features<span style="color: rgb(98,98,98)">.</span>crs_wkt
+<span class="ansi-green-intense-fg ansi-bold">    340</span>         <span style="color: rgb(95,135,135)"># attempt to get EPSG code</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/fiona/env.py:457</span>, in <span class="ansi-cyan-fg">ensure_env_with_credentials.&lt;locals&gt;.wrapper</span><span class="ansi-blue-fg">(*args, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    454</span>     session <span style="color: rgb(98,98,98)">=</span> DummySession()
+<span class="ansi-green-intense-fg ansi-bold">    456</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> env_ctor(session<span style="color: rgb(98,98,98)">=</span>session):
+<span class="ansi-green-fg">--&gt; 457</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">f</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwds</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/fiona/__init__.py:292</span>, in <span class="ansi-cyan-fg">open</span><span class="ansi-blue-fg">(fp, mode, driver, schema, crs, encoding, layer, vfs, enabled_drivers, crs_wkt, allow_unsupported_drivers, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    289</span>     path <span style="color: rgb(98,98,98)">=</span> parse_path(fp)
+<span class="ansi-green-intense-fg ansi-bold">    291</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> mode <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> (<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">a</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">r</span><span style="color: rgb(175,0,0)">&#34;</span>):
+<span class="ansi-green-fg">--&gt; 292</span>     colxn <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">Collection</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-intense-fg ansi-bold">    293</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    294</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    295</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">driver</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">driver</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    296</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    297</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    298</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">enabled_drivers</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">enabled_drivers</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    299</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">allow_unsupported_drivers</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">allow_unsupported_drivers</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    300</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span>
+<span class="ansi-green-intense-fg ansi-bold">    301</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    302</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> mode <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">w</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-intense-fg ansi-bold">    303</span>     colxn <span style="color: rgb(98,98,98)">=</span> Collection(
+<span class="ansi-green-intense-fg ansi-bold">    304</span>         path,
+<span class="ansi-green-intense-fg ansi-bold">    305</span>         mode,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    314</span>         <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs
+<span class="ansi-green-intense-fg ansi-bold">    315</span>     )
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/fiona/collection.py:243</span>, in <span class="ansi-cyan-fg">Collection.__init__</span><span class="ansi-blue-fg">(self, path, mode, driver, schema, crs, encoding, layer, vsi, archive, enabled_drivers, crs_wkt, ignore_fields, ignore_geometry, include_fields, wkt_version, allow_unsupported_drivers, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    241</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mode <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">r</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-intense-fg ansi-bold">    242</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>session <span style="color: rgb(98,98,98)">=</span> Session()
+<span class="ansi-green-fg">--&gt; 243</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">session</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">start</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    244</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mode <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> (<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">a</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">w</span><span style="color: rgb(175,0,0)">&#34;</span>):
+<span class="ansi-green-intense-fg ansi-bold">    245</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>session <span style="color: rgb(98,98,98)">=</span> WritingSession()
+
+File <span class="ansi-green-fg">fiona/ogrext.pyx:588</span>, in <span class="ansi-cyan-fg">fiona.ogrext.Session.start</span><span class="ansi-blue-fg">()</span>
+
+File <span class="ansi-green-fg">fiona/ogrext.pyx:143</span>, in <span class="ansi-cyan-fg">fiona.ogrext.gdal_open_vector</span><span class="ansi-blue-fg">()</span>
+
+<span class="ansi-red-fg">DriverError</span>: temp/ex10a/pathline.shp: No such file or directory
 </pre></div></div>
 </div>
 </section>
 <section id="Show-the-dataframe">
-<h3>Show the dataframe<a class="headerlink" href="#Show-the-dataframe" title="Link to this heading">¶</a></h3>
+<h2>Show the dataframe<a class="headerlink" href="#Show-the-dataframe" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rshp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rshp</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[22], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">rshp</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>x</th>
-      <th>y</th>
-      <th>z</th>
-      <th>time</th>
-      <th>k</th>
-      <th>particleid</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>292.265228</td>
-      <td>7053.434082</td>
-      <td>24.259151</td>
-      <td>1066.623169</td>
-      <td>1</td>
-      <td>1</td>
-      <td>LINESTRING (291.667 7041.667, 292.265 7053.434)</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>296.871582</td>
-      <td>7187.314941</td>
-      <td>18.867577</td>
-      <td>9176.828125</td>
-      <td>2</td>
-      <td>1</td>
-      <td>LINESTRING (292.265 7053.434, 296.872 7187.315)</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>298.295715</td>
-      <td>7250.000000</td>
-      <td>17.837860</td>
-      <td>11656.656250</td>
-      <td>3</td>
-      <td>1</td>
-      <td>LINESTRING (296.872 7187.315, 298.296 7250.000)</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>327.380127</td>
-      <td>7500.000000</td>
-      <td>17.041315</td>
-      <td>17482.574219</td>
-      <td>3</td>
-      <td>1</td>
-      <td>LINESTRING (298.296 7250.000, 327.380 7500.000)</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>351.953125</td>
-      <td>7750.000000</td>
-      <td>14.886883</td>
-      <td>21403.548828</td>
-      <td>3</td>
-      <td>1</td>
-      <td>LINESTRING (327.380 7500.000, 351.953 7750.000)</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;rshp&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Plot-the-geopandas-dataframe-on-the-modelgrid">
-<h3>Plot the geopandas dataframe on the modelgrid<a class="headerlink" href="#Plot-the-geopandas-dataframe-on-the-modelgrid" title="Link to this heading">¶</a></h3>
+<h2>Plot the geopandas dataframe on the modelgrid<a class="headerlink" href="#Plot-the-geopandas-dataframe-on-the-modelgrid" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -765,18 +957,338 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[23], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> fig, ax <span style="color: rgb(98,98,98)">=</span> plt<span style="color: rgb(98,98,98)">.</span>subplots(figsize<span style="color: rgb(98,98,98)">=</span>(<span style="color: rgb(98,98,98)">6</span>, <span style="color: rgb(98,98,98)">10</span>))
+<span class="ansi-green-fg">----&gt; 2</span> pmv <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(<span class="ansi-yellow-bg">gwf</span>, ax<span style="color: rgb(98,98,98)">=</span>ax)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> pmv<span style="color: rgb(98,98,98)">.</span>plot_grid(lw<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> pmv<span style="color: rgb(98,98,98)">.</span>plot_shapes(rshp<span style="color: rgb(98,98,98)">.</span>geometry<span style="color: rgb(98,98,98)">.</span>to_list(), edgecolor<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">grey</span><span style="color: rgb(175,0,0)">&#34;</span>) <span style="color: rgb(95,135,135)">#, edgecolor=&#34;b&#34;)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_40_1.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_40_1.png" />
+<img alt="../../_images/notebooks_part1_flopy_10_modpath-demo_41_1.png" src="../../_images/notebooks_part1_flopy_10_modpath-demo_41_1.png" />
 </div>
+</div>
+<section id="Export-the-data-to-VTK-(Visualization-ToolKit)-format-for-a-3d-representation">
+<h3>Export the data to VTK (Visualization ToolKit) format for a 3d representation<a class="headerlink" href="#Export-the-data-to-VTK-(Visualization-ToolKit)-format-for-a-3d-representation" title="Link to this heading">¶</a></h3>
+<p>FloPy’s <code class="docutils literal notranslate"><span class="pre">Vtk</span></code> module allows us to create Visualization ToolKit (VTK) files that can be opened and explored with pyVISTAs or external software such as ParaView.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flopy.export.vtk</span> <span class="kn">import</span> <span class="n">Vtk</span>
+
+<span class="n">vtk</span> <span class="o">=</span> <span class="n">Vtk</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vertical_exageration</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">vtk</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="n">gwf</span><span class="p">)</span>
+<span class="n">vtk</span><span class="o">.</span><span class="n">add_pathline_points</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[24], line 3</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">flopy</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">export</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">vtk</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> Vtk
+<span class="ansi-green-fg">----&gt; 3</span> vtk <span style="color: rgb(98,98,98)">=</span> Vtk(model<span style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">gwf</span>, binary<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, vertical_exageration<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">50</span>, smooth<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> vtk<span style="color: rgb(98,98,98)">.</span>add_model(gwf)
+<span class="ansi-green-intense-fg ansi-bold">      5</span> vtk<span style="color: rgb(98,98,98)">.</span>add_pathline_points(p0)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
+</div>
+<p>Write VTK file for use in ParaView or other VTK software</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pth</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+<span class="n">pth</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">vtk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[25], line 4</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> pth <span style="color: rgb(98,98,98)">=</span> pl<span style="color: rgb(98,98,98)">.</span>Path(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">temp</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> pth<span style="color: rgb(98,98,98)">.</span>mkdir(exist_ok<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-fg">----&gt; 4</span> <span class="ansi-yellow-bg">vtk</span><span style="color: rgb(98,98,98)">.</span>write(pth)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;vtk&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Alternatively-we-can-visualize-the-VTK-representation-using-pyvista">
+<h3>Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code><a class="headerlink" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[26], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">pyvista</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">pv</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;pyvista&#39;
+</pre></div></div>
+</div>
+<p>Convert the VTK to pyvista meshes and rotate the meshes to match the orientation of our matplotlib plots</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">,</span> <span class="n">pathlines</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">to_pyvista</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[27], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> grid, pathlines <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">vtk</span><span style="color: rgb(98,98,98)">.</span>to_pyvista()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;vtk&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="n">show_actor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">actor_scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">grid</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pathlines</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[28], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> axes <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">pv</span><span style="color: rgb(98,98,98)">.</span>Axes(show_actor<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, actor_scale<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">2.0</span>, line_width<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">5</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> grid<span style="color: rgb(98,98,98)">.</span>rotate_z(<span style="color: rgb(98,98,98)">160</span>, point<span style="color: rgb(98,98,98)">=</span>axes<span style="color: rgb(98,98,98)">.</span>origin, inplace<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> pathlines<span style="color: rgb(98,98,98)">.</span>rotate_z(<span style="color: rgb(98,98,98)">160</span>, point<span style="color: rgb(98,98,98)">=</span>axes<span style="color: rgb(98,98,98)">.</span>origin, inplace<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pv&#39; is not defined
+</pre></div></div>
+</div>
+<p>Select particle release locations and build a dictionary of particle tracks (pathlines). This will be used below for particle labelling, as well as for animation.</p>
+<p><em>Note</em>: while below we construct pathlines manually from data read from the exported VTK files, pathlines may also be read directly from the MODPATH 7 pathline output file (provided the simulation was run in pathline or combined mode, as this one was).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracks</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">particle_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">release_locs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]):</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;particleid&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">])))</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="n">pathlines</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">pid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
+        <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">particle_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+        <span class="n">release_locs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+
+    <span class="c1"># store the particle location in the corresponding track</span>
+    <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loc</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
+
+<span class="n">release_locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
+<span class="n">tracks</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">max_track_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[29], line 5</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> particle_ids <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">set</span>()
+<span class="ansi-green-intense-fg ansi-bold">      3</span> release_locs <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">list</span>()
+<span class="ansi-green-fg">----&gt; 5</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> i, t <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">enumerate</span>(<span class="ansi-yellow-bg">pathlines</span>[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">time</span><span style="color: rgb(175,0,0)">&#34;</span>]):
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     pid <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">str</span>(<span style="color: rgb(0,135,0)">round</span>(<span style="color: rgb(0,135,0)">float</span>(pathlines[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">particleid</span><span style="color: rgb(175,0,0)">&#34;</span>][i])))
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     loc <span style="color: rgb(98,98,98)">=</span> pathlines<span style="color: rgb(98,98,98)">.</span>points[i]
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pathlines&#39; is not defined
+</pre></div></div>
+</div>
+<p>View the grid and pathlines with PyVista, with particle tracks/locations colored by time. Also add particle ID labels to a few particles’ release locations.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pv</span><span class="o">.</span><span class="n">set_plot_theme</span><span class="p">(</span><span class="s2">&quot;document&quot;</span><span class="p">)</span>
+<span class="n">pv</span><span class="o">.</span><span class="n">set_jupyter_backend</span><span class="p">(</span><span class="s2">&quot;static&quot;</span><span class="p">)</span>
+
+<span class="c1"># create the plot and add the grid and pathline meshes</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">pathlines</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+
+<span class="c1"># add a particle ID label to each 20th particle&#39;s starting point</span>
+<span class="n">label_coords</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">start_labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pid</span><span class="p">,</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="o">%</span> <span class="mi">20</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">label_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">start_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Particle </span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">add_point_labels</span><span class="p">(</span>
+    <span class="n">label_coords</span><span class="p">,</span>
+    <span class="n">start_labels</span><span class="p">,</span>
+    <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">point_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">point_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># zoom in and show the plot</span>
+<span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[30], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">pv</span><span style="color: rgb(98,98,98)">.</span>set_plot_theme(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">document</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> pv<span style="color: rgb(98,98,98)">.</span>set_jupyter_backend(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">static</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span style="color: rgb(95,135,135)"># create the plot and add the grid and pathline meshes</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pv&#39; is not defined
+</pre></div></div>
+</div>
+<p>Create an animated GIF of the particles traveling along their pathlines, with particles colored by time.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create plotter</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">off_screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># open GIF file</span>
+<span class="n">gif_path</span> <span class="o">=</span> <span class="n">pth</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;freyberg_tracks.gif&quot;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">open_gif</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gif_path</span><span class="p">))</span>
+
+<span class="c1"># create mesh from release locations</span>
+<span class="n">spls</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
+<span class="n">spls</span><span class="o">.</span><span class="n">point_data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spls</span><span class="o">.</span><span class="n">points</span><span class="p">))</span>
+
+<span class="c1"># add the underlying grid mesh and particle data, then zoom in</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">spls</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.23e09</span><span class="p">])</span>
+<span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
+
+<span class="c1"># cycle through time steps and update particle location</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_track_len</span><span class="p">):</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">particle_ids</span><span class="p">:</span>
+        <span class="n">track</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span>
+        <span class="n">npts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+        <span class="c1"># use last locn if particle has already terminated</span>
+        <span class="n">loc</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span> <span class="k">else</span> <span class="n">track</span><span class="p">[</span><span class="n">npts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+        <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span><span class="p">:</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+
+    <span class="n">p</span><span class="o">.</span><span class="n">update_coordinates</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">pts</span><span class="p">),</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">update_scalars</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">mesh</span><span class="o">=</span><span class="n">spls</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">segments</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">write_frame</span><span class="p">()</span>  <span class="c1"># write frame to file</span>
+
+<span class="c1"># close the plotter and the GIF file</span>
+<span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[31], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span style="color: rgb(95,135,135)"># create plotter</span>
+<span class="ansi-green-fg">----&gt; 2</span> p <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">pv</span><span style="color: rgb(98,98,98)">.</span>Plotter(notebook<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, off_screen<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span style="color: rgb(95,135,135)"># open GIF file</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> gif_path <span style="color: rgb(98,98,98)">=</span> pth <span style="color: rgb(98,98,98)">/</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">freyberg_tracks.gif</span><span style="color: rgb(175,0,0)">&#34;</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pv&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">gif_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;gif&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[32], line 3</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">IPython</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">core</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">display</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> Image
+<span class="ansi-green-fg">----&gt; 3</span> display(Image(data<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(0,135,0)">open</span>(<span class="ansi-yellow-bg">gif_path</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">rb</span><span style="color: rgb(175,0,0)">&#34;</span>)<span style="color: rgb(98,98,98)">.</span>read(), <span style="color: rgb(0,135,0)">format</span><span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">gif</span><span style="color: rgb(175,0,0)">&#34;</span>))
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gif_path&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
