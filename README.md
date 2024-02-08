@@ -11,5 +11,5 @@ Click [here](https://doi-usgs.github.io/python-for-hydrology/latest/) to see a r
 
 We encourage students to explore these materials for their own study or to reach out to USGS to attend an in-person course.
 
-_For Usgs internal use, this is related to IP-162677._
+_For USGS internal use, this is related to IP-162677._
 
