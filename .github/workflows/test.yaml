@@ -66,7 +66,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         # referenced from https://github.com/pyvista/pyvista/blob/main/.github/workflows/vtk-pre-test.yml#L53
-        mamba remove -y vtk
+        micromamba remove -y vtk
         pip install --extra-index-url https://wheels.vtk.org trame vtk-osmesa
 
     - name: Install fonts on Linux
