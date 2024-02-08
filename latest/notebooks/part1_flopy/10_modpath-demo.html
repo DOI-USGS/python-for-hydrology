@@ -230,12 +230,12 @@ loading simulation...
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:2743</span>, in <span class="ansi-cyan-fg">MFPackage.load</span><span class="ansi-blue-fg">(self, strict)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2742</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; 2743</span>     fd_input_file <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">open</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   2744</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">datautil</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">clean_filename</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_file_path</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">r</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">   2745</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2746</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">OSError</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:2775</span>, in <span class="ansi-cyan-fg">MFPackage.load</span><span class="ansi-blue-fg">(self, strict)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2774</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">-&gt; 2775</span>     fd_input_file <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">open</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-intense-fg ansi-bold">   2776</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">datautil</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">clean_filename</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_file_path</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">r</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">   2777</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2778</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">OSError</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
 
 <span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/quadtree/mfsim.nam&#39;
 
@@ -275,26 +275,26 @@ File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/s
 <span class="ansi-green-intense-fg ansi-bold">    777</span> <span style="color: rgb(95,135,135)"># load TDIS file</span>
 <span class="ansi-green-intense-fg ansi-bold">    778</span> tdis_pkg <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">tdis</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>mfstructure<span style="color: rgb(98,98,98)">.</span>MFStructure()<span style="color: rgb(98,98,98)">.</span>get_version_string()<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">&#34;</span>
 
-File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:2752</span>, in <span class="ansi-cyan-fg">MFPackage.load</span><span class="ansi-blue-fg">(self, strict)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2748</span>         message <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">File </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span style="color: rgb(175,0,0)"> of type </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span style="color: rgb(175,0,0)"> could not be opened.</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(98,98,98)">.</span>format(
-<span class="ansi-green-intense-fg ansi-bold">   2749</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_file_path(), <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>package_type
-<span class="ansi-green-intense-fg ansi-bold">   2750</span>         )
-<span class="ansi-green-intense-fg ansi-bold">   2751</span>         type_, value_, traceback_ <span style="color: rgb(98,98,98)">=</span> sys<span style="color: rgb(98,98,98)">.</span>exc_info()
-<span class="ansi-green-fg">-&gt; 2752</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MFDataException(
-<span class="ansi-green-intense-fg ansi-bold">   2753</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>model_name,
-<span class="ansi-green-intense-fg ansi-bold">   2754</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>package_name,
-<span class="ansi-green-intense-fg ansi-bold">   2755</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>path,
-<span class="ansi-green-intense-fg ansi-bold">   2756</span>             <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">loading package file</span><span style="color: rgb(175,0,0)">&#34;</span>,
-<span class="ansi-green-intense-fg ansi-bold">   2757</span>             <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>,
-<span class="ansi-green-intense-fg ansi-bold">   2758</span>             inspect<span style="color: rgb(98,98,98)">.</span>stack()[<span style="color: rgb(98,98,98)">0</span>][<span style="color: rgb(98,98,98)">3</span>],
-<span class="ansi-green-intense-fg ansi-bold">   2759</span>             type_,
-<span class="ansi-green-intense-fg ansi-bold">   2760</span>             value_,
-<span class="ansi-green-intense-fg ansi-bold">   2761</span>             traceback_,
-<span class="ansi-green-intense-fg ansi-bold">   2762</span>             message,
-<span class="ansi-green-intense-fg ansi-bold">   2763</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_simulation_data<span style="color: rgb(98,98,98)">.</span>debug,
-<span class="ansi-green-intense-fg ansi-bold">   2764</span>         )
-<span class="ansi-green-intense-fg ansi-bold">   2766</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-intense-fg ansi-bold">   2767</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_load_blocks(fd_input_file, strict)
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:2784</span>, in <span class="ansi-cyan-fg">MFPackage.load</span><span class="ansi-blue-fg">(self, strict)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2780</span>         message <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">File </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span style="color: rgb(175,0,0)"> of type </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span style="color: rgb(175,0,0)"> could not be opened.</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(98,98,98)">.</span>format(
+<span class="ansi-green-intense-fg ansi-bold">   2781</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_file_path(), <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>package_type
+<span class="ansi-green-intense-fg ansi-bold">   2782</span>         )
+<span class="ansi-green-intense-fg ansi-bold">   2783</span>         type_, value_, traceback_ <span style="color: rgb(98,98,98)">=</span> sys<span style="color: rgb(98,98,98)">.</span>exc_info()
+<span class="ansi-green-fg">-&gt; 2784</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MFDataException(
+<span class="ansi-green-intense-fg ansi-bold">   2785</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>model_name,
+<span class="ansi-green-intense-fg ansi-bold">   2786</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>package_name,
+<span class="ansi-green-intense-fg ansi-bold">   2787</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>path,
+<span class="ansi-green-intense-fg ansi-bold">   2788</span>             <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">loading package file</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">   2789</span>             <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>,
+<span class="ansi-green-intense-fg ansi-bold">   2790</span>             inspect<span style="color: rgb(98,98,98)">.</span>stack()[<span style="color: rgb(98,98,98)">0</span>][<span style="color: rgb(98,98,98)">3</span>],
+<span class="ansi-green-intense-fg ansi-bold">   2791</span>             type_,
+<span class="ansi-green-intense-fg ansi-bold">   2792</span>             value_,
+<span class="ansi-green-intense-fg ansi-bold">   2793</span>             traceback_,
+<span class="ansi-green-intense-fg ansi-bold">   2794</span>             message,
+<span class="ansi-green-intense-fg ansi-bold">   2795</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_simulation_data<span style="color: rgb(98,98,98)">.</span>debug,
+<span class="ansi-green-intense-fg ansi-bold">   2796</span>         )
+<span class="ansi-green-intense-fg ansi-bold">   2798</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-intense-fg ansi-bold">   2799</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_load_blocks(fd_input_file, strict)
 
 <span class="ansi-red-fg">MFDataException</span>: An error occurred in package &#34;None&#34;. The error occurred while loading package file in the &#34;load&#34; method.
 Additional Information:
@@ -1314,7 +1314,7 @@ Cell <span class="ansi-green-fg">In[32], line 3</span>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Feb 07, 2024.
+      <span class="lastupdated">Last updated on Feb 08, 2024.
       </span></p>
   </div>
 
