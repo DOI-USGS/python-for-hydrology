@@ -67,11 +67,11 @@ jobs:
       shell: bash -l {0}
       run: |
         # referenced from https://github.com/pyvista/pyvista/blob/main/.github/workflows/vtk-pre-test.yml#L53
-        micromamba remove -y vtk
-        pip install pyvista
-        pip uninstall vtk
+        micromamba remove -y --force vtk
+        # pip install pyvista
+        # pip uninstall vtk
         pip install --extra-index-url https://wheels.vtk.org trame vtk-osmesa
-        micromamba install ffmpeg
+        # micromamba install ffmpeg
 
     - name: Install fonts on Linux
       if: runner.os == 'Linux'
