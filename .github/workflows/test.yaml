@@ -71,6 +71,7 @@ jobs:
         pip install pyvista
         pip uninstall vtk
         pip install --extra-index-url https://wheels.vtk.org trame vtk-osmesa
+        micromamba install ffmpeg
 
     - name: Install fonts on Linux
       if: runner.os == 'Linux'
