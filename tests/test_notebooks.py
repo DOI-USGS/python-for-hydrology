@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import shutil
-import glob
+import platform
 import pytest
 
 
@@ -17,6 +17,14 @@ xfail_notebooks = {
     
     
 }
+
+# Notebooks that we expect to have issues with autotesting on specific
+# platforms
+# Notebook : (platforms,), reason
+skip_notebooks = {
+    "10_modpath-demo.ipynb" : [("darwin",), "transient timeout"]
+}
+
 def included_notebooks():
     include = ['notebooks/part0_python_intro',
                'notebooks/part0_python_intro/solutions',
@@ -31,6 +39,11 @@ def included_notebooks():
         if f.name in xfail_notebooks:
             param_input = pytest.param(
                 f, marks=pytest.mark.xfail(reason=xfail_notebooks[f.name]))
+        elif f.name in skip_notebooks and \
+                platform.system().lower() in skip_notebooks[f.name][0]:
+            param_input = pytest.param(
+                f, marks=pytest.mark.skip(reason=skip_notebooks[f.name][-1])
+            )
         else:
             param_input = f
         files_with_xfails.append(param_input)
@@ -59,6 +72,7 @@ def testdir(request):
 def test_notebook(notebook, testdir):
     # run autotest on each notebook
     path, fname = os.path.split(notebook)
+    
     cmd = ('jupyter ' + 'nbconvert '
            '--ExecutePreprocessor.timeout=600 '
            '--ExecutePreprocessor.kernel_name=python3 '
