@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import shutil
-import glob
+import platform
 import pytest
 
 
@@ -17,6 +17,14 @@ xfail_notebooks = {
     
     
 }
+
+# Notebooks that we expect to have issues with autotesting on specific
+# platforms
+# Notebook : platform  # reason
+skip_notebook = {
+    "10_modpath-demo.ipynb" : "darwin"  # VTK causes transient timeouts in CI
+}
+
 def included_notebooks():
     include = ['notebooks/part0_python_intro',
                'notebooks/part0_python_intro/solutions',
@@ -59,12 +67,16 @@ def testdir(request):
 def test_notebook(notebook, testdir):
     # run autotest on each notebook
     path, fname = os.path.split(notebook)
-    cmd = ('jupyter ' + 'nbconvert '
-           '--ExecutePreprocessor.timeout=600 '
-           '--ExecutePreprocessor.kernel_name=python3 '
-           '--to ' + 'notebook '
-           f'--execute {notebook} '
-           f'--output-dir {testdir} '
-           f'--output {fname}')
-    ival = os.system(cmd)
-    assert ival == 0, f'could not run {fname}'
+    if fname in skip_notebook:
+        if platform.system().lower() == skip_notebook[fname]:
+            pass
+    else:
+        cmd = ('jupyter ' + 'nbconvert '
+               '--ExecutePreprocessor.timeout=600 '
+               '--ExecutePreprocessor.kernel_name=python3 '
+               '--to ' + 'notebook '
+               f'--execute {notebook} '
+               f'--output-dir {testdir} '
+               f'--output {fname}')
+        ival = os.system(cmd)
+        assert ival == 0, f'could not run {fname}'
