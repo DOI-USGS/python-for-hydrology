@@ -20,9 +20,9 @@ xfail_notebooks = {
 
 # Notebooks that we expect to have issues with autotesting on specific
 # platforms
-# Notebook : platform  # reason
-skip_notebook = {
-    "10_modpath-demo.ipynb" : "darwin"  # VTK causes transient timeouts in CI
+# Notebook : (platforms,), reason
+skip_notebooks = {
+    "10_modpath-demo.ipynb" : [("darwin",), "transient timeout"]
 }
 
 def included_notebooks():
@@ -39,6 +39,11 @@ def included_notebooks():
         if f.name in xfail_notebooks:
             param_input = pytest.param(
                 f, marks=pytest.mark.xfail(reason=xfail_notebooks[f.name]))
+        elif f.name in skip_notebooks and \
+                platform.system().lower() in skip_notebooks[f.name][0]:
+            param_input = pytest.param(
+                f, marks=pytest.mark.skip(reason=skip_notebooks[f.name][-1])
+            )
         else:
             param_input = f
         files_with_xfails.append(param_input)
@@ -67,16 +72,13 @@ def testdir(request):
 def test_notebook(notebook, testdir):
     # run autotest on each notebook
     path, fname = os.path.split(notebook)
-    if fname in skip_notebook:
-        if platform.system().lower() == skip_notebook[fname]:
-            pass
-    else:
-        cmd = ('jupyter ' + 'nbconvert '
-               '--ExecutePreprocessor.timeout=600 '
-               '--ExecutePreprocessor.kernel_name=python3 '
-               '--to ' + 'notebook '
-               f'--execute {notebook} '
-               f'--output-dir {testdir} '
-               f'--output {fname}')
-        ival = os.system(cmd)
-        assert ival == 0, f'could not run {fname}'
+    
+    cmd = ('jupyter ' + 'nbconvert '
+           '--ExecutePreprocessor.timeout=600 '
+           '--ExecutePreprocessor.kernel_name=python3 '
+           '--to ' + 'notebook '
+           f'--execute {notebook} '
+           f'--output-dir {testdir} '
+           f'--output {fname}')
+    ival = os.system(cmd)
+    assert ival == 0, f'could not run {fname}'
