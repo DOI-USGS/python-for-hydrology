@@ -101,7 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#Show-the-dataframe">Show the dataframe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Plot-the-geopandas-dataframe-on-the-modelgrid">Plot the geopandas dataframe on the modelgrid</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Export-the-data-to-VTK-(Visualization-ToolKit)-format-for-a-3d-representation">Export the data to VTK (Visualization ToolKit) format for a 3d representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista">Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista.-To-activate-these-cells,-set-plotvtk=True">Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code>. To activate these cells, set <code class="docutils literal notranslate"><span class="pre">plotvtk=True</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -4340,13 +4340,15 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 </div>
 </div>
 </section>
-<section id="Alternatively-we-can-visualize-the-VTK-representation-using-pyvista">
-<h3>Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code><a class="headerlink" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista" title="Link to this heading">¶</a></h3>
+<section id="Alternatively-we-can-visualize-the-VTK-representation-using-pyvista.-To-activate-these-cells,-set-plotvtk=True">
+<h3>Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code>. To activate these cells, set <code class="docutils literal notranslate"><span class="pre">plotvtk=True</span></code><a class="headerlink" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista.-To-activate-these-cells,-set-plotvtk=True" title="Link to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plotvtk</span><span class="o">=</span><span class="kc">False</span>
+<span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
 </pre></div>
 </div>
 </div>
@@ -4355,7 +4357,8 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">,</span> <span class="n">pathlines</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">to_pyvista</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">grid</span><span class="p">,</span> <span class="n">pathlines</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">to_pyvista</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -4363,10 +4366,11 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="n">show_actor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">actor_scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="n">show_actor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">actor_scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-<span class="n">grid</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">pathlines</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pathlines</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -4401,25 +4405,26 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracks</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">particle_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-<span class="n">release_locs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">tracks</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">particle_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">release_locs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]):</span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;particleid&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">])))</span>
-    <span class="n">loc</span> <span class="o">=</span> <span class="n">pathlines</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]):</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;particleid&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">])))</span>
+        <span class="n">loc</span> <span class="o">=</span> <span class="n">pathlines</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="n">pid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
-        <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">particle_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
-        <span class="n">release_locs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
+            <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">particle_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+            <span class="n">release_locs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
 
-    <span class="c1"># store the particle location in the corresponding track</span>
-    <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loc</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
+        <span class="c1"># store the particle location in the corresponding track</span>
+        <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loc</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
 
-<span class="n">release_locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
-<span class="n">tracks</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-<span class="n">max_track_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+    <span class="n">release_locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
+    <span class="n">tracks</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">max_track_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
 </pre></div>
 </div>
 </div>
@@ -4428,33 +4433,34 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pv</span><span class="o">.</span><span class="n">set_plot_theme</span><span class="p">(</span><span class="s2">&quot;document&quot;</span><span class="p">)</span>
-<span class="n">pv</span><span class="o">.</span><span class="n">set_jupyter_backend</span><span class="p">(</span><span class="s2">&quot;static&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">pv</span><span class="o">.</span><span class="n">set_plot_theme</span><span class="p">(</span><span class="s2">&quot;document&quot;</span><span class="p">)</span>
+    <span class="n">pv</span><span class="o">.</span><span class="n">set_jupyter_backend</span><span class="p">(</span><span class="s2">&quot;static&quot;</span><span class="p">)</span>
 
-<span class="c1"># create the plot and add the grid and pathline meshes</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">()</span>
-<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">pathlines</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+    <span class="c1"># create the plot and add the grid and pathline meshes</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">pathlines</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
 
-<span class="c1"># add a particle ID label to each 20th particle&#39;s starting point</span>
-<span class="n">label_coords</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">start_labels</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">pid</span><span class="p">,</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="o">%</span> <span class="mi">20</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">label_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">start_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Particle </span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># add a particle ID label to each 20th particle&#39;s starting point</span>
+    <span class="n">label_coords</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start_labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pid</span><span class="p">,</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="o">%</span> <span class="mi">20</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">label_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">start_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Particle </span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">p</span><span class="o">.</span><span class="n">add_point_labels</span><span class="p">(</span>
-    <span class="n">label_coords</span><span class="p">,</span>
-    <span class="n">start_labels</span><span class="p">,</span>
-    <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">point_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-    <span class="n">point_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_point_labels</span><span class="p">(</span>
+        <span class="n">label_coords</span><span class="p">,</span>
+        <span class="n">start_labels</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">point_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+        <span class="n">point_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
-<span class="c1"># zoom in and show the plot</span>
-<span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="c1"># zoom in and show the plot</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -4470,46 +4476,47 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create plotter</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">off_screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="c1"># create plotter</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">off_screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># open GIF file</span>
-<span class="n">gif_path</span> <span class="o">=</span> <span class="n">pth</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;freyberg_tracks.gif&quot;</span>
-<span class="n">p</span><span class="o">.</span><span class="n">open_gif</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gif_path</span><span class="p">))</span>
+    <span class="c1"># open GIF file</span>
+    <span class="n">gif_path</span> <span class="o">=</span> <span class="n">pth</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;freyberg_tracks.gif&quot;</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">open_gif</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gif_path</span><span class="p">))</span>
 
-<span class="c1"># create mesh from release locations</span>
-<span class="n">spls</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
-<span class="n">spls</span><span class="o">.</span><span class="n">point_data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spls</span><span class="o">.</span><span class="n">points</span><span class="p">))</span>
+    <span class="c1"># create mesh from release locations</span>
+    <span class="n">spls</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
+    <span class="n">spls</span><span class="o">.</span><span class="n">point_data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spls</span><span class="o">.</span><span class="n">points</span><span class="p">))</span>
 
-<span class="c1"># add the underlying grid mesh and particle data, then zoom in</span>
-<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">spls</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.23e09</span><span class="p">])</span>
-<span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
+    <span class="c1"># add the underlying grid mesh and particle data, then zoom in</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">spls</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.23e09</span><span class="p">])</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
 
-<span class="c1"># cycle through time steps and update particle location</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_track_len</span><span class="p">):</span>
-    <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># cycle through time steps and update particle location</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_track_len</span><span class="p">):</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">particle_ids</span><span class="p">:</span>
-        <span class="n">track</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span>
-        <span class="n">npts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
-        <span class="c1"># use last locn if particle has already terminated</span>
-        <span class="n">loc</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span> <span class="k">else</span> <span class="n">track</span><span class="p">[</span><span class="n">npts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
-        <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span><span class="p">:</span>
-            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">particle_ids</span><span class="p">:</span>
+            <span class="n">track</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span>
+            <span class="n">npts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+            <span class="c1"># use last locn if particle has already terminated</span>
+            <span class="n">loc</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span> <span class="k">else</span> <span class="n">track</span><span class="p">[</span><span class="n">npts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+            <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span><span class="p">:</span>
+                <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
 
-    <span class="n">p</span><span class="o">.</span><span class="n">update_coordinates</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">pts</span><span class="p">),</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">update_scalars</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">mesh</span><span class="o">=</span><span class="n">spls</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">segments</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">write_frame</span><span class="p">()</span>  <span class="c1"># write frame to file</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">update_coordinates</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">pts</span><span class="p">),</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">update_scalars</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">mesh</span><span class="o">=</span><span class="n">spls</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">segments</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">write_frame</span><span class="p">()</span>  <span class="c1"># write frame to file</span>
 
-<span class="c1"># close the plotter and the GIF file</span>
-<span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># close the plotter and the GIF file</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -4528,9 +4535,10 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">Image</span>
 
-<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">gif_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;gif&quot;</span><span class="p">))</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">gif_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;gif&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -4566,7 +4574,7 @@ Supply an valid coordinate system reference to the attached modelgrid object or 
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Feb 09, 2024.
+      <span class="lastupdated">Last updated on Feb 21, 2024.
       </span></p>
   </div>
 
