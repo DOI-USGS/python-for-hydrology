@@ -15,7 +15,7 @@ skip_notebooks = [
     #'07-stream_capture_voronoi.ipynb',
     #'08_Modflow-setup-demo.ipynb',
     #'09-gwt-voronoi-demo.ipynb',
-    #'10_modpath-demo.ipynb'
+    '10_modpath-demo.ipynb'
     ]
 
 def check_nb_for_output(notebook):
