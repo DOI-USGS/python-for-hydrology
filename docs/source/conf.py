@@ -267,16 +267,19 @@ copy_notebooks = [
     source_path / 'part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb',
     source_path / 'part0_python_intro/07b_VSCode.md',
     source_path / 'part0_python_intro/solutions/08_pandas.ipynb',
-    source_path / 'part0_python_intro/data/pandas',
+    source_path / 'part0_python_intro/data/',
     source_path / 'part0_python_intro/09_Geopandas.ipynb',
     source_path / 'part0_python_intro/data/geopandas',
     source_path / 'part0_python_intro/solutions/09_Geopandas__solutions.ipynb',
     source_path / 'part0_python_intro/10_Rasterio.ipynb',
     source_path / 'part0_python_intro/11_xarray_mt_rainier_precip.ipynb',
     source_path / 'part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.ipynb',
+    source_path / 'part1_flopy/data/',
+    source_path / 'part1_flopy/data_project/',
     source_path / 'part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.ipynb',
     source_path / 'part1_flopy/solutions/04_Modelgrid_and_intersection_solution.ipynb',
     source_path / 'part1_flopy/05-unstructured-grids.ipynb',
+    source_path / 'part1_flopy/basin.py',
     source_path / 'part1_flopy/solutions/06-Project-quadtree.ipynb',
     source_path / 'part1_flopy/solutions/06-Project-structured_completed.ipynb',
     source_path / 'part1_flopy/solutions/06-Project-voronoi.ipynb',
@@ -292,7 +295,7 @@ for f in copy_notebooks:
     dest_f = dest_path / f.relative_to(source_path)
     dest_f.parent.mkdir(exist_ok=True, parents=True)
     if f.is_dir():
-        shutil.copytree(f, dest_f)
+        shutil.copytree(f, dest_f, dirs_exist_ok=True)
     else:
         shutil.copy(f, dest_f)
     print(f"copied {f} to {dest_f}")
