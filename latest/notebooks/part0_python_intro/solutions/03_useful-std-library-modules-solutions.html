@@ -59,22 +59,18 @@
 <li class="toctree-l2"><a class="reference internal" href="01_functions_script__solution.html">01: Functions and scripts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03_useful-std-library-modules.html">03: Useful standard library modules</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">03: Solutions to Useful standard library modules exercises</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-problem:">the problem:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-goal:">the goal:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hint:">hint:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive">hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Part-1:-extract-with-a-single-file">Part 1: extract with a single file</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents">1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder">1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_&lt;year&gt;.nc">1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#1d)-Remove-the-extra-subfolders-that-were-extracted">1d) Remove the extra subfolders that were extracted</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">03: Solutions to Useful standard library modules exercises</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-problem:">the problem:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-goal:">the goal:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hint:">hint:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive">hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Part-1:-extract-with-a-single-file">Part 1: extract with a single file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files">Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Another-way-to-do-this-using-os-instead-of-pathlib">Another way to do this using <code class="docutils literal notranslate"><span class="pre">os</span></code> instead of <code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files">Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Another-way-to-do-this-using-os-instead-of-pathlib">Another way to do this using <code class="docutils literal notranslate"><span class="pre">os</span></code> instead of <code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="04_files_and_strings.html">04: File input and output</a></li>
@@ -144,9 +140,8 @@
 </pre></div>
 </div>
 </div>
-</section>
 <section id="Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">
-<h1>Exercise: Make a script with a command line argument using sys.argv<a class="headerlink" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv" title="Link to this heading">¶</a></h1>
+<h2>Exercise: Make a script with a command line argument using sys.argv<a class="headerlink" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Using a text editor such as VSCode, make a new <code class="docutils literal notranslate"><span class="pre">*.py</span></code> file with the following contents:</p></li>
 </ol>
@@ -219,9 +214,9 @@ arg2
 </div>
 </section>
 <section id="Testing-Your-Skills-with-a-truly-awful-example:">
-<h1>Testing Your Skills with a truly awful example:<a class="headerlink" href="#Testing-Your-Skills-with-a-truly-awful-example:" title="Link to this heading">¶</a></h1>
+<h2>Testing Your Skills with a truly awful example:<a class="headerlink" href="#Testing-Your-Skills-with-a-truly-awful-example:" title="Link to this heading">¶</a></h2>
 <section id="the-problem:">
-<h2>the problem:<a class="headerlink" href="#the-problem:" title="Link to this heading">¶</a></h2>
+<h3>the problem:<a class="headerlink" href="#the-problem:" title="Link to this heading">¶</a></h3>
 <p>Pretend that the file <code class="docutils literal notranslate"><span class="pre">data/fileio/netcdf_data.zip</span></code> contains some climate data (in the NetCDF format with the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> extension) that we downloaded. If you open <code class="docutils literal notranslate"><span class="pre">data/fileio/netcdf_data.zip</span></code>, you’ll see that within a subfolder <code class="docutils literal notranslate"><span class="pre">zipped</span></code> are a bunch of additional subfolders, each for a different year. Within each subfolder is another zipfile. Within each of these zipfiles is yet another subfolder, inside of which is the actual data file we want (<code class="docutils literal notranslate"><span class="pre">prcp.nc</span></code>).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -252,7 +247,7 @@ netcdf_data/zipped/zipped_1999/12270_1999.zip
 </div>
 </section>
 <section id="the-goal:">
-<h2>the goal:<a class="headerlink" href="#the-goal:" title="Link to this heading">¶</a></h2>
+<h3>the goal:<a class="headerlink" href="#the-goal:" title="Link to this heading">¶</a></h3>
 <p>To extract all of these <code class="docutils literal notranslate"><span class="pre">prcp.nc</span></code> files into a single folder, after renaming them with their respective years (obtained from their enclosing folders or zip files). e.g.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>prcp_1980.nc
 prcp_1981.nc
@@ -262,7 +257,7 @@ prcp_1981.nc
 <p>This will allow us to open them together as a dataset in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (more on that later). Does this sound awful? I’m not making this up. This is the kind of structure you get when downloading tiles of climate data with the <a class="reference external" href="https://daymet.ornl.gov/gridded/">Daymet Tile Selection Tool</a></p>
 </section>
 <section id="hint:">
-<h2>hint:<a class="headerlink" href="#hint:" title="Link to this heading">¶</a></h2>
+<h3>hint:<a class="headerlink" href="#hint:" title="Link to this heading">¶</a></h3>
 <p>you might find these functions helpful:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ZipFile.extractall
 ZipFile.extract
@@ -287,7 +282,7 @@ os.rmdir
 </div>
 </section>
 <section id="hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive">
-<h2>hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive<a class="headerlink" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive" title="Link to this heading">¶</a></h2>
+<h3>hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive<a class="headerlink" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive" title="Link to this heading">¶</a></h3>
 <p>This extracts the entire contents of the zip file to a designated folder</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -326,7 +321,7 @@ os.rmdir
 </div>
 </section>
 <section id="Part-1:-extract-with-a-single-file">
-<h2>Part 1: extract with a single file<a class="headerlink" href="#Part-1:-extract-with-a-single-file" title="Link to this heading">¶</a></h2>
+<h3>Part 1: extract with a single file<a class="headerlink" href="#Part-1:-extract-with-a-single-file" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -346,7 +341,7 @@ PosixPath(&#39;../03-output/netcdf_data/zipped/zipped_1991/12270_1991.zip&#39;)
 </pre></div></div>
 </div>
 <section id="1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents">
-<h3>1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents<a class="headerlink" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents" title="Link to this heading">¶</a></h3>
+<h4>1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents<a class="headerlink" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents" title="Link to this heading">¶</a></h4>
 <p>This will yield the name of the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file that we need to extract</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -368,7 +363,7 @@ PosixPath(&#39;../03-output/netcdf_data/zipped/zipped_1991/12270_1991.zip&#39;)
 </div>
 </section>
 <section id="1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder">
-<h3>1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder<a class="headerlink" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder" title="Link to this heading">¶</a></h3>
+<h4>1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder<a class="headerlink" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder" title="Link to this heading">¶</a></h4>
 <p>(you may need to create the destination folder first)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -381,7 +376,7 @@ PosixPath(&#39;../03-output/netcdf_data/zipped/zipped_1991/12270_1991.zip&#39;)
 </div>
 </section>
 <section id="1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_&lt;year&gt;.nc">
-<h3>1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code><a class="headerlink" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_<year>.nc" title="Link to this heading">¶</a></h3>
+<h4>1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code><a class="headerlink" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_<year>.nc" title="Link to this heading">¶</a></h4>
 <p>(so that if we repeat this for subsequent files, the extracted <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> files will end up in the same place)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -444,7 +439,7 @@ PosixPath(&#39;../03-output/prcp_1991.nc&#39;)
 </div>
 </section>
 <section id="1d)-Remove-the-extra-subfolders-that-were-extracted">
-<h3>1d) Remove the extra subfolders that were extracted<a class="headerlink" href="#1d)-Remove-the-extra-subfolders-that-were-extracted" title="Link to this heading">¶</a></h3>
+<h4>1d) Remove the extra subfolders that were extracted<a class="headerlink" href="#1d)-Remove-the-extra-subfolders-that-were-extracted" title="Link to this heading">¶</a></h4>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -456,7 +451,7 @@ PosixPath(&#39;../03-output/prcp_1991.nc&#39;)
 </section>
 </section>
 <section id="Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files">
-<h2>Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files<a class="headerlink" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files" title="Link to this heading">¶</a></h2>
+<h3>Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files<a class="headerlink" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
@@ -536,7 +531,7 @@ PosixPath(&#39;../03-output/prcp_1991.nc&#39;)
 </div>
 </section>
 <section id="Another-way-to-do-this-using-os-instead-of-pathlib">
-<h2>Another way to do this using <code class="docutils literal notranslate"><span class="pre">os</span></code> instead of <code class="docutils literal notranslate"><span class="pre">pathlib</span></code><a class="headerlink" href="#Another-way-to-do-this-using-os-instead-of-pathlib" title="Link to this heading">¶</a></h2>
+<h3>Another way to do this using <code class="docutils literal notranslate"><span class="pre">os</span></code> instead of <code class="docutils literal notranslate"><span class="pre">pathlib</span></code><a class="headerlink" href="#Another-way-to-do-this-using-os-instead-of-pathlib" title="Link to this heading">¶</a></h3>
 <p>(from the 2018 Madison Python class)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
@@ -618,6 +613,7 @@ PosixPath(&#39;../03-output/prcp_1991.nc&#39;)
 </div>
 </section>
 </section>
+</section>
 
 
            </div>
@@ -631,7 +627,7 @@ PosixPath(&#39;../03-output/prcp_1991.nc&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Feb 21, 2024.
+      <span class="lastupdated">Last updated on Mar 18, 2024.
       </span></p>
   </div>
 

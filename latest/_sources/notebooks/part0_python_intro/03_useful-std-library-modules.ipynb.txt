@@ -11,24 +11,24 @@
     "\n",
     "\n",
     "#### Topics covered:\n",
-    "* **``pathlib``**:\n",
+    "* **pathlib**:\n",
     "    * listing files\n",
     "    * creating, moving and deleting files\n",
     "    * absolute vs relative paths\n",
     "    * useful path object attributes\n",
-    "* **``shutil``**: \n",
+    "* **shutil**: \n",
     "    * copying, moving and deleting files AND folders\n",
-    "* **``sys``**: \n",
+    "* **sys**: \n",
     "    * python and platform information\n",
     "    * command line arguments\n",
     "    * modifying the python path to import code from other locations\n",
-    "* **``os``**:\n",
+    "* **os**:\n",
     "    * changing the working directory\n",
     "    * recursive iteration through folder structures\n",
     "    * accessing environmental variables\n",
-    "* **``subprocess``**: \n",
+    "* **subprocess**: \n",
     "    * running system commands and checking the results\n",
-    "* **``zipfile``**:\n",
+    "* **zipfile**:\n",
     "    * creating and extracting from zip archives"
    ]
   },
@@ -528,7 +528,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Delete the file"
+    "Move the file"
    ]
   },
   {
@@ -537,7 +537,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "fname.unlink()"
+    "fname2 = Path('new_file2.txt')\n",
+    "fname.rename(fname2)"
    ]
   },
   {
@@ -547,6 +548,31 @@
    "outputs": [],
    "source": [
     "fname.exists()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Delete the file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fname2.unlink()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fname2.exists()"
    ]
   },
   {
@@ -921,6 +947,22 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "With the `cwd` argument, we can control the working directory for the command. Here we list the files in the parent directory."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(subprocess.run(['ls', '-l'], shell=True, cwd='..'))"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": null,
    "metadata": {},
@@ -1206,8 +1248,22 @@
   }
  ],
  "metadata": {
+  "kernelspec": {
+   "display_name": "pyclass",
+   "language": "python",
+   "name": "python3"
+  },
   "language_info": {
-   "name": "python"
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.7"
   }
  },
  "nbformat": 4,
