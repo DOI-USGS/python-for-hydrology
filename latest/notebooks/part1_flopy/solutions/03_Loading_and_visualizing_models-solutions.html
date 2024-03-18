@@ -77,13 +77,13 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../05-unstructured-grids.html">05: FloPy Model Grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05-unstructured-grids.html">Unstructred Grids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../10_modpath-demo.html">10: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
@@ -416,7 +416,7 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x75d7930ad310&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7a9731105050&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -646,42 +646,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgc5de1048d436483493eebbce74858228">
+  <img id="_anim_img6511d7c9b38e48c89297c48bff7bb2cf">
   <div class="anim-controls">
-    <input id="_anim_sliderc5de1048d436483493eebbce74858228" type="range" class="anim-slider"
+    <input id="_anim_slider6511d7c9b38e48c89297c48bff7bb2cf" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animc5de1048d436483493eebbce74858228.set_frame(parseInt(this.value));">
+           oninput="anim6511d7c9b38e48c89297c48bff7bb2cf.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc5de1048d436483493eebbce74858228.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animc5de1048d436483493eebbce74858228.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animc5de1048d436483493eebbce74858228.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animc5de1048d436483493eebbce74858228.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animc5de1048d436483493eebbce74858228.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animc5de1048d436483493eebbce74858228.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animc5de1048d436483493eebbce74858228.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animc5de1048d436483493eebbce74858228.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animc5de1048d436483493eebbce74858228.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim6511d7c9b38e48c89297c48bff7bb2cf.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc5de1048d436483493eebbce74858228"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select6511d7c9b38e48c89297c48bff7bb2cf"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_c5de1048d436483493eebbce74858228"
+      <input type="radio" name="state" value="once" id="_anim_radio1_6511d7c9b38e48c89297c48bff7bb2cf"
              >
-      <label for="_anim_radio1_c5de1048d436483493eebbce74858228">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_c5de1048d436483493eebbce74858228"
+      <label for="_anim_radio1_6511d7c9b38e48c89297c48bff7bb2cf">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_6511d7c9b38e48c89297c48bff7bb2cf"
              checked>
-      <label for="_anim_radio2_c5de1048d436483493eebbce74858228">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_c5de1048d436483493eebbce74858228"
+      <label for="_anim_radio2_6511d7c9b38e48c89297c48bff7bb2cf">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_6511d7c9b38e48c89297c48bff7bb2cf"
              >
-      <label for="_anim_radio3_c5de1048d436483493eebbce74858228">Reflect</label>
+      <label for="_anim_radio3_6511d7c9b38e48c89297c48bff7bb2cf">Reflect</label>
     </form>
   </div>
 </div>
@@ -691,9 +691,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgc5de1048d436483493eebbce74858228";
-    var slider_id = "_anim_sliderc5de1048d436483493eebbce74858228";
-    var loop_select_id = "_anim_loop_selectc5de1048d436483493eebbce74858228";
+    var img_id = "_anim_img6511d7c9b38e48c89297c48bff7bb2cf";
+    var slider_id = "_anim_slider6511d7c9b38e48c89297c48bff7bb2cf";
+    var loop_select_id = "_anim_loop_select6511d7c9b38e48c89297c48bff7bb2cf";
     var frames = new Array(64);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABXgAAAH0CAYAAACHNkWHAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -29367,7 +29367,7 @@ AAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animc5de1048d436483493eebbce74858228 = new Animation(frames, img_id, slider_id, 200.0,
+        anim6511d7c9b38e48c89297c48bff7bb2cf = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -29905,7 +29905,7 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/18 13:50:36
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/18 16:08:38
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -29937,34 +29937,33 @@ and distribution information.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
     Solving:  Stress period:     6    Time step:     1
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
     Solving:  Stress period:     7    Time step:     1
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
     Solving:  Stress period:     8    Time step:     1
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
     Solving:  Stress period:     9    Time step:     1
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
     Solving:  Stress period:    10    Time step:     1
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
     Solving:  Stress period:    11    Time step:     1
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
     Solving:  Stress period:    12    Time step:     1
-    Solving:  Stress period:    13    Time step:     1
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -29972,9 +29971,10 @@ and distribution information.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+    Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/18 13:50:38
- Elapsed run time:  2.689 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/18 16:08:40
+ Elapsed run time:  2.710 Seconds
 
 
 WARNING REPORT:
@@ -30152,7 +30152,7 @@ WARNING REPORT:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x75d79831d3d0&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7a971e766fd0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -30843,7 +30843,7 @@ WARNING REPORT:
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/tmp/ipykernel_10534/614846193.py:1: FutureWarning: The &#39;delim_whitespace&#39; keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep=&#39;\s+&#39;`` instead
+/tmp/ipykernel_10527/614846193.py:1: FutureWarning: The &#39;delim_whitespace&#39; keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep=&#39;\s+&#39;`` instead
   pd.read_csv(sim_ws / &#39;external/chd_001.dat&#39;, delim_whitespace=True)
 </pre></div></div>
 </div>
