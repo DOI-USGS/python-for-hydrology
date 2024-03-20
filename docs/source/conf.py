@@ -286,7 +286,7 @@ copy_notebooks = [
     source_path / 'part1_flopy/solutions/07-stream_capture_voronoi.ipynb',
     source_path / 'part1_flopy/08_Modflow-setup-demo.ipynb',
     source_path / 'part1_flopy/09-gwt-voronoi-demo.ipynb',
-    source_path / 'part1_flopy/10_modpath-demo.ipynb',
+    source_path / 'part1_flopy/10_modpath_particle_tracking-demo.ipynb',
     # "bonus" notebooks
     source_path / 'part0_python_intro/09_b_Geopandas_ABQ.ipynb'
 ]
