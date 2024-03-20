@@ -1,0 +1,1151 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "aed944c8",
+   "metadata": {},
+   "source": [
+    "# 09: GeoPandas - DataFrames with geometry for GIS applications\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "adapted-heath",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "import geopandas as gp\n",
+    "from pathlib import Path\n",
+    "from shapely.geometry import Point, Polygon"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "87b5c437",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "datapath = Path('data/geopandas/')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0010de6e",
+   "metadata": {},
+   "source": [
+    "\n",
+    "**[Nice overview tutorial](https://geopandas.org/en/stable/getting_started/introduction.html)**\n",
+    "**[Examples Gallery](https://geopandas.org/en/stable/gallery/index.html)**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2e3cdfc6",
+   "metadata": {},
+   "source": [
+    "### OVERVIEW\n",
+    "***\n",
+    "In this notebook we will explore how `geopandas` works with GIS data (e.g. shapefiles and the objects within them) using geometrically-aware DataFrames. We will also explore how common GIS-related operations are available in `geopandas`. This notebook relies on publicly available GIS datasets for the city of Madison, Wisconsin."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "25758dd5",
+   "metadata": {},
+   "source": [
+    "#### get some data - `read_file` is the ticket for GeoJSON, shapefiles, GDB, etc."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6071b801",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks = gp.read_file(datapath / 'Madison_Parks.geojson')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "df21682d",
+   "metadata": {},
+   "source": [
+    "### writing back out is veeeery similar with `to_file` but give a few options for formats"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fe75814f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.to_file(datapath / \"parks.shp\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "88e709aa",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# or with a different driver\n",
+    "parks.to_file(datapath / \"parks.json\", driver='GeoJSON')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c2022bd9",
+   "metadata": {},
+   "source": [
+    "### this now looks like a Pandas DataFrame but there's a special column `geometry`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d8605f3b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "77b67685",
+   "metadata": {},
+   "source": [
+    "### also some important metadata particularly the [CRS](https://en.wikipedia.org/wiki/Spatial_reference_system)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8bf15b54",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.crs"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2a4d7e19",
+   "metadata": {},
+   "source": [
+    "> ### pro tip: You can have multiple geometry columns but only one is _active_ -- this is important later as we do operations on GeoDataFrames. The column labeled `geometry` is typically the active one but you [you can change it](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.set_geometry.html)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9d329631",
+   "metadata": {},
+   "source": [
+    "### So what's up with these geometries? They are represented as [`shapely`](https://shapely.readthedocs.io/en/stable/manual.html) objects so can be:\n",
+    "- #### polygon / multi-polygon\n",
+    "- #### point / multi-point\n",
+    "- #### line / multi-line"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a8b12c66",
+   "metadata": {},
+   "source": [
+    "### we can access with pandas `loc` and `iloc` references"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f9a8279f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.iloc[1].geometry.geom_type"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cbb36250",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.loc[parks.ShortName=='Olin'].geometry.geom_type"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "31d5ce38",
+   "metadata": {},
+   "source": [
+    "### There are other cool shapely properties like `area`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dd06c108",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.loc[parks.ShortName=='Olin'].geometry.area"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2579e1b8",
+   "metadata": {},
+   "source": [
+    "### ruh-roh - what's up with this CRS and tiny area number?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5461bf40",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.crs"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0a9caf27",
+   "metadata": {},
+   "source": [
+    "### area units in lat/long don't make sense. Let's project to something in meters (but how?) `to_crs` will do it, but importantly, either reassign or set `inplace=True`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2d8c5a74",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.to_crs(3071, inplace=True)\n",
+    "parks.crs"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cca38a2e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.loc[parks.ShortName=='Olin'].geometry.area"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7a4b29fc",
+   "metadata": {},
+   "source": [
+    "### there are loads of useful methods for `shapely` objects for relationships between geometries (intersection, distance, etc.) but we will skip these for now because GeoPandas facilitates these things for entire geodataframes! #sick"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "38f6310a-dc5c-41fc-b974-ef7fc63ae3da",
+   "metadata": {},
+   "source": [
+    "> ### Pro Tip: There are occassions when, while connected to VPN, the first geometry in a GeoGataDrame has its CRS set to infinity rather than a target CRS. There are a couple potential fixes for that [here](https://gist.github.com/kallejahn/186496059f0d4bb0e9d6e6460c32055e)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cd3b6bde",
+   "metadata": {},
+   "source": [
+    "## VISUALIZATION\n",
+    "***"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "93e92c56",
+   "metadata": {},
+   "source": [
+    "### So back to GeoDataFrames.....we can look at them spatially as well with `plot()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "edba04e1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.plot()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a152a006",
+   "metadata": {},
+   "source": [
+    "### easily make a chloropleth map using a selected column as the color (and add a legend) using `plot()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2413e932",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6f3d6c94",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.sample(4)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fd8940a1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.plot(column=\"Acreage\", cmap = 'magma', k=5, legend=True, legend_kwds={'shrink': 0.6})"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f87e653b",
+   "metadata": {},
+   "source": [
+    "### also a very cool interactive plot options with a basemap using `explore()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "current-dictionary",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.explore(column='Acreage', cmap='magma')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7cc25673",
+   "metadata": {},
+   "source": [
+    "### we can read in another shapefile"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c17a8db0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hoods = gp.read_file(datapath / 'Neighborhood_Associations.geojson')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e9498615",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hoods.sample(5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2b86bba1",
+   "metadata": {},
+   "source": [
+    "### and we can plot these on top of each other"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4fd99b53",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ax_hood = hoods.plot()\n",
+    "# now plot the other one but specify which axis to plot on (ax=ax_hood)\n",
+    "parks.plot(column=\"Acreage\", cmap = 'magma', k=5, legend=True, legend_kwds={'shrink': 0.6}, ax=ax_hood)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "64ca1dbe",
+   "metadata": {},
+   "source": [
+    "### WAT! Why so far apart?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "feaaeaf6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hoods.crs"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d38d28d3",
+   "metadata": {},
+   "source": [
+    "### we need to reproject. Geopandas uses `to_crs()` for this purpose"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7b94a650",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# we can reproject, and set hoods to park crs \n",
+    "hoods.to_crs(parks.crs, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c512a436",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ax_hood = hoods.plot()\n",
+    "# now plot the other one but specify which axis to plot on (ax=ax_hood)\n",
+    "parks.plot(column=\"Acreage\", cmap = 'magma', k=5, legend=True, legend_kwds={'shrink': 0.6}, ax=ax_hood)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "77528630",
+   "metadata": {},
+   "source": [
+    "### or similarly with the interactive maps"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9587774d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m_hood = hoods.explore()\n",
+    "parks.explore(column=\"Acreage\", cmap = 'magma', k=5, legend=True, legend_kwds={'shrink': 0.6}, m=m_hood)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c368f951",
+   "metadata": {},
+   "source": [
+    "### we can make a new geodataframe using shapely properties of the geometry - how about centroids?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c216fe7e",
+   "metadata": {},
+   "source": [
+    "## TEST YOUR SKILLS #0\n",
+    "- make a new geodataframe of the parks\n",
+    "- add a columns with centroids for each park\n",
+    "- plot an interactive window with the park centroids and the neighborhoods\n",
+    "- hints: \n",
+    "    - remember the shapely methods are available for each geometry object (e.g. `centroid()`) \n",
+    "    - you can loop over the column in a couple different ways\n",
+    "    - you can define which columns contains the geometry of a geodataframe\n",
+    "    - you will likely have to define the CRS"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "52d5d06f",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e33196e3",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5a23afe4",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "40f1e68c",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "id": "44f12aec",
+   "metadata": {},
+   "source": [
+    "## GEOSPATIAL OPERATIONS\n",
+    "***"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fd2e835e",
+   "metadata": {},
+   "source": [
+    "### Operations on and among geodataframes...do I need to use a GIS program?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "59e832e6",
+   "metadata": {},
+   "source": [
+    "### Dissolve"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aa0e784b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hoods.dissolve() # note it defaults to filling all the columns with the first value"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "94a355b3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ax=hoods.dissolve().plot()\n",
+    "hoods.plot(facecolor=None, edgecolor='orange', ax=ax)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "247414fd",
+   "metadata": {},
+   "source": [
+    "### Convex Hull"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9c002c59",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ax = hoods.dissolve().convex_hull.plot()\n",
+    "hoods.plot(facecolor=None, edgecolor='orange', ax=ax)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "17eb1ed8",
+   "metadata": {},
+   "source": [
+    "### Bounding Box is a little more tricky"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d508584d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hoods.bounds # that's per each row"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8f54fb63",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tb = hoods.total_bounds # this gives overall bounds\n",
+    "tb"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b054106c",
+   "metadata": {},
+   "source": [
+    "### We can make a polygon from these coordinates with `shapely`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cc55c6e1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from shapely.geometry import box"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "29bc4bdf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "bbox = box(tb[0], tb[1], tb[2], tb[3])\n",
+    "# pro tip - when passing a bunch of ordered arguments, '*' will unpack them #nice\n",
+    "bbox = box(*hoods.total_bounds)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4febb485",
+   "metadata": {},
+   "source": [
+    "#### to make a GeoDataFrame from scratch, the minimum you need is geometry, but a crs is important, and some data will populate more columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a63370e5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "hoods_boundary = gp.GeoDataFrame(data={'thing':['bounding_box']},geometry=[bbox], crs=hoods.crs)\n",
+    "hoods_boundary"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "42dc47ad",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ax = hoods_boundary.plot()\n",
+    "hoods.plot(facecolor=None, edgecolor='orange', ax=ax)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "50525a00",
+   "metadata": {},
+   "source": [
+    "### How about some spatial joins?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e9c23ba8",
+   "metadata": {},
+   "source": [
+    "#### we can bring in information based on locational overlap. Let's look at just a couple neighborhoods (Marquette and Tenny-Lapham) on the Isthmus"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5ac05ee6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "isthmus = hoods.loc[hoods['NEIGHB_NAME'].str.contains('Marquette') | \n",
+    "                   hoods['NEIGHB_NAME'].str.contains('Tenney')]\n",
+    "isthmus"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f877531f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "isthmus.explore()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "af9796ca",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "isthmus.sjoin(parks).explore()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dc4e058b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "parks.sjoin(isthmus).explore()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "752856a0",
+   "metadata": {},
+   "source": [
+    "#### so, it matters which direction you join from. The geometry is preserved from the dataframe \"on the left\"\n",
+    "#### equivalently, you can be more explicit in calling `sjoin`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fdfa2fdb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gp.sjoin(left_df=parks, right_df=isthmus).explore()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6ae41813",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "isthmus_parks = gp.sjoin(left_df=parks, right_df=isthmus)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "93be2a56",
+   "metadata": {},
+   "source": [
+    "#### we are going to use this `isthmus_parks` geoDataFrame a little later, but we want to trim out some unneeded and distracting columns. We can use `.drop()` just like with a regular Pandas DataFrame"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dfa29044",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "isthmus_parks.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dd9e6454",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "isthmus_parks.drop(columns=[ 'index_right','OBJECTID_right', 'NA_ID', \n",
+    "       'STATUS', 'CLASSIFICA', 'Web',\n",
+    "       'ShapeSTArea', 'ShapeSTLength'], inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "33baed2f",
+   "metadata": {},
+   "source": [
+    "### Let's explore the various predicates with a small intersecting box"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "348e3ef6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "bbox = box(570600, 290000, 573100, 291700)\n",
+    "bounds = gp.GeoDataFrame(geometry=[bbox],crs=parks.crs)\n",
+    "bounds.plot()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f18a9bc7",
+   "metadata": {},
+   "source": [
+    "#### See [documentation](https://shapely.readthedocs.io/en/latest/manual.html#binary-predicates) for full set of options for predicates. We'll just check out a couple options: `intersects`, `contains`, `within`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a6717770",
+   "metadata": {},
+   "source": [
+    "## TEST YOUR SKILLS #1\n",
+    "Using the `bounds` geodataframe you just made, write a function to visualize predicate behaviors.\n",
+    "- your function should accept a left geodataframe, a right geodataframe, and a string for the predicate\n",
+    "- your function should plot:\n",
+    "    - the left geodataframe in (default) blue\n",
+    "    - the result of the spatial join operation in another color\n",
+    "    - the right geodataframe in another color with outline only\n",
+    "- then you should set the title of the plot to the string predicate value used\n",
+    "- the geodataframes to test with are `isthmus_parks` and `bounds`\n",
+    "- your function should `return` the joined geodataframe\n",
+    "\n",
+    "- a couple hints:\n",
+    "    - in the `plot` method are a couple args called `facecolor` and `edgecolor` that will help plot the rectangle\n",
+    "    - there are other predicates to try out \n",
+    "\n",
+    "- _advanced options_: if that was easy, you can try a couple other things like:\n",
+    "    - explore joins with points and lines in addition to just polygons\n",
+    "    - change around the `bounds` polygon dimensions \n",
+    "    - use `explore()` to make an interactive map"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "16c16bbd",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6282cc1c",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b52c70df",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "134ce652",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f517eee6",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e03e0bb2",
+   "metadata": {},
+   "source": [
+    "#### Spatial joins are particularly useful with collections of points. A common case is to add a polygon attribute to points falling within each polygon. Let's check out a bigger point dataset with all the trees on streets in Madison"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8448b733",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "trees = gp.read_file(datapath / 'Street_Trees.geojson', index_col=0)\n",
+    "trees.plot(column='SPECIES')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "176b8187",
+   "metadata": {},
+   "source": [
+    "#### let's put this into the same crs as neighborhoods and join the data together so we can have a neighborhood attribute on the trees geodataframe"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a5e01688",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "trees.to_crs(hoods.crs, inplace=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "383785fa",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hoods.columns"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e6dc5f63",
+   "metadata": {},
+   "source": [
+    "#### NOTE: if we pass only some columns of the GeoDataFrame, only those columns will be included in the result, which is cool. _But_ - must include the active geometry column as well!"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "209c0dd4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "trees_with_hoods = trees[['SPECIES','DIAMETER','geometry']].sjoin(hoods[['NEIGHB_NAME','geometry']])\n",
+    "trees_with_hoods"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "64922d2e",
+   "metadata": {},
+   "source": [
+    "#### now we can do a `groupby`, for example, to find things like the average or max diameter of trees in each neighborhood"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c3dd01c2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "trees_with_hoods.groupby('NEIGHB_NAME')['DIAMETER'].max().plot(kind='bar')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "33b25331",
+   "metadata": {},
+   "source": [
+    "#### We could rearrange that bar chart in various ways, but we can also flip this back to the original neighborhoods GeoDataFrame to make a more useful spatial plot. Note that we used the spatial join to join together the attribute \"Neighborhood Name\" with each tree point. But now, we can aggregate those results and assign them based on an attribute rather than geospatially just like regular Pandas DataFrames"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ee24905b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hood_trees = hoods.copy()\n",
+    "tree_summary = trees_with_hoods.groupby('NEIGHB_NAME')['DIAMETER'].max()\n",
+    "hood_trees.merge(tree_summary,\n",
+    "                left_on = 'NEIGHB_NAME', right_on='NEIGHB_NAME').explore(column=\"DIAMETER\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6c2a2109",
+   "metadata": {},
+   "source": [
+    "## TEST YOUR SKILLS _OPTIONAL_\n",
+    "We have an Excel file that contains a crosswalk between SPECIES number as provided and species name. Can we bring that into our dataset and evaluate some conclusions about tree species by neighborhood?\n",
+    "- start with the `trees_with_hoods` GeoDataFrame\n",
+    "- load up and join the data from datapath / 'Madison_Tree_Species_Lookup.xlsx'\n",
+    "- hint: check the dtypes before merging - if you are going to join on a column, the column must be the same dtype in both dataframes\n",
+    "- Make a multipage PDF with a page for each neighborhood showing a bar chart of the top ten tree species (by name) in each neighborhood\n",
+    "- Make a map (use explore, or save to SHP or geojson) showing the neighborhoods with a color-coded field showing the most common tree species for each neighborhood\n",
+    "\n",
+    "You will need a few pandas operations that we have only touched on a bit:  \n",
+    "\n",
+    "`groupby`, `count`, `merge`, `read_excel`, `sort_values`, `iloc`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e63a1ab3",
+   "metadata": {},
+   "source": [
+    "#### As we've seen, spatial joins are powerful, but they really only gather data from multiple collections. What if we want to actually calculate the amount of overlap among shapes? Or create new shapes based on instersection or not intersection of shapes? [`overlay`](https://geopandas.org/en/stable/docs/user_guide/set_operations.html?highlight=overlay) does these things."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "09de3e08",
+   "metadata": {},
+   "source": [
+    "#### main options are `intersection`, `difference`, `union`, and `symmetric_difference`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "40e2f534",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "inters = bounds.overlay(isthmus, how='intersection')\n",
+    "inters.plot()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a6a83677",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "inters"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ae4720e4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "differ = bounds.overlay(isthmus, how='difference')\n",
+    "differ.plot()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5928a13a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "differ"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3e9a3efe",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "unite = bounds.overlay(isthmus, how='union')\n",
+    "unite.plot()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b101263d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "unite"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7188ab91",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "symdiff = bounds.overlay(isthmus, how='symmetric_difference')\n",
+    "symdiff.plot()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4b4455ff",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "symdiff"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1952cb07",
+   "metadata": {},
+   "source": [
+    "### On your own...\n",
+    "- what if you switch left and right dataframes?\n",
+    "- how can you evaluate the areas of overlap for the intersection case?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "109ad057",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

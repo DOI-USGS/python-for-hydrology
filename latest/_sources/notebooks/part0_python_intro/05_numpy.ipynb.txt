@@ -8,6 +8,9 @@
     "\n",
     "This notebook demonstrates how to import and use the Numpy module to work with arrays. The NumPy library includes (among other things) ways of storing and manipulating data that are more efficient than standard Python arrays. Using NumPy with numerical data is much faster than using Python lists or tuples.\n",
     "\n",
+    "### Important Note\n",
+    "The data structures and functionality of numpy underly many of the more advanced python tools that we will use including scipy, matplotlib, pandas, geopandas, flopy, and more.\n",
+    "\n",
     "### References\n",
     "[Numpy documentation](https://docs.scipy.org/doc/)  \n",
     "The [Scipy lecture notes](http://scipy-lectures.org/intro/numpy/index.html) provide a pretty comprehensive demo of the core features of numpy.\n",
@@ -1402,7 +1405,7 @@
    "source": [
     "## Masking an Array\n",
     "\n",
-    "Masking is the process of performing array operations on a specific set of cells, called a mask.  A mask is a logical array with the same shape as the array it is applied to.  Here is an example."
+    "Masking is the process of performing array operations on a specific set of cells, called a mask.  A mask is a logical array with the same shape as the array it is applied to.  Here is an example. Also, note that `np.where` contains arguments that can accomplish a similar result."
    ]
   },
   {
@@ -1750,7 +1753,15 @@
    "name": "python3"
   },
   "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
    "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
    "version": "3.11.7"
   }
  },

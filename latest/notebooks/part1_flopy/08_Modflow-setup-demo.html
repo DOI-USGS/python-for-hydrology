@@ -83,7 +83,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_modpath-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -140,7 +140,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="277c65ba9b9044d9bbcb40e0fa176c73" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="06b3baf257ca48ad8fb2ad943e023789" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -224,7 +224,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.06s
+finished in 0.07s
 
 </pre></div></div>
 </div>
@@ -339,7 +339,7 @@ creating shapely Polygons of grid cells...
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-finished in 0.09s
+finished in 0.10s
 
 </pre></div></div>
 </div>
@@ -387,7 +387,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post383+geec977f
+Pleasant Lake test case version 0.1.post404+g8a89f5c
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -483,7 +483,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post383+geec977f
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post404+g8a89f5c
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -723,7 +723,7 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/18 16:07:26
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/20 19:29:29
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -840,8 +840,8 @@ and distribution information.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/18 16:07:31
- Elapsed run time:  5.052 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/20 19:29:34
+ Elapsed run time:  5.023 Seconds
 
 
 WARNING REPORT:
@@ -1044,7 +1044,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 18, 2024.
+      <span class="lastupdated">Last updated on Mar 20, 2024.
       </span></p>
   </div>
 
