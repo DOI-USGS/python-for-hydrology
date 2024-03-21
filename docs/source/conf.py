@@ -309,3 +309,8 @@ shutil.copy('../../SOME_HELPFUL_LINKS.md', '.')
 nbsphinx_allow_errors = True
 # disable automatic notebook execution (nbs are built in CI for now)
 # nbsphinx_execute = "never"
+
+nbsphinx_thumbnails = {
+    'notebooks/part1_flopy/01-Flopy-intro': 
+        '_images/flopylogo_sm.png',
+}
