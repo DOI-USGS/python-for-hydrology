@@ -25,7 +25,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="02: Building and post-processing a MODFLOW 6 model" href="notebooks/part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.html" />
+    <link rel="next" title="01: Introduction to Flopy" href="notebooks/part1_flopy/01-Flopy-intro.html" />
     <link rel="prev" title="11: Using Xarray to look at Daymet precipitation around Mt. Rainier" href="notebooks/part0_python_intro/11_xarray_mt_rainier_precip.html" /> 
 </head>
 
@@ -55,16 +55,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="part0.html">     Part 0: Introduction to Python</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Part 1: Flopy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/01-Flopy-intro.html">01: Introduction to Flopy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/05-unstructured-grids.html">Unstructred Grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/05-unstructured-grids.html">05: Unstructred Grids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/solutions/06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/solutions/06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/solutions/06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/09-gwt-voronoi-demo.html">Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/part1_flopy/10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
@@ -108,6 +109,10 @@
 <h1>Part 1 flopy<a class="headerlink" href="#part-1-flopy" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <div class="nbsphinx-gallery">
+<a class="reference internal" href="notebooks/part1_flopy/01-Flopy-intro.html">
+  <div><img alt="" src="./_images/flopylogo_sm.png"></div>
+  <div>01: Introduction to Flopy</div>
+</a>
 <a class="reference internal" href="notebooks/part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">
   <div><img alt="" src="./_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_40_0.png"></div>
   <div>02: Building and post-processing a MODFLOW 6 model</div>
@@ -122,7 +127,7 @@
 </a>
 <a class="reference internal" href="notebooks/part1_flopy/05-unstructured-grids.html">
   <div><img alt="" src="./_images/notebooks_part1_flopy_05-unstructured-grids_22_1.png"></div>
-  <div>Unstructred Grids</div>
+  <div>05: Unstructred Grids</div>
 </a>
 <a class="reference internal" href="notebooks/part1_flopy/solutions/06-Project-structured_completed.html">
   <div><img alt="" src="./_images/notebooks_part1_flopy_solutions_06-Project-structured_completed_87_0.png"></div>
@@ -146,7 +151,7 @@
 </a>
 <a class="reference internal" href="notebooks/part1_flopy/09-gwt-voronoi-demo.html">
   <div><img alt="" src="./_images/notebooks_part1_flopy_09-gwt-voronoi-demo_33_1.png"></div>
-  <div>Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</div>
+  <div>09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</div>
 </a>
 <a class="reference internal" href="notebooks/part1_flopy/10_modpath_particle_tracking-demo.html">
   <div><img alt="" src="./_images/notebooks_part1_flopy_10_modpath_particle_tracking-demo_55_0.png"></div>
@@ -161,14 +166,14 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="notebooks/part0_python_intro/11_xarray_mt_rainier_precip.html" class="btn btn-neutral float-left" title="11: Using Xarray to look at Daymet precipitation around Mt. Rainier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="notebooks/part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.html" class="btn btn-neutral float-right" title="02: Building and post-processing a MODFLOW 6 model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="notebooks/part1_flopy/01-Flopy-intro.html" class="btn btn-neutral float-right" title="01: Introduction to Flopy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 20, 2024.
+      <span class="lastupdated">Last updated on Mar 21, 2024.
       </span></p>
   </div>
 

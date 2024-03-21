@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>01: Introduction to Flopy &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/documentation_options.js?v=feab032e"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="02: Building and post-processing a MODFLOW 6 model" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html" />
+    <link rel="prev" title="Part 1 flopy" href="../../part1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">01: Introduction to Flopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-unstructured-grids.html">05: Unstructred Grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
+      <li class="breadcrumb-item active">01: Introduction to Flopy</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/part1_flopy/01-Flopy-intro.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p><img alt="image1" src="../../_images/flopylogo_sm.png" /></p>
+<section id="01:-Introduction-to-Flopy">
+<h1>01: Introduction to Flopy<a class="headerlink" href="#01:-Introduction-to-Flopy" title="Link to this heading">¶</a></h1>
+<p>The second part of this course focuses on <a class="reference external" href="https://github.com/modflowpy/flopy">Flopy</a>, a Python package for creating, running, and post-processing MODFLOW-based groundwater flow and transport models. Why would we want this? MODFLOW—especially older versions—has idiosyncratic input and output that can be difficult to work with directly. Flopy translates MODFLOW input and output into the general Python data structures we explored in the first part of the course, making it easier to script
+groundwater modeling workflows with the entire scientific Python ecosysem.</p>
+<p>Flopy was originally developed by <a class="reference external" href="https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.12413">Mark Bakker and others</a> for working with MODFLOW 2005 (including MODFLOW-NWT) and earlier versions of MODFLOW. <a class="reference external" href="https://doi.org/10.1111/gwat.13327">Flopy has since been expanded</a> to support <a class="reference external" href="https://github.com/MODFLOW-USGS/modflow6">MODFLOW 6</a>, the current version of MODFLOW that includes general support for structured and unstructured grids, tight coupling of multiple models within a
+simulation, and a redesigned input structure that is meant to be more intuitive and human-readable. Flopy support for MODFLOW 6 is tightly coupled to the MODFLOW 6 code, in that the relevant Flopy code is auto-generated via definition files that describe the MODFLOW 6 models and packages. As a result, MODFLOW 2005-style and MODFLOW 6 functionality are mostly distinct, and accessed through different subpackages within Flopy—<code class="docutils literal notranslate"><span class="pre">flopy.modflow</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.mf6</span></code> respectively.</p>
+<p>For example, to instantiate a MODFLOW-NWT instance, one would enter:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">flopy</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modflow</span><span class="o">.</span><span class="n">Modflow</span><span class="p">(</span><span class="n">modelname</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;mfnwt&#39;</span><span class="p">)</span>  <span class="c1"># or &#39;mf2005&#39; for MODFLOW 2005 (the default)</span>
+</pre></div>
+</div>
+</div>
+<p>For MODFLOW 6, we first have to create a simulation, which we then assign the model to:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">gwf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwf</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">modelname</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>As you can see, in addition to the different subpackage accessors, the syntax is different between the two versions. In general, the syntax for the <code class="docutils literal notranslate"><span class="pre">flopy.modflow</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.mf6</span></code> subpackages follows the respective MODFLOW versions they support. For example, <code class="docutils literal notranslate"><span class="pre">ModflowGwf</span></code> is simply a <a class="reference external" href="https://en.wikipedia.org/wiki/Camel_case">CamelCase</a> representation of the MODFLOW 6 Groundwater Flow (GWF) model. Similarly, the Discretization Package (for the GWF model) class is named <code class="docutils literal notranslate"><span class="pre">ModflowGwfdis</span></code>.
+Arguments to the <code class="docutils literal notranslate"><span class="pre">ModflowGwfdis</span></code> follow the input variables to MODFLOW 6.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dis</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfdis</span><span class="p">(</span>
+    <span class="n">gwf</span><span class="p">,</span>
+    <span class="n">nlay</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">nrow</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+    <span class="n">ncol</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">delr</span><span class="o">=</span><span class="mf">500.</span><span class="p">,</span>
+    <span class="n">delc</span><span class="o">=</span><span class="mf">500.</span><span class="p">,</span>
+    <span class="n">top</span><span class="o">=</span><span class="mf">400.0</span><span class="p">,</span>
+    <span class="n">botm</span><span class="o">=</span><span class="p">[</span><span class="mi">220</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/mf6io.html">MODFLOW 6 Input and Output Guide</a> (<a class="reference external" href="https://github.com/MODFLOW-USGS/modflow6/releases">individual releases</a> also contain a PDF version) can therefore be a valuable resource in understanding how to use Flopy.</p>
+<p>Other Flopy subpackages (<code class="docutils literal notranslate"><span class="pre">modpath</span></code>, <code class="docutils literal notranslate"><span class="pre">mt3d</span></code>, etc) providing varying levels of support for previous versions of MODFLOW or related software such as MODPATH and MT3D; or general (Flopy-wide) support for discretization, export or other processing (<code class="docutils literal notranslate"><span class="pre">discretization</span></code>, <code class="docutils literal notranslate"><span class="pre">export</span></code>, <code class="docutils literal notranslate"><span class="pre">utils</span></code>, etc.).</p>
+<p>This class will focus almost exclusively on Flopy support for MODFLOW 6. Examples and documentation for using Flopy in other contexts is available in the <a class="reference external" href="https://flopy.readthedocs.io/en/stable/index.html">Flopy online documentation</a>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../part1.html" class="btn btn-neutral float-left" title="Part 1 flopy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html" class="btn btn-neutral float-right" title="02: Building and post-processing a MODFLOW 6 model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Mar 21, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

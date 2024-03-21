@@ -3,6 +3,7 @@ Part 1 flopy
 
 .. nbgallery::
 
+   notebooks/part1_flopy/01-Flopy-intro.ipynb
    notebooks/part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.ipynb
    notebooks/part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.ipynb
    notebooks/part1_flopy/solutions/04_Modelgrid_and_intersection_solution.ipynb
