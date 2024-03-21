@@ -255,6 +255,7 @@ shutil.rmtree(dest_path, ignore_errors=True)
 dest_path.mkdir()
 source_path = Path('../../notebooks')
 copy_notebooks = [
+    source_path / 'part0_python_intro/00_python_basics_review.ipynb',
     source_path / 'part0_python_intro/solutions/01_functions_script__solution.ipynb',
     source_path / 'part0_python_intro/solutions/02_Namespace_objects_modules_packages__solution.ipynb',
     source_path / 'part0_python_intro/03_useful-std-library-modules.ipynb',
@@ -273,6 +274,7 @@ copy_notebooks = [
     source_path / 'part0_python_intro/solutions/09_Geopandas__solutions.ipynb',
     source_path / 'part0_python_intro/10_Rasterio.ipynb',
     source_path / 'part0_python_intro/11_xarray_mt_rainier_precip.ipynb',
+    source_path / 'part1_flopy//01-Flopy-intro.ipynb',
     source_path / 'part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.ipynb',
     source_path / 'part1_flopy/data/',
     source_path / 'part1_flopy/data_project/',

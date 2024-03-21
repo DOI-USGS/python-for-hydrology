@@ -3,6 +3,7 @@ Part 0: General Python Exercises
 
 .. nbgallery::
 
+   notebooks/part0_python_intro/00_python_basics_review.ipynb
    notebooks/part0_python_intro/solutions/01_functions_script__solution.ipynb
    notebooks/part0_python_intro/solutions/02_Namespace_objects_modules_packages__solution.ipynb
    notebooks/part0_python_intro/03_useful-std-library-modules.ipynb
