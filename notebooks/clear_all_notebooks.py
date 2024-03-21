@@ -31,10 +31,13 @@ def check_nb_for_output(notebook):
                         has_output = True
     return has_output        
 
-for [path, subdirs, files] in os.walk('.'):
-    for cf in files:
-        if cf.lower().endswith('.ipynb') and '.ipynb_checkpoint' not in path:
-            nb = pl.Path(path) / cf
+
+if __name__ == "__main__":
+    
+    for [path, subdirs, files] in os.walk('.'):
+        for cf in files:
+            if cf.lower().endswith('.ipynb') and '.ipynb_checkpoint' not in path:
+                nb = pl.Path(path) / cf
             if ('solutions' not in str(nb) and 
                 nb.name not in skip_notebooks and 
                 check_nb_for_output(nb) is True):
