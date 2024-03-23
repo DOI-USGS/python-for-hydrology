@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>01: Introduction to Flopy &mdash; Python for Hydrology 1.0a documentation</title>
+  <title>01: Introduction to FloPy &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
@@ -57,7 +57,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">01: Introduction to Flopy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">01: Introduction to FloPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
@@ -98,7 +98,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
-      <li class="breadcrumb-item active">01: Introduction to Flopy</li>
+      <li class="breadcrumb-item active">01: Introduction to FloPy</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/notebooks/part1_flopy/01-Flopy-intro.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -109,13 +109,13 @@
            <div itemprop="articleBody">
              
   <p><img alt="image1" src="../../_images/flopylogo_sm.png" /></p>
-<section id="01:-Introduction-to-Flopy">
-<h1>01: Introduction to Flopy<a class="headerlink" href="#01:-Introduction-to-Flopy" title="Link to this heading">¶</a></h1>
-<p>The second part of this course focuses on <a class="reference external" href="https://github.com/modflowpy/flopy">Flopy</a>, a Python package for creating, running, and post-processing MODFLOW-based groundwater flow and transport models. Why would we want this? MODFLOW—especially older versions—has idiosyncratic input and output that can be difficult to work with directly. Flopy translates MODFLOW input and output into the general Python data structures we explored in the first part of the course, making it easier to script
+<section id="01:-Introduction-to-FloPy">
+<h1>01: Introduction to FloPy<a class="headerlink" href="#01:-Introduction-to-FloPy" title="Link to this heading">¶</a></h1>
+<p>The second part of this course focuses on <a class="reference external" href="https://github.com/modflowpy/flopy">FloPy</a>, a Python package for creating, running, and post-processing MODFLOW-based groundwater flow and transport models. Why would we want this? MODFLOW—especially older versions—has idiosyncratic input and output that can be difficult to work with directly. FloPy translates MODFLOW input and output into the general Python data structures we explored in the first part of the course, making it easier to script
 groundwater modeling workflows with the entire scientific Python ecosysem.</p>
-<p>Flopy was originally developed by <a class="reference external" href="https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.12413">Mark Bakker and others</a> for working with MODFLOW 2005 (including MODFLOW-NWT) and earlier versions of MODFLOW. <a class="reference external" href="https://doi.org/10.1111/gwat.13327">Flopy has since been expanded</a> to support <a class="reference external" href="https://github.com/MODFLOW-USGS/modflow6">MODFLOW 6</a>, the current version of MODFLOW that includes general support for structured and unstructured grids, tight coupling of multiple models within a
-simulation, and a redesigned input structure that is meant to be more intuitive and human-readable. Flopy support for MODFLOW 6 is tightly coupled to the MODFLOW 6 code, in that the relevant Flopy code is auto-generated via definition files that describe the MODFLOW 6 models and packages. As a result, MODFLOW 2005-style and MODFLOW 6 functionality within Flopy is mostly distinct, and accessed through different subpackages—<code class="docutils literal notranslate"><span class="pre">flopy.modflow</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.mf6</span></code> respectively.</p>
-<p>For example, to instantiate a MODFLOW-NWT instance, one would enter:</p>
+<p>FloPy was originally developed by <a class="reference external" href="https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.12413">Mark Bakker and others (2016)</a> for working with MODFLOW 2005 (including MODFLOW-NWT) and earlier versions of MODFLOW. <a class="reference external" href="https://doi.org/10.1111/gwat.13327">FloPy has since been expanded</a> to support <a class="reference external" href="https://github.com/MODFLOW-USGS/modflow6">MODFLOW 6</a>, the current version of MODFLOW that includes general support for structured and unstructured grids, tight coupling of multiple models within a
+simulation, and a redesigned input structure that is meant to be more intuitive and human readable. FloPy support for MODFLOW 6 is tightly coupled to the MODFLOW 6 code, in that the relevant FloPy code is auto-generated from text files (<em>definition files</em>) that describe MODFLOW 6 models and packages. As a result, MODFLOW 2005-style and MODFLOW 6 functionality within FloPy is accessed through different subpackages—<code class="docutils literal notranslate"><span class="pre">flopy.modflow</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.mf6</span></code> respectively.</p>
+<p>For example, to instantiate a MODFLOW-NWT model instance, one would enter:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -136,7 +136,7 @@ simulation, and a redesigned input structure that is meant to be more intuitive 
 </pre></div>
 </div>
 </div>
-<p>As you can see, in addition to the different subpackage accessors, the syntax is different between the two versions. In general, the syntax for the <code class="docutils literal notranslate"><span class="pre">flopy.modflow</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.mf6</span></code> subpackages follows the respective MODFLOW versions they support. For example, <code class="docutils literal notranslate"><span class="pre">ModflowGwf</span></code> is simply a <a class="reference external" href="https://en.wikipedia.org/wiki/Camel_case">CamelCase</a> representation of the MODFLOW 6 Groundwater Flow (GWF) model. Similarly, the Discretization Package (for the GWF model) class is named <code class="docutils literal notranslate"><span class="pre">ModflowGwfdis</span></code>.
+<p>As you can see, in addition to the different FloPy subpackages, the syntax is different between the two versions. In general, the syntax for the <code class="docutils literal notranslate"><span class="pre">flopy.modflow</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.mf6</span></code> subpackages follows the respective MODFLOW versions they support. For example, <code class="docutils literal notranslate"><span class="pre">ModflowGwf</span></code> is simply a <a class="reference external" href="https://en.wikipedia.org/wiki/Camel_case">CamelCase</a> representation of the MODFLOW 6 Groundwater Flow (GWF) model. Similarly, the Discretization Package (for the GWF model) class is named <code class="docutils literal notranslate"><span class="pre">ModflowGwfdis</span></code>.
 Arguments to the <code class="docutils literal notranslate"><span class="pre">ModflowGwfdis</span></code> constructor follow the input variables to MODFLOW 6.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -157,7 +157,7 @@ Arguments to the <code class="docutils literal notranslate"><span class="pre">Mo
 </div>
 <p>The <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/mf6io.html">MODFLOW 6 Input and Output Guide</a> (<a class="reference external" href="https://github.com/MODFLOW-USGS/modflow6/releases">individual releases</a> also contain a PDF version) can therefore be a valuable resource for understanding how to use Flopy.</p>
 <p>Other Flopy subpackages (<code class="docutils literal notranslate"><span class="pre">flopy.modpath</span></code>, <code class="docutils literal notranslate"><span class="pre">flopy.mt3d</span></code>, etc) provide varying levels of support for previous versions of MODFLOW or related software such as MODPATH and MT3D; or general (Flopy-wide) support for discretization, exporting or other processing (<code class="docutils literal notranslate"><span class="pre">flopy.discretization</span></code>, <code class="docutils literal notranslate"><span class="pre">flopy.export</span></code>, <code class="docutils literal notranslate"><span class="pre">flopy.utils</span></code>, etc.).</p>
-<p>This class will focus almost exclusively on Flopy support for MODFLOW 6. Examples and documentation for using Flopy in other contexts is available in the <a class="reference external" href="https://flopy.readthedocs.io/en/stable/index.html">Flopy online documentation</a>.</p>
+<p>This class will focus almost exclusively on FloPy support for MODFLOW 6. Examples and documentation for using FloPy in other contexts is available in the <a class="reference external" href="https://flopy.readthedocs.io/en/stable/index.html">FloPy online documentation</a>. The <a class="reference external" href="https://flopy.readthedocs.io/en/stable/examples.html">Examples gallery</a> are a resource that can be used to quickly learn the underlying capabilities of FloPy.</p>
 </section>
 
 
@@ -172,7 +172,7 @@ Arguments to the <code class="docutils literal notranslate"><span class="pre">Mo
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 21, 2024.
+      <span class="lastupdated">Last updated on Mar 23, 2024.
       </span></p>
   </div>
 

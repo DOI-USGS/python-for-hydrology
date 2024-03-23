@@ -28,7 +28,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="03: Loading and visualizing groundwater models" href="03_Loading_and_visualizing_models-solutions.html" />
-    <link rel="prev" title="01: Introduction to Flopy" href="../01-Flopy-intro.html" /> 
+    <link rel="prev" title="01: Introduction to FloPy" href="../01-Flopy-intro.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,7 +57,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../part0.html">     Part 0: Introduction to Python</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../part1.html">Part 1: Flopy</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01-Flopy-intro.html">01: Introduction to Flopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01-Flopy-intro.html">01: Introduction to FloPy</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">02: Building and post-processing a MODFLOW 6 model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Create-the-initial-conditions-(IC)-package">Create the initial conditions (IC) package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Create-the-node-property-flow-(NPF)-package">Create the node property flow (NPF) package</a></li>
@@ -123,57 +123,110 @@
 <section id="02:-Building-and-post-processing-a-MODFLOW-6-model">
 <h1>02: Building and post-processing a MODFLOW 6 model<a class="headerlink" href="#02:-Building-and-post-processing-a-MODFLOW-6-model" title="Link to this heading">¶</a></h1>
 <p>A MODFLOW 6 model will be developed of the domain shown above. This model simulation is based on example 1 in <a class="reference external" href="https://doi.org/10.3133/ofr20161086">Pollock, D.W., 2016, User guide for MODPATH Version 7—A particle-tracking model for MODFLOW: U.S. Geological Survey Open-File Report 2016–1086, 35 p., http://dx.doi.org/10.3133/ofr20161086</a>.</p>
-<p>The model domain will be discretized into 3 layers, 21 rows, and 20 columns. A constant value of 500. will <code class="docutils literal notranslate"><span class="pre">delr</span></code> and <code class="docutils literal notranslate"><span class="pre">delc</span></code>. The top of the model should be set to 400 and the bottom of the three layers should be set to 220, 200, and 0. The model has one steady-state stress period.</p>
+<p>The model domain will be discretized into 3 layers, 21 rows, and 20 columns. A constant value of 500 ft will be specified for <code class="docutils literal notranslate"><span class="pre">delr</span></code> and <code class="docutils literal notranslate"><span class="pre">delc</span></code>. The top (<code class="docutils literal notranslate"><span class="pre">TOP</span></code>) of the model should be set to 400 ft and the bottom of the three layers should be set to 220 ft, 200 ft, and 0 ft, respectively. The model has one steady-state stress period.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">flopy</span>
 <span class="kn">from</span> <span class="nn">flopy.plot</span> <span class="kn">import</span> <span class="n">styles</span>
 </pre></div>
 </div>
 </div>
-<p>Create a simulation object, a time discretization object, and a iterative model solution object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.MFSimulation()</span></code>, <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowTdis()</span></code>, and <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowIms()</span></code>, respectively. Use default values for all iterative model solution variables.</p>
-<p>Before creating the simulation object you should define the simulation workspace (<code class="docutils literal notranslate"><span class="pre">sim_ws</span></code>) where the model files are, the simulation name (<code class="docutils literal notranslate"><span class="pre">name</span></code>), and the name and path of the model executable (<code class="docutils literal notranslate"><span class="pre">exe_name</span></code>). The <code class="docutils literal notranslate"><span class="pre">sim_ws</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">'data/ex01b'</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">ex01b</span></code>, and <code class="docutils literal notranslate"><span class="pre">exe_name</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">bin/mf6</span></code>.</p>
-<div class="nbinput nblast docutils container">
+<p>Before we get started lets install MODFLOW 6, other MODFLOW-based executables (MODFLOW-2005, MT3DMS, <em>etc.</em>), and utilities programs used by FloPy (gridgen and triangle) in the Miniforge class environment (<code class="docutils literal notranslate"><span class="pre">pyclass</span></code>) using FloPy <code class="docutils literal notranslate"><span class="pre">get-modflow</span></code> functionality (<code class="docutils literal notranslate"><span class="pre">flopy.utils.get_modflow()</span></code>). Remember that <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> can be used to see the <code class="docutils literal notranslate"><span class="pre">docstrings</span></code> for a Python function, method, or function. Press <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> after the opening parenthesis in <code class="docutils literal notranslate"><span class="pre">flopy.utils.get_modflow()</span></code> below to see
+the <code class="docutils literal notranslate"><span class="pre">docstrings</span></code> for the function and determine the required (<code class="docutils literal notranslate"><span class="pre">args</span></code>) and optional arguments (<code class="docutils literal notranslate"><span class="pre">kwaargs</span></code>).</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span> <span class="o">=</span> <span class="s2">&quot;../temp/ex01b&quot;</span>
-<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;ex01b&quot;</span>
-<span class="n">exe_name</span> <span class="o">=</span> <span class="s2">&quot;mf6&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_modflow</span><span class="p">(</span><span class="s2">&quot;:python&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+auto-selecting option &#39;:python&#39; for &#39;bindir&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+fetched release &#39;18.0&#39; info from MODFLOW-USGS/executables
+downloading &#39;https://github.com/MODFLOW-USGS/executables/releases/download/18.0/linux.zip&#39; to &#39;/tmp/tmp2i3oc7b_/modflow_executables-18.0-linux.zip&#39;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+extracting 26 files to &#39;/home/runner/micromamba/envs/pyclass-docs/bin&#39;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+crt (1.3.1)         mf6 (6.4.4)         mfusg_gsi (2.2.2)   triangle (1.6)
+gridgen (1.0.02)    mflgr (2.0.0)       mp6 (6.0.1)         vs2dt (3.3)
+gsflow (2.2.1)      mflgrdbl (2.0.0)    mp7 (7.2.001)       zbud6 (6.4.4)
+libmf6.so (6.4.4)   mfnwt (1.3.0)       mt3dms (5.3.0)      zonbud3 (3.01)
+mf2000 (1.19.01)    mfnwtdbl (1.3.0)    mt3dusgs (1.1.0)    zonbudusg (1.5)
+mf2005 (1.12.00)    mfusg (1.5)         sutra (3.0)
+mf2005dbl (1.12.00) mfusgdbl (1.5)      swtv4 (4.00.05)
+wrote new flopy metadata file: &#39;/home/runner/.local/share/flopy/get_modflow.json&#39;
+</pre></div></div>
+</div>
+<p>Before creating any of the MODFLOW 6 FloPy objects you should define the simulation workspace (<code class="docutils literal notranslate"><span class="pre">ws</span></code>) where the model files are and the simulation name (<code class="docutils literal notranslate"><span class="pre">name</span></code>). The <code class="docutils literal notranslate"><span class="pre">ws</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">'data/ex01b'</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">ex01b</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create simulation</span>
-<span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">exe_name</span><span class="o">=</span><span class="n">exe_name</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span> <span class="o">=</span> <span class="s2">&quot;../temp/ex01b&quot;</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;ex01b&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>Create a simulation object, a temporal discretization object, and a iterative model solution object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.MFSimulation()</span></code>, <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowTdis()</span></code>, and <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowIms()</span></code>, respectively. Set the <code class="docutils literal notranslate"><span class="pre">sim_name</span></code> to <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">sim_ws</span></code> to <code class="docutils literal notranslate"><span class="pre">ws</span></code> in the simulation object. Use default values for all temporal discretization and iterative model solution variables. Make sure to include the simulation object (<code class="docutils literal notranslate"><span class="pre">sim</span></code>) as the first variable in the temporal discretization and
+iterative model solution objects.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create simulation (sim = flopy.mf6.MFSimulation())</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
 
-<span class="c1"># create tdis package</span>
+<span class="c1"># create tdis package (tdis = flopy.mf6.ModflowTdis(sim))</span>
 <span class="n">tdis</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowTdis</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
 
-<span class="c1"># create iterative model solution</span>
+<span class="c1"># create iterative model solution (ims = flopy.mf6.ModflowIms(sim))</span>
 <span class="n">ims</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowIms</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>Create the gwf model object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwf()</span></code>.</p>
+<p>Create the groundwater flow model object (<code class="docutils literal notranslate"><span class="pre">gwf</span></code>) using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwf()</span></code>. Make sure to include the simulation object (<code class="docutils literal notranslate"><span class="pre">sim</span></code>) as the first variable in the groundwater flow model object and set <code class="docutils literal notranslate"><span class="pre">modelname</span></code> to <code class="docutils literal notranslate"><span class="pre">name</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwf</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">modelname</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>Create the discretization package using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfdis()</span></code>.</p>
+<p>Create the discretization package using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfdis()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">DIS</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfdis()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-dis.html">ReadTheDocs document</a>.</p>
+<p>FloPy can accomodate all of the options for specifying array data for a model. <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for a variable can be specified by using a <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">int</span></code> python variable (as is done below for <code class="docutils literal notranslate"><span class="pre">DELR</span></code>, <code class="docutils literal notranslate"><span class="pre">DELC</span></code>, and <code class="docutils literal notranslate"><span class="pre">TOP</span></code>). <code class="docutils literal notranslate"><span class="pre">LAYERED</span></code> data can be specified by using a list or <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for each layer (as is done below for <code class="docutils literal notranslate"><span class="pre">BOTM</span></code> data) or a list of numpy arrays or lists. Three-Dimensional data can be specified using a three-dimensional numpy array (with a shape of
+<code class="docutils literal notranslate"><span class="pre">(nlay,</span> <span class="pre">nrow,</span> <span class="pre">ncol)</span></code>) for this example. More information on how to specify array data can be found in the <a class="reference external" href="https://flopy.readthedocs.io/en/latest/Notebooks/mf6_data_tutorial07.html#MODFLOW-6:-Working-with-MODFLOW-Grid-Array-Data">FloPy ReadTheDocs</a>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlay</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">20</span>
@@ -184,7 +237,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dis</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfdis</span><span class="p">(</span>
@@ -202,7 +255,7 @@
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">flopy.plot.PlotMapView()</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.plot.PlotCrossSection()</span></code> can be used to confirm that the discretization is correctly defined.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">)</span>
@@ -211,23 +264,23 @@
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.LineCollection at 0x1717a8610&gt;
+&lt;matplotlib.collections.LineCollection at 0x7f5cc8fac950&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_12_1.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_12_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_15_1.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_15_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
@@ -236,26 +289,26 @@
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.PatchCollection at 0x171857510&gt;
+&lt;matplotlib.collections.PatchCollection at 0x7f5cc8d02310&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_13_1.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_13_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_16_1.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_16_1.png" />
 </div>
 </div>
 <section id="Create-the-initial-conditions-(IC)-package">
 <h2>Create the initial conditions (IC) package<a class="headerlink" href="#Create-the-initial-conditions-(IC)-package" title="Link to this heading">¶</a></h2>
-<p>Create the discretization package using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfic()</span></code> and set the initial head (<code class="docutils literal notranslate"><span class="pre">strt</span></code>) to 320. Default values can be used for the rest of the initial conditions package input.</p>
+<p>Create the initial conditions package (<code class="docutils literal notranslate"><span class="pre">IC</span></code>) using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfic()</span></code> and set the initial head (<code class="docutils literal notranslate"><span class="pre">strt</span></code>) to 320. Default values can be used for the rest of the initial conditions package input. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">IC</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfic()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-ic.html">ReadTheDocs document</a>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ic</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfic</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">strt</span><span class="o">=</span><span class="mf">320.0</span><span class="p">)</span>
@@ -265,9 +318,10 @@
 </section>
 <section id="Create-the-node-property-flow-(NPF)-package">
 <h2>Create the node property flow (NPF) package<a class="headerlink" href="#Create-the-node-property-flow-(NPF)-package" title="Link to this heading">¶</a></h2>
-<p>The hydraulic properties for the model are defined in the image above. The first layer should be convertible (unconfined) and the remaining two layers will be non-convertible so <code class="docutils literal notranslate"><span class="pre">icelltype</span></code> should be <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>. The variable <code class="docutils literal notranslate"><span class="pre">save_specific_discharge</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> so that specific discharge data are saved to the cell-by-cell file and can be used to plot discharge.</p>
+<p>The hydraulic properties for the model are defined in the image above and are specified in the node property flow package (<code class="docutils literal notranslate"><span class="pre">NPF</span></code>) using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfnpf()</span></code>. The first layer should be convertible (unconfined) and the remaining two layers will be non-convertible so <code class="docutils literal notranslate"><span class="pre">icelltype</span></code> should be <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>. The variable <code class="docutils literal notranslate"><span class="pre">save_specific_discharge</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> so that specific discharge data are saved to the cell-by-cell file and can be used to plot discharge. Use
+<code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">NPF</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfic()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-npf.html">ReadTheDocs document</a>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span>
@@ -277,7 +331,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">npf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfnpf</span><span class="p">(</span>
@@ -289,9 +343,9 @@
 </section>
 <section id="Create-the-recharge-package">
 <h2>Create the recharge package<a class="headerlink" href="#Create-the-recharge-package" title="Link to this heading">¶</a></h2>
-<p>The recharge rate is defined in the image above. Use the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfrcha()</span></code> method to specify recharge data using arrays.</p>
+<p>The recharge rate is defined in the image above. Use the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfrcha()</span></code> method to specify recharge data using arrays. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">RCH</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfrcha()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-rcha.html">ReadTheDocs document</a>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rch</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfrcha</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">recharge</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
@@ -301,9 +355,16 @@
 </section>
 <section id="Create-the-well-package">
 <h2>Create the well package<a class="headerlink" href="#Create-the-well-package" title="Link to this heading">¶</a></h2>
-<p>The well is located in layer 3, row 11, column 10. The pumping rate is defined in the image above.</p>
+<p>The well is located in layer 3, row 11, column 10. The pumping rate is defined in the image above. Use the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfwel()</span></code> method to specify well data for the well package (<code class="docutils literal notranslate"><span class="pre">WEL</span></code>). Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">WEL</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfwel()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-wel.html">ReadTheDocs document</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stress_period_data</span></code> for list-based stress packages (for example, <code class="docutils literal notranslate"><span class="pre">WEL</span></code>, <code class="docutils literal notranslate"><span class="pre">DRN</span></code>, <code class="docutils literal notranslate"><span class="pre">RIV</span></code>, and <code class="docutils literal notranslate"><span class="pre">GHB</span></code>) is specified as a dictionary with the zero-based stress-period number as the key and a list of tuples, with the tuple containing the data required for each stress entry. For example, each tuple for the <code class="docutils literal notranslate"><span class="pre">WEL</span></code> package includes a zero-based cellid and the well rate <code class="docutils literal notranslate"><span class="pre">(cellid,</span> <span class="pre">q)</span></code>. For this example, the zero-based cellid for <code class="docutils literal notranslate"><span class="pre">WEL</span></code> package can be a tuple with the <code class="docutils literal notranslate"><span class="pre">(layer,</span> <span class="pre">row,</span> <span class="pre">column)</span></code>
+for the well or three integers separated by a comma <code class="docutils literal notranslate"><span class="pre">layer,</span> <span class="pre">row,</span> <span class="pre">column</span></code>. More information on how to specify <code class="docutils literal notranslate"><span class="pre">stress_period_data</span></code> for list based stress packages can be found in the <a class="reference external" href="https://flopy.readthedocs.io/en/latest/Notebooks/mf6_data_tutorial06.html#Adding-Stress-Period-List-Data">FloPy ReadTheDocs</a>.</p>
+<p>An example of a <code class="docutils literal notranslate"><span class="pre">stress_period_data</span></code> tuple for the <code class="docutils literal notranslate"><span class="pre">WEL</span></code> package is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># (layer, row, column, q)</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e5</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wel_spd</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="o">-</span><span class="mi">150000</span><span class="p">]]}</span>
@@ -316,47 +377,54 @@
 </section>
 <section id="Create-the-river-package">
 <h2>Create the river package<a class="headerlink" href="#Create-the-river-package" title="Link to this heading">¶</a></h2>
-<p>The river is located in layer 1 and column 20 in every row in the model. The river stage stage and bottom are at 320 and 318, respectively; the river conductance is 1e5.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<p>The river is located in layer 1 and column 20 in every row in the model. The river stage stage and bottom are at 320 and 318, respectively; the river conductance is 1e5. Use the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfriv()</span></code> method to specify well data for the river package (<code class="docutils literal notranslate"><span class="pre">RIV</span></code>). Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">RIV</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfriv()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-riv.html">ReadTheDocs
+document</a>.</p>
+<p>An example of a <code class="docutils literal notranslate"><span class="pre">stress_period_data</span></code> tuple for the <code class="docutils literal notranslate"><span class="pre">RIV</span></code> package is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># (layer, row, column, stage, cond, rbot)</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">320.</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="mf">318.</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv_spd</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span> <span class="mi">320</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="mi">318</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrow</span><span class="p">)]}</span>
+<p><strong>HINT</strong>: list comprehension is an easy way to create a river cell in every row in column 20 of the model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv_spd</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[((</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span> <span class="mi">320</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="mi">318</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrow</span><span class="p">)]}</span>
 <span class="n">riv_spd</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{0: [[(0, 0, 19), 320, 100000.0, 318],
-  [(0, 1, 19), 320, 100000.0, 318],
-  [(0, 2, 19), 320, 100000.0, 318],
-  [(0, 3, 19), 320, 100000.0, 318],
-  [(0, 4, 19), 320, 100000.0, 318],
-  [(0, 5, 19), 320, 100000.0, 318],
-  [(0, 6, 19), 320, 100000.0, 318],
-  [(0, 7, 19), 320, 100000.0, 318],
-  [(0, 8, 19), 320, 100000.0, 318],
-  [(0, 9, 19), 320, 100000.0, 318],
-  [(0, 10, 19), 320, 100000.0, 318],
-  [(0, 11, 19), 320, 100000.0, 318],
-  [(0, 12, 19), 320, 100000.0, 318],
-  [(0, 13, 19), 320, 100000.0, 318],
-  [(0, 14, 19), 320, 100000.0, 318],
-  [(0, 15, 19), 320, 100000.0, 318],
-  [(0, 16, 19), 320, 100000.0, 318],
-  [(0, 17, 19), 320, 100000.0, 318],
-  [(0, 18, 19), 320, 100000.0, 318],
-  [(0, 19, 19), 320, 100000.0, 318],
-  [(0, 20, 19), 320, 100000.0, 318]]}
+{0: [((0, 0, 19), 320, 100000.0, 318),
+  ((0, 1, 19), 320, 100000.0, 318),
+  ((0, 2, 19), 320, 100000.0, 318),
+  ((0, 3, 19), 320, 100000.0, 318),
+  ((0, 4, 19), 320, 100000.0, 318),
+  ((0, 5, 19), 320, 100000.0, 318),
+  ((0, 6, 19), 320, 100000.0, 318),
+  ((0, 7, 19), 320, 100000.0, 318),
+  ((0, 8, 19), 320, 100000.0, 318),
+  ((0, 9, 19), 320, 100000.0, 318),
+  ((0, 10, 19), 320, 100000.0, 318),
+  ((0, 11, 19), 320, 100000.0, 318),
+  ((0, 12, 19), 320, 100000.0, 318),
+  ((0, 13, 19), 320, 100000.0, 318),
+  ((0, 14, 19), 320, 100000.0, 318),
+  ((0, 15, 19), 320, 100000.0, 318),
+  ((0, 16, 19), 320, 100000.0, 318),
+  ((0, 17, 19), 320, 100000.0, 318),
+  ((0, 18, 19), 320, 100000.0, 318),
+  ((0, 19, 19), 320, 100000.0, 318),
+  ((0, 20, 19), 320, 100000.0, 318)]}
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfriv</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">stress_period_data</span><span class="o">=</span><span class="n">riv_spd</span><span class="p">)</span>
@@ -366,14 +434,14 @@
 </section>
 <section id="Build-output-control">
 <h2>Build output control<a class="headerlink" href="#Build-output-control" title="Link to this heading">¶</a></h2>
-<p>Define the output control for the model using the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfoc</span></code> method to <code class="docutils literal notranslate"><span class="pre">[('HEAD',</span> <span class="pre">'ALL'),</span> <span class="pre">('BUDGET',</span> <span class="pre">'ALL')]</span></code> to save the head and flow for the model. Because we haven’t set <code class="docutils literal notranslate"><span class="pre">SAVE_FLOWS</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> in all of the packages we can set <code class="docutils literal notranslate"><span class="pre">.name_file.save_flows</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> for the groundwater flow model (<code class="docutils literal notranslate"><span class="pre">gwf</span></code>) to save flows for all packages that can save flows. Also the head (<code class="docutils literal notranslate"><span class="pre">head_filerecord</span></code>) and cell-by-cell flow (<code class="docutils literal notranslate"><span class="pre">budget_filerecord</span></code>) files should be set to
-<code class="docutils literal notranslate"><span class="pre">name+'.hds'</span></code> and <code class="docutils literal notranslate"><span class="pre">name+'.cbc'</span></code>, respectively.</p>
+<p>Define the output control package (<code class="docutils literal notranslate"><span class="pre">OC</span></code>) for the model using the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfoc()</span></code> method to <code class="docutils literal notranslate"><span class="pre">[('HEAD',</span> <span class="pre">'ALL'),</span> <span class="pre">('BUDGET',</span> <span class="pre">'ALL')]</span></code> to save the head and flow for the model. Also the head (<code class="docutils literal notranslate"><span class="pre">head_filerecord</span></code>) and cell-by-cell flow (<code class="docutils literal notranslate"><span class="pre">budget_filerecord</span></code>) files should be set to <code class="docutils literal notranslate"><span class="pre">f&quot;{name}.hds&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">f&quot;{name}.cbc&quot;</span></code>, respectively. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">OC</span></code> package
+(<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfoc()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-oc.html">ReadTheDocs document</a>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hname</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.hds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-<span class="n">cname</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.cbc&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.hds&quot;</span>
+<span class="n">cname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.cbc&quot;</span>
 <span class="n">oc</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfoc</span><span class="p">(</span>
     <span class="n">gwf</span><span class="p">,</span>
     <span class="n">budget_filerecord</span><span class="o">=</span><span class="n">cname</span><span class="p">,</span>
@@ -383,8 +451,9 @@
 </pre></div>
 </div>
 </div>
+<p>Because we haven’t set <code class="docutils literal notranslate"><span class="pre">SAVE_FLOWS</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> in all of the packages we can set <code class="docutils literal notranslate"><span class="pre">.name_file.save_flows</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> for the groundwater flow model (<code class="docutils literal notranslate"><span class="pre">gwf</span></code>) to save flows for all packages that can save flows.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">name_file</span><span class="o">.</span><span class="n">save_flows</span> <span class="o">=</span> <span class="kc">True</span>
@@ -394,16 +463,16 @@
 </section>
 <section id="Write-the-model-files-and-run-the-model">
 <h2>Write the model files and run the model<a class="headerlink" href="#Write-the-model-files-and-run-the-model" title="Link to this heading">¶</a></h2>
+<p>Write the MODFLOW 6 model files using <code class="docutils literal notranslate"><span class="pre">sim.write_simulation()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified for <code class="docutils literal notranslate"><span class="pre">.write_simulation()</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -423,12 +492,28 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) c
     writing package riv_0...
 INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;riv&#39;, &#39;dimensions&#39;) changed to 21 based on size of stress_period_data
     writing package oc...
-FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mf6
+</pre></div></div>
+</div>
+<p>Run the model using <code class="docutils literal notranslate"><span class="pre">sim.run_simulation()</span></code>, which will run the MODFLOW 6 executable installed in the Miniforge class environment (<code class="docutils literal notranslate"><span class="pre">pyclass</span></code>) and the MODFLOW 6 model files created with <code class="docutils literal notranslate"><span class="pre">.write_simulation()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified for <code class="docutils literal notranslate"><span class="pre">.run_simulation()</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+FloPy is using the following executable to run the model: ../../../../../../../../../micromamba/envs/pyclass-docs/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.4.2 06/28/2023
+                            VERSION 6.4.4 02/13/2024
 
-   MODFLOW 6 compiled Jun 28 2023 18:34:54 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled Feb 19 2024 14:19:54 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -446,21 +531,21 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:36:33
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/23 17:29:38
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
     Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/02/05 11:36:33
- Elapsed run time:  0.081 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/23 17:29:38
+ Elapsed run time:  0.032 Seconds
 
  Normal termination of simulation.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -472,8 +557,9 @@ and distribution information.
 <section id="Post-process-the-results">
 <h2>Post-process the results<a class="headerlink" href="#Post-process-the-results" title="Link to this heading">¶</a></h2>
 <p>Load the heads and face flows from the hds and cbc files. The head file can be loaded with the <code class="docutils literal notranslate"><span class="pre">gwf.output.head()</span></code> method. The cell-by-cell file can be loaded with the <code class="docutils literal notranslate"><span class="pre">gwf.output.budget()</span></code> method.</p>
+<p>Name the heads data <code class="docutils literal notranslate"><span class="pre">hds</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hobj</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -481,7 +567,7 @@ and distribution information.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hds</span> <span class="o">=</span> <span class="n">hobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
@@ -489,7 +575,7 @@ and distribution information.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobj</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
@@ -498,7 +584,7 @@ and distribution information.
 </div>
 <p>The entries in the cell-by-cell file can be determined with the <code class="docutils literal notranslate"><span class="pre">.list_unique_records()</span></code> method on the cell budget file object.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobj</span><span class="o">.</span><span class="n">list_unique_records</span><span class="p">()</span>
@@ -519,9 +605,10 @@ RIV                  6
 RCHA                 6
 </pre></div></div>
 </div>
-<p>Retrieve the <code class="docutils literal notranslate"><span class="pre">'DATA-SPDIS'</span></code> data type from the cell-by-cell file.</p>
+<p>Retrieve the <code class="docutils literal notranslate"><span class="pre">'DATA-SPDIS'</span></code> data type from the cell-by-cell file. Name the specific discharge data <code class="docutils literal notranslate"><span class="pre">spd</span></code>.</p>
+<p>Cell-by-cell data is returned as a list so access the data by using <code class="docutils literal notranslate"><span class="pre">spd</span> <span class="pre">=</span> <span class="pre">gwf.output.budget().get_data(text=&quot;DATA-SPDIS&quot;)[0]</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spd</span> <span class="o">=</span> <span class="n">cobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;DATA-SPDIS&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -533,15 +620,29 @@ RCHA                 6
 <h2>Plot the results<a class="headerlink" href="#Plot-the-results" title="Link to this heading">¶</a></h2>
 <p>Plot the results using <code class="docutils literal notranslate"><span class="pre">flopy.plot.PlotMapView()</span></code>. The head results can be plotted using the <code class="docutils literal notranslate"><span class="pre">.plot_array()</span></code> method. The discharge results can be plotted using the <code class="docutils literal notranslate"><span class="pre">plot_specific_discharge()</span></code> method. Boundary conditions can be plotted using the <code class="docutils literal notranslate"><span class="pre">.plot_bc()</span></code> method.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">styles</span><span class="o">.</span><span class="n">USGSMap</span><span class="p">():</span>
-    <span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">)</span>
-    <span class="n">mm</span><span class="o">.</span><span class="n">plot_vector</span><span class="p">(</span><span class="n">spd</span><span class="p">[</span><span class="s2">&quot;qx&quot;</span><span class="p">],</span> <span class="n">spd</span><span class="p">[</span><span class="s2">&quot;qy&quot;</span><span class="p">])</span>
-    <span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;RIV&quot;</span><span class="p">)</span>
+    <span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">extent</span><span class="p">)</span>
+    <span class="n">cbv</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">plot_vector</span><span class="p">(</span><span class="n">spd</span><span class="p">[</span><span class="s2">&quot;qx&quot;</span><span class="p">],</span> <span class="n">spd</span><span class="p">[</span><span class="s2">&quot;qy&quot;</span><span class="p">])</span>
+    <span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;RIV&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
     <span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;WEL&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create data outside of plot limits for legend data</span>
+    <span class="n">font_prop</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">font_manager</span><span class="o">.</span><span class="n">FontProperties</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+    <span class="n">mm</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Well&quot;</span><span class="p">)</span>
+    <span class="n">mm</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;River cell&quot;</span><span class="p">)</span>
+
+    <span class="c1"># plot legend</span>
+    <span class="n">styles</span><span class="o">.</span><span class="n">graph_legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">quiverkey</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="mf">1.15</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="mf">0.825</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="mf">.200</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span><span class="s1">&#39;Specific</span><span class="se">\n</span><span class="s1">Discharge&#39;</span><span class="p">,</span> <span class="n">labelpos</span><span class="o">=</span><span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="n">fontproperties</span><span class="o">=</span><span class="n">font_prop</span><span class="p">)</span>
+
+    <span class="c1"># plot colorbar</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cbv</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">mm</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Head, ft&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -549,7 +650,7 @@ RCHA                 6
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_40_0.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_40_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_46_0.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_46_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -583,7 +684,7 @@ RCHA                 6
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../01-Flopy-intro.html" class="btn btn-neutral float-left" title="01: Introduction to Flopy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../01-Flopy-intro.html" class="btn btn-neutral float-left" title="01: Introduction to FloPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="03_Loading_and_visualizing_models-solutions.html" class="btn btn-neutral float-right" title="03: Loading and visualizing groundwater models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -591,7 +692,7 @@ RCHA                 6
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 21, 2024.
+      <span class="lastupdated">Last updated on Mar 23, 2024.
       </span></p>
   </div>
 

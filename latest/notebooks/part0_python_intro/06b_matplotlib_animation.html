@@ -368,42 +368,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgf81f1401a6bd490880952de1d9df12ca">
+  <img id="_anim_img6064100b7d554b5f89cc2b98532ca0db">
   <div class="anim-controls">
-    <input id="_anim_sliderf81f1401a6bd490880952de1d9df12ca" type="range" class="anim-slider"
+    <input id="_anim_slider6064100b7d554b5f89cc2b98532ca0db" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animf81f1401a6bd490880952de1d9df12ca.set_frame(parseInt(this.value));">
+           oninput="anim6064100b7d554b5f89cc2b98532ca0db.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animf81f1401a6bd490880952de1d9df12ca.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim6064100b7d554b5f89cc2b98532ca0db.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animf81f1401a6bd490880952de1d9df12ca.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim6064100b7d554b5f89cc2b98532ca0db.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animf81f1401a6bd490880952de1d9df12ca.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim6064100b7d554b5f89cc2b98532ca0db.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animf81f1401a6bd490880952de1d9df12ca.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim6064100b7d554b5f89cc2b98532ca0db.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animf81f1401a6bd490880952de1d9df12ca.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim6064100b7d554b5f89cc2b98532ca0db.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animf81f1401a6bd490880952de1d9df12ca.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim6064100b7d554b5f89cc2b98532ca0db.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animf81f1401a6bd490880952de1d9df12ca.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim6064100b7d554b5f89cc2b98532ca0db.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animf81f1401a6bd490880952de1d9df12ca.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim6064100b7d554b5f89cc2b98532ca0db.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animf81f1401a6bd490880952de1d9df12ca.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim6064100b7d554b5f89cc2b98532ca0db.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectf81f1401a6bd490880952de1d9df12ca"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select6064100b7d554b5f89cc2b98532ca0db"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_f81f1401a6bd490880952de1d9df12ca"
+      <input type="radio" name="state" value="once" id="_anim_radio1_6064100b7d554b5f89cc2b98532ca0db"
              >
-      <label for="_anim_radio1_f81f1401a6bd490880952de1d9df12ca">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_f81f1401a6bd490880952de1d9df12ca"
+      <label for="_anim_radio1_6064100b7d554b5f89cc2b98532ca0db">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_6064100b7d554b5f89cc2b98532ca0db"
              checked>
-      <label for="_anim_radio2_f81f1401a6bd490880952de1d9df12ca">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_f81f1401a6bd490880952de1d9df12ca"
+      <label for="_anim_radio2_6064100b7d554b5f89cc2b98532ca0db">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_6064100b7d554b5f89cc2b98532ca0db"
              >
-      <label for="_anim_radio3_f81f1401a6bd490880952de1d9df12ca">Reflect</label>
+      <label for="_anim_radio3_6064100b7d554b5f89cc2b98532ca0db">Reflect</label>
     </form>
   </div>
 </div>
@@ -413,9 +413,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgf81f1401a6bd490880952de1d9df12ca";
-    var slider_id = "_anim_sliderf81f1401a6bd490880952de1d9df12ca";
-    var loop_select_id = "_anim_loop_selectf81f1401a6bd490880952de1d9df12ca";
+    var img_id = "_anim_img6064100b7d554b5f89cc2b98532ca0db";
+    var slider_id = "_anim_slider6064100b7d554b5f89cc2b98532ca0db";
+    var loop_select_id = "_anim_loop_select6064100b7d554b5f89cc2b98532ca0db";
     var frames = new Array(50);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -19992,7 +19992,7 @@ ERERCTAqAEVEREQCjApAERERkQDzf8X7jZaEBn70AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animf81f1401a6bd490880952de1d9df12ca = new Animation(frames, img_id, slider_id, 200.0,
+        anim6064100b7d554b5f89cc2b98532ca0db = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -20031,7 +20031,7 @@ ERERCTAqAEVEREQCjApAERERkQDzf8X7jZaEBn70AAAAAElFTkSuQmCC\
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 21, 2024.
+      <span class="lastupdated">Last updated on Mar 23, 2024.
       </span></p>
   </div>
 

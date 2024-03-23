@@ -57,7 +57,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="01-Flopy-intro.html">01: Introduction to Flopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-Flopy-intro.html">01: Introduction to FloPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
@@ -141,7 +141,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="da9d7284c7b8497c980292a4353e52aa" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="6c9a96f39b1b49d198c26914f304feca" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -340,7 +340,7 @@ creating shapely Polygons of grid cells...
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-finished in 0.10s
+finished in 0.15s
 
 </pre></div></div>
 </div>
@@ -388,7 +388,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post417+g150a877
+Pleasant Lake test case version 0.1.post419+ga1dd405
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -484,7 +484,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post417+g150a877
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post419+ga1dd405
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -724,7 +724,7 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/21 21:47:33
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/23 17:28:40
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -841,8 +841,8 @@ and distribution information.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/21 21:47:38
- Elapsed run time:  5.045 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/23 17:28:45
+ Elapsed run time:  5.052 Seconds
 
 
 WARNING REPORT:
@@ -1045,7 +1045,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 21, 2024.
+      <span class="lastupdated">Last updated on Mar 23, 2024.
       </span></p>
   </div>
 
