@@ -141,7 +141,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="b77afccc5fbd4e70a6f8c42c3d86dad6" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="40287498ba63469c93fc6a0072d1ddfe" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -225,7 +225,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.06s
+finished in 0.07s
 
 </pre></div></div>
 </div>
@@ -340,8 +340,16 @@ creating shapely Polygons of grid cells...
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-finished in 0.10s
+finished in 0.20s
 
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+writing postproc/shps/plsnt-lgr-inset_grid.shp...
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -349,7 +357,7 @@ finished in 0.10s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
+ Done
 </pre></div></div>
 </div>
 <section id="Change-the-working-directory-back-to-the-notebook-location">
@@ -388,7 +396,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post422+gef2d020
+Pleasant Lake test case version 0.1.post423+g428f0a4
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -484,7 +492,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post422+gef2d020
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post423+g428f0a4
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -724,7 +732,7 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/03/23 17:54:03
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/04/12 15:00:19
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -841,8 +849,8 @@ and distribution information.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/03/23 17:54:08
- Elapsed run time:  5.026 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/04/12 15:00:24
+ Elapsed run time:  5.067 Seconds
 
 
 WARNING REPORT:
@@ -1045,7 +1053,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 23, 2024.
+      <span class="lastupdated">Last updated on Apr 12, 2024.
       </span></p>
   </div>
 
