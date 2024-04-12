@@ -11,5 +11,11 @@ Click [here](https://doi-usgs.github.io/python-for-hydrology/latest/) to see a r
 
 We encourage students to explore these materials for their own study or to reach out to USGS to attend an in-person course.
 
+Suggested Citation:
+Fienen MN, Hughes, JD, Langevin, CL, Larsen, JD, and Leaf, AT. 2024.
+python-for-hydrology 
+U.S. Geological Survey software release. Reston, VA.
+https://doi.org/10.5066/P1QTRYJY
+
 _For USGS internal use, this is related to IP-162677._
 
