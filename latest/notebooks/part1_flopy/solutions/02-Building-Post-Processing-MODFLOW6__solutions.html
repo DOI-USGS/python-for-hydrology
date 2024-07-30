@@ -124,7 +124,7 @@
 <h1>02: Building and post-processing a MODFLOW 6 model<a class="headerlink" href="#02:-Building-and-post-processing-a-MODFLOW-6-model" title="Link to this heading">¶</a></h1>
 <p>A MODFLOW 6 model will be developed of the domain shown above. This model simulation is based on example 1 in <a class="reference external" href="https://doi.org/10.3133/ofr20161086">Pollock, D.W., 2016, User guide for MODPATH Version 7—A particle-tracking model for MODFLOW: U.S. Geological Survey Open-File Report 2016–1086, 35 p., http://dx.doi.org/10.3133/ofr20161086</a>.</p>
 <p>The model domain will be discretized into 3 layers, 21 rows, and 20 columns. A constant value of 500 ft will be specified for <code class="docutils literal notranslate"><span class="pre">delr</span></code> and <code class="docutils literal notranslate"><span class="pre">delc</span></code>. The top (<code class="docutils literal notranslate"><span class="pre">TOP</span></code>) of the model should be set to 400 ft and the bottom of the three layers should be set to 220 ft, 200 ft, and 0 ft, respectively. The model has one steady-state stress period.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -135,6 +135,115 @@
 <span class="kn">from</span> <span class="nn">flopy.plot</span> <span class="kn">import</span> <span class="n">styles</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[1], line 4</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">matplotlib</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">mpl</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">matplotlib</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">pyplot</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">plt</span>
+<span class="ansi-green-fg">----&gt; 4</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">flopy</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">flopy</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">plot</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> styles
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/__init__.py:26</span>
+<span class="ansi-green-intense-fg ansi-bold">     23</span> __author__ <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">FloPy Team</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">     25</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">version</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> __version__  <span style="color: rgb(95,135,135)"># isort:skip</span>
+<span class="ansi-green-fg">---&gt; 26</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> (
+<span class="ansi-green-intense-fg ansi-bold">     27</span>     discretization,
+<span class="ansi-green-intense-fg ansi-bold">     28</span>     export,
+<span class="ansi-green-intense-fg ansi-bold">     29</span>     mf6,
+<span class="ansi-green-intense-fg ansi-bold">     30</span>     mfusg,
+<span class="ansi-green-intense-fg ansi-bold">     31</span>     modflow,
+<span class="ansi-green-intense-fg ansi-bold">     32</span>     modflowlgr,
+<span class="ansi-green-intense-fg ansi-bold">     33</span>     modpath,
+<span class="ansi-green-intense-fg ansi-bold">     34</span>     mt3d,
+<span class="ansi-green-intense-fg ansi-bold">     35</span>     pest,
+<span class="ansi-green-intense-fg ansi-bold">     36</span>     plot,
+<span class="ansi-green-intense-fg ansi-bold">     37</span>     seawat,
+<span class="ansi-green-intense-fg ansi-bold">     38</span>     utils,
+<span class="ansi-green-intense-fg ansi-bold">     39</span> )
+<span class="ansi-green-intense-fg ansi-bold">     40</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">mbase</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> run_model, which
+<span class="ansi-green-intense-fg ansi-bold">     42</span> __all__ <span style="color: rgb(98,98,98)">=</span> [
+<span class="ansi-green-intense-fg ansi-bold">     43</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">__author__</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">     44</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">__version__</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     58</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">which</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">     59</span> ]
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/discretization/__init__.py:1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">structuredgrid</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> StructuredGrid
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">unstructuredgrid</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> UnstructuredGrid
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">vertexgrid</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> VertexGrid
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/discretization/structuredgrid.py:7</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">typing</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> Union
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">numpy</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">np</span>
+<span class="ansi-green-fg">----&gt; 7</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">grid</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> CachedData, Grid
+<span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">array_at_verts_basic2d</span>(a):
+<span class="ansi-green-intense-fg ansi-bold">     11</span> <span style="color: rgb(188,188,188)">    </span><span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span> <span style="color: rgb(175,0,0)">    Computes values at cell vertices on 2d array using neighbor averaging.</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span>
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     22</span> <span style="color: rgb(175,0,0)">        Array values at cell vertices, shape (a.shape[0]+1, a.shape[1]+1).</span>
+<span class="ansi-green-intense-fg ansi-bold">     23</span> <span style="color: rgb(175,0,0)">    &#34;&#34;&#34;</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/discretization/grid.py:16</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ImportError</span>:
+<span class="ansi-green-intense-fg ansi-bold">     14</span>     HAS_PYPROJ <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
+<span class="ansi-green-fg">---&gt; 16</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">utils</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> geometry
+<span class="ansi-green-intense-fg ansi-bold">     17</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">utils</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">crs</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> get_crs
+<span class="ansi-green-intense-fg ansi-bold">     18</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">utils</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">gridutil</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> get_lni
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/__init__.py:51</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">optionblock</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> OptionBlock
+<span class="ansi-green-intense-fg ansi-bold">     50</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">postprocessing</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> get_specific_discharge, get_transmissivities
+<span class="ansi-green-fg">---&gt; 51</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">rasters</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> Raster
+<span class="ansi-green-intense-fg ansi-bold">     52</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">recarray_utils</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> create_empty_recarray, ra_slice, recarray
+<span class="ansi-green-intense-fg ansi-bold">     53</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">reference</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> TemporalReference
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/rasters.py:13</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">utl_import</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> import_optional_dependency
+<span class="ansi-green-intense-fg ansi-bold">     10</span> warnings<span style="color: rgb(98,98,98)">.</span>simplefilter(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">always</span><span style="color: rgb(175,0,0)">&#34;</span>, <span class="ansi-bold" style="color: rgb(215,95,95)">DeprecationWarning</span>)
+<span class="ansi-green-fg">---&gt; 13</span> <span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">class</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,0,255)">Raster</span><span class="ansi-yellow-bg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     14</span> <span class="ansi-yellow-bg" style="color: rgb(188,188,188)">    </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">     15</span> <span class="ansi-yellow-bg" style="color: rgb(175,0,0)">    The Raster object is used for cropping, sampling raster values,</span>
+<span class="ansi-green-intense-fg ansi-bold">     16</span> <span class="ansi-yellow-bg" style="color: rgb(175,0,0)">    and re-sampling raster values to grids, and provides methods to</span>
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     45</span>
+<span class="ansi-green-intense-fg ansi-bold">     46</span> <span class="ansi-yellow-bg" style="color: rgb(175,0,0)">    &#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">FLOAT32</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">float</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">np</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">float32</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">np</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">float_</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/rasters.py:48</span>, in <span class="ansi-cyan-fg">Raster</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span> <span class="ansi-bold" style="color: rgb(0,135,0)">class</span> <span class="ansi-bold" style="color: rgb(0,0,255)">Raster</span>:
+<span class="ansi-green-intense-fg ansi-bold">     14</span> <span style="color: rgb(188,188,188)">    </span><span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">     15</span> <span style="color: rgb(175,0,0)">    The Raster object is used for cropping, sampling raster values,</span>
+<span class="ansi-green-intense-fg ansi-bold">     16</span> <span style="color: rgb(175,0,0)">    and re-sampling raster values to grids, and provides methods to</span>
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     45</span>
+<span class="ansi-green-intense-fg ansi-bold">     46</span> <span style="color: rgb(175,0,0)">    &#34;&#34;&#34;</span>
+<span class="ansi-green-fg">---&gt; 48</span>     FLOAT32 <span style="color: rgb(98,98,98)">=</span> (<span style="color: rgb(0,135,0)">float</span>, np<span style="color: rgb(98,98,98)">.</span>float32, <span class="ansi-yellow-bg">np</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">float_</span>)
+<span class="ansi-green-intense-fg ansi-bold">     49</span>     FLOAT64 <span style="color: rgb(98,98,98)">=</span> (np<span style="color: rgb(98,98,98)">.</span>float64,)
+<span class="ansi-green-intense-fg ansi-bold">     50</span>     INT8 <span style="color: rgb(98,98,98)">=</span> (np<span style="color: rgb(98,98,98)">.</span>int8, np<span style="color: rgb(98,98,98)">.</span>uint8)
+
+File <span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/numpy/__init__.py:397</span>, in <span class="ansi-cyan-fg">__getattr__</span><span class="ansi-blue-fg">(attr)</span>
+<span class="ansi-green-intense-fg ansi-bold">    394</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">AttributeError</span>(__former_attrs__[attr])
+<span class="ansi-green-intense-fg ansi-bold">    396</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> attr <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> __expired_attributes__:
+<span class="ansi-green-fg">--&gt; 397</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">AttributeError</span>(
+<span class="ansi-green-intense-fg ansi-bold">    398</span>         <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">`np.</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>attr<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">` was removed in the NumPy 2.0 release. </span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    399</span>         <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>__expired_attributes__[attr]<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    400</span>     )
+<span class="ansi-green-intense-fg ansi-bold">    402</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> attr <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">chararray</span><span style="color: rgb(175,0,0)">&#34;</span>:
+<span class="ansi-green-intense-fg ansi-bold">    403</span>     warnings<span style="color: rgb(98,98,98)">.</span>warn(
+<span class="ansi-green-intense-fg ansi-bold">    404</span>         <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">`np.chararray` is deprecated and will be removed from </span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    405</span>         <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">the main namespace in the future. Use an array with a string </span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    406</span>         <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">or bytes dtype instead.</span><span style="color: rgb(175,0,0)">&#34;</span>, <span class="ansi-bold" style="color: rgb(215,95,95)">DeprecationWarning</span>, stacklevel<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">2</span>)
+
+<span class="ansi-red-fg">AttributeError</span>: `np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead.
+</pre></div></div>
 </div>
 <p>Before we get started lets install MODFLOW 6, other MODFLOW-based executables (MODFLOW-2005, MT3DMS, <em>etc.</em>), and utilities programs used by FloPy (gridgen and triangle) in the Miniforge class environment (<code class="docutils literal notranslate"><span class="pre">pyclass</span></code>) using FloPy <code class="docutils literal notranslate"><span class="pre">get-modflow</span></code> functionality (<code class="docutils literal notranslate"><span class="pre">flopy.utils.get_modflow()</span></code>). Remember that <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> can be used to see the <code class="docutils literal notranslate"><span class="pre">docstrings</span></code> for a Python function, method, or function. Press <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> after the opening parenthesis in <code class="docutils literal notranslate"><span class="pre">flopy.utils.get_modflow()</span></code> below to see
 the <code class="docutils literal notranslate"><span class="pre">docstrings</span></code> for the function and determine the required (<code class="docutils literal notranslate"><span class="pre">args</span></code>) and optional arguments (<code class="docutils literal notranslate"><span class="pre">kwaargs</span></code>).</p>
@@ -151,18 +260,12 @@ the <code class="docutils literal notranslate"><span class="pre">docstrings</spa
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-auto-selecting option &#39;:python&#39; for &#39;bindir&#39;
-fetched release &#39;19.0&#39; info from MODFLOW-USGS/executables
-downloading &#39;https://github.com/MODFLOW-USGS/executables/releases/download/19.0/linux.zip&#39; to &#39;/tmp/tmpv12a7qgp/modflow_executables-19.0-linux.zip&#39;
-extracting 25 files to &#39;/home/runner/micromamba/envs/pyclass-docs/bin&#39;
-crt (1.3.1)         mflgr (2.0.0)       mp6 (6.0.1)         vs2dt (3.3)
-gridgen (1.0.02)    mflgrdbl (2.0.0)    mp7 (7.2.001)       zbud6 (6.5.0)
-libmf6.so (6.5.0)   mfnwt (1.3.0)       mt3dms (5.3.0)      zonbud3 (3.01)
-mf2000 (1.19.01)    mfnwtdbl (1.3.0)    mt3dusgs (1.1.0)    zonbudusg (1.5)
-mf2005 (1.12.00)    mfusg (1.5)         sutra (3.0)
-mf2005dbl (1.12.00) mfusgdbl (1.5)      swtv4 (4.00.05)
-mf6 (6.5.0)         mfusg_gsi (2.3.0)   triangle (1.6)
-wrote new flopy metadata file: &#39;/home/runner/.local/share/flopy/get_modflow.json&#39;
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[2], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>utils<span style="color: rgb(98,98,98)">.</span>get_modflow(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">:python</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
 </pre></div></div>
 </div>
 <p>Before creating any of the MODFLOW 6 FloPy objects you should define the simulation workspace (<code class="docutils literal notranslate"><span class="pre">ws</span></code>) where the model files are and the simulation name (<code class="docutils literal notranslate"><span class="pre">name</span></code>). The <code class="docutils literal notranslate"><span class="pre">ws</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">'data/ex01b'</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">ex01b</span></code>.</p>
@@ -177,7 +280,7 @@ wrote new flopy metadata file: &#39;/home/runner/.local/share/flopy/get_modflow.
 </div>
 <p>Create a simulation object, a temporal discretization object, and a iterative model solution object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.MFSimulation()</span></code>, <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowTdis()</span></code>, and <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowIms()</span></code>, respectively. Set the <code class="docutils literal notranslate"><span class="pre">sim_name</span></code> to <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">sim_ws</span></code> to <code class="docutils literal notranslate"><span class="pre">ws</span></code> in the simulation object. Use default values for all temporal discretization and iterative model solution variables. Make sure to include the simulation object (<code class="docutils literal notranslate"><span class="pre">sim</span></code>) as the first variable in the temporal discretization and
 iterative model solution objects.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
@@ -192,14 +295,43 @@ iterative model solution objects.</p>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[4], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span style="color: rgb(95,135,135)"># create simulation (sim = flopy.mf6.MFSimulation())</span>
+<span class="ansi-green-fg">----&gt; 2</span> sim <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>MFSimulation(sim_name<span style="color: rgb(98,98,98)">=</span>name, sim_ws<span style="color: rgb(98,98,98)">=</span>ws)
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span style="color: rgb(95,135,135)"># create tdis package (tdis = flopy.mf6.ModflowTdis(sim))</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> tdis <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowTdis(sim)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
+</div>
 <p>Create the groundwater flow model object (<code class="docutils literal notranslate"><span class="pre">gwf</span></code>) using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwf()</span></code>. Make sure to include the simulation object (<code class="docutils literal notranslate"><span class="pre">sim</span></code>) as the first variable in the groundwater flow model object and set <code class="docutils literal notranslate"><span class="pre">modelname</span></code> to <code class="docutils literal notranslate"><span class="pre">name</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwf</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">modelname</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[5], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> gwf <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwf(sim, modelname<span style="color: rgb(98,98,98)">=</span>name)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
 </div>
 <p>Create the discretization package using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfdis()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">DIS</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfdis()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-dis.html">ReadTheDocs document</a>.</p>
 <p>FloPy can accomodate all of the options for specifying array data for a model. <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for a variable can be specified by using a <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">int</span></code> python variable (as is done below for <code class="docutils literal notranslate"><span class="pre">DELR</span></code>, <code class="docutils literal notranslate"><span class="pre">DELC</span></code>, and <code class="docutils literal notranslate"><span class="pre">TOP</span></code>). <code class="docutils literal notranslate"><span class="pre">LAYERED</span></code> data can be specified by using a list or <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for each layer (as is done below for <code class="docutils literal notranslate"><span class="pre">BOTM</span></code> data) or a list of numpy arrays or lists. Three-Dimensional data can be specified using a three-dimensional numpy array (with a shape of
@@ -215,7 +347,7 @@ iterative model solution objects.</p>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
@@ -232,6 +364,28 @@ iterative model solution objects.</p>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[7], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> dis <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfdis(
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     gwf,
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     nlay<span style="color: rgb(98,98,98)">=</span>nlay,
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     nrow<span style="color: rgb(98,98,98)">=</span>nrow,
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     ncol<span style="color: rgb(98,98,98)">=</span>ncol,
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     delr<span style="color: rgb(98,98,98)">=</span>delr,
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     delc<span style="color: rgb(98,98,98)">=</span>delc,
+<span class="ansi-green-intense-fg ansi-bold">      8</span>     top<span style="color: rgb(98,98,98)">=</span>top,
+<span class="ansi-green-intense-fg ansi-bold">      9</span>     botm<span style="color: rgb(98,98,98)">=</span>botm,
+<span class="ansi-green-intense-fg ansi-bold">     10</span> )
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">flopy.plot.PlotMapView()</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.plot.PlotCrossSection()</span></code> can be used to confirm that the discretization is correctly defined.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -242,34 +396,19 @@ iterative model solution objects.</p>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
-  warnings.warn(
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
-  warnings.warn(
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/IPython/core/pylabtools.py:77: DeprecationWarning: backend2gui is deprecated since IPython 8.24, backends are managed in matplotlib and can be externally registered.
-  warnings.warn(
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;matplotlib.collections.LineCollection at 0x7f343579a150&gt;
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_15_2.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_15_2.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[8], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> mm <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(model<span style="color: rgb(98,98,98)">=</span>gwf)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> mm<span style="color: rgb(98,98,98)">.</span>plot_grid()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -280,32 +419,43 @@ iterative model solution objects.</p>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;matplotlib.collections.PatchCollection at 0x7f342d544c90&gt;
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_16_1.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_16_1.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[9], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> xs <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotCrossSection(model<span style="color: rgb(98,98,98)">=</span>gwf, line<span style="color: rgb(98,98,98)">=</span>{<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">row</span><span style="color: rgb(175,0,0)">&#34;</span>: <span style="color: rgb(98,98,98)">10</span>})
+<span class="ansi-green-intense-fg ansi-bold">      2</span> xs<span style="color: rgb(98,98,98)">.</span>plot_grid()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
 </div>
 <section id="Create-the-initial-conditions-(IC)-package">
 <h2>Create the initial conditions (IC) package<a class="headerlink" href="#Create-the-initial-conditions-(IC)-package" title="Link to this heading">¶</a></h2>
 <p>Create the initial conditions package (<code class="docutils literal notranslate"><span class="pre">IC</span></code>) using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfic()</span></code> and set the initial head (<code class="docutils literal notranslate"><span class="pre">strt</span></code>) to 320. Default values can be used for the rest of the initial conditions package input. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">IC</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfic()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-ic.html">ReadTheDocs document</a>.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ic</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfic</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">strt</span><span class="o">=</span><span class="mf">320.0</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[10], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> ic <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfic(gwf, strt<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">320.0</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Create-the-node-property-flow-(NPF)-package">
@@ -322,7 +472,7 @@ iterative model solution objects.</p>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
@@ -332,17 +482,45 @@ iterative model solution objects.</p>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[12], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> npf <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfnpf(
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     gwf, save_specific_discharge<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, icelltype<span style="color: rgb(98,98,98)">=</span>icelltype, k<span style="color: rgb(98,98,98)">=</span>kh, k33<span style="color: rgb(98,98,98)">=</span>kv
+<span class="ansi-green-intense-fg ansi-bold">      3</span> )
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
+</div>
 </section>
 <section id="Create-the-recharge-package">
 <h2>Create the recharge package<a class="headerlink" href="#Create-the-recharge-package" title="Link to this heading">¶</a></h2>
 <p>The recharge rate is defined in the image above. Use the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfrcha()</span></code> method to specify recharge data using arrays. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">RCH</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfrcha()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-rcha.html">ReadTheDocs document</a>.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rch</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfrcha</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">recharge</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[13], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> rch <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfrcha(gwf, recharge<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.005</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Create-the-well-package">
@@ -355,7 +533,7 @@ for the well or three integers separated by a comma <code class="docutils litera
 <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e5</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
@@ -365,6 +543,22 @@ for the well or three integers separated by a comma <code class="docutils litera
 <span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[14], line 2</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> wel_spd <span style="color: rgb(98,98,98)">=</span> {<span style="color: rgb(98,98,98)">0</span>: [[(<span style="color: rgb(98,98,98)">2</span>, <span style="color: rgb(98,98,98)">10</span>, <span style="color: rgb(98,98,98)">9</span>), <span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">150000</span>]]}
+<span class="ansi-green-fg">----&gt; 2</span> wel <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfwel(
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     gwf, print_input<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, stress_period_data<span style="color: rgb(98,98,98)">=</span>wel_spd
+<span class="ansi-green-intense-fg ansi-bold">      4</span> )
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Create-the-river-package">
@@ -415,7 +609,7 @@ document</a>.</p>
   ((0, 20, 19), 320, 100000.0, 318)]}
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
@@ -423,12 +617,25 @@ document</a>.</p>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[16], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> riv <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfriv(gwf, stress_period_data<span style="color: rgb(98,98,98)">=</span>riv_spd)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
+</div>
 </section>
 <section id="Build-output-control">
 <h2>Build output control<a class="headerlink" href="#Build-output-control" title="Link to this heading">¶</a></h2>
 <p>Define the output control package (<code class="docutils literal notranslate"><span class="pre">OC</span></code>) for the model using the <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfoc()</span></code> method to <code class="docutils literal notranslate"><span class="pre">[('HEAD',</span> <span class="pre">'ALL'),</span> <span class="pre">('BUDGET',</span> <span class="pre">'ALL')]</span></code> to save the head and flow for the model. Also the head (<code class="docutils literal notranslate"><span class="pre">head_filerecord</span></code>) and cell-by-cell flow (<code class="docutils literal notranslate"><span class="pre">budget_filerecord</span></code>) files should be set to <code class="docutils literal notranslate"><span class="pre">f&quot;{name}.hds&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">f&quot;{name}.cbc&quot;</span></code>, respectively. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">OC</span></code> package
 (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfoc()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-oc.html">ReadTheDocs document</a>.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
@@ -443,14 +650,47 @@ document</a>.</p>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[17], line 3</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> hname <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>name<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">.hds</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> cname <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>name<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">.cbc</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-fg">----&gt; 3</span> oc <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">flopy</span><span style="color: rgb(98,98,98)">.</span>mf6<span style="color: rgb(98,98,98)">.</span>ModflowGwfoc(
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     gwf,
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     budget_filerecord<span style="color: rgb(98,98,98)">=</span>cname,
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     head_filerecord<span style="color: rgb(98,98,98)">=</span>hname,
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     saverecord<span style="color: rgb(98,98,98)">=</span>[(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">HEAD</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">ALL</span><span style="color: rgb(175,0,0)">&#34;</span>), (<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">BUDGET</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">ALL</span><span style="color: rgb(175,0,0)">&#34;</span>)],
+<span class="ansi-green-intense-fg ansi-bold">      8</span> )
+
+<span class="ansi-red-fg">NameError</span>: name &#39;flopy&#39; is not defined
+</pre></div></div>
+</div>
 <p>Because we haven’t set <code class="docutils literal notranslate"><span class="pre">SAVE_FLOWS</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> in all of the packages we can set <code class="docutils literal notranslate"><span class="pre">.name_file.save_flows</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> for the groundwater flow model (<code class="docutils literal notranslate"><span class="pre">gwf</span></code>) to save flows for all packages that can save flows.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">name_file</span><span class="o">.</span><span class="n">save_flows</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[18], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">gwf</span><span style="color: rgb(98,98,98)">.</span>name_file<span style="color: rgb(98,98,98)">.</span>save_flows <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Write-the-model-files-and-run-the-model">
@@ -469,21 +709,12 @@ document</a>.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-writing simulation...
-  writing simulation name file...
-  writing simulation tdis package...
-  writing solution package ims_-1...
-  writing model ex01b...
-    writing model name file...
-    writing package dis...
-    writing package ic...
-    writing package npf...
-    writing package rcha_0...
-    writing package wel_0...
-INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) changed to 1 based on size of stress_period_data
-    writing package riv_0...
-INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;riv&#39;, &#39;dimensions&#39;) changed to 21 based on size of stress_period_data
-    writing package oc...
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[19], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">sim</span><span style="color: rgb(98,98,98)">.</span>write_simulation()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;sim&#39; is not defined
 </pre></div></div>
 </div>
 <p>Run the model using <code class="docutils literal notranslate"><span class="pre">sim.run_simulation()</span></code>, which will run the MODFLOW 6 executable installed in the Miniforge class environment (<code class="docutils literal notranslate"><span class="pre">pyclass</span></code>) and the MODFLOW 6 model files created with <code class="docutils literal notranslate"><span class="pre">.write_simulation()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified for <code class="docutils literal notranslate"><span class="pre">.run_simulation()</span></code>.</p>
@@ -495,56 +726,17 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;riv&#39;, &#39;dimensions&#39;) c
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-FloPy is using the following executable to run the model: ../../../../../../../../../micromamba/envs/pyclass-docs/bin/mf6
-                                   MODFLOW 6
-                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.5.0 05/23/2024
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[20], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">sim</span><span style="color: rgb(98,98,98)">.</span>run_simulation()
 
-   MODFLOW 6 compiled Jun 21 2024 02:57:38 with Intel(R) Fortran Intel(R) 64
-   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
-                             Build 20220726_000000
-
-This software has been approved for release by the U.S. Geological
-Survey (USGS). Although the software has been subjected to rigorous
-review, the USGS reserves the right to update the software as needed
-pursuant to further analysis and review. No warranty, expressed or
-implied, is made by the USGS or the U.S. Government as to the
-functionality of the software and related material nor shall the
-fact of release constitute any such warranty. Furthermore, the
-software is released on condition that neither the USGS nor the U.S.
-Government shall be held liable for any damages resulting from its
-authorized or unauthorized use. Also refer to the USGS Water
-Resources Software User Rights Notice for complete use, copyright,
-and distribution information.
-
-
- MODFLOW runs in SEQUENTIAL mode
-
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/07/10 16:16:17
-
- Writing simulation list file: mfsim.lst
- Using Simulation name file: mfsim.nam
-
-    Solving:  Stress period:     1    Time step:     1
-
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/07/10 16:16:17
- Elapsed run time:  0.033 Seconds
-
- Normal termination of simulation.
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(True, [])
+<span class="ansi-red-fg">NameError</span>: name &#39;sim&#39; is not defined
 </pre></div></div>
 </div>
 </section>
@@ -552,7 +744,7 @@ and distribution information.
 <h2>Post-process the results<a class="headerlink" href="#Post-process-the-results" title="Link to this heading">¶</a></h2>
 <p>Load the heads and face flows from the hds and cbc files. The head file can be loaded with the <code class="docutils literal notranslate"><span class="pre">gwf.output.head()</span></code> method. The cell-by-cell file can be loaded with the <code class="docutils literal notranslate"><span class="pre">gwf.output.budget()</span></code> method.</p>
 <p>Name the heads data <code class="docutils literal notranslate"><span class="pre">hds</span></code>.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
@@ -560,7 +752,20 @@ and distribution information.
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[21], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> hobj <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gwf</span><span style="color: rgb(98,98,98)">.</span>output<span style="color: rgb(98,98,98)">.</span>head()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
@@ -568,13 +773,39 @@ and distribution information.
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[22], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> hds <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">hobj</span><span style="color: rgb(98,98,98)">.</span>get_data()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;hobj&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cobj</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[23], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> cobj <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">gwf</span><span style="color: rgb(98,98,98)">.</span>output<span style="color: rgb(98,98,98)">.</span>budget()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;gwf&#39; is not defined
+</pre></div></div>
 </div>
 <p>The entries in the cell-by-cell file can be determined with the <code class="docutils literal notranslate"><span class="pre">.list_unique_records()</span></code> method on the cell budget file object.</p>
 <div class="nbinput docutils container">
@@ -590,24 +821,36 @@ and distribution information.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-RECORD           IMETH
-----------------------
-FLOW-JA-FACE         1
-DATA-SPDIS           6
-WEL                  6
-RIV                  6
-RCHA                 6
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[24], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">cobj</span><span style="color: rgb(98,98,98)">.</span>list_unique_records()
+
+<span class="ansi-red-fg">NameError</span>: name &#39;cobj&#39; is not defined
 </pre></div></div>
 </div>
 <p>Retrieve the <code class="docutils literal notranslate"><span class="pre">'DATA-SPDIS'</span></code> data type from the cell-by-cell file. Name the specific discharge data <code class="docutils literal notranslate"><span class="pre">spd</span></code>.</p>
 <p>Cell-by-cell data is returned as a list so access the data by using <code class="docutils literal notranslate"><span class="pre">spd</span> <span class="pre">=</span> <span class="pre">gwf.output.budget().get_data(text=&quot;DATA-SPDIS&quot;)[0]</span></code>.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spd</span> <span class="o">=</span> <span class="n">cobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;DATA-SPDIS&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[25], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> spd <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">cobj</span><span style="color: rgb(98,98,98)">.</span>get_data(text<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">DATA-SPDIS</span><span style="color: rgb(175,0,0)">&#34;</span>)[<span style="color: rgb(98,98,98)">0</span>]
+
+<span class="ansi-red-fg">NameError</span>: name &#39;cobj&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Plot-the-results">
@@ -644,8 +887,16 @@ RCHA                 6
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_46_0.png" src="../../../_images/notebooks_part1_flopy_solutions_02-Building-Post-Processing-MODFLOW6__solutions_46_0.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[26], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span class="ansi-yellow-bg">styles</span><span style="color: rgb(98,98,98)">.</span>USGSMap():
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     mm <span style="color: rgb(98,98,98)">=</span> flopy<span style="color: rgb(98,98,98)">.</span>plot<span style="color: rgb(98,98,98)">.</span>PlotMapView(model<span style="color: rgb(98,98,98)">=</span>gwf, layer<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0</span>, extent<span style="color: rgb(98,98,98)">=</span>gwf<span style="color: rgb(98,98,98)">.</span>modelgrid<span style="color: rgb(98,98,98)">.</span>extent)
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     cbv <span style="color: rgb(98,98,98)">=</span> mm<span style="color: rgb(98,98,98)">.</span>plot_array(hds)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;styles&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -686,7 +937,7 @@ RCHA                 6
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Jul 10, 2024.
+      <span class="lastupdated">Last updated on Jul 30, 2024.
       </span></p>
   </div>
 
