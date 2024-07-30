@@ -18,6 +18,3 @@ Fienen MN, Hughes, JD, Langevin, CL, Larsen, JD, and Leaf, AT. 2024.
 python-for-hydrology 
 U.S. Geological Survey software release. Reston, VA.
 https://doi.org/10.5066/P1QTRYJY
-
-
-_For USGS internal use, this is related to IP-162677._
