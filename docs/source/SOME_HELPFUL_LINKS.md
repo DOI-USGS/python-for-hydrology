@@ -4,7 +4,7 @@
 * [Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 * [General information on conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html)
 * [Managing Conda Environments](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
-* [Tutorial introduction to conda enviroments](https://towardsdatascience.com/getting-started-with-python-environments-using-conda-32e9f2779307)
+* [Tutorial introduction to conda environments](https://towardsdatascience.com/getting-started-with-python-environments-using-conda-32e9f2779307)
 * [Conda-pack](https://conda.github.io/conda-pack/)
 
 ### cheat sheets
