@@ -12,7 +12,7 @@ into the project you can [fork this repository][2] and
 [submit a pull request][3] for review.
 
 
-[1]: https://github.com/DOI-USGS/python-for-hyrology/issues
+[1]: https://github.com/DOI-USGS/python-for-hydrology/issues
 [2]: https://help.github.com/articles/fork-a-repo/
 [3]: https://help.github.com/articles/about-pull-requests/
 
@@ -39,7 +39,7 @@ Adding a Notebook
 
 8) Testing
 
-    * The `.github/workflows/test.yaml` workflow will check for successfull notebook execution.
+    * The `.github/workflows/test.yaml` workflow will check for successful notebook execution.
     * If your notebook has intentional errors, consider just showing the error in a markdown block (wrapped in python`````` so that the syntax gets highlighted).
     * Otherwise, include the notebook in the `xfail_notebooks` list in `tests/test_notebooks.py`, so that the notebook gets marked as expected to fail (and doesn't fail the test workflow).
 

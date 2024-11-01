@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
@@ -6,24 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>08: Working with tabular data in Pandas &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=f281be69"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -42,9 +40,6 @@
           <a href="../../../index.html" class="icon icon-home">
             Python for Hydrology
           </a>
-              <div class="version">
-                1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -165,7 +160,7 @@
              
   <section id="08:-Working-with-tabular-data-in-Pandas">
 <h1>08: Working with tabular data in Pandas<a class="headerlink" href="#08:-Working-with-tabular-data-in-Pandas" title="Link to this heading">¶</a></h1>
-<p><img alt="08ec9b7a5bf14f66855749b6a511f80b" src="../../../_images/panda.jpg" /></p>
+<p><img alt="ae9fc5ff866f45708c7c9484368eded0" src="../../../_images/panda.jpg" /></p>
 <section id="Not-that-type-of-Panda----Python's-Pandas-package">
 <h2>Not that type of Panda – Python’s Pandas package<a class="headerlink" href="#Not-that-type-of-Panda----Python's-Pandas-package" title="Link to this heading">¶</a></h2>
 <p>Pandas is a powerful, flexible and easy to use open source data analysis and manipulation tool. Pandas is commonly used for operations that would normally be done in a spreadsheet environment and includes powerful data analysis and manipulation tools.</p>
@@ -796,7 +791,7 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 [&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_tp_cd&#39;, &#39;lat_va&#39;, &#39;long_va&#39;, &#39;dec_lat_va&#39;, &#39;dec_long_va&#39;, &#39;coord_meth_cd&#39;, &#39;coord_acy_cd&#39;, &#39;coord_datum_cd&#39;, &#39;dec_coord_datum_cd&#39;, &#39;district_cd&#39;, &#39;state_cd&#39;, &#39;county_cd&#39;, &#39;country_cd&#39;, &#39;land_net_ds&#39;, &#39;map_nm&#39;, &#39;map_scale_fc&#39;, &#39;alt_va&#39;, &#39;alt_meth_cd&#39;, &#39;alt_acy_va&#39;, &#39;alt_datum_cd&#39;, &#39;huc_cd&#39;, &#39;basin_cd&#39;, &#39;topo_cd&#39;, &#39;instruments_cd&#39;, &#39;construction_dt&#39;, &#39;inventory_dt&#39;, &#39;drain_area_va&#39;, &#39;contrib_drain_area_va&#39;, &#39;tz_cd&#39;, &#39;local_time_fg&#39;, &#39;reliability_cd&#39;, &#39;gw_file_cd&#39;, &#39;nat_aqfr_cd&#39;, &#39;aqfr_cd&#39;, &#39;aqfr_type_cd&#39;, &#39;well_depth_va&#39;, &#39;hole_depth_va&#39;, &#39;depth_src_cd&#39;, &#39;project_no&#39;]
 </pre></div></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">describe()</span></code> method is only useful for numerical data. This example is does not have a lot of useful data for <code class="docutils literal notranslate"><span class="pre">describe()</span></code>, however we’ll use it agian later</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">describe()</span></code> method is only useful for numerical data. This example is does not have a lot of useful data for <code class="docutils literal notranslate"><span class="pre">describe()</span></code>, however we’ll use it again later</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -2124,7 +2119,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <section id="Updating-column-names">
 <h3>Updating column names<a class="headerlink" href="#Updating-column-names" title="Link to this heading">¶</a></h3>
 <p>Let’s update column names for these gages based on their locations instead of their USGS gage id. First we’ll get name information from the <code class="docutils literal notranslate"><span class="pre">info</span></code> class and then we’ll use the station name information to remap the column names.</p>
-<p>the <code class="docutils literal notranslate"><span class="pre">rename()</span></code> method accepts a dictionary that is formated <code class="docutils literal notranslate"><span class="pre">{current_col_name:</span> <span class="pre">new_col_name}</span></code></p>
+<p>the <code class="docutils literal notranslate"><span class="pre">rename()</span></code> method accepts a dictionary that is formatted <code class="docutils literal notranslate"><span class="pre">{current_col_name:</span> <span class="pre">new_col_name}</span></code></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -2286,7 +2281,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <section id="Manipulating-data">
 <h3>Manipulating data<a class="headerlink" href="#Manipulating-data" title="Link to this heading">¶</a></h3>
 <p>Columns in a pandas dataframe can be manipulated similarly to working with a dictionary of numpy arrays. The discharge data units are <span class="math notranslate nohighlight">\(\frac{ft^3}{s}\)</span>, let’s accumulate this to daily discharge in <span class="math notranslate nohighlight">\(\frac {ft^3}{d}\)</span>.</p>
-<p>The coversion for this is:</p>
+<p>The conversion for this is:</p>
 </section>
 </section>
 <section id="$-\frac{1-ft^3}{s}-\times-`:nbsphinx-math:frac{60s}{min}`-\times-`:nbsphinx-math:frac{60min}{hour}`-\times-`:nbsphinx-math:frac{24hours}{day}`-\rightarrow-`:nbsphinx-math:frac{ft^3}{day}`-$">
@@ -3313,7 +3308,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <section id=".aggregate()">
 <h3><code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code><a class="headerlink" href="#.aggregate()" title="Link to this heading">¶</a></h3>
 <p>The pandas <code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code> can be used with <code class="docutils literal notranslate"><span class="pre">.groupy()</span></code> to perform multiple statistical operations.</p>
-<p>Example useage could be:</p>
+<p>Example usage could be:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">agdf</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;day_of_year&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;austin_c_af&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -3326,7 +3321,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="line-block">
 <div class="line"><strong>Hints:</strong></div>
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">df2</span></code> and <code class="docutils literal notranslate"><span class="pre">df_cimis</span></code> are the dataframes these operations should be performed on</div>
-<div class="line">- use <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> to group by the year and do <code class="docutils literal notranslate"><span class="pre">precip</span></code> and <code class="docutils literal notranslate"><span class="pre">ETo</span></code> in seperate groupby routines - rename the columns in the ETo aggregated dataframe and the Precip dataframe to <code class="docutils literal notranslate"><span class="pre">mean_et</span></code>, <code class="docutils literal notranslate"><span class="pre">std_et</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_precip</span></code>, <code class="docutils literal notranslate"><span class="pre">std_precip</span></code> - <code class="docutils literal notranslate"><span class="pre">np.mean</span></code> and <code class="docutils literal notranslate"><span class="pre">np.std</span></code> can be used to calculate mean and std flows</div>
+<div class="line">- use <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> to group by the year and do <code class="docutils literal notranslate"><span class="pre">precip</span></code> and <code class="docutils literal notranslate"><span class="pre">ETo</span></code> in separate groupby routines - rename the columns in the ETo aggregated dataframe and the Precip dataframe to <code class="docutils literal notranslate"><span class="pre">mean_et</span></code>, <code class="docutils literal notranslate"><span class="pre">std_et</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_precip</span></code>, <code class="docutils literal notranslate"><span class="pre">std_precip</span></code> - <code class="docutils literal notranslate"><span class="pre">np.mean</span></code> and <code class="docutils literal notranslate"><span class="pre">np.std</span></code> can be used to calculate mean and std flows</div>
 </div>
 <p>Name your final joined dataframe <code class="docutils literal notranslate"><span class="pre">df_yearly</span></code></p>
 <div class="nbinput docutils container">
@@ -3880,7 +3875,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h2>Class exercise 4: baseflow separation<a class="headerlink" href="#Class-exercise-4:-baseflow-separation" title="Link to this heading">¶</a></h2>
 <p>Using the full dataframe discharge dataframe, <code class="docutils literal notranslate"><span class="pre">df2</span></code>, get the baseflows for the Russian River (in acre-ft) and add these to the dataframe as a new column named <code class="docutils literal notranslate"><span class="pre">russian_bf_af</span></code>.</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">baseflow_low_pass_filter()</span></code> will be used to perform baseflow. This function takes a numpy array of stream discharge and runs a digital low pass filtration method to calculate baseflow.</p>
-<p>After performing baseflow seperation plot both the baseflow and the total discharge for the years 2015 - 2017.</p>
+<p>After performing baseflow separation plot both the baseflow and the total discharge for the years 2015 - 2017.</p>
 <p><strong>Hints:</strong> - make sure to use the <code class="docutils literal notranslate"><span class="pre">.values</span></code> property when you get discharge data from the pandas dataframe - feel free to play with the input parameters <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code>. - <code class="docutils literal notranslate"><span class="pre">beta</span></code> is commonly between 0.8 - 0.95 for hydrologic problems. - <code class="docutils literal notranslate"><span class="pre">T</span></code> is the number of filter passes over the data, therefore increasing <code class="docutils literal notranslate"><span class="pre">T</span></code> will create a smoother profile. I recommend starting with a <code class="docutils literal notranslate"><span class="pre">T</span></code> value of around 5 and adjusting it to see how it changes the baseflow profile.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
@@ -4786,7 +4781,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 07, 2024.
+      <span class="lastupdated">Last updated on Nov 01, 2024.
       </span></p>
   </div>
 

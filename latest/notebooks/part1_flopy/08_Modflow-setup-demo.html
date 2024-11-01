@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
@@ -6,24 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>08: Modflow-setup demonstration &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/documentation_options.js?v=feab032e"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../_static/copybutton.js?v=f281be69"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -42,9 +40,6 @@
           <a href="../../index.html" class="icon icon-home">
             Python for Hydrology
           </a>
-              <div class="version">
-                1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -141,7 +136,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="6dc0ea991abe4b29a63d387d60f760ac" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="020dd569bb404ca78bf2fa415f9f1d97" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -225,12 +220,12 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.07s
+finished in 0.06s
 
 writing postproc/shps/regional_model_grid.shp... Done
 </pre></div></div>
 </div>
-<p>Since this model has local-grid refinement, it actually consists of two models: a parent built from <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_parent.yml</span></code>, and an inset built from <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_inset.yml</span></code>, which is referenced within <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_parent.yml</span></code>. The two sub-models are connected and solved simulataneously within the same MODFLOW 6 simulation. A model grid is made for each sub-model. The model grids are instances of the <code class="docutils literal notranslate"><span class="pre">MFsetupGrid</span></code> grid class, a subclass of the Flopy <code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code> class with some
+<p>Since this model has local-grid refinement, it actually consists of two models: a parent built from <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_parent.yml</span></code>, and an inset built from <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_inset.yml</span></code>, which is referenced within <code class="docutils literal notranslate"><span class="pre">pleasant_lgr_parent.yml</span></code>. The two sub-models are connected and solved simultaneously within the same MODFLOW 6 simulation. A model grid is made for each sub-model. The model grids are instances of the <code class="docutils literal notranslate"><span class="pre">MFsetupGrid</span></code> grid class, a subclass of the Flopy <code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code> class with some
 added functionality.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -252,7 +247,7 @@ delc: [200.00...200.00] undefined
 CRS: EPSG:3070
 length units: meters
 xll: 553200.0; yll: 387800.0; rotation: 0.0
-Bounds: (553200.0, 558600.0, 387800.0, 392800.0)
+Bounds: (np.float64(553200.0), np.float64(558600.0), np.float64(387800.0), np.float64(392800.0))
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -275,7 +270,7 @@ delc: [40.00...40.00] undefined
 CRS: EPSG:3070
 length units: meters
 xll: 554200.0; yll: 388800.0; rotation: 0
-Bounds: (554200.0, 557600.0, 388800.0, 391800.0)
+Bounds: (np.float64(554200.0), np.float64(557600.0), np.float64(388800.0), np.float64(391800.0))
 </pre></div></div>
 </div>
 </section>
@@ -315,11 +310,11 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.10s
+finished in 0.01s
 
 writing postproc/shps/plsnt-lgr-parent_grid.shp... Done
 creating shapely Polygons of grid cells...
-finished in 0.10s
+finished in 0.09s
 
 writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </pre></div></div>
@@ -360,7 +355,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post434+ga476e0d
+Pleasant Lake test case version 0.1.post437+gd8a6d36
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -368,7 +363,7 @@ delc: [200.00...200.00] undefined
 CRS: EPSG:3070
 length units: meters
 xll: 553200.0; yll: 387800.0; rotation: 0.0
-Bounds: (553200.0, 558600.0, 387800.0, 392800.0)
+Bounds: (np.float64(553200.0), np.float64(558600.0), np.float64(387800.0), np.float64(392800.0))
 Packages: dis ic npf sto rcha_0 oc chd_0 obs_0 sfr_0 wel_0 obs_1 obs_2
 13 period(s):
  per start_datetime end_datetime  perlen  steady  nstp
@@ -456,7 +451,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post434+ga476e0d
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post437+gd8a6d36
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -464,7 +459,7 @@ defaultdict(dict,
  CRS: EPSG:3070
  length units: meters
  xll: 554200.0; yll: 388800.0; rotation: 0
- Bounds: (554200.0, 557600.0, 388800.0, 391800.0)
+ Bounds: (np.float64(554200.0), np.float64(557600.0), np.float64(388800.0), np.float64(391800.0))
  Packages: dis ic npf sto rcha_0 oc sfr_0 lak_0 obs_0 obs_1
  13 period(s):
   per start_datetime end_datetime  perlen  steady  nstp
@@ -581,9 +576,9 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) c
     writing package lak_0...
     writing package obs_0...
     writing package obs_1...
-SFRmaker v. 0.11.2
+SFRmaker v. 0.11.3
 
-Running Flopy v. 3.7.0 diagnostics...
+Running Flopy v. 3.8.2 diagnostics...
 passed.
 
 Checking for continuity in segment and reach numbering...
@@ -691,7 +686,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/08/07 19:51:54
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/11/01 16:07:25
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -710,8 +705,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/08/07 19:51:59
- Elapsed run time:  5.240 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/11/01 16:07:30
+ Elapsed run time:  5.244 Seconds
 
 
 WARNING REPORT:
@@ -914,7 +909,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 07, 2024.
+      <span class="lastupdated">Last updated on Nov 01, 2024.
       </span></p>
   </div>
 

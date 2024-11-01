@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
@@ -6,24 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>06: matplotlib — 2D and 3D plotting &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=f281be69"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -42,9 +40,6 @@
           <a href="../../../index.html" class="icon icon-home">
             Python for Hydrology
           </a>
-              <div class="version">
-                1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -338,7 +333,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;curve1&#39;</span><span class="p">,</span> <span class="s1">&#39;curve2&#39;</span><span class="p">,</span> <span class="s1">&#39;curve3&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>The method described above follows the MATLAB API. It is somewhat prone to errors and unflexible if curves are added to or removed from the figure (resulting in a wrongly labelled curve).</p>
+<p>The method described above follows the MATLAB API. It is somewhat prone to errors and inflexible if curves are added to or removed from the figure (resulting in a wrongly labelled curve).</p>
 <p>A better method is to use the <code class="docutils literal notranslate"><span class="pre">label=&quot;label</span> <span class="pre">text&quot;</span></code> keyword argument when plots or other objects are added to the figure, and then using the <code class="docutils literal notranslate"><span class="pre">legend</span></code> method without arguments to add the legend to the figure:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -362,7 +357,7 @@
 </div>
 </div>
 <p>The advantage with this method is that if curves are added or removed from the figure, the legend is automatically updated accordingly.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">legend</span></code> function takes an optional keywork argument <code class="docutils literal notranslate"><span class="pre">loc</span></code> that can be used to specify where in the figure the legend is to be drawn. The allowed values of <code class="docutils literal notranslate"><span class="pre">loc</span></code> are numerical codes for the various places the legend can be drawn. See <a class="reference external" href="http://">http://</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.org/users/legend_guide.html#legend-location for details. Some of the most common <code class="docutils literal notranslate"><span class="pre">loc</span></code> values are:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">legend</span></code> function takes an optional keyword argument <code class="docutils literal notranslate"><span class="pre">loc</span></code> that can be used to specify where in the figure the legend is to be drawn. The allowed values of <code class="docutils literal notranslate"><span class="pre">loc</span></code> are numerical codes for the various places the legend can be drawn. See <a class="reference external" href="http://">http://</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.org/users/legend_guide.html#legend-location for details. Some of the most common <code class="docutils literal notranslate"><span class="pre">loc</span></code> values are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># let `matplotlib` decide the optimal location</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># upper right corner</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># upper left corner</span>
@@ -850,7 +845,7 @@ Name: 00060, Length: 8783, dtype: float64
 </section>
 <section id="Formatting-text:-\LaTeX,-fontsize,-font-family">
 <h2>Formatting text: <span class="math notranslate nohighlight">\(\LaTeX\)</span>, fontsize, font family<a class="headerlink" href="#Formatting-text:-\LaTeX,-fontsize,-font-family" title="Link to this heading">¶</a></h2>
-<p>The figure above is functional, but it does not (yet) satisfy the criteria for a figure used in a publication. First and foremost, it may be neccesary to use <span class="math notranslate nohighlight">\(\LaTeX\)</span> formatted text, and second, it may be necessary to adjust the font size to appear right in a publication.</p>
+<p>The figure above is functional, but it does not (yet) satisfy the criteria for a figure used in a publication. First and foremost, it may be necessary to use <span class="math notranslate nohighlight">\(\LaTeX\)</span> formatted text, and second, it may be necessary to adjust the font size to appear right in a publication.</p>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> has great support for <span class="math notranslate nohighlight">\(\LaTeX\)</span>. All that is required to incorporate <span class="math notranslate nohighlight">\(\LaTeX\)</span> text is to encapsulate any text (legend, title, label, etc.) in dollar signs. For example, <code class="docutils literal notranslate"><span class="pre">'$y=x^3$'</span></code>.</p>
 <p>But here we can run into a slightly subtle problem with <span class="math notranslate nohighlight">\(\LaTeX\)</span> code and Python text strings. In <span class="math notranslate nohighlight">\(\LaTeX\)</span>, the backslash is frequently used in commands, for example <code class="docutils literal notranslate"><span class="pre">\alpha</span></code> to produce the symbol <span class="math notranslate nohighlight">\(\alpha\)</span>. But the backslash already has a meaning in Python strings (the escape code character). To avoid Python messing up our latex code, we need to use “raw” text strings. Raw text strings are prepended with an ‘<code class="docutils literal notranslate"><span class="pre">r</span></code>’, like <code class="docutils literal notranslate"><span class="pre">r'\alpha'</span></code> instead of <code class="docutils literal notranslate"><span class="pre">'\alpha'</span></code>:</p>
 <div class="nbinput docutils container">
@@ -912,7 +907,7 @@ Name: 00060, Length: 8783, dtype: float64
 </section>
 <section id="Logarithmic-scale">
 <h3>Logarithmic scale<a class="headerlink" href="#Logarithmic-scale" title="Link to this heading">¶</a></h3>
-<p>It is also possible to set a logarithmic scale for one or both axes. This functionality is in fact only one application of a more general transformation system in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. Each of the axes’ scales are set seperately using <code class="docutils literal notranslate"><span class="pre">set_xscale</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yscale</span></code> methods which accept one parameter (with the value “log” in this case):</p>
+<p>It is also possible to set a logarithmic scale for one or both axes. This functionality is in fact only one application of a more general transformation system in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. Each of the axes’ scales are set separately using <code class="docutils literal notranslate"><span class="pre">set_xscale</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yscale</span></code> methods which accept one parameter (with the value “log” in this case):</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
@@ -1417,7 +1412,7 @@ matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 07, 2024.
+      <span class="lastupdated">Last updated on Nov 01, 2024.
       </span></p>
   </div>
 

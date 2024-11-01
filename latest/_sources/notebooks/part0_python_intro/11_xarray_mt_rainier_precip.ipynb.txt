@@ -385,7 +385,7 @@
     "### Getting data at point locations\n",
     "\n",
     "Say we want to get data for the mountain summit, and at the Paradise Visitor Center in Mt. Rainier National Park.\n",
-    "We can easily get the lat, lon coordinates for these locations, but to get data from this dataset, we need to work in the [custom coordinate system for Daymet](https://daymet.ornl.gov/overview). Luckly, we found a PROJ string to define that, which we assigned to the variable `daymet_proj_string`. With the PROJ string, we can use `pyproj` to transform the coordinates to the Daymet CRS."
+    "We can easily get the lat, lon coordinates for these locations, but to get data from this dataset, we need to work in the [custom coordinate system for Daymet](https://daymet.ornl.gov/overview). Luckily, we found a PROJ string to define that, which we assigned to the variable `daymet_proj_string`. With the PROJ string, we can use `pyproj` to transform the coordinates to the Daymet CRS."
    ]
   },
   {
@@ -676,7 +676,7 @@
    "metadata": {},
    "source": [
     "#### convert to feet per month\n",
-    "by multipling by 30.4, the average number of days in a month. This is just for the sake of simplicity in this exercise. A better way to do this would be to multiply by an array with the number of days in each month."
+    "by multiplying by 30.4, the average number of days in a month. This is just for the sake of simplicity in this exercise. A better way to do this would be to multiply by an array with the number of days in each month."
    ]
   },
   {
@@ -880,7 +880,7 @@
    "metadata": {},
    "source": [
     "### Setting coordinate reference information\n",
-    "Most operations with rioxarray require a coordinate reference. In this case, we have a [PROJ string](https://proj.org/en/9.3/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems) that we got from the DayMet website, and coordinate reference information imbedded in the dataset.\n",
+    "Most operations with rioxarray require a coordinate reference. In this case, we have a [PROJ string](https://proj.org/en/9.3/faq.html#what-is-the-best-format-for-describing-coordinate-reference-systems) that we got from the DayMet website, and coordinate reference information embedded in the dataset.\n",
     "\n",
     "We can set the coordinate reference by calling `.rio.write_crs()` on the Xarray object, which writes coordinate reference information to the Xarray dataset in a [CF compliant](https://cfconventions.org/Data/cf-documents/requirements-recommendations/conformance-1.11.html) manner. Similar to pandas, a copy is returned, or we can set the coordinate reference in-place."
    ]

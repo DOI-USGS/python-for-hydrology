@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
@@ -6,24 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>02: Namespace, modules, packages, and objects &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=f281be69"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -42,9 +40,6 @@
           <a href="../../../index.html" class="icon icon-home">
             Python for Hydrology
           </a>
-              <div class="version">
-                1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -81,7 +76,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#Object-oriented-programming-(OOP)">Object-oriented programming (OOP)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Inheritence">Inheritence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Inheritance">Inheritance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Modules,-Packages,-and-the-Standard-Python-Library">Modules, Packages, and the Standard Python Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Importing-code-and-handling-namespaces">Importing code and handling namespaces</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Paths-for-importing-and-installation">Paths for importing and installation</a></li>
@@ -145,7 +140,7 @@
   <section id="02:-Namespace,-modules,-packages,-and-objects">
 <h1>02: Namespace, modules, packages, and objects<a class="headerlink" href="#02:-Namespace,-modules,-packages,-and-objects" title="Link to this heading">¶</a></h1>
 <p>There are a variety of ways to import existing code into a Python script or interactive session.</p>
-<p>There is alot of flexibility in how this is done, but a few suggested practices will be covered here.</p>
+<p>There is a lot of flexibility in how this is done, but a few suggested practices will be covered here.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -742,7 +737,7 @@ dd
 </div>
 <p>Here, we’ve set up a class from which we can create instances later. Note that the syntax looks like a function. There are a couple strange things that deserve an explanation.</p>
 <ul class="simple">
-<li><p>The argument <code class="docutils literal notranslate"><span class="pre">object</span></code> is optional and has to do with inheritence (which will only be briefly introduced in this class).</p></li>
+<li><p>The argument <code class="docutils literal notranslate"><span class="pre">object</span></code> is optional and has to do with inheritance (which will only be briefly introduced in this class).</p></li>
 <li><p>It is common to include at least one method</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">__init__</span></code> is a special operator that initializes the class.</p></li>
 <li><p>The first argument of <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and really any method of a class is <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
@@ -1485,10 +1480,10 @@ what should we add today???
 </section>
 <section id="Object-oriented-programming-(OOP)">
 <h2>Object-oriented programming (OOP)<a class="headerlink" href="#Object-oriented-programming-(OOP)" title="Link to this heading">¶</a></h2>
-<p>In the O’Reilly book <em>Learning Python, 5th Edition</em> is a great discussion about Object-Oriented Programming. The author makes ths distinction that much of what we are doing with Python is <em>object-based</em> but to truly be object-oriented, we need to also use something called inheritence.</p>
+<p>In the O’Reilly book <em>Learning Python, 5th Edition</em> is a great discussion about Object-Oriented Programming. The author makes this distinction that much of what we are doing with Python is <em>object-based</em> but to truly be object-oriented, we need to also use something called inheritance.</p>
 </section>
-<section id="Inheritence">
-<h2>Inheritence<a class="headerlink" href="#Inheritence" title="Link to this heading">¶</a></h2>
+<section id="Inheritance">
+<h2>Inheritance<a class="headerlink" href="#Inheritance" title="Link to this heading">¶</a></h2>
 <p>Let’s revisit our class for rectangles without the overloading of <code class="docutils literal notranslate"><span class="pre">__add__</span></code></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
@@ -1954,7 +1949,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 07, 2024.
+      <span class="lastupdated">Last updated on Nov 01, 2024.
       </span></p>
   </div>
 

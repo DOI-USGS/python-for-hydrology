@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
@@ -6,24 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>04: File input and output &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=f281be69"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -42,9 +40,6 @@
           <a href="../../../index.html" class="icon icon-home">
             Python for Hydrology
           </a>
-              <div class="version">
-                1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -222,7 +217,7 @@ myfile is closed: True
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># how do we create and write a multi-line string?</span>
 <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;My first file written from Pyton using with!</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;My first file written from Python using with!</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="s2">&quot;--------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="s2">&quot;Hello, world!</span><span class="se">\n</span><span class="s2">&quot;</span>
 <span class="p">)</span>
@@ -255,7 +250,7 @@ myfile is closed: True
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-My first file written from Pyton using with!
+My first file written from Python using with!
 --------------------------------------------
 Hello, world!
 </pre></div></div>
@@ -284,7 +279,7 @@ Hello, world!
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-My first file written from Pyton using with!
+My first file written from Python using with!
 --------------------------------------------
 Hello, world!
 </pre></div></div>
@@ -314,7 +309,7 @@ Hello, world!
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;My first file written from Pyton using with!\n&#39;, &#39;--------------------------------------------\n&#39;, &#39;Hello, world!\n&#39;]
+[&#39;My first file written from Python using with!\n&#39;, &#39;--------------------------------------------\n&#39;, &#39;Hello, world!\n&#39;]
 Is file closed? False
 Is file closed? True
 </pre></div></div>
@@ -652,7 +647,7 @@ X: 3;  Y: 5
 <h3>f-strings: a better solution in most cases<a class="headerlink" href="#f-strings:-a-better-solution-in-most-cases" title="Link to this heading">¶</a></h3>
 <p>f-strings are a relatively new, but powerful feature for string formatting.</p>
 <p>Construction of an f string is similar to the <code class="docutils literal notranslate"><span class="pre">str.format</span></code>, however we no longer need to add a <code class="docutils literal notranslate"><span class="pre">.format()</span></code> call to the end of the string.</p>
-<p>The call signiture for f-strings is:</p>
+<p>The call signature for f-strings is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">some_variable</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
@@ -976,7 +971,7 @@ Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Cla
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">continue</span></code> statement skips over the remaining lines in the current iteration of the loop, but the loop will still iterate. This style looks a bit contrived here, but it is often useful to say <em>“get the lines we’re not concerned with out of the way early, so that we have cleaner more focused logic in the meaty part of the loop that might be written around line 9.”</em></p>
 <p>If the first character of <code class="docutils literal notranslate"><span class="pre">text</span></code> is a hash mark, the flow of execution goes to the top of the loop, ready to start processing the next line. If the <code class="docutils literal notranslate"><span class="pre">text</span></code> does not start with “#”, the code falls through to do the processing at line 9, in this example, writing the line into the new file.</p>
-<p>Let’s consider one more case: suppose our original file contained empty lines. At the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">len(text)</span> <span class="pre">==</span> <span class="pre">0</span></code> line, would this program do anything with the emtpy line? Yes! Recall that a blank line always includes the newline character in the string it returns.</p>
+<p>Let’s consider one more case: suppose our original file contained empty lines. At the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">len(text)</span> <span class="pre">==</span> <span class="pre">0</span></code> line, would this program do anything with the empty line? Yes! Recall that a blank line always includes the newline character in the string it returns.</p>
 </section>
 <section id="Class-Activity-4">
 <h2>Class Activity 4<a class="headerlink" href="#Class-Activity-4" title="Link to this heading">¶</a></h2>
@@ -1013,7 +1008,7 @@ Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Cla
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 07, 2024.
+      <span class="lastupdated">Last updated on Nov 01, 2024.
       </span></p>
   </div>
 

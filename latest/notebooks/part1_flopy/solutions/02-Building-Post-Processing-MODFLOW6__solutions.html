@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
@@ -6,24 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>02: Building and post-processing a MODFLOW 6 model &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/documentation_options.js?v=feab032e"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../../../_static/copybutton.js?v=f281be69"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -42,9 +40,6 @@
           <a href="../../../index.html" class="icon icon-home">
             Python for Hydrology
           </a>
-              <div class="version">
-                1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -153,7 +148,7 @@ the <code class="docutils literal notranslate"><span class="pre">docstrings</spa
 <div class="highlight"><pre>
 auto-selecting option &#39;:python&#39; for &#39;bindir&#39;
 fetched release &#39;19.0&#39; info from MODFLOW-USGS/executables
-downloading &#39;https://github.com/MODFLOW-USGS/executables/releases/download/19.0/linux.zip&#39; to &#39;/tmp/tmp11tw2qgn/modflow_executables-19.0-linux.zip&#39;
+downloading &#39;https://github.com/MODFLOW-USGS/executables/releases/download/19.0/linux.zip&#39; to &#39;/tmp/tmp_r9u_k_5/modflow_executables-19.0-linux.zip&#39;
 extracting 25 files to &#39;/home/runner/micromamba/envs/pyclass-docs/bin&#39;
 crt (1.3.1)         mflgr (2.0.0)       mp6 (6.0.1)         vs2dt (3.3)
 gridgen (1.0.02)    mflgrdbl (2.0.0)    mp7 (7.2.001)       zbud6 (6.5.0)
@@ -202,7 +197,7 @@ iterative model solution objects.</p>
 </div>
 </div>
 <p>Create the discretization package using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfdis()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">Shift-Tab</span></code> to see the optional variables that can be specified. A description of the data required by the <code class="docutils literal notranslate"><span class="pre">DIS</span></code> package (<code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwfdis()</span></code>) can be found in the MODFLOW 6 <a class="reference external" href="https://modflow6.readthedocs.io/en/latest/_mf6io/gwf-dis.html">ReadTheDocs document</a>.</p>
-<p>FloPy can accomodate all of the options for specifying array data for a model. <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for a variable can be specified by using a <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">int</span></code> python variable (as is done below for <code class="docutils literal notranslate"><span class="pre">DELR</span></code>, <code class="docutils literal notranslate"><span class="pre">DELC</span></code>, and <code class="docutils literal notranslate"><span class="pre">TOP</span></code>). <code class="docutils literal notranslate"><span class="pre">LAYERED</span></code> data can be specified by using a list or <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for each layer (as is done below for <code class="docutils literal notranslate"><span class="pre">BOTM</span></code> data) or a list of numpy arrays or lists. Three-Dimensional data can be specified using a three-dimensional numpy array (with a shape of
+<p>FloPy can accommodate all of the options for specifying array data for a model. <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for a variable can be specified by using a <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">int</span></code> python variable (as is done below for <code class="docutils literal notranslate"><span class="pre">DELR</span></code>, <code class="docutils literal notranslate"><span class="pre">DELC</span></code>, and <code class="docutils literal notranslate"><span class="pre">TOP</span></code>). <code class="docutils literal notranslate"><span class="pre">LAYERED</span></code> data can be specified by using a list or <code class="docutils literal notranslate"><span class="pre">CONSTANT</span></code> values for each layer (as is done below for <code class="docutils literal notranslate"><span class="pre">BOTM</span></code> data) or a list of numpy arrays or lists. Three-Dimensional data can be specified using a three-dimensional numpy array (with a shape of
 <code class="docutils literal notranslate"><span class="pre">(nlay,</span> <span class="pre">nrow,</span> <span class="pre">ncol)</span></code>) for this example. More information on how to specify array data can be found in the <a class="reference external" href="https://flopy.readthedocs.io/en/latest/Notebooks/mf6_data_tutorial07.html#MODFLOW-6:-Working-with-MODFLOW-Grid-Array-Data">FloPy ReadTheDocs</a>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -248,7 +243,7 @@ iterative model solution objects.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.LineCollection at 0x7f4b8e84edd0&gt;
+&lt;matplotlib.collections.LineCollection at 0x7f7b0c0cccd0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -273,7 +268,7 @@ iterative model solution objects.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.PatchCollection at 0x7f4b865b2f10&gt;
+&lt;matplotlib.collections.PatchCollection at 0x7f7b03e28390&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -512,15 +507,15 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/08/07 19:52:57
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/11/01 16:08:22
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
     Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/08/07 19:52:57
- Elapsed run time:  0.033 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/11/01 16:08:22
+ Elapsed run time:  0.032 Seconds
 
  Normal termination of simulation.
 </pre></div></div>
@@ -572,7 +567,7 @@ and distribution information.
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -584,6 +579,15 @@ DATA-SPDIS           6
 WEL                  6
 RIV                  6
 RCHA                 6
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/binaryfile.py:1507: DeprecationWarning: list_unique_records() is deprecated; use headers[[&#34;text&#34;, &#34;imeth&#34;]].drop_duplicates() instead.
+  warnings.warn(
 </pre></div></div>
 </div>
 <p>Retrieve the <code class="docutils literal notranslate"><span class="pre">'DATA-SPDIS'</span></code> data type from the cell-by-cell file. Name the specific discharge data <code class="docutils literal notranslate"><span class="pre">spd</span></code>.</p>
@@ -673,7 +677,7 @@ RCHA                 6
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 07, 2024.
+      <span class="lastupdated">Last updated on Nov 01, 2024.
       </span></p>
   </div>
 
