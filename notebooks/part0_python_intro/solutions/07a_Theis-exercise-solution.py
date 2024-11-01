@@ -201,7 +201,7 @@ if __name__ == "__main__":
 
     # With $s$ returned as an array for a given set of x, y locations,
     # we can now use *superposition* (adding drawdowns together) to
-    # evalute the effects of multiple pumping wells. Try calling the
+    # evaluate the effects of multiple pumping wells. Try calling the
     # theis_xy function again with a well at 500, 500. The $s$ output
     # can be added to the results from Step 5) to get a composite map
     # of drawdown with the two wells pumping.

@@ -1,6 +1,6 @@
 import pathlib as pl
 
-print('This may take a few minutes....note that varius package versions will be printed')
+print('This may take a few minutes....note that various package versions will be printed')
 
 
 # numpy
