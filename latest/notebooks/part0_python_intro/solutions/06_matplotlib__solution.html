@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>06: matplotlib — 2D and 3D plotting &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -167,9 +167,9 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
 
-<span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
 
 <span class="n">output_path</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/matplotlib&quot;</span><span class="p">)</span>
 <span class="n">output_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -192,8 +192,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -497,7 +497,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dataretrieval.nwis</span> <span class="k">as</span> <span class="nn">nwis</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dataretrieval.nwis</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nwis</span>
 </pre></div>
 </div>
 </div>
@@ -1120,7 +1120,7 @@ Name: 00060, Length: 8783, dtype: float64
 <span class="n">phi_ext</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">0.5</span>
 
 
-<span class="k">def</span> <span class="nf">flux_qubit_potential</span><span class="p">(</span><span class="n">phi_m</span><span class="p">,</span> <span class="n">phi_p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">flux_qubit_potential</span><span class="p">(</span><span class="n">phi_m</span><span class="p">,</span> <span class="n">phi_p</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="mi">2</span>
         <span class="o">+</span> <span class="n">alpha</span>
@@ -1237,7 +1237,7 @@ and updating the current font.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">from</span> <span class="nn">flopy.plot</span> <span class="kn">import</span> <span class="n">styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flopy.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">styles</span>
 </pre></div>
 </div>
 </div>
@@ -1365,7 +1365,7 @@ matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="kn">import</span> <span class="n">PdfPages</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.backends.backend_pdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">PdfPages</span>
 </pre></div>
 </div>
 </div>
@@ -1411,8 +1411,8 @@ matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

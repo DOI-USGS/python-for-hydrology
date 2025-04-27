@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>08: Working with tabular data in Pandas &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -160,7 +160,7 @@
              
   <section id="08:-Working-with-tabular-data-in-Pandas">
 <h1>08: Working with tabular data in Pandas<a class="headerlink" href="#08:-Working-with-tabular-data-in-Pandas" title="Link to this heading">¶</a></h1>
-<p><img alt="d675f3a81e1744e3975a3b0f005da769" src="../../../_images/panda.jpg" /></p>
+<p><img alt="a0578a3a018540cda037b1451ee5727f" src="../../../_images/panda.jpg" /></p>
 <section id="Not-that-type-of-Panda----Python's-Pandas-package">
 <h2>Not that type of Panda – Python’s Pandas package<a class="headerlink" href="#Not-that-type-of-Panda----Python's-Pandas-package" title="Link to this heading">¶</a></h2>
 <p>Pandas is a powerful, flexible and easy to use open source data analysis and manipulation tool. Pandas is commonly used for operations that would normally be done in a spreadsheet environment and includes powerful data analysis and manipulation tools.</p>
@@ -169,15 +169,15 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">dataretrieval</span> <span class="kn">import</span> <span class="n">nwis</span>
-<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="kn">import</span> <span class="n">PdfPages</span>
-<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">detrend</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataretrieval</span><span class="w"> </span><span class="kn">import</span> <span class="n">nwis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.backends.backend_pdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">PdfPages</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">detrend</span>
 
 <span class="n">data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
 </pre></div>
@@ -3318,11 +3318,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <section id="Class-exercise-3:-groupy,-aggregate,-and-merge">
 <h2>Class exercise 3: groupy, aggregate, and merge<a class="headerlink" href="#Class-exercise-3:-groupy,-aggregate,-and-merge" title="Link to this heading">¶</a></h2>
 <p>For this exercise we need to produce yearly mean and standard deviation flows for the <code class="docutils literal notranslate"><span class="pre">russian_r_af</span></code> variable and merge the data with yearly mean precipitation and evapotranspiration</p>
-<div class="line-block">
-<div class="line"><strong>Hints:</strong></div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">df2</span></code> and <code class="docutils literal notranslate"><span class="pre">df_cimis</span></code> are the dataframes these operations should be performed on</div>
-<div class="line">- use <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> to group by the year and do <code class="docutils literal notranslate"><span class="pre">precip</span></code> and <code class="docutils literal notranslate"><span class="pre">ETo</span></code> in separate groupby routines - rename the columns in the ETo aggregated dataframe and the Precip dataframe to <code class="docutils literal notranslate"><span class="pre">mean_et</span></code>, <code class="docutils literal notranslate"><span class="pre">std_et</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_precip</span></code>, <code class="docutils literal notranslate"><span class="pre">std_precip</span></code> - <code class="docutils literal notranslate"><span class="pre">np.mean</span></code> and <code class="docutils literal notranslate"><span class="pre">np.std</span></code> can be used to calculate mean and std flows</div>
-</div>
+<p><strong>Hints:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df2</span></code> and <code class="docutils literal notranslate"><span class="pre">df_cimis</span></code> are the dataframes these operations should be performed on</p></li>
+<li><p>use <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> to group by the year and do <code class="docutils literal notranslate"><span class="pre">precip</span></code> and <code class="docutils literal notranslate"><span class="pre">ETo</span></code> in separate groupby routines</p></li>
+<li><p>rename the columns in the ETo aggregated dataframe and the Precip dataframe to <code class="docutils literal notranslate"><span class="pre">mean_et</span></code>, <code class="docutils literal notranslate"><span class="pre">std_et</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_precip</span></code>, <code class="docutils literal notranslate"><span class="pre">std_precip</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.mean</span></code> and <code class="docutils literal notranslate"><span class="pre">np.std</span></code> can be used to calculate mean and std flows</p></li>
+</ul>
 <p>Name your final joined dataframe <code class="docutils literal notranslate"><span class="pre">df_yearly</span></code></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
@@ -3772,7 +3774,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_baseflow_low_pass_filter</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">enforce</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_baseflow_low_pass_filter</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">enforce</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Private method to apply digital baseflow separation filter</span>
 <span class="sd">    (Lyne &amp; Hollick, 1979; Nathan &amp; Mcmahon, 1990;</span>
@@ -3833,7 +3835,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
     <span class="k">return</span> <span class="n">qbf</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
 
 
-<span class="k">def</span> <span class="nf">baseflow_low_pass_filter</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">enforce</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">baseflow_low_pass_filter</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">enforce</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    User method to apply digital baseflow separation filter</span>
 <span class="sd">    (Lyne &amp; Hollick, 1979; Nathan &amp; Mcmahon, 1990;</span>
@@ -3876,7 +3878,16 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>Using the full dataframe discharge dataframe, <code class="docutils literal notranslate"><span class="pre">df2</span></code>, get the baseflows for the Russian River (in acre-ft) and add these to the dataframe as a new column named <code class="docutils literal notranslate"><span class="pre">russian_bf_af</span></code>.</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">baseflow_low_pass_filter()</span></code> will be used to perform baseflow. This function takes a numpy array of stream discharge and runs a digital low pass filtration method to calculate baseflow.</p>
 <p>After performing baseflow separation plot both the baseflow and the total discharge for the years 2015 - 2017.</p>
-<p><strong>Hints:</strong> - make sure to use the <code class="docutils literal notranslate"><span class="pre">.values</span></code> property when you get discharge data from the pandas dataframe - feel free to play with the input parameters <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code>. - <code class="docutils literal notranslate"><span class="pre">beta</span></code> is commonly between 0.8 - 0.95 for hydrologic problems. - <code class="docutils literal notranslate"><span class="pre">T</span></code> is the number of filter passes over the data, therefore increasing <code class="docutils literal notranslate"><span class="pre">T</span></code> will create a smoother profile. I recommend starting with a <code class="docutils literal notranslate"><span class="pre">T</span></code> value of around 5 and adjusting it to see how it changes the baseflow profile.</p>
+<p><strong>Hints:</strong></p>
+<ul class="simple">
+<li><p>make sure to use the <code class="docutils literal notranslate"><span class="pre">.values</span></code> property when you get discharge data from the pandas dataframe</p></li>
+<li><p>feel free to play with the input parameters <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">beta</span></code> is commonly between 0.8 - 0.95 for hydrologic problems.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> is the number of filter passes over the data, therefore increasing <code class="docutils literal notranslate"><span class="pre">T</span></code> will create a smoother profile. I recommend starting with a <code class="docutils literal notranslate"><span class="pre">T</span></code> value of around 5 and adjusting it to see how it changes the baseflow profile.</p></li>
+</ul>
+</li>
+</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
@@ -4670,7 +4681,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fft_and_plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">plot_dominant_periods</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fft_and_plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">plot_dominant_periods</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">detrended</span><span class="p">)</span>
     <span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yf</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)])</span>
@@ -4780,8 +4791,8 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

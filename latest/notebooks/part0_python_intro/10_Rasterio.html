@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,6 @@
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -189,14 +187,14 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gp</span>
-<span class="kn">import</span> <span class="nn">rasterio</span>
-<span class="kn">from</span> <span class="nn">rasterio.plot</span> <span class="kn">import</span> <span class="n">show</span>
-<span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">features</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LightSource</span>
-<span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rasterio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">show</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio</span><span class="w"> </span><span class="kn">import</span> <span class="n">features</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LightSource</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
 
 <span class="c1"># for elevation hillshade if we want to use it</span>
 <span class="n">ls</span> <span class="o">=</span> <span class="n">LightSource</span><span class="p">(</span><span class="n">azdeg</span><span class="o">=</span><span class="mi">315</span><span class="p">,</span> <span class="n">altdeg</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
@@ -402,9 +400,9 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rasterio.enums</span> <span class="kn">import</span> <span class="n">Resampling</span>
-<span class="kn">from</span> <span class="nn">rasterio.vrt</span> <span class="kn">import</span> <span class="n">WarpedVRT</span>
-<span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">shutil</span> <span class="k">as</span> <span class="n">rio_shutil</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resampling</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.vrt</span><span class="w"> </span><span class="kn">import</span> <span class="n">WarpedVRT</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio</span><span class="w"> </span><span class="kn">import</span> <span class="n">shutil</span> <span class="k">as</span> <span class="n">rio_shutil</span>
 
 
 <span class="n">vrt_options</span> <span class="o">=</span> <span class="p">{</span>
@@ -1255,7 +1253,7 @@ np.float32(14085.793)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7fc0663cf850&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7f3db8a20c10&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1267,8 +1265,17 @@ np.float32(14085.793)
 </div>
 <section id="Writing-a-raster:-save-out-1970-2015-elevation-changes">
 <h3>Writing a raster: save out 1970-2015 elevation changes<a class="headerlink" href="#Writing-a-raster:-save-out-1970-2015-elevation-changes" title="Link to this heading">¶</a></h3>
-<p>To do this, we need to provide rasterio with the same information we got when we read the metadata for the aligned rasters (the elevation changes are on the same grid). * first reset the mask to include all areas outside of the glacier footprints * to simplify things, we can just copy the metadata dict we already have, and feed it to <code class="docutils literal notranslate"><span class="pre">rasterio.open</span></code> as keyword arguments by unpacking it (<code class="docutils literal notranslate"><span class="pre">**</span></code> notation) * let’s add compression though to reduce the file size * we can have rasterio write the
-mask as well * Note that a raster can have more than one band. <cite>This code (see ``export_array`</cite> function) &lt;<a class="reference external" href="https://github.com/aleaf/modflow-export/blob/master/mfexport/array_export.py">https://github.com/aleaf/modflow-export/blob/master/mfexport/array_export.py</a>&gt;`__ illustrates writing a 3D raster with a 3D mask to a single GeoTiff with multiple bands.</p>
+<p>To do this, we need to provide rasterio with the same information we got when we read the metadata for the aligned rasters (the elevation changes are on the same grid).</p>
+<ul class="simple">
+<li><p>first reset the mask to include all areas outside of the glacier footprints</p></li>
+<li><p>to simplify things, we can just copy the metadata dict we already have, and feed it to <code class="docutils literal notranslate"><span class="pre">rasterio.open</span></code> as keyword arguments by unpacking it (<code class="docutils literal notranslate"><span class="pre">**</span></code> notation)</p>
+<ul>
+<li><p>let’s add compression though to reduce the file size</p></li>
+</ul>
+</li>
+<li><p>we can have rasterio write the mask as well</p></li>
+<li><p>Note that a raster can have more than one band. <cite>This code (see ``export_array`</cite> function) &lt;<a class="reference external" href="https://github.com/aleaf/modflow-export/blob/master/mfexport/array_export.py">https://github.com/aleaf/modflow-export/blob/master/mfexport/array_export.py</a>&gt;`__ illustrates writing a 3D raster with a 3D mask to a single GeoTiff with multiple bands.</p></li>
+</ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
@@ -1359,8 +1366,8 @@ mask as well * Note that a raster can have more than one band. <cite>This code (
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rasterio.crs</span> <span class="kn">import</span> <span class="n">CRS</span>
-<span class="kn">from</span> <span class="nn">rasterio.warp</span> <span class="kn">import</span> <span class="n">calculate_default_transform</span><span class="p">,</span> <span class="n">reproject</span><span class="p">,</span> <span class="n">Resampling</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.crs</span><span class="w"> </span><span class="kn">import</span> <span class="n">CRS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.warp</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_default_transform</span><span class="p">,</span> <span class="n">reproject</span><span class="p">,</span> <span class="n">Resampling</span>
 
 <span class="n">dst_crs</span> <span class="o">=</span> <span class="s1">&#39;epsg:4269&#39;</span>
 <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">el_change_outfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
@@ -1416,7 +1423,7 @@ PosixPath(&#39;data/rasterio/aligned-19700901_ned1_2003_adj_warp.tif&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rasterstats</span> <span class="kn">import</span> <span class="n">zonal_stats</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">zonal_stats</span>
 </pre></div>
 </div>
 </div>
@@ -1450,7 +1457,7 @@ zonal_stats(*args, **kwargs)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rasterstats</span> <span class="kn">import</span> <span class="n">gen_zonal_stats</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_zonal_stats</span>
 <span class="n">help</span><span class="p">(</span><span class="n">gen_zonal_stats</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2141,8 +2148,8 @@ gen_zonal_stats(vectors, raster, layer=0, band=1, nodata=None, affine=None, stat
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>07: Using functions to solve an equation– The Theis example &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -161,9 +161,9 @@ S = S_s b
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">exp1</span> <span class="k">as</span> <span class="n">W</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp1</span> <span class="k">as</span> <span class="n">W</span>
 </pre></div>
 </div>
 </div>
@@ -174,12 +174,16 @@ S = S_s b
 <p><span class="math">\begin{equation}
 s = \frac{Q}{4 \pi T} W(u)
 \end{equation}</span></p>
-<p>hints: * since this also includes the dimensionless time parameter, the inputs are <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(S\)</span> * we imported <span class="math notranslate nohighlight">\(W\)</span> above from <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code></p>
+<p>hints:</p>
+<ul class="simple">
+<li><p>since this also includes the dimensionless time parameter, the inputs are <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(Q\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(S\)</span></p></li>
+<li><p>we imported <span class="math notranslate nohighlight">\(W\)</span> above from <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code></p></li>
+</ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">theis</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1.16</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">theis</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1.16</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the Theis equation to get drawdown</span>
 <span class="sd">    in a confined aquifer at a distance r</span>
 <span class="sd">    from a well pumping at rate Q, for time t.</span>
@@ -292,7 +296,7 @@ Text(0.5, 0, &#39;Time, in days&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_distance</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the distance between two points.</span>
 
 <span class="sd">    Parameters</span>
@@ -315,7 +319,7 @@ Text(0.5, 0, &#39;Time, in days&#39;)
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x1</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y1</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">theis_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pumping_well_xy</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1.16</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">theis_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pumping_well_xy</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1.16</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use the Theis equation to get drawdown</span>
 <span class="sd">    in a confined aquifer at any x, y point(s),</span>
 <span class="sd">    for a pumping well at (x, y) location pumping_well_xy,</span>
@@ -387,8 +391,8 @@ Text(0.5, 0, &#39;Time, in days&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CPU times: user 140 ms, sys: 28.2 ms, total: 169 ms
-Wall time: 168 ms
+CPU times: user 127 ms, sys: 36 ms, total: 163 ms
+Wall time: 162 ms
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -422,7 +426,7 @@ Wall time: 168 ms
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f37ce28c390&gt;
+&lt;matplotlib.image.AxesImage at 0x7fb6082483d0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -458,7 +462,7 @@ Wall time: 168 ms
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7f37ce17d0d0&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7fb5d2b08a90&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -490,8 +494,8 @@ Wall time: 168 ms
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

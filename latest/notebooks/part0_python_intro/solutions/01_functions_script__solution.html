@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>01: Functions and scripts &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,6 @@
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -129,7 +127,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Print a Fibonacci series up to n.&quot;&quot;&quot;</span>
     <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
     <span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
@@ -309,7 +307,7 @@ None
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fib2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  <span class="c1"># return Fibonacci series up to n</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fib2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  <span class="c1"># return Fibonacci series up to n</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list containing the Fibonacci series up to n.&quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
@@ -372,10 +370,10 @@ using classes, see Classes) The method append() shown in the example is defined 
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
 
-<span class="k">def</span> <span class="nf">thiem</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span> <span class="n">h0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">thiem</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span> <span class="n">h0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A very simple example function</span>
 <span class="sd">    with a mixture of argument types.</span>
@@ -547,7 +545,7 @@ thiem(T, r, Q=1000.0, R=10000000000.0, h0=0.0)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">thiem_list</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="p">[</span><span class="mf">1000.0</span><span class="p">],</span> <span class="n">R</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span> <span class="n">h0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">thiem_list</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="p">[</span><span class="mf">1000.0</span><span class="p">],</span> <span class="n">R</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span> <span class="n">h0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A very simple example function</span>
 <span class="sd">    with a mixture of argument types.</span>
@@ -721,7 +719,7 @@ handy function that you’ve written in several programs without copying its def
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">thiem_functions</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">thiem_functions</span>
 </pre></div>
 </div>
 </div>
@@ -729,7 +727,7 @@ handy function that you’ve written in several programs without copying its def
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thiem_functions</span> <span class="kn">import</span> <span class="n">thiem</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thiem_functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">thiem</span>
 </pre></div>
 </div>
 </div>
@@ -737,7 +735,7 @@ handy function that you’ve written in several programs without copying its def
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thiem_functions</span> <span class="kn">import</span> <span class="n">thiem</span> <span class="k">as</span> <span class="n">thm</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thiem_functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">thiem</span> <span class="k">as</span> <span class="n">thm</span>
 </pre></div>
 </div>
 </div>
@@ -774,7 +772,7 @@ handy function that you’ve written in several programs without copying its def
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thiem_functions</span> <span class="kn">import</span> <span class="n">thiem</span><span class="p">,</span> <span class="n">thiem_list</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thiem_functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">thiem</span><span class="p">,</span> <span class="n">thiem_list</span>
 </pre></div>
 </div>
 </div>
@@ -812,8 +810,8 @@ handy function that you’ve written in several programs without copying its def
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

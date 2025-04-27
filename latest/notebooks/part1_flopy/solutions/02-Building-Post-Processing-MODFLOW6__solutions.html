@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>02: Building and post-processing a MODFLOW 6 model &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,6 @@
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -123,11 +121,11 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">flopy</span>
-<span class="kn">from</span> <span class="nn">flopy.plot</span> <span class="kn">import</span> <span class="n">styles</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flopy.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">styles</span>
 </pre></div>
 </div>
 </div>
@@ -147,16 +145,16 @@ the <code class="docutils literal notranslate"><span class="pre">docstrings</spa
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 auto-selecting option &#39;:python&#39; for &#39;bindir&#39;
-fetched release &#39;19.0&#39; info from MODFLOW-USGS/executables
-downloading &#39;https://github.com/MODFLOW-USGS/executables/releases/download/19.0/linux.zip&#39; to &#39;/tmp/tmp6s_qhi_a/modflow_executables-19.0-linux.zip&#39;
+fetched release &#39;21.0&#39; info from MODFLOW-USGS/executables
+downloading &#39;https://github.com/MODFLOW-ORG/executables/releases/download/21.0/linux.zip&#39; to &#39;/tmp/tmp9ad584ns/modflow_executables-21.0-linux.zip&#39;
 extracting 25 files to &#39;/home/runner/micromamba/envs/pyclass-docs/bin&#39;
 crt (1.3.1)         mflgr (2.0.0)       mp6 (6.0.1)         vs2dt (3.3)
-gridgen (1.0.02)    mflgrdbl (2.0.0)    mp7 (7.2.001)       zbud6 (6.5.0)
-libmf6.so (6.5.0)   mfnwt (1.3.0)       mt3dms (5.3.0)      zonbud3 (3.01)
+gridgen (1.0.02)    mflgrdbl (2.0.0)    mp7 (7.2.001)       zbud6 (6.6.1)
+libmf6.so (6.6.1)   mfnwt (1.3.0)       mt3dms (5.3.0)      zonbud3 (3.01)
 mf2000 (1.19.01)    mfnwtdbl (1.3.0)    mt3dusgs (1.1.0)    zonbudusg (1.5)
-mf2005 (1.12.00)    mfusg (1.5)         sutra (3.0)
+mf2005 (1.12.00)    mfusg (1.5)         sutra (4.0)
 mf2005dbl (1.12.00) mfusgdbl (1.5)      swtv4 (4.00.05)
-mf6 (6.5.0)         mfusg_gsi (2.3.0)   triangle (1.6)
+mf6 (6.6.1)         mfusg_gsi (2.4.0)   triangle (1.6)
 wrote new flopy metadata file: &#39;/home/runner/.local/share/flopy/get_modflow.json&#39;
 </pre></div></div>
 </div>
@@ -243,7 +241,7 @@ iterative model solution objects.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.LineCollection at 0x7f1e813cdb50&gt;
+&lt;matplotlib.collections.LineCollection at 0x7f992bc42610&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -268,7 +266,7 @@ iterative model solution objects.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.PatchCollection at 0x7f1e7916d110&gt;
+&lt;matplotlib.collections.PatchCollection at 0x7f9923b06ed0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -485,9 +483,9 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;riv&#39;, &#39;dimensions&#39;) c
 FloPy is using the following executable to run the model: ../../../../../../../../../micromamba/envs/pyclass-docs/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.5.0 05/23/2024
+                            VERSION 6.6.1 02/10/2025
 
-   MODFLOW 6 compiled Jun 21 2024 02:57:38 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled Feb 14 2025 13:39:18 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -507,15 +505,15 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/11/20 18:09:25
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 17:00:47
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
     Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/11/20 18:09:25
- Elapsed run time:  0.033 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 17:00:47
+ Elapsed run time:  0.034 Seconds
 
  Normal termination of simulation.
 </pre></div></div>
@@ -586,7 +584,7 @@ RCHA                 6
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/binaryfile.py:1507: DeprecationWarning: list_unique_records() is deprecated; use headers[[&#34;text&#34;, &#34;imeth&#34;]].drop_duplicates() instead.
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/binaryfile/__init__.py:1449: DeprecationWarning: list_unique_records() is deprecated; use headers[[&#34;text&#34;, &#34;imeth&#34;]].drop_duplicates() instead.
   warnings.warn(
 </pre></div></div>
 </div>
@@ -676,8 +674,8 @@ RCHA                 6
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

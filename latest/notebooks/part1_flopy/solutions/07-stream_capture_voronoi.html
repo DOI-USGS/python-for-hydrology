@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>07: Evaluating stream capture with a Voronoi grid &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,6 @@
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -131,12 +129,12 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">flopy</span> <span class="k">as</span> <span class="nn">fp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flopy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">fp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 </pre></div>
 </div>
 </div>
@@ -1760,7 +1758,7 @@ array([-315.98438773])
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_a_well_flopy</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">cellid</span><span class="p">,</span> <span class="n">newq</span><span class="p">,</span> <span class="n">sfr_base_obs</span><span class="p">,</span> <span class="n">depletion_results</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_a_well_flopy</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">cellid</span><span class="p">,</span> <span class="n">newq</span><span class="p">,</span> <span class="n">sfr_base_obs</span><span class="p">,</span> <span class="n">depletion_results</span><span class="p">):</span>
     <span class="c1"># read in the simulation</span>
     <span class="n">sim</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sim_ws</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">modelpath</span><span class="p">))</span>
     <span class="c1"># get the model</span>
@@ -1783,7 +1781,7 @@ array([-315.98438773])
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it -r 5 # the timeit special function will run the following code a few times and indicate how long
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%timeit</span> -r 5 # the timeit special function will run the following code a few times and indicate how long
               <span class="c1"># the mean runtime and variance are</span>
 <span class="k">for</span> <span class="n">clay</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">cellid</span> <span class="ow">in</span> <span class="n">cells_for_wells</span><span class="p">[:</span><span class="mi">1</span><span class="p">]:</span>
@@ -12837,7 +12835,7 @@ continuous
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_a_well_just_mf6</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">cellid</span><span class="p">,</span> <span class="n">newq</span><span class="p">,</span> <span class="n">sfr_base_obs</span><span class="p">,</span> <span class="n">depletion_results_fast</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_a_well_just_mf6</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">cellid</span><span class="p">,</span> <span class="n">newq</span><span class="p">,</span> <span class="n">sfr_base_obs</span><span class="p">,</span> <span class="n">depletion_results_fast</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;running layer = </span><span class="si">{</span><span class="n">layer</span><span class="si">}</span><span class="s1">, cellid = </span><span class="si">{</span><span class="n">cellid</span><span class="si">}</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">runpath</span> <span class="o">/</span> <span class="s1">&#39;project_0.wel&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ofp</span><span class="p">:</span>
         <span class="n">ofp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">well_template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;replace_me&gt;&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">layer</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s1">d</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">cellid</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s1">d</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">newq</span><span class="si">:</span><span class="s1">0.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
@@ -12864,7 +12862,7 @@ continuous
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it -r 5
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%timeit</span> -r 5
 <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">cid</span> <span class="ow">in</span> <span class="n">cells_for_wells</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
         <span class="n">run_a_well_just_mf6</span><span class="p">(</span><span class="n">lay</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">newq</span><span class="p">,</span> <span class="n">sfr_base_obs</span><span class="p">,</span> <span class="n">depletion_results_fast</span><span class="p">)</span>
@@ -12968,8 +12966,8 @@ continuous
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

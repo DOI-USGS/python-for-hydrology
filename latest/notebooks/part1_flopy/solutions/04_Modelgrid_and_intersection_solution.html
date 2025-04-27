@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>04: Modelgrid and intersection &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,6 @@
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -145,15 +143,15 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pathlib</span> <span class="k">as</span> <span class="nn">pl</span>
-<span class="kn">import</span> <span class="nn">flopy</span>
-<span class="kn">from</span> <span class="nn">flopy.utils.gridgen</span> <span class="kn">import</span> <span class="n">Gridgen</span>
-<span class="kn">from</span> <span class="nn">flopy.utils</span> <span class="kn">import</span> <span class="n">GridIntersect</span><span class="p">,</span> <span class="n">Raster</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils.gridgen</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gridgen</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridIntersect</span><span class="p">,</span> <span class="n">Raster</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 
 <span class="c1"># pd.options.mode.chained_assignment = None</span>
 <span class="n">data_path</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data/modelgrid_intersection&quot;</span><span class="p">)</span>
@@ -554,7 +552,9 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[(0, 0, 4), (0, 0, 6), (0, 1, 5)]
+[(np.int64(0), np.int64(0), np.int64(4)),
+ (np.int64(0), np.int64(0), np.int64(6)),
+ (np.int64(0), np.int64(1), np.int64(5))]
 </pre></div></div>
 </div>
 <p>If we want to find a cell number based on x, y coordinate location the model grid has a built in <code class="docutils literal notranslate"><span class="pre">.intersect()</span></code> method that takes <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and an optional <code class="docutils literal notranslate"><span class="pre">z</span></code> coordinate and returns the cell number</p>
@@ -577,7 +577,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;rowcol=(13, 8), layrowcol=(0, 13, 8)&#39;
+&#39;rowcol=(np.int64(13), np.int64(8)), layrowcol=(0, np.int64(13), np.int64(8))&#39;
 </pre></div></div>
 </div>
 </section>
@@ -602,7 +602,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <p>Lets load a couple of shapefiles to help with creating the quadtree</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
@@ -613,21 +613,6 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <span class="n">refined</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">refine_shp</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-</pre></div></div>
 </div>
 <p>Now let’s plot these areas on the grid to visualize them</p>
 <div class="nbinput docutils container">
@@ -644,22 +629,11 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_28_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_28_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_28_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_28_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -819,29 +793,6 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
@@ -892,25 +843,6 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
@@ -944,7 +876,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
   <tbody>
     <tr>
       <th>10343500</th>
-      <td>POLYGON ((220068.760 4366733.474, 219647.520 4...</td>
+      <td>POLYGON ((220068.76 4366733.474, 219647.52 436...</td>
     </tr>
   </tbody>
 </table>
@@ -959,27 +891,6 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
@@ -992,7 +903,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_45_2.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_45_2.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_45_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_45_1.png" />
 </div>
 </div>
 <p>We can now get our basin’s bounding box using <code class="docutils literal notranslate"><span class="pre">.bounds</span></code>, buffer it, and then begin creating a modelgrid based on the basin boundary.</p>
@@ -1010,7 +921,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -1018,15 +929,6 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
                      minx          miny           maxx          maxy
 identifier
 10343500    214358.622076  4.366733e+06  221497.557955  4.373287e+06
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
 </pre></div></div>
 </div>
 <p>Calculate the number of rows and columns the model will have and then create a delc and delr array.</p>
@@ -1074,7 +976,7 @@ identifier
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-xll:214268.62207605224; yll:4366643.474127463; rotation:0.0; crs:EPSG:26911; units:undefined; lenuni:0
+xll:214268.62207605218; yll:4366643.474127463; rotation:0.0; crs:EPSG:26911; units:undefined; lenuni:0
 False
 </pre></div></div>
 </div>
@@ -1089,32 +991,11 @@ False
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_52_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_52_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_52_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_52_0.png" />
 </div>
 </div>
 <p>Fantastic! The modelgrid has been created and it completely overlays the contributing area.</p>
@@ -1136,8 +1017,8 @@ False
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
+/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
+  warnings.warn(
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1147,7 +1028,7 @@ False
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 array([(1, 52), (1, 53), (1, 54), ..., (73, 64), (73, 65), (73, 66)],
-      dtype=object)
+      shape=(3587,), dtype=object)
 </pre></div></div>
 </div>
 <p>create the ibound/idomain array (active and inactive model cells)</p>
@@ -1172,7 +1053,7 @@ array([(1, 52), (1, 53), (1, 54), ..., (73, 64), (73, 65), (73, 66)],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x1727f20d0&gt;
+&lt;matplotlib.collections.QuadMesh at 0x165463290&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1229,7 +1110,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
        [2176.74121094, 2186.13769531, 2201.04858398, ..., 2095.2331543 ,
         2074.06396484, 2051.18530273],
        [2156.98022461, 2157.87744141, 2164.14770508, ..., 2077.35131836,
-        2053.95043945, 2035.44116211]])
+        2053.95043945, 2035.44116211]], shape=(75, 82))
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1288,7 +1169,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
 <span class="p">)</span>
 
 <span class="c1"># add the dis package</span>
-<span class="n">botm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">dem_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="mi">200</span>
+<span class="n">botm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">dem_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="mi">150</span>
 <span class="n">dis</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfdis</span><span class="p">(</span>
     <span class="n">gwf</span><span class="p">,</span>
     <span class="n">nrow</span><span class="o">=</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">nrow</span><span class="p">,</span>
@@ -1479,7 +1360,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.01081669, 1.01081669,
          1.01081669],
         [0.        , 0.        , 0.        , ..., 1.01081669, 1.01081669,
-         1.01081669]]),
+         1.01081669]], shape=(75, 82)),
  1: array([[1.31099296, 1.31099296, 1.31099296, ..., 1.42294502, 1.42294502,
          1.42294502],
         [1.31099296, 1.31099296, 1.31099296, ..., 1.42294502, 1.42294502,
@@ -1492,7 +1373,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.4494915 , 1.4494915 ,
          1.4494915 ],
         [0.        , 0.        , 0.        , ..., 1.4494915 , 1.4494915 ,
-         1.4494915 ]]),
+         1.4494915 ]], shape=(75, 82)),
  2: array([[1.88199592, 1.88199592, 1.88199592, ..., 2.01319814, 2.01319814,
          2.01319814],
         [1.88199592, 1.88199592, 1.88199592, ..., 2.01319814, 2.01319814,
@@ -1505,7 +1386,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 2.06212258, 2.06212258,
          2.06212258],
         [0.        , 0.        , 0.        , ..., 2.06212258, 2.06212258,
-         2.06212258]]),
+         2.06212258]], shape=(75, 82)),
  3: array([[3.14511275, 3.14511275, 3.14511275, ..., 3.33968782, 3.33968782,
          3.33968782],
         [3.14511275, 3.14511275, 3.14511275, ..., 3.33968782, 3.33968782,
@@ -1518,7 +1399,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 3.41348195, 3.41348195,
          3.41348195],
         [0.        , 0.        , 0.        , ..., 3.41348195, 3.41348195,
-         3.41348195]]),
+         3.41348195]], shape=(75, 82)),
  4: array([[3.94825053, 3.94825053, 3.94825053, ..., 4.04690742, 4.04690742,
          4.04690742],
         [3.94825053, 3.94825053, 3.94825053, ..., 4.04690742, 4.04690742,
@@ -1531,7 +1412,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 4.1060009 , 4.1060009 ,
          4.1060009 ],
         [0.        , 0.        , 0.        , ..., 4.1060009 , 4.1060009 ,
-         4.1060009 ]]),
+         4.1060009 ]], shape=(75, 82)),
  5: array([[4.99552679, 4.99552679, 4.99552679, ..., 5.388381  , 5.388381  ,
          5.388381  ],
         [4.99552679, 4.99552679, 4.99552679, ..., 5.388381  , 5.388381  ,
@@ -1544,7 +1425,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 5.34579992, 5.34579992,
          5.34579992],
         [0.        , 0.        , 0.        , ..., 5.34579992, 5.34579992,
-         5.34579992]]),
+         5.34579992]], shape=(75, 82)),
  6: array([[5.21027994, 5.21027994, 5.21027994, ..., 5.60202217, 5.60202217,
          5.60202217],
         [5.21027994, 5.21027994, 5.21027994, ..., 5.60202217, 5.60202217,
@@ -1557,7 +1438,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 5.58002138, 5.58002138,
          5.58002138],
         [0.        , 0.        , 0.        , ..., 5.58002138, 5.58002138,
-         5.58002138]]),
+         5.58002138]], shape=(75, 82)),
  7: array([[4.54519796, 4.54519796, 4.54519796, ..., 4.94014788, 4.94014788,
          4.94014788],
         [4.54519796, 4.54519796, 4.54519796, ..., 4.94014788, 4.94014788,
@@ -1570,7 +1451,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 4.97207499, 4.97207499,
          4.97207499],
         [0.        , 0.        , 0.        , ..., 4.97207499, 4.97207499,
-         4.97207499]]),
+         4.97207499]], shape=(75, 82)),
  8: array([[3.38186955, 3.38186955, 3.38186955, ..., 3.73335552, 3.73335552,
          3.73335552],
         [3.38186955, 3.38186955, 3.38186955, ..., 3.73335552, 3.73335552,
@@ -1583,7 +1464,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 3.75254512, 3.75254512,
          3.75254512],
         [0.        , 0.        , 0.        , ..., 3.75254512, 3.75254512,
-         3.75254512]]),
+         3.75254512]], shape=(75, 82)),
  9: array([[1.60437179, 1.60437179, 1.60437179, ..., 1.80872381, 1.80872381,
          1.80872381],
         [1.60437179, 1.60437179, 1.60437179, ..., 1.80872381, 1.80872381,
@@ -1596,7 +1477,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.84118676, 1.84118676,
          1.84118676],
         [0.        , 0.        , 0.        , ..., 1.84118676, 1.84118676,
-         1.84118676]]),
+         1.84118676]], shape=(75, 82)),
  10: array([[1.23011148, 1.23011148, 1.23011148, ..., 1.41456532, 1.41456532,
          1.41456532],
         [1.23011148, 1.23011148, 1.23011148, ..., 1.41456532, 1.41456532,
@@ -1609,7 +1490,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.42739856, 1.42739856,
          1.42739856],
         [0.        , 0.        , 0.        , ..., 1.42739856, 1.42739856,
-         1.42739856]]),
+         1.42739856]], shape=(75, 82)),
  11: array([[0.76984066, 0.76984066, 0.76984066, ..., 0.85954601, 0.85954601,
          0.85954601],
         [0.76984066, 0.76984066, 0.76984066, ..., 0.85954601, 0.85954601,
@@ -1622,7 +1503,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.8547039 , 0.8547039 ,
          0.8547039 ],
         [0.        , 0.        , 0.        , ..., 0.8547039 , 0.8547039 ,
-         0.8547039 ]])}
+         0.8547039 ]], shape=(75, 82))}
 </pre></div></div>
 </div>
 <p>Let’s load the saved version of this data, it should be identical to the data that was produced in the exercise.</p>
@@ -1655,7 +1536,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.01081669, 1.01081669,
          1.01081669],
         [0.        , 0.        , 0.        , ..., 1.01081669, 1.01081669,
-         1.01081669]]),
+         1.01081669]], shape=(75, 82)),
  1: array([[1.31099296, 1.31099296, 1.31099296, ..., 1.42294502, 1.42294502,
          1.42294502],
         [1.31099296, 1.31099296, 1.31099296, ..., 1.42294502, 1.42294502,
@@ -1668,7 +1549,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.4494915 , 1.4494915 ,
          1.4494915 ],
         [0.        , 0.        , 0.        , ..., 1.4494915 , 1.4494915 ,
-         1.4494915 ]]),
+         1.4494915 ]], shape=(75, 82)),
  2: array([[1.88199592, 1.88199592, 1.88199592, ..., 2.01319814, 2.01319814,
          2.01319814],
         [1.88199592, 1.88199592, 1.88199592, ..., 2.01319814, 2.01319814,
@@ -1681,7 +1562,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 2.06212258, 2.06212258,
          2.06212258],
         [0.        , 0.        , 0.        , ..., 2.06212258, 2.06212258,
-         2.06212258]]),
+         2.06212258]], shape=(75, 82)),
  3: array([[3.14511275, 3.14511275, 3.14511275, ..., 3.33968782, 3.33968782,
          3.33968782],
         [3.14511275, 3.14511275, 3.14511275, ..., 3.33968782, 3.33968782,
@@ -1694,7 +1575,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 3.41348195, 3.41348195,
          3.41348195],
         [0.        , 0.        , 0.        , ..., 3.41348195, 3.41348195,
-         3.41348195]]),
+         3.41348195]], shape=(75, 82)),
  4: array([[3.94825053, 3.94825053, 3.94825053, ..., 4.04690742, 4.04690742,
          4.04690742],
         [3.94825053, 3.94825053, 3.94825053, ..., 4.04690742, 4.04690742,
@@ -1707,7 +1588,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 4.1060009 , 4.1060009 ,
          4.1060009 ],
         [0.        , 0.        , 0.        , ..., 4.1060009 , 4.1060009 ,
-         4.1060009 ]]),
+         4.1060009 ]], shape=(75, 82)),
  5: array([[4.99552679, 4.99552679, 4.99552679, ..., 5.388381  , 5.388381  ,
          5.388381  ],
         [4.99552679, 4.99552679, 4.99552679, ..., 5.388381  , 5.388381  ,
@@ -1720,7 +1601,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 5.34579992, 5.34579992,
          5.34579992],
         [0.        , 0.        , 0.        , ..., 5.34579992, 5.34579992,
-         5.34579992]]),
+         5.34579992]], shape=(75, 82)),
  6: array([[5.21027994, 5.21027994, 5.21027994, ..., 5.60202217, 5.60202217,
          5.60202217],
         [5.21027994, 5.21027994, 5.21027994, ..., 5.60202217, 5.60202217,
@@ -1733,7 +1614,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 5.58002138, 5.58002138,
          5.58002138],
         [0.        , 0.        , 0.        , ..., 5.58002138, 5.58002138,
-         5.58002138]]),
+         5.58002138]], shape=(75, 82)),
  7: array([[4.54519796, 4.54519796, 4.54519796, ..., 4.94014788, 4.94014788,
          4.94014788],
         [4.54519796, 4.54519796, 4.54519796, ..., 4.94014788, 4.94014788,
@@ -1746,7 +1627,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 4.97207499, 4.97207499,
          4.97207499],
         [0.        , 0.        , 0.        , ..., 4.97207499, 4.97207499,
-         4.97207499]]),
+         4.97207499]], shape=(75, 82)),
  8: array([[3.38186955, 3.38186955, 3.38186955, ..., 3.73335552, 3.73335552,
          3.73335552],
         [3.38186955, 3.38186955, 3.38186955, ..., 3.73335552, 3.73335552,
@@ -1759,7 +1640,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 3.75254512, 3.75254512,
          3.75254512],
         [0.        , 0.        , 0.        , ..., 3.75254512, 3.75254512,
-         3.75254512]]),
+         3.75254512]], shape=(75, 82)),
  9: array([[1.60437179, 1.60437179, 1.60437179, ..., 1.80872381, 1.80872381,
          1.80872381],
         [1.60437179, 1.60437179, 1.60437179, ..., 1.80872381, 1.80872381,
@@ -1772,7 +1653,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.84118676, 1.84118676,
          1.84118676],
         [0.        , 0.        , 0.        , ..., 1.84118676, 1.84118676,
-         1.84118676]]),
+         1.84118676]], shape=(75, 82)),
  10: array([[1.23011148, 1.23011148, 1.23011148, ..., 1.41456532, 1.41456532,
          1.41456532],
         [1.23011148, 1.23011148, 1.23011148, ..., 1.41456532, 1.41456532,
@@ -1785,7 +1666,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.42739856, 1.42739856,
          1.42739856],
         [0.        , 0.        , 0.        , ..., 1.42739856, 1.42739856,
-         1.42739856]]),
+         1.42739856]], shape=(75, 82)),
  11: array([[0.76984066, 0.76984066, 0.76984066, ..., 0.85954601, 0.85954601,
          0.85954601],
         [0.76984066, 0.76984066, 0.76984066, ..., 0.85954601, 0.85954601,
@@ -1798,7 +1679,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.8547039 , 0.8547039 ,
          0.8547039 ],
         [0.        , 0.        , 0.        , ..., 0.8547039 , 0.8547039 ,
-         0.8547039 ]])}
+         0.8547039 ]], shape=(75, 82))}
 </pre></div></div>
 </div>
 <p>And resample the precipitation raster we saved earlier</p>
@@ -1839,7 +1720,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 4.0393548 , 4.0393548 ,
          4.0393548 ],
         [0.        , 0.        , 0.        , ..., 4.0393548 , 4.0393548 ,
-         4.0393548 ]]),
+         4.0393548 ]], shape=(75, 82)),
  1: array([[2.36392856, 2.36392856, 2.36392856, ..., 1.75142848, 1.75142848,
          1.75142848],
         [2.36392856, 2.36392856, 2.36392856, ..., 1.75142848, 1.75142848,
@@ -1852,7 +1733,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 2.35964322, 2.35964322,
          2.35964322],
         [0.        , 0.        , 0.        , ..., 2.35964322, 2.35964322,
-         2.35964322]]),
+         2.35964322]], shape=(75, 82)),
  2: array([[2.12096763, 2.12096763, 2.12096763, ..., 1.53064525, 1.53064525,
          1.53064525],
         [2.12096763, 2.12096763, 2.12096763, ..., 1.53064525, 1.53064525,
@@ -1865,7 +1746,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.75612891, 1.75612891,
          1.75612891],
         [0.        , 0.        , 0.        , ..., 1.75612891, 1.75612891,
-         1.75612891]]),
+         1.75612891]], shape=(75, 82)),
  3: array([[0.597     , 0.597     , 0.597     , ..., 0.46433336, 0.46433336,
          0.46433336],
         [0.597     , 0.597     , 0.597     , ..., 0.46433336, 0.46433336,
@@ -1878,7 +1759,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.53933334, 0.53933334,
          0.53933334],
         [0.        , 0.        , 0.        , ..., 0.53933334, 0.53933334,
-         0.53933334]]),
+         0.53933334]], shape=(75, 82)),
  4: array([[0.78161287, 0.78161287, 0.78161287, ..., 0.80645162, 0.80645162,
          0.80645162],
         [0.78161287, 0.78161287, 0.78161287, ..., 0.80645162, 0.80645162,
@@ -1891,7 +1772,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.79193544, 0.79193544,
          0.79193544],
         [0.        , 0.        , 0.        , ..., 0.79193544, 0.79193544,
-         0.79193544]]),
+         0.79193544]], shape=(75, 82)),
  5: array([[0.24333334, 0.24333334, 0.24333334, ..., 0.14833333, 0.14833333,
          0.14833333],
         [0.24333334, 0.24333334, 0.24333334, ..., 0.14833333, 0.14833333,
@@ -1904,7 +1785,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.14933333, 0.14933333,
          0.14933333],
         [0.        , 0.        , 0.        , ..., 0.14933333, 0.14933333,
-         0.14933333]]),
+         0.14933333]], shape=(75, 82)),
  6: array([[0.20354839, 0.20354839, 0.20354839, ..., 0.20645161, 0.20645161,
          0.20645161],
         [0.20354839, 0.20354839, 0.20354839, ..., 0.20645161, 0.20645161,
@@ -1917,7 +1798,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.20451613, 0.20451613,
          0.20451613],
         [0.        , 0.        , 0.        , ..., 0.20451613, 0.20451613,
-         0.20451613]]),
+         0.20451613]], shape=(75, 82)),
  7: array([[0.08483871, 0.08483871, 0.08483871, ..., 0.11064516, 0.11064516,
          0.11064516],
         [0.08483871, 0.08483871, 0.08483871, ..., 0.11064516, 0.11064516,
@@ -1930,7 +1811,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.        , 0.        ,
          0.        ],
         [0.        , 0.        , 0.        , ..., 0.        , 0.        ,
-         0.        ]]),
+         0.        ]], shape=(75, 82)),
  8: array([[0.30833334, 0.30833334, 0.30833334, ..., 0.22766666, 0.22766666,
          0.22766666],
         [0.30833334, 0.30833334, 0.30833334, ..., 0.22766666, 0.22766666,
@@ -1943,7 +1824,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 0.48166665, 0.48166665,
          0.48166665],
         [0.        , 0.        , 0.        , ..., 0.48166665, 0.48166665,
-         0.48166665]]),
+         0.48166665]], shape=(75, 82)),
  9: array([[9.75677395, 9.75677395, 9.75677395, ..., 8.6554842 , 8.6554842 ,
          8.6554842 ],
         [9.75677395, 9.75677395, 9.75677395, ..., 8.6554842 , 8.6554842 ,
@@ -1956,7 +1837,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 8.43290234, 8.43290234,
          8.43290234],
         [0.        , 0.        , 0.        , ..., 8.43290234, 8.43290234,
-         8.43290234]]),
+         8.43290234]], shape=(75, 82)),
  10: array([[1.15666664, 1.15666664, 1.15666664, ..., 0.90833336, 0.90833336,
          0.90833336],
         [1.15666664, 1.15666664, 1.15666664, ..., 0.90833336, 0.90833336,
@@ -1969,7 +1850,7 @@ model_name = sagehen
         [0.        , 0.        , 0.        , ..., 1.10366654, 1.10366654,
          1.10366654],
         [0.        , 0.        , 0.        , ..., 1.10366654, 1.10366654,
-         1.10366654]]),
+         1.10366654]], shape=(75, 82)),
  11: array([[11.07774162, 11.07774162, 11.07774162, ...,  9.146451  ,
           9.146451  ,  9.146451  ],
         [11.07774162, 11.07774162, 11.07774162, ...,  9.146451  ,
@@ -1982,7 +1863,7 @@ model_name = sagehen
         [ 0.        ,  0.        ,  0.        , ..., 10.41838837,
          10.41838837, 10.41838837],
         [ 0.        ,  0.        ,  0.        , ..., 10.41838837,
-         10.41838837, 10.41838837]])}
+         10.41838837, 10.41838837]], shape=(75, 82))}
 </pre></div></div>
 </div>
 <p>Potetial evapotranspiration and Precipitation data from daymet are in mm/day, however our discretization is meters/day.</p>
@@ -2091,36 +1972,11 @@ model_name = sagehen
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_0.png" />
 </div>
 </div>
 <p>Excellent! Now we have all of the flow lines for the Sagehen watershed. But what if we want to identify the main stem?</p>
@@ -2134,39 +1990,6 @@ model_name = sagehen
 <span class="n">flw_main</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/pandas/core/frame.py:706: DeprecationWarning: Passing a BlockManager to GeoDataFrame is deprecated and will raise in a future version. Use public APIs instead.
-  warnings.warn(
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geoseries.py:221: DeprecationWarning: Passing a SingleBlockManager to GeoSeries is deprecated and will raise in a future version. Use public APIs instead.
-  super().__init__(data, index=index, name=name, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-/Users/aleaf/mambaforge/envs/pyclass/lib/python3.11/site-packages/geopandas/geodataframe.py:1645: DeprecationWarning: Passing a SingleBlockManager to Series is deprecated and will raise in a future version. Use public APIs instead.
-  srs = pd.Series(*args, **kwargs)
-</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
@@ -2209,7 +2032,7 @@ model_name = sagehen
     <tr>
       <th>2</th>
       <td>8933520</td>
-      <td>LINESTRING (220240.365 4369758.860, 220244.995...</td>
+      <td>LINESTRING (220240.365 4369758.86, 220244.995 ...</td>
     </tr>
     <tr>
       <th>3</th>
@@ -2219,7 +2042,7 @@ model_name = sagehen
     <tr>
       <th>4</th>
       <td>8933512</td>
-      <td>LINESTRING (219321.052 4369977.090, 219357.890...</td>
+      <td>LINESTRING (219321.052 4369977.09, 219357.89 4...</td>
     </tr>
     <tr>
       <th>5</th>
@@ -2244,7 +2067,7 @@ model_name = sagehen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_93_2.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_93_2.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_93_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_93_1.png" />
 </div>
 </div>
 <p>Great! Now we can start processing data to create a river package. We can first identify our main stem cells.</p>
@@ -2260,6 +2083,15 @@ model_name = sagehen
 <span class="n">main_stem</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
+  warnings.warn(
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
@@ -2277,7 +2109,7 @@ model_name = sagehen
 <h2>Class Exercise:<a class="headerlink" href="#Class-Exercise:" title="Link to this heading">¶</a></h2>
 <p>Use GridIntersect to create a list of tributary cells from the <code class="docutils literal notranslate"><span class="pre">flw_all</span></code> geodataframe.</p>
 <p><strong>Hint</strong> Use the <code class="docutils literal notranslate"><span class="pre">main_stem</span></code> list to filter out cells that are associated with the main stem of the river and only store the cells that are associated with tributaries to the main stem.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
@@ -2297,6 +2129,15 @@ model_name = sagehen
         <span class="n">foo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
+  warnings.warn(
+</pre></div></div>
 </div>
 <p>The cellids for tributaries have been stored previously, so we’ll load those up and continue on.</p>
 <div class="nbinput nblast docutils container">
@@ -2318,7 +2159,7 @@ model_name = sagehen
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dataretrieval.nwis</span> <span class="k">as</span> <span class="nn">nwis</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dataretrieval.nwis</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nwis</span>
 
 
 <span class="n">gage</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_record</span><span class="p">(</span><span class="n">sites</span><span class="o">=</span><span class="n">station_id</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="s1">&#39;iv&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2023-12-31&quot;</span><span class="p">,</span> <span class="n">parameterCd</span><span class="o">=</span><span class="s2">&quot;00065&quot;</span><span class="p">)</span>
@@ -2365,9 +2206,9 @@ model_name = sagehen
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>site_no</th>
       <th>stage</th>
       <th>00065_cd</th>
-      <th>site_no</th>
     </tr>
     <tr>
       <th>datetime</th>
@@ -2379,33 +2220,33 @@ model_name = sagehen
   <tbody>
     <tr>
       <th>2023-01-01 08:00:00+00:00</th>
+      <td>10343500</td>
       <td>0.748752</td>
       <td>A</td>
-      <td>10343500</td>
     </tr>
     <tr>
       <th>2023-01-01 08:15:00+00:00</th>
+      <td>10343500</td>
       <td>0.748752</td>
       <td>A</td>
-      <td>10343500</td>
     </tr>
     <tr>
       <th>2023-01-01 08:30:00+00:00</th>
+      <td>10343500</td>
       <td>0.748752</td>
       <td>A</td>
-      <td>10343500</td>
     </tr>
     <tr>
       <th>2023-01-01 08:45:00+00:00</th>
+      <td>10343500</td>
       <td>0.748752</td>
       <td>A</td>
-      <td>10343500</td>
     </tr>
     <tr>
       <th>2023-01-01 09:00:00+00:00</th>
+      <td>10343500</td>
       <td>0.748752</td>
       <td>A</td>
-      <td>10343500</td>
     </tr>
   </tbody>
 </table>
@@ -2473,11 +2314,20 @@ model_name = sagehen
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[((0, 42, 75), 1936.8217418655074, 10, 1936.2347412109375),
- ((0, 42, 76), 1935.65633659207, 10, 1935.0693359375),
- ((0, 41, 76), 1932.400721357695, 10, 1931.813720703125),
- ((0, 41, 77), 1930.8251598342574, 10, 1930.2381591796875),
- ((0, 41, 78), 1928.34823112332, 10, 1927.76123046875)]
+[((0, 42, 75),
+  np.float64(1936.8217418655074),
+  10,
+  np.float64(1936.2347412109375)),
+ ((0, 42, 76), np.float64(1935.65633659207), 10, np.float64(1935.0693359375)),
+ ((0, 41, 76),
+  np.float64(1932.400721357695),
+  10,
+  np.float64(1931.813720703125)),
+ ((0, 41, 77),
+  np.float64(1930.8251598342574),
+  10,
+  np.float64(1930.2381591796875)),
+ ((0, 41, 78), np.float64(1928.34823112332), 10, np.float64(1927.76123046875))]
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -2526,12 +2376,12 @@ writing simulation...
     writing package uzf_0...
 INFORMATION: nuzfcells in (&#39;gwf6&#39;, &#39;uzf&#39;, &#39;dimensions&#39;) changed to 3587 based on size of packagedata
     writing package riv_0...
-FloPy is using the following executable to run the model: ../../../../../../software/modflow_exes/mf6
+FloPy is using the following executable to run the model: ../../../../../../../.local/share/flopy/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
                             VERSION 6.4.2 06/28/2023
 
-   MODFLOW 6 compiled Jun 28 2023 18:34:54 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled Jul 05 2023 20:29:14 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -2549,7 +2399,7 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/02/03 10:32:11
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 10:59:44
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -2920,8 +2770,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:    30
     Solving:  Stress period:    12    Time step:    31
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/02/03 10:33:33
- Elapsed run time:  1 Minutes, 22.215 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 11:00:56
+ Elapsed run time:  1 Minutes, 11.569 Seconds
 
  Normal termination of simulation.
 </pre></div></div>
@@ -2994,8 +2844,8 @@ and distribution information.
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

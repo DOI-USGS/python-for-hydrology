@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>09: Geopandas exercise solutions &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,6 @@
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -125,14 +123,14 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gp</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="kn">import</span> <span class="n">PdfPages</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.backends.backend_pdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">PdfPages</span>
 </pre></div>
 </div>
 </div>
@@ -493,9 +491,19 @@
 </section>
 <section id="TEST-YOUR-SKILLS-#1">
 <h2>TEST YOUR SKILLS #1<a class="headerlink" href="#TEST-YOUR-SKILLS-#1" title="Link to this heading">¶</a></h2>
-<p>Using the <code class="docutils literal notranslate"><span class="pre">bounds</span></code> geodataframe you just made, write a function to visualize predicate behaviors. - your function should accept a left geodataframe, a right geodataframe, and a string for the predicate - your function should plot: - the left geodataframe in (default) blue - the result of the spatial join operation in another color - the right geodataframe in another color with outline only - then you should set the title of the plot to the string predicate value used - the geodataframes to
-test with are <code class="docutils literal notranslate"><span class="pre">isthmus_parks</span></code> and <code class="docutils literal notranslate"><span class="pre">bounds</span></code> - your function should <code class="docutils literal notranslate"><span class="pre">return</span></code> the joined geodataframe</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">bounds</span></code> geodataframe you just made, write a function to visualize predicate behaviors.</p>
 <ul class="simple">
+<li><p>your function should accept a left geodataframe, a right geodataframe, and a string for the predicate</p></li>
+<li><p>your function should plot:</p>
+<ul>
+<li><p>the left geodataframe in (default) blue</p></li>
+<li><p>the result of the spatial join operation in another color</p></li>
+<li><p>the right geodataframe in another color with outline only</p></li>
+</ul>
+</li>
+<li><p>then you should set the title of the plot to the string predicate value used</p></li>
+<li><p>the geodataframes to test with are <code class="docutils literal notranslate"><span class="pre">isthmus_parks</span></code> and <code class="docutils literal notranslate"><span class="pre">bounds</span></code></p></li>
+<li><p>your function should <code class="docutils literal notranslate"><span class="pre">return</span></code> the joined geodataframe</p></li>
 <li><p>a couple hints:</p>
 <ul>
 <li><p>in the <code class="docutils literal notranslate"><span class="pre">plot</span></code> method are a couple args called <code class="docutils literal notranslate"><span class="pre">facecolor</span></code> and <code class="docutils literal notranslate"><span class="pre">edgecolor</span></code> that will help plot the rectangle</p></li>
@@ -520,7 +528,7 @@ test with are <code class="docutils literal notranslate"><span class="pre">isthm
 <span class="n">hoods</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">parks</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">isthmus</span> <span class="o">=</span> <span class="n">hoods</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">hoods</span><span class="p">[</span><span class="s1">&#39;NEIGHB_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Marquette&#39;</span><span class="p">)</span> <span class="o">|</span>
                    <span class="n">hoods</span><span class="p">[</span><span class="s1">&#39;NEIGHB_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Tenney&#39;</span><span class="p">)]</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
 <span class="n">bbox</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="mi">570600</span><span class="p">,</span> <span class="mi">290000</span><span class="p">,</span> <span class="mi">573100</span><span class="p">,</span> <span class="mi">291700</span><span class="p">)</span>
 <span class="n">bounds</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">bbox</span><span class="p">],</span><span class="n">crs</span><span class="o">=</span><span class="n">parks</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 <span class="n">isthmus_parks</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">left_df</span><span class="o">=</span><span class="n">parks</span><span class="p">,</span> <span class="n">right_df</span><span class="o">=</span><span class="n">isthmus</span><span class="p">)</span>
@@ -533,7 +541,7 @@ test with are <code class="docutils literal notranslate"><span class="pre">isthm
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_predicate</span><span class="p">(</span><span class="n">ldf</span><span class="p">,</span><span class="n">rdf</span><span class="p">,</span><span class="n">predicate</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">show_predicate</span><span class="p">(</span><span class="n">ldf</span><span class="p">,</span><span class="n">rdf</span><span class="p">,</span><span class="n">predicate</span><span class="p">):</span>
     <span class="n">sj</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">ldf</span><span class="p">,</span> <span class="n">rdf</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="n">predicate</span><span class="p">)</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">ldf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
     <span class="n">sj</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
@@ -783,8 +791,14 @@ test with are <code class="docutils literal notranslate"><span class="pre">isthm
 </section>
 <section id="TEST-YOUR-SKILLS-OPTIONAL">
 <h2>TEST YOUR SKILLS <em>OPTIONAL</em><a class="headerlink" href="#TEST-YOUR-SKILLS-OPTIONAL" title="Link to this heading">¶</a></h2>
-<p>We have an Excel file that contains a crosswalk between SPECIES number as provided and species name. Can we bring that into our dataset and evaluate some conclusions about tree species by neighborhood? - start with the <code class="docutils literal notranslate"><span class="pre">trees_with_hoods</span></code> GeoDataFrame - load up and join the data from datapath / ‘Madison_Tree_Species_Lookup.xlsx’ - hint: check the dtypes before merging - if you are going to join on a column, the column must be the same dtype in both dataframes - Make a multipage PDF with a page
-for each neighborhood showing a bar chart of the top ten tree species (by name) in each neighborhood - Make a map (use explore, or save to SHP or geojson) showing the neighborhoods with a color-coded field showing the most common tree species for each neighborhood</p>
+<p>We have an Excel file that contains a crosswalk between SPECIES number as provided and species name. Can we bring that into our dataset and evaluate some conclusions about tree species by neighborhood?</p>
+<ul class="simple">
+<li><p>start with the <code class="docutils literal notranslate"><span class="pre">trees_with_hoods</span></code> GeoDataFrame</p></li>
+<li><p>load up and join the data from datapath / ‘Madison_Tree_Species_Lookup.xlsx’</p></li>
+<li><p>hint: check the dtypes before merging - if you are going to join on a column, the column must be the same dtype in both dataframes</p></li>
+<li><p>Make a multipage PDF with a page for each neighborhood showing a bar chart of the top ten tree species (by name) in each neighborhood</p></li>
+<li><p>Make a map (use explore, or save to SHP or geojson) showing the neighborhoods with a color-coded field showing the most common tree species for each neighborhood</p></li>
+</ul>
 <p>You will need a few pandas operations that we have only touched on a bit:</p>
 <p><code class="docutils literal notranslate"><span class="pre">groupby</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>, <code class="docutils literal notranslate"><span class="pre">merge</span></code>, <code class="docutils literal notranslate"><span class="pre">read_excel</span></code>, <code class="docutils literal notranslate"><span class="pre">sort_values</span></code>, <code class="docutils literal notranslate"><span class="pre">iloc</span></code></p>
 <div class="nbinput docutils container">
@@ -1600,8 +1614,8 @@ dtype: object
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 

@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>08: Modflow-setup demonstration &mdash; Python for Hydrology 1.0a documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -20,8 +20,6 @@
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -136,7 +134,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="dc8f37881f8b452f899673ca1c18e6c3" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="a18cf42521144d4daeab8bb93759e8bc" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -174,23 +172,32 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <section id="A-final-note-if-you-want-to-try-Modflow-setup-for-your-project">
 <h2>A final note if you want to try Modflow-setup for your project<a class="headerlink" href="#A-final-note-if-you-want-to-try-Modflow-setup-for-your-project" title="Link to this heading">¶</a></h2>
 <p>The example here is presented in an interactive Jupyter Notebook format primarily for illustrative purposes. Typically, the best way to use Modflow-setup is within a python script (<code class="docutils literal notranslate"><span class="pre">*.py</span></code> file) that runs from start to finish. To get started with Modflow-setup on your project, see the <a class="reference external" href="https://doi-usgs.github.io/modflow-setup/latest/10min.html">10 Minutes to Modflow-setup</a> guide, which includes template configuration files and model build scripts that you can download.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">griddata</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">patheffects</span>
-<span class="kn">import</span> <span class="nn">flopy</span>
-<span class="kn">from</span> <span class="nn">mfsetup</span> <span class="kn">import</span> <span class="n">MF6model</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">griddata</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">patheffects</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mfsetup</span><span class="w"> </span><span class="kn">import</span> <span class="n">MF6model</span>
 
 <span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/geopandas/_compat.py:7: DeprecationWarning: The &#39;shapely.geos&#39; module is deprecated, and will be removed in a future version. All attributes of &#39;shapely.geos&#39; are available directly from the top-level &#39;shapely&#39; namespace (since shapely 2.0.0).
+  import shapely.geos
+</pre></div></div>
 </div>
 <p>Oftentimes at the start of a modeling project, we want to quickly test different grid resolutions and extents before attempting to build the model. We can do this with Modflow-setup by creating a model instance and then running the <code class="docutils literal notranslate"><span class="pre">setup_grid()</span></code> method. A model grid instance is created from the <code class="docutils literal notranslate"><span class="pre">setup_grid:</span></code> block in the configuration file.</p>
 <div class="nbinput nblast docutils container">
@@ -220,7 +227,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.07s
+finished in 0.30s
 
 writing postproc/shps/regional_model_grid.shp... Done
 </pre></div></div>
@@ -310,11 +317,11 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.01s
+finished in 0.04s
 
 writing postproc/shps/plsnt-lgr-parent_grid.shp... Done
 creating shapely Polygons of grid cells...
-finished in 0.10s
+finished in 0.42s
 
 writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </pre></div></div>
@@ -355,7 +362,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post442+g5560ca3
+Pleasant Lake test case version 0.1.post444+g2122ecf
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -451,7 +458,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post442+g5560ca3
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post444+g2122ecf
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -546,8 +553,8 @@ writing simulation...
   writing simulation name file...
   writing simulation tdis package...
   writing solution package ims_-1...
-  writing package pleasant-lgr.mvr...
   writing package pleasant-lgr.gwfgwf...
+  writing package pleasant-lgr.mvr...
   writing model plsnt-lgr-parent...
     writing model name file...
     writing package dis...
@@ -557,7 +564,7 @@ writing simulation...
     writing package rcha_0...
     writing package oc...
     writing package chd_0...
-INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;chd&#39;, &#39;dimensions&#39;) changed to 272 based on size of stress_period_data
+INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;chd&#39;, &#39;dimensions&#39;) changed to 277 based on size of stress_period_data
     writing package obs_0...
     writing package sfr_0...
     writing package wel_0...
@@ -578,7 +585,7 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) c
     writing package obs_1...
 SFRmaker v. 0.11.3
 
-Running Flopy v. 3.8.2 diagnostics...
+Running Flopy v. 3.9.2 diagnostics...
 passed.
 
 Checking for continuity in segment and reach numbering...
@@ -621,8 +628,8 @@ k i j iseg ireach strtop strtopdn d_strtop reachID diff
 2 24 21 2 10 288.81939697265625 290.66015625 1.84075927734375 15 -1.84075927734375
 1 24 22 2 11 288.60980224609375 290.1935119628906 1.583709716796875 16 -1.583709716796875
 4 21 16 2 2 290.66015625 292.11285400390625 1.45269775390625 7 -1.45269775390625
-3 24 20 2 9 289.3415832519531 290.66015625 1.318572998046875 14 -1.318572998046875
-3 24 19 2 8 289.4702453613281 290.66015625 1.189910888671875 13 -1.189910888671875
+2 24 20 2 9 289.3415832519531 290.66015625 1.318572998046875 14 -1.318572998046875
+2 24 19 2 8 289.4702453613281 290.66015625 1.189910888671875 13 -1.189910888671875
 4 23 19 2 7 290.1935119628906 290.66015625 0.466644287109375 12 -0.466644287109375
 
 
@@ -644,6 +651,70 @@ wrote plsnt-lgr-parent.sfr.obs
 converting reach and segment data to package data...
 wrote /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lgr/external/plsnt-lgr-parent_packagedata.dat
 wrote /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lgr/plsnt-lgr-parent.sfr
+SFRmaker v. 0.11.3
+
+Running Flopy v. 3.9.2 diagnostics...
+passed.
+
+Checking for continuity in segment and reach numbering...
+passed.
+
+Checking for increasing segment numbers in downstream direction...
+passed.
+
+Checking for circular routing...
+passed.
+
+Checking reach connections for proximity...
+0 segments with non-adjacent reaches found.
+At segments:
+
+
+0 segments with non-adjacent reaches found.
+At segments:
+
+
+
+Checking for model cells with multiple non-zero SFR conductances...
+1 model cells with multiple non-zero SFR conductances found.
+This may lead to circular routing between collocated reaches.
+Nodes with overlapping conductances:
+k       i       j       iseg    ireach  rchlen  strthick        strhc1
+0       27      71      1       12      13.225701332092285      1.0     1.0
+0       27      71      1       13      26.684703826904297      1.0     1.0
+
+Checking for streambed tops of less than -10...
+isfropt setting of 1,2 or 3 requires strtop information!
+
+
+Checking for streambed tops of greater than 15000...
+isfropt setting of 1,2 or 3 requires strtop information!
+
+
+Checking segment_data for downstream rises in streambed elevation...
+Segment elevup and elevdn not specified for nstrm=-41 and isfropt=1
+passed.
+
+Checking reach_data for downstream rises in streambed elevation...
+passed.
+
+Checking reach_data for inconsistencies between streambed elevations and the model grid...
+passed.
+
+Checking segment_data for inconsistencies between segment end elevations and the model grid...
+Segment elevup and elevdn not specified for nstrm=-41 and isfropt=1
+passed.
+
+Checking for streambed slopes of less than 0.0001...
+passed.
+
+Checking for streambed slopes of greater than 1.0...
+passed.
+
+wrote plsnt-lgr-inset_SFR.chk
+converting reach and segment data to package data...
+wrote /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lgr/external/plsnt-lgr-inset_packagedata.dat
+wrote /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lgr/plsnt-lgr-inset.sfr
 </pre></div></div>
 </div>
 <p><strong>Note:</strong> Running the model through Flopy (as below) requires specification of the MODFLOW executable. In Flopy, the executable is specified via the <code class="docutils literal notranslate"><span class="pre">exe_name</span></code> argument to the simulation constructor for MODFLOW 6, or model constructor for previous MODFLOW versions. Similarly, in Modflow-setup, the <code class="docutils literal notranslate"><span class="pre">exe_name</span></code> is specified in the <code class="docutils literal notranslate"><span class="pre">simulation:</span></code> or <code class="docutils literal notranslate"><span class="pre">model:</span></code> block of the <a class="reference external" href="https://doi-usgs.github.io/modflow-setup/latest/config-file-gallery.html#pleasant-lake-test-case">configuration file</a>.
@@ -664,9 +735,9 @@ This example assumes that a MODFLOW 6 executable with the name “mf6” either 
 FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.5.0 05/23/2024
+                            VERSION 6.6.1 02/10/2025
 
-   MODFLOW 6 compiled Jun 21 2024 02:57:38 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled Feb 14 2025 13:39:18 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -686,7 +757,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2024/11/20 18:08:28
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 16:59:48
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -705,8 +776,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2024/11/20 18:08:33
- Elapsed run time:  5.153 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 16:59:53
+ Elapsed run time:  5.033 Seconds
 
 
 WARNING REPORT:
@@ -751,8 +822,8 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">flopy.utils.binaryfile</span> <span class="k">as</span> <span class="nn">bf</span>
-<span class="kn">from</span> <span class="nn">flopy.utils.postprocessing</span> <span class="kn">import</span> <span class="n">get_water_table</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">flopy.utils.binaryfile</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">bf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils.postprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_water_table</span>
 
 <span class="n">lgr_parent_headsobj</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">HeadFile</span><span class="p">(</span><span class="s1">&#39;plsnt-lgr-parent.hds&#39;</span><span class="p">)</span>
 <span class="n">lgr_inset_headsobj</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">HeadFile</span><span class="p">(</span><span class="s1">&#39;plsnt-lgr-inset.hds&#39;</span><span class="p">)</span>
@@ -891,7 +962,10 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 <p>Langevin, C.D., Hughes, J.D., Banta, E.R., Niswonger, R.G., Panday, S., and Provost, A.M., 2017, Documentation for the MODFLOW 6 groundwater flow model: U.S. Geological Survey Techniques and Methods, book 6, chap. A55, 197 p., <a class="reference external" href="https://doi.org/">https://doi.org/</a> 10.3133/tm6A55.</p>
 <p>Leaf, A.T. and Fienen, M.N. (2022) Modflow-setup: Robust automation of groundwater model construction. Front. Earth Sci. 10:903965. doi: 10.3389/feart.2022.903965</p>
 <p>Mehl, S., Hill, M.C., and Leake, S.A., 2006, Comparison of local grid refinement methods for MODFLOW: Groundwater, v. 44, no. 6, p. 792–796, <a class="reference external" href="https://doi.org/10.1111/j.1745-6584.2006.00192.x">https://doi.org/10.1111/j.1745-6584.2006.00192.x</a></p>
-<p>Westenbroek, S. M., Engott, J. A., Kelson, V. A., and Hunt, R. J. (2018). SWB Version 2.0—a soil-water-balance code for estimating net infiltration and other 1152 water-budget components. U.S. Geological Survey Techniques and Methods, book 6, 118. chap. A59. doi:10.3133/tm6A59</p>
+<p>Westenbroek, S. M., Engott, J. A., Kelson, V. A., and Hunt, R. J. (2018). SWB Version 2.0—a soil-water-balance code for estimating net infiltration and other 1152 water-budget components. U.S. Geological Survey Techniques and Methods, book 6,</p>
+<ol class="arabic simple" start="118">
+<li><p>chap. A59. doi:10.3133/tm6A59</p></li>
+</ol>
 <p>White, J. T., Hemmings, B., Fienen, M. N., and Knowling, M. J. (2021). Towards improved environmental modeling outcomes: Enabling low-cost access to high- 1157 dimensional, geostatistical-based decision-support analyses. Environ. Model. Softw. 139, 105022. doi:10.1016/j.envsoft.2021.105022</p>
 <p>Wisconsin Department of Natural Resources (WDNR) (2021). Central Sands Lake study report: Findings and recommendations. Rep. Wis. State Legislature. 1162 doi:10.5281/zenodo.5708791</p>
 </section>
@@ -908,8 +982,8 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Nov 20, 2024.
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Apr 27, 2025.
       </span></p>
   </div>
 
