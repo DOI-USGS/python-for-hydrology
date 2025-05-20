@@ -85,7 +85,6 @@ jobs:
         $ErrorActionPreference = "Stop"
         $PSDefaultParameterValues['*:ErrorAction']='Stop'
         powershell .github/install_opengl.ps1
-        export MESA_GL_VERSION_OVERRIDE=3.3
 
     - name: Run tests
       shell: bash -l {0}
