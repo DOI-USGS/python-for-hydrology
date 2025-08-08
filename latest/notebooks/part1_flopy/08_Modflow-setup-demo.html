@@ -134,7 +134,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="bb32d537e6b2447a832618865e0c5ede" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="d470888a93ad4dd183eeddf604c108fd" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -172,7 +172,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <section id="A-final-note-if-you-want-to-try-Modflow-setup-for-your-project">
 <h2>A final note if you want to try Modflow-setup for your project<a class="headerlink" href="#A-final-note-if-you-want-to-try-Modflow-setup-for-your-project" title="Link to this heading">¶</a></h2>
 <p>The example here is presented in an interactive Jupyter Notebook format primarily for illustrative purposes. Typically, the best way to use Modflow-setup is within a python script (<code class="docutils literal notranslate"><span class="pre">*.py</span></code> file) that runs from start to finish. To get started with Modflow-setup on your project, see the <a class="reference external" href="https://doi-usgs.github.io/modflow-setup/latest/10min.html">10 Minutes to Modflow-setup</a> guide, which includes template configuration files and model build scripts that you can download.</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -189,15 +189,6 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/geopandas/_compat.py:7: DeprecationWarning: The &#39;shapely.geos&#39; module is deprecated, and will be removed in a future version. All attributes of &#39;shapely.geos&#39; are available directly from the top-level &#39;shapely&#39; namespace (since shapely 2.0.0).
-  import shapely.geos
-</pre></div></div>
 </div>
 <p>Oftentimes at the start of a modeling project, we want to quickly test different grid resolutions and extents before attempting to build the model. We can do this with Modflow-setup by creating a model instance and then running the <code class="docutils literal notranslate"><span class="pre">setup_grid()</span></code> method. A model grid instance is created from the <code class="docutils literal notranslate"><span class="pre">setup_grid:</span></code> block in the configuration file.</p>
 <div class="nbinput nblast docutils container">
@@ -227,7 +218,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.30s
+finished in 0.07s
 
 writing postproc/shps/regional_model_grid.shp... Done
 </pre></div></div>
@@ -317,11 +308,11 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.05s
+finished in 0.01s
 
 writing postproc/shps/plsnt-lgr-parent_grid.shp... Done
 creating shapely Polygons of grid cells...
-finished in 0.46s
+finished in 0.10s
 
 writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </pre></div></div>
@@ -362,7 +353,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post447+g16a92a2
+Pleasant Lake test case version 0.1.post454+g290871e
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -458,7 +449,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post447+g16a92a2
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post454+g290871e
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -585,7 +576,7 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) c
     writing package obs_1...
 SFRmaker v. 0.11.3
 
-Running Flopy v. 3.9.2 diagnostics...
+Running Flopy v. 3.9.3 diagnostics...
 passed.
 
 Checking for continuity in segment and reach numbering...
@@ -653,7 +644,7 @@ wrote /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/no
 wrote /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lgr/plsnt-lgr-parent.sfr
 SFRmaker v. 0.11.3
 
-Running Flopy v. 3.9.2 diagnostics...
+Running Flopy v. 3.9.3 diagnostics...
 passed.
 
 Checking for continuity in segment and reach numbering...
@@ -735,9 +726,9 @@ This example assumes that a MODFLOW 6 executable with the name “mf6” either 
 FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.6.1 02/10/2025
+                            VERSION 6.6.2 05/12/2025
 
-   MODFLOW 6 compiled Feb 14 2025 13:39:18 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled May 24 2025 11:41:46 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -757,7 +748,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/04/29 14:21:07
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/08/08 15:22:57
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -776,8 +767,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/04/29 14:21:12
- Elapsed run time:  5.016 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/08/08 15:23:02
+ Elapsed run time:  4.999 Seconds
 
 
 WARNING REPORT:
@@ -983,7 +974,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Apr 29, 2025.
+      <span class="lastupdated">Last updated on Aug 08, 2025.
       </span></p>
   </div>
 
