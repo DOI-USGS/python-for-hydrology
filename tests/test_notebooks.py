@@ -23,7 +23,7 @@ xfail_notebooks = {
 # platforms
 # Notebook : (platforms,), reason
 skip_notebooks = {
-    "10_modpath_particle_tracking-demo.ipynb" : [("darwin", "windows"), "transient timeout"]
+    "10_modpath_particle_tracking-demo.ipynb" : [("darwin"), "transient timeout"]
 }
 
 def included_notebooks():
