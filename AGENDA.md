@@ -1,4 +1,4 @@
-# Python USGS Training Agenda - February 2024 Edition
+# Python USGS Training Agenda - September 2025 Edition
  
 ## Part 0: Introduction to python for hydrologists
 Monday
