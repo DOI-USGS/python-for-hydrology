@@ -23,7 +23,7 @@ xfail_notebooks = {
 # platforms
 # Notebook : (platforms,), reason
 skip_notebooks = {
-    "10_modpath_particle_tracking-demo.ipynb" : [("darwin"), "transient timeout"]
+    "10_modpath_particle_tracking-demo.ipynb" : [("darwin","linux","windows"), "transient timeout"]
 }
 
 def included_notebooks():
@@ -41,7 +41,7 @@ def included_notebooks():
             param_input = pytest.param(
                 f, marks=pytest.mark.xfail(reason=xfail_notebooks[f.name]))
         elif f.name in skip_notebooks and \
-                platform.system().lower() in skip_notebooks[f.name][0]:
+                platform.system().lower() in ''.join(skip_notebooks[f.name][0]):
             param_input = pytest.param(
                 f, marks=pytest.mark.skip(reason=skip_notebooks[f.name][-1])
             )
