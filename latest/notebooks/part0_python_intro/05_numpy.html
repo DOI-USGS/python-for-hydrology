@@ -441,7 +441,7 @@ array([[ 1,  3,  5,  7],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[4.64267567e-310 0.00000000e+000 0.00000000e+000]
+[[4.67602117e-310 0.00000000e+000 0.00000000e+000]
  [0.00000000e+000 0.00000000e+000 0.00000000e+000]
  [0.00000000e+000 0.00000000e+000 0.00000000e+000]]
 </pre></div></div>
@@ -522,7 +522,7 @@ array([[ 1,  3,  5,  7],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7f50f42c8f90&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7f687c1afc90&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -704,7 +704,7 @@ array([2, 4, 6, 8])
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x7f50f3e5af50&gt;]
+[&lt;matplotlib.lines.Line2D at 0x7f6874961690&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -809,7 +809,7 @@ a[::-1] #start at the end and reverse the order
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a[:10]: &#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
 
 <span class="c1">#or print the values from position 20 to the end</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a[90:]&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">20</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a[20:]&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">20</span><span class="p">:])</span>
 </pre></div>
 </div>
 </div>
@@ -821,7 +821,7 @@ a[::-1] #start at the end and reverse the order
 a= [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
  24 25 26 27 28 29]
 a[:10]:  [0 1 2 3 4 5 6 7 8 9]
-a[90:] [20 21 22 23 24 25 26 27 28 29]
+a[20:] [20 21 22 23 24 25 26 27 28 29]
 </pre></div></div>
 </div>
 <p>This is all good, but what if want to skip over values. Then we can also enter a stride.</p>
@@ -864,7 +864,7 @@ a[90:] [20 21 22 23 24 25 26 27 28 29]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -874,7 +874,7 @@ a[90:] [20 21 22 23 24 25 26 27 28 29]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([], dtype=int64)
+array([10, 15, 20, 25])
 </pre></div></div>
 </div>
 <p>And this all works for multi-dimensional arrays as well. So we can access parts of a multi-dimensional array, just separate the slice commands with a <code class="docutils literal notranslate"><span class="pre">','</span></code></p>
@@ -950,9 +950,9 @@ array([], dtype=int64)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[0.8634673  0.8662746  0.39697973 0.66655393 0.84716092 0.06691908
- 0.95870527 0.93173282 0.61686549 0.08007943]
-values in 2, 3, and 7 positions [0.39697973 0.66655393 0.93173282]
+[0.4971863  0.65569977 0.08621997 0.39335214 0.07119998 0.14300083
+ 0.39622705 0.66102419 0.6282207  0.2867022 ]
+values in 2, 3, and 7 positions [0.08621997 0.39335214 0.66102419]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -987,12 +987,38 @@ values in 2, 3, and 7 positions [0.39697973 0.66655393 0.93173282]
  [0 0 0 0 0 0 0 0 0 1]]
 </pre></div></div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[1., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 1., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 1., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 1., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 1., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 1., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 1., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 1., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 1., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 1.]])
+</pre></div></div>
+</div>
 </section>
 <section id="Boolean-indexing">
 <h2>Boolean indexing<a class="headerlink" href="#Boolean-indexing" title="Link to this heading">¶</a></h2>
 <p>conditional statements can also be used to slice arrays what if we want to identify nodata in the Mt. St. Helens array, which have a value of 0, and convert them to nodata?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">before</span>
@@ -1000,7 +1026,7 @@ values in 2, 3, and 7 positions [0.39697973 0.66655393 0.93173282]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1020,7 +1046,7 @@ array([[  0.,   0.,   0., ...,   0.,   0.,   0.],
 <h2>comparing arrays<a class="headerlink" href="#comparing-arrays" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://docs.python.org/3.9/reference/expressions.html?highlight=bitwise#value-comparisons">Value Comparisons</a> yield Boolean True/False results and include <code class="docutils literal notranslate"><span class="pre">==</span></code>,<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>,<code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>,<code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>,<code class="docutils literal notranslate"><span class="pre">!=</span></code> (the last being “not equal”)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">before</span><span class="o">==</span><span class="mi">0</span>
@@ -1028,7 +1054,7 @@ array([[  0.,   0.,   0., ...,   0.,   0.,   0.],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1043,7 +1069,7 @@ array([[ True,  True,  True, ...,  True,  True,  True],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">before</span> <span class="o">!=</span> <span class="mi">0</span>
@@ -1051,7 +1077,7 @@ array([[ True,  True,  True, ...,  True,  True,  True],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1066,7 +1092,7 @@ array([[False, False, False, ..., False, False, False],
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use a Boolean result to operate on an array</span>
@@ -1075,7 +1101,7 @@ array([[False, False, False, ..., False, False, False],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">before</span>
@@ -1083,7 +1109,7 @@ array([[False, False, False, ..., False, False, False],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1100,7 +1126,7 @@ array([[ nan,  nan,  nan, ...,  nan,  nan,  nan],
 </div>
 <p>or, what if we want to identify cells with elevations above 2000 meters? <code class="docutils literal notranslate"><span class="pre">before</span> <span class="pre">&gt;</span> <span class="pre">2000</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> for each position in the array that meets this condition (yellow in plot below), <code class="docutils literal notranslate"><span class="pre">False</span></code> everywhere else (purple)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">before</span> <span class="o">&gt;</span> <span class="mi">2000</span><span class="p">)</span>
@@ -1108,26 +1134,26 @@ array([[ nan,  nan,  nan, ...,  nan,  nan,  nan],
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f50f3f129d0&gt;
+&lt;matplotlib.image.AxesImage at 0x7f687471c9d0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part0_python_intro_05_numpy_67_1.png" src="../../_images/notebooks_part0_python_intro_05_numpy_67_1.png" />
+<img alt="../../_images/notebooks_part0_python_intro_05_numpy_68_1.png" src="../../_images/notebooks_part0_python_intro_05_numpy_68_1.png" />
 </div>
 </div>
 </section>
 <section id="this-can-be-applied,-element-by-element-to-entire-arrays">
 <h2>this can be applied, element-by-element to entire arrays<a class="headerlink" href="#this-can-be-applied,-element-by-element-to-entire-arrays" title="Link to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
@@ -1138,7 +1164,7 @@ array([[ nan,  nan,  nan, ...,  nan,  nan,  nan],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">==</span><span class="n">b</span>
@@ -1146,7 +1172,7 @@ array([[ nan,  nan,  nan, ...,  nan,  nan,  nan],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1159,7 +1185,7 @@ array([[ True,  True,  True,  True,  True],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">==</span><span class="n">c</span>
@@ -1167,7 +1193,7 @@ array([[ True,  True,  True,  True,  True],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1180,16 +1206,16 @@ array([[False,  True,  True,  True,  True],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># are they the same shape and have all the xam</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># are they the same shape and have all the same values</span>
 <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1201,7 +1227,7 @@ array([[False,  True,  True,  True,  True],
 <section id="Logical-operations:-any-and-all">
 <h2>Logical operations: <code class="docutils literal notranslate"><span class="pre">any</span></code> and <code class="docutils literal notranslate"><span class="pre">all</span></code><a class="headerlink" href="#Logical-operations:-any-and-all" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">c</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">c</span><span class="p">)</span>
@@ -1209,7 +1235,7 @@ array([[False,  True,  True,  True,  True],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1221,7 +1247,7 @@ array([[False,  True,  True,  True,  True],
 <section id="Bitwise-operations-are-required-to-compare-Boolean-(and-other-binary)-arrays-and-include-%22and%22-&amp;-and-%22or%22-|.">
 <h2><a class="reference external" href="https://docs.python.org/3.9/reference/expressions.html?highlight=bitwise#binary-bitwise-operations">Bitwise operations</a> are required to compare Boolean (and other binary) arrays and include “and” <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> and “or” <code class="docutils literal notranslate"><span class="pre">|</span></code>.<a class="headerlink" href="#Bitwise-operations-are-required-to-compare-Boolean-(and-other-binary)-arrays-and-include-%22and%22-&-and-%22or%22-|." title="Link to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compare two binary arrays</span>
@@ -1232,7 +1258,7 @@ array([[False,  True,  True,  True,  True],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">little</span>
@@ -1240,20 +1266,20 @@ array([[False,  True,  True,  True,  True],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[False, False,  True, False, False],
+array([[False, False,  True,  True, False],
+       [ True,  True, False, False, False],
        [False, False, False, False, False],
-       [False, False, False, False, False],
-       [False, False, False, False, False],
-       [False,  True, False, False, False]])
+       [False, False, False, False,  True],
+       [ True,  True,  True, False, False]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big</span>
@@ -1261,20 +1287,20 @@ array([[False, False,  True, False, False],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ True, False, False, False, False],
-       [False,  True, False, False, False],
+array([[ True, False, False, False,  True],
        [False, False, False,  True, False],
-       [False,  True, False, False, False],
-       [ True, False,  True, False,  True]])
+       [False,  True, False,  True, False],
+       [False,  True,  True, False, False],
+       [False, False, False, False, False]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">little</span> <span class="o">&amp;</span> <span class="n">big</span> <span class="c1"># can&#39;t be both, right?</span>
@@ -1282,7 +1308,7 @@ array([[ True, False, False, False, False],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1295,7 +1321,7 @@ array([[False, False, False, False, False],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">little</span> <span class="o">|</span> <span class="n">big</span>
@@ -1303,20 +1329,20 @@ array([[False, False, False, False, False],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ True, False,  True, False, False],
-       [False,  True, False, False, False],
-       [False, False, False,  True, False],
-       [False,  True, False, False, False],
-       [ True,  True,  True, False,  True]])
+array([[ True, False,  True,  True,  True],
+       [ True,  True, False,  True, False],
+       [False,  True, False,  True, False],
+       [False,  True,  True, False,  True],
+       [ True,  True,  True, False, False]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">[</span><span class="n">little</span> <span class="o">|</span> <span class="n">big</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1325,23 +1351,23 @@ array([[ True, False,  True, False, False],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.        , 0.59180279, 0.        , 0.56959237, 0.22533029],
-       [0.21493755, 0.        , 0.22973206, 0.2426878 , 0.48144617],
-       [0.20074518, 0.50394964, 0.40618149, 0.        , 0.20696644],
-       [0.36707354, 0.        , 0.59092887, 0.2814292 , 0.39389578],
-       [0.        , 0.        , 0.        , 0.56327621, 0.        ]])
+array([[0.        , 0.51024843, 0.        , 0.        , 0.        ],
+       [0.        , 0.        , 0.33176572, 0.        , 0.503467  ],
+       [0.34044276, 0.        , 0.32760683, 0.        , 0.24111201],
+       [0.31279177, 0.        , 0.        , 0.24230912, 0.        ],
+       [0.        , 0.        , 0.        , 0.34028093, 0.5515334 ]])
 </pre></div></div>
 </div>
 <blockquote>
 <div><p>pro tip: If you stack the comparison together with bitwise comparisons, you need to wrap those in (). This may seem abstract but will be important soon. Like really soon.</p>
 </div></blockquote>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">[(</span><span class="n">a</span><span class="o">&gt;</span><span class="mf">.3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">a</span><span class="o">&lt;</span><span class="mf">.5</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">9</span>
@@ -1350,23 +1376,23 @@ array([[0.        , 0.59180279, 0.        , 0.56959237, 0.22533029],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.        , 0.59180279, 0.        , 0.56959237, 0.22533029],
-       [0.21493755, 0.        , 0.22973206, 0.2426878 , 9.        ],
-       [0.20074518, 0.50394964, 9.        , 0.        , 0.20696644],
-       [9.        , 0.        , 0.59092887, 0.2814292 , 9.        ],
-       [0.        , 0.        , 0.        , 0.56327621, 0.        ]])
+array([[0.        , 0.51024843, 0.        , 0.        , 0.        ],
+       [0.        , 0.        , 9.        , 0.        , 0.503467  ],
+       [9.        , 0.        , 9.        , 0.        , 0.24111201],
+       [9.        , 0.        , 0.        , 0.24230912, 0.        ],
+       [0.        , 0.        , 0.        , 9.        , 0.5515334 ]])
 </pre></div></div>
 </div>
 </section>
 <section id="there-are-times-when-it's-useful-to-have-a-list-of-indices-meeting-some-condition.-`np.where-&lt;https://numpy.org/doc/stable/reference/generated/numpy.where.html&gt;`__-will-hook-you-up.-(also-check-out-`nonzero-&lt;https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html&gt;`__-and-`argwhere-&lt;https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html&gt;`__-for-some-nuanced-options)">
 <h2>there are times when it’s useful to have a list of indices meeting some condition. <code class="docutils literal notranslate"><span class="pre">`np.where</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.where.html">https://numpy.org/doc/stable/reference/generated/numpy.where.html</a>&gt;`__ will hook you up. (also check out <code class="docutils literal notranslate"><span class="pre">`nonzero</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html">https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html</a>&gt;`__ and <code class="docutils literal notranslate"><span class="pre">`argwhere</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html">https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html</a>&gt;`__ for some nuanced options)<a class="headerlink" href="#there-are-times-when-it's-useful-to-have-a-list-of-indices-meeting-some-condition.-`np.where-<https://numpy.org/doc/stable/reference/generated/numpy.where.html>`__-will-hook-you-up.-(also-check-out-`nonzero-<https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html>`__-and-`argwhere-<https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html>`__-for-some-nuanced-options)" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
@@ -1375,18 +1401,18 @@ array([[0.        , 0.59180279, 0.        , 0.56959237, 0.22533029],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.42457517, 0.18941713, 0.35924129],
-       [0.16792227, 0.42257172, 0.9503502 ],
-       [0.31458289, 0.91938978, 0.27999437]])
+array([[0.70121181, 0.74988361, 0.28883579],
+       [0.57490108, 0.89650953, 0.76624473],
+       [0.19118568, 0.58548412, 0.46050685]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span><span class="o">&lt;</span><span class="mf">0.5</span><span class="p">)</span>
@@ -1395,16 +1421,16 @@ array([[0.42457517, 0.18941713, 0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(array([0, 0, 0, 1, 1, 2, 2]), array([0, 1, 2, 0, 1, 0, 2]))
+(array([0, 2, 2]), array([2, 0, 2]))
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
@@ -1412,18 +1438,18 @@ array([[0.42457517, 0.18941713, 0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.42457517, 0.18941713, 0.35924129],
-       [0.16792227, 0.42257172, 0.9503502 ],
-       [0.31458289, 0.91938978, 0.27999437]])
+array([[0.70121181, 0.74988361, 0.28883579],
+       [0.57490108, 0.89650953, 0.76624473],
+       [0.19118568, 0.58548412, 0.46050685]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
@@ -1431,13 +1457,12 @@ array([[0.42457517, 0.18941713, 0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([0.42457517, 0.18941713, 0.35924129, 0.16792227, 0.42257172,
-       0.31458289, 0.27999437])
+array([0.28883579, 0.19118568, 0.46050685])
 </pre></div></div>
 </div>
 <section id="TEST-YOUR-SKILLS-#1">
@@ -1450,7 +1475,7 @@ array([0.42457517, 0.18941713, 0.35924129, 0.16792227, 0.42257172,
 <li><p>assume each pixel is 25 x 25 feet and the elevation arrays are provided in meters to calculate a volumetric difference between before and after arrays.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">before_file</span> <span class="o">=</span> <span class="n">datapath</span> <span class="o">/</span> <span class="s1">&#39;mt_st_helens_before.dat&#39;</span>
@@ -1520,7 +1545,7 @@ array([0.42457517, 0.18941713, 0.35924129, 0.16792227, 0.42257172,
 <hr class="docutils" />
 <p><strong>Slice indexing returns a view</strong> That means if you change the slice, you change the original 🤔</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
@@ -1528,18 +1553,18 @@ array([0.42457517, 0.18941713, 0.35924129, 0.16792227, 0.42257172,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.42457517, 0.18941713, 0.35924129],
-       [0.16792227, 0.42257172, 0.9503502 ],
-       [0.31458289, 0.91938978, 0.27999437]])
+array([[0.70121181, 0.74988361, 0.28883579],
+       [0.57490108, 0.89650953, 0.76624473],
+       [0.19118568, 0.58548412, 0.46050685]])
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
@@ -1548,7 +1573,7 @@ array([[0.42457517, 0.18941713, 0.35924129],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span>
@@ -1556,17 +1581,17 @@ array([[0.42457517, 0.18941713, 0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 0.42457517,  0.18941713],
-       [ 0.16792227, 10.        ]])
+array([[ 0.70121181,  0.74988361],
+       [ 0.57490108, 10.        ]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
@@ -1574,14 +1599,14 @@ array([[ 0.42457517,  0.18941713],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 0.42457517,  0.18941713,  0.35924129],
-       [ 0.16792227, 10.        ,  0.9503502 ],
-       [ 0.31458289,  0.91938978,  0.27999437]])
+array([[ 0.70121181,  0.74988361,  0.28883579],
+       [ 0.57490108, 10.        ,  0.76624473],
+       [ 0.19118568,  0.58548412,  0.46050685]])
 </pre></div></div>
 </div>
 </section>
@@ -1591,7 +1616,7 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 <section id="first-check-out-where-a-and-b-are-located">
 <h3>first check out where <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are located<a class="headerlink" href="#first-check-out-where-a-and-b-are-located" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
@@ -1599,12 +1624,12 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(139985478869392, 139985478871216)
+(140086603925520, 140086607190160)
 </pre></div></div>
 </div>
 </section>
@@ -1612,7 +1637,7 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 <section id="ok,-but-what-about-the-actual-data?">
 <h2>ok, but what about the actual data?<a class="headerlink" href="#ok,-but-what-about-the-actual-data?" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
@@ -1620,16 +1645,16 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(139985478621008, 139985478621008)
+(140086603732912, 140086603732912)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
@@ -1637,17 +1662,17 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(139985478620848, 139985478620848)
+(140086603732752, 140086603732752)
 </pre></div></div>
 </div>
 <p><strong>Array and Boolean indexing returns a copy</strong>. Operations on the copy do not affect the original array.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
@@ -1655,7 +1680,7 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1664,7 +1689,7 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">&gt;</span><span class="mf">.4</span><span class="p">]</span>
@@ -1673,16 +1698,17 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([ 0.42457517, 10.        ,  0.9503502 ,  0.91938978])
+array([ 0.70121181,  0.74988361,  0.57490108, 10.        ,  0.76624473,
+        0.58548412,  0.46050685])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
@@ -1691,16 +1717,17 @@ array([ 0.42457517, 10.        ,  0.9503502 ,  0.91938978])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([ 0.42457517, 20.        ,  0.9503502 ,  0.91938978])
+array([ 0.70121181, 20.        ,  0.57490108, 10.        ,  0.76624473,
+        0.58548412,  0.46050685])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
@@ -1708,21 +1735,21 @@ array([ 0.42457517, 20.        ,  0.9503502 ,  0.91938978])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 0.42457517,  0.18941713,  0.35924129],
-       [ 0.16792227, 10.        ,  0.9503502 ],
-       [ 0.31458289,  0.91938978,  0.27999437]])
+array([[ 0.70121181,  0.74988361,  0.28883579],
+       [ 0.57490108, 10.        ,  0.76624473],
+       [ 0.19118568,  0.58548412,  0.46050685]])
 </pre></div></div>
 </div>
 </section>
 <section id="again,-we-can-look-at-these-memory-addresses-to-confirm-what's-happening">
 <h2>again, we can look at these memory addresses to confirm what’s happening<a class="headerlink" href="#again,-we-can-look-at-these-memory-addresses-to-confirm-what's-happening" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
@@ -1730,16 +1757,16 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(139985478869392, 139985478873616)
+(140086603925520, 140086604071440)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">id</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -1747,12 +1774,12 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(139985478866128, 139985478620208)
+(140086604072592, 140086603732112)
 </pre></div></div>
 </div>
 <section id="Reshaping-and-Stacking-Arrays">
@@ -1767,7 +1794,7 @@ array([[ 0.42457517,  0.18941713,  0.35924129],
 </div>
 <p>Example follows.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
@@ -1793,7 +1820,7 @@ b:  [[0 1 2]
 <section id="just-to-hammer-home-to-view-vs.-copy-behavior,-look-at-a-and-b-more-closely">
 <h2>just to hammer home to <code class="docutils literal notranslate"><span class="pre">view</span></code> vs. <code class="docutils literal notranslate"><span class="pre">copy</span></code> behavior, look at <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> more closely<a class="headerlink" href="#just-to-hammer-home-to-view-vs.-copy-behavior,-look-at-a-and-b-more-closely" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
@@ -1801,7 +1828,7 @@ b:  [[0 1 2]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1810,7 +1837,7 @@ array([0, 1, 2, 3, 4, 5, 6, 7, 8])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">base</span>
@@ -1818,7 +1845,7 @@ array([0, 1, 2, 3, 4, 5, 6, 7, 8])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1827,7 +1854,7 @@ array([0, 1, 2, 3, 4, 5, 6, 7, 8])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span>
@@ -1835,7 +1862,7 @@ array([0, 1, 2, 3, 4, 5, 6, 7, 8])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1846,7 +1873,7 @@ array([[0, 1, 2],
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">999</span>
@@ -1854,7 +1881,7 @@ array([[0, 1, 2],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
@@ -1862,7 +1889,7 @@ array([[0, 1, 2],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1871,7 +1898,7 @@ array([  0,   1,   2,   3, 999,   5,   6,   7,   8])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span>
@@ -1879,7 +1906,7 @@ array([  0,   1,   2,   3, 999,   5,   6,   7,   8])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1890,7 +1917,7 @@ array([[  0,   1,   2],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">base</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -1898,19 +1925,19 @@ array([[  0,   1,   2],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(139985478620720, 139985478620720, 139985478620720)
+(140086603732624, 140086603732624, 140086603732624)
 </pre></div></div>
 </div>
 <section id="hstack-and-vstack">
 <h3>hstack and vstack<a class="headerlink" href="#hstack-and-vstack" title="Link to this heading">¶</a></h3>
 <p>hstack and vstack can be used to add columns to an array or rows to an array.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#vstack example -- add a row to an array</span>
@@ -1942,7 +1969,7 @@ The shape of b is  (4, 3)
 <h3>Flattening arrays<a class="headerlink" href="#Flattening-arrays" title="Link to this heading">¶</a></h3>
 <p>oftentimes we need to flatten a 2D array to one dimension the <code class="docutils literal notranslate"><span class="pre">ndarray.flat</span></code> attribute provides a means of iterating over a numpy array in one-dimension</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">flat</span><span class="p">]</span>
@@ -1950,7 +1977,7 @@ The shape of b is  (4, 3)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1971,7 +1998,7 @@ The shape of b is  (4, 3)
 </div>
 <p>if we need a 1D copy returned instead, we can use the <code class="docutils literal notranslate"><span class="pre">ndarray.flatten</span></code> method</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
@@ -1979,7 +2006,7 @@ The shape of b is  (4, 3)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1989,7 +2016,7 @@ array([0., 0., 0., 0., 0., 0., 0., 0., 0., 2., 2., 2.])
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">.ravel()</span></code> returns a view instead of a copy when possible</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
@@ -1999,7 +2026,7 @@ array([0., 0., 0., 0., 0., 0., 0., 0., 0., 2., 2., 2.])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2011,7 +2038,7 @@ array([[0., 4., 0.],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[82]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span>
@@ -2019,7 +2046,7 @@ array([[0., 4., 0.],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[82]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2037,7 +2064,7 @@ array([0., 4., 0., 0., 0., 0., 0., 0., 0., 2., 2., 2.])
 <li><p>hint <code class="docutils literal notranslate"><span class="pre">plt.plot(x,y)</span></code> makes plots of arrays x and y</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[82]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
@@ -2098,7 +2125,7 @@ array([0., 4., 0., 0., 0., 0., 0., 0., 0., 2., 2., 2.])
 <h3>Masking an Array<a class="headerlink" href="#Masking-an-Array" title="Link to this heading">¶</a></h3>
 <p>Masking is the process of performing array operations on a specific set of cells, called a mask. A mask is a logical array with the same shape as the array it is applied to. Here is an example. Also, note that <code class="docutils literal notranslate"><span class="pre">np.where</span></code> contains arguments that can accomplish a similar result.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#create a 10 by 10 array</span>
@@ -2126,7 +2153,7 @@ a:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[85]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mask array for a == 1:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
@@ -2152,7 +2179,7 @@ mask array for a == 1:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[85]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[86]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can create a mask array as follows</span>
@@ -2199,7 +2226,7 @@ mask array for a == 1:
 <h2>Multi-Conditional Masking<a class="headerlink" href="#Multi-Conditional-Masking" title="Link to this heading">¶</a></h2>
 <p>For more complicated masks, we can bring back the bitwise operators from above (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, and <code class="docutils literal notranslate"><span class="pre">^</span></code>)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[86]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[87]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -2207,7 +2234,7 @@ mask array for a == 1:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[87]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="p">[:,:]</span><span class="o">&gt;</span><span class="mi">50</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">b</span><span class="p">[:,:]</span><span class="o">&lt;</span><span class="mi">75</span><span class="p">)</span>
@@ -2234,23 +2261,23 @@ mask array for a == 1:
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[87]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f50f3ef2910&gt;
+&lt;matplotlib.image.AxesImage at 0x7f6874464910&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part0_python_intro_05_numpy_150_2.png" src="../../_images/notebooks_part0_python_intro_05_numpy_150_2.png" />
+<img alt="../../_images/notebooks_part0_python_intro_05_numpy_151_2.png" src="../../_images/notebooks_part0_python_intro_05_numpy_151_2.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>
@@ -2277,26 +2304,26 @@ mask array for a == 1:
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[88]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f50e8a9c5d0&gt;
+&lt;matplotlib.image.AxesImage at 0x7f68744f8c50&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part0_python_intro_05_numpy_151_2.png" src="../../_images/notebooks_part0_python_intro_05_numpy_151_2.png" />
+<img alt="../../_images/notebooks_part0_python_intro_05_numpy_152_2.png" src="../../_images/notebooks_part0_python_intro_05_numpy_152_2.png" />
 </div>
 </div>
 </section>
 <section id="Masked-arrays-provide-a-convenient-way-to-explicitly-handle-nan-values-in-the-same-object">
 <h2>Masked arrays provide a convenient way to explicitly handle nan values in the same object<a class="headerlink" href="#Masked-arrays-provide-a-convenient-way-to-explicitly-handle-nan-values-in-the-same-object" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[90]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b_masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
@@ -2305,19 +2332,19 @@ mask array for a == 1:
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[89]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[90]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f50e8af7f10&gt;
+&lt;matplotlib.image.AxesImage at 0x7f68743149d0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part0_python_intro_05_numpy_153_1.png" src="../../_images/notebooks_part0_python_intro_05_numpy_153_1.png" />
+<img alt="../../_images/notebooks_part0_python_intro_05_numpy_154_1.png" src="../../_images/notebooks_part0_python_intro_05_numpy_154_1.png" />
 </div>
 </div>
 <section id="Record-Arrays">
@@ -2328,7 +2355,7 @@ mask array for a == 1:
 </div>
 <p>Now, let’s use this dtype to create an array with ones in it.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[90]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)]</span>
@@ -2347,7 +2374,7 @@ mask array for a == 1:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[92]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#we can access each column by using the column names</span>
@@ -2368,7 +2395,7 @@ mask array for a == 1:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[92]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#we can also change how we view the record array so that we can access columns more easily</span>
@@ -2390,7 +2417,7 @@ mask array for a == 1:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#to add a column, use vstack!</span>
@@ -2432,7 +2459,7 @@ b is of shape:  (10,)
 <li><p>Become familiar with recarrays by creating one that has four columns and 100 rows. In the first column, put an integer that starts at 99 and decreases to 0. In the second column, put a text string that has ‘row n’, where n is the actual row value. In the third column put a random number, and in the fourth column, put your name.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#do the exercise here</span>
@@ -2446,7 +2473,7 @@ b is of shape:  (10,)
 <p>In the 03_numpy folder, there is a csv file called ahf.csv. This file contains airborne helicopter measurements of elevation taken at points in the everglades. This data was downloaded from: <a class="reference external" href="http://sofia.usgs.gov/exchange/desmond/desmondelev.html">http://sofia.usgs.gov/exchange/desmond/desmondelev.html</a>.</p>
 <p>In the following cell, we use genfromtxt to load this csv file into a recarray. The beauty of this is that genfromtxt automatically determines the type of information in each columns and fills the array accordingly. When this is done correctly, we can access each column in the array using the column text identifier as follows.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#specify the file name</span>
@@ -2491,19 +2518,19 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.PathCollection at 0x7f50e8c684d0&gt;
+&lt;matplotlib.collections.PathCollection at 0x7f6874454a50&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part0_python_intro_05_numpy_162_2.png" src="../../_images/notebooks_part0_python_intro_05_numpy_162_2.png" />
+<img alt="../../_images/notebooks_part0_python_intro_05_numpy_163_2.png" src="../../_images/notebooks_part0_python_intro_05_numpy_163_2.png" />
 </div>
 </div>
 </section>
@@ -2512,7 +2539,7 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 <p>It is unlikely that there will be time for this, but the following function is a quick hack that can be used to read a MODFLOW external array where the columns are wrapped. Note that you cannot use <code class="docutils literal notranslate"><span class="pre">np.genfromtxt</span></code> or <code class="docutils literal notranslate"><span class="pre">np.loadtxt</span></code> to do this if the columns are wrapped.</p>
 <p>Keep this little function in your back pocket in case you need it one day. If you have time, read bottom.txt in the 04_numpy directory and plot it. This array has 142 rows and 113 columns.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[97]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is a little goodie that you might need one day.</span>
@@ -2532,7 +2559,7 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[97]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#read bottom.txt here</span>
@@ -2556,7 +2583,7 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[99]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># answer for earlier sk test</span>
@@ -2577,56 +2604,56 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 (&#39;col1&#39;, &#39;col2&#39;, &#39;col3&#39;, &#39;col4&#39;)
-[(99, b&#39;row &#39;, 0.34043902, b&#39;cdl&#39;) (98, b&#39;row &#39;, 0.96586904, b&#39;cdl&#39;)
- (97, b&#39;row &#39;, 0.06387111, b&#39;cdl&#39;) (96, b&#39;row &#39;, 0.40115   , b&#39;cdl&#39;)
- (95, b&#39;row &#39;, 0.63255412, b&#39;cdl&#39;) (94, b&#39;row &#39;, 0.82979741, b&#39;cdl&#39;)
- (93, b&#39;row &#39;, 0.88366385, b&#39;cdl&#39;) (92, b&#39;row &#39;, 0.79235034, b&#39;cdl&#39;)
- (91, b&#39;row &#39;, 0.83646613, b&#39;cdl&#39;) (90, b&#39;row &#39;, 0.14945681, b&#39;cdl&#39;)
- (89, b&#39;row &#39;, 0.39970007, b&#39;cdl&#39;) (88, b&#39;row &#39;, 0.55818776, b&#39;cdl&#39;)
- (87, b&#39;row &#39;, 0.0128169 , b&#39;cdl&#39;) (86, b&#39;row &#39;, 0.09744558, b&#39;cdl&#39;)
- (85, b&#39;row &#39;, 0.88782435, b&#39;cdl&#39;) (84, b&#39;row &#39;, 0.47787328, b&#39;cdl&#39;)
- (83, b&#39;row &#39;, 0.33462204, b&#39;cdl&#39;) (82, b&#39;row &#39;, 0.59569063, b&#39;cdl&#39;)
- (81, b&#39;row &#39;, 0.3348753 , b&#39;cdl&#39;) (80, b&#39;row &#39;, 0.72005026, b&#39;cdl&#39;)
- (79, b&#39;row &#39;, 0.92522174, b&#39;cdl&#39;) (78, b&#39;row &#39;, 0.63981813, b&#39;cdl&#39;)
- (77, b&#39;row &#39;, 0.44521655, b&#39;cdl&#39;) (76, b&#39;row &#39;, 0.46492194, b&#39;cdl&#39;)
- (75, b&#39;row &#39;, 0.78002767, b&#39;cdl&#39;) (74, b&#39;row &#39;, 0.10830388, b&#39;cdl&#39;)
- (73, b&#39;row &#39;, 0.77054173, b&#39;cdl&#39;) (72, b&#39;row &#39;, 0.51321059, b&#39;cdl&#39;)
- (71, b&#39;row &#39;, 0.83345198, b&#39;cdl&#39;) (70, b&#39;row &#39;, 0.94426982, b&#39;cdl&#39;)
- (69, b&#39;row &#39;, 0.49419709, b&#39;cdl&#39;) (68, b&#39;row &#39;, 0.30433751, b&#39;cdl&#39;)
- (67, b&#39;row &#39;, 0.07908272, b&#39;cdl&#39;) (66, b&#39;row &#39;, 0.58375261, b&#39;cdl&#39;)
- (65, b&#39;row &#39;, 0.57101321, b&#39;cdl&#39;) (64, b&#39;row &#39;, 0.31129271, b&#39;cdl&#39;)
- (63, b&#39;row &#39;, 0.31853213, b&#39;cdl&#39;) (62, b&#39;row &#39;, 0.25955781, b&#39;cdl&#39;)
- (61, b&#39;row &#39;, 0.44295123, b&#39;cdl&#39;) (60, b&#39;row &#39;, 0.01320353, b&#39;cdl&#39;)
- (59, b&#39;row &#39;, 0.3882593 , b&#39;cdl&#39;) (58, b&#39;row &#39;, 0.03660817, b&#39;cdl&#39;)
- (57, b&#39;row &#39;, 0.73942129, b&#39;cdl&#39;) (56, b&#39;row &#39;, 0.99979144, b&#39;cdl&#39;)
- (55, b&#39;row &#39;, 0.8340114 , b&#39;cdl&#39;) (54, b&#39;row &#39;, 0.00787131, b&#39;cdl&#39;)
- (53, b&#39;row &#39;, 0.91235136, b&#39;cdl&#39;) (52, b&#39;row &#39;, 0.65574785, b&#39;cdl&#39;)
- (51, b&#39;row &#39;, 0.26466304, b&#39;cdl&#39;) (50, b&#39;row &#39;, 0.95018729, b&#39;cdl&#39;)
- (49, b&#39;row &#39;, 0.49251925, b&#39;cdl&#39;) (48, b&#39;row &#39;, 0.1665657 , b&#39;cdl&#39;)
- (47, b&#39;row &#39;, 0.19632903, b&#39;cdl&#39;) (46, b&#39;row &#39;, 0.06895174, b&#39;cdl&#39;)
- (45, b&#39;row &#39;, 0.15121929, b&#39;cdl&#39;) (44, b&#39;row &#39;, 0.6828058 , b&#39;cdl&#39;)
- (43, b&#39;row &#39;, 0.28419801, b&#39;cdl&#39;) (42, b&#39;row &#39;, 0.53815721, b&#39;cdl&#39;)
- (41, b&#39;row &#39;, 0.55953935, b&#39;cdl&#39;) (40, b&#39;row &#39;, 0.00105886, b&#39;cdl&#39;)
- (39, b&#39;row &#39;, 0.39606172, b&#39;cdl&#39;) (38, b&#39;row &#39;, 0.38719719, b&#39;cdl&#39;)
- (37, b&#39;row &#39;, 0.90671169, b&#39;cdl&#39;) (36, b&#39;row &#39;, 0.1328155 , b&#39;cdl&#39;)
- (35, b&#39;row &#39;, 0.72159372, b&#39;cdl&#39;) (34, b&#39;row &#39;, 0.99496212, b&#39;cdl&#39;)
- (33, b&#39;row &#39;, 0.05928744, b&#39;cdl&#39;) (32, b&#39;row &#39;, 0.99292303, b&#39;cdl&#39;)
- (31, b&#39;row &#39;, 0.92404373, b&#39;cdl&#39;) (30, b&#39;row &#39;, 0.52901248, b&#39;cdl&#39;)
- (29, b&#39;row &#39;, 0.63554332, b&#39;cdl&#39;) (28, b&#39;row &#39;, 0.98546919, b&#39;cdl&#39;)
- (27, b&#39;row &#39;, 0.48819096, b&#39;cdl&#39;) (26, b&#39;row &#39;, 0.51142053, b&#39;cdl&#39;)
- (25, b&#39;row &#39;, 0.75269288, b&#39;cdl&#39;) (24, b&#39;row &#39;, 0.91877451, b&#39;cdl&#39;)
- (23, b&#39;row &#39;, 0.53648028, b&#39;cdl&#39;) (22, b&#39;row &#39;, 0.80927963, b&#39;cdl&#39;)
- (21, b&#39;row &#39;, 0.41104958, b&#39;cdl&#39;) (20, b&#39;row &#39;, 0.63605259, b&#39;cdl&#39;)
- (19, b&#39;row &#39;, 0.27113672, b&#39;cdl&#39;) (18, b&#39;row &#39;, 0.56936402, b&#39;cdl&#39;)
- (17, b&#39;row &#39;, 0.57766529, b&#39;cdl&#39;) (16, b&#39;row &#39;, 0.25214264, b&#39;cdl&#39;)
- (15, b&#39;row &#39;, 0.61221514, b&#39;cdl&#39;) (14, b&#39;row &#39;, 0.01049324, b&#39;cdl&#39;)
- (13, b&#39;row &#39;, 0.85077214, b&#39;cdl&#39;) (12, b&#39;row &#39;, 0.8568164 , b&#39;cdl&#39;)
- (11, b&#39;row &#39;, 0.34545991, b&#39;cdl&#39;) (10, b&#39;row &#39;, 0.81932864, b&#39;cdl&#39;)
- ( 9, b&#39;row &#39;, 0.31919619, b&#39;cdl&#39;) ( 8, b&#39;row &#39;, 0.37010243, b&#39;cdl&#39;)
- ( 7, b&#39;row &#39;, 0.43082852, b&#39;cdl&#39;) ( 6, b&#39;row &#39;, 0.60490818, b&#39;cdl&#39;)
- ( 5, b&#39;row &#39;, 0.80798368, b&#39;cdl&#39;) ( 4, b&#39;row &#39;, 0.34939614, b&#39;cdl&#39;)
- ( 3, b&#39;row &#39;, 0.18630451, b&#39;cdl&#39;) ( 2, b&#39;row &#39;, 0.32679513, b&#39;cdl&#39;)
- ( 1, b&#39;row &#39;, 0.93545277, b&#39;cdl&#39;) ( 0, b&#39;row &#39;, 0.73955827, b&#39;cdl&#39;)]
+[(99, b&#39;row &#39;, 0.96718063, b&#39;cdl&#39;) (98, b&#39;row &#39;, 0.49326991, b&#39;cdl&#39;)
+ (97, b&#39;row &#39;, 0.56081306, b&#39;cdl&#39;) (96, b&#39;row &#39;, 0.12522316, b&#39;cdl&#39;)
+ (95, b&#39;row &#39;, 0.86610725, b&#39;cdl&#39;) (94, b&#39;row &#39;, 0.73920674, b&#39;cdl&#39;)
+ (93, b&#39;row &#39;, 0.58813908, b&#39;cdl&#39;) (92, b&#39;row &#39;, 0.86531114, b&#39;cdl&#39;)
+ (91, b&#39;row &#39;, 0.04332147, b&#39;cdl&#39;) (90, b&#39;row &#39;, 0.74070911, b&#39;cdl&#39;)
+ (89, b&#39;row &#39;, 0.59864778, b&#39;cdl&#39;) (88, b&#39;row &#39;, 0.95565222, b&#39;cdl&#39;)
+ (87, b&#39;row &#39;, 0.60133724, b&#39;cdl&#39;) (86, b&#39;row &#39;, 0.3732702 , b&#39;cdl&#39;)
+ (85, b&#39;row &#39;, 0.35256908, b&#39;cdl&#39;) (84, b&#39;row &#39;, 0.03461054, b&#39;cdl&#39;)
+ (83, b&#39;row &#39;, 0.09373217, b&#39;cdl&#39;) (82, b&#39;row &#39;, 0.73252969, b&#39;cdl&#39;)
+ (81, b&#39;row &#39;, 0.41077197, b&#39;cdl&#39;) (80, b&#39;row &#39;, 0.0331631 , b&#39;cdl&#39;)
+ (79, b&#39;row &#39;, 0.0495968 , b&#39;cdl&#39;) (78, b&#39;row &#39;, 0.12342014, b&#39;cdl&#39;)
+ (77, b&#39;row &#39;, 0.73162826, b&#39;cdl&#39;) (76, b&#39;row &#39;, 0.44938044, b&#39;cdl&#39;)
+ (75, b&#39;row &#39;, 0.7645682 , b&#39;cdl&#39;) (74, b&#39;row &#39;, 0.1166737 , b&#39;cdl&#39;)
+ (73, b&#39;row &#39;, 0.90887919, b&#39;cdl&#39;) (72, b&#39;row &#39;, 0.87946959, b&#39;cdl&#39;)
+ (71, b&#39;row &#39;, 0.65264783, b&#39;cdl&#39;) (70, b&#39;row &#39;, 0.76570503, b&#39;cdl&#39;)
+ (69, b&#39;row &#39;, 0.29485505, b&#39;cdl&#39;) (68, b&#39;row &#39;, 0.03264779, b&#39;cdl&#39;)
+ (67, b&#39;row &#39;, 0.63900517, b&#39;cdl&#39;) (66, b&#39;row &#39;, 0.56685706, b&#39;cdl&#39;)
+ (65, b&#39;row &#39;, 0.9577259 , b&#39;cdl&#39;) (64, b&#39;row &#39;, 0.23737927, b&#39;cdl&#39;)
+ (63, b&#39;row &#39;, 0.11400361, b&#39;cdl&#39;) (62, b&#39;row &#39;, 0.83016241, b&#39;cdl&#39;)
+ (61, b&#39;row &#39;, 0.69736362, b&#39;cdl&#39;) (60, b&#39;row &#39;, 0.8400034 , b&#39;cdl&#39;)
+ (59, b&#39;row &#39;, 0.56957022, b&#39;cdl&#39;) (58, b&#39;row &#39;, 0.76333881, b&#39;cdl&#39;)
+ (57, b&#39;row &#39;, 0.28405637, b&#39;cdl&#39;) (56, b&#39;row &#39;, 0.0967245 , b&#39;cdl&#39;)
+ (55, b&#39;row &#39;, 0.01661697, b&#39;cdl&#39;) (54, b&#39;row &#39;, 0.73213965, b&#39;cdl&#39;)
+ (53, b&#39;row &#39;, 0.28323161, b&#39;cdl&#39;) (52, b&#39;row &#39;, 0.05196038, b&#39;cdl&#39;)
+ (51, b&#39;row &#39;, 0.81007284, b&#39;cdl&#39;) (50, b&#39;row &#39;, 0.96757773, b&#39;cdl&#39;)
+ (49, b&#39;row &#39;, 0.41089224, b&#39;cdl&#39;) (48, b&#39;row &#39;, 0.21436448, b&#39;cdl&#39;)
+ (47, b&#39;row &#39;, 0.68989337, b&#39;cdl&#39;) (46, b&#39;row &#39;, 0.55792116, b&#39;cdl&#39;)
+ (45, b&#39;row &#39;, 0.44335187, b&#39;cdl&#39;) (44, b&#39;row &#39;, 0.13620766, b&#39;cdl&#39;)
+ (43, b&#39;row &#39;, 0.31851181, b&#39;cdl&#39;) (42, b&#39;row &#39;, 0.92951766, b&#39;cdl&#39;)
+ (41, b&#39;row &#39;, 0.34329879, b&#39;cdl&#39;) (40, b&#39;row &#39;, 0.39734575, b&#39;cdl&#39;)
+ (39, b&#39;row &#39;, 0.91686538, b&#39;cdl&#39;) (38, b&#39;row &#39;, 0.58369725, b&#39;cdl&#39;)
+ (37, b&#39;row &#39;, 0.56507226, b&#39;cdl&#39;) (36, b&#39;row &#39;, 0.32744183, b&#39;cdl&#39;)
+ (35, b&#39;row &#39;, 0.54220809, b&#39;cdl&#39;) (34, b&#39;row &#39;, 0.30227006, b&#39;cdl&#39;)
+ (33, b&#39;row &#39;, 0.94837552, b&#39;cdl&#39;) (32, b&#39;row &#39;, 0.58505154, b&#39;cdl&#39;)
+ (31, b&#39;row &#39;, 0.11850097, b&#39;cdl&#39;) (30, b&#39;row &#39;, 0.00282314, b&#39;cdl&#39;)
+ (29, b&#39;row &#39;, 0.20179148, b&#39;cdl&#39;) (28, b&#39;row &#39;, 0.79538273, b&#39;cdl&#39;)
+ (27, b&#39;row &#39;, 0.48087226, b&#39;cdl&#39;) (26, b&#39;row &#39;, 0.64351702, b&#39;cdl&#39;)
+ (25, b&#39;row &#39;, 0.36292573, b&#39;cdl&#39;) (24, b&#39;row &#39;, 0.3155783 , b&#39;cdl&#39;)
+ (23, b&#39;row &#39;, 0.4209409 , b&#39;cdl&#39;) (22, b&#39;row &#39;, 0.87154764, b&#39;cdl&#39;)
+ (21, b&#39;row &#39;, 0.59401135, b&#39;cdl&#39;) (20, b&#39;row &#39;, 0.70336928, b&#39;cdl&#39;)
+ (19, b&#39;row &#39;, 0.40049926, b&#39;cdl&#39;) (18, b&#39;row &#39;, 0.18141361, b&#39;cdl&#39;)
+ (17, b&#39;row &#39;, 0.71837398, b&#39;cdl&#39;) (16, b&#39;row &#39;, 0.99722305, b&#39;cdl&#39;)
+ (15, b&#39;row &#39;, 0.31171578, b&#39;cdl&#39;) (14, b&#39;row &#39;, 0.28766644, b&#39;cdl&#39;)
+ (13, b&#39;row &#39;, 0.02725416, b&#39;cdl&#39;) (12, b&#39;row &#39;, 0.82821966, b&#39;cdl&#39;)
+ (11, b&#39;row &#39;, 0.57810845, b&#39;cdl&#39;) (10, b&#39;row &#39;, 0.00162667, b&#39;cdl&#39;)
+ ( 9, b&#39;row &#39;, 0.18377762, b&#39;cdl&#39;) ( 8, b&#39;row &#39;, 0.12148069, b&#39;cdl&#39;)
+ ( 7, b&#39;row &#39;, 0.90758255, b&#39;cdl&#39;) ( 6, b&#39;row &#39;, 0.46797083, b&#39;cdl&#39;)
+ ( 5, b&#39;row &#39;, 0.58711693, b&#39;cdl&#39;) ( 4, b&#39;row &#39;, 0.22944134, b&#39;cdl&#39;)
+ ( 3, b&#39;row &#39;, 0.17653011, b&#39;cdl&#39;) ( 2, b&#39;row &#39;, 0.87807063, b&#39;cdl&#39;)
+ ( 1, b&#39;row &#39;, 0.9626098 , b&#39;cdl&#39;) ( 0, b&#39;row &#39;, 0.01635111, b&#39;cdl&#39;)]
 </pre></div></div>
 </div>
 </section>
@@ -2671,7 +2698,7 @@ v_y &amp;= v_r\sin(\theta) + v_\theta\cos(\theta)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 12, 2025.
+      <span class="lastupdated">Last updated on Sep 16, 2025.
       </span></p>
   </div>
 
