@@ -280,7 +280,7 @@ copy_notebooks = [
     source_path / 'part1_flopy/data_project/',
     source_path / 'part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.ipynb',
     source_path / 'part1_flopy/solutions/04_Modelgrid_and_intersection_solution.ipynb',
-    source_path / 'part1_flopy/05-unstructured-grids.ipynb',
+    source_path / 'part1_flopy/05_Unstructured_Grid_generation.ipynb',
     source_path / 'part1_flopy/basin.py',
     source_path / 'part1_flopy/solutions/06-Project-quadtree.ipynb',
     source_path / 'part1_flopy/solutions/06-Project-structured_completed.ipynb',
