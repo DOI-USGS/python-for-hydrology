@@ -13,6 +13,7 @@ xfail_notebooks = {
     '06_matplotlib.ipynb': 'notebook intentionally incomplete',
     '00_python_basics_review__solutions.ipynb': 'intentional error',
     '01_functions_script__solution.ipynb': 'intentional error',
+    '05_Unstructured_Grid_generation.ipynb': 'intentionally incomplete information',
     '06-Project-structured.ipynb': 'intentionally incomplete information',
     '02-Building-Post-Processing-MODFLOW6.ipynb' : 'intentionally incomplete information'
     
