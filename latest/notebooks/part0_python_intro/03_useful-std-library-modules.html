@@ -53,48 +53,47 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/01_functions_script__solution.html">01: Functions and scripts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">03: Useful standard library modules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Topics-covered:">Topics covered:</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pathlib-—-Object-oriented-filesystem-paths"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> — Object-oriented filesystem paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Topics-covered:">Topics covered:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pathlib-—-Object-oriented-filesystem-paths"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> — Object-oriented filesystem paths</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Listing-files">Listing files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-files-and-folders">Creating files and folders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#absolute-vs.-relative-pathing">absolute vs. relative pathing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#useful-attributes">useful attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Moving-and-deleting-files">Moving and deleting files</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Make-a-Path()-object-for-the-current-folder">Make a <code class="docutils literal notranslate"><span class="pre">Path()</span></code> object for the current folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#List-just-the-notebooks-using-the-.glob()-method">List just the notebooks using the <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Note:-.glob()-works-across-folders-too">Note: <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> works across folders too</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#But-glob-results-aren't-sorted-alphabetically!">But <code class="docutils literal notranslate"><span class="pre">glob</span></code> results aren’t sorted alphabetically!</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#List-just-the-subfolders">List just the subfolders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Create-a-new-path-for-the-data-subfolder">Create a new path for the data subfolder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#or-an-individual-file">or an individual file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#check-if-it-exists,-or-if-it's-a-directory">check if it exists, or if it’s a directory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#make-a-new-subdirectory">make a new subdirectory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#make-a-new-subfolder-within-a-new-subfolder">make a new subfolder within a new subfolder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Delete-the-empty-folder-we-made-above">Delete the empty folder we made above</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#shutil-—-High-level-file-operations"><code class="docutils literal notranslate"><span class="pre">shutil</span></code> — High-level file operations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#sys-—-System-specific-parameters-and-functions"><code class="docutils literal notranslate"><span class="pre">sys</span></code> — System-specific parameters and functions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#os-—-Miscellaneous-operating-system-interfaces¶"><code class="docutils literal notranslate"><span class="pre">os</span></code> — Miscellaneous operating system interfaces¶</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shutil-—-High-level-file-operations"><code class="docutils literal notranslate"><span class="pre">shutil</span></code> — High-level file operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sys-—-System-specific-parameters-and-functions"><code class="docutils literal notranslate"><span class="pre">sys</span></code> — System-specific parameters and functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Getting-information-about-python-and-the-os">Getting information about python and the os</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Adding-command-line-arguments-to-a-script">Adding command line arguments to a script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">Exercise: Make a script with a command line argument using sys.argv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modifying-the-python-path">modifying the python path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Using-sys.path-to-import-code-from-an-arbitrary-location">Using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> to import code from an arbitrary location</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Make-a-more-readable-list-of-just-the-jupyter-notebooks">Make a more readable list of just the jupyter notebooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Example:-get-the-location-of-the-current-python-(Conda)-environment">Example: get the location of the current python (Conda) environment</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#subprocess-—-Subprocess-management"><code class="docutils literal notranslate"><span class="pre">subprocess</span></code> — Subprocess management</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#zipfile-—-Work-with-ZIP-archives"><code class="docutils literal notranslate"><span class="pre">zipfile</span></code> — Work with ZIP archives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#os-—-Miscellaneous-operating-system-interfaces¶"><code class="docutils literal notranslate"><span class="pre">os</span></code> — Miscellaneous operating system interfaces¶</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Changing-the-current-working-directory">Changing the current working directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#os.walk">os.walk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Accessing-environmental-variables">Accessing environmental variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Running-system-commands">Running system commands</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#zip-up-one-of-the-files-in-data/">zip up one of the files in data/</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#now-extract-it">now extract it</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subprocess-—-Subprocess-management"><code class="docutils literal notranslate"><span class="pre">subprocess</span></code> — Subprocess management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zipfile-—-Work-with-ZIP-archives"><code class="docutils literal notranslate"><span class="pre">zipfile</span></code> — Work with ZIP archives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#zip-up-one-of-the-files-in-data/">zip up one of the files in data/</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#now-extract-it">now extract it</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#the-problem:">the problem:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-goal:">the goal:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hint:">hint:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive">hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents">1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder">1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_&lt;year&gt;.nc">1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#1d)-Remove-the-extra-subfolders-that-were-extracted">1d) Remove the extra subfolders that were extracted</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Bonus-Application----Using-os-to-find-the-location-of-an-executable">Bonus Application – Using <code class="docutils literal notranslate"><span class="pre">os</span></code> to find the location of an executable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Testing-Your-Skills-with-a-truly-awful-example:">Testing Your Skills with a truly awful example:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-problem:">the problem:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-goal:">the goal:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hint:">hint:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive">hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Part-1:-extract-with-a-single-file">Part 1: extract with a single file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files">Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#Bonus-Application----Using-os-to-find-the-location-of-an-executable">Bonus Application – Using <code class="docutils literal notranslate"><span class="pre">os</span></code> to find the location of an executable</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/03_useful-std-library-modules-solutions.html">03: Solutions to Useful standard library modules exercises</a></li>
@@ -153,7 +152,7 @@
   <section id="03:-Useful-standard-library-modules">
 <h1>03: Useful standard library modules<a class="headerlink" href="#03:-Useful-standard-library-modules" title="Link to this heading">¶</a></h1>
 <p>(pathlib, shutil, sys, os, subprocess, zipfile, etc.)</p>
-<p>These packages are part of the standard python library and provide very useful functionality for working with your operating system and files. This notebook will provide explore these packages and demonstrate some of their functionality. Online documentation is at <a class="reference external" href="https://docs.python.org/3/library/">https://docs.python.org/3/library/</a>.</p>
+<p>These packages are part of the standard python library and provide very useful functionality for working with your operating system and files. This notebook will provide these packages and demonstrate some of their functionality. Online documentation is at <a class="reference external" href="https://docs.python.org/3/library/">https://docs.python.org/3/library/</a>.</p>
 <section id="Topics-covered:">
 <h2>Topics covered:<a class="headerlink" href="#Topics-covered:" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -208,18 +207,19 @@
 </pre></div>
 </div>
 </div>
+</section>
 <section id="pathlib-—-Object-oriented-filesystem-paths">
-<h3><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> — Object-oriented filesystem paths<a class="headerlink" href="#pathlib-—-Object-oriented-filesystem-paths" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> — Object-oriented filesystem paths<a class="headerlink" href="#pathlib-—-Object-oriented-filesystem-paths" title="Link to this heading">¶</a></h2>
 <p>Pathlib provides convenient “pathlike” objects for working with file paths across platforms (meaning paths or operations done with pathlib work the same on Windows or POSIX systems (Linux, OSX, etc)). The main entry point for users is the <code class="docutils literal notranslate"><span class="pre">Path()</span></code> class.</p>
 <div class="line-block">
 <div class="line">further reading:</div>
 <div class="line"><a class="reference external" href="https://treyhunner.com/2018/12/why-you-should-be-using-pathlib/">https://treyhunner.com/2018/12/why-you-should-be-using-pathlib/</a></div>
 <div class="line"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html">https://docs.python.org/3/library/pathlib.html</a></div>
 </div>
-</section>
-</section>
-<section id="Make-a-Path()-object-for-the-current-folder">
-<h2>Make a <code class="docutils literal notranslate"><span class="pre">Path()</span></code> object for the current folder<a class="headerlink" href="#Make-a-Path()-object-for-the-current-folder" title="Link to this heading">¶</a></h2>
+<section id="Listing-files">
+<h3>Listing files<a class="headerlink" href="#Listing-files" title="Link to this heading">¶</a></h3>
+<section id="Start-by-making-a-Path()-object-for-the-current-folder">
+<h4>Start by making a <code class="docutils literal notranslate"><span class="pre">Path()</span></code> object for the current folder<a class="headerlink" href="#Start-by-making-a-Path()-object-for-the-current-folder" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -267,7 +267,7 @@ solutions
 </div>
 </section>
 <section id="List-just-the-notebooks-using-the-.glob()-method">
-<h2>List just the notebooks using the <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> method<a class="headerlink" href="#List-just-the-notebooks-using-the-.glob()-method" title="Link to this heading">¶</a></h2>
+<h4>List just the notebooks using the <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> method<a class="headerlink" href="#List-just-the-notebooks-using-the-.glob()-method" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -294,7 +294,7 @@ solutions
 </div>
 </section>
 <section id="Note:-.glob()-works-across-folders-too">
-<h2>Note: <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> works across folders too<a class="headerlink" href="#Note:-.glob()-works-across-folders-too" title="Link to this heading">¶</a></h2>
+<h4>Note: <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> works across folders too<a class="headerlink" href="#Note:-.glob()-works-across-folders-too" title="Link to this heading">¶</a></h4>
 <p>List all notebooks for both class components</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -327,7 +327,7 @@ solutions
 </div>
 </section>
 <section id="But-glob-results-aren't-sorted-alphabetically!">
-<h2>But <code class="docutils literal notranslate"><span class="pre">glob</span></code> results aren’t sorted alphabetically!<a class="headerlink" href="#But-glob-results-aren't-sorted-alphabetically!" title="Link to this heading">¶</a></h2>
+<h4>But <code class="docutils literal notranslate"><span class="pre">glob</span></code> results aren’t sorted alphabetically!<a class="headerlink" href="#But-glob-results-aren't-sorted-alphabetically!" title="Link to this heading">¶</a></h4>
 <p>(and the sorting is platform-dependent)</p>
 <p><a class="reference external" href="https://arstechnica.com/information-technology/2019/10/chemists-discover-cross-platform-python-scripts-not-so-cross-platform/?comments=1&amp;post=38113333">https://arstechnica.com/information-technology/2019/10/chemists-discover-cross-platform-python-scripts-not-so-cross-platform/?comments=1&amp;post=38113333</a></p>
 <p>we can easily sort them by casting the results to a list</p>
@@ -393,7 +393,7 @@ solutions
 </div>
 </section>
 <section id="List-just-the-subfolders">
-<h2>List just the subfolders<a class="headerlink" href="#List-just-the-subfolders" title="Link to this heading">¶</a></h2>
+<h4>List just the subfolders<a class="headerlink" href="#List-just-the-subfolders" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -412,14 +412,17 @@ solutions
 </pre></div></div>
 </div>
 </section>
-<section id="Create-a-new-path-for-the-data-subfolder">
-<h2>Create a new path for the data subfolder<a class="headerlink" href="#Create-a-new-path-for-the-data-subfolder" title="Link to this heading">¶</a></h2>
+</section>
+<section id="Creating-files-and-folders">
+<h3>Creating files and folders<a class="headerlink" href="#Creating-files-and-folders" title="Link to this heading">¶</a></h3>
+<section id="make-a-Path-object-for-a-new-subdirectory">
+<h4>make a <code class="docutils literal notranslate"><span class="pre">Path</span></code> object for a new subdirectory<a class="headerlink" href="#make-a-Path-object-for-a-new-subdirectory" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_path</span> <span class="o">=</span> <span class="n">cwd</span> <span class="o">/</span> <span class="s1">&#39;data&#39;</span>
-<span class="n">data_path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_folder</span> <span class="o">=</span> <span class="n">cwd</span> <span class="o">/</span> <span class="s1">&#39;more_files&#39;</span>
+<span class="n">new_folder</span>
 </pre></div>
 </div>
 </div>
@@ -429,12 +432,12 @@ solutions
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PosixPath(&#39;data&#39;)
+PosixPath(&#39;more_files&#39;)
 </pre></div></div>
 </div>
 </section>
 <section id="or-an-individual-file">
-<h2>or an individual file<a class="headerlink" href="#or-an-individual-file" title="Link to this heading">¶</a></h2>
+<h4>or an individual file<a class="headerlink" href="#or-an-individual-file" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -455,7 +458,7 @@ PosixPath(&#39;00_python_basics_review.ipynb&#39;)
 </div>
 </section>
 <section id="check-if-it-exists,-or-if-it's-a-directory">
-<h2>check if it exists, or if it’s a directory<a class="headerlink" href="#check-if-it-exists,-or-if-it's-a-directory" title="Link to this heading">¶</a></h2>
+<h4>check if it exists, or if it’s a directory<a class="headerlink" href="#check-if-it-exists,-or-if-it's-a-directory" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -474,45 +477,10 @@ PosixPath(&#39;00_python_basics_review.ipynb&#39;)
 </pre></div></div>
 </div>
 </section>
-<section id="make-a-new-subdirectory">
-<h2>make a new subdirectory<a class="headerlink" href="#make-a-new-subdirectory" title="Link to this heading">¶</a></h2>
+<section id="make-the-actual-folder">
+<h4>make the actual folder<a class="headerlink" href="#make-the-actual-folder" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_folder</span> <span class="o">=</span> <span class="n">cwd</span> <span class="o">/</span> <span class="s1">&#39;more_files&#39;</span>
-<span class="n">new_folder</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-PosixPath(&#39;more_files&#39;)
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-False
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">();</span> <span class="n">new_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
@@ -520,7 +488,7 @@ False
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -530,7 +498,7 @@ True
 </div>
 <p>Note that if you try to run the above cell twice, you’ll get an error that the folder already exists <code class="docutils literal notranslate"><span class="pre">exist_ok=True</span></code> suppresses these errors.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -539,19 +507,23 @@ True
 </div>
 </section>
 <section id="make-a-new-subfolder-within-a-new-subfolder">
-<h2>make a new subfolder within a new subfolder<a class="headerlink" href="#make-a-new-subfolder-within-a-new-subfolder" title="Link to this heading">¶</a></h2>
+<h4>make a new subfolder within a new subfolder<a class="headerlink" href="#make-a-new-subfolder-within-a-new-subfolder" title="Link to this heading">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">parents=True</span></code> argument allows for making subfolders within new subfolders</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">new_folder</span> <span class="o">/</span> <span class="s1">&#39;subfolder&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</section>
+</section>
+<section id="absolute-vs.-relative-pathing">
+<h3>absolute vs. relative pathing<a class="headerlink" href="#absolute-vs.-relative-pathing" title="Link to this heading">¶</a></h3>
 <p>Get the absolute location of the current working directory</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_cwd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
@@ -560,7 +532,7 @@ True
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -570,7 +542,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 <p>Go up two levels to the course repository</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_root</span> <span class="o">=</span> <span class="p">(</span><span class="n">abs_cwd</span> <span class="o">/</span> <span class="s1">&#39;../../&#39;</span><span class="p">)</span>
@@ -579,7 +551,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -589,7 +561,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 <p>Simplify or resolve the path</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_root</span> <span class="o">=</span> <span class="n">class_root</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
@@ -598,7 +570,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -608,7 +580,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 <p>Get the cwd relative to the course repository</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_cwd</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">class_root</span><span class="p">)</span>
@@ -616,7 +588,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -626,7 +598,7 @@ PosixPath(&#39;notebooks/part0_python_intro&#39;)
 </div>
 <p>check if this is an absolute or relative path</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_cwd</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">class_root</span><span class="p">)</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">()</span>
@@ -634,7 +606,7 @@ PosixPath(&#39;notebooks/part0_python_intro&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -643,7 +615,7 @@ False
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_cwd</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">()</span>
@@ -651,7 +623,7 @@ False
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -666,7 +638,7 @@ True
 </div>
 <p>If you need a relative path that will work robustly in a script, <code class="docutils literal notranslate"><span class="pre">os.path.relpath</span></code> might be a better choice</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="s1">&#39;../part1_flopy/&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
@@ -674,7 +646,7 @@ True
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -683,7 +655,7 @@ True
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;../part1_flopy/&#39;</span><span class="p">)</span>
@@ -691,7 +663,7 @@ True
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -699,8 +671,11 @@ True
 &#39;../part0_python_intro/data&#39;
 </pre></div></div>
 </div>
+</section>
+<section id="useful-attributes">
+<h3>useful attributes<a class="headerlink" href="#useful-attributes" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_cwd</span><span class="o">.</span><span class="n">parent</span>
@@ -708,7 +683,7 @@ True
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -717,7 +692,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_cwd</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
@@ -725,7 +700,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -734,7 +709,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">name</span>
@@ -742,7 +717,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -751,7 +726,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">suffix</span>
@@ -759,7 +734,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -768,7 +743,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.junk&#39;</span><span class="p">)</span>
@@ -776,7 +751,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -785,7 +760,7 @@ PosixPath(&#39;00_python_basics_review.junk&#39;)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">stem</span>
@@ -793,7 +768,7 @@ PosixPath(&#39;00_python_basics_review.junk&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -801,9 +776,12 @@ PosixPath(&#39;00_python_basics_review.junk&#39;)
 &#39;00_python_basics_review&#39;
 </pre></div></div>
 </div>
+</section>
+<section id="Moving-and-deleting-files">
+<h3>Moving and deleting files<a class="headerlink" href="#Moving-and-deleting-files" title="Link to this heading">¶</a></h3>
 <p>Make a file</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;new_file.txt&#39;</span><span class="p">)</span>
@@ -813,7 +791,7 @@ PosixPath(&#39;00_python_basics_review.junk&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
@@ -821,7 +799,7 @@ PosixPath(&#39;00_python_basics_review.junk&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -831,7 +809,7 @@ True
 </div>
 <p>Move the file</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname2</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;new_file2.txt&#39;</span><span class="p">)</span>
@@ -840,7 +818,7 @@ True
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -849,7 +827,7 @@ PosixPath(&#39;new_file2.txt&#39;)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
@@ -857,7 +835,7 @@ PosixPath(&#39;new_file2.txt&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -867,7 +845,7 @@ False
 </div>
 <p>Delete the file</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname2</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
@@ -875,7 +853,7 @@ False
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname2</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
@@ -883,7 +861,7 @@ False
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -891,20 +869,22 @@ False
 False
 </pre></div></div>
 </div>
-</section>
 <section id="Delete-the-empty-folder-we-made-above">
-<h2>Delete the empty folder we made above<a class="headerlink" href="#Delete-the-empty-folder-we-made-above" title="Link to this heading">¶</a></h2>
+<h4>Delete the empty folder we made above<a class="headerlink" href="#Delete-the-empty-folder-we-made-above" title="Link to this heading">¶</a></h4>
 <p>Note: this only works for empty directories (use <code class="docutils literal notranslate"><span class="pre">shutil.rmtree()</span></code> very carefully for removing folders and all contents within)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;more_files/subfolder/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rmdir</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</section>
+</section>
+</section>
 <section id="shutil-—-High-level-file-operations">
-<h3><code class="docutils literal notranslate"><span class="pre">shutil</span></code> — High-level file operations<a class="headerlink" href="#shutil-—-High-level-file-operations" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">shutil</span></code> — High-level file operations<a class="headerlink" href="#shutil-—-High-level-file-operations" title="Link to this heading">¶</a></h2>
 <p>module for copying, moving, and deleting files and directories.</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/shutil.html">https://docs.python.org/3/library/shutil.html</a></p>
 <p>The functions from shutil that you may find useful are:</p>
@@ -920,7 +900,7 @@ shutil.rmtree()  #obviously, you need to be careful with this one!
 </pre></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#try them here.  Be careful!</span>
@@ -928,7 +908,7 @@ shutil.rmtree()  #obviously, you need to be careful with this one!
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">new_folder</span><span class="p">)</span>
@@ -937,12 +917,12 @@ shutil.rmtree()  #obviously, you need to be careful with this one!
 </div>
 </section>
 <section id="sys-—-System-specific-parameters-and-functions">
-<h3><code class="docutils literal notranslate"><span class="pre">sys</span></code> — System-specific parameters and functions<a class="headerlink" href="#sys-—-System-specific-parameters-and-functions" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">sys</span></code> — System-specific parameters and functions<a class="headerlink" href="#sys-—-System-specific-parameters-and-functions" title="Link to this heading">¶</a></h2>
 <section id="Getting-information-about-python-and-the-os">
-<h4>Getting information about python and the os<a class="headerlink" href="#Getting-information-about-python-and-the-os" title="Link to this heading">¶</a></h4>
+<h3>Getting information about python and the os<a class="headerlink" href="#Getting-information-about-python-and-the-os" title="Link to this heading">¶</a></h3>
 <p>where python is installed</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
@@ -958,7 +938,7 @@ shutil.rmtree()  #obviously, you need to be careful with this one!
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">)</span>
@@ -974,7 +954,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span>
@@ -982,7 +962,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -992,11 +972,11 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 </section>
 <section id="Adding-command-line-arguments-to-a-script">
-<h4>Adding command line arguments to a script<a class="headerlink" href="#Adding-command-line-arguments-to-a-script" title="Link to this heading">¶</a></h4>
+<h3>Adding command line arguments to a script<a class="headerlink" href="#Adding-command-line-arguments-to-a-script" title="Link to this heading">¶</a></h3>
 <p>Here the command line arguments reflect that we’re running a Juptyer Notebook.</p>
 <p>In a python script, command line arguments are listed after the first item in the list.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
@@ -1004,20 +984,20 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 [&#39;/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/ipykernel_launcher.py&#39;,
  &#39;-f&#39;,
- &#39;/tmp/tmp8kdz_cpq.json&#39;,
+ &#39;/tmp/tmpkln0btw4.json&#39;,
  &#39;--HistoryManager.hist_file=:memory:&#39;]
 </pre></div></div>
 </div>
 </section>
 <section id="Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">
-<h4>Exercise: Make a script with a command line argument using sys.argv<a class="headerlink" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv" title="Link to this heading">¶</a></h4>
+<h3>Exercise: Make a script with a command line argument using sys.argv<a class="headerlink" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Using a text editor such as VSCode, make a new <code class="docutils literal notranslate"><span class="pre">*.py</span></code> file with the following contents:</p></li>
 </ol>
@@ -1036,11 +1016,11 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </ol>
 </section>
 <section id="modifying-the-python-path">
-<h4>modifying the python path<a class="headerlink" href="#modifying-the-python-path" title="Link to this heading">¶</a></h4>
+<h3>modifying the python path<a class="headerlink" href="#modifying-the-python-path" title="Link to this heading">¶</a></h3>
 <p>If you haven’t seen <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> already mentioned in a python script, you will soon. <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> is a list of directories. This path list is used by python to search for python modules and packages. If for some reason, you want to use a python package or module that is not installed in the main python folder, you can add the directory containing your module to sys.path.</p>
 <p>Any packages installed by linking the source code in place (i.e. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> will also show up here.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pth</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
@@ -1062,12 +1042,12 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 </section>
 <section id="Using-sys.path-to-import-code-from-an-arbitrary-location">
-<h4>Using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> to import code from an arbitrary location<a class="headerlink" href="#Using-sys.path-to-import-code-from-an-arbitrary-location" title="Link to this heading">¶</a></h4>
+<h3>Using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> to import code from an arbitrary location<a class="headerlink" href="#Using-sys.path-to-import-code-from-an-arbitrary-location" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Using a text editor such as VSCode (or <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> and python) make a new <code class="docutils literal notranslate"><span class="pre">*.py</span></code> file in another folder (anything in the same folder as this notebook can already be imported). For example:</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subfolder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;another_subfolder/scripts&#39;</span><span class="p">)</span>
@@ -1080,7 +1060,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 <p>Now add this folder to the python path</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;another_subfolder/scripts&#39;</span><span class="p">)</span>
@@ -1089,7 +1069,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 <p>Code can be imported by calling the containing module</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mycode</span><span class="w"> </span><span class="kn">import</span> <span class="n">stuff</span>
@@ -1099,7 +1079,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1107,7 +1087,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 {&#39;this is&#39;: &#39;a dictionary&#39;}
 </pre></div></div>
 </div>
-<p><strong>Note</strong>: Generally, importing code using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> is considered bad practice, because</p>
+<p><strong>Note</strong>: Generally, importing code using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> is often considered bad practice, because</p>
 <ul class="simple">
 <li><p>it can hide dependencies.</p>
 <ul>
@@ -1116,22 +1096,23 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </ul>
 </li>
 <li><p>importing code using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> is also sensitive to the location of the script relative to the path. If the script is moved or used on someone else’s computer with a different file structure, it’ll break.</p></li>
+<li><p>this all said, sometimes using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> is expedient in reproducible workflows in that it can allow code to be consolidated and re-used across multiple scripts in various locations</p></li>
 </ul>
-<p>In general, <a class="reference external" href="https://nsls-ii.github.io/scientific-python-cookiecutter/">installing reusable code in a package is the best way to go</a>. Packages provide a framework for organizing, documenting, testing and sharing code in a way that is easily understood by others.</p>
+<p>For code that is useful across multiple projects, <a class="reference external" href="https://learn.scientific-python.org/development/tutorials/">installing reusable code in a package can be the best way to go</a>. Packages provide a framework for organizing, documenting, testing and sharing code in a way that is easily understood by others.</p>
 <p>Whatever you do, avoid importing with an <code class="docutils literal notranslate"><span class="pre">*</span></code> (i.e. <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">mycode</span> <span class="pre">import</span> <span class="pre">*</span></code>) at all costs. This imports everything from the namespace of a module, which can lead to unintended consequences.</p>
 </section>
 </section>
 <section id="os-—-Miscellaneous-operating-system-interfaces¶">
-<h3><code class="docutils literal notranslate"><span class="pre">os</span></code> — Miscellaneous operating system interfaces¶<a class="headerlink" href="#os-—-Miscellaneous-operating-system-interfaces¶" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">os</span></code> — Miscellaneous operating system interfaces¶<a class="headerlink" href="#os-—-Miscellaneous-operating-system-interfaces¶" title="Link to this heading">¶</a></h2>
 <p>Historically, the <code class="docutils literal notranslate"><span class="pre">os.path</span></code> module was the de facto standard for file and path manipulation. Since python 3.4 however, <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> is generally cleaner and easier to use for most of these operations. But there are some exceptions.</p>
 <section id="Changing-the-current-working-directory">
-<h4>Changing the current working directory<a class="headerlink" href="#Changing-the-current-working-directory" title="Link to this heading">¶</a></h4>
+<h3>Changing the current working directory<a class="headerlink" href="#Changing-the-current-working-directory" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> doesn’t do this.</div>
-<div class="line">Note: this can obviously lead to trouble in scripts, so should usually be avoided, but sometimes it is necessary.</div>
+<div class="line">Note: this can obviously lead to trouble in scripts, so should usually be avoided, but sometimes it is necessary. In groundwater modeling workflows, for example, this can help keep flow and transport model files organized in separate folders.</div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of changing the working directory</span>
@@ -1160,10 +1141,10 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 </section>
 <section id="os.walk">
-<h4>os.walk<a class="headerlink" href="#os.walk" title="Link to this heading">¶</a></h4>
+<h3>os.walk<a class="headerlink" href="#os.walk" title="Link to this heading">¶</a></h3>
 <p>os.walk() is a great way to recursively generate all the file names and folders in a directory. The following shows how it can be used to identify large directories.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pth</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">)</span>
@@ -1173,7 +1154,7 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1567,14 +1548,11 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
    &#39;06-Project-structured_completed.ipynb&#39;])]
 </pre></div></div>
 </div>
-</section>
-</section>
-</section>
 <section id="Make-a-more-readable-list-of-just-the-jupyter-notebooks">
-<h2>Make a more readable list of just the jupyter notebooks<a class="headerlink" href="#Make-a-more-readable-list-of-just-the-jupyter-notebooks" title="Link to this heading">¶</a></h2>
+<h4>Make a more readable list of just the jupyter notebooks<a class="headerlink" href="#Make-a-more-readable-list-of-just-the-jupyter-notebooks" title="Link to this heading">¶</a></h4>
 <p>Note: the key advantage of <code class="docutils literal notranslate"><span class="pre">os.walk</span></code> over <code class="docutils literal notranslate"><span class="pre">glob</span></code> is the recursion– individual subfolder levels don’t need to be known or specified a priori.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">pth</span><span class="p">):</span>
@@ -1621,8 +1599,12 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 ../part1_flopy/solutions/06-Project-structured_completed.ipynb
 </pre></div></div>
 </div>
+</section>
+</section>
+<section id="Accessing-environmental-variables">
+<h3>Accessing environmental variables<a class="headerlink" href="#Accessing-environmental-variables" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span>
@@ -1630,17 +1612,17 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_548504cc-de66-458a-a9c5-ffd5b16597a9&#39;,
+environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_2586634b-1d67-4bca-b34a-025d0d5dac26&#39;,
         &#39;CONDA_PROMPT_MODIFIER&#39;: &#39;(pyclass-docs) &#39;,
         &#39;DOTNET_NOLOGO&#39;: &#39;1&#39;,
         &#39;USER&#39;: &#39;runner&#39;,
         &#39;CI&#39;: &#39;true&#39;,
-        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_548504cc-de66-458a-a9c5-ffd5b16597a9&#39;,
+        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_2586634b-1d67-4bca-b34a-025d0d5dac26&#39;,
         &#39;PIPX_HOME&#39;: &#39;/opt/pipx&#39;,
         &#39;RUNNER_ENVIRONMENT&#39;: &#39;github-hosted&#39;,
         &#39;JAVA_HOME_8_X64&#39;: &#39;/usr/lib/jvm/temurin-8-jdk-amd64&#39;,
@@ -1662,7 +1644,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_REPOSITORY_OWNER_ID&#39;: &#39;65027635&#39;,
         &#39;AZURE_EXTENSION_DIR&#39;: &#39;/opt/az/azcliextensions&#39;,
         &#39;MAKEFLAGS&#39;: &#39;w&#39;,
-        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1881&#39;,
+        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1884&#39;,
         &#39;GITHUB_GRAPHQL_URL&#39;: &#39;https://api.github.com/graphql&#39;,
         &#39;NVM_DIR&#39;: &#39;/home/runner/.nvm&#39;,
         &#39;DOTNET_SKIP_FIRST_TIME_EXPERIENCE&#39;: &#39;1&#39;,
@@ -1676,14 +1658,14 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GOROOT_1_23_X64&#39;: &#39;/opt/hostedtoolcache/go/1.23.12/x64&#39;,
         &#39;CHROMEWEBDRIVER&#39;: &#39;/usr/local/share/chromedriver-linux64&#39;,
         &#39;_&#39;: &#39;/usr/bin/make&#39;,
-        &#39;JOURNAL_STREAM&#39;: &#39;9:13524&#39;,
+        &#39;JOURNAL_STREAM&#39;: &#39;9:14632&#39;,
         &#39;GITHUB_WORKFLOW&#39;: &#39;Publish Docs&#39;,
         &#39;MEMORY_PRESSURE_WATCH&#39;: &#39;/sys/fs/cgroup/system.slice/hosted-compute-agent.service/memory.pressure&#39;,
         &#39;GOROOT_1_24_X64&#39;: &#39;/opt/hostedtoolcache/go/1.24.7/x64&#39;,
         &#39;CONDARC&#39;: &#39;/home/runner/work/_temp/setup-micromamba/.condarc&#39;,
-        &#39;GITHUB_RUN_ID&#39;: &#39;17865881197&#39;,
+        &#39;GITHUB_RUN_ID&#39;: &#39;17869359389&#39;,
         &#39;ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE&#39;: &#39;/opt/actionarchivecache&#39;,
-        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;15ba47270793b4aaafc38171268deae2f35f74e6&#39;,
+        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;df5ad985c9b7e5e3cdb8ee06daf526f9c90e232a&#39;,
         &#39;MODFLOW_BIN_PATH&#39;: &#39;/home/runner/.local/bin&#39;,
         &#39;BOOTSTRAP_HASKELL_NONINTERACTIVE&#39;: &#39;1&#39;,
         &#39;GITHUB_REF_TYPE&#39;: &#39;branch&#39;,
@@ -1693,14 +1675,14 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;ENABLE_RUNNER_TRACING&#39;: &#39;true&#39;,
         &#39;GITHUB_WORKFLOW_REF&#39;: &#39;DOI-USGS/python-for-hydrology/.github/workflows/build_docs.yaml@refs/heads/main&#39;,
         &#39;PATH&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/bin:/home/runner/micromamba/condabin:/home/runner/.local/bin:/home/runner/work/_temp/setup-micromamba:/home/runner/micromamba-bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin&#39;,
-        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_e8751270-1aae-4ea4-9a8a-4be48b5e2691&#39;,
+        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_e86e8581-ec03-4170-950f-b28700a96c7b&#39;,
         &#39;DOTNET_MULTILEVEL_LOOKUP&#39;: &#39;0&#39;,
-        &#39;INVOCATION_ID&#39;: &#39;ea41ed207cef40038d6f94511f31bcc0&#39;,
+        &#39;INVOCATION_ID&#39;: &#39;cb6d84236b014a3fb9c36abf1fca707f&#39;,
         &#39;PROJ_NETWORK&#39;: &#39;ON&#39;,
         &#39;RUNNER_TOOL_CACHE&#39;: &#39;/opt/hostedtoolcache&#39;,
         &#39;ANT_HOME&#39;: &#39;/usr/share/ant&#39;,
         &#39;GITHUB_TRIGGERING_ACTOR&#39;: &#39;mnfienen&#39;,
-        &#39;GITHUB_RUN_NUMBER&#39;: &#39;55&#39;,
+        &#39;GITHUB_RUN_NUMBER&#39;: &#39;56&#39;,
         &#39;RUNNER_ARCH&#39;: &#39;X64&#39;,
         &#39;XDG_RUNTIME_DIR&#39;: &#39;/run/user/1001&#39;,
         &#39;AGENT_TOOLSDIRECTORY&#39;: &#39;/opt/hostedtoolcache&#39;,
@@ -1711,7 +1693,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;LANG&#39;: &#39;C.UTF-8&#39;,
         &#39;DOTNET_BUNDLE_EXTRACT_BASE_DIR&#39;: &#39;/home/runner/.cache/dotnet_bundle_extract&#39;,
         &#39;VCPKG_INSTALLATION_ROOT&#39;: &#39;/usr/local/share/vcpkg&#39;,
-        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000013194&#39;,
+        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000013216&#39;,
         &#39;GITHUB_REF_NAME&#39;: &#39;main&#39;,
         &#39;XDG_CONFIG_HOME&#39;: &#39;/home/runner/.config&#39;,
         &#39;CONDA&#39;: &#39;/usr/share/miniconda&#39;,
@@ -1730,7 +1712,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_JOB&#39;: &#39;docs&#39;,
         &#39;CONDA_DEFAULT_ENV&#39;: &#39;pyclass-docs&#39;,
         &#39;GITHUB_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology&#39;,
-        &#39;GITHUB_SHA&#39;: &#39;15ba47270793b4aaafc38171268deae2f35f74e6&#39;,
+        &#39;GITHUB_SHA&#39;: &#39;df5ad985c9b7e5e3cdb8ee06daf526f9c90e232a&#39;,
         &#39;GITHUB_RUN_ATTEMPT&#39;: &#39;1&#39;,
         &#39;GITHUB_REF&#39;: &#39;refs/heads/main&#39;,
         &#39;ANDROID_SDK_ROOT&#39;: &#39;/usr/local/lib/android/sdk&#39;,
@@ -1740,7 +1722,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;PWD&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs&#39;,
         &#39;RUNNER_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology&#39;,
         &#39;GITHUB_ACTOR_ID&#39;: &#39;1110827&#39;,
-        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_548504cc-de66-458a-a9c5-ffd5b16597a9&#39;,
+        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_2586634b-1d67-4bca-b34a-025d0d5dac26&#39;,
         &#39;GHCUP_INSTALL_BASE_PREFIX&#39;: &#39;/usr/local&#39;,
         &#39;GITHUB_EVENT_NAME&#39;: &#39;push&#39;,
         &#39;XDG_DATA_DIRS&#39;: &#39;/usr/local/share:/usr/share:/var/lib/snapd/desktop&#39;,
@@ -1749,7 +1731,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GECKOWEBDRIVER&#39;: &#39;/usr/local/share/gecko_driver&#39;,
         &#39;NVM_CD_FLAGS&#39;: &#39;&#39;,
         &#39;HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS&#39;: &#39;3650&#39;,
-        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_548504cc-de66-458a-a9c5-ffd5b16597a9&#39;,
+        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_2586634b-1d67-4bca-b34a-025d0d5dac26&#39;,
         &#39;HOMEBREW_NO_AUTO_UPDATE&#39;: &#39;1&#39;,
         &#39;EDGEWEBDRIVER&#39;: &#39;/usr/local/share/edge_driver&#39;,
         &#39;SGX_AESM_ADDR&#39;: &#39;1&#39;,
@@ -1762,9 +1744,9 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;SELENIUM_JAR_PATH&#39;: &#39;/usr/share/java/selenium-server.jar&#39;,
         &#39;ANDROID_NDK_HOME&#39;: &#39;/usr/local/lib/android/sdk/ndk/27.3.13750724&#39;,
         &#39;GDAL_DATA&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/share/gdal&#39;,
-        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_548504cc-de66-458a-a9c5-ffd5b16597a9&#39;,
+        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_2586634b-1d67-4bca-b34a-025d0d5dac26&#39;,
         &#39;DOCUTILSCONFIG&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/docutils.conf&#39;,
-        &#39;JPY_PARENT_PID&#39;: &#39;4335&#39;,
+        &#39;JPY_PARENT_PID&#39;: &#39;4346&#39;,
         &#39;PYDEVD_USE_FRAME_EVAL&#39;: &#39;NO&#39;,
         &#39;TERM&#39;: &#39;xterm-color&#39;,
         &#39;CLICOLOR&#39;: &#39;1&#39;,
@@ -1775,11 +1757,10 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;MPLBACKEND&#39;: &#39;module://matplotlib_inline.backend_inline&#39;}
 </pre></div></div>
 </div>
-</section>
 <section id="Example:-get-the-location-of-the-current-python-(Conda)-environment">
-<h2>Example: get the location of the current python (Conda) environment<a class="headerlink" href="#Example:-get-the-location-of-the-current-python-(Conda)-environment" title="Link to this heading">¶</a></h2>
+<h4>Example: get the location of the current python (Conda) environment<a class="headerlink" href="#Example:-get-the-location-of-the-current-python-(Conda)-environment" title="Link to this heading">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CONDA_PREFIX&#39;</span><span class="p">]</span>
@@ -1787,7 +1768,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1795,8 +1776,83 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
 &#39;/home/runner/micromamba/envs/pyclass-docs&#39;
 </pre></div></div>
 </div>
+</section>
+</section>
+<section id="Running-system-commands">
+<h3>Running system commands<a class="headerlink" href="#Running-system-commands" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">os.system</span></code> provides a limited way to run system commands. For more flexibility, use <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> (below).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;ls -l&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+total 248
+-rw-r--r-- 1 runner runner 32313 Sep 19 20:44 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31283 Sep 19 20:44 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Sep 19 20:44 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2347 Sep 19 20:44 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner  9928 Sep 19 20:44 07b_VSCode.md
+-rw-r--r-- 1 runner runner 27756 Sep 19 20:44 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9729 Sep 19 20:44 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 29618 Sep 19 20:44 10_Rasterio.ipynb
+-rw-r--r-- 1 runner runner 35014 Sep 19 20:44 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Sep 19 20:44 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Sep 19 20:42 data
+drwxr-xr-x 2 runner runner  4096 Sep 19 20:44 solutions
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># on Windows</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;dir&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+00_python_basics_review.ipynb        09_b_Geopandas_ABQ.ipynb
+03_useful-std-library-modules.ipynb  10_Rasterio.ipynb
+05_numpy.ipynb                       11_xarray_mt_rainier_precip.ipynb
+06b_matplotlib_animation.ipynb       another_subfolder
+07b_VSCode.md                        data
+09_a_Geopandas.ipynb                 solutions
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+</section>
+</section>
 <section id="subprocess-—-Subprocess-management">
-<h3><code class="docutils literal notranslate"><span class="pre">subprocess</span></code> — Subprocess management<a class="headerlink" href="#subprocess-—-Subprocess-management" title="Link to this heading">¶</a></h3>
+<h2><code class="docutils literal notranslate"><span class="pre">subprocess</span></code> — Subprocess management<a class="headerlink" href="#subprocess-—-Subprocess-management" title="Link to this heading">¶</a></h2>
 <p>The subprocess module offers a way to execute system commands, for example MODFLOW, or any operating system command that you can type at the command line.</p>
 <p>The recommended approach to invoking subprocesses is to use the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function for all use cases it can handle. For more advanced use cases, the underlying <code class="docutils literal notranslate"><span class="pre">Popen</span></code> interface can be used directly.</p>
 <p>Take a look at the following help descriptions for <code class="docutils literal notranslate"><span class="pre">run</span></code>.</p>
@@ -1852,7 +1908,7 @@ run(*popenargs, input=None, capture_output=False, timeout=None, check=False, **k
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if on mac/unix</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="s1">&#39;-l&#39;</span><span class="p">],</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="s1">&#39;-l&#39;</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
@@ -1861,18 +1917,19 @@ run(*popenargs, input=None, capture_output=False, timeout=None, check=False, **k
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-00_python_basics_review.ipynb
-03_useful-std-library-modules.ipynb
-05_numpy.ipynb
-06b_matplotlib_animation.ipynb
-07b_VSCode.md
-09_a_Geopandas.ipynb
-09_b_Geopandas_ABQ.ipynb
-10_Rasterio.ipynb
-11_xarray_mt_rainier_precip.ipynb
-another_subfolder
-data
-solutions
+total 248
+-rw-r--r-- 1 runner runner 32313 Sep 19 20:44 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31283 Sep 19 20:44 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Sep 19 20:44 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2347 Sep 19 20:44 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner  9928 Sep 19 20:44 07b_VSCode.md
+-rw-r--r-- 1 runner runner 27756 Sep 19 20:44 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9729 Sep 19 20:44 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 29618 Sep 19 20:44 10_Rasterio.ipynb
+-rw-r--r-- 1 runner runner 35014 Sep 19 20:44 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Sep 19 20:44 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Sep 19 20:42 data
+drwxr-xr-x 2 runner runner  4096 Sep 19 20:44 solutions
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -1881,7 +1938,7 @@ CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="s1">&#39;-l&#39;</span><span class="p">],</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="s1">&#39;-l&#39;</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1890,8 +1947,9 @@ CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-part0_python_intro
-part1_flopy
+total 8
+drwxr-xr-x 5 runner runner 4096 Sep 19 20:44 part0_python_intro
+drwxr-xr-x 5 runner runner 4096 Sep 19 20:44 part1_flopy
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -1920,11 +1978,9 @@ CompletedProcess(args=[&#39;dir&#39;], returncode=0)
 </div>
 </section>
 <section id="zipfile-—-Work-with-ZIP-archives">
-<h3><code class="docutils literal notranslate"><span class="pre">zipfile</span></code> — Work with ZIP archives<a class="headerlink" href="#zipfile-—-Work-with-ZIP-archives" title="Link to this heading">¶</a></h3>
-</section>
-</section>
+<h2><code class="docutils literal notranslate"><span class="pre">zipfile</span></code> — Work with ZIP archives<a class="headerlink" href="#zipfile-—-Work-with-ZIP-archives" title="Link to this heading">¶</a></h2>
 <section id="zip-up-one-of-the-files-in-data/">
-<h2>zip up one of the files in data/<a class="headerlink" href="#zip-up-one-of-the-files-in-data/" title="Link to this heading">¶</a></h2>
+<h3>zip up one of the files in data/<a class="headerlink" href="#zip-up-one-of-the-files-in-data/" title="Link to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
@@ -1936,7 +1992,7 @@ CompletedProcess(args=[&#39;dir&#39;], returncode=0)
 </div>
 </section>
 <section id="now-extract-it">
-<h2>now extract it<a class="headerlink" href="#now-extract-it" title="Link to this heading">¶</a></h2>
+<h3>now extract it<a class="headerlink" href="#now-extract-it" title="Link to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
@@ -1946,12 +2002,12 @@ CompletedProcess(args=[&#39;dir&#39;], returncode=0)
 </pre></div>
 </div>
 </div>
+</section>
+</section>
 <section id="Testing-Your-Skills-with-a-truly-awful-example:">
-<h3>Testing Your Skills with a truly awful example:<a class="headerlink" href="#Testing-Your-Skills-with-a-truly-awful-example:" title="Link to this heading">¶</a></h3>
-</section>
-</section>
+<h2>Testing Your Skills with a truly awful example:<a class="headerlink" href="#Testing-Your-Skills-with-a-truly-awful-example:" title="Link to this heading">¶</a></h2>
 <section id="the-problem:">
-<h2>the problem:<a class="headerlink" href="#the-problem:" title="Link to this heading">¶</a></h2>
+<h3>the problem:<a class="headerlink" href="#the-problem:" title="Link to this heading">¶</a></h3>
 <p>Pretend that the file <code class="docutils literal notranslate"><span class="pre">data/fileio/netcdf_data.zip</span></code> contains some climate data (in the NetCDF format with the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> extension) that we downloaded. If you open <code class="docutils literal notranslate"><span class="pre">data/fileio/netcdf_data.zip</span></code>, you’ll see that within a subfolder <code class="docutils literal notranslate"><span class="pre">zipped</span></code> are a bunch of additional subfolders, each for a different year. Within each subfolder is another zipfile. Within each of these zipfiles is yet another subfolder, inside of which is the actual data file we want (<code class="docutils literal notranslate"><span class="pre">prcp.nc</span></code>).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
@@ -1982,7 +2038,7 @@ netcdf_data/zipped/zipped_1999/12270_1999.zip
 </div>
 </section>
 <section id="the-goal:">
-<h2>the goal:<a class="headerlink" href="#the-goal:" title="Link to this heading">¶</a></h2>
+<h3>the goal:<a class="headerlink" href="#the-goal:" title="Link to this heading">¶</a></h3>
 <p>To extract all of these <code class="docutils literal notranslate"><span class="pre">prcp.nc</span></code> files into a single folder, after renaming them with their respective years (obtained from their enclosing folders or zip files). e.g.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>prcp_1980.nc
 prcp_1981.nc
@@ -1992,7 +2048,7 @@ prcp_1981.nc
 <p>This will allow us to open them together as a dataset in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (more on that later). Does this sound awful? I’m not making this up. This is the kind of structure you get when downloading tiles of climate data with the <a class="reference external" href="https://daymet.ornl.gov/gridded/">Daymet Tile Selection Tool</a></p>
 </section>
 <section id="hint:">
-<h2>hint:<a class="headerlink" href="#hint:" title="Link to this heading">¶</a></h2>
+<h3>hint:<a class="headerlink" href="#hint:" title="Link to this heading">¶</a></h3>
 <p>you might find these functions helpful:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ZipFile.extractall
 ZipFile.extract
@@ -2007,7 +2063,7 @@ Path.rmdir()
 </div>
 </section>
 <section id="hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive">
-<h2>hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive<a class="headerlink" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive" title="Link to this heading">¶</a></h2>
+<h3>hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive<a class="headerlink" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive" title="Link to this heading">¶</a></h3>
 <p>This extracts the entire contents of the zip file to a designated folder</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
@@ -2044,6 +2100,9 @@ Path.rmdir()
  PosixPath(&#39;03-output/netcdf_data/zipped/zipped_1991/12270_1991.zip&#39;)]
 </pre></div></div>
 </div>
+</section>
+<section id="Part-1:-extract-with-a-single-file">
+<h3>Part 1: extract with a single file<a class="headerlink" href="#Part-1:-extract-with-a-single-file" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
@@ -2062,9 +2121,8 @@ Path.rmdir()
 PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </pre></div></div>
 </div>
-</section>
 <section id="1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents">
-<h2>1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents<a class="headerlink" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents" title="Link to this heading">¶</a></h2>
+<h4>1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents<a class="headerlink" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents" title="Link to this heading">¶</a></h4>
 <p>This will yield the name of the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file that we need to extract</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2076,7 +2134,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </div>
 </section>
 <section id="1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder">
-<h2>1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder<a class="headerlink" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder" title="Link to this heading">¶</a></h2>
+<h4>1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder<a class="headerlink" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder" title="Link to this heading">¶</a></h4>
 <p>(you may need to create the destination folder first)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2088,7 +2146,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </div>
 </section>
 <section id="1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_&lt;year&gt;.nc">
-<h2>1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code><a class="headerlink" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_<year>.nc" title="Link to this heading">¶</a></h2>
+<h4>1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code><a class="headerlink" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_<year>.nc" title="Link to this heading">¶</a></h4>
 <p>(so that if we repeat this for subsequent files, the extracted <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> files will end up in the same place)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2100,7 +2158,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </div>
 </section>
 <section id="1d)-Remove-the-extra-subfolders-that-were-extracted">
-<h2>1d) Remove the extra subfolders that were extracted<a class="headerlink" href="#1d)-Remove-the-extra-subfolders-that-were-extracted" title="Link to this heading">¶</a></h2>
+<h4>1d) Remove the extra subfolders that were extracted<a class="headerlink" href="#1d)-Remove-the-extra-subfolders-that-were-extracted" title="Link to this heading">¶</a></h4>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -2109,6 +2167,10 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </pre></div>
 </div>
 </div>
+</section>
+</section>
+<section id="Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files">
+<h3>Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files<a class="headerlink" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files" title="Link to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -2117,8 +2179,10 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </pre></div>
 </div>
 </div>
+</section>
+</section>
 <section id="Bonus-Application----Using-os-to-find-the-location-of-an-executable">
-<h3>Bonus Application – Using <code class="docutils literal notranslate"><span class="pre">os</span></code> to find the location of an executable<a class="headerlink" href="#Bonus-Application----Using-os-to-find-the-location-of-an-executable" title="Link to this heading">¶</a></h3>
+<h2>Bonus Application – Using <code class="docutils literal notranslate"><span class="pre">os</span></code> to find the location of an executable<a class="headerlink" href="#Bonus-Application----Using-os-to-find-the-location-of-an-executable" title="Link to this heading">¶</a></h2>
 <p>There are often times that you run an executable that is nested somewhere deep within your system path. It can often be a good idea to know exactly where that executable is located. This might help you one day from accidentally using an older version of an executable, such as MODFLOW.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
@@ -2179,7 +2243,6 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </pre></div>
 </div>
 </div>
-</section>
 </section>
 </section>
 
