@@ -22,7 +22,9 @@
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="06: FloPy class project: Structured grid version" href="solutions/06-Project-structured_completed.html" />
+    <link rel="prev" title="04: Modelgrid and intersection" href="solutions/04_Modelgrid_and_intersection_solution.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,9 +47,41 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01-Flopy-intro.html">01: Introduction to FloPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">05: Unstructured grid and general mesh generation with FloPy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Creating-a-regular-structured-(rectilinear)-grid">Creating a regular structured (rectilinear) grid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Resampling-data-to-finish-creating-our-initial-grid.">Resampling data to finish creating our initial grid.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Vector-(shapefile)-intersection-review">Vector (shapefile) intersection review</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Irregular-structured-Grid-(DIS)">Irregular structured Grid (DIS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Local-Grid-Refinement-(LGR)-mesh">Local Grid Refinement (LGR) mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Activity:-Create-the-idomainp-(parent,-child)-array-from-the-polygon-provided-by-the-lgr-geodataframe">Activity: Create the <code class="docutils literal notranslate"><span class="pre">idomainp</span></code> (parent, child) array from the polygon provided by the lgr geodataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Quadtree-Mesh">Quadtree Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Triangular-Mesh">Triangular Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Voronoi-Mesh">Voronoi Mesh</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#plot-the-meshes-we-produced-side-by-side-for-comparison!">plot the meshes we produced side by side for comparison!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#More-information">More information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Activity-(If-time-permits);-Build-a-Voronoi-mesh/Vertex-Grid:">Activity (If time permits); Build a Voronoi mesh/Vertex Grid:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
 <ul>
@@ -74,6 +108,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
       <li class="breadcrumb-item active">05: Unstructured grid and general mesh generation with FloPy</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/notebooks/part1_flopy/05_Unstructured_Grid_generation.ipynb.txt" rel="nofollow"> View page source</a>
@@ -2552,7 +2587,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="solutions/04_Modelgrid_and_intersection_solution.html" class="btn btn-neutral float-left" title="04: Modelgrid and intersection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="solutions/06-Project-structured_completed.html" class="btn btn-neutral float-right" title="06: FloPy class project: Structured grid version" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
