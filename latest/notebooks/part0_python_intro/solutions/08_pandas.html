@@ -86,6 +86,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#Class-exercise-2:">Class exercise 2:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#groupby:-grouping-data-and-performing-mathematical-operations-on-it">groupby: grouping data and performing mathematical operations on it</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Joining-two-DataFrames-with-an-inner-join">Joining two <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> with an inner join</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Stepping-back-for-a-minute:-exploring-Merge-and-Concat">Stepping back for a minute: exploring Merge and Concat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#The-merge-method">The <code class="docutils literal notranslate"><span class="pre">merge</span></code> method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#The-concat-method">The <code class="docutils literal notranslate"><span class="pre">concat</span></code> method</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Back-to-working-with-our-climate-and-stream-data">Back to working with our climate and stream data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#.aggregate()"><code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code></a></li>
 </ul>
 </li>
@@ -160,7 +168,7 @@
              
   <section id="08:-Working-with-tabular-data-in-Pandas">
 <h1>08: Working with tabular data in Pandas<a class="headerlink" href="#08:-Working-with-tabular-data-in-Pandas" title="Link to this heading">¶</a></h1>
-<p><img alt="f42c12b20c324463b369ea7766861fda" src="../../../_images/panda.jpg" /></p>
+<p><img alt="5cff2776e8824e8cbc2104c4fb807a86" src="../../../_images/panda.jpg" /></p>
 <section id="Not-that-type-of-Panda----Python's-Pandas-package">
 <h2>Not that type of Panda – Python’s Pandas package<a class="headerlink" href="#Not-that-type-of-Panda----Python's-Pandas-package" title="Link to this heading">¶</a></h2>
 <p>Pandas is a powerful, flexible and easy to use open source data analysis and manipulation tool. Pandas is commonly used for operations that would normally be done in a spreadsheet environment and includes powerful data analysis and manipulation tools.</p>
@@ -186,20 +194,29 @@
 </section>
 <section id="Get-site-information-data-for-part-of-the-Russian-River-near-Guerneville,-CA-from-NWIS">
 <h2>Get site information data for part of the Russian River near Guerneville, CA from NWIS<a class="headerlink" href="#Get-site-information-data-for-part-of-the-Russian-River-near-Guerneville,-CA-from-NWIS" title="Link to this heading">¶</a></h2>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">123.10</span><span class="p">,</span> <span class="mf">38.45</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.90</span><span class="p">,</span> <span class="mf">38.55</span><span class="p">)</span>
 <span class="n">info</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">bBox</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">])</span>
-<span class="n">info</span>
-<span class="n">info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;site_info.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">if</span> <span class="s1">&#39;geometry&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
+    <span class="c1"># dataretreival now returns as geopandas dataframe, drop &quot;geometry&quot; column for this example</span>
+    <span class="n">info</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;site_info.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">info</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -253,8 +270,8 @@
       <td>ST</td>
       <td>383031.0</td>
       <td>1225536.0</td>
-      <td>38.508523</td>
-      <td>-122.927774</td>
+      <td>38.508482</td>
+      <td>-122.927734</td>
       <td>M</td>
       <td>F</td>
       <td>...</td>
@@ -349,8 +366,8 @@
       <td>ST</td>
       <td>383024.0</td>
       <td>1230407.0</td>
-      <td>38.506580</td>
-      <td>-123.069724</td>
+      <td>38.506536</td>
+      <td>-123.069683</td>
       <td>M</td>
       <td>S</td>
       <td>...</td>
@@ -384,7 +401,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">.describe()</span></code>: statistically describe the data</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -392,7 +409,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -446,8 +463,8 @@
       <td>ST</td>
       <td>383031.0</td>
       <td>1225536.0</td>
-      <td>38.508523</td>
-      <td>-122.927774</td>
+      <td>38.508482</td>
+      <td>-122.927734</td>
       <td>M</td>
       <td>F</td>
       <td>...</td>
@@ -542,8 +559,8 @@
       <td>ST</td>
       <td>383024.0</td>
       <td>1230407.0</td>
-      <td>38.506580</td>
-      <td>-123.069724</td>
+      <td>38.506536</td>
+      <td>-123.069683</td>
       <td>M</td>
       <td>S</td>
       <td>...</td>
@@ -564,7 +581,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
@@ -572,7 +589,7 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -619,31 +636,7 @@
   </thead>
   <tbody>
     <tr>
-      <th>20</th>
-      <td>USGS</td>
-      <td>383009122543001</td>
-      <td>GREEN VALLEY C NR MIRABEL HEIGHTS CA</td>
-      <td>ST</td>
-      <td>383009.0</td>
-      <td>1225430.0</td>
-      <td>38.502500</td>
-      <td>-122.908333</td>
-      <td>G</td>
-      <td>U</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>21</th>
+      <th>23</th>
       <td>USGS</td>
       <td>383012122574501</td>
       <td>RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA</td>
@@ -667,7 +660,7 @@
       <td>967760420</td>
     </tr>
     <tr>
-      <th>22</th>
+      <th>24</th>
       <td>USGS</td>
       <td>383016123041101</td>
       <td>008N011W27N001M</td>
@@ -691,7 +684,31 @@
       <td>00BHM8187</td>
     </tr>
     <tr>
-      <th>23</th>
+      <th>25</th>
+      <td>USGS</td>
+      <td>383017122580301</td>
+      <td>008N010W28RU01M</td>
+      <td>GW</td>
+      <td>383017.4</td>
+      <td>1225802.5</td>
+      <td>38.504833</td>
+      <td>-122.967361</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>98.0</td>
+      <td>107.0</td>
+      <td>D</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26</th>
       <td>USGS</td>
       <td>383028122554501</td>
       <td>HOBSON C NR HACIENDA CA</td>
@@ -715,7 +732,7 @@
       <td>967760420</td>
     </tr>
     <tr>
-      <th>24</th>
+      <th>27</th>
       <td>USGS</td>
       <td>383034122590701</td>
       <td>008N010W29H004M</td>
@@ -744,7 +761,7 @@
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the index names</span>
@@ -757,11 +774,11 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-RangeIndex(start=0, stop=25, step=1)
+RangeIndex(start=0, stop=28, step=1)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the column names</span>
@@ -793,7 +810,7 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">describe()</span></code> method is only useful for numerical data. This example is does not have a lot of useful data for <code class="docutils literal notranslate"><span class="pre">describe()</span></code>, however we’ll use it again later</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -801,7 +818,7 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -848,72 +865,72 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
   <tbody>
     <tr>
       <th>count</th>
-      <td>25.000000</td>
-      <td>2.500000e+01</td>
-      <td>25.000000</td>
-      <td>25.000000</td>
+      <td>28.000000</td>
+      <td>2.800000e+01</td>
+      <td>28.000000</td>
+      <td>28.000000</td>
+      <td>28.0</td>
+      <td>28.0</td>
+      <td>28.0</td>
       <td>25.0</td>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>22.0</td>
-      <td>23.000000</td>
-      <td>23.000000</td>
-      <td>25.0</td>
+      <td>26.000000</td>
+      <td>26.000000</td>
+      <td>2.800000e+01</td>
       <td>0.0</td>
-      <td>5.000000e+00</td>
-      <td>8.000000e+00</td>
+      <td>6.000000e+00</td>
+      <td>1.100000e+01</td>
       <td>6.000000</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>6.000000</td>
-      <td>5.000000</td>
+      <td>9.000000</td>
+      <td>6.00000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>382930.716000</td>
-      <td>1.227999e+06</td>
-      <td>38.490956</td>
-      <td>-122.989798</td>
+      <td>382918.225000</td>
+      <td>1.228085e+06</td>
+      <td>38.488771</td>
+      <td>-122.993363</td>
       <td>6.0</td>
       <td>6.0</td>
       <td>97.0</td>
       <td>24000.0</td>
-      <td>44.040435</td>
-      <td>11.865652</td>
-      <td>18010110.0</td>
+      <td>41.524615</td>
+      <td>10.235385</td>
+      <td>1.931263e+10</td>
       <td>NaN</td>
-      <td>1.988489e+07</td>
-      <td>2.006084e+07</td>
+      <td>1.987590e+07</td>
+      <td>2.009075e+07</td>
       <td>935.400000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>59.166667</td>
-      <td>70.400000</td>
+      <td>63.028889</td>
+      <td>76.50000</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>129.549182</td>
-      <td>2.349959e+03</td>
-      <td>0.021226</td>
-      <td>0.060306</td>
+      <td>136.242381</td>
+      <td>2.339461e+03</td>
+      <td>0.022509</td>
+      <td>0.059290</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>41.449315</td>
-      <td>9.492186</td>
-      <td>0.0</td>
+      <td>40.057582</td>
+      <td>9.278299</td>
+      <td>5.672084e+10</td>
       <td>NaN</td>
-      <td>5.202210e+04</td>
-      <td>3.689536e+04</td>
+      <td>5.148255e+04</td>
+      <td>5.980639e+04</td>
       <td>691.350481</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>37.434832</td>
-      <td>42.435834</td>
+      <td>34.634297</td>
+      <td>40.79093</td>
     </tr>
     <tr>
       <th>min</th>
@@ -926,86 +943,86 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
       <td>97.0</td>
       <td>24000.0</td>
       <td>2.000000</td>
-      <td>0.010000</td>
-      <td>18010110.0</td>
+      <td>0.100000</td>
+      <td>1.801011e+07</td>
       <td>NaN</td>
-      <td>1.984061e+07</td>
+      <td>1.983093e+07</td>
       <td>2.004091e+07</td>
       <td>26.600000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>22.000000</td>
-      <td>22.000000</td>
+      <td>22.00000</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>382815.000000</td>
-      <td>1.225545e+06</td>
-      <td>38.470833</td>
-      <td>-123.046111</td>
+      <td>382795.625000</td>
+      <td>1.225627e+06</td>
+      <td>38.468229</td>
+      <td>-123.049445</td>
       <td>6.0</td>
       <td>6.0</td>
       <td>97.0</td>
       <td>24000.0</td>
-      <td>21.570000</td>
+      <td>14.582500</td>
       <td>1.600000</td>
-      <td>18010110.0</td>
+      <td>1.801011e+07</td>
       <td>NaN</td>
-      <td>1.984062e+07</td>
+      <td>1.984061e+07</td>
       <td>2.004091e+07</td>
       <td>381.600000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>26.250000</td>
       <td>30.000000</td>
+      <td>42.50000</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>383001.900000</td>
-      <td>1.230006e+06</td>
-      <td>38.500528</td>
-      <td>-123.001667</td>
+      <td>382979.950000</td>
+      <td>1.230018e+06</td>
+      <td>38.499943</td>
+      <td>-123.004861</td>
       <td>6.0</td>
       <td>6.0</td>
       <td>97.0</td>
       <td>24000.0</td>
-      <td>43.000000</td>
-      <td>20.000000</td>
-      <td>18010110.0</td>
+      <td>43.260000</td>
+      <td>4.300000</td>
+      <td>1.801011e+07</td>
       <td>NaN</td>
-      <td>1.986093e+07</td>
+      <td>1.985078e+07</td>
       <td>2.004092e+07</td>
       <td>1345.500000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>55.000000</td>
       <td>80.000000</td>
+      <td>93.50000</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>383012.000000</td>
-      <td>1.230246e+06</td>
-      <td>38.503333</td>
-      <td>-122.929167</td>
+      <td>383013.075000</td>
+      <td>1.230255e+06</td>
+      <td>38.503632</td>
+      <td>-122.943583</td>
       <td>6.0</td>
       <td>6.0</td>
       <td>97.0</td>
       <td>24000.0</td>
       <td>48.000000</td>
       <td>20.000000</td>
-      <td>18010110.0</td>
+      <td>1.801011e+07</td>
       <td>NaN</td>
-      <td>1.994110e+07</td>
-      <td>2.006082e+07</td>
+      <td>1.992106e+07</td>
+      <td>2.014561e+07</td>
       <td>1366.500000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>94.250000</td>
-      <td>110.000000</td>
+      <td>98.000000</td>
+      <td>109.25000</td>
     </tr>
     <tr>
       <th>max</th>
@@ -1019,16 +1036,16 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
       <td>24000.0</td>
       <td>211.000000</td>
       <td>20.000000</td>
-      <td>18010110.0</td>
+      <td>1.801011e+11</td>
       <td>NaN</td>
       <td>1.994120e+07</td>
-      <td>2.012072e+07</td>
+      <td>2.017050e+07</td>
       <td>1461.000000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>99.000000</td>
-      <td>110.000000</td>
+      <td>110.00000</td>
     </tr>
   </tbody>
 </table>
@@ -1040,7 +1057,7 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 <p>There are multiple methods to get data out of a pandas dataframe as either a “series”, numpy array, or a list</p>
 <p>Let’s start by getting data as a series using a few methods</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get a series of site numbers by key</span>
@@ -1049,7 +1066,7 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1061,29 +1078,32 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 4            11467200
 5            11467210
 6     382701123025801
-7     382752123003401
-8     382754123030501
-9     382757123003801
-10    382808122565401
-11    382815123024601
-12    382819123010001
-13    382944123002901
-14    382955122594101
-15    383001122540701
-16    383003122540401
-17    383003122540402
-18    383003122540403
-19    383006123000601
-20    383009122543001
-21    383012122574501
-22    383016123041101
-23    383028122554501
-24    383034122590701
+7     382713123030401
+8     382713123030403
+9     382752123003401
+10    382754123030501
+11    382757123003801
+12    382808122565401
+13    382815123024601
+14    382819123010001
+15    382944123002901
+16    382955122594101
+17    383001122540701
+18    383003122540401
+19    383003122540402
+20    383003122540403
+21    383006123000601
+22    383009122543001
+23    383012122574501
+24    383016123041101
+25    383017122580301
+26    383028122554501
+27    383034122590701
 Name: site_no, dtype: object
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get station names by attribute</span>
@@ -1092,7 +1112,7 @@ Name: site_no, dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1104,30 +1124,33 @@ Name: site_no, dtype: object
 4                           AUSTIN C NR CAZADERO CA
 5                      RUSSIAN R A DUNCANS MILLS CA
 6                   FREEZEOUT C NR DUNCANS MILLS CA
-7                       DUTCH BILL C A MONTE RIO CA
-8      RUSSIAN R A CASINI RANCH NR DUNCANS MILLS CA
-9                          RUSSIAN R A MONTE RIO CA
-10                                  007N010W10H001M
-11                     AUSTIN C NR DUNCANS MILLS CA
-12                                  007N010W07D001M
-13                      HULBERT C NR GUERNEVILLE CA
-14                    POCKET CYN C A GUERNEVILLE CA
-15                                  008N009W31C002M
-16                                  008N009W31C003M
-17                                  008N009W31C004M
-18                                  008N009W31C005M
-19                          FIFE C A GUERNEVILLE CA
-20             GREEN VALLEY C NR MIRABEL HEIGHTS CA
-21      RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA
-22                                  008N011W27N001M
-23                          HOBSON C NR HACIENDA CA
-24                                  008N010W29H004M
+7                                   007N011W14NU01M
+8                                   007N011W14NU03M
+9                       DUTCH BILL C A MONTE RIO CA
+10     RUSSIAN R A CASINI RANCH NR DUNCANS MILLS CA
+11                         RUSSIAN R A MONTE RIO CA
+12                                  007N010W10H001M
+13                     AUSTIN C NR DUNCANS MILLS CA
+14                                  007N010W07D001M
+15                      HULBERT C NR GUERNEVILLE CA
+16                    POCKET CYN C A GUERNEVILLE CA
+17                                  008N009W31C002M
+18                                  008N009W31C003M
+19                                  008N009W31C004M
+20                                  008N009W31C005M
+21                          FIFE C A GUERNEVILLE CA
+22             GREEN VALLEY C NR MIRABEL HEIGHTS CA
+23      RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA
+24                                  008N011W27N001M
+25                                  008N010W28RU01M
+26                          HOBSON C NR HACIENDA CA
+27                                  008N010W29H004M
 Name: station_nm, dtype: object
 </pre></div></div>
 </div>
 <p>getting data from a dataframe as a numpy array can be accomplished by using <code class="docutils literal notranslate"><span class="pre">.values</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">station_nm</span><span class="o">.</span><span class="n">values</span>
@@ -1135,7 +1158,7 @@ Name: station_nm, dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1144,7 +1167,8 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
        &#39;RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA&#39;,
        &#39;RUSSIAN R A VACATION BEACH CA&#39;, &#39;BIG AUSTIN C A CAZADERO CA&#39;,
        &#39;AUSTIN C NR CAZADERO CA&#39;, &#39;RUSSIAN R A DUNCANS MILLS CA&#39;,
-       &#39;FREEZEOUT C NR DUNCANS MILLS CA&#39;, &#39;DUTCH BILL C A MONTE RIO CA&#39;,
+       &#39;FREEZEOUT C NR DUNCANS MILLS CA&#39;, &#39;007N011W14NU01M&#39;,
+       &#39;007N011W14NU03M&#39;, &#39;DUTCH BILL C A MONTE RIO CA&#39;,
        &#39;RUSSIAN R A CASINI RANCH NR DUNCANS MILLS CA&#39;,
        &#39;RUSSIAN R A MONTE RIO CA&#39;, &#39;007N010W10H001M&#39;,
        &#39;AUSTIN C NR DUNCANS MILLS CA&#39;, &#39;007N010W07D001M&#39;,
@@ -1153,14 +1177,15 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
        &#39;008N009W31C005M&#39;, &#39;FIFE C A GUERNEVILLE CA&#39;,
        &#39;GREEN VALLEY C NR MIRABEL HEIGHTS CA&#39;,
        &#39;RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA&#39;, &#39;008N011W27N001M&#39;,
-       &#39;HOBSON C NR HACIENDA CA&#39;, &#39;008N010W29H004M&#39;], dtype=object)
+       &#39;008N010W28RU01M&#39;, &#39;HOBSON C NR HACIENDA CA&#39;, &#39;008N010W29H004M&#39;],
+      dtype=object)
 </pre></div></div>
 </div>
 <section id="Selection-by-position">
 <h3>Selection by position<a class="headerlink" href="#Selection-by-position" title="Link to this heading">¶</a></h3>
 <p>We can get data by position in the dataframe using the <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> attribute</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
@@ -1168,7 +1193,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1217,7 +1242,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h3>Selection by label<a class="headerlink" href="#Selection-by-label" title="Link to this heading">¶</a></h3>
 <p>Pandas allows the user to get data from the dataframe by index and column labels</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;site_no&quot;</span><span class="p">,</span> <span class="s2">&quot;station_nm&quot;</span><span class="p">,</span> <span class="s2">&quot;site_tp_cd&quot;</span><span class="p">]]</span>
@@ -1225,7 +1250,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1287,7 +1312,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>pandas dataframes supports boolean indexing that allows a user to create a new dataframe with only the data that meets a boolean condition defined by the user.</p>
 <p>Let’s get a dataframe of only groundwater sites from the <code class="docutils literal notranslate"><span class="pre">info</span></code> dataframe</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfgw</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;site_tp_cd&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;GW&quot;</span><span class="p">]</span>
@@ -1296,7 +1321,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1343,7 +1368,55 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
   </thead>
   <tbody>
     <tr>
-      <th>10</th>
+      <th>7</th>
+      <td>USGS</td>
+      <td>382713123030401</td>
+      <td>007N011W14NU01M</td>
+      <td>GW</td>
+      <td>382712.5</td>
+      <td>1230303.5</td>
+      <td>38.453472</td>
+      <td>-123.050972</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>81.70</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>GGMC200</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>USGS</td>
+      <td>382713123030403</td>
+      <td>007N011W14NU03M</td>
+      <td>GW</td>
+      <td>382712.5</td>
+      <td>1230303.5</td>
+      <td>38.453472</td>
+      <td>-123.050972</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>32.56</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>GGMC200</td>
+    </tr>
+    <tr>
+      <th>12</th>
       <td>USGS</td>
       <td>382808122565401</td>
       <td>007N010W10H001M</td>
@@ -1361,13 +1434,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>22.0</td>
+      <td>22.00</td>
       <td>22.0</td>
       <td>D</td>
       <td>00BHM8187</td>
     </tr>
     <tr>
-      <th>12</th>
+      <th>14</th>
       <td>USGS</td>
       <td>382819123010001</td>
       <td>007N010W07D001M</td>
@@ -1385,13 +1458,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>99.0</td>
+      <td>99.00</td>
       <td>110.0</td>
       <td>D</td>
       <td>9677BHM32</td>
     </tr>
     <tr>
-      <th>15</th>
+      <th>17</th>
       <td>USGS</td>
       <td>383001122540701</td>
       <td>008N009W31C002M</td>
@@ -1409,13 +1482,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>80.0</td>
+      <td>80.00</td>
       <td>80.0</td>
       <td>D</td>
       <td>9677BHM32</td>
     </tr>
     <tr>
-      <th>16</th>
+      <th>18</th>
       <td>USGS</td>
       <td>383003122540401</td>
       <td>008N009W31C003M</td>
@@ -1439,7 +1512,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>967760420</td>
     </tr>
     <tr>
-      <th>17</th>
+      <th>19</th>
       <td>USGS</td>
       <td>383003122540402</td>
       <td>008N009W31C004M</td>
@@ -1463,7 +1536,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>967760420</td>
     </tr>
     <tr>
-      <th>18</th>
+      <th>20</th>
       <td>USGS</td>
       <td>383003122540403</td>
       <td>008N009W31C005M</td>
@@ -1481,13 +1554,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>25.0</td>
+      <td>25.00</td>
       <td>NaN</td>
       <td>S</td>
       <td>967760420</td>
     </tr>
     <tr>
-      <th>22</th>
+      <th>24</th>
       <td>USGS</td>
       <td>383016123041101</td>
       <td>008N011W27N001M</td>
@@ -1505,13 +1578,37 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>30.0</td>
+      <td>30.00</td>
       <td>30.0</td>
       <td>D</td>
       <td>00BHM8187</td>
     </tr>
     <tr>
-      <th>24</th>
+      <th>25</th>
+      <td>USGS</td>
+      <td>383017122580301</td>
+      <td>008N010W28RU01M</td>
+      <td>GW</td>
+      <td>383017.4</td>
+      <td>1225802.5</td>
+      <td>38.504833</td>
+      <td>-122.967361</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>98.00</td>
+      <td>107.0</td>
+      <td>D</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>27</th>
       <td>USGS</td>
       <td>383034122590701</td>
       <td>008N010W29H004M</td>
@@ -1529,14 +1626,14 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>99.0</td>
+      <td>99.00</td>
       <td>110.0</td>
       <td>D</td>
       <td>9677BHM32</td>
     </tr>
   </tbody>
 </table>
-<p>8 rows × 42 columns</p>
+<p>11 rows × 42 columns</p>
 </div></div>
 </div>
 </section>
@@ -1546,7 +1643,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>For this part we’ll write a new <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file of the groundwater sites that we found in NWIS using <code class="docutils literal notranslate"><span class="pre">to_csv()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">to_csv()</span></code> has a bunch of handy options for writing to file. For this example, I’m going to drop the index column while writing by passing <code class="docutils literal notranslate"><span class="pre">index=False</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csv_file</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;RussianRiverGWsites.csv&quot;</span>
@@ -1556,7 +1653,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 <p>Now we can load the csv file back into a pandas dataframe with the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> method.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfgw2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
@@ -1565,7 +1662,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1614,6 +1711,54 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
     <tr>
       <th>0</th>
       <td>USGS</td>
+      <td>382713123030401</td>
+      <td>007N011W14NU01M</td>
+      <td>GW</td>
+      <td>382712.5</td>
+      <td>1230303.5</td>
+      <td>38.453472</td>
+      <td>-123.050972</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>81.70</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>GGMC200</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>USGS</td>
+      <td>382713123030403</td>
+      <td>007N011W14NU03M</td>
+      <td>GW</td>
+      <td>382712.5</td>
+      <td>1230303.5</td>
+      <td>38.453472</td>
+      <td>-123.050972</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>32.56</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>GGMC200</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>USGS</td>
       <td>382808122565401</td>
       <td>007N010W10H001M</td>
       <td>GW</td>
@@ -1630,13 +1775,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>22.0</td>
+      <td>22.00</td>
       <td>22.0</td>
       <td>D</td>
       <td>00BHM8187</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>3</th>
       <td>USGS</td>
       <td>382819123010001</td>
       <td>007N010W07D001M</td>
@@ -1654,13 +1799,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>99.0</td>
+      <td>99.00</td>
       <td>110.0</td>
       <td>D</td>
       <td>9677BHM32</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>4</th>
       <td>USGS</td>
       <td>383001122540701</td>
       <td>008N009W31C002M</td>
@@ -1678,13 +1823,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>80.0</td>
+      <td>80.00</td>
       <td>80.0</td>
       <td>D</td>
       <td>9677BHM32</td>
     </tr>
     <tr>
-      <th>3</th>
+      <th>5</th>
       <td>USGS</td>
       <td>383003122540401</td>
       <td>008N009W31C003M</td>
@@ -1708,7 +1853,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>967760420</td>
     </tr>
     <tr>
-      <th>4</th>
+      <th>6</th>
       <td>USGS</td>
       <td>383003122540402</td>
       <td>008N009W31C004M</td>
@@ -1732,7 +1877,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>967760420</td>
     </tr>
     <tr>
-      <th>5</th>
+      <th>7</th>
       <td>USGS</td>
       <td>383003122540403</td>
       <td>008N009W31C005M</td>
@@ -1750,13 +1895,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>25.0</td>
+      <td>25.00</td>
       <td>NaN</td>
       <td>S</td>
       <td>967760420</td>
     </tr>
     <tr>
-      <th>6</th>
+      <th>8</th>
       <td>USGS</td>
       <td>383016123041101</td>
       <td>008N011W27N001M</td>
@@ -1774,13 +1919,37 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>30.0</td>
+      <td>30.00</td>
       <td>30.0</td>
       <td>D</td>
       <td>00BHM8187</td>
     </tr>
     <tr>
-      <th>7</th>
+      <th>9</th>
+      <td>USGS</td>
+      <td>383017122580301</td>
+      <td>008N010W28RU01M</td>
+      <td>GW</td>
+      <td>383017.4</td>
+      <td>1225802.5</td>
+      <td>38.504833</td>
+      <td>-122.967361</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>98.00</td>
+      <td>107.0</td>
+      <td>D</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
       <td>USGS</td>
       <td>383034122590701</td>
       <td>008N010W29H004M</td>
@@ -1798,14 +1967,14 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>N100CACSTL</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>99.0</td>
+      <td>99.00</td>
       <td>110.0</td>
       <td>D</td>
       <td>9677BHM32</td>
     </tr>
   </tbody>
 </table>
-<p>8 rows × 42 columns</p>
+<p>11 rows × 42 columns</p>
 </div></div>
 </div>
 </section>
@@ -1814,7 +1983,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h2>Class exercise 1<a class="headerlink" href="#Class-exercise-1" title="Link to this heading">¶</a></h2>
 <p>Using the methods presented in this notebook create a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> of surface water sites from the <code class="docutils literal notranslate"><span class="pre">info</span></code> dataframe, write it to a csv file named <code class="docutils literal notranslate"><span class="pre">&quot;RussianRiverSWsites.csv&quot;</span></code>, and read it back in as a new <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csv_name</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;RussianRiverSWsites.csv&quot;</span>
@@ -1827,7 +1996,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1881,8 +2050,8 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>ST</td>
       <td>383031.0</td>
       <td>1225536.0</td>
-      <td>38.508523</td>
-      <td>-122.927774</td>
+      <td>38.508482</td>
+      <td>-122.927734</td>
       <td>M</td>
       <td>F</td>
       <td>...</td>
@@ -1977,8 +2146,8 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <td>ST</td>
       <td>383024.0</td>
       <td>1230407.0</td>
-      <td>38.506580</td>
-      <td>-123.069724</td>
+      <td>38.506536</td>
+      <td>-123.069683</td>
       <td>M</td>
       <td>S</td>
       <td>...</td>
@@ -2004,7 +2173,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>Now to start working with stream gage data from NWIS. We’re going to send all surface water sites to NWIS and get only sites with daily discharge measurements.</p>
 <p>(<a class="reference external" href="https://waterdata.usgs.gov/nwis/inventory?agency_code=USGS&amp;site_no=11467002">11467002</a>)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter for only SW sites</span>
@@ -2027,7 +2196,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2099,7 +2268,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <section id="Inspect-the-data-using-.plot()">
 <h3>Inspect the data using <code class="docutils literal notranslate"><span class="pre">.plot()</span></code><a class="headerlink" href="#Inspect-the-data-using-.plot()" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -2112,7 +2281,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_35_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_35_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_36_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_36_0.png" />
 </div>
 </div>
 </section>
@@ -2121,7 +2290,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>Let’s update column names for these gages based on their locations instead of their USGS gage id. First we’ll get name information from the <code class="docutils literal notranslate"><span class="pre">info</span></code> class and then we’ll use the station name information to remap the column names.</p>
 <p>the <code class="docutils literal notranslate"><span class="pre">rename()</span></code> method accepts a dictionary that is formatted <code class="docutils literal notranslate"><span class="pre">{current_col_name:</span> <span class="pre">new_col_name}</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
@@ -2129,7 +2298,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2203,31 +2372,31 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
       <th>2023-12-29 00:00:00+00:00</th>
       <td>11467000</td>
       <td>1970.0</td>
-      <td>P</td>
+      <td>A</td>
     </tr>
     <tr>
       <th>2023-12-30 00:00:00+00:00</th>
       <td>11467000</td>
       <td>6170.0</td>
-      <td>P</td>
+      <td>A</td>
     </tr>
     <tr>
       <th>2023-12-30 00:00:00+00:00</th>
       <td>11467200</td>
-      <td>1430.0</td>
-      <td>P</td>
+      <td>1390.0</td>
+      <td>A</td>
     </tr>
     <tr>
       <th>2023-12-31 00:00:00+00:00</th>
       <td>11467000</td>
       <td>5970.0</td>
-      <td>P</td>
+      <td>A</td>
     </tr>
     <tr>
       <th>2023-12-31 00:00:00+00:00</th>
       <td>11467200</td>
-      <td>680.0</td>
-      <td>P</td>
+      <td>619.0</td>
+      <td>A</td>
     </tr>
   </tbody>
 </table>
@@ -2235,7 +2404,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;site_no&#39;</span><span class="p">,</span> <span class="s1">&#39;00060_Mean&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;site_no&#39;</span><span class="p">])</span>
@@ -2249,7 +2418,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2261,7 +2430,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_38_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_38_1.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_39_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_39_1.png" />
 </div>
 </div>
 </section>
@@ -2270,7 +2439,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>Adding new columns of data is relatively simple in pandas. The call signature is similar to a dictionary where df[“key”] = “some_array_of_values”</p>
 <p>Let’s add a year column (water year) to the dataframe by getting the year from the index and adjusting it using <code class="docutils literal notranslate"><span class="pre">np.where()</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">&gt;=</span><span class="mi">10</span><span class="p">,</span> <span class="n">df2</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">df2</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -2288,7 +2457,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h2>$ <span class="math">\frac{1 ft^3}{s}</span> <span class="math">\times `:nbsphinx-math:</span>frac{60s}{min}` <span class="math">\times `:nbsphinx-math:</span>frac{60min}{hour}` <span class="math">\times `:nbsphinx-math:</span>frac{24hours}{day}` <span class="math">\rightarrow `:nbsphinx-math:</span>frac{ft^3}{day}` $<a class="headerlink" href="#$-\frac{1-ft^3}{s}-\times-`:nbsphinx-math:frac{60s}{min}`-\times-`:nbsphinx-math:frac{60min}{hour}`-\times-`:nbsphinx-math:frac{24hours}{day}`-\rightarrow-`:nbsphinx-math:frac{ft^3}{day}`-$" title="Link to this heading">¶</a></h2>
 <p>and then convert that to acre-feet (1 acre-ft = 43559.9)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span>
@@ -2296,7 +2465,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2369,31 +2538,31 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
     <tr>
       <th>2023-12-27 00:00:00+00:00</th>
       <td>888.0</td>
-      <td>967.0</td>
+      <td>965.0</td>
       <td>2023</td>
     </tr>
     <tr>
       <th>2023-12-28 00:00:00+00:00</th>
       <td>1640.0</td>
-      <td>913.0</td>
+      <td>857.0</td>
       <td>2023</td>
     </tr>
     <tr>
       <th>2023-12-29 00:00:00+00:00</th>
       <td>1970.0</td>
-      <td>1490.0</td>
+      <td>1460.0</td>
       <td>2023</td>
     </tr>
     <tr>
       <th>2023-12-30 00:00:00+00:00</th>
       <td>6170.0</td>
-      <td>1430.0</td>
+      <td>1390.0</td>
       <td>2023</td>
     </tr>
     <tr>
       <th>2023-12-31 00:00:00+00:00</th>
       <td>5970.0</td>
-      <td>680.0</td>
+      <td>619.0</td>
       <td>2023</td>
     </tr>
   </tbody>
@@ -2402,7 +2571,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span>
@@ -2421,7 +2590,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_43_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_43_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_44_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_44_0.png" />
 </div>
 </div>
 </section>
@@ -2431,7 +2600,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>After these two fields have been added to df2 use boolean indexing to create a new dataframe from 2015 through 2020. Finally plot the discharge data (in acre-ft) for “austin_cr”.</p>
 <p><strong>bonus exercise</strong> try to plot both <code class="docutils literal notranslate"><span class="pre">&quot;russian_r_af&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;austin_c_af&quot;</span></code> on the same plot</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span>
@@ -2450,11 +2619,11 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_45_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_45_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_46_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_46_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now let&#39;s plot up discharge from 2018 - 2020</span>
@@ -2468,7 +2637,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_46_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_46_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_47_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_47_0.png" />
 </div>
 </div>
 <section id="groupby:-grouping-data-and-performing-mathematical-operations-on-it">
@@ -2476,7 +2645,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p><code class="docutils literal notranslate"><span class="pre">groupby()</span></code> is a powerful method that allows for performing statistical operations over a groups of “common” data within a dataframe.</p>
 <p>For this example we’ll use it to get mean daily flows for the watershed. Pandas will group all common days of the year with each other and then calculate the mean value of these via the function <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>. <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> also supports other operations such as <code class="docutils literal notranslate"><span class="pre">.median()</span></code>, <code class="docutils literal notranslate"><span class="pre">.sum()</span></code>, <code class="docutils literal notranslate"><span class="pre">max()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, <code class="docutils literal notranslate"><span class="pre">std()</span></code>, and other functions.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="s2">&quot;day_of_year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day_of_year</span>
@@ -2491,12 +2660,12 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_48_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_48_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_49_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_49_0.png" />
 </div>
 </div>
 <p>We can see that around March flow starts decreasing heavily and doesn’t recover until sometime in october. What’s going on here? Let’s load some climate data and see what’s happening.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cimis_file</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;santa_rosa_CIMIS_83.csv&quot;</span>
@@ -2508,7 +2677,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2824,7 +2993,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_mean_clim</span> <span class="o">=</span> <span class="n">df_cimis</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Jul&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[[</span><span class="s2">&quot;ETo (in)&quot;</span><span class="p">,</span> <span class="s2">&quot;Precip (in)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -2834,7 +3003,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2902,7 +3071,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>Inner joins can be made in pandas with the <code class="docutils literal notranslate"><span class="pre">merge()</span></code> method. As inner join, joins two dataframes on a common key or values, when a key or value exists in one dataframe, but not the other that row of data will be excluded from the joined dataframe.</p>
 <p>There are a number of other ways to join dataframes in pandas. Detailed examples and discussion of the different merging methods can be found <a class="reference external" href="https://realpython.com/pandas-merge-join-and-concat/">here</a></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_mean_day</span><span class="p">,</span> <span class="n">df_mean_clim</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;day_of_year&quot;</span><span class="p">,])</span>
@@ -2911,7 +3080,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2986,7 +3155,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_merged</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="s2">&quot;day_of_year&quot;</span><span class="p">]</span>
@@ -2999,13 +3168,912 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_54_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_54_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_55_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_55_0.png" />
 </div>
 </div>
 <p>This starts to make a little more sense! We can see that this area gets most of it’s precipitation in the winter and early spring. The evapotranspiration curve shows what we’d expect: that there is more evapotranspiration in the summer than the winter.</p>
-<p>Is there anything else we can look at that might give us more insights into this basin? Let’s try looking at long term, yearly trends to see what’s there.</p>
+</section>
+</section>
+<section id="Stepping-back-for-a-minute:-exploring-Merge-and-Concat">
+<h2>Stepping back for a minute: exploring Merge and Concat<a class="headerlink" href="#Stepping-back-for-a-minute:-exploring-Merge-and-Concat" title="Link to this heading">¶</a></h2>
+<p>Merge and concat are very powerful and important methods for combining pandas DataFrames (and later geopandas GeoDataFrames). This section takes a moment, as an aside to explore some of the common funtions and options for performing merges and concatenation.</p>
+<section id="The-merge-method">
+<h3>The <code class="docutils literal notranslate"><span class="pre">merge</span></code> method<a class="headerlink" href="#The-merge-method" title="Link to this heading">¶</a></h3>
+<p>Pandas <code class="docutils literal notranslate"><span class="pre">merge</span></code> method allows the user to join two dataframes based on column values. There are a few methods that can be used to control the type of merge and the result.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inner</span></code>: operates as a intersection of the data and keeps rows from both dataframes if the row has a matching key in both dataframes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outer</span></code>: operates as a union and joins all rows from both dataframes, fills columns with nan where data is not available for a row.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">left</span></code>: keeps all rows from the ‘left’ dataframe and joins columns from the right</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">right</span></code>: keeps all rows from the ‘right’ dataframe and joins columns from the left</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ex0</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;childhood_dream_job&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+<span class="n">ex1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="The-concat-method">
+<h3>The <code class="docutils literal notranslate"><span class="pre">concat</span></code> method<a class="headerlink" href="#The-concat-method" title="Link to this heading">¶</a></h3>
+<p>Pandas <code class="docutils literal notranslate"><span class="pre">concat</span></code> method allows the user to concatenate dataframes together</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gw</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">site_tp_cd</span> <span class="o">==</span> <span class="s2">&quot;GW&quot;</span><span class="p">]</span>
+<span class="n">sw</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">site_tp_cd</span> <span class="o">==</span> <span class="s2">&quot;ST&quot;</span><span class="p">]</span>
+<span class="n">sw</span> <span class="o">=</span> <span class="n">sw</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">sw</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">]]</span>
+<span class="n">sw</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>agency_cd</th>
+      <th>site_no</th>
+      <th>station_nm</th>
+      <th>site_tp_cd</th>
+      <th>lat_va</th>
+      <th>long_va</th>
+      <th>dec_lat_va</th>
+      <th>dec_long_va</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>USGS</td>
+      <td>11467000</td>
+      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
+      <td>ST</td>
+      <td>383031.0</td>
+      <td>1225536.0</td>
+      <td>38.508482</td>
+      <td>-122.927734</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>USGS</td>
+      <td>11467002</td>
+      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
+      <td>ST</td>
+      <td>382958.0</td>
+      <td>1225950.0</td>
+      <td>38.499358</td>
+      <td>-122.998333</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>USGS</td>
+      <td>11467006</td>
+      <td>RUSSIAN R A VACATION BEACH CA</td>
+      <td>ST</td>
+      <td>382903.0</td>
+      <td>1230041.0</td>
+      <td>38.484080</td>
+      <td>-123.012500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>USGS</td>
+      <td>11467050</td>
+      <td>BIG AUSTIN C A CAZADERO CA</td>
+      <td>ST</td>
+      <td>383215.0</td>
+      <td>1230518.0</td>
+      <td>38.537413</td>
+      <td>-123.089447</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>USGS</td>
+      <td>11467200</td>
+      <td>AUSTIN C NR CAZADERO CA</td>
+      <td>ST</td>
+      <td>383024.0</td>
+      <td>1230407.0</td>
+      <td>38.506536</td>
+      <td>-123.069683</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">gw</span><span class="p">,</span> <span class="n">sw</span><span class="p">),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">newdf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>agency_cd</th>
+      <th>site_no</th>
+      <th>station_nm</th>
+      <th>site_tp_cd</th>
+      <th>lat_va</th>
+      <th>long_va</th>
+      <th>dec_lat_va</th>
+      <th>dec_long_va</th>
+      <th>coord_meth_cd</th>
+      <th>coord_acy_cd</th>
+      <th>...</th>
+      <th>local_time_fg</th>
+      <th>reliability_cd</th>
+      <th>gw_file_cd</th>
+      <th>nat_aqfr_cd</th>
+      <th>aqfr_cd</th>
+      <th>aqfr_type_cd</th>
+      <th>well_depth_va</th>
+      <th>hole_depth_va</th>
+      <th>depth_src_cd</th>
+      <th>project_no</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>USGS</td>
+      <td>382713123030401</td>
+      <td>007N011W14NU01M</td>
+      <td>GW</td>
+      <td>382712.5</td>
+      <td>1230303.5</td>
+      <td>38.453472</td>
+      <td>-123.050972</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>81.70</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>GGMC200</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>USGS</td>
+      <td>382713123030403</td>
+      <td>007N011W14NU03M</td>
+      <td>GW</td>
+      <td>382712.5</td>
+      <td>1230303.5</td>
+      <td>38.453472</td>
+      <td>-123.050972</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>32.56</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>GGMC200</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>USGS</td>
+      <td>382808122565401</td>
+      <td>007N010W10H001M</td>
+      <td>GW</td>
+      <td>382808.5</td>
+      <td>1225654.2</td>
+      <td>38.469028</td>
+      <td>-122.948389</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>22.00</td>
+      <td>22.0</td>
+      <td>D</td>
+      <td>00BHM8187</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>USGS</td>
+      <td>382819123010001</td>
+      <td>007N010W07D001M</td>
+      <td>GW</td>
+      <td>382819.9</td>
+      <td>1230100.8</td>
+      <td>38.472194</td>
+      <td>-123.016889</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY</td>
+      <td>N100CACSTL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>99.00</td>
+      <td>110.0</td>
+      <td>D</td>
+      <td>9677BHM32</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>USGS</td>
+      <td>383001122540701</td>
+      <td>008N009W31C002M</td>
+      <td>GW</td>
+      <td>383001.9</td>
+      <td>1225407.7</td>
+      <td>38.500528</td>
+      <td>-122.902139</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY</td>
+      <td>N100CACSTL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>80.00</td>
+      <td>80.0</td>
+      <td>D</td>
+      <td>9677BHM32</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>USGS</td>
+      <td>383003122540401</td>
+      <td>008N009W31C003M</td>
+      <td>GW</td>
+      <td>383003.3</td>
+      <td>1225404.4</td>
+      <td>38.500917</td>
+      <td>-122.901222</td>
+      <td>G</td>
+      <td>1</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>N100CACSTL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>967760420</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>USGS</td>
+      <td>383003122540402</td>
+      <td>008N009W31C004M</td>
+      <td>GW</td>
+      <td>383003.3</td>
+      <td>1225404.4</td>
+      <td>38.500917</td>
+      <td>-122.901222</td>
+      <td>G</td>
+      <td>1</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>Y</td>
+      <td>N100CACSTL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>967760420</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>USGS</td>
+      <td>383003122540403</td>
+      <td>008N009W31C005M</td>
+      <td>GW</td>
+      <td>383003.3</td>
+      <td>1225404.4</td>
+      <td>38.500917</td>
+      <td>-122.901222</td>
+      <td>G</td>
+      <td>1</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>N100CACSTL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>25.00</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>967760420</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>USGS</td>
+      <td>383016123041101</td>
+      <td>008N011W27N001M</td>
+      <td>GW</td>
+      <td>383016.3</td>
+      <td>1230411.0</td>
+      <td>38.504528</td>
+      <td>-123.069722</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>30.00</td>
+      <td>30.0</td>
+      <td>D</td>
+      <td>00BHM8187</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>USGS</td>
+      <td>383017122580301</td>
+      <td>008N010W28RU01M</td>
+      <td>GW</td>
+      <td>383017.4</td>
+      <td>1225802.5</td>
+      <td>38.504833</td>
+      <td>-122.967361</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>98.00</td>
+      <td>107.0</td>
+      <td>D</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>USGS</td>
+      <td>383034122590701</td>
+      <td>008N010W29H004M</td>
+      <td>GW</td>
+      <td>383034.4</td>
+      <td>1225907.9</td>
+      <td>38.509556</td>
+      <td>-122.985528</td>
+      <td>G</td>
+      <td>5</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>C</td>
+      <td>YY   Y</td>
+      <td>N100CACSTL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>99.00</td>
+      <td>110.0</td>
+      <td>D</td>
+      <td>9677BHM32</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>USGS</td>
+      <td>11467000</td>
+      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
+      <td>ST</td>
+      <td>383031.0</td>
+      <td>1225536.0</td>
+      <td>38.508482</td>
+      <td>-122.927734</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>USGS</td>
+      <td>11467002</td>
+      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
+      <td>ST</td>
+      <td>382958.0</td>
+      <td>1225950.0</td>
+      <td>38.499358</td>
+      <td>-122.998333</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>USGS</td>
+      <td>11467006</td>
+      <td>RUSSIAN R A VACATION BEACH CA</td>
+      <td>ST</td>
+      <td>382903.0</td>
+      <td>1230041.0</td>
+      <td>38.484080</td>
+      <td>-123.012500</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>USGS</td>
+      <td>11467050</td>
+      <td>BIG AUSTIN C A CAZADERO CA</td>
+      <td>ST</td>
+      <td>383215.0</td>
+      <td>1230518.0</td>
+      <td>38.537413</td>
+      <td>-123.089447</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>USGS</td>
+      <td>11467200</td>
+      <td>AUSTIN C NR CAZADERO CA</td>
+      <td>ST</td>
+      <td>383024.0</td>
+      <td>1230407.0</td>
+      <td>38.506536</td>
+      <td>-123.069683</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>USGS</td>
+      <td>11467210</td>
+      <td>RUSSIAN R A DUNCANS MILLS CA</td>
+      <td>ST</td>
+      <td>382713.0</td>
+      <td>1230254.0</td>
+      <td>38.453525</td>
+      <td>-123.049446</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>USGS</td>
+      <td>382701123025801</td>
+      <td>FREEZEOUT C NR DUNCANS MILLS CA</td>
+      <td>ST</td>
+      <td>382701.0</td>
+      <td>1230258.0</td>
+      <td>38.450278</td>
+      <td>-123.049444</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>USGS</td>
+      <td>382752123003401</td>
+      <td>DUTCH BILL C A MONTE RIO CA</td>
+      <td>ST</td>
+      <td>382752.0</td>
+      <td>1230034.0</td>
+      <td>38.464444</td>
+      <td>-123.009444</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>USGS</td>
+      <td>382754123030501</td>
+      <td>RUSSIAN R A CASINI RANCH NR DUNCANS MILLS CA</td>
+      <td>ST</td>
+      <td>382754.0</td>
+      <td>1230305.0</td>
+      <td>38.465000</td>
+      <td>-123.051389</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>USGS</td>
+      <td>382757123003801</td>
+      <td>RUSSIAN R A MONTE RIO CA</td>
+      <td>ST</td>
+      <td>382757.0</td>
+      <td>1230038.0</td>
+      <td>38.465833</td>
+      <td>-123.010556</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>USGS</td>
+      <td>382815123024601</td>
+      <td>AUSTIN C NR DUNCANS MILLS CA</td>
+      <td>ST</td>
+      <td>382815.0</td>
+      <td>1230246.0</td>
+      <td>38.470833</td>
+      <td>-123.046111</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>USGS</td>
+      <td>382944123002901</td>
+      <td>HULBERT C NR GUERNEVILLE CA</td>
+      <td>ST</td>
+      <td>382944.0</td>
+      <td>1230029.0</td>
+      <td>38.495556</td>
+      <td>-123.008056</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>USGS</td>
+      <td>382955122594101</td>
+      <td>POCKET CYN C A GUERNEVILLE CA</td>
+      <td>ST</td>
+      <td>382955.0</td>
+      <td>1225941.0</td>
+      <td>38.498611</td>
+      <td>-122.994722</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>USGS</td>
+      <td>383006123000601</td>
+      <td>FIFE C A GUERNEVILLE CA</td>
+      <td>ST</td>
+      <td>383006.0</td>
+      <td>1230006.0</td>
+      <td>38.501667</td>
+      <td>-123.001667</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>USGS</td>
+      <td>383009122543001</td>
+      <td>GREEN VALLEY C NR MIRABEL HEIGHTS CA</td>
+      <td>ST</td>
+      <td>383009.0</td>
+      <td>1225430.0</td>
+      <td>38.502500</td>
+      <td>-122.908333</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>USGS</td>
+      <td>383012122574501</td>
+      <td>RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA</td>
+      <td>ST</td>
+      <td>383012.0</td>
+      <td>1225745.0</td>
+      <td>38.503333</td>
+      <td>-122.962500</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>USGS</td>
+      <td>383028122554501</td>
+      <td>HOBSON C NR HACIENDA CA</td>
+      <td>ST</td>
+      <td>383028.0</td>
+      <td>1225545.0</td>
+      <td>38.507778</td>
+      <td>-122.929167</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>28 rows × 42 columns</p>
+</div></div>
+</div>
+</section>
+</section>
+<section id="Back-to-working-with-our-climate-and-stream-data">
+<h2>Back to working with our climate and stream data<a class="headerlink" href="#Back-to-working-with-our-climate-and-stream-data" title="Link to this heading">¶</a></h2>
+<p>Is there anything else we can look at that might give us more insights into this basin?</p>
+<p>Let’s try looking at long term, yearly trends to see what’s there.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3021,7 +4089,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -3193,7 +4261,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -3201,7 +4269,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -3304,7 +4372,6 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </table>
 </div></div>
 </div>
-</section>
 <section id=".aggregate()">
 <h3><code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code><a class="headerlink" href="#.aggregate()" title="Link to this heading">¶</a></h3>
 <p>The pandas <code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code> can be used with <code class="docutils literal notranslate"><span class="pre">.groupy()</span></code> to perform multiple statistical operations.</p>
@@ -3327,7 +4394,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </ul>
 <p>Name your final joined dataframe <code class="docutils literal notranslate"><span class="pre">df_yearly</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfg0</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;russian_r_af&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span>
@@ -3342,7 +4409,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -3710,7 +4777,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 <p>Lets examine the long term flow record for the Russian River</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_y_flow</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;russian_r_af&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span>
@@ -3729,13 +4796,13 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_63_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_63_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_74_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_74_0.png" />
 </div>
 </div>
 <p>From this plot it looks like the long term trend in yearly discharge in the Russian River has been decreasing. We will revisit and test this later.</p>
 <p>First let’s see if there are any relationships between yearly discharge and climate</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfg0</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;russian_r_af&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">])</span>
@@ -3763,7 +4830,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_65_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_65_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_76_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_76_0.png" />
 </div>
 </div>
 <p>As expected, precipitation amount is the main driver of the yearly discharge regime here</p>
@@ -3771,7 +4838,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h3>Baseflow separation<a class="headerlink" href="#Baseflow-separation" title="Link to this heading">¶</a></h3>
 <p>Baseflow separation is a method to separate the quick response hydrograph (storm runoff) from the long term flow. We’re going to go back to the complete daily dataset to perform this operation. The following cell contains a low pass filtration method that is used for digital baseflow separation. We’ll use these in our analysis</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_baseflow_low_pass_filter</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">enforce</span><span class="p">):</span>
@@ -3889,7 +4956,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">baseflow</span> <span class="o">=</span> <span class="n">baseflow_low_pass_filter</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s2">&quot;russian_r_af&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
@@ -3914,7 +4981,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_70_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_70_1.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_81_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_81_1.png" />
 </div>
 </div>
 </section>
@@ -3923,7 +4990,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> is a Python module that provides classes and functions for the estimation of many different statistical models, as well as for conducting statistical tests, and statistical data exploration. For more information on <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> and it’s many features visit <a class="reference external" href="https://www.statsmodels.org/dev/gettingstarted.html">the getting started guide</a></p>
 <p>For this example we’ll be using time series analysis to perform a seasonal decomposition using moving averages. The <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> function <code class="docutils literal notranslate"><span class="pre">seasonal_decompose</span></code> will perform this analysis and return the data trend, seasonal fluctuations, and residuals.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="s2">&quot;russian_bf_af&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">baseflow_low_pass_filter</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s2">&quot;russian_r_af&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
@@ -3943,12 +5010,12 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_72_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_72_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_83_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_83_0.png" />
 </div>
 </div>
 <p>Now let’s plot our baseflow trend against the baseflow we calculated</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -3960,11 +5027,20 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <br/></pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipykernel_9565/1871956059.py:4: UserWarning: This axis already has a converter set and is updating to a potentially incompatible converter
+  ax.plot(decomposition.trend.index, decomposition.trend, &#34;r-&#34;, lw=1.5)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_74_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_74_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_85_1.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_85_1.png" />
 </div>
 </div>
 <p>What’s going on at the end of the 1970’s? Why is the baseflow trend so low and peak flows are also low?</p>
@@ -3975,7 +5051,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h3>Writing yearly plots of data to a PDF document<a class="headerlink" href="#Writing-yearly-plots-of-data-to-a-PDF-document" title="Link to this heading">¶</a></h3>
 <p>We can write the plots we make with pandas to a multipage pdf using matplotlib’s <code class="docutils literal notranslate"><span class="pre">PdfPages</span></code>. For this example we’ll make yearly plots of all of the discharge, baseflow, and baseflow trend and bundle them into a single pdf document.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the decomposition trend to the dataframe to make plotting easy</span>
@@ -4007,7 +5083,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h3>Adjusting a whole column of data values<a class="headerlink" href="#Adjusting-a-whole-column-of-data-values" title="Link to this heading">¶</a></h3>
 <p>Because pandas series objects (columns) are built off of numpy, we can perform mathematical operations in place on a whole column similarly to numpy arrays</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -4030,7 +5106,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -4152,7 +5228,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h3>updating values by position<a class="headerlink" href="#updating-values-by-position" title="Link to this heading">¶</a></h3>
 <p>We can update single or multiple values by their position in the dataframe using <code class="docutils literal notranslate"><span class="pre">.iloc</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">999</span>
@@ -4161,7 +5237,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -4283,7 +5359,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h3>updating values based on location<a class="headerlink" href="#updating-values-based-on-location" title="Link to this heading">¶</a></h3>
 <p>We can update values in the dataframe based on their index and column headers too using <code class="docutils literal notranslate"><span class="pre">.loc</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df3</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;russian_r&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">100</span>
@@ -4292,7 +5368,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -4417,7 +5493,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>Then use either a location based method to change the value in austin_c on 10-4-1939 to 0.</p>
 <p>Finally display the first 5 records in the notebook.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span><span class="p">[</span><span class="s2">&quot;russian_r_cfd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">df3</span><span class="p">[</span><span class="s2">&quot;russian_r_cfd&quot;</span><span class="p">])</span>
@@ -4427,7 +5503,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -4554,7 +5630,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.detrend.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.detrend.html</a></p>
 <p>Let’s create a new dataframe with only the data we’re interested in analysing.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_data</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[[</span><span class="s2">&quot;russian_r_af&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">]]</span>
@@ -4564,7 +5640,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -4598,12 +5674,12 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
     </tr>
     <tr>
       <th>mean</th>
-      <td>4255.042969</td>
+      <td>4254.981092</td>
       <td>1980.626036</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>11328.390556</td>
+      <td>11328.372092</td>
       <td>24.322069</td>
     </tr>
     <tr>
@@ -4637,7 +5713,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 <p>But first let’s also set the water year by date on this dataframe and drop the single nan value from the dataframe</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_data</span><span class="p">[</span><span class="s1">&#39;water_year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">30</span><span class="o">+</span><span class="mi">31</span><span class="o">+</span><span class="mi">31</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">year</span>
@@ -4647,7 +5723,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
@@ -4671,14 +5747,14 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_93_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_93_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_104_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_104_0.png" />
 </div>
 </div>
 <section id="Evaluate-and-plot-the-Period-Spectrum-to-see-timing-of-recurrence">
 <h3>Evaluate and plot the Period Spectrum to see timing of recurrence<a class="headerlink" href="#Evaluate-and-plot-the-Period-Spectrum-to-see-timing-of-recurrence" title="Link to this heading">¶</a></h3>
 <p>Here we’ve created a function that performs fast fourier transforms and then plot’s the spectrum for signals of various lengths.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fft_and_plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">plot_dominant_periods</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
@@ -4721,7 +5797,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <section id="Now-let's-look-at-the-whole-signal">
 <h3>Now let’s look at the whole signal<a class="headerlink" href="#Now-let's-look-at-the-whole-signal" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fft_and_plot</span><span class="p">(</span><span class="n">df_data</span><span class="p">)</span>
@@ -4732,7 +5808,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_97_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_97_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_108_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_108_0.png" />
 </div>
 </div>
 <p>We see a strong annual frequency that corresponds to spring snowmelt from the surrounding mountain ranges. The second strongest frequency is biannually, and is likely due to the onset of fall in winter rains</p>
@@ -4741,7 +5817,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <h3>Okay, what about years before dams were installed on the Russian River.<a class="headerlink" href="#Okay,-what-about-years-before-dams-were-installed-on-the-Russian-River." title="Link to this heading">¶</a></h3>
 <p>Let’s get in the wayback machine and look at only the years prior to 1954!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fft_and_plot</span><span class="p">(</span><span class="n">df_data</span><span class="p">[</span><span class="n">df_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">&lt;</span> <span class="mi">1954</span><span class="p">])</span>
@@ -4752,7 +5828,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_100_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_100_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_111_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_111_0.png" />
 </div>
 </div>
 <p>The binanual and annual signals have a much wider spread, which suggests that peak runoff was a little more variable in it’s timing compared to the entire data record.</p>
@@ -4760,7 +5836,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <section id="What-if-we-focus-in-on-after-1954?">
 <h3>What if we focus in on after 1954?<a class="headerlink" href="#What-if-we-focus-in-on-after-1954?" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fft_and_plot</span><span class="p">(</span><span class="n">df_data</span><span class="p">[(</span><span class="n">df_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">&gt;</span> <span class="mi">1954</span><span class="p">)])</span>
@@ -4771,7 +5847,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_103_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_103_0.png" />
+<img alt="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_114_0.png" src="../../../_images/notebooks_part0_python_intro_solutions_08_pandas_114_0.png" />
 </div>
 </div>
 <p>It looks like flows are more controlled with a tighter periods.</p>
@@ -4792,7 +5868,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 17, 2025.
+      <span class="lastupdated">Last updated on Sep 19, 2025.
       </span></p>
   </div>
 
