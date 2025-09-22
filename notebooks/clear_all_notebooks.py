@@ -8,7 +8,7 @@ notebook_count = 0
 # all solutions are still not being cleared
 
 skip_notebooks = [
-    #'10_Rasterio.ipynb',
+    #'10b_Rasterio_advanced.ipynb',
     #'11_xarray_mt_rainier_precip.ipynb',
     #'09_Geopandas_ABQ.ipynb',
     #'03_Loading_and_visualizing_models-solutions.ipynb',
