@@ -10,7 +10,7 @@ Monday
 - 1330-1345: break
 - 1345-1545: 02 Namespace, Modules, Packages, Objects (A: import and use own functions, etc) (Josh) 
 - 1545-1600: break
-- 1500-1700: 03 Useful Standard Library modules (Andy) 
+- 1600-1700: 03 Useful Standard Library modules (Andy) 
 - 1700-1730: 04 Working with files, string formatting (Nick) 
 - 1730: Class Adjourn 
  
