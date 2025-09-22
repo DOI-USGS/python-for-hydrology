@@ -26,3 +26,4 @@ We encourage students to explore these materials for their own study or to reach
    Additional links <SOME_HELPFUL_LINKS.md>
    Contributing <contributing>
    Glossary of jargon <glossary_of_jargon>
+   Scientific coding best practices <best_practices>
