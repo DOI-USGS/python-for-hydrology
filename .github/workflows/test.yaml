@@ -76,3 +76,5 @@ jobs:
       shell: bash -l {0}
       run: |
         pytest tests/test_notebooks.py -v
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
