@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -75,7 +77,8 @@
 <li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -118,9 +121,9 @@
            <div itemprop="articleBody">
              
   <section id="01:-Functions-and-scripts">
-<h1>01: Functions and scripts<a class="headerlink" href="#01:-Functions-and-scripts" title="Link to this heading">¶</a></h1>
+<h1>01: Functions and scripts<a class="headerlink" href="#01:-Functions-and-scripts" title="Link to this heading"></a></h1>
 <section id="Why-use-functions?">
-<h2>Why use functions?<a class="headerlink" href="#Why-use-functions?" title="Link to this heading">¶</a></h2>
+<h2>Why use functions?<a class="headerlink" href="#Why-use-functions?" title="Link to this heading"></a></h2>
 <p>functions are a great coding tool! They allow to setup reusable bits of code that you might need over and over. Using functions, you only have the write the code once, and, if you need to change it, only change it once.</p>
 <p>We can create a function that writes the Fibonacci series to an arbitrary boundary:</p>
 <div class="nbinput nblast docutils container">
@@ -357,12 +360,12 @@ None
 <p>The <code class="docutils literal notranslate"><span class="pre">return</span></code> statement returns with a value from a function. return without an expression argument returns None. Falling off the end of a function also returns None.</p>
 </section>
 <section id="An-object-oriented-preview-aside:-terminology-alert!!!">
-<h2>An object oriented preview aside: terminology alert!!!<a class="headerlink" href="#An-object-oriented-preview-aside:-terminology-alert!!!" title="Link to this heading">¶</a></h2>
+<h2>An object oriented preview aside: terminology alert!!!<a class="headerlink" href="#An-object-oriented-preview-aside:-terminology-alert!!!" title="Link to this heading"></a></h2>
 <p>The statement <code class="docutils literal notranslate"><span class="pre">result.append(a)</span></code> calls a method of the <code class="docutils literal notranslate"><span class="pre">list</span></code> type object instance <code class="docutils literal notranslate"><span class="pre">result</span></code>. A method is simply a function that ‘belongs’ to an object and is named obj.methodname, where obj is some object (this may be an expression), and methodname is the name of a method that is defined by the object’s type. Different types define different methods. Methods of different types may have the same name without causing ambiguity. (It is possible to define your own object types and methods,
 using classes, see Classes) The method append() shown in the example is defined for list objects; it adds a new element at the end of the list. In this example it is equivalent to result = result + [a], but more efficient.</p>
 </section>
 <section id="back-to-functions">
-<h2>back to functions<a class="headerlink" href="#back-to-functions" title="Link to this heading">¶</a></h2>
+<h2>back to functions<a class="headerlink" href="#back-to-functions" title="Link to this heading"></a></h2>
 <p>It is also possible to define functions with a variable number of arguments. In <code class="docutils literal notranslate"><span class="pre">python</span></code>, there are three forms function arguments which can be combined. Each of these forms get used a lot.</p>
 <p>The most user-friendly form of a function argument is to specify an argument which has a default value. This creates a function that can be called with fewer arguments, but that also allows greater flexility in controlling the behavior within the function itself.</p>
 <p>For example:</p>
@@ -494,7 +497,7 @@ thiem(T, r, Q=1000.0, R=10000000000.0, h0=0.0)
 </div>
 </section>
 <section id="Your-turn">
-<h2>Your turn<a class="headerlink" href="#Your-turn" title="Link to this heading">¶</a></h2>
+<h2>Your turn<a class="headerlink" href="#Your-turn" title="Link to this heading"></a></h2>
 <p>1.) What is the thiem solution for <code class="docutils literal notranslate"><span class="pre">T</span></code>=1000.0, <code class="docutils literal notranslate"><span class="pre">r</span></code>=20.0?</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -595,7 +598,7 @@ thiem(T, r, Q=1000.0, R=10000000000.0, h0=0.0)
 </div>
 </section>
 <section id="More-on-functions:-lambda-functions">
-<h2>More on functions: <code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions<a class="headerlink" href="#More-on-functions:-lambda-functions" title="Link to this heading">¶</a></h2>
+<h2>More on functions: <code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions<a class="headerlink" href="#More-on-functions:-lambda-functions" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions are a special type of function known as an “in-line” function. They are present in virtually all modern programming languages (not Fortran, that’s not modern) and are usually high-optimized. They allow you to quickly define a simple-ish function that can only accept a single, <em>required</em> argument. The only reason to introduce them is because they appear frequently when using a python library named <code class="docutils literal notranslate"><span class="pre">pandas</span></code> that we will cover later.</p>
 <p>The variable <code class="docutils literal notranslate"><span class="pre">square</span></code> is actually a function that squares (or attempts to) the single required argument that it is given</p>
 <div class="nbinput docutils container">
@@ -660,7 +663,7 @@ Cell <span class="ansi-green-fg">In[20], line 1</span>, in <span class="ansi-cya
 </div>
 </section>
 <section id="id1">
-<h2>Your turn<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<h2>Your turn<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p><em>Define a</em> <code class="docutils literal notranslate"><span class="pre">lambda</span></code> <em>function that raises a number to the power of 3 then divides by 3</em></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -706,14 +709,14 @@ Cell <span class="ansi-green-fg">In[20], line 1</span>, in <span class="ansi-cya
 </div>
 </section>
 <section id="Scripts">
-<h2>Scripts<a class="headerlink" href="#Scripts" title="Link to this heading">¶</a></h2>
+<h2>Scripts<a class="headerlink" href="#Scripts" title="Link to this heading"></a></h2>
 <p>If you quit from the Python interpreter and enter it again, the definitions you have made (functions and variables - <em>e.g.</em> ALL YOUR HARD WORK) are lost. Therefore, if you want to write a somewhat longer program, you are better off using a text editor to prepare the input for the interpreter and running it with that file as input instead. This is known as creating a script. As your program gets longer, you may want to split it into several files for easier maintenance. You may also want to use a
 handy function that you’ve written in several programs without copying its definition into each program.</p>
 <p>To support this, Python has a way to put definitions in a file and use them in a script or in an interactive instance of the interpreter. Such a file is called a module; definitions from a module can be imported into other modules or into the main module (the collection of variables that you have access to in a script executed at the top level and in calculator mode).</p>
 <p>A module is a file containing Python definitions and statements. The file name is the module name with the suffix .py appended. Within a module, the module’s name (as a string) is available as the value of the global variable <strong>name</strong>.</p>
 </section>
 <section id="id2">
-<h2>Your turn<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<h2>Your turn<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p><em>Using a text editor, put the</em> <code class="docutils literal notranslate"><span class="pre">thiem()</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">thiem_list()</span></code> <em>in to a file named</em> <code class="docutils literal notranslate"><span class="pre">thiem_functions.py</span></code>. <em>Make sure you put the file in the same directory as the notebooks we are using. Test that you have everything working by typing</em> <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">thiem_functions</span></code></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -786,7 +789,7 @@ handy function that you’ve written in several programs without copying its def
 </div>
 </section>
 <section id="id3">
-<h2>Your turn<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<h2>Your turn<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p><em>Using a text editor, create a new python script that</em> <code class="docutils literal notranslate"><span class="pre">import</span></code><em>s the</em> <code class="docutils literal notranslate"><span class="pre">thiem_functions</span></code> <em>module and uses it to calculate some results. Then run your new script from the command line</em></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -811,7 +814,7 @@ handy function that you’ve written in several programs without copying its def
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

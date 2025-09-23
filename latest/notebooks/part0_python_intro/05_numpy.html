@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -126,7 +128,8 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -169,21 +172,21 @@
            <div itemprop="articleBody">
              
   <section id="05:-NumPy">
-<h1>05: NumPy<a class="headerlink" href="#05:-NumPy" title="Link to this heading">¶</a></h1>
+<h1>05: NumPy<a class="headerlink" href="#05:-NumPy" title="Link to this heading"></a></h1>
 <p>This notebook demonstrates how to import and use the Numpy module to work with arrays. The NumPy library includes (among other things) ways of storing and manipulating data that are more efficient than standard Python arrays. Using NumPy with numerical data is much faster than using Python lists or tuples.</p>
 <section id="Important-Note">
-<h2>Important Note<a class="headerlink" href="#Important-Note" title="Link to this heading">¶</a></h2>
+<h2>Important Note<a class="headerlink" href="#Important-Note" title="Link to this heading"></a></h2>
 <p>The data structures and functionality of numpy underly many of the more advanced python tools that we will use including scipy, matplotlib, pandas, geopandas, flopy, and more.</p>
 </section>
 <section id="References">
-<h2>References<a class="headerlink" href="#References" title="Link to this heading">¶</a></h2>
+<h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://docs.scipy.org/doc/">Numpy documentation</a></div>
 <div class="line">The <a class="reference external" href="http://scipy-lectures.org/intro/numpy/index.html">Scipy lecture notes</a> provide a pretty comprehensive demo of the core features of numpy.</div>
 </div>
 </section>
 <section id="Outline">
-<h2>Outline<a class="headerlink" href="#Outline" title="Link to this heading">¶</a></h2>
+<h2>Outline<a class="headerlink" href="#Outline" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Loading Numpy</p></li>
 <li><p>Creating a Numpy Array</p></li>
@@ -215,7 +218,7 @@ Data will be loaded from the following directory:  data/numpy
 </pre></div></div>
 </div>
 <section id="Importing-Numpy">
-<h3>Importing Numpy<a class="headerlink" href="#Importing-Numpy" title="Link to this heading">¶</a></h3>
+<h3>Importing Numpy<a class="headerlink" href="#Importing-Numpy" title="Link to this heading"></a></h3>
 <p>The first step is to import the numpy module. It’s not a requirement, but almost a requirement to rename it as <code class="docutils literal notranslate"><span class="pre">np</span></code> as part of the import statement as follows.</p>
 <p>Note that at any time, you can enter the name of an object or method and the “?” to see help. Also remember that shift-tab will bring help.</p>
 <div class="nbinput nblast docutils container">
@@ -246,7 +249,7 @@ I am running numpy version:  2.3.3
 </div>
 </section>
 <section id="Numpy-Arrays">
-<h3>Numpy Arrays<a class="headerlink" href="#Numpy-Arrays" title="Link to this heading">¶</a></h3>
+<h3>Numpy Arrays<a class="headerlink" href="#Numpy-Arrays" title="Link to this heading"></a></h3>
 <hr class="docutils" />
 <p>Numpy <code class="docutils literal notranslate"><span class="pre">array</span></code> objects (also called ndarray) are the cental data structure for <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. Let’s check out how to make arrays:</p>
 <ol class="arabic simple">
@@ -257,7 +260,7 @@ I am running numpy version:  2.3.3
 </section>
 </section>
 <section id="Creating-a-Numpy-Array-from-a-List">
-<h2>Creating a Numpy Array from a List<a class="headerlink" href="#Creating-a-Numpy-Array-from-a-List" title="Link to this heading">¶</a></h2>
+<h2>Creating a Numpy Array from a List<a class="headerlink" href="#Creating-a-Numpy-Array-from-a-List" title="Link to this heading"></a></h2>
 <p>The following is an example of converting a list into a numpy array using the numpy <a class="reference external" href="http://wiki.scipy.org/Numpy_Example_List#array">array</a> function.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -391,7 +394,7 @@ array([[ 1,  3,  5,  7],
 </pre></div></div>
 </div>
 <section id="Array-Generating-Functions">
-<h3>Array Generating Functions<a class="headerlink" href="#Array-Generating-Functions" title="Link to this heading">¶</a></h3>
+<h3>Array Generating Functions<a class="headerlink" href="#Array-Generating-Functions" title="Link to this heading"></a></h3>
 <p>There are many different functions for creating numpy arrays. They are described <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/routines.array-creation.html">here</a>.</p>
 <p>Here are a few common array generating functions with links to their descriptions:</p>
 <ul class="simple">
@@ -441,7 +444,7 @@ array([[ 1,  3,  5,  7],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[4.67439407e-310 0.00000000e+000 0.00000000e+000]
+[[4.64970363e-310 0.00000000e+000 0.00000000e+000]
  [0.00000000e+000 0.00000000e+000 0.00000000e+000]
  [0.00000000e+000 0.00000000e+000 0.00000000e+000]]
 </pre></div></div>
@@ -481,7 +484,7 @@ array([[ 1,  3,  5,  7],
 </div>
 </section>
 <section id="Input-and-Output">
-<h3>Input and Output<a class="headerlink" href="#Input-and-Output" title="Link to this heading">¶</a></h3>
+<h3>Input and Output<a class="headerlink" href="#Input-and-Output" title="Link to this heading"></a></h3>
 <p>Numpy has a great set of tools for saving arrays to files and reading arrays from files. Details on these tools are <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/routines.io.html">here</a>.</p>
 <p>The following are the common ones:</p>
 <ul class="simple">
@@ -522,7 +525,7 @@ array([[ 1,  3,  5,  7],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7fd3899327d0&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7f50f8737310&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -534,7 +537,7 @@ array([[ 1,  3,  5,  7],
 </div>
 </section>
 <section id="TEST-YOUR-SKILLS-#0">
-<h3>TEST YOUR SKILLS #0<a class="headerlink" href="#TEST-YOUR-SKILLS-#0" title="Link to this heading">¶</a></h3>
+<h3>TEST YOUR SKILLS #0<a class="headerlink" href="#TEST-YOUR-SKILLS-#0" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>Write the Mt. St. Helens array (before) to a new file called <code class="docutils literal notranslate"><span class="pre">mynewarray.dat</span></code> in the same folder as <code class="docutils literal notranslate"><span class="pre">mt_st_helens_before.dat</span></code>. Explore different formats (see the note under <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html">documentation</a> for more) and see if you can read it back in again. What are the file size ramifications of format choices?</p></li>
 <li><p>Take a look at <code class="docutils literal notranslate"><span class="pre">bottom_commented.dat</span></code> in a text editor. What about this file? Can you read this file using <code class="docutils literal notranslate"><span class="pre">loadtxt</span></code> without having to manually change the file? Hint: look at the <code class="docutils literal notranslate"><span class="pre">loadtxt</span></code> arguments.</p></li>
@@ -565,7 +568,7 @@ array([[ 1,  3,  5,  7],
 </div>
 </section>
 <section id="Array-Operations">
-<h3>Array Operations<a class="headerlink" href="#Array-Operations" title="Link to this heading">¶</a></h3>
+<h3>Array Operations<a class="headerlink" href="#Array-Operations" title="Link to this heading"></a></h3>
 <hr class="docutils" />
 <p>It is very easy to perform arithmetic operations on arrays. So we can easily add and subtract arrays and use them in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> functions. &gt;pro tip: These operations, generally, are <em>element-wise</em> – so, don’t expect matrix maths to be the result. That comes later…</p>
 <div class="nbinput docutils container">
@@ -607,7 +610,7 @@ array([[ 1,  3,  5,  7],
 </section>
 </section>
 <section id="remember-the-behavior-of-lists?">
-<h2>remember the behavior of lists?<a class="headerlink" href="#remember-the-behavior-of-lists?" title="Link to this heading">¶</a></h2>
+<h2>remember the behavior of lists?<a class="headerlink" href="#remember-the-behavior-of-lists?" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -646,10 +649,10 @@ array([2, 4, 6, 8])
 </div>
 </section>
 <section id="Lists-are-general,-but-numpy-is-for-the-maths-...">
-<h2>Lists are general, but <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is for the maths …<a class="headerlink" href="#Lists-are-general,-but-numpy-is-for-the-maths-..." title="Link to this heading">¶</a></h2>
+<h2>Lists are general, but <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is for the maths …<a class="headerlink" href="#Lists-are-general,-but-numpy-is-for-the-maths-..." title="Link to this heading"></a></h2>
 </section>
 <section id="There-is-so-much-you-can-do-with-numpy-arrays-and-the-available-functions.-For-a-list-of-the-mathematical-functions-look-here.">
-<h2>There is so much you can do with numpy arrays and the available functions. For a list of the mathematical functions look <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/routines.math.html">here</a>.<a class="headerlink" href="#There-is-so-much-you-can-do-with-numpy-arrays-and-the-available-functions.-For-a-list-of-the-mathematical-functions-look-here." title="Link to this heading">¶</a></h2>
+<h2>There is so much you can do with numpy arrays and the available functions. For a list of the mathematical functions look <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/routines.math.html">here</a>.<a class="headerlink" href="#There-is-so-much-you-can-do-with-numpy-arrays-and-the-available-functions.-For-a-list-of-the-mathematical-functions-look-here." title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
@@ -704,7 +707,7 @@ array([2, 4, 6, 8])
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x7fd35e535a50&gt;]
+[&lt;matplotlib.lines.Line2D at 0x7f50f84d8c10&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -715,7 +718,7 @@ array([2, 4, 6, 8])
 </div>
 </div>
 <section id="Accessing-Array-Elements">
-<h3>Accessing Array Elements<a class="headerlink" href="#Accessing-Array-Elements" title="Link to this heading">¶</a></h3>
+<h3>Accessing Array Elements<a class="headerlink" href="#Accessing-Array-Elements" title="Link to this heading"></a></h3>
 <p>Okay, now for the good stuff…</p>
 <p>Numpy arrays are zero based, which means the first position is referenced as 0. If you are a FORTRAN person or a MATLAB person, THIS WILL CAUSE YOU GREAT GRIEF! You will be burned by the fact that the first element in an array is not <code class="docutils literal notranslate"><span class="pre">a[1]</span></code>. It is <code class="docutils literal notranslate"><span class="pre">a[0]</span></code>. You will accept it, eventually, and then you will find zero-based arrays to be more intuitive, maybe.</p>
 <p>Let’s do some array slicing to see how all of this works.</p>
@@ -783,7 +786,7 @@ The second to last value is:  58.888888888888886
 </section>
 </section>
 <section id="Accessing-Parts-of-an-Array">
-<h2>Accessing Parts of an Array<a class="headerlink" href="#Accessing-Parts-of-an-Array" title="Link to this heading">¶</a></h2>
+<h2>Accessing Parts of an Array<a class="headerlink" href="#Accessing-Parts-of-an-Array" title="Link to this heading"></a></h2>
 <p>So how do we access parts of an array? The formal syntax for a one dimensional array is:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array[idxstart : idxstop : idxstride]
 </pre></div>
@@ -933,7 +936,7 @@ array([10, 15, 20, 25])
 </div>
 </section>
 <section id="Accessing-Array-Elements-Using-an-Index-List-or-Array">
-<h2>Accessing Array Elements Using an Index List or Array<a class="headerlink" href="#Accessing-Array-Elements-Using-an-Index-List-or-Array" title="Link to this heading">¶</a></h2>
+<h2>Accessing Array Elements Using an Index List or Array<a class="headerlink" href="#Accessing-Array-Elements-Using-an-Index-List-or-Array" title="Link to this heading"></a></h2>
 <p>If we know the array indices that we want to access, we can specify them in a list and pass that list to the array through the brackets.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
@@ -950,9 +953,9 @@ array([10, 15, 20, 25])
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[0.77699468 0.45812067 0.16035636 0.55278589 0.45631883 0.75107661
- 0.64580126 0.56368736 0.24395553 0.74383985]
-values in 2, 3, and 7 positions [0.16035636 0.55278589 0.56368736]
+[0.52237302 0.68107069 0.35596453 0.96002387 0.45583775 0.40498304
+ 0.30444002 0.99894595 0.89253382 0.51316347]
+values in 2, 3, and 7 positions [0.35596453 0.96002387 0.99894595]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1015,7 +1018,7 @@ array([[1., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
 </div>
 </section>
 <section id="Boolean-indexing">
-<h2>Boolean indexing<a class="headerlink" href="#Boolean-indexing" title="Link to this heading">¶</a></h2>
+<h2>Boolean indexing<a class="headerlink" href="#Boolean-indexing" title="Link to this heading"></a></h2>
 <p>conditional statements can also be used to slice arrays what if we want to identify nodata in the Mt. St. Helens array, which have a value of 0, and convert them to nodata?</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
@@ -1043,7 +1046,7 @@ array([[  0.,   0.,   0., ...,   0.,   0.,   0.],
 </div>
 </section>
 <section id="comparing-arrays">
-<h2>comparing arrays<a class="headerlink" href="#comparing-arrays" title="Link to this heading">¶</a></h2>
+<h2>comparing arrays<a class="headerlink" href="#comparing-arrays" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://docs.python.org/3.9/reference/expressions.html?highlight=bitwise#value-comparisons">Value Comparisons</a> yield Boolean True/False results and include <code class="docutils literal notranslate"><span class="pre">==</span></code>,<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>,<code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>,<code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>,<code class="docutils literal notranslate"><span class="pre">!=</span></code> (the last being “not equal”)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
@@ -1139,7 +1142,7 @@ array([[ nan,  nan,  nan, ...,  nan,  nan,  nan],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7fd3899937d0&gt;
+&lt;matplotlib.image.AxesImage at 0x7f50f8522210&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1151,7 +1154,7 @@ array([[ nan,  nan,  nan, ...,  nan,  nan,  nan],
 </div>
 </section>
 <section id="this-can-be-applied,-element-by-element-to-entire-arrays">
-<h2>this can be applied, element-by-element to entire arrays<a class="headerlink" href="#this-can-be-applied,-element-by-element-to-entire-arrays" title="Link to this heading">¶</a></h2>
+<h2>this can be applied, element-by-element to entire arrays<a class="headerlink" href="#this-can-be-applied,-element-by-element-to-entire-arrays" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
@@ -1225,7 +1228,7 @@ array([[False,  True,  True,  True,  True],
 </div>
 </section>
 <section id="Logical-operations:-any-and-all">
-<h2>Logical operations: <code class="docutils literal notranslate"><span class="pre">any</span></code> and <code class="docutils literal notranslate"><span class="pre">all</span></code><a class="headerlink" href="#Logical-operations:-any-and-all" title="Link to this heading">¶</a></h2>
+<h2>Logical operations: <code class="docutils literal notranslate"><span class="pre">any</span></code> and <code class="docutils literal notranslate"><span class="pre">all</span></code><a class="headerlink" href="#Logical-operations:-any-and-all" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
@@ -1245,7 +1248,7 @@ array([[False,  True,  True,  True,  True],
 </div>
 </section>
 <section id="Bitwise-operations-are-required-to-compare-Boolean-(and-other-binary)-arrays-and-include-%22and%22-&amp;-and-%22or%22-|.">
-<h2><a class="reference external" href="https://docs.python.org/3.9/reference/expressions.html?highlight=bitwise#binary-bitwise-operations">Bitwise operations</a> are required to compare Boolean (and other binary) arrays and include “and” <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> and “or” <code class="docutils literal notranslate"><span class="pre">|</span></code>.<a class="headerlink" href="#Bitwise-operations-are-required-to-compare-Boolean-(and-other-binary)-arrays-and-include-%22and%22-&-and-%22or%22-|." title="Link to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://docs.python.org/3.9/reference/expressions.html?highlight=bitwise#binary-bitwise-operations">Bitwise operations</a> are required to compare Boolean (and other binary) arrays and include “and” <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> and “or” <code class="docutils literal notranslate"><span class="pre">|</span></code>.<a class="headerlink" href="#Bitwise-operations-are-required-to-compare-Boolean-(and-other-binary)-arrays-and-include-%22and%22-&-and-%22or%22-|." title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
@@ -1271,11 +1274,11 @@ array([[False,  True,  True,  True,  True],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ True,  True, False, False, False],
+array([[False, False, False, False,  True],
+       [ True, False, False, False, False],
        [False, False, False, False, False],
-       [ True, False,  True, False, False],
-       [False, False, False, False,  True],
-       [False, False, False, False,  True]])
+       [False, False,  True, False, False],
+       [ True, False, False, False, False]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1292,11 +1295,11 @@ array([[ True,  True, False, False, False],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[False, False, False, False,  True],
-       [False,  True,  True,  True,  True],
+array([[ True, False,  True, False, False],
+       [False, False, False, False,  True],
+       [ True,  True, False,  True,  True],
        [False, False, False,  True,  True],
-       [ True,  True,  True,  True, False],
-       [False,  True, False, False, False]])
+       [False,  True,  True, False,  True]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1334,11 +1337,11 @@ array([[False, False, False, False, False],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ True,  True, False, False,  True],
-       [False,  True,  True,  True,  True],
-       [ True, False,  True,  True,  True],
-       [ True,  True,  True,  True,  True],
-       [False,  True, False, False,  True]])
+array([[ True, False,  True, False,  True],
+       [ True, False, False, False,  True],
+       [ True,  True, False,  True,  True],
+       [False, False,  True,  True,  True],
+       [ True,  True,  True, False,  True]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1356,11 +1359,11 @@ array([[ True,  True, False, False,  True],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.        , 0.        , 0.30313253, 0.30286451, 0.        ],
-       [0.21774198, 0.        , 0.        , 0.        , 0.        ],
-       [0.        , 0.25258942, 0.        , 0.        , 0.        ],
-       [0.        , 0.        , 0.        , 0.        , 0.        ],
-       [0.52427841, 0.        , 0.56877663, 0.3283364 , 0.        ]])
+array([[0.        , 0.32946918, 0.        , 0.59413251, 0.        ],
+       [0.        , 0.57263741, 0.24511976, 0.23451723, 0.        ],
+       [0.        , 0.        , 0.30164345, 0.        , 0.        ],
+       [0.35224886, 0.48552163, 0.        , 0.        , 0.        ],
+       [0.        , 0.        , 0.        , 0.57570252, 0.        ]])
 </pre></div></div>
 </div>
 <blockquote>
@@ -1381,16 +1384,16 @@ array([[0.        , 0.        , 0.30313253, 0.30286451, 0.        ],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.        , 0.        , 9.        , 9.        , 0.        ],
-       [0.21774198, 0.        , 0.        , 0.        , 0.        ],
-       [0.        , 0.25258942, 0.        , 0.        , 0.        ],
-       [0.        , 0.        , 0.        , 0.        , 0.        ],
-       [0.52427841, 0.        , 0.56877663, 9.        , 0.        ]])
+array([[0.        , 9.        , 0.        , 0.59413251, 0.        ],
+       [0.        , 0.57263741, 0.24511976, 0.23451723, 0.        ],
+       [0.        , 0.        , 9.        , 0.        , 0.        ],
+       [9.        , 9.        , 0.        , 0.        , 0.        ],
+       [0.        , 0.        , 0.        , 0.57570252, 0.        ]])
 </pre></div></div>
 </div>
 </section>
 <section id="there-are-times-when-it's-useful-to-have-a-list-of-indices-meeting-some-condition.-`np.where-&lt;https://numpy.org/doc/stable/reference/generated/numpy.where.html&gt;`__-will-hook-you-up.-(also-check-out-`nonzero-&lt;https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html&gt;`__-and-`argwhere-&lt;https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html&gt;`__-for-some-nuanced-options)">
-<h2>there are times when it’s useful to have a list of indices meeting some condition. <code class="docutils literal notranslate"><span class="pre">`np.where</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.where.html">https://numpy.org/doc/stable/reference/generated/numpy.where.html</a>&gt;`__ will hook you up. (also check out <code class="docutils literal notranslate"><span class="pre">`nonzero</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html">https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html</a>&gt;`__ and <code class="docutils literal notranslate"><span class="pre">`argwhere</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html">https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html</a>&gt;`__ for some nuanced options)<a class="headerlink" href="#there-are-times-when-it's-useful-to-have-a-list-of-indices-meeting-some-condition.-`np.where-<https://numpy.org/doc/stable/reference/generated/numpy.where.html>`__-will-hook-you-up.-(also-check-out-`nonzero-<https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html>`__-and-`argwhere-<https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html>`__-for-some-nuanced-options)" title="Link to this heading">¶</a></h2>
+<h2>there are times when it’s useful to have a list of indices meeting some condition. <code class="docutils literal notranslate"><span class="pre">`np.where</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.where.html">https://numpy.org/doc/stable/reference/generated/numpy.where.html</a>&gt;`__ will hook you up. (also check out <code class="docutils literal notranslate"><span class="pre">`nonzero</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html">https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html</a>&gt;`__ and <code class="docutils literal notranslate"><span class="pre">`argwhere</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html">https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html</a>&gt;`__ for some nuanced options)<a class="headerlink" href="#there-are-times-when-it's-useful-to-have-a-list-of-indices-meeting-some-condition.-`np.where-<https://numpy.org/doc/stable/reference/generated/numpy.where.html>`__-will-hook-you-up.-(also-check-out-`nonzero-<https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html>`__-and-`argwhere-<https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html>`__-for-some-nuanced-options)" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
@@ -1406,9 +1409,9 @@ array([[0.        , 0.        , 9.        , 9.        , 0.        ],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.31655585, 0.20136027, 0.18325808],
-       [0.49167871, 0.90669507, 0.65230325],
-       [0.1549052 , 0.01038275, 0.21541898]])
+array([[0.29194395, 0.4213427 , 0.03857011],
+       [0.52083076, 0.73592685, 0.37802072],
+       [0.77242148, 0.61725337, 0.73972863]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1426,7 +1429,7 @@ array([[0.31655585, 0.20136027, 0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(array([0, 0, 0, 1, 2, 2, 2]), array([0, 1, 2, 0, 0, 1, 2]))
+(array([0, 0, 0, 1]), array([0, 1, 2, 2]))
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1443,9 +1446,9 @@ array([[0.31655585, 0.20136027, 0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.31655585, 0.20136027, 0.18325808],
-       [0.49167871, 0.90669507, 0.65230325],
-       [0.1549052 , 0.01038275, 0.21541898]])
+array([[0.29194395, 0.4213427 , 0.03857011],
+       [0.52083076, 0.73592685, 0.37802072],
+       [0.77242148, 0.61725337, 0.73972863]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1462,12 +1465,11 @@ array([[0.31655585, 0.20136027, 0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([0.31655585, 0.20136027, 0.18325808, 0.49167871, 0.1549052 ,
-       0.01038275, 0.21541898])
+array([0.29194395, 0.4213427 , 0.03857011, 0.37802072])
 </pre></div></div>
 </div>
 <section id="TEST-YOUR-SKILLS-#1">
-<h3>TEST YOUR SKILLS #1<a class="headerlink" href="#TEST-YOUR-SKILLS-#1" title="Link to this heading">¶</a></h3>
+<h3>TEST YOUR SKILLS #1<a class="headerlink" href="#TEST-YOUR-SKILLS-#1" title="Link to this heading"></a></h3>
 <p>Let’s calculate the amount of material lost from Mt. St. Helens in the 1980 eruption. We have the before and after elevation arrays in the data folder noted in the next cell. We will need to load them up.</p>
 <ul class="simple">
 <li><p>The before and after files are the same dimensions, but they have some zeros around the edges indicating “nodata” values.</p></li>
@@ -1542,7 +1544,7 @@ array([0.31655585, 0.20136027, 0.18325808, 0.49167871, 0.1549052 ,
 </div>
 </section>
 <section id="Views-vs.-Copies">
-<h3>Views vs. Copies<a class="headerlink" href="#Views-vs.-Copies" title="Link to this heading">¶</a></h3>
+<h3>Views vs. Copies<a class="headerlink" href="#Views-vs.-Copies" title="Link to this heading"></a></h3>
 <hr class="docutils" />
 <p><strong>Slice indexing returns a view</strong> That means if you change the slice, you change the original 🤔</p>
 <div class="nbinput docutils container">
@@ -1559,9 +1561,9 @@ array([0.31655585, 0.20136027, 0.18325808, 0.49167871, 0.1549052 ,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.31655585, 0.20136027, 0.18325808],
-       [0.49167871, 0.90669507, 0.65230325],
-       [0.1549052 , 0.01038275, 0.21541898]])
+array([[0.29194395, 0.4213427 , 0.03857011],
+       [0.52083076, 0.73592685, 0.37802072],
+       [0.77242148, 0.61725337, 0.73972863]])
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1587,8 +1589,8 @@ array([[0.31655585, 0.20136027, 0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 0.31655585,  0.20136027],
-       [ 0.49167871, 10.        ]])
+array([[ 0.29194395,  0.4213427 ],
+       [ 0.52083076, 10.        ]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1605,17 +1607,17 @@ array([[ 0.31655585,  0.20136027],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 0.31655585,  0.20136027,  0.18325808],
-       [ 0.49167871, 10.        ,  0.65230325],
-       [ 0.1549052 ,  0.01038275,  0.21541898]])
+array([[ 0.29194395,  0.4213427 ,  0.03857011],
+       [ 0.52083076, 10.        ,  0.37802072],
+       [ 0.77242148,  0.61725337,  0.73972863]])
 </pre></div></div>
 </div>
 </section>
 </section>
 <section id="how-can-this-happen???-id()-returns-the-memory-location-a-value-is-stored-in-within-the-computer">
-<h2>how can this happen??? <code class="docutils literal notranslate"><span class="pre">id()</span></code> returns the memory location a value is stored in within the computer<a class="headerlink" href="#how-can-this-happen???-id()-returns-the-memory-location-a-value-is-stored-in-within-the-computer" title="Link to this heading">¶</a></h2>
+<h2>how can this happen??? <code class="docutils literal notranslate"><span class="pre">id()</span></code> returns the memory location a value is stored in within the computer<a class="headerlink" href="#how-can-this-happen???-id()-returns-the-memory-location-a-value-is-stored-in-within-the-computer" title="Link to this heading"></a></h2>
 <section id="first-check-out-where-a-and-b-are-located">
-<h3>first check out where <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are located<a class="headerlink" href="#first-check-out-where-a-and-b-are-located" title="Link to this heading">¶</a></h3>
+<h3>first check out where <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are located<a class="headerlink" href="#first-check-out-where-a-and-b-are-located" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
@@ -1630,13 +1632,13 @@ array([[ 0.31655585,  0.20136027,  0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(140545762714576, 140545762837680)
+(139985737233296, 139985737222448)
 </pre></div></div>
 </div>
 </section>
 </section>
 <section id="ok,-but-what-about-the-actual-data?">
-<h2>ok, but what about the actual data?<a class="headerlink" href="#ok,-but-what-about-the-actual-data?" title="Link to this heading">¶</a></h2>
+<h2>ok, but what about the actual data?<a class="headerlink" href="#ok,-but-what-about-the-actual-data?" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
@@ -1651,7 +1653,7 @@ array([[ 0.31655585,  0.20136027,  0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(140545798166448, 140545798166448)
+(139985740603152, 139985740603152)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1668,7 +1670,7 @@ array([[ 0.31655585,  0.20136027,  0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(140545798166288, 140545798166288)
+(139985740603088, 139985740603088)
 </pre></div></div>
 </div>
 <p><strong>Array and Boolean indexing returns a copy</strong>. Operations on the copy do not affect the original array.</p>
@@ -1704,7 +1706,8 @@ array([[ 0.31655585,  0.20136027,  0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([ 0.49167871, 10.        ,  0.65230325])
+array([ 0.4213427 ,  0.52083076, 10.        ,  0.77242148,  0.61725337,
+        0.73972863])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1722,7 +1725,8 @@ array([ 0.49167871, 10.        ,  0.65230325])
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([ 0.49167871, 20.        ,  0.65230325])
+array([ 0.4213427 , 20.        , 10.        ,  0.77242148,  0.61725337,
+        0.73972863])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1739,14 +1743,14 @@ array([ 0.49167871, 20.        ,  0.65230325])
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 0.31655585,  0.20136027,  0.18325808],
-       [ 0.49167871, 10.        ,  0.65230325],
-       [ 0.1549052 ,  0.01038275,  0.21541898]])
+array([[ 0.29194395,  0.4213427 ,  0.03857011],
+       [ 0.52083076, 10.        ,  0.37802072],
+       [ 0.77242148,  0.61725337,  0.73972863]])
 </pre></div></div>
 </div>
 </section>
 <section id="again,-we-can-look-at-these-memory-addresses-to-confirm-what's-happening">
-<h2>again, we can look at these memory addresses to confirm what’s happening<a class="headerlink" href="#again,-we-can-look-at-these-memory-addresses-to-confirm-what's-happening" title="Link to this heading">¶</a></h2>
+<h2>again, we can look at these memory addresses to confirm what’s happening<a class="headerlink" href="#again,-we-can-look-at-these-memory-addresses-to-confirm-what's-happening" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
@@ -1761,7 +1765,7 @@ array([[ 0.31655585,  0.20136027,  0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(140545762714576, 140545762836816)
+(139985737233296, 139985737235504)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1778,11 +1782,11 @@ array([[ 0.31655585,  0.20136027,  0.18325808],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(140545762837008, 140545798165648)
+(139985737335024, 139985740602352)
 </pre></div></div>
 </div>
 <section id="Reshaping-and-Stacking-Arrays">
-<h3>Reshaping and Stacking Arrays<a class="headerlink" href="#Reshaping-and-Stacking-Arrays" title="Link to this heading">¶</a></h3>
+<h3>Reshaping and Stacking Arrays<a class="headerlink" href="#Reshaping-and-Stacking-Arrays" title="Link to this heading"></a></h3>
 <p>Reshaping of arrays is easy to do with the <code class="docutils literal notranslate"><span class="pre">np.reshape</span></code> function. The function works by taking an array and desired shape, and then returning a new array with that shape. Note, however, that the requested shape must be consistent with the array that is passed in. The syntax is:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>np.reshape(a, (newshape))
 </pre></div>
@@ -1817,7 +1821,7 @@ b:  [[0 1 2]
 </section>
 </section>
 <section id="just-to-hammer-home-to-view-vs.-copy-behavior,-look-at-a-and-b-more-closely">
-<h2>just to hammer home to <code class="docutils literal notranslate"><span class="pre">view</span></code> vs. <code class="docutils literal notranslate"><span class="pre">copy</span></code> behavior, look at <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> more closely<a class="headerlink" href="#just-to-hammer-home-to-view-vs.-copy-behavior,-look-at-a-and-b-more-closely" title="Link to this heading">¶</a></h2>
+<h2>just to hammer home to <code class="docutils literal notranslate"><span class="pre">view</span></code> vs. <code class="docutils literal notranslate"><span class="pre">copy</span></code> behavior, look at <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> more closely<a class="headerlink" href="#just-to-hammer-home-to-view-vs.-copy-behavior,-look-at-a-and-b-more-closely" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
 </pre></div>
@@ -1929,11 +1933,11 @@ array([[  0,   1,   2],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(140545798166160, 140545798166160, 140545798166160)
+(139985740601872, 139985740601872, 139985740601872)
 </pre></div></div>
 </div>
 <section id="hstack-and-vstack">
-<h3>hstack and vstack<a class="headerlink" href="#hstack-and-vstack" title="Link to this heading">¶</a></h3>
+<h3>hstack and vstack<a class="headerlink" href="#hstack-and-vstack" title="Link to this heading"></a></h3>
 <p>hstack and vstack can be used to add columns to an array or rows to an array.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
@@ -1965,7 +1969,7 @@ The shape of b is  (4, 3)
 </div>
 </section>
 <section id="Flattening-arrays">
-<h3>Flattening arrays<a class="headerlink" href="#Flattening-arrays" title="Link to this heading">¶</a></h3>
+<h3>Flattening arrays<a class="headerlink" href="#Flattening-arrays" title="Link to this heading"></a></h3>
 <p>oftentimes we need to flatten a 2D array to one dimension the <code class="docutils literal notranslate"><span class="pre">ndarray.flat</span></code> attribute provides a means of iterating over a numpy array in one-dimension</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
@@ -2055,7 +2059,7 @@ array([0., 4., 0., 0., 0., 0., 0., 0., 0., 2., 2., 2.])
 </div>
 </section>
 <section id="TEST-YOUR-SKILLS-#2">
-<h3>TEST YOUR SKILLS #2<a class="headerlink" href="#TEST-YOUR-SKILLS-#2" title="Link to this heading">¶</a></h3>
+<h3>TEST YOUR SKILLS #2<a class="headerlink" href="#TEST-YOUR-SKILLS-#2" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>In an earlier exercise, you made x and y using the following lines of code. Now use vstack to add another row to y that has the cosine of x. Then plot them both on the same figure.</p></li>
 </ol>
@@ -2121,7 +2125,7 @@ array([0., 4., 0., 0., 0., 0., 0., 0., 0., 2., 2., 2.])
 </div>
 </section>
 <section id="Masking-an-Array">
-<h3>Masking an Array<a class="headerlink" href="#Masking-an-Array" title="Link to this heading">¶</a></h3>
+<h3>Masking an Array<a class="headerlink" href="#Masking-an-Array" title="Link to this heading"></a></h3>
 <p>Masking is the process of performing array operations on a specific set of cells, called a mask. A mask is a logical array with the same shape as the array it is applied to. Here is an example. Also, note that <code class="docutils literal notranslate"><span class="pre">np.where</span></code> contains arguments that can accomplish a similar result.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
@@ -2222,7 +2226,7 @@ mask array for a == 1:
 </section>
 </section>
 <section id="Multi-Conditional-Masking">
-<h2>Multi-Conditional Masking<a class="headerlink" href="#Multi-Conditional-Masking" title="Link to this heading">¶</a></h2>
+<h2>Multi-Conditional Masking<a class="headerlink" href="#Multi-Conditional-Masking" title="Link to this heading"></a></h2>
 <p>For more complicated masks, we can bring back the bitwise operators from above (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, and <code class="docutils literal notranslate"><span class="pre">^</span></code>)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[87]:
@@ -2265,7 +2269,7 @@ mask array for a == 1:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7fd35c479e50&gt;
+&lt;matplotlib.image.AxesImage at 0x7f50f8570590&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2308,7 +2312,7 @@ mask array for a == 1:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7fd35c4b4650&gt;
+&lt;matplotlib.image.AxesImage at 0x7f50f82c4850&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2320,7 +2324,7 @@ mask array for a == 1:
 </div>
 </section>
 <section id="Masked-arrays-provide-a-convenient-way-to-explicitly-handle-nan-values-in-the-same-object">
-<h2>Masked arrays provide a convenient way to explicitly handle nan values in the same object<a class="headerlink" href="#Masked-arrays-provide-a-convenient-way-to-explicitly-handle-nan-values-in-the-same-object" title="Link to this heading">¶</a></h2>
+<h2>Masked arrays provide a convenient way to explicitly handle nan values in the same object<a class="headerlink" href="#Masked-arrays-provide-a-convenient-way-to-explicitly-handle-nan-values-in-the-same-object" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[90]:
 </pre></div>
@@ -2336,7 +2340,7 @@ mask array for a == 1:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7fd35c304650&gt;
+&lt;matplotlib.image.AxesImage at 0x7f50f8287a90&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2347,7 +2351,7 @@ mask array for a == 1:
 </div>
 </div>
 <section id="Record-Arrays">
-<h3>Record Arrays<a class="headerlink" href="#Record-Arrays" title="Link to this heading">¶</a></h3>
+<h3>Record Arrays<a class="headerlink" href="#Record-Arrays" title="Link to this heading"></a></h3>
 <p>Record arrays, also known as structured arrays, are a great way to store columns of data that have different types. They can be created by specifying a dtype that defines the columns. For example:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dtype=[(&#39;x&#39;, int), (&#39;y&#39;, float), (&#39;z&#39;, int)])
 </pre></div>
@@ -2453,7 +2457,7 @@ b is of shape:  (10,)
 </div>
 </section>
 <section id="Testing-your-Skills">
-<h3>Testing your Skills<a class="headerlink" href="#Testing-your-Skills" title="Link to this heading">¶</a></h3>
+<h3>Testing your Skills<a class="headerlink" href="#Testing-your-Skills" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>Become familiar with recarrays by creating one that has four columns and 100 rows. In the first column, put an integer that starts at 99 and decreases to 0. In the second column, put a text string that has ‘row n’, where n is the actual row value. In the third column put a random number, and in the fourth column, put your name.</p></li>
 </ol>
@@ -2467,7 +2471,7 @@ b is of shape:  (10,)
 </div>
 </section>
 <section id="genfromtxt-and-Record-Arrays">
-<h3>genfromtxt and Record Arrays<a class="headerlink" href="#genfromtxt-and-Record-Arrays" title="Link to this heading">¶</a></h3>
+<h3>genfromtxt and Record Arrays<a class="headerlink" href="#genfromtxt-and-Record-Arrays" title="Link to this heading"></a></h3>
 <p>genfromtxt can automatically create a record array if the following arguments are provided (dtype=None, names=True). When these arguments are set this way, genfromtxt will automatically determine the type for each column and will use the first non-commented line of the data file as column labels.</p>
 <p>In the 03_numpy folder, there is a csv file called ahf.csv. This file contains airborne helicopter measurements of elevation taken at points in the everglades. This data was downloaded from: <a class="reference external" href="http://sofia.usgs.gov/exchange/desmond/desmondelev.html">http://sofia.usgs.gov/exchange/desmond/desmondelev.html</a>.</p>
 <p>In the following cell, we use genfromtxt to load this csv file into a recarray. The beauty of this is that genfromtxt automatically determines the type of information in each columns and fills the array accordingly. When this is done correctly, we can access each column in the array using the column text identifier as follows.</p>
@@ -2522,7 +2526,7 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.PathCollection at 0x7fd35c4abd10&gt;
+&lt;matplotlib.collections.PathCollection at 0x7f50f8847810&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2534,7 +2538,7 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 </div>
 </section>
 <section id="Reading-a-Wrapped-MODFLOW-Array">
-<h3>Reading a Wrapped MODFLOW Array<a class="headerlink" href="#Reading-a-Wrapped-MODFLOW-Array" title="Link to this heading">¶</a></h3>
+<h3>Reading a Wrapped MODFLOW Array<a class="headerlink" href="#Reading-a-Wrapped-MODFLOW-Array" title="Link to this heading"></a></h3>
 <p>It is unlikely that there will be time for this, but the following function is a quick hack that can be used to read a MODFLOW external array where the columns are wrapped. Note that you cannot use <code class="docutils literal notranslate"><span class="pre">np.genfromtxt</span></code> or <code class="docutils literal notranslate"><span class="pre">np.loadtxt</span></code> to do this if the columns are wrapped.</p>
 <p>Keep this little function in your back pocket in case you need it one day. If you have time, read bottom.txt in the 04_numpy directory and plot it. This array has 142 rows and 113 columns.</p>
 <div class="nbinput nblast docutils container">
@@ -2603,61 +2607,61 @@ this is just the column names:  (&#39;ID&#39;, &#39;X_UTM&#39;, &#39;Y_UTM&#39;,
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 (&#39;col1&#39;, &#39;col2&#39;, &#39;col3&#39;, &#39;col4&#39;)
-[(99, b&#39;row &#39;, 0.85818636, b&#39;cdl&#39;) (98, b&#39;row &#39;, 0.23155852, b&#39;cdl&#39;)
- (97, b&#39;row &#39;, 0.43326147, b&#39;cdl&#39;) (96, b&#39;row &#39;, 0.30293163, b&#39;cdl&#39;)
- (95, b&#39;row &#39;, 0.687397  , b&#39;cdl&#39;) (94, b&#39;row &#39;, 0.70318428, b&#39;cdl&#39;)
- (93, b&#39;row &#39;, 0.55014365, b&#39;cdl&#39;) (92, b&#39;row &#39;, 0.39688913, b&#39;cdl&#39;)
- (91, b&#39;row &#39;, 0.53652962, b&#39;cdl&#39;) (90, b&#39;row &#39;, 0.47853779, b&#39;cdl&#39;)
- (89, b&#39;row &#39;, 0.57345502, b&#39;cdl&#39;) (88, b&#39;row &#39;, 0.16797198, b&#39;cdl&#39;)
- (87, b&#39;row &#39;, 0.40703747, b&#39;cdl&#39;) (86, b&#39;row &#39;, 0.99744814, b&#39;cdl&#39;)
- (85, b&#39;row &#39;, 0.84432093, b&#39;cdl&#39;) (84, b&#39;row &#39;, 0.2270871 , b&#39;cdl&#39;)
- (83, b&#39;row &#39;, 0.54722756, b&#39;cdl&#39;) (82, b&#39;row &#39;, 0.11122445, b&#39;cdl&#39;)
- (81, b&#39;row &#39;, 0.87991655, b&#39;cdl&#39;) (80, b&#39;row &#39;, 0.45157705, b&#39;cdl&#39;)
- (79, b&#39;row &#39;, 0.41437023, b&#39;cdl&#39;) (78, b&#39;row &#39;, 0.89437301, b&#39;cdl&#39;)
- (77, b&#39;row &#39;, 0.25890159, b&#39;cdl&#39;) (76, b&#39;row &#39;, 0.03530864, b&#39;cdl&#39;)
- (75, b&#39;row &#39;, 0.98472291, b&#39;cdl&#39;) (74, b&#39;row &#39;, 0.70667111, b&#39;cdl&#39;)
- (73, b&#39;row &#39;, 0.39592852, b&#39;cdl&#39;) (72, b&#39;row &#39;, 0.27052033, b&#39;cdl&#39;)
- (71, b&#39;row &#39;, 0.88712652, b&#39;cdl&#39;) (70, b&#39;row &#39;, 0.32483645, b&#39;cdl&#39;)
- (69, b&#39;row &#39;, 0.06236148, b&#39;cdl&#39;) (68, b&#39;row &#39;, 0.76204005, b&#39;cdl&#39;)
- (67, b&#39;row &#39;, 0.99534948, b&#39;cdl&#39;) (66, b&#39;row &#39;, 0.31440495, b&#39;cdl&#39;)
- (65, b&#39;row &#39;, 0.76481637, b&#39;cdl&#39;) (64, b&#39;row &#39;, 0.79641532, b&#39;cdl&#39;)
- (63, b&#39;row &#39;, 0.94328002, b&#39;cdl&#39;) (62, b&#39;row &#39;, 0.57243767, b&#39;cdl&#39;)
- (61, b&#39;row &#39;, 0.69009234, b&#39;cdl&#39;) (60, b&#39;row &#39;, 0.87587018, b&#39;cdl&#39;)
- (59, b&#39;row &#39;, 0.17057166, b&#39;cdl&#39;) (58, b&#39;row &#39;, 0.65448159, b&#39;cdl&#39;)
- (57, b&#39;row &#39;, 0.66989087, b&#39;cdl&#39;) (56, b&#39;row &#39;, 0.7577824 , b&#39;cdl&#39;)
- (55, b&#39;row &#39;, 0.49098819, b&#39;cdl&#39;) (54, b&#39;row &#39;, 0.41158736, b&#39;cdl&#39;)
- (53, b&#39;row &#39;, 0.54205761, b&#39;cdl&#39;) (52, b&#39;row &#39;, 0.39167472, b&#39;cdl&#39;)
- (51, b&#39;row &#39;, 0.84939775, b&#39;cdl&#39;) (50, b&#39;row &#39;, 0.16940286, b&#39;cdl&#39;)
- (49, b&#39;row &#39;, 0.6102756 , b&#39;cdl&#39;) (48, b&#39;row &#39;, 0.13128056, b&#39;cdl&#39;)
- (47, b&#39;row &#39;, 0.6151071 , b&#39;cdl&#39;) (46, b&#39;row &#39;, 0.13896613, b&#39;cdl&#39;)
- (45, b&#39;row &#39;, 0.01702019, b&#39;cdl&#39;) (44, b&#39;row &#39;, 0.50556198, b&#39;cdl&#39;)
- (43, b&#39;row &#39;, 0.72915454, b&#39;cdl&#39;) (42, b&#39;row &#39;, 0.53469224, b&#39;cdl&#39;)
- (41, b&#39;row &#39;, 0.44040502, b&#39;cdl&#39;) (40, b&#39;row &#39;, 0.02826922, b&#39;cdl&#39;)
- (39, b&#39;row &#39;, 0.57168217, b&#39;cdl&#39;) (38, b&#39;row &#39;, 0.11600982, b&#39;cdl&#39;)
- (37, b&#39;row &#39;, 0.98104959, b&#39;cdl&#39;) (36, b&#39;row &#39;, 0.99839023, b&#39;cdl&#39;)
- (35, b&#39;row &#39;, 0.4037436 , b&#39;cdl&#39;) (34, b&#39;row &#39;, 0.06329177, b&#39;cdl&#39;)
- (33, b&#39;row &#39;, 0.62893091, b&#39;cdl&#39;) (32, b&#39;row &#39;, 0.86635033, b&#39;cdl&#39;)
- (31, b&#39;row &#39;, 0.39789689, b&#39;cdl&#39;) (30, b&#39;row &#39;, 0.31771125, b&#39;cdl&#39;)
- (29, b&#39;row &#39;, 0.59786958, b&#39;cdl&#39;) (28, b&#39;row &#39;, 0.79354335, b&#39;cdl&#39;)
- (27, b&#39;row &#39;, 0.62512034, b&#39;cdl&#39;) (26, b&#39;row &#39;, 0.89685697, b&#39;cdl&#39;)
- (25, b&#39;row &#39;, 0.45015474, b&#39;cdl&#39;) (24, b&#39;row &#39;, 0.37665242, b&#39;cdl&#39;)
- (23, b&#39;row &#39;, 0.49206148, b&#39;cdl&#39;) (22, b&#39;row &#39;, 0.90438994, b&#39;cdl&#39;)
- (21, b&#39;row &#39;, 0.00216072, b&#39;cdl&#39;) (20, b&#39;row &#39;, 0.42196146, b&#39;cdl&#39;)
- (19, b&#39;row &#39;, 0.13126879, b&#39;cdl&#39;) (18, b&#39;row &#39;, 0.90876932, b&#39;cdl&#39;)
- (17, b&#39;row &#39;, 0.21305711, b&#39;cdl&#39;) (16, b&#39;row &#39;, 0.45555937, b&#39;cdl&#39;)
- (15, b&#39;row &#39;, 0.72205787, b&#39;cdl&#39;) (14, b&#39;row &#39;, 0.25172554, b&#39;cdl&#39;)
- (13, b&#39;row &#39;, 0.47931927, b&#39;cdl&#39;) (12, b&#39;row &#39;, 0.81057847, b&#39;cdl&#39;)
- (11, b&#39;row &#39;, 0.319072  , b&#39;cdl&#39;) (10, b&#39;row &#39;, 0.57615266, b&#39;cdl&#39;)
- ( 9, b&#39;row &#39;, 0.57079427, b&#39;cdl&#39;) ( 8, b&#39;row &#39;, 0.70261517, b&#39;cdl&#39;)
- ( 7, b&#39;row &#39;, 0.40326368, b&#39;cdl&#39;) ( 6, b&#39;row &#39;, 0.78315775, b&#39;cdl&#39;)
- ( 5, b&#39;row &#39;, 0.05560901, b&#39;cdl&#39;) ( 4, b&#39;row &#39;, 0.41006012, b&#39;cdl&#39;)
- ( 3, b&#39;row &#39;, 0.4706869 , b&#39;cdl&#39;) ( 2, b&#39;row &#39;, 0.52086035, b&#39;cdl&#39;)
- ( 1, b&#39;row &#39;, 0.65921194, b&#39;cdl&#39;) ( 0, b&#39;row &#39;, 0.46959816, b&#39;cdl&#39;)]
+[(99, b&#39;row &#39;, 0.11877254, b&#39;cdl&#39;) (98, b&#39;row &#39;, 0.42958679, b&#39;cdl&#39;)
+ (97, b&#39;row &#39;, 0.94389405, b&#39;cdl&#39;) (96, b&#39;row &#39;, 0.23943843, b&#39;cdl&#39;)
+ (95, b&#39;row &#39;, 0.51251836, b&#39;cdl&#39;) (94, b&#39;row &#39;, 0.1240816 , b&#39;cdl&#39;)
+ (93, b&#39;row &#39;, 0.30455946, b&#39;cdl&#39;) (92, b&#39;row &#39;, 0.3390506 , b&#39;cdl&#39;)
+ (91, b&#39;row &#39;, 0.15518053, b&#39;cdl&#39;) (90, b&#39;row &#39;, 0.89332753, b&#39;cdl&#39;)
+ (89, b&#39;row &#39;, 0.84699637, b&#39;cdl&#39;) (88, b&#39;row &#39;, 0.87410797, b&#39;cdl&#39;)
+ (87, b&#39;row &#39;, 0.15435183, b&#39;cdl&#39;) (86, b&#39;row &#39;, 0.94033597, b&#39;cdl&#39;)
+ (85, b&#39;row &#39;, 0.81077238, b&#39;cdl&#39;) (84, b&#39;row &#39;, 0.1438124 , b&#39;cdl&#39;)
+ (83, b&#39;row &#39;, 0.59282609, b&#39;cdl&#39;) (82, b&#39;row &#39;, 0.80567811, b&#39;cdl&#39;)
+ (81, b&#39;row &#39;, 0.19324748, b&#39;cdl&#39;) (80, b&#39;row &#39;, 0.24649674, b&#39;cdl&#39;)
+ (79, b&#39;row &#39;, 0.82704622, b&#39;cdl&#39;) (78, b&#39;row &#39;, 0.91277362, b&#39;cdl&#39;)
+ (77, b&#39;row &#39;, 0.43948643, b&#39;cdl&#39;) (76, b&#39;row &#39;, 0.24059542, b&#39;cdl&#39;)
+ (75, b&#39;row &#39;, 0.2018852 , b&#39;cdl&#39;) (74, b&#39;row &#39;, 0.68044527, b&#39;cdl&#39;)
+ (73, b&#39;row &#39;, 0.99639483, b&#39;cdl&#39;) (72, b&#39;row &#39;, 0.17052586, b&#39;cdl&#39;)
+ (71, b&#39;row &#39;, 0.64379982, b&#39;cdl&#39;) (70, b&#39;row &#39;, 0.29180835, b&#39;cdl&#39;)
+ (69, b&#39;row &#39;, 0.1383633 , b&#39;cdl&#39;) (68, b&#39;row &#39;, 0.98997195, b&#39;cdl&#39;)
+ (67, b&#39;row &#39;, 0.31551507, b&#39;cdl&#39;) (66, b&#39;row &#39;, 0.9967993 , b&#39;cdl&#39;)
+ (65, b&#39;row &#39;, 0.03237353, b&#39;cdl&#39;) (64, b&#39;row &#39;, 0.50680669, b&#39;cdl&#39;)
+ (63, b&#39;row &#39;, 0.90589562, b&#39;cdl&#39;) (62, b&#39;row &#39;, 0.75565864, b&#39;cdl&#39;)
+ (61, b&#39;row &#39;, 0.39621732, b&#39;cdl&#39;) (60, b&#39;row &#39;, 0.57577339, b&#39;cdl&#39;)
+ (59, b&#39;row &#39;, 0.15752081, b&#39;cdl&#39;) (58, b&#39;row &#39;, 0.88726979, b&#39;cdl&#39;)
+ (57, b&#39;row &#39;, 0.67755381, b&#39;cdl&#39;) (56, b&#39;row &#39;, 0.63251818, b&#39;cdl&#39;)
+ (55, b&#39;row &#39;, 0.43088056, b&#39;cdl&#39;) (54, b&#39;row &#39;, 0.95093063, b&#39;cdl&#39;)
+ (53, b&#39;row &#39;, 0.83965551, b&#39;cdl&#39;) (52, b&#39;row &#39;, 0.94269558, b&#39;cdl&#39;)
+ (51, b&#39;row &#39;, 0.68468962, b&#39;cdl&#39;) (50, b&#39;row &#39;, 0.44864961, b&#39;cdl&#39;)
+ (49, b&#39;row &#39;, 0.079794  , b&#39;cdl&#39;) (48, b&#39;row &#39;, 0.05778467, b&#39;cdl&#39;)
+ (47, b&#39;row &#39;, 0.01883853, b&#39;cdl&#39;) (46, b&#39;row &#39;, 0.44438942, b&#39;cdl&#39;)
+ (45, b&#39;row &#39;, 0.51218491, b&#39;cdl&#39;) (44, b&#39;row &#39;, 0.64089728, b&#39;cdl&#39;)
+ (43, b&#39;row &#39;, 0.76537744, b&#39;cdl&#39;) (42, b&#39;row &#39;, 0.40703188, b&#39;cdl&#39;)
+ (41, b&#39;row &#39;, 0.14208377, b&#39;cdl&#39;) (40, b&#39;row &#39;, 0.92211417, b&#39;cdl&#39;)
+ (39, b&#39;row &#39;, 0.9183727 , b&#39;cdl&#39;) (38, b&#39;row &#39;, 0.52476659, b&#39;cdl&#39;)
+ (37, b&#39;row &#39;, 0.03476449, b&#39;cdl&#39;) (36, b&#39;row &#39;, 0.21249769, b&#39;cdl&#39;)
+ (35, b&#39;row &#39;, 0.1511478 , b&#39;cdl&#39;) (34, b&#39;row &#39;, 0.48357831, b&#39;cdl&#39;)
+ (33, b&#39;row &#39;, 0.3183578 , b&#39;cdl&#39;) (32, b&#39;row &#39;, 0.78623342, b&#39;cdl&#39;)
+ (31, b&#39;row &#39;, 0.15800316, b&#39;cdl&#39;) (30, b&#39;row &#39;, 0.56710011, b&#39;cdl&#39;)
+ (29, b&#39;row &#39;, 0.82774229, b&#39;cdl&#39;) (28, b&#39;row &#39;, 0.91099412, b&#39;cdl&#39;)
+ (27, b&#39;row &#39;, 0.43314541, b&#39;cdl&#39;) (26, b&#39;row &#39;, 0.14275648, b&#39;cdl&#39;)
+ (25, b&#39;row &#39;, 0.09982799, b&#39;cdl&#39;) (24, b&#39;row &#39;, 0.42159602, b&#39;cdl&#39;)
+ (23, b&#39;row &#39;, 0.96180782, b&#39;cdl&#39;) (22, b&#39;row &#39;, 0.19031735, b&#39;cdl&#39;)
+ (21, b&#39;row &#39;, 0.52187366, b&#39;cdl&#39;) (20, b&#39;row &#39;, 0.68863728, b&#39;cdl&#39;)
+ (19, b&#39;row &#39;, 0.40245699, b&#39;cdl&#39;) (18, b&#39;row &#39;, 0.70982265, b&#39;cdl&#39;)
+ (17, b&#39;row &#39;, 0.48660854, b&#39;cdl&#39;) (16, b&#39;row &#39;, 0.86536802, b&#39;cdl&#39;)
+ (15, b&#39;row &#39;, 0.88779124, b&#39;cdl&#39;) (14, b&#39;row &#39;, 0.9617193 , b&#39;cdl&#39;)
+ (13, b&#39;row &#39;, 0.90402554, b&#39;cdl&#39;) (12, b&#39;row &#39;, 0.96041393, b&#39;cdl&#39;)
+ (11, b&#39;row &#39;, 0.97834693, b&#39;cdl&#39;) (10, b&#39;row &#39;, 0.52304501, b&#39;cdl&#39;)
+ ( 9, b&#39;row &#39;, 0.37070828, b&#39;cdl&#39;) ( 8, b&#39;row &#39;, 0.12034261, b&#39;cdl&#39;)
+ ( 7, b&#39;row &#39;, 0.40199772, b&#39;cdl&#39;) ( 6, b&#39;row &#39;, 0.04746228, b&#39;cdl&#39;)
+ ( 5, b&#39;row &#39;, 0.05846781, b&#39;cdl&#39;) ( 4, b&#39;row &#39;, 0.89204009, b&#39;cdl&#39;)
+ ( 3, b&#39;row &#39;, 0.09951519, b&#39;cdl&#39;) ( 2, b&#39;row &#39;, 0.36998312, b&#39;cdl&#39;)
+ ( 1, b&#39;row &#39;, 0.71489462, b&#39;cdl&#39;) ( 0, b&#39;row &#39;, 0.81986473, b&#39;cdl&#39;)]
 </pre></div></div>
 </div>
 </section>
 <section id="Flow-around-a-cylinder-(from-Mark-Bakker)">
-<h3>Flow around a cylinder (from Mark Bakker)<a class="headerlink" href="#Flow-around-a-cylinder-(from-Mark-Bakker)" title="Link to this heading">¶</a></h3>
+<h3>Flow around a cylinder (from Mark Bakker)<a class="headerlink" href="#Flow-around-a-cylinder-(from-Mark-Bakker)" title="Link to this heading"></a></h3>
 <p>The radial and tangential components of the velocity vector <span class="math notranslate nohighlight">\(\vec{v}=(v_r,v_\theta)\)</span> for inviscid fluid flow around a cylinder are given by</p>
 <p><span class="math notranslate nohighlight">\(\begin{split}
 v_r&amp;=U(1-R^2/r^2)\cos(\theta) \qquad r\ge R \\
@@ -2677,7 +2681,7 @@ v_y &amp;= v_r\sin(\theta) + v_\theta\cos(\theta)
 </ol>
 </section>
 <section id="1D-Solute-Transport">
-<h3>1D Solute Transport<a class="headerlink" href="#1D-Solute-Transport" title="Link to this heading">¶</a></h3>
+<h3>1D Solute Transport<a class="headerlink" href="#1D-Solute-Transport" title="Link to this heading"></a></h3>
 <p>A simple 1D transport analytical solution (Zheng and Bennet page 174; originally from Ogata and Banks, 1961):</p>
 <p><span class="math notranslate nohighlight">\(\frac{C}{C_0} = \frac{1}{2} \left [ erfc \left ( \frac{x - v t}{\sqrt{4Dt}} \right ) + exp \left ( \frac{xv}{D} \right ) erfc \left ( \frac{x + v t}{\sqrt{4Dt}} \right )  \right ]\)</span></p>
 <p>Make a plot of solute concentration as a function of distance and also as a function of time for different values of velocity and dispersion coefficient.</p>
@@ -2697,7 +2701,7 @@ v_y &amp;= v_r\sin(\theta) + v_\theta\cos(\theta)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

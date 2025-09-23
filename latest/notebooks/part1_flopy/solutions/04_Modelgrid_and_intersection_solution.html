@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -88,7 +90,8 @@
 <li class="toctree-l2"><a class="reference internal" href="07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -129,7 +132,7 @@
            <div itemprop="articleBody">
              
   <section id="04:-Modelgrid-and-intersection">
-<h1>04: Modelgrid and intersection<a class="headerlink" href="#04:-Modelgrid-and-intersection" title="Link to this heading">¶</a></h1>
+<h1>04: Modelgrid and intersection<a class="headerlink" href="#04:-Modelgrid-and-intersection" title="Link to this heading"></a></h1>
 <p>The first part of this notebook is focused on the <code class="docutils literal notranslate"><span class="pre">flopy.discretization.Grid</span></code> (modelgrid) object(s). The modelgrid object(s) are a relatively new addition to FloPy’s capabilities and are the backbone of plotting, exporting, and GIS data processing within FloPy. These objects are automatically created when a model is loaded. Alternatively they can also be created as a stand alone object.</p>
 <p>There are three types of modelgrids:</p>
 <ul class="simple">
@@ -159,13 +162,13 @@
 </div>
 </div>
 <section id="Grids">
-<h2>Grids<a class="headerlink" href="#Grids" title="Link to this heading">¶</a></h2>
+<h2>Grids<a class="headerlink" href="#Grids" title="Link to this heading"></a></h2>
 </section>
 <section id="StructuredGrid">
-<h2>StructuredGrid<a class="headerlink" href="#StructuredGrid" title="Link to this heading">¶</a></h2>
+<h2>StructuredGrid<a class="headerlink" href="#StructuredGrid" title="Link to this heading"></a></h2>
 <p>Let’s start with the most common type of MODFLOW modelgrid, the <code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code></p>
 <section id="First-we'll-build-one-from-scratch">
-<h3>First we’ll build one from scratch<a class="headerlink" href="#First-we'll-build-one-from-scratch" title="Link to this heading">¶</a></h3>
+<h3>First we’ll build one from scratch<a class="headerlink" href="#First-we'll-build-one-from-scratch" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -253,7 +256,7 @@ xll:0.0; yll:0.0; rotation:0.0; units:undefined; lenuni:0
 </div>
 </div>
 <section id="Getting-cell-centers-and-cell-vertices">
-<h4>Getting cell centers and cell vertices<a class="headerlink" href="#Getting-cell-centers-and-cell-vertices" title="Link to this heading">¶</a></h4>
+<h4>Getting cell centers and cell vertices<a class="headerlink" href="#Getting-cell-centers-and-cell-vertices" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Cell centers can be returned to the user through the <code class="docutils literal notranslate"><span class="pre">.xcellcenters</span></code>, <code class="docutils literal notranslate"><span class="pre">.ycellcenter</span></code>, and <code class="docutils literal notranslate"><span class="pre">.zcellcenter</span></code> properties.</p></li>
 <li><p>Cell vertices can be returned to the user through the <code class="docutils literal notranslate"><span class="pre">.xvertices</span></code> and <code class="docutils literal notranslate"><span class="pre">.yvertices</span></code> properties</p></li>
@@ -282,7 +285,7 @@ xll:0.0; yll:0.0; rotation:0.0; units:undefined; lenuni:0
 </div>
 </section>
 <section id="Getting-the-ibound/idomain-array">
-<h4>Getting the ibound/idomain array<a class="headerlink" href="#Getting-the-ibound/idomain-array" title="Link to this heading">¶</a></h4>
+<h4>Getting the ibound/idomain array<a class="headerlink" href="#Getting-the-ibound/idomain-array" title="Link to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">.idomain</span></code> method returns the ibound/idomain array</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -306,7 +309,7 @@ xll:0.0; yll:0.0; rotation:0.0; units:undefined; lenuni:0
 </div>
 </section>
 <section id="Getting-the-model-top,-bottom,-delc,-and-delr">
-<h4>Getting the model top, bottom, delc, and delr<a class="headerlink" href="#Getting-the-model-top,-bottom,-delc,-and-delr" title="Link to this heading">¶</a></h4>
+<h4>Getting the model top, bottom, delc, and delr<a class="headerlink" href="#Getting-the-model-top,-bottom,-delc,-and-delr" title="Link to this heading"></a></h4>
 <p>The model top, bottom, delc, and delr can be accessed from the modelgrid using <code class="docutils literal notranslate"><span class="pre">.top</span></code>, <code class="docutils literal notranslate"><span class="pre">.bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">.delc</span></code>, and <code class="docutils literal notranslate"><span class="pre">.delr</span></code>.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -496,7 +499,7 @@ xll:0.0; yll:0.0; rotation:0.0; units:undefined; lenuni:0
 </section>
 </section>
 <section id="Class-exercise-1:">
-<h2>Class exercise 1:<a class="headerlink" href="#Class-exercise-1:" title="Link to this heading">¶</a></h2>
+<h2>Class exercise 1:<a class="headerlink" href="#Class-exercise-1:" title="Link to this heading"></a></h2>
 <p>Assume that the modelgrid is currently in meters and we want our grid to be in feet. Create a new modelgrid object from the existing one where the discretization is in feet.</p>
 <p>make a plot of the new modelgrid after it has been created</p>
 <div class="nbinput docutils container">
@@ -582,7 +585,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </section>
 <section id="Vertex-model-grid">
-<h2>Vertex model grid<a class="headerlink" href="#Vertex-model-grid" title="Link to this heading">¶</a></h2>
+<h2>Vertex model grid<a class="headerlink" href="#Vertex-model-grid" title="Link to this heading"></a></h2>
 <p>The vertex model grid is produced for MODFLOW model discretizations that are defined by vertices (<code class="docutils literal notranslate"><span class="pre">DISV</span></code>). We can build a quadtree vertex grid from an exiting structured modelgrid using the gridgen utility and the <code class="docutils literal notranslate"><span class="pre">Gridgen</span></code> class.</p>
 <p>First let’s unrotate the grid coordinates of our structured grid to make this easy</p>
 <div class="nbinput docutils container">
@@ -647,7 +650,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <section id="Create-a-vertex-model-grid-from-the-results">
-<h3>Create a vertex model grid from the results<a class="headerlink" href="#Create-a-vertex-model-grid-from-the-results" title="Link to this heading">¶</a></h3>
+<h3>Create a vertex model grid from the results<a class="headerlink" href="#Create-a-vertex-model-grid-from-the-results" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
@@ -666,7 +669,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <section id="Getting-the-modelgrid's-shape">
-<h4>Getting the modelgrid’s shape<a class="headerlink" href="#Getting-the-modelgrid's-shape" title="Link to this heading">¶</a></h4>
+<h4>Getting the modelgrid’s shape<a class="headerlink" href="#Getting-the-modelgrid's-shape" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
@@ -689,7 +692,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </section>
 </section>
 <section id="Class-Exercise-2:">
-<h2>Class Exercise 2:<a class="headerlink" href="#Class-Exercise-2:" title="Link to this heading">¶</a></h2>
+<h2>Class Exercise 2:<a class="headerlink" href="#Class-Exercise-2:" title="Link to this heading"></a></h2>
 <p>Find and plot all of the nearest neighbors at node 79 on the vertex modelgrid.</p>
 <p><strong>Hint</strong>: Use <code class="docutils literal notranslate"><span class="pre">flopy.plot.PlotMapView</span></code> for your plotting, and plot a boolean (1, 0) array with the cells that are not neighbors masked out.</p>
 <div class="nbinput docutils container">
@@ -716,7 +719,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </section>
 <section id="UnstructuredGrid">
-<h2>UnstructuredGrid<a class="headerlink" href="#UnstructuredGrid" title="Link to this heading">¶</a></h2>
+<h2>UnstructuredGrid<a class="headerlink" href="#UnstructuredGrid" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">UnstructuredGrid</span></code> class is used with MODFLOW-USG and MODFLOW-6 DISU type discretizations. We can also create an <code class="docutils literal notranslate"><span class="pre">UnstructuredGrid</span></code> object from the <code class="docutils literal notranslate"><span class="pre">Gridgen</span></code> results</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
@@ -779,7 +782,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </section>
 <section id="Intersecting-geospatial-data">
-<h2>Intersecting geospatial data<a class="headerlink" href="#Intersecting-geospatial-data" title="Link to this heading">¶</a></h2>
+<h2>Intersecting geospatial data<a class="headerlink" href="#Intersecting-geospatial-data" title="Link to this heading"></a></h2>
 <p>In this part of the lesson we will intersect geospatial data with a modelgrid and begin building a simple adaptation of the Sagehen Creek model, near Truckee, CA. While building this model, we’ll work with shapefile and raster data. As we build the model FloPy’s intersection capabilities will be presented.</p>
 <p>Let’s start by getting the basin boundary. For the Sagehen Creek model, we’re interested in the contributing area for <a class="reference external" href="https://waterdata.usgs.gov/ca/nwis/uv/?site_no=10343500&amp;PARAmeter_cd=00065,00060">USGS gage 10343500</a></p>
 <div class="nbinput docutils container">
@@ -1076,7 +1079,7 @@ array([(1, 52), (1, 53), (1, 54), ..., (73, 64), (73, 65), (73, 66)],
 </div>
 </div>
 <section id="Now-that-the-raster-is-loaded-we-can-resample-it">
-<h3>Now that the raster is loaded we can resample it<a class="headerlink" href="#Now-that-the-raster-is-loaded-we-can-resample-it" title="Link to this heading">¶</a></h3>
+<h3>Now that the raster is loaded we can resample it<a class="headerlink" href="#Now-that-the-raster-is-loaded-we-can-resample-it" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">resample_to_grid()</span></code> method performs geostatistics and returns an array in the shape of the modelgrid. Options for resampling include <code class="docutils literal notranslate"><span class="pre">&quot;nearest&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> (bilinear), <code class="docutils literal notranslate"><span class="pre">&quot;cubic&quot;</span></code> (bicubic), <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;mode&quot;</span></code> (most common value).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
@@ -1136,7 +1139,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
 </div>
 </div>
 <section id="Start-creating-model-files-from-the-data-we've-gathered-so-far.">
-<h4>Start creating model files from the data we’ve gathered so far.<a class="headerlink" href="#Start-creating-model-files-from-the-data-we've-gathered-so-far." title="Link to this heading">¶</a></h4>
+<h4>Start creating model files from the data we’ve gathered so far.<a class="headerlink" href="#Start-creating-model-files-from-the-data-we've-gathered-so-far." title="Link to this heading"></a></h4>
 <p>At this point we have almost everything we need to begin creating a model discretization package. The only thing left to calculate is the model bottom. Let’s assume bedrock 150 m below land surface throughout the basin and begin creating our model.</p>
 <p>We’ll first start by creating our simulation object and adding a solver and the time discretization. This model will be a year long with 12 stress periods and a daily time step</p>
 <div class="nbinput nblast docutils container">
@@ -1298,7 +1301,7 @@ model_name = sagehen
 </section>
 </section>
 <section id="Class-Exercise:-Loading-and-resampling-rasters">
-<h2>Class Exercise: Loading and resampling rasters<a class="headerlink" href="#Class-Exercise:-Loading-and-resampling-rasters" title="Link to this heading">¶</a></h2>
+<h2>Class Exercise: Loading and resampling rasters<a class="headerlink" href="#Class-Exercise:-Loading-and-resampling-rasters" title="Link to this heading"></a></h2>
 <p>For this exercise we are loading and resampling monthly Daymet climate data for Sagehen basin.</p>
 <p>Load the potential evapotranspiration raster <code class="docutils literal notranslate"><span class="pre">pet_raster</span></code> using flopy’s <code class="docutils literal notranslate"><span class="pre">Raster</span></code> class and create a dictionary of resampled PET that stores all 12 months of values.</p>
 <p><strong>Hints:</strong></p>
@@ -1905,7 +1908,7 @@ model_name = sagehen
 </div>
 </div>
 <section id="Creating-a-UZF-package">
-<h3>Creating a UZF package<a class="headerlink" href="#Creating-a-UZF-package" title="Link to this heading">¶</a></h3>
+<h3>Creating a UZF package<a class="headerlink" href="#Creating-a-UZF-package" title="Link to this heading"></a></h3>
 <p>Now that we have some climate and soils data we can create a UZF package from it and add it to the model!</p>
 <p>Create the package data and the stress period data info for flopy</p>
 <div class="nbinput nblast docutils container">
@@ -1959,7 +1962,7 @@ model_name = sagehen
 </div>
 </div>
 <section id="Now-to-create-a-simple-river-package-from-NHD-flowlines">
-<h4>Now to create a simple river package from NHD flowlines<a class="headerlink" href="#Now-to-create-a-simple-river-package-from-NHD-flowlines" title="Link to this heading">¶</a></h4>
+<h4>Now to create a simple river package from NHD flowlines<a class="headerlink" href="#Now-to-create-a-simple-river-package-from-NHD-flowlines" title="Link to this heading"></a></h4>
 <p>We can use the intersection routines that have been presented thus far to create a river package for the sagehen model.</p>
 <p>The first step is load the NHD flowlines for the basin</p>
 <div class="nbinput docutils container">
@@ -2106,7 +2109,7 @@ model_name = sagehen
 </section>
 </section>
 <section id="Class-Exercise:">
-<h2>Class Exercise:<a class="headerlink" href="#Class-Exercise:" title="Link to this heading">¶</a></h2>
+<h2>Class Exercise:<a class="headerlink" href="#Class-Exercise:" title="Link to this heading"></a></h2>
 <p>Use GridIntersect to create a list of tributary cells from the <code class="docutils literal notranslate"><span class="pre">flw_all</span></code> geodataframe.</p>
 <p><strong>Hint</strong> Use the <code class="docutils literal notranslate"><span class="pre">main_stem</span></code> list to filter out cells that are associated with the main stem of the river and only store the cells that are associated with tributaries to the main stem.</p>
 <div class="nbinput docutils container">
@@ -2153,7 +2156,7 @@ model_name = sagehen
 </div>
 </div>
 <section id="We-can-also-get-daily-discharge-data-to-help-calculate-average-monthly-stages-for-the-RIV-package">
-<h3>We can also get daily discharge data to help calculate average monthly stages for the RIV package<a class="headerlink" href="#We-can-also-get-daily-discharge-data-to-help-calculate-average-monthly-stages-for-the-RIV-package" title="Link to this heading">¶</a></h3>
+<h3>We can also get daily discharge data to help calculate average monthly stages for the RIV package<a class="headerlink" href="#We-can-also-get-daily-discharge-data-to-help-calculate-average-monthly-stages-for-the-RIV-package" title="Link to this heading"></a></h3>
 <p>We’ll use the <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> package to get stage information for our model</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
@@ -2279,7 +2282,7 @@ model_name = sagehen
 </div>
 </div>
 <section id="Now-to-create-the-RIV-package">
-<h4>Now to create the RIV package<a class="headerlink" href="#Now-to-create-the-RIV-package" title="Link to this heading">¶</a></h4>
+<h4>Now to create the RIV package<a class="headerlink" href="#Now-to-create-the-RIV-package" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
@@ -2347,7 +2350,7 @@ model_name = sagehen
 </section>
 </section>
 <section id="Testing-the-model">
-<h2>Testing the model<a class="headerlink" href="#Testing-the-model" title="Link to this heading">¶</a></h2>
+<h2>Testing the model<a class="headerlink" href="#Testing-the-model" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
@@ -2845,7 +2848,7 @@ and distribution information.
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -116,7 +118,8 @@
 <li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -159,7 +162,7 @@
            <div itemprop="articleBody">
              
   <section id="06:-matplotlib-—-2D-and-3D-plotting">
-<h1>06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting<a class="headerlink" href="#06:-matplotlib-—-2D-and-3D-plotting" title="Link to this heading">¶</a></h1>
+<h1>06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting<a class="headerlink" href="#06:-matplotlib-—-2D-and-3D-plotting" title="Link to this heading"></a></h1>
 <p>This IPython Notebook is based on a notebook developed by J.R. Johansson (<a class="reference external" href="mailto:jrjohansson&#37;&#52;&#48;gmail&#46;com">jrjohansson<span>&#64;</span>gmail<span>&#46;</span>com</a> <span class="math notranslate nohighlight">\(-\)</span> <a class="reference external" href="http://jrjohansson.github.io">http://jrjohansson.github.io</a>)</p>
 <p>The latest version of this <a class="reference external" href="http://ipython.org/notebook.html">jupyter notebook</a> lecture is available at <a class="reference external" href="https://github.com/jrjohansson/scientific-python-lectures/blob/master/Lecture-4-Matplotlib.ipynb">https://github.com/jrjohansson/scientific-python-lectures/blob/master/Lecture-4-Matplotlib.ipynb</a>.</p>
 <p>The other notebooks in this lecture series are indexed at <a class="reference external" href="https://github.com/jrjohansson/scientific-python-lectures">https://github.com/jrjohansson/scientific-python-lectures</a>.</p>
@@ -177,7 +180,7 @@
 </div>
 </div>
 <section id="Introduction">
-<h2>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading">¶</a></h2>
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is an excellent 2D and 3D graphics library for generating scientific figures. Some of the many advantages of this library include:</p>
 <ul class="simple">
 <li><p>Easy to get started</p></li>
@@ -209,7 +212,7 @@
 <p>Congratulations you have created your first <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure. Let’s go further down the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> rabbit hole.</p>
 </section>
 <section id="The-matplotlib-object-oriented-API">
-<h2>The <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> object-oriented API<a class="headerlink" href="#The-matplotlib-object-oriented-API" title="Link to this heading">¶</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> object-oriented API<a class="headerlink" href="#The-matplotlib-object-oriented-API" title="Link to this heading"></a></h2>
 <p>The main idea with object-oriented programming is to have objects that one can apply functions and actions on, and no object or program states should be global (such as the MATLAB-like API). The real advantage of this approach becomes apparent when more than one figure is created, or when a figure contains more than one subplot.</p>
 <p>When using the object-oriented API a reference to the newly created figure instance is stored in the <code class="docutils literal notranslate"><span class="pre">fig</span></code> variable, and from it a new axis instance <code class="docutils literal notranslate"><span class="pre">axes</span></code> is created using the <code class="docutils literal notranslate"><span class="pre">add_axes</span></code> method in the <code class="docutils literal notranslate"><span class="pre">Figure</span></code> class instance <code class="docutils literal notranslate"><span class="pre">fig</span></code>:</p>
 <div class="nbinput docutils container">
@@ -239,7 +242,7 @@
 </div>
 </div>
 <section id="Inset-figures">
-<h3>Inset figures<a class="headerlink" href="#Inset-figures" title="Link to this heading">¶</a></h3>
+<h3>Inset figures<a class="headerlink" href="#Inset-figures" title="Link to this heading"></a></h3>
 <p>Although a little bit more code is involved, the advantage is that you now have full control of where the plot axes are placed, and you can easily add more than one axis to the figure:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -290,7 +293,7 @@
 </div>
 </section>
 <section id="Figures-with-subplots">
-<h3>Figures with subplots<a class="headerlink" href="#Figures-with-subplots" title="Link to this heading">¶</a></h3>
+<h3>Figures with subplots<a class="headerlink" href="#Figures-with-subplots" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -315,7 +318,7 @@
 </section>
 </section>
 <section id="Legends,-labels-and-titles">
-<h2>Legends, labels and titles<a class="headerlink" href="#Legends,-labels-and-titles" title="Link to this heading">¶</a></h2>
+<h2>Legends, labels and titles<a class="headerlink" href="#Legends,-labels-and-titles" title="Link to this heading"></a></h2>
 <p>Now that the basics of how to create a figure canvas and add axes instances to the canvas have been covered, methods for decorating a figure with titles, axis labels, and legends will be covered.</p>
 <p><strong>Figure titles</strong></p>
 <p>A title can be added to each axis instance in a figure. To set the title, use the <code class="docutils literal notranslate"><span class="pre">set_title</span></code> method in the axes instance:</p>
@@ -376,9 +379,9 @@
 </div>
 </section>
 <section id="Setting-colors,-linewidths,-linetypes">
-<h2>Setting colors, linewidths, linetypes<a class="headerlink" href="#Setting-colors,-linewidths,-linetypes" title="Link to this heading">¶</a></h2>
+<h2>Setting colors, linewidths, linetypes<a class="headerlink" href="#Setting-colors,-linewidths,-linetypes" title="Link to this heading"></a></h2>
 <section id="Colors">
-<h3>Colors<a class="headerlink" href="#Colors" title="Link to this heading">¶</a></h3>
+<h3>Colors<a class="headerlink" href="#Colors" title="Link to this heading"></a></h3>
 <p>With <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, the colors of lines and other graphical elements can be defined in a number of ways. First of all, MATLAB-like syntax can be used where <code class="docutils literal notranslate"><span class="pre">'b'</span></code> means blue, <code class="docutils literal notranslate"><span class="pre">'g'</span></code> means green, etc. The MATLAB API for selecting line styles are also supported: where, for example, ‘b.-’ means a blue line with dots:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -425,7 +428,7 @@
 </div>
 </section>
 <section id="Line-and-marker-styles">
-<h3>Line and marker styles<a class="headerlink" href="#Line-and-marker-styles" title="Link to this heading">¶</a></h3>
+<h3>Line and marker styles<a class="headerlink" href="#Line-and-marker-styles" title="Link to this heading"></a></h3>
 <p>The line width can be changed using the <code class="docutils literal notranslate"><span class="pre">linewidth</span></code> or <code class="docutils literal notranslate"><span class="pre">lw</span></code> keyword argument. The line style can be selected using the <code class="docutils literal notranslate"><span class="pre">linestyle</span></code> or <code class="docutils literal notranslate"><span class="pre">ls</span></code> keyword arguments:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -491,7 +494,7 @@
 </section>
 </section>
 <section id="Simple-plots-of-NWIS-data">
-<h2>Simple plots of NWIS data<a class="headerlink" href="#Simple-plots-of-NWIS-data" title="Link to this heading">¶</a></h2>
+<h2>Simple plots of NWIS data<a class="headerlink" href="#Simple-plots-of-NWIS-data" title="Link to this heading"></a></h2>
 <p>We will use a the USGS <code class="docutils literal notranslate"><span class="pre">dataretrival</span></code> package to retrieve NWIS data as a pandas dataframe. We will talk more about pandas later</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -747,9 +750,9 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="More-figure-customization">
-<h2>More figure customization<a class="headerlink" href="#More-figure-customization" title="Link to this heading">¶</a></h2>
+<h2>More figure customization<a class="headerlink" href="#More-figure-customization" title="Link to this heading"></a></h2>
 <section id="Adjusting-figure-layout">
-<h3>Adjusting figure layout<a class="headerlink" href="#Adjusting-figure-layout" title="Link to this heading">¶</a></h3>
+<h3>Adjusting figure layout<a class="headerlink" href="#Adjusting-figure-layout" title="Link to this heading"></a></h3>
 <p>That was easy, but it isn’t so pretty with overlapping figure axes and labels, right?</p>
 <p>Overlapping figures can be dealt with using the <code class="docutils literal notranslate"><span class="pre">fig.tight_layout</span></code> method, which automatically adjusts the positions of the axes on the figure canvas so that there is no overlapping content:</p>
 <div class="nbinput docutils container">
@@ -786,7 +789,7 @@ Name: 00060, Length: 8783, dtype: float64
 </section>
 </section>
 <section id="Figure-size,-aspect-ratio-and-DPI">
-<h2>Figure size, aspect ratio and DPI<a class="headerlink" href="#Figure-size,-aspect-ratio-and-DPI" title="Link to this heading">¶</a></h2>
+<h2>Figure size, aspect ratio and DPI<a class="headerlink" href="#Figure-size,-aspect-ratio-and-DPI" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> allows the aspect ratio, DPI and figure size to be specified when the <code class="docutils literal notranslate"><span class="pre">Figure</span></code> object is created, using the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> and <code class="docutils literal notranslate"><span class="pre">dpi</span></code> keyword arguments. <code class="docutils literal notranslate"><span class="pre">figsize</span></code> is a tuple of the width and height of the figure in inches, and <code class="docutils literal notranslate"><span class="pre">dpi</span></code> is the dots-per-inch (pixel per inch). To create an 800x400 pixel, 100 dots-per-inch figure, we can do:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
@@ -810,7 +813,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="Saving-figures">
-<h2>Saving figures<a class="headerlink" href="#Saving-figures" title="Link to this heading">¶</a></h2>
+<h2>Saving figures<a class="headerlink" href="#Saving-figures" title="Link to this heading"></a></h2>
 <p>To save a figure to a file, the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> method in the <code class="docutils literal notranslate"><span class="pre">Figure</span></code> class is used:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
@@ -830,7 +833,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </div>
 <section id="What-formats-are-available-and-which-ones-should-be-used-for-best-quality?">
-<h3>What formats are available and which ones should be used for best quality?<a class="headerlink" href="#What-formats-are-available-and-which-ones-should-be-used-for-best-quality?" title="Link to this heading">¶</a></h3>
+<h3>What formats are available and which ones should be used for best quality?<a class="headerlink" href="#What-formats-are-available-and-which-ones-should-be-used-for-best-quality?" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> can generate high-quality output in a number formats, including PNG, JPG, EPS, SVG, and PDF. For scientific papers, use PDF whenever possible. (<span class="math notranslate nohighlight">\(\LaTeX\)</span> documents compiled with <code class="docutils literal notranslate"><span class="pre">pdflatex</span></code> can include PDFs using the <code class="docutils literal notranslate"><span class="pre">includegraphics</span></code> command <span class="math notranslate nohighlight">\(-\)</span> PDFs can also be edited using Adobe Illustrator and other similar graphics programs).</p>
 <p>The figure type (pdf, png, <em>etc.</em>) can be changed simply by changing the file extension.</p>
 <div class="nbinput nblast docutils container">
@@ -844,7 +847,7 @@ Name: 00060, Length: 8783, dtype: float64
 </section>
 </section>
 <section id="Formatting-text:-\LaTeX,-fontsize,-font-family">
-<h2>Formatting text: <span class="math notranslate nohighlight">\(\LaTeX\)</span>, fontsize, font family<a class="headerlink" href="#Formatting-text:-\LaTeX,-fontsize,-font-family" title="Link to this heading">¶</a></h2>
+<h2>Formatting text: <span class="math notranslate nohighlight">\(\LaTeX\)</span>, fontsize, font family<a class="headerlink" href="#Formatting-text:-\LaTeX,-fontsize,-font-family" title="Link to this heading"></a></h2>
 <p>The figure above is functional, but it does not (yet) satisfy the criteria for a figure used in a publication. First and foremost, it may be necessary to use <span class="math notranslate nohighlight">\(\LaTeX\)</span> formatted text, and second, it may be necessary to adjust the font size to appear right in a publication.</p>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> has great support for <span class="math notranslate nohighlight">\(\LaTeX\)</span>. All that is required to incorporate <span class="math notranslate nohighlight">\(\LaTeX\)</span> text is to encapsulate any text (legend, title, label, etc.) in dollar signs. For example, <code class="docutils literal notranslate"><span class="pre">'$y=x^3$'</span></code>.</p>
 <p>But here we can run into a slightly subtle problem with <span class="math notranslate nohighlight">\(\LaTeX\)</span> code and Python text strings. In <span class="math notranslate nohighlight">\(\LaTeX\)</span>, the backslash is frequently used in commands, for example <code class="docutils literal notranslate"><span class="pre">\alpha</span></code> to produce the symbol <span class="math notranslate nohighlight">\(\alpha\)</span>. But the backslash already has a meaning in Python strings (the escape code character). To avoid Python messing up our latex code, we need to use “raw” text strings. Raw text strings are prepended with an ‘<code class="docutils literal notranslate"><span class="pre">r</span></code>’, like <code class="docutils literal notranslate"><span class="pre">r'\alpha'</span></code> instead of <code class="docutils literal notranslate"><span class="pre">'\alpha'</span></code>:</p>
@@ -872,10 +875,10 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="Control-over-axis-appearance">
-<h2>Control over axis appearance<a class="headerlink" href="#Control-over-axis-appearance" title="Link to this heading">¶</a></h2>
+<h2>Control over axis appearance<a class="headerlink" href="#Control-over-axis-appearance" title="Link to this heading"></a></h2>
 <p>The appearance of the axes is an important aspect of a figure that often must be modified to make publication quality graphics. It also may be necessary to control where the ticks and labels are placed, modify the font size and possibly the labels used on the axes. Methods for controlling axis properties and appearance in a <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure are explored in this section.</p>
 <section id="Plot-range">
-<h3>Plot range<a class="headerlink" href="#Plot-range" title="Link to this heading">¶</a></h3>
+<h3>Plot range<a class="headerlink" href="#Plot-range" title="Link to this heading"></a></h3>
 <p>Axes ranges can be configured using the <code class="docutils literal notranslate"><span class="pre">set_ylim</span></code> and <code class="docutils literal notranslate"><span class="pre">set_xlim</span></code> methods in the axis object, or <code class="docutils literal notranslate"><span class="pre">axis('tight')</span></code> for automatrically getting “tightly fitted” axes ranges:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
@@ -906,7 +909,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="Logarithmic-scale">
-<h3>Logarithmic scale<a class="headerlink" href="#Logarithmic-scale" title="Link to this heading">¶</a></h3>
+<h3>Logarithmic scale<a class="headerlink" href="#Logarithmic-scale" title="Link to this heading"></a></h3>
 <p>It is also possible to set a logarithmic scale for one or both axes. This functionality is in fact only one application of a more general transformation system in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. Each of the axes’ scales are set separately using <code class="docutils literal notranslate"><span class="pre">set_xscale</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yscale</span></code> methods which accept one parameter (with the value “log” in this case):</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
@@ -933,7 +936,7 @@ Name: 00060, Length: 8783, dtype: float64
 <p>Logarithmic scales can also be specified using <code class="docutils literal notranslate"><span class="pre">semilogx()</span></code>, <code class="docutils literal notranslate"><span class="pre">semilogy()</span></code>, or <code class="docutils literal notranslate"><span class="pre">loglog()</span></code>. What are the differences in the figures plotted using <code class="docutils literal notranslate"><span class="pre">.set_yscale(&quot;log&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">.semilogy()</span></code>?</p>
 </section>
 <section id="Placement-of-ticks-and-custom-tick-labels">
-<h3>Placement of ticks and custom tick labels<a class="headerlink" href="#Placement-of-ticks-and-custom-tick-labels" title="Link to this heading">¶</a></h3>
+<h3>Placement of ticks and custom tick labels<a class="headerlink" href="#Placement-of-ticks-and-custom-tick-labels" title="Link to this heading"></a></h3>
 <p>The axis ticks can be explicitly set using with <code class="docutils literal notranslate"><span class="pre">set_xticks</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yticks</span></code>, which both take a list of values for where on the axis the ticks are to be placed. The <code class="docutils literal notranslate"><span class="pre">set_xticklabels</span></code> and <code class="docutils literal notranslate"><span class="pre">set_yticklabels</span></code> methods can be used to provide a list of custom text labels for each tick location:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
@@ -966,7 +969,7 @@ Name: 00060, Length: 8783, dtype: float64
 <p>There are a number of more advanced methods for controlling major and minor tick placement in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figures, such as automatic placement according to different policies. See <a class="reference external" href="http://">http://</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.org/api/ticker_api.html for details.</p>
 </section>
 <section id="Axis-grid">
-<h3>Axis grid<a class="headerlink" href="#Axis-grid" title="Link to this heading">¶</a></h3>
+<h3>Axis grid<a class="headerlink" href="#Axis-grid" title="Link to this heading"></a></h3>
 <p>With the <code class="docutils literal notranslate"><span class="pre">grid</span></code> method in the axis object, grid lines can be turned on and off. The appearance of the grid lines can also be customized using the same keyword arguments as the <code class="docutils literal notranslate"><span class="pre">plot</span></code> function:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
@@ -993,7 +996,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="Twin-axes">
-<h3>Twin axes<a class="headerlink" href="#Twin-axes" title="Link to this heading">¶</a></h3>
+<h3>Twin axes<a class="headerlink" href="#Twin-axes" title="Link to this heading"></a></h3>
 <p>Sometimes it is useful to have dual x or y axes in a figure; for example, when plotting curves with different units together. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> supports this with the <code class="docutils literal notranslate"><span class="pre">twinx</span></code> and <code class="docutils literal notranslate"><span class="pre">twiny</span></code> functions:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
@@ -1024,7 +1027,7 @@ Name: 00060, Length: 8783, dtype: float64
 </section>
 </section>
 <section id="Other-2D-plot-styles">
-<h2>Other 2D plot styles<a class="headerlink" href="#Other-2D-plot-styles" title="Link to this heading">¶</a></h2>
+<h2>Other 2D plot styles<a class="headerlink" href="#Other-2D-plot-styles" title="Link to this heading"></a></h2>
 <p>In addition to the regular <code class="docutils literal notranslate"><span class="pre">plot</span></code> method, there are a number of other functions for generating different kind of plots. See the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plot gallery for a complete list of available plot types: <a class="reference external" href="http://">http://</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.org/gallery.html. Some of the more useful ones are show below:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
@@ -1057,7 +1060,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </div>
 <section id="Histograms">
-<h3>Histograms<a class="headerlink" href="#Histograms" title="Link to this heading">¶</a></h3>
+<h3>Histograms<a class="headerlink" href="#Histograms" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
@@ -1086,7 +1089,7 @@ Name: 00060, Length: 8783, dtype: float64
 </section>
 </section>
 <section id="Text-annotation">
-<h2>Text annotation<a class="headerlink" href="#Text-annotation" title="Link to this heading">¶</a></h2>
+<h2>Text annotation<a class="headerlink" href="#Text-annotation" title="Link to this heading"></a></h2>
 <p>Annotating text in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figures can be done using the <code class="docutils literal notranslate"><span class="pre">text</span></code> function. It supports LaTeX formatting just like axis label texts and titles:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
@@ -1110,7 +1113,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="Colormap-and-contour-figures">
-<h2>Colormap and contour figures<a class="headerlink" href="#Colormap-and-contour-figures" title="Link to this heading">¶</a></h2>
+<h2>Colormap and contour figures<a class="headerlink" href="#Colormap-and-contour-figures" title="Link to this heading"></a></h2>
 <p>Colormaps and contour figures are useful for plotting functions of two variables. A colormap will be used to encode one dimension of the data in most of these functions. There are a number of predefined colormaps. It is relatively straightforward to define custom colormaps. For a list of pre-defined colormaps, see: <a class="reference external" href="http://www.scipy.org/Cookbook/">http://www.scipy.org/Cookbook/</a><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>/Show_colormaps</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
@@ -1142,7 +1145,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </div>
 <section id="pcolor">
-<h3>pcolor<a class="headerlink" href="#pcolor" title="Link to this heading">¶</a></h3>
+<h3>pcolor<a class="headerlink" href="#pcolor" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
@@ -1170,7 +1173,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="imshow">
-<h3>imshow<a class="headerlink" href="#imshow" title="Link to this heading">¶</a></h3>
+<h3>imshow<a class="headerlink" href="#imshow" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
@@ -1199,7 +1202,7 @@ Name: 00060, Length: 8783, dtype: float64
 </div>
 </section>
 <section id="contour">
-<h3>contour<a class="headerlink" href="#contour" title="Link to this heading">¶</a></h3>
+<h3>contour<a class="headerlink" href="#contour" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
@@ -1226,9 +1229,9 @@ Name: 00060, Length: 8783, dtype: float64
 </section>
 </section>
 <section id="Miscellaneous-topics">
-<h2>Miscellaneous topics<a class="headerlink" href="#Miscellaneous-topics" title="Link to this heading">¶</a></h2>
+<h2>Miscellaneous topics<a class="headerlink" href="#Miscellaneous-topics" title="Link to this heading"></a></h2>
 <section id="Using-FloPy-styles-to-make-figures-for-USGS-publications">
-<h3>Using FloPy styles to make figures for USGS publications<a class="headerlink" href="#Using-FloPy-styles-to-make-figures-for-USGS-publications" title="Link to this heading">¶</a></h3>
+<h3>Using FloPy styles to make figures for USGS publications<a class="headerlink" href="#Using-FloPy-styles-to-make-figures-for-USGS-publications" title="Link to this heading"></a></h3>
 <p>FloPy’s plotting routines can be used with built in styles from the <code class="docutils literal notranslate"><span class="pre">styles</span></code> module. The <code class="docutils literal notranslate"><span class="pre">styles</span></code> module takes advantage of matplotlib’s temporary styling routines by reading in pre-built style sheets. Two different types of styles have been built for flopy: <code class="docutils literal notranslate"><span class="pre">USGSMap()</span></code> and <code class="docutils literal notranslate"><span class="pre">USGSPlot()</span></code> styles which can be used to create report quality figures. The styles module also contains a number of methods that can be used for adding axis labels, text, annotations, headings, removing tick lines,
 and updating the current font.</p>
 <p>Addition information on use of flopy styles can be found in <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb</a> and <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb</a></p>
@@ -1242,7 +1245,7 @@ and updating the current font.</p>
 </div>
 </div>
 <section id="Make-a-timeseries">
-<h4>Make a timeseries<a class="headerlink" href="#Make-a-timeseries" title="Link to this heading">¶</a></h4>
+<h4>Make a timeseries<a class="headerlink" href="#Make-a-timeseries" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
@@ -1270,7 +1273,7 @@ matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
 <p>A possible option is family <code class="docutils literal notranslate"><span class="pre">sans-serif</span></code> fontname <code class="docutils literal notranslate"><span class="pre">Arial</span> <span class="pre">Narrow</span></code>.</p>
 </section>
 <section id="Make-a-map">
-<h4>Make a map<a class="headerlink" href="#Make-a-map" title="Link to this heading">¶</a></h4>
+<h4>Make a map<a class="headerlink" href="#Make-a-map" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
@@ -1292,7 +1295,7 @@ matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
 </section>
 </section>
 <section id="Creating-animations-with-matplotlib">
-<h3>Creating animations with matplotlib<a class="headerlink" href="#Creating-animations-with-matplotlib" title="Link to this heading">¶</a></h3>
+<h3>Creating animations with matplotlib<a class="headerlink" href="#Creating-animations-with-matplotlib" title="Link to this heading"></a></h3>
 <p>We will animate the sine function over the range of 0 to 2<span class="math notranslate nohighlight">\(\pi\)</span>. The first step is to make a numpy array from 0 to 2 using <code class="docutils literal notranslate"><span class="pre">arange</span></code> to define the variable <code class="docutils literal notranslate"><span class="pre">x</span></code>. Start with a interval of <code class="docutils literal notranslate"><span class="pre">x</span></code> on the order of 0.1.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
@@ -1359,7 +1362,7 @@ matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
 </div>
 </section>
 <section id="Using-PdfPages-to-create-multi-page-PDFs">
-<h3>Using PdfPages to create multi-page PDFs<a class="headerlink" href="#Using-PdfPages-to-create-multi-page-PDFs" title="Link to this heading">¶</a></h3>
+<h3>Using PdfPages to create multi-page PDFs<a class="headerlink" href="#Using-PdfPages-to-create-multi-page-PDFs" title="Link to this heading"></a></h3>
 <p>Use your sine function plot to create a pdf for each time. A PdfPages example can be found in the matplotlib gallery at <a class="reference external" href="https://matplotlib.org/stable/gallery/misc/multipage_pdf.html">https://matplotlib.org/stable/gallery/misc/multipage_pdf.html</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
@@ -1412,7 +1415,7 @@ matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext=&#39;ttf&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

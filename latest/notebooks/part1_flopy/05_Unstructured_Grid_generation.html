@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -79,7 +81,8 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -120,7 +123,7 @@
            <div itemprop="articleBody">
              
   <section id="05:-Unstructured-grid-and-general-mesh-generation-with-FloPy">
-<h1>05: Unstructured grid and general mesh generation with FloPy<a class="headerlink" href="#05:-Unstructured-grid-and-general-mesh-generation-with-FloPy" title="Link to this heading">¶</a></h1>
+<h1>05: Unstructured grid and general mesh generation with FloPy<a class="headerlink" href="#05:-Unstructured-grid-and-general-mesh-generation-with-FloPy" title="Link to this heading"></a></h1>
 <p>In this notebook we’ll cover how to build Structured and Unstructured Meshes (Grids) with FloPy for use in MODFLOW models.</p>
 <p>This notebook will start with generating a simple Structured Grid and we will use this grid object to begin developing Unstructured Meshes. The grids generated in theis notebook include the following:</p>
 <ul class="simple">
@@ -178,7 +181,7 @@
 </pre></div></div>
 </div>
 <section id="Creating-a-regular-structured-(rectilinear)-grid">
-<h2>Creating a regular structured (rectilinear) grid<a class="headerlink" href="#Creating-a-regular-structured-(rectilinear)-grid" title="Link to this heading">¶</a></h2>
+<h2>Creating a regular structured (rectilinear) grid<a class="headerlink" href="#Creating-a-regular-structured-(rectilinear)-grid" title="Link to this heading"></a></h2>
 <p>This activity will start by creating a simple sturctured (rectilinear) grid from a 1/3 arc second Digital Elevation Model of the Sagehen Creek watershed as an illustration of how we can create an initial mesh that can be used to develop a model from.</p>
 <p>This is a quick review for more information, see the previous activity <code class="docutils literal notranslate"><span class="pre">04_Modelgrid_and_intersection.ipynb</span></code></p>
 <p>Load the Digital Elevation Model and visualize it</p>
@@ -301,10 +304,10 @@
 </div>
 </div>
 <section id="Resampling-data-to-finish-creating-our-initial-grid.">
-<h3>Resampling data to finish creating our initial grid.<a class="headerlink" href="#Resampling-data-to-finish-creating-our-initial-grid." title="Link to this heading">¶</a></h3>
+<h3>Resampling data to finish creating our initial grid.<a class="headerlink" href="#Resampling-data-to-finish-creating-our-initial-grid." title="Link to this heading"></a></h3>
 <p>Once we have an initial grid, raster and vector data can be resampled or intersected with the grid to begin building a model domain. Although the focus of this notebook is to generate different types of meshes for modeling, the resampling and intersection process in this notebook can be applied many different data types and be used to generate boundary conditions within a MODFLOW model.</p>
 <section id="Raster-resampling">
-<h4>Raster resampling<a class="headerlink" href="#Raster-resampling" title="Link to this heading">¶</a></h4>
+<h4>Raster resampling<a class="headerlink" href="#Raster-resampling" title="Link to this heading"></a></h4>
 <p>We’ll use FloPy’s built in raster resampling method to generate values for land surface elevation (<code class="docutils literal notranslate"><span class="pre">top</span></code>) using the existing <code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code> object. For more information on raster resampling, please see this <a class="reference external" href="https://flopy.readthedocs.io/en/latest/Notebooks/raster_intersection_example.html">example</a></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -369,7 +372,7 @@
 </section>
 </section>
 <section id="Vector-(shapefile)-intersection-review">
-<h3>Vector (shapefile) intersection review<a class="headerlink" href="#Vector-(shapefile)-intersection-review" title="Link to this heading">¶</a></h3>
+<h3>Vector (shapefile) intersection review<a class="headerlink" href="#Vector-(shapefile)-intersection-review" title="Link to this heading"></a></h3>
 <p>We can also intersect lines, points, and polygons with an existing modelgrid object. In this example, we’ll load up the watershed boundary and get the active and inactive areas of the grid. For more information on intersecting shapefiles with a modelgrid/model see this <a class="reference external" href="https://flopy.readthedocs.io/en/latest/Notebooks/grid_intersection_example.html">example</a></p>
 <p>Our first step in this process is to get the watershed boundary. We can use the <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> package to begin downloading information about the watershed from NWIS.</p>
 <p><strong>Note</strong>: this information has been stored in the repository as shapefiles if internet access is not available.</p>
@@ -732,7 +735,7 @@
 </pre></div></div>
 </div>
 <section id="Putting-it-all-together-into-a-completed-StructuredGrid">
-<h4>Putting it all together into a completed <code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code><a class="headerlink" href="#Putting-it-all-together-into-a-completed-StructuredGrid" title="Link to this heading">¶</a></h4>
+<h4>Putting it all together into a completed <code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code><a class="headerlink" href="#Putting-it-all-together-into-a-completed-StructuredGrid" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -1004,7 +1007,7 @@
 </section>
 </section>
 <section id="Irregular-structured-Grid-(DIS)">
-<h2>Irregular structured Grid (DIS)<a class="headerlink" href="#Irregular-structured-Grid-(DIS)" title="Link to this heading">¶</a></h2>
+<h2>Irregular structured Grid (DIS)<a class="headerlink" href="#Irregular-structured-Grid-(DIS)" title="Link to this heading"></a></h2>
 <p>In this example, an irregular structured grid is created to demonstrate how to add local refinement to an area of the model using a structured (rectilinear) grid.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
@@ -1200,7 +1203,7 @@
 </div>
 </section>
 <section id="Local-Grid-Refinement-(LGR)-mesh">
-<h2>Local Grid Refinement (LGR) mesh<a class="headerlink" href="#Local-Grid-Refinement-(LGR)-mesh" title="Link to this heading">¶</a></h2>
+<h2>Local Grid Refinement (LGR) mesh<a class="headerlink" href="#Local-Grid-Refinement-(LGR)-mesh" title="Link to this heading"></a></h2>
 <p>A Local Grid Refinement (LGR) mesh can be created in an area of interest to get finer discretization than the existing/surrounding mesh. FloPy’s <code class="docutils literal notranslate"><span class="pre">Lgr</span></code> utility, creates the refined mesh as a seperate modelgrid, and calculates the exchanges between the multi-model simulation mesh that results from refinement.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Lgr</span></code> utility has a number of input parameters:</p>
 <ul class="simple">
@@ -1314,7 +1317,7 @@
 </div>
 </section>
 <section id="Activity:-Create-the-idomainp-(parent,-child)-array-from-the-polygon-provided-by-the-lgr-geodataframe">
-<h2>Activity: Create the <code class="docutils literal notranslate"><span class="pre">idomainp</span></code> (parent, child) array from the polygon provided by the lgr geodataframe<a class="headerlink" href="#Activity:-Create-the-idomainp-(parent,-child)-array-from-the-polygon-provided-by-the-lgr-geodataframe" title="Link to this heading">¶</a></h2>
+<h2>Activity: Create the <code class="docutils literal notranslate"><span class="pre">idomainp</span></code> (parent, child) array from the polygon provided by the lgr geodataframe<a class="headerlink" href="#Activity:-Create-the-idomainp-(parent,-child)-array-from-the-polygon-provided-by-the-lgr-geodataframe" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">idomainp</span></code> should be the same shape as the existing modelgrid’s <code class="docutils literal notranslate"><span class="pre">idomain</span></code> array. The child model extent should be represented with the value 0 and the parent 1.</p>
 <p><em>Hint</em>: <code class="docutils literal notranslate"><span class="pre">GridIntersect()</span></code> can be used to find the cellids where the lgr polygon intersects with the existing modelgrid</p>
 <div class="nbinput docutils container">
@@ -1553,7 +1556,7 @@
 </div>
 </section>
 <section id="Quadtree-Mesh">
-<h2>Quadtree Mesh<a class="headerlink" href="#Quadtree-Mesh" title="Link to this heading">¶</a></h2>
+<h2>Quadtree Mesh<a class="headerlink" href="#Quadtree-Mesh" title="Link to this heading"></a></h2>
 <p>A quadtree mesh is an unstructured refinement to a rectilinear modelgrid. In a quadtree mesh each node is split into 4 child nodes per level of refinement. The figure below is from <a class="reference external" href="https://pubs.usgs.gov/of/2014/1109/pdf/ofr2014-1109.pdf">Lien and others, 2019</a> and shows multiple levels of recursive refinement.</p>
 <p><img alt="Quadmesh.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXMAAAFjCAIAAABADnxeAAAhQ0lEQVR42u3dd1wTZwPA8SSEKQoIDlBQVKxb68BVrXXVXSuOWvesq9W6qtY966zWPftat9bV2jrr3oJbQEVRwQEie2Xc+QYUDFMSEDD8fp/+Yckd4TK+uXtyeSJ5TUSU1Um4CYgIWYgIWYgIWYiIkIWIkIWIkIWICFmIyCBk8fb2Pk15rFOnTrHh2bx6zt7mt2/fFkUx+2QRBMHe3t7IyMiY8kwymUwqlebNDZdIJHK5XL/VpfHpfe2adTV/QI5suGaTXVxcIiMjs08WtVpta2s7e/bs+5Rn6tGjR9u2bfPghk+ZMsXZ2fn69ev6rV6nTh03Nzf91r13756rq+uwYcNyZMMPHTpUsmTJ8PDw7JZl/fr1HE/mnTSP72+//TYPbviyZcs++eQT/Z5gmpo0adK3b1/91tUciXz++eca2nJkwz09PZGFkAVZkIWQBVmQBVkIWZAFWQhZskkWlSLa6/b1O3cfCmm/Nfs+WcSn97wCQ6KQBVmQBVnin/Zqxeyxw2pW+kRuYb3j7B39ZPHxOFnaJt/Gw7eRBVmQBVninwWKKN+HfmpFRN1SlutPXtVDFkX4y06tP5dIJH8cvoMsyIIsyPK22LCgucO/MbOwPOr+QA9ZNsybsHHbxiyU5eTeDWPGjBmbbqNHjz58zRNZCFly8ThLdOS5v7d/6lykxeCJusry1ONE007dF/8yUSPLqMXbMy+LqI7uUb+85H0ZmVufvfsCWQhZcqksishgj5uegij+uWRG30kLdZXlyfUzo4b/0MWtjebZ7jZiVuZlCfG94VjA+L2yVP1quDJjHwVCFkKWHJDl8cU9+SwtB09ZOHhAX0//QD2OhjTduXRQ82zfeNQz87K4H9ksyUC/Hr7POAshS+6VRVApbl/zuHjx8tOXr9JZPX1ZYmMivb29w6IVmZdl7cxRb+ywsLKpVqPWZw20+6yQhZHmIjOHSkEKNbIQsuTqcZaMlF1nygk/dvxcbmI3ZeHaoNBwlVqtOUxLTBXmV8rSTCNL4+5jMj4nArIQsuR1WYTY8Ca1q28/cSPVIRT3A7/LpXG7M3M3H8r4tSMLIUtel0WtiLpxwzON/RHx535tNawYW9l7vwhDFkIWZMmCM+WE2NDqJYtoZCnXsItKl/nhkIWQBVnS7Mn14/Gjt5Ihs1bptCKyELIgS5qtmfq9hhWpicWx20+RhZAlF8liZ2c3Y/r0eXPn6vFfqVKlatasqd+6mpydnSdNmqT3Hy8K6q/rxJ2YW6hahxjhNbIQsuSWli5damZmVqtWrdp6VahQIQ1MtfUtf/7848aN0/uPj/K7amscN0P4iNX/6roushCyZMfRkKhXvXv37tmzp6hvDRs2zMTRkLjse7e4E+SKlHsSHosshCyGM87SJ16WHBlnUUc+q2hXQCNLg07DBN2/NQhZCFmQJZVuHN1pEnckJJmybq8eqyMLIQuypLL2tIGd476DzbLwjSfByELIgixZIIuoiKhbtphGlpK12yj0+QJVZCFkySFZokODjh47dfDgmbNXbqc1kJG+LIJKcdP9/OHjZ8SsluW510VLo7gPC/X6ebF+G44shCw5I8vRjQvj5y2QNu+b5meI05FFGR3SvXn9jsMnvwiJyPJ9lp1Lpsf/abLtJ+8gCyFLild1tTo2VqFWC7lOFlEY+123MZOnb9y688GjF7ofDYkLxvdp3P2H8Jg053jLjCzftf1MA4uJQ7VnMWpkIWRJfNqqTx3a823Hr5xLOBUpUsS+mFPTtp13HzojiGIukUUREVizZGGZTGZhVXDxzkO6yqIMuudc0KpZW7cyzo5T12zJWlmUL70Km8o1svRcsEPvDUcWMjRZFFGhY3u1T2VOV5m84/il0SohN8gS/8wXXjy89U3zmhXqd47VcZwl8uFFmwKWB919hzWtbOvaMmvHWZ5fOTdjxozpM2b6vIpAFkKWt0+oWcN7pD33vMnPK7Zl545Lmt9kJqgfPX6iFsQg3+st2vVQ6iiLMuCOg5Xl5kPXlo1yc6jXRsjqo6HMhyxkULJ4nz5gYiQ1MjYuXbFa4y8aFS9incwWExtnv4jYHJclNiygVgnHBq26zJk3/4iHlx7jLKtnjWzfo2/bxq7Lth1+jSzIgiwfdIdlQq929hVcD168IcS/kRsZ5Nfis2rJcNl83Cs3HA0pYqJfvQpWpTu6nO67zmJEeFhUrCrN2wJZCFmyJFWoX/3Klc54P9H+4Uu/u5VLJtlzWb3jbG6QJSPl4Nn9yELI8jZBpXj85EmKIQvx/K75Rlqy/HH0NrIgCyFLZnt67VjBd7CYXg2IyLarRhZkIYOVxffSAcsEVxyqNY3NxhPnkAVZyEBlEcW9c75POKXFaO7GA9l55ciCLGSYsgjK6PafOr2BpfwX3V/FqJAFWQhZMtu9KwdN4lkp6Fjhsm9gNl+7RhZra+t+/foN0iuNSmXLlh2kb/b29jVq1BiUE3Xp0qV48eIhISHIQgYpiziqR/P4j+3KF+w5mf1Xr5HFzMysZs2a+k2RrVmxRvXqmZlhWyNLZ71q1qyZVCpt2LChfqu3aNHC0dExNDQUWcgAZXl07ZStWdwuy9e9x8XmxCeeM3k0lKnDQEGoX7/+2rVr9Vv92rVrxsbGR48e5WiIkCVJseEBrepWkhrJO4+ZERqtyJENRxZkIYOSRVQrJvRuptlbaTro52Tnzr187v8iOJue6siCLGRQsuxdETcrWoXGX/uHRCZ9/Cm6tGy84/IjZEEWQhZd9lZE9cktv1nnM7VwqLhg+ZrNiW3atH7tmn6d2lkXq+gXI+RxWUTNzaRWpzOhRDqyiFqraa5FTO23IAsZmizel47Y5ov/nJCJSaqTtJRo3DHbZmjJnbIIasWq+bOGDeq9cN0utaiDLBqObp4/Nn/59jf/+8DjxODvBs5fuUWVYopwZCGDkkUR8aJxpTKSdGs/YPLrvC3LtUPbPnFt+ezRDSdbq4NXfTIsi3jqz80NqpRp1TfuW+jD/L3L2Fuv+vOIazmX30/cRRYyWFlU0aH9O30peV9T1u7O1bKIYkxk2D3PW7t2btM8TTZt2nLp6vXA4FBdJ/FNR5ZVc8e5uLaKUsQ2KFd4wvxtOh0NTRzw9RtZTu1dLZFI9533aVm+VIXuI5GFDFUW8cCi4UaS97ft1P1cK4soin9vXV2jYkmpVGJsnr9SlSp2+fNp/uYCRR3Hz10Zq8skvunIcnbPGmk+h92Hzn/qZDVp8U4dZenwRpb9y8cnylLs6yHIQgYrS2TIS98MFKVU51ZZ1L/PGW1qEjdvfuES1U+7e0ZFRz+87V69gnP8l//IO4+envHz/dKRRRUbtWX9il8mjjI2Mz/gfl8/WU7sXB4ny4U4Wcp3H4EsZMjjLLmtjMsiCqrts0eaxH8zoabF+95NfHflwCbTtz+W9J+/Scy0LJpdo6c+NzrUrTLop3m6jeAK6h+/adq85xjNoVnIo5slChdYufVQvXKlVx65jSyELLlRltBn90pZm76brPfKw8SLFIF3SxayePvtA9aVg5RiJmW5637yh9Hj/znrrhLS/FWpynJ017ruXTp2+rb7rhOX4vg490/XXj2nLVqj5r0hQpbcKYv3mb3ag0G/bD72bk8hOrCMY6GEL02Se4YpMymLIKjfOx6cwTPl1CqVwPkshCy5Vpbr/6zXluWTzzspE3YExKgXpR3tEmQp6BulzqQsGYlzcAlZDEGWB1cOab+xJZWZzFq7740tQT7uRSzffunjJ80GKDI20IIshCzI8loZHtiykmPSb4u1+Kr30Psvgrf+OunNTxyr1b39NDiDV40shCzIEpfX8c22ZvJkZ984lK5cumjcVw/YOZS+ct8/41eNLIQsyPJmQEW9ecFU09TO7ivoVOrCncc6XTWyELIgS4ItonBw02L7ghYpcXFt0zn5jBAZkOW3334L1aszZ87I5fJ9+/bpt/rly5eRhZAlt8iiscXzyomGlQqn+rmEJgPGKtWiTrIUKFDAvmhRPf7TPEnj9pVsbPRb3c7OzsHBITg4GFkIWXL+aGjHqlm2+eN2WOp82eWnQT1MZUlkkRqb/LT+gE6yfPPNN4v1asyYMTKZbMiQIfqtPn78eGbYJmTJeVlUsREzv2tr/OYsfiOr03efaY6MPI5sLGNvmfQNo0I3AyIzLgvjLIQseVoWz/92GyfwYVPry5DYt6fDndy8LOnbRdL1+y8gC7IQsmRIluXThifi0bj7NFXCKfOCMqbrl7W0aVm4429kQRZClgzJMq1vi0Q7vhqxWnuuhEt//aF9eu6vO/9FFmQhZMmQLPNGdk+0o82IFdqyBNw+UyhxSl+p0V53P2RBluSJoqhUKnWdeRBZDF6WYztWJszBInFq0DFc8e5jh088jlsl7LSUqNsxNBOzKIiCOuip75JpE896PdQ8FJ/73ps+eoR7akPCqcqiiI489tf2havipqETVTF71vza0c1t+qJ1SmZRyMkEtfeNy8P7dC1bqvSNl1HIgixJnhcx4WO6NZe91cVk9d/nEiwQ5o/q+1accp/dfBGW0YdbarIEB/ht/32hhUSy7YyHKipoxfzJconkgO+rjMkiXDiwp0XtSm/mlLt58q/xM5ZMHt5DJjE++CAQWXKmR14eA7p+ld/C7M1DxCMgAlmQJVnKqFf9OjR9+/ZQkbJ7jl8MDXn1x9IZ5vHzV1o7uVzw9Mv4Vad5NKQOKCmVamSJO87yvmKtgyxxJc5WqYrb9X798v5VayPLc/7ByJKtKWOj3c8dH9G/h7Vlku++QRZkSTVFdMT6pfO+av1liWL2tnaF7B3sCxWyb9S81aQ5C739A3U6hP7Qsrw9iNu1qnXfcRwNZeuIiq+nx9fNP0v1NG1kQZb3HTqrIyLCw8LDFSqVngffH14WMTa8c5smDwJDX/j7IUs2sfLfhtmudeoOGPJD/56dbfLJkQVZsrk0ZYnxKyyVbDtzVfNP/zsXLOJkCc6wLOK4Xq1a9ZsYPzAUNrnbl2Vrf/Zd3+6jl+xBlmxKrVKq1PHD+6K4Y8EUZEGW3CBLZHDgnxtW9O/ff+5vG0Mjw7atWar595xlG18ERWZElhvnj44fOXzE2Annb92/duJg/4RO+AYhSw50/8hmZEGW3LLPkrE4n+Uj6NGpbciCLMiCLMiCLMiCLMiCLMiCLMiCLMiCLMiCLMiCLMiCLMiCLMiCLHlHFlNT08J5L0tLS5lMZmNjUzAnMjEx0fwB+q1rZWWl+csLFCig9+rMsI0s2SFLu3btHuW9pk+frnnpPn/+/PWcyMPDQ7ProffqV65c0XvdvXv3ss+CLBwNGeDRUM7G0RCyIAuyIAuyIAuyIAuyIAuyIAuyIAuyIAuyfMyynHocgizIgizIkql8jmxJJst+r0BkQRZkQZZM9e//FieTZevZe8iCLMiCLJlIUPRp3TCZLJ1HzUYWZEEWZNG5yGc+SxfOGzt8WMOaVY2l0mSyyEzN6jZrPWHy1C37DyELsiALsmQ0ZeSrC2dPv7dbdx8gC7IgC7IQsiALshCyIAuyELIgC7IgCyELsiALIQuyIAshC7IgC7IQsiALshCyIAuyELIgC7IgCyELsiALIQuyIAshC7IgC7IQsiALshCyIAuyELIgC7IgC7J8wNQqxQOvm3d9/d6/qCgqYqIe+tw7e/bMmbPnPe/eD4uKEcWPVRZRFP197125dVePTRBF4Yb7pdOnT7vfvosshCxJUkaF/71ry5f1a5nIJAOmL0h/4eiQwBkTfixbuoRM9m6iv6JOZYaOmxkarfi4ZFHGRJ079k//rm5WFiYVO/ZR6U7LpQObLIyNNLdAtc6DkYWQJeElV1Af2rmmikuxRCYGpitLbFhA+8aukjRyGzkly/dcPpAsmv2UR7cvNKlX1ShhwyvpLosqKsi1tMOb1T9FFkIWTcEBTzevXdqkbo1kMwynI0uQ//0WrmUlaSeTWyzce1bM3bJER4T8vfOP9q0aWxgZaf/xusqijAge2K5u4urIQnldFlGtOrhpZdkSRVPVIR1ZJvT4SrOAVZHiPfoPnjzxp4Y1qqRc3b5qo8BYde6URVQr/9qwpEYF51Q3XFdZti0cK9NaHVkor8uijgmbOmH01t37r111nzWyv1HGZHnqdd7GOn+fn2b6+AeI8c9ARXTkkskjzWVJd3qsnG8+Cc2dsmg2fOK40Rs277h85fKG36YXtTDVW5aAe1cdbQtIkIWQJfWXcWVY5UIFMiCLuGBs32kbdqUYplEtn9RH+6VbYu180y+XypKs8d3b6ieLKupVm5qVJElFRRZCliSPphblC2ZknyUiNEwpCCl/HvngvF1+k8TVi5Rv9CJa9VHIsmxMN31kEZQzBnwtkcgbNaqLLIQsmZUlrRR+HoWszN6sKzU2n7Tlv1w+gpspWUTxwMZF5nJp7a96bpo7ElkIWT6MLKLw95IJxtK3rvwwc32Wny6Xq2R5fOdicStzu0r1HrwI371oNLIQsnwQWUL871Yoahm3mpGk/dgZCrXw2pBlEfq1qGVm7XDS+7nmf5CFkOUDyCKKQf6+nRrXS1zRoVTF/ScvGeo+i6COXTtpqFwun7B855ulkIWQJWtlEfauW9a1Q2u7ApbJTgkxymf9w2+bolSCockiiruXzTQxkjR0GxyTsF+GLIQsWSzLuB4tTdM6D9dIvnL3KQOTJerlo5K25hIbpxt+rxJ/iCyELFl9NCSK4S+frl06r7SDXUpbKjT/ViWIBiOLqFaM7t7GxKbwpiPXtC9HFkKWDzDOEt8rP58fv20ilyWlxazok/BYw5BFUMUsH9tLLpfPWLcn2WXJZKnWBVkIWbJIljfPvcHtaifbbbnyPMwwZPE8s99IJpWb2AwdMTJZ7RrV1F698CdVR44aNfbnSUGxArIQsmRWFk3P73oUtzAxSFmuH9kq0SUza9tHkSpkIWTJAllEUdyzaKzW77B5EBqDLMhCyJIpWTSFPPRwsnj7Eb0C5evEZN0bzzktyxZdZfFFFkKWlLIMmDZfj98iRARUKlXkzW9oP2hiFs4sl32ydOid8i2t0IDHf6bR0B7ttFcvUb+F5od79v8VoWKchZAlhSxtRs5MTQ713k3Lvhvy/ZaDF1SpqaEK9a/gZBO3vkn+A5ezcq7pbJPFvEEnhVoHEXnXmZAlnTGSmHoO1trPkJYjpqdYRti6aKRZ/AxPUiOTToPHhkYlm0lb9Dq+rYBcIpEZd520PFYtfhSyzB7QUXvDjeu56fS5J2QhZEmz0GfeBfMlOZ+2crNu6qQHM6Ja2atNkndYqzdocfjibWXC89Dn6n/ViltLjEyGjf9NkdWfSfxQsqgV7RtVSzobnsuDV1HIgizIktliIoJ/6tYhxen5Jsv+PplkwEEU9y0ak2wpuYlF03ZdV2/YMG/SaPuCBTSr9Zu4QClk/XcOfQhZFFFh68Z/b5psnk2JpP3wSVFKNbIgC7Lol7ByxsiWzZuVcXJyLJ5Kjo6O1V3rtm3b4Xbo27c5BGX0yjmTShQtbJT02Whqnq+Yc5luA74/dvmmWvggX2WWpbIISyYNa9u6VaWyLo5pbHnlqtXbtm2356T7e3/Xv+vnaK/aeugEZCH2WfQpOiLM89aN06dO/Kvp4MFTZ876+D5RqNQf9Er59lVkIQOXJUdCFmQhZEEWZCFkQRZkQRZkQRZkQRZCFmRBFkIWZEEWZEEWZEEWZCFkQRZkIWRBFmQhZEEWZEEWQhZkQRZCFmRBFkIWZEEWZCFkQRZkIWRBFmQhZEEWZEEWQhZkQRZCFmRBFkIWZEEWZCFkQRZkIWRBFmQhZEEWZEEWQhZkQRZCFmRBFkIWZEEWZEEWZEEWZCFkQRZkIWRBlrwui0ql0shibGxsRnkmo/jM816ax7lUKs2DG6650+3t7YODg7N7n6VXr17rKM/UuHHjqlWrzsl7zZ49e/r06Xlww0eOHOnk5BQWFsbREHE0RIyzELIQsiALsiALsiALIQshCyELIQuyIAshC7IQshCyELIQshCyELIgCyELIQshCyELIQshC7IQshCyELIQshCyELIgCyELIQshCyELIQshC7IQshCyELIQshCyELIgCyELsiALIQshCyELIQuyIAuyIAuyELIQshCyELIgC7IQsiALIQshCyELIQshCyELshCyELIQshCyELIQsiALIQshCyELIQshCyELshCyELIQshCyELIQsiALIQuyIAshCyELIQshC7IQsiALshCyELIQshCyIAuyELIgCyELIQshCyELsiALIQuyELIQshCyELIQshCyIAshCyELIQshCyELIQuyELIQshCyELIQshCyIAshCyELIQshCyELIQuyELIgC7IQshCyELIQsiALIQuy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phZElpyESa1SRmmKjIpVKAx7ykq+fTXFs0AVd9dHR6sFw5xFEFkIWQhZCFkIWZCFkAVZkIWQhZCFkIWQBVmQhdsBWZCFkIWQhZCFkAVZkIWQBVkIWQhZCFkIWQhZCFmQhZCFkIWQhZCFkIWQBVkIWQhZCFkIWQhZCFmQhZCFkIWQhZCFkIWQBVkIWZAFWQhZCFkIWQhZkIWQBVmQhZCFkIWQhZAFWZCFkAVZCFkIWQhZCFmQBVkIWZCFkIWQhZCFkIWQhZAFWQhZCFkIWQhZCFkIWZCFkIWQhZCFkIWQhZAFWQhZCFkIWQhZCFkIWZCFkAVZkIWQhZCFkIWQBVkIWZAFWQhZCFkIWQhZkAVZCFmQhZCFkIWQhZAFWZCFkAVZCFkIWQhZCFkIWQhZkIWQhZCFkIWQhZCFkAVZCFkIWQhZCFkIWQhZkIWQhZCFkIWQhZCFkAVZCFmQBVkIWQhZCFkIWZCFkAVZskmWJk2afE95pipVqpQtW5bbIe/UvXv37JZFFMXx48d3pbxUp06dOnTowO2Qp5owYYJSqcw+WYiIkIWIkIWIkIWICFmICFmICFmIiJCFiJCFiJCFiJCFiCjL+j/g69xcEyj9XQAAAABJRU5ErkJggg==" /></p>
 <p>For this example, we will be using GRIDGEN and the FloPy utility <code class="docutils literal notranslate"><span class="pre">Gridgen</span></code> to create quadtree refinement around the streams in our example.</p>
@@ -1793,7 +1796,7 @@
 </div>
 </section>
 <section id="Triangular-Mesh">
-<h2>Triangular Mesh<a class="headerlink" href="#Triangular-Mesh" title="Link to this heading">¶</a></h2>
+<h2>Triangular Mesh<a class="headerlink" href="#Triangular-Mesh" title="Link to this heading"></a></h2>
 <p>An unstructured/vertex based triangular mesh can be generated using the code “triangle”(<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0925772101000475">Shewchuk, 2002</a>). And the FloPy utility, <code class="docutils literal notranslate"><span class="pre">Triangle</span></code> that creates inputs for and translates the outputs from “triangle”.</p>
 <p>For this example, we will be using triangle to generate a mesh and add refinement around the streams.</p>
 <div class="nbinput nblast docutils container">
@@ -2115,7 +2118,7 @@
 </div>
 </section>
 <section id="Voronoi-Mesh">
-<h2>Voronoi Mesh<a class="headerlink" href="#Voronoi-Mesh" title="Link to this heading">¶</a></h2>
+<h2>Voronoi Mesh<a class="headerlink" href="#Voronoi-Mesh" title="Link to this heading"></a></h2>
 <p>A voronoi mesh can be generated from the circumcirle centroids of each triangular node in a Delaunay triangulation. The centroid of each circumcirle produces a vertex for the voronoi mesh and these vertices are connected via adjacency relationships of the triangulation.</p>
 <p>FloPy has a built in utility <code class="docutils literal notranslate"><span class="pre">VoronoiGrid</span></code> that produces voronoi meshes from Delaunay triangulations. For more information and additional examples on <code class="docutils literal notranslate"><span class="pre">VoronoiGrid</span></code>’s usage, see this <a class="reference external" href="https://flopy.readthedocs.io/en/latest/Notebooks/dis_voronoi_example.html">notebook</a></p>
 <p>To generate a voronoi mesh, we just need to pass our triangluation object (<code class="docutils literal notranslate"><span class="pre">tri</span></code>) to the <code class="docutils literal notranslate"><span class="pre">VoronoiGrid</span></code> utility</p>
@@ -2294,7 +2297,7 @@
 </div>
 </div>
 <section id="plot-the-meshes-we-produced-side-by-side-for-comparison!">
-<h3>plot the meshes we produced side by side for comparison!<a class="headerlink" href="#plot-the-meshes-we-produced-side-by-side-for-comparison!" title="Link to this heading">¶</a></h3>
+<h3>plot the meshes we produced side by side for comparison!<a class="headerlink" href="#plot-the-meshes-we-produced-side-by-side-for-comparison!" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
@@ -2408,16 +2411,16 @@
 </div>
 </section>
 <section id="More-information">
-<h3>More information<a class="headerlink" href="#More-information" title="Link to this heading">¶</a></h3>
+<h3>More information<a class="headerlink" href="#More-information" title="Link to this heading"></a></h3>
 <p>For more inforation and and examples on how to use the utilities presented in this notebook please see:</p>
 <section id="Examples">
-<h4>Examples<a class="headerlink" href="#Examples" title="Link to this heading">¶</a></h4>
+<h4>Examples<a class="headerlink" href="#Examples" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="https://flopy.readthedocs.io/en/latest/examples.html">FloPy Examples Gallery</a></p></li>
 </ul>
 </section>
 <section id="API-reference">
-<h4>API reference<a class="headerlink" href="#API-reference" title="Link to this heading">¶</a></h4>
+<h4>API reference<a class="headerlink" href="#API-reference" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="https://flopy.readthedocs.io/en/latest/code.html#flopy-utilities">FloPy utils API reference</a></p></li>
 <li><p><a class="reference external" href="https://flopy.readthedocs.io/en/latest/source/flopy.utils.lgrutil.html">FloPy lgrutil API reference</a></p></li>
@@ -2429,7 +2432,7 @@
 </section>
 </section>
 <section id="Activity-(If-time-permits);-Build-a-Voronoi-mesh/Vertex-Grid:">
-<h2>Activity (If time permits); Build a Voronoi mesh/Vertex Grid:<a class="headerlink" href="#Activity-(If-time-permits);-Build-a-Voronoi-mesh/Vertex-Grid:" title="Link to this heading">¶</a></h2>
+<h2>Activity (If time permits); Build a Voronoi mesh/Vertex Grid:<a class="headerlink" href="#Activity-(If-time-permits);-Build-a-Voronoi-mesh/Vertex-Grid:" title="Link to this heading"></a></h2>
 <p>Define a voronoi grid for the basin upstream of the Black Earth Creek streamgauge near Cross Plains, WI. The upstream basin information is supplied by NLDI and has been saved to the class repo in case of internet connectivity or NLDI service issues.</p>
 <p>Some of the previous code can be re-used to create a voronoi mesh and subsequent <code class="docutils literal notranslate"><span class="pre">VertexGrid</span></code> representation of the basin. See the Triangular and Voronoi grid sections of the notebook.</p>
 <p><strong>Optional</strong>, use the Upstream Main segment of Black Earth Creek to refine the voronoi mesh around the stream location. Refinement control points have been pre-defined below.</p>
@@ -2596,7 +2599,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

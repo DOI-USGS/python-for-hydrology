@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -77,7 +79,8 @@
 <li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -120,7 +123,7 @@
            <div itemprop="articleBody">
              
   <section id="05:-NumPy-exercise-solutions">
-<h1>05: NumPy exercise solutions<a class="headerlink" href="#05:-NumPy-exercise-solutions" title="Link to this heading">¶</a></h1>
+<h1>05: NumPy exercise solutions<a class="headerlink" href="#05:-NumPy-exercise-solutions" title="Link to this heading"></a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -144,13 +147,13 @@ Data will be loaded from the following directory:  ../data/numpy
 </pre></div></div>
 </div>
 <section id="TEST-YOUR-SKILLS-#0">
-<h2>TEST YOUR SKILLS #0<a class="headerlink" href="#TEST-YOUR-SKILLS-#0" title="Link to this heading">¶</a></h2>
+<h2>TEST YOUR SKILLS #0<a class="headerlink" href="#TEST-YOUR-SKILLS-#0" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Write the Mt. St. Helens array (before) to a new file called <code class="docutils literal notranslate"><span class="pre">mynewarray.dat</span></code> in the same folder as <code class="docutils literal notranslate"><span class="pre">mt_st_helens_before.dat</span></code>. Explore different formats (see the note under <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html">documentation</a> for more) and see if you can read it back in again. What are the file size ramifications of format choices?</p></li>
 <li><p>Take a look at <code class="docutils literal notranslate"><span class="pre">bottom_commented.dat</span></code> in a text editor. What about this file? Can you read this file using <code class="docutils literal notranslate"><span class="pre">loadtxt</span></code> without having to manually change the file? Hint: look at the <code class="docutils literal notranslate"><span class="pre">loadtxt</span></code> arguments.</p></li>
 </ol>
 <section id="part-0.0">
-<h3>part 0.0<a class="headerlink" href="#part-0.0" title="Link to this heading">¶</a></h3>
+<h3>part 0.0<a class="headerlink" href="#part-0.0" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -182,7 +185,7 @@ Data will be loaded from the following directory:  ../data/numpy
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f9f80860090&gt;
+&lt;matplotlib.image.AxesImage at 0x7f49f42644d0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -223,7 +226,7 @@ Data will be loaded from the following directory:  ../data/numpy
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f9f6c311d10&gt;
+&lt;matplotlib.image.AxesImage at 0x7f49f43cb290&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -236,7 +239,7 @@ Data will be loaded from the following directory:  ../data/numpy
 </section>
 </section>
 <section id="part-0.1">
-<h2>part 0.1<a class="headerlink" href="#part-0.1" title="Link to this heading">¶</a></h2>
+<h2>part 0.1<a class="headerlink" href="#part-0.1" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -260,7 +263,7 @@ Data will be loaded from the following directory:  ../data/numpy
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f9f6c33c650&gt;
+&lt;matplotlib.image.AxesImage at 0x7f49e0f43310&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -273,7 +276,7 @@ Data will be loaded from the following directory:  ../data/numpy
 <p>what happens if you don’t include the <code class="docutils literal notranslate"><span class="pre">comment</span></code> argument?</p>
 </section>
 <section id="TEST-YOUR-SKILLS-#1">
-<h2>TEST YOUR SKILLS #1<a class="headerlink" href="#TEST-YOUR-SKILLS-#1" title="Link to this heading">¶</a></h2>
+<h2>TEST YOUR SKILLS #1<a class="headerlink" href="#TEST-YOUR-SKILLS-#1" title="Link to this heading"></a></h2>
 <p>Let’s calculate the amount of material lost from Mt. St. Helens in the 1980 eruption. We have the before and after elevation arrays in the data folder noted in the next cell. We will need to load them up.</p>
 <ul class="simple">
 <li><p>The before and after files are the same dimensions, but they have some zeros around the edges indicating “nodata” values.</p></li>
@@ -320,7 +323,7 @@ np.float64(3887120777.2749996)
 </pre></div></div>
 </div>
 <section id="are-there-the-same-number-of-0-values-in-each-array?">
-<h3>are there the same number of 0 values in each array?<a class="headerlink" href="#are-there-the-same-number-of-0-values-in-each-array?" title="Link to this heading">¶</a></h3>
+<h3>are there the same number of 0 values in each array?<a class="headerlink" href="#are-there-the-same-number-of-0-values-in-each-array?" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -343,7 +346,7 @@ using np.where
 </div>
 </section>
 <section id="d'oh!-not-the-same-....-what-to-do?">
-<h3>d’oh! not the same …. what to do?<a class="headerlink" href="#d'oh!-not-the-same-....-what-to-do?" title="Link to this heading">¶</a></h3>
+<h3>d’oh! not the same …. what to do?<a class="headerlink" href="#d'oh!-not-the-same-....-what-to-do?" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -565,7 +568,7 @@ np.float64(3919412444.975)
 </section>
 </section>
 <section id="TEST-YOUR-SKILLS-#2">
-<h2>TEST YOUR SKILLS #2<a class="headerlink" href="#TEST-YOUR-SKILLS-#2" title="Link to this heading">¶</a></h2>
+<h2>TEST YOUR SKILLS #2<a class="headerlink" href="#TEST-YOUR-SKILLS-#2" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>In an earlier exercise, you made x and y using the following lines of code. Now use vstack to add another row to y that has the cosine of x. Then plot them both on the same figure.</p></li>
 </ol>
@@ -656,7 +659,7 @@ array([[ 0.00000000e+00,  1.27877162e-01,  2.53654584e-01,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x7f9f6c38d310&gt;]
+[&lt;matplotlib.lines.Line2D at 0x7f49e0d77950&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -724,7 +727,7 @@ array([ 0.00000000e+00,  1.27877162e-01,  2.53654584e-01,  3.75267005e-01,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x7f9f6c06b510&gt;]
+[&lt;matplotlib.lines.Line2D at 0x7f49e0c2dd50&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -765,7 +768,7 @@ array([ 0.00000000e+00,  1.27877162e-01,  2.53654584e-01,  3.75267005e-01,
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

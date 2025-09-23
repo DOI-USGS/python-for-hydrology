@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -83,7 +85,8 @@
 <li class="toctree-l2"><a class="reference internal" href="07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -124,7 +127,7 @@
            <div itemprop="articleBody">
              
   <section id="06:-FloPy-class-project:-Structured-grid-version">
-<h1>06: FloPy class project: Structured grid version<a class="headerlink" href="#06:-FloPy-class-project:-Structured-grid-version" title="Link to this heading">¶</a></h1>
+<h1>06: FloPy class project: Structured grid version<a class="headerlink" href="#06:-FloPy-class-project:-Structured-grid-version" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -194,7 +197,7 @@
 </div>
 </div>
 <section id="Make-a-structured-model-grid">
-<h2>Make a structured model grid<a class="headerlink" href="#Make-a-structured-model-grid" title="Link to this heading">¶</a></h2>
+<h2>Make a structured model grid<a class="headerlink" href="#Make-a-structured-model-grid" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -221,11 +224,11 @@
 </div>
 </div>
 <section id="Intersect-the-modelgrid-with-the-shapefiles">
-<h3>Intersect the modelgrid with the shapefiles<a class="headerlink" href="#Intersect-the-modelgrid-with-the-shapefiles" title="Link to this heading">¶</a></h3>
+<h3>Intersect the modelgrid with the shapefiles<a class="headerlink" href="#Intersect-the-modelgrid-with-the-shapefiles" title="Link to this heading"></a></h3>
 </section>
 </section>
 <section id="Create-an-intersection-object">
-<h2>Create an intersection object<a class="headerlink" href="#Create-an-intersection-object" title="Link to this heading">¶</a></h2>
+<h2>Create an intersection object<a class="headerlink" href="#Create-an-intersection-object" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -236,7 +239,7 @@
 </div>
 </section>
 <section id="Intersect-inactive-and-active-shapefiles-with-the-modelgrid">
-<h2>Intersect inactive and active shapefiles with the modelgrid<a class="headerlink" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<h2>Intersect inactive and active shapefiles with the modelgrid<a class="headerlink" href="#Intersect-inactive-and-active-shapefiles-with-the-modelgrid" title="Link to this heading"></a></h2>
 <p>After all of the intersection operations, take a look at the data contained in the returned objects</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -271,7 +274,7 @@
 </div>
 </section>
 <section id="Intersect-well-shapefile-with-the-modelgrid">
-<h2>Intersect well shapefile with the modelgrid<a class="headerlink" href="#Intersect-well-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<h2>Intersect well shapefile with the modelgrid<a class="headerlink" href="#Intersect-well-shapefile-with-the-modelgrid" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -302,7 +305,7 @@
 </div>
 </section>
 <section id="Intersect-river-shapefile-with-the-modelgrid">
-<h2>Intersect river shapefile with the modelgrid<a class="headerlink" href="#Intersect-river-shapefile-with-the-modelgrid" title="Link to this heading">¶</a></h2>
+<h2>Intersect river shapefile with the modelgrid<a class="headerlink" href="#Intersect-river-shapefile-with-the-modelgrid" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -334,7 +337,7 @@
 </pre></div></div>
 </div>
 <section id="Intersect-constant-head-line-with-the-modelgrid">
-<h3>Intersect constant head line with the modelgrid<a class="headerlink" href="#Intersect-constant-head-line-with-the-modelgrid" title="Link to this heading">¶</a></h3>
+<h3>Intersect constant head line with the modelgrid<a class="headerlink" href="#Intersect-constant-head-line-with-the-modelgrid" title="Link to this heading"></a></h3>
 <p>Use a line with two points to defined the location of the constant head cells. The line verticase are <code class="docutils literal notranslate"><span class="pre">[(1250,</span> <span class="pre">0.1),</span> <span class="pre">(4250,</span> <span class="pre">0.1)]</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
@@ -370,7 +373,7 @@
 </div>
 </section>
 <section id="Resample-the-raster-data-to-the-modelgrid">
-<h3>Resample the raster data to the modelgrid<a class="headerlink" href="#Resample-the-raster-data-to-the-modelgrid" title="Link to this heading">¶</a></h3>
+<h3>Resample the raster data to the modelgrid<a class="headerlink" href="#Resample-the-raster-data-to-the-modelgrid" title="Link to this heading"></a></h3>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">resample_to_grid()</span></code> method on each raster object.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
@@ -400,7 +403,7 @@
 </div>
 </section>
 <section id="Plot-the-resampled-data">
-<h3>Plot the resampled data<a class="headerlink" href="#Plot-the-resampled-data" title="Link to this heading">¶</a></h3>
+<h3>Plot the resampled data<a class="headerlink" href="#Plot-the-resampled-data" title="Link to this heading"></a></h3>
 <p>Plot the aquifer top, bottom, and hydraulic conductivity. Also plot the aquifer thickness.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
@@ -475,7 +478,7 @@
 </section>
 </section>
 <section id="Build-the-model-data">
-<h2>Build the model data<a class="headerlink" href="#Build-the-model-data" title="Link to this heading">¶</a></h2>
+<h2>Build the model data<a class="headerlink" href="#Build-the-model-data" title="Link to this heading"></a></h2>
 <p><em>Create the bottom of each model layer</em></p>
 <p>Assume that the thickness of each layer at a row, column location is equal.</p>
 <div class="nbinput nblast docutils container">
@@ -1034,7 +1037,7 @@ array([[ True,  True,  True, ...,  True,  True,  True],
 </div>
 </section>
 <section id="Build-the-model">
-<h2>Build the model<a class="headerlink" href="#Build-the-model" title="Link to this heading">¶</a></h2>
+<h2>Build the model<a class="headerlink" href="#Build-the-model" title="Link to this heading"></a></h2>
 <p>Build a steady-state model using the data that you have created. Packages to create:</p>
 <ul class="simple">
 <li><p>Simulation</p></li>
@@ -1144,7 +1147,7 @@ array([[ True,  True,  True, ...,  True,  True,  True],
 </div>
 </section>
 <section id="Write-the-model-files">
-<h2>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading">¶</a></h2>
+<h2>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
@@ -1180,7 +1183,7 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;chd&#39;, &#39;dimensions&#39;) c
 </div>
 </section>
 <section id="Run-the-model">
-<h2>Run the model<a class="headerlink" href="#Run-the-model" title="Link to this heading">¶</a></h2>
+<h2>Run the model<a class="headerlink" href="#Run-the-model" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
@@ -1241,7 +1244,7 @@ and distribution information.
 </div>
 </section>
 <section id="Post-process-the-results">
-<h2>Post-process the results<a class="headerlink" href="#Post-process-the-results" title="Link to this heading">¶</a></h2>
+<h2>Post-process the results<a class="headerlink" href="#Post-process-the-results" title="Link to this heading"></a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">gwf.output.</span></code> method to get the observations.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
@@ -1433,7 +1436,7 @@ dtype([(&#39;totim&#39;, &#39;&lt;f8&#39;), (&#39;UPSTREAM&#39;, &#39;&lt;f8&#39
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

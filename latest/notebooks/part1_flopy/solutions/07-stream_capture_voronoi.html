@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -83,7 +85,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -124,7 +127,7 @@
            <div itemprop="articleBody">
              
   <section id="07:-Evaluating-stream-capture-with-a-Voronoi-grid">
-<h1>07: Evaluating stream capture with a Voronoi grid<a class="headerlink" href="#07:-Evaluating-stream-capture-with-a-Voronoi-grid" title="Link to this heading">¶</a></h1>
+<h1>07: Evaluating stream capture with a Voronoi grid<a class="headerlink" href="#07:-Evaluating-stream-capture-with-a-Voronoi-grid" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -139,7 +142,7 @@
 </div>
 </div>
 <section id="load-in-the-voronoi-version-of-the-class-project-model">
-<h2>load in the voronoi version of the class project model<a class="headerlink" href="#load-in-the-voronoi-version-of-the-class-project-model" title="Link to this heading">¶</a></h2>
+<h2>load in the voronoi version of the class project model<a class="headerlink" href="#load-in-the-voronoi-version-of-the-class-project-model" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -167,7 +170,7 @@
 </div>
 </section>
 <section id="let's-make-sure-we-can-read-in-the-SFR-observations-data-which-we-will-need-for-calculating-depletion">
-<h2>let’s make sure we can read in the SFR observations data which we will need for calculating depletion<a class="headerlink" href="#let's-make-sure-we-can-read-in-the-SFR-observations-data-which-we-will-need-for-calculating-depletion" title="Link to this heading">¶</a></h2>
+<h2>let’s make sure we can read in the SFR observations data which we will need for calculating depletion<a class="headerlink" href="#let's-make-sure-we-can-read-in-the-SFR-observations-data-which-we-will-need-for-calculating-depletion" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -236,7 +239,7 @@
 </div>
 </section>
 <section id="find-all-the-locations-of-cells">
-<h2>find all the locations of cells<a class="headerlink" href="#find-all-the-locations-of-cells" title="Link to this heading">¶</a></h2>
+<h2>find all the locations of cells<a class="headerlink" href="#find-all-the-locations-of-cells" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -480,7 +483,7 @@
 </div>
 </section>
 <section id="find-the-locations-of-cells-that-contain-streams-and-let's-not-place-wells-in-or-under-them">
-<h2>find the locations of cells that contain streams and let’s not place wells in or under them<a class="headerlink" href="#find-the-locations-of-cells-that-contain-streams-and-let's-not-place-wells-in-or-under-them" title="Link to this heading">¶</a></h2>
+<h2>find the locations of cells that contain streams and let’s not place wells in or under them<a class="headerlink" href="#find-the-locations-of-cells-that-contain-streams-and-let's-not-place-wells-in-or-under-them" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -954,7 +957,7 @@
 </div>
 </section>
 <section id="now-we-can-find-the-cells-from-disv-that-are-not-also-in-SFR-using-a-set-operation">
-<h2>now we can find the cells from disv that are <em>not</em> also in SFR using a <code class="docutils literal notranslate"><span class="pre">set</span></code> operation<a class="headerlink" href="#now-we-can-find-the-cells-from-disv-that-are-not-also-in-SFR-using-a-set-operation" title="Link to this heading">¶</a></h2>
+<h2>now we can find the cells from disv that are <em>not</em> also in SFR using a <code class="docutils literal notranslate"><span class="pre">set</span></code> operation<a class="headerlink" href="#now-we-can-find-the-cells-from-disv-that-are-not-also-in-SFR-using-a-set-operation" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -1009,7 +1012,7 @@
 </div>
 </section>
 <section id="now-lets-load-the-well-file-to-find-a-representative-pumping-rate">
-<h2>now lets load the well file to find a representative pumping rate<a class="headerlink" href="#now-lets-load-the-well-file-to-find-a-representative-pumping-rate" title="Link to this heading">¶</a></h2>
+<h2>now lets load the well file to find a representative pumping rate<a class="headerlink" href="#now-lets-load-the-well-file-to-find-a-representative-pumping-rate" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -1101,7 +1104,7 @@
 </div>
 </section>
 <section id="now-let's-see-about-adding-a-new-well---we-will-reload-the-model-and-reset-the-path-to-be-sure-and-not-stomp-on-the-original-model">
-<h2>now let’s see about adding a new well - we will reload the model and reset the path to be sure and not stomp on the original model<a class="headerlink" href="#now-let's-see-about-adding-a-new-well---we-will-reload-the-model-and-reset-the-path-to-be-sure-and-not-stomp-on-the-original-model" title="Link to this heading">¶</a></h2>
+<h2>now let’s see about adding a new well - we will reload the model and reset the path to be sure and not stomp on the original model<a class="headerlink" href="#now-let's-see-about-adding-a-new-well---we-will-reload-the-model-and-reset-the-path-to-be-sure-and-not-stomp-on-the-original-model" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
@@ -1140,7 +1143,7 @@ dtype: object
 </div>
 </section>
 <section id="now-we-can-add-a-new-well-with-the-average-Q-in-layer-0,-cell-0">
-<h2>now we can add a new well with the average Q in layer 0, cell 0<a class="headerlink" href="#now-we-can-add-a-new-well-with-the-average-Q-in-layer-0,-cell-0" title="Link to this heading">¶</a></h2>
+<h2>now we can add a new well with the average Q in layer 0, cell 0<a class="headerlink" href="#now-we-can-add-a-new-well-with-the-average-Q-in-layer-0,-cell-0" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -1424,7 +1427,7 @@ WARNING REPORT:
 </div>
 </section>
 <section id="now-read-in-the-SFR-observations-and-compare-with-the-base-run">
-<h2>now read in the SFR observations and compare with the base run<a class="headerlink" href="#now-read-in-the-SFR-observations-and-compare-with-the-base-run" title="Link to this heading">¶</a></h2>
+<h2>now read in the SFR observations and compare with the base run<a class="headerlink" href="#now-read-in-the-SFR-observations-and-compare-with-the-base-run" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
@@ -1625,10 +1628,10 @@ array([-315.98438773])
 </div>
 </section>
 <section id="Cool!-We-can-see-a-difference-in-flow-pretty-close-to-the-new-pumping-rate.-Now-we-are-ready-to-systematically-work-with-the-entire-model!">
-<h2>Cool! We can see a difference in flow pretty close to the new pumping rate. Now we are ready to systematically work with the entire model!<a class="headerlink" href="#Cool!-We-can-see-a-difference-in-flow-pretty-close-to-the-new-pumping-rate.-Now-we-are-ready-to-systematically-work-with-the-entire-model!" title="Link to this heading">¶</a></h2>
+<h2>Cool! We can see a difference in flow pretty close to the new pumping rate. Now we are ready to systematically work with the entire model!<a class="headerlink" href="#Cool!-We-can-see-a-difference-in-flow-pretty-close-to-the-new-pumping-rate.-Now-we-are-ready-to-systematically-work-with-the-entire-model!" title="Link to this heading"></a></h2>
 </section>
 <section id="now-let's-make-a-dataframe-to-hold-the-depletion-calculation-results">
-<h2>now let’s make a dataframe to hold the depletion calculation results<a class="headerlink" href="#now-let's-make-a-dataframe-to-hold-the-depletion-calculation-results" title="Link to this heading">¶</a></h2>
+<h2>now let’s make a dataframe to hold the depletion calculation results<a class="headerlink" href="#now-let's-make-a-dataframe-to-hold-the-depletion-calculation-results" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
@@ -1751,9 +1754,9 @@ array([-315.98438773])
 </div>
 </section>
 <section id="now-make-a-function-to-run-...-the-slow-way">
-<h2>now make a function to run … the slow way<a class="headerlink" href="#now-make-a-function-to-run-...-the-slow-way" title="Link to this heading">¶</a></h2>
+<h2>now make a function to run … the slow way<a class="headerlink" href="#now-make-a-function-to-run-...-the-slow-way" title="Link to this heading"></a></h2>
 <section id="we-know-how-to-read-in-the-model-with-flopy,-make-a-change,-run-it,-etc.-all-using-flopy">
-<h3>we know how to read in the model with flopy, make a change, run it, etc. all using flopy<a class="headerlink" href="#we-know-how-to-read-in-the-model-with-flopy,-make-a-change,-run-it,-etc.-all-using-flopy" title="Link to this heading">¶</a></h3>
+<h3>we know how to read in the model with flopy, make a change, run it, etc. all using flopy<a class="headerlink" href="#we-know-how-to-read-in-the-model-with-flopy,-make-a-change,-run-it,-etc.-all-using-flopy" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
@@ -12131,14 +12134,14 @@ WARNING REPORT:
 </div>
 </section>
 <section id="now-make-a-function-to-run-...-the-FAST-way">
-<h3>now make a function to run … the FAST way<a class="headerlink" href="#now-make-a-function-to-run-...-the-FAST-way" title="Link to this heading">¶</a></h3>
+<h3>now make a function to run … the FAST way<a class="headerlink" href="#now-make-a-function-to-run-...-the-FAST-way" title="Link to this heading"></a></h3>
 </section>
 <section id="we-will-use-flopy-only-to-make-the-initial-model-and-then-manipulate-and-run-only-with-MF6-files-directly">
-<h3>we will use flopy only to make the initial model and then manipulate and run only with MF6 files directly<a class="headerlink" href="#we-will-use-flopy-only-to-make-the-initial-model-and-then-manipulate-and-run-only-with-MF6-files-directly" title="Link to this heading">¶</a></h3>
+<h3>we will use flopy only to make the initial model and then manipulate and run only with MF6 files directly<a class="headerlink" href="#we-will-use-flopy-only-to-make-the-initial-model-and-then-manipulate-and-run-only-with-MF6-files-directly" title="Link to this heading"></a></h3>
 </section>
 </section>
 <section id="make-a-test-directory-to-run-in">
-<h2>make a test directory to run in<a class="headerlink" href="#make-a-test-directory-to-run-in" title="Link to this heading">¶</a></h2>
+<h2>make a test directory to run in<a class="headerlink" href="#make-a-test-directory-to-run-in" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
@@ -12740,7 +12743,7 @@ continuous
 </div>
 </section>
 <section id="navigate-the-wel-file-to-see-where-to-put-the-new-cell-ids">
-<h2>navigate the wel file to see where to put the new cell ids<a class="headerlink" href="#navigate-the-wel-file-to-see-where-to-put-the-new-cell-ids" title="Link to this heading">¶</a></h2>
+<h2>navigate the wel file to see where to put the new cell ids<a class="headerlink" href="#navigate-the-wel-file-to-see-where-to-put-the-new-cell-ids" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
@@ -12821,7 +12824,7 @@ continuous
 </div>
 </section>
 <section id="now-we-can-run-these-by-just-rewriting-the-wel-file-directly-and-suppressing-output---should-be-faster">
-<h2>now we can run these by just rewriting the wel file directly and suppressing output - should be faster<a class="headerlink" href="#now-we-can-run-these-by-just-rewriting-the-wel-file-directly-and-suppressing-output---should-be-faster" title="Link to this heading">¶</a></h2>
+<h2>now we can run these by just rewriting the wel file directly and suppressing output - should be faster<a class="headerlink" href="#now-we-can-run-these-by-just-rewriting-the-wel-file-directly-and-suppressing-output---should-be-faster" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
@@ -12967,7 +12970,7 @@ continuous
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

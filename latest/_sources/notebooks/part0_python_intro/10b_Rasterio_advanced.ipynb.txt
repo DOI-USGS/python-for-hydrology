@@ -1,0 +1,1002 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "57e747dd",
+   "metadata": {},
+   "source": [
+    "# 10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier\n",
+    "\n",
+    "This exercise focuses on working with [GIS raster data](https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/raster_data.html). It is based on a [GeoHackWeek tutorial](https://github.com/geohackweek/tutorial_contents/blob/master/raster/notebooks/rainier_dem_example.ipynb). We will use the `rasterio` and `rasterstats` libraries, along with `numpy` and `matplotlib` to look changes in the surface elevations of mapped glaciers since 1970.\n",
+    "\n",
+    "#### Key takeaways:\n",
+    "* raster formats such as GeoTiff map array data on a regular grid using a simple transform (offset, rotation and pixel size).\n",
+    "* working with raster data in python is inherently a little difficult, because the raster data model is designed to work efficiently with large datasets on disk (without loading whole thing into memory). Other available tools, such as the [gdal commandline tools](https://gdal.org/programs/index.html) or ArcPy macros, tend to stay in this paradigm by taking files as input to functions that write files as output.\n",
+    "* conversely, when we work with arrays in-memory with `numpy`, we typically think it terms of rows and columns\n",
+    "\n",
+    "#### The main idea is to   \n",
+    "   1) use `rasterio` (or another tool) to handle the files and any transformations needed to align the data. As we'll see below, most of these operations aren't especially intuitive or easy to remember. Thankfully, there are recipes available online that are easy to copy for performing common tasks. The [rasterio manual](https://rasterio.readthedocs.io/en/stable/) is a great place to start.  \n",
+    "   2) once the data are in numpy, use `numpy` and other tools in the scientific python stack (e.g. `scipy`) to do the computations  \n",
+    "\n",
+    "#### Datasets:\n",
+    "* 3 Digital Elevation Models (DEMs) of Mt. Rainier elevations in 1970, 2008 and 2015; each on a different grid.\n",
+    "* shapefile of glacier extents\n",
+    "\n",
+    "#### Operations:\n",
+    "* read and write rasters to/from `numpy` arrays\n",
+    "* plotting raster data\n",
+    "* warping (resampling) raster data to different grids\n",
+    "* reprojecting raster data to different coordinate reference systems\n",
+    "* getting raster data at discrete points\n",
+    "* zonal statistics\n",
+    "* mapping vector features onto rasters (\"rasterizing\")\n",
+    "\n",
+    "#### References:\n",
+    "* The [rasterio manual](https://rasterio.readthedocs.io/en/stable/)\n",
+    "* The [GeoHackWeek tutorials](https://geohackweek.github.io/raster/) for more information on working with raster data in the python"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7904f227",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import geopandas as gp\n",
+    "import rasterio\n",
+    "from rasterio.plot import show\n",
+    "from rasterio import features\n",
+    "import matplotlib.pyplot as plt\n",
+    "from matplotlib.colors import LightSource\n",
+    "import pathlib as pl\n",
+    "\n",
+    "# for elevation hillshade if we want to use it\n",
+    "ls = LightSource(azdeg=315, altdeg=45)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "92d2c8e2",
+   "metadata": {},
+   "source": [
+    "### Define out input data\n",
+    "\n",
+    "We'll be working with three rasters and a single shapefile for this exercise"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "84af4c31",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_path = pl.Path(\"data/rasterio\")\n",
+    "\n",
+    "dem_file_1970 = data_path / \"19700901_ned1_2003_adj_warp.tif\"\n",
+    "dem_file_2008 = data_path / \"20080901_rainierlidar_30m-adj.tif\"\n",
+    "dem_file_2015 = data_path / \"20150818_rainier_summer-tile-30.tif\"\n",
+    "\n",
+    "glaciers_shapefile = data_path / \"rgi60_glacierpoly_rainier.shp\"\n",
+    "\n",
+    "input_rasters = {\n",
+    "    1970: dem_file_1970,\n",
+    "    2008: dem_file_2008,\n",
+    "    2015: dem_file_2015\n",
+    "}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "60ece7c5",
+   "metadata": {},
+   "source": [
+    "### Quickly view a raster with rasterio"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c19b4dca",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with rasterio.open(input_rasters[1970]) as src:\n",
+    "    show(src)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4304a69a",
+   "metadata": {},
+   "source": [
+    "### Get raster values at point locations\n",
+    "\n",
+    "if we have a list of (x, y) tuples, we can unpack it into two lists of x and y values:\n",
+    "`zip(*points)`  \n",
+    "\n",
+    "`zip(*points)` returns a tuple of the two lists"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6e255fd4",
+   "metadata": {},
+   "source": [
+    "First let's define visualize our point locations on our raster"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "495e21b6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "points = [\n",
+    "    (594508.70, 5189550.08), # summit, in utm zone 10N\n",
+    "    (596702, 5187675) # camp muir\n",
+    "]\n",
+    "x, y = zip(*points)\n",
+    "fig, ax = plt.subplots(figsize=(8, 8))\n",
+    "with rasterio.open(input_rasters[2015]) as src:\n",
+    "     ax = show(src, ax=ax, zorder=1, cmap=\"plasma\", vmin=500, vmax=4500)\n",
+    "\n",
+    "ax.scatter(x, y, c=\"k\", s=50, zorder=5)\n",
+    "ax.set_facecolor(\"lightgrey\")\n",
+    "plt.colorbar(ax.images[0], shrink=0.7);"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d50d5e38-6778-44ac-9949-f4c98719ce9e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "xpts, ypts = list(zip(*points))\n",
+    "# points"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "404a972a",
+   "metadata": {},
+   "source": [
+    "#### Now let's sample elevations at these points\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5c7dc4cb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with rasterio.open(input_rasters[2015]) as src:  \n",
+    "    meta = src.meta\n",
+    "    data = src.read(1)\n",
+    "    i, j = [], []\n",
+    "    for ix in range(len(xpts)):\n",
+    "        ti, tj = src.index(xpts[ix], ypts[ix])\n",
+    "        i.append(ti)\n",
+    "        j.append(tj)\n",
+    "print(data[i, j])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2bcf0642",
+   "metadata": {},
+   "source": [
+    "### Viewing the 3 rasters side by side as subplots\n",
+    "\n",
+    "The data are all on different grids with varying extents and projections. Let's plot them up to visualize this.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "71e0958e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, axes = plt.subplots(1, 3, figsize=(21, 7))\n",
+    "\n",
+    "meta = {}\n",
+    "for i, (year, f) in enumerate(input_rasters.items()):\n",
+    "    with rasterio.open(f) as src:\n",
+    "        \n",
+    "        # get the metadata\n",
+    "        meta[year] = src.meta\n",
+    "        \n",
+    "        # plot the data\n",
+    "        if i == 0:\n",
+    "            data = src.read(1)\n",
+    "            vmin, vmax = data.min(), data.max()\n",
+    "        ax=axes.flat[i]\n",
+    "        show(src, ax=ax, vmin=vmin, vmax=vmax)\n",
+    "        ax.set_title(year)\n",
+    "        ax.set_facecolor(\"lightgrey\")\n",
+    "        plt.colorbar(ax.images[0], ax=ax, \n",
+    "                     orientation='horizontal', label='elevation, m')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "38b5c062",
+   "metadata": {},
+   "source": [
+    "We see what these are by fetching the metadata dictionary (`src.meta` attribute) for each one. Each grid is described in the metadata:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a92ce030",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "meta"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "da122c53",
+   "metadata": {},
+   "source": [
+    "### Warp the 1970 and 2008 rasters onto the 2015 grid\n",
+    "\n",
+    "The code below was copied from the [rasterio manual](https://rasterio.readthedocs.io/en/stable/topics/virtual-warping.html). The result is a new set of files aligned to the destination grid."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ec175a75",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from rasterio.enums import Resampling\n",
+    "from rasterio.vrt import WarpedVRT\n",
+    "from rasterio import shutil as rio_shutil\n",
+    "\n",
+    "\n",
+    "vrt_options = {\n",
+    "    'resampling': Resampling.cubic,\n",
+    "    'crs': meta[2015]['crs'],\n",
+    "    'transform': meta[2015]['transform'],\n",
+    "    'height': meta[2015]['height'],\n",
+    "    'width': meta[2015]['width'],\n",
+    "}\n",
+    "\n",
+    "aligned_rasters = {}\n",
+    "for year, path in input_rasters.items():\n",
+    "\n",
+    "    with rasterio.open(path) as src:\n",
+    "\n",
+    "        with WarpedVRT(src, **vrt_options) as vrt:\n",
+    "\n",
+    "            # At this point 'vrt' is a full dataset with dimensions,\n",
+    "            # CRS, and spatial extent matching 'vrt_options'.\n",
+    "\n",
+    "            # Read all data into memory.\n",
+    "            data = vrt.read()\n",
+    "\n",
+    "            # Process the dataset in chunks.  Likely not very efficient.\n",
+    "            for _, window in vrt.block_windows():\n",
+    "                data = vrt.read(window=window)\n",
+    "\n",
+    "            # Dump the aligned data into a new file.  A VRT representing\n",
+    "            # this transformation can also be produced by switching\n",
+    "            # to the VRT driver.\n",
+    "            name = path.name\n",
+    "            outfile = data_path / f'aligned-{name}'\n",
+    "            rio_shutil.copy(vrt, outfile, driver='GTiff')\n",
+    "            print('wrote {}'.format(outfile))\n",
+    "            aligned_rasters[year] = outfile"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "415cc56c",
+   "metadata": {},
+   "source": [
+    "#### Now let's make sure all three are on the same grid"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d063aa24",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "meta = {}\n",
+    "for year, f in aligned_rasters.items():\n",
+    "    with rasterio.open(f) as src:\n",
+    "        meta[year] = src.meta\n",
+    "meta"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "70132a7d",
+   "metadata": {},
+   "source": [
+    "Success!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a441d464",
+   "metadata": {},
+   "source": [
+    "### Read the aligned grids into a new set of masked numpy arrays\n",
+    "\n",
+    "`rasterio` can be used to construct masked numpy arrays based on the `'nodata'` value in the raster metadata"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b073e33b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "aligned_data = {}\n",
+    "for year, f in aligned_rasters.items():\n",
+    "    with rasterio.open(f) as src:\n",
+    "        data = src.read(1, masked=True)\n",
+    "        aligned_data[year] = data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "afc8c367",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "aligned_data[2015]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8679c4a8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots(figsize=(8, 8))\n",
+    "im = ax.imshow(aligned_data[2015])\n",
+    "ax.set_facecolor(\"lightgrey\")\n",
+    "plt.colorbar(im, shrink=0.7);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9803c57f",
+   "metadata": {},
+   "source": [
+    "### Assign information on shared raster grid to variables for later use"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cb35b2b0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "epsg_32610 = meta[2015]['crs']\n",
+    "transform = meta[2015]['transform']\n",
+    "nrow, ncol = aligned_data[2015].shape\n",
+    "cellsize = transform[0]\n",
+    "extent = src.bounds[0], src.bounds[2], src.bounds[1], src.bounds[3]  # extent for plotting (xmin, xmax, ymin, ymax)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2c8d2721",
+   "metadata": {},
+   "source": [
+    "### Get the summit elevation\n",
+    "\n",
+    "Ss noted in the original GeoHackWeek example, the elevation values in these rasters are relative to the WGS84 datum,\n",
+    "not a geoid model that approximate sea level. The geoid offset at Rainier is approximately 18.79 m, meaning that we have to add we have to add this to the values to get the [correct summit elevation of 14,411 ft](https://en.wikipedia.org/wiki/Mount_Rainier)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d2787637",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "summit_ij = np.unravel_index(aligned_data[1970].argmax(), aligned_data[1970].shape)\n",
+    "summit_ij"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ced98eb4",
+   "metadata": {},
+   "source": [
+    "The corrected summit elevations being a little under 14,411 is a little unsatisfying, but one of the costs of downsampling the DEMs to a 30 m resolution to conserve space. At any rate, since we are interested in differences, the geoid offset doesn't matter for the remainder of our analysis."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5eb80b57",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "elevation_offset = 18.79\n",
+    "(aligned_data[1970][summit_ij] + elevation_offset) * 3.2084  # in feet"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e81ff8b4",
+   "metadata": {},
+   "source": [
+    "### Compute the elevation differences"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f47075d2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "elevation_diffs = {}\n",
+    "elevation_diffs['1970-2008'] = aligned_data[2008] - aligned_data[1970]\n",
+    "elevation_diffs['2008-2015'] = aligned_data[2015] - aligned_data[2008]\n",
+    "elevation_diffs['1970-2015'] = aligned_data[2015] - aligned_data[1970]\n",
+    "\n",
+    "fig, axes = plt.subplots(1, 3, figsize=(21, 7))\n",
+    "\n",
+    "for i, (dates, diffs) in enumerate(elevation_diffs.items()):\n",
+    "\n",
+    "    ax=axes.flat[i]\n",
+    "    im = ax.imshow(diffs, cmap='RdBu', vmin=-30, vmax=30)\n",
+    "    ax.set_facecolor(\"lightgrey\")\n",
+    "    ax.set_title(dates)\n",
+    "\n",
+    "fig.colorbar(im, ax=axes.ravel(), label='elevation change, m', shrink=0.6, extend='both');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4423d5a4",
+   "metadata": {},
+   "source": [
+    "### Average rates of change"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bf8b260d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "elevation_rates = {}\n",
+    "for dates, diffs in elevation_diffs.items():\n",
+    "    yr0, yr1 = map(int, dates.split('-'))\n",
+    "    annual_rate = diffs/(yr1-yr0)\n",
+    "    elevation_rates[dates] = annual_rate\n",
+    "    \n",
+    "fig, axes = plt.subplots(1, 3, figsize=(21, 7))\n",
+    "\n",
+    "for i, (dates, rates) in enumerate(elevation_rates.items()):\n",
+    "\n",
+    "    ax=axes.flat[i]\n",
+    "    im = ax.imshow(rates, cmap='RdBu', vmin=-2, vmax=2)\n",
+    "    ax.set_facecolor(\"lightgrey\")\n",
+    "    ax.set_title(dates)\n",
+    "\n",
+    "fig.colorbar(im, ax=axes.ravel(), label='average rate of change, m/yr', shrink=0.6, extend='both');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3eaa458a",
+   "metadata": {},
+   "source": [
+    "Notice the huge changes around the margins of the mountain. These are due to the 1970 and 2008 DEMs representing \"bare ground\", while the 2015 DEM includes trees."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cfe6d177",
+   "metadata": {},
+   "source": [
+    "### Map the shapefile of glacier extents onto the same grid as the rasters\n",
+    "* first reproject the glacier features to the same crs as the rasters\n",
+    "* then make a column of unique identifiers (integers) for relating the features to raster pixels"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f62c331f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "glaciers = gp.read_file(glaciers_shapefile)\n",
+    "glaciers.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "847bd07b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "glaciers.to_crs(epsg_32610, inplace=True)\n",
+    "glaciers['id'] = np.arange(1, len(glaciers) + 1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "21162310",
+   "metadata": {},
+   "source": [
+    "### Use rasterio to rasterize the glacier extents\n",
+    "* input is a collection of the (feature geometry, unique value) tuples and an [Affine transform](https://github.com/rasterio/affine). Further reading on affine transforms can be found [here](https://en.wikipedia.org/wiki/Affine_transformation).\n",
+    "* output is a numpy array "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5d6d93a2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "geoms = zip(glaciers.geometry, glaciers.id)\n",
+    "glacier_footprints = features.rasterize(geoms, out_shape=(nrow, ncol), transform=transform)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b299ad3d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mask = glacier_footprints == 0\n",
+    "masked_footprint = np.ma.masked_array(glacier_footprints, mask=mask)\n",
+    "\n",
+    "# plot footprints\n",
+    "fig, ax = plt.subplots(figsize=(8, 8))\n",
+    "im = ax.imshow(masked_footprint)\n",
+    "ax.set_facecolor(\"lightgrey\")\n",
+    "plt.colorbar(im, shrink=0.7);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "14ba9337",
+   "metadata": {},
+   "source": [
+    "### Clip the 1970-2015 raster to get an estimate of total volume change for all glaciers\n",
+    "\n",
+    "Using the mask we created before, we can clip the elevation difference arrays to estimate the total volume of change for all of the glaciers"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fae44f83",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "masked_diffs = np.ma.masked_array(elevation_diffs[\"1970-2015\"], mask=mask)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c334ff8f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "total_vol_change = masked_diffs.sum() * cellsize ** 2 / 1000**3\n",
+    "\n",
+    "fig, ax = plt.subplots(figsize=(8, 8))\n",
+    "im = plt.imshow(masked_diffs, cmap='RdBu', vmin=-80, vmax=80)\n",
+    "\n",
+    "ax.text(10, 50, \"Total volume change: {:.2f} km$^3$\".format(total_vol_change))\n",
+    "ax.set_facecolor(\"lightgrey\")\n",
+    "plt.colorbar(im, label='change in m', shrink=0.6, extend='both');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6dd584f2",
+   "metadata": {},
+   "source": [
+    "### Get volume change by glacier, see if it relates to minimum elevation"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "eb7b30f3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "vol_change = []\n",
+    "for n in glaciers.id.values:\n",
+    "    # compute total volume change\n",
+    "    change_1970_2015 = elevation_diffs['1970-2015'][glacier_footprints == n]\n",
+    "    vc = change_1970_2015.sum() * cellsize ** 2 / 1000**3\n",
+    "    vol_change.append(vc)\n",
+    "    \n",
+    "glaciers['d_vol_km3'] = vol_change"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dd687458",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "glaciers.sort_values(by='d_vol_km3', inplace=True)\n",
+    "glaciers.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0eca3ebb",
+   "metadata": {},
+   "source": [
+    "#### Now we can plot the volume of change vs minimum elevation `'Zmin'`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "288f6f41",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots(figsize=(11, 8.5))\n",
+    "s = ax.scatter(glaciers.Zmin, glaciers.d_vol_km3, c=glaciers.d_vol_km3, cmap='plasma_r')\n",
+    "for i, r in glaciers.head(10).iterrows():\n",
+    "    ax.text(r.Zmin * 1.03, r.d_vol_km3, r.Name)\n",
+    "ax.set_ylabel('Volume change, 1970-2015, km$^3$')\n",
+    "ax.set_xlabel('Minimum elevation, in meters')\n",
+    "plt.colorbar(s, label='change in km$^3$');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "45720955",
+   "metadata": {},
+   "source": [
+    "We can also plot this relationship spatially using geopandas"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f588a1b7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots(figsize=(11, 8.5))\n",
+    "\n",
+    "ax.imshow(ls.hillshade(aligned_data[1970], vert_exag=0.5), cmap='gray', extent=extent)\n",
+    "ax = glaciers.plot('d_vol_km3', ax=ax, legend=True, zorder=10, alpha=0.5, cmap=\"plasma_r\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "59e63f67",
+   "metadata": {},
+   "source": [
+    "If we regress by area, we see that volume change is coorelated to the original area of the glacier"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ce95bdbd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots(figsize=(11, 8.5))\n",
+    "s = ax.scatter(glaciers.Area, glaciers.d_vol_km3, c=glaciers.d_vol_km3, cmap='plasma_r')\n",
+    "for i, r in glaciers.head(10).iterrows():\n",
+    "    ax.text(r.Area - 2.03, r.d_vol_km3 - 0.003, r.Name)\n",
+    "ax.set_ylabel('Volume change, 1970-2015, km$^3$')\n",
+    "ax.set_xlabel('Glacial area in km$^2$')\n",
+    "plt.colorbar(s, label='change in km$^3$');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a3b7081e",
+   "metadata": {},
+   "source": [
+    "Lets plot only the elevation differences in glaciers now"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "148c9f24",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "just_glaciers = np.ma.masked_array(elevation_diffs['1970-2015'], mask=mask)\n",
+    "fig, ax = plt.subplots(figsize=(11, 8.5))\n",
+    "\n",
+    "ax.imshow(\n",
+    "    ls.hillshade(\n",
+    "        aligned_data[1970], \n",
+    "        vert_exag=0.2\n",
+    "    ), \n",
+    "    cmap='gray', \n",
+    "    zorder=-1\n",
+    ")\n",
+    "plt.imshow(just_glaciers, cmap='RdBu', vmin=-30, vmax=30, alpha=0.8)\n",
+    "plt.colorbar(label='Change in glacier elevation, 1970-2015, meters')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f1b11d23",
+   "metadata": {},
+   "source": [
+    "### Writing a raster: save out 1970-2015 elevation changes\n",
+    "\n",
+    "To do this, we need to provide rasterio with the same information we got when we read the metadata for the aligned rasters (the elevation changes are on the same grid).\n",
+    "* first reset the mask to include all areas outside of the glacier footprints\n",
+    "* to simplify things, we can just copy the metadata dict we already have, and feed it to `rasterio.open` as keyword arguments by unpacking it (`**` notation)\n",
+    "    * let's add compression though to reduce the file size\n",
+    "* we can have rasterio write the mask as well\n",
+    "* Note that a raster can have more than one band. [This code (see `export_array` function)](https://github.com/aleaf/modflow-export/blob/master/mfexport/array_export.py) illustrates writing a 3D raster with a 3D mask to a single GeoTiff with multiple bands."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d557e119",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "elevation_diffs['1970-2015'] = np.ma.masked_array(elevation_diffs['1970-2015'], mask=mask)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5e2b3dc9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "out_meta = meta[2015].copy()\n",
+    "out_meta['compress'] = 'lzw'\n",
+    "out_meta"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "892a6c49",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "el_change_outfile = data_path / 'rainier_glaciers_1970-2015_el_change_m.tif'\n",
+    "with rasterio.open(el_change_outfile, 'w', **out_meta) as dest:\n",
+    "    \n",
+    "    # write the data to band 1\n",
+    "    dest.write(elevation_diffs['1970-2015'], 1)\n",
+    "    \n",
+    "    # write the mask as well\n",
+    "    dest.write_mask(~elevation_diffs['1970-2015'].mask)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d705b584",
+   "metadata": {},
+   "source": [
+    "### What if we want to reproject to a different CRS?\n",
+    "\n",
+    "* We already have the information we need in memory, but it easiest to simply open a raster with the source grid and then read the metadata from the rasterio file instance\n",
+    "* We'll then feed that information to the `rasterio.warp.calculate_default_transform` function, which will return a new orientation (transform instance) and dimensions for the raster in the destination CRS.\n",
+    "* We'll use the new location information to update the metadata from the source grid\n",
+    "* The code below was taken from the [rasterio manual](https://rasterio.readthedocs.io/en/stable/topics/reproject.html) section on reprojection"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "80d3d404",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "out_meta"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1b47afed",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from rasterio.crs import CRS\n",
+    "from rasterio.warp import calculate_default_transform, reproject, Resampling\n",
+    "\n",
+    "dst_crs = 'epsg:4269'\n",
+    "with rasterio.open(el_change_outfile) as src:\n",
+    "    transform, width, height = calculate_default_transform(\n",
+    "        src.crs, dst_crs, src.width, src.height, *src.bounds)\n",
+    "    \n",
+    "    # copy the source metadata\n",
+    "    kwargs = src.meta.copy()\n",
+    "    \n",
+    "    # update it with the new location information\n",
+    "    kwargs.update({\n",
+    "    'crs': dst_crs,\n",
+    "    'transform': transform,\n",
+    "    'width': width,\n",
+    "    'height': height\n",
+    "})\n",
+    "name = aligned_rasters[1970].name\n",
+    "name.replace('warp.tif', '4269.tif')\n",
+    "outfile = aligned_rasters[1970].replace(data_path / name)\n",
+    "outfile"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6a6b4e30",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with rasterio.open(outfile, 'w', **kwargs) as dst:\n",
+    "    reproject(\n",
+    "        source=aligned_data[1970],\n",
+    "        destination=rasterio.band(dst, 1),\n",
+    "        src_transform=src.transform,\n",
+    "        src_crs=src.crs,\n",
+    "        dst_transform=transform,\n",
+    "        dst_crs=dst_crs,\n",
+    "        resampling=Resampling.bilinear)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8e1ea17f",
+   "metadata": {},
+   "source": [
+    "## Zonal statistics with the `rasterstats` package\n",
+    "\n",
+    "(another way to reduce raster data by polygon features, as we did above in summing the elevation differences by glacier)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d9a3cdae",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from rasterstats import zonal_stats"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6c4fe539",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "help(zonal_stats)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3f5fd931",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from rasterstats import gen_zonal_stats\n",
+    "help(gen_zonal_stats)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "27dc5544",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result = zonal_stats(glaciers.geometry.tolist(), el_change_outfile, stats=['mean'], masked=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b1dbb809",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result[0:10]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dfd12cd9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "glaciers[\"mean_el_change_m\"] = [d[\"mean\"] for d in result]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "70219fcc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "glaciers.sort_values(by=\"mean_el_change_m\").head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4ca0883e",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d3b23f72",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

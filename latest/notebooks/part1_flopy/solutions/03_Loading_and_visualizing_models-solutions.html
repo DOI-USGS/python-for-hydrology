@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -78,7 +80,8 @@
 <li class="toctree-l2"><a class="reference internal" href="07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -119,16 +122,16 @@
            <div itemprop="articleBody">
              
   <section id="03:-Loading-and-visualizing-groundwater-models">
-<h1>03: Loading and visualizing groundwater models<a class="headerlink" href="#03:-Loading-and-visualizing-groundwater-models" title="Link to this heading">¶</a></h1>
+<h1>03: Loading and visualizing groundwater models<a class="headerlink" href="#03:-Loading-and-visualizing-groundwater-models" title="Link to this heading"></a></h1>
 <p>This exercise, we will load an existing model into Flopy, run the model and then use <a class="reference external" href="https://pandas.pydata.org/">pandas</a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> and <a class="reference external" href="https://www.numpy.org/">numpy</a> to look at the results and compare them to observed data. We will also export model input and output to shapefiles and rasters.</p>
 <section id="Required-executables">
-<h2>Required executables<a class="headerlink" href="#Required-executables" title="Link to this heading">¶</a></h2>
+<h2>Required executables<a class="headerlink" href="#Required-executables" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>MODFLOW-6; available here: <a class="reference external" href="https://github.com/MODFLOW-USGS/executables">https://github.com/MODFLOW-USGS/executables</a></p></li>
 </ul>
 </section>
 <section id="Operations">
-<h2>Operations<a class="headerlink" href="#Operations" title="Link to this heading">¶</a></h2>
+<h2>Operations<a class="headerlink" href="#Operations" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>reading tabular data from a file or url using the powerful <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas.read_csv</a> method</p></li>
 <li><p>getting <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>s of Hydmod, SFR, and global mass balance output</p></li>
@@ -139,10 +142,10 @@
 </ul>
 </section>
 <section id="The-Pleasant-Lake-example">
-<h2>The Pleasant Lake example<a class="headerlink" href="#The-Pleasant-Lake-example" title="Link to this heading">¶</a></h2>
+<h2>The Pleasant Lake example<a class="headerlink" href="#The-Pleasant-Lake-example" title="Link to this heading"></a></h2>
 <p>The example model is a simplified version of the MODFLOW-6 model published by Fienen et al (2022, 2021; Figure 1), who used a multi-scale modeling approach to evaluate the effects of agricultural groundwater abstraction on the ecology of Pleasant Lake in central Wisconsin, USA. The original report and model files are available at the links below.</p>
 <section id="Example-model-details:">
-<h3>Example model details:<a class="headerlink" href="#Example-model-details:" title="Link to this heading">¶</a></h3>
+<h3>Example model details:<a class="headerlink" href="#Example-model-details:" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Transient MODFLOW-6 simulation with monthly stress periods for calendar year 2012</p></li>
 <li><p>units of meters and days</p></li>
@@ -181,7 +184,7 @@
 </div>
 </div>
 <section id="load-a-preexisting-MODFLOW-6-model">
-<h4>load a preexisting MODFLOW 6 model<a class="headerlink" href="#load-a-preexisting-MODFLOW-6-model" title="Link to this heading">¶</a></h4>
+<h4>load a preexisting MODFLOW 6 model<a class="headerlink" href="#load-a-preexisting-MODFLOW-6-model" title="Link to this heading"></a></h4>
 <p>Because this is MODFLOW 6, we need to load the simulation first, and then get the model.</p>
 <div class="line-block">
 <div class="line"><strong>Note:</strong> To avoid loading certain packages (that may be too slow) use the <code class="docutils literal notranslate"><span class="pre">load_only</span></code> argument to specify the packages that should be loaded.</div>
@@ -209,7 +212,7 @@
 </div>
 </div>
 <section id="Visualizing-the-model">
-<h5>Visualizing the model<a class="headerlink" href="#Visualizing-the-model" title="Link to this heading">¶</a></h5>
+<h5>Visualizing the model<a class="headerlink" href="#Visualizing-the-model" title="Link to this heading"></a></h5>
 <p>First let’s check that the model grid is correctly located. It is, in this case, because the model has the origin and rotation specified in the DIS package.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -271,7 +274,7 @@ xll:552400.0; yll:387200.0; rotation:0.0; units:meters; lenuni:2
 </section>
 </section>
 <section id="On-a-map">
-<h4>On a map<a class="headerlink" href="#On-a-map" title="Link to this heading">¶</a></h4>
+<h4>On a map<a class="headerlink" href="#On-a-map" title="Link to this heading"></a></h4>
 <p>We can plot the model in the CRS using the <code class="docutils literal notranslate"><span class="pre">PlotMapView</span></code> object. More examples in the Flopy demo here (for unstructured grids too!): <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb</a></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -336,7 +339,7 @@ Text(0, 0.5, &#39;Meters northing, NAD83 / Wisconsin Transverse Mercator&#39;)
 </div>
 </section>
 <section id="Exporting-the-model-grid-to-a-shapefile">
-<h4>Exporting the model grid to a shapefile<a class="headerlink" href="#Exporting-the-model-grid-to-a-shapefile" title="Link to this heading">¶</a></h4>
+<h4>Exporting the model grid to a shapefile<a class="headerlink" href="#Exporting-the-model-grid-to-a-shapefile" title="Link to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -347,13 +350,13 @@ Text(0, 0.5, &#39;Meters northing, NAD83 / Wisconsin Transverse Mercator&#39;)
 </div>
 </section>
 <section id="Making-a-cross-section-through-the-model">
-<h4>Making a cross section through the model<a class="headerlink" href="#Making-a-cross-section-through-the-model" title="Link to this heading">¶</a></h4>
+<h4>Making a cross section through the model<a class="headerlink" href="#Making-a-cross-section-through-the-model" title="Link to this heading"></a></h4>
 <p>more examples in the Flopy demo here: <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb</a></p>
 </section>
 </section>
 </section>
 <section id="By-row-or-column">
-<h2>By row or column<a class="headerlink" href="#By-row-or-column" title="Link to this heading">¶</a></h2>
+<h2>By row or column<a class="headerlink" href="#By-row-or-column" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -386,7 +389,7 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 </div>
 </section>
 <section id="Along-an-arbitrary-line">
-<h2>Along an arbitrary line<a class="headerlink" href="#Along-an-arbitrary-line" title="Link to this heading">¶</a></h2>
+<h2>Along an arbitrary line<a class="headerlink" href="#Along-an-arbitrary-line" title="Link to this heading"></a></h2>
 <p>(and in Geographic Coordinates)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
@@ -410,7 +413,7 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7f2d388d0910&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7f650d81b1d0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -422,7 +425,7 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 </div>
 </section>
 <section id="What-if-we-want-to-look-at-cross-sections-for-each-row-or-column?">
-<h2>What if we want to look at cross sections for each row or column?<a class="headerlink" href="#What-if-we-want-to-look-at-cross-sections-for-each-row-or-column?" title="Link to this heading">¶</a></h2>
+<h2>What if we want to look at cross sections for each row or column?<a class="headerlink" href="#What-if-we-want-to-look-at-cross-sections-for-each-row-or-column?" title="Link to this heading"></a></h2>
 <p>This code allows for every row or column to be visualized in cross section within the Jupyter Notebook session.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
@@ -640,42 +643,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img54fe15a9a9304245ab789164c141c813">
+  <img id="_anim_img1255f8e7c3874bd89a77424d6e7fa575">
   <div class="anim-controls">
-    <input id="_anim_slider54fe15a9a9304245ab789164c141c813" type="range" class="anim-slider"
+    <input id="_anim_slider1255f8e7c3874bd89a77424d6e7fa575" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim54fe15a9a9304245ab789164c141c813.set_frame(parseInt(this.value));">
+           oninput="anim1255f8e7c3874bd89a77424d6e7fa575.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim54fe15a9a9304245ab789164c141c813.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim54fe15a9a9304245ab789164c141c813.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim54fe15a9a9304245ab789164c141c813.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim54fe15a9a9304245ab789164c141c813.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim54fe15a9a9304245ab789164c141c813.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim54fe15a9a9304245ab789164c141c813.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim54fe15a9a9304245ab789164c141c813.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim54fe15a9a9304245ab789164c141c813.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim54fe15a9a9304245ab789164c141c813.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim1255f8e7c3874bd89a77424d6e7fa575.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select54fe15a9a9304245ab789164c141c813"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1255f8e7c3874bd89a77424d6e7fa575"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_54fe15a9a9304245ab789164c141c813"
+      <input type="radio" name="state" value="once" id="_anim_radio1_1255f8e7c3874bd89a77424d6e7fa575"
              >
-      <label for="_anim_radio1_54fe15a9a9304245ab789164c141c813">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_54fe15a9a9304245ab789164c141c813"
+      <label for="_anim_radio1_1255f8e7c3874bd89a77424d6e7fa575">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_1255f8e7c3874bd89a77424d6e7fa575"
              checked>
-      <label for="_anim_radio2_54fe15a9a9304245ab789164c141c813">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_54fe15a9a9304245ab789164c141c813"
+      <label for="_anim_radio2_1255f8e7c3874bd89a77424d6e7fa575">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_1255f8e7c3874bd89a77424d6e7fa575"
              >
-      <label for="_anim_radio3_54fe15a9a9304245ab789164c141c813">Reflect</label>
+      <label for="_anim_radio3_1255f8e7c3874bd89a77424d6e7fa575">Reflect</label>
     </form>
   </div>
 </div>
@@ -685,9 +688,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img54fe15a9a9304245ab789164c141c813";
-    var slider_id = "_anim_slider54fe15a9a9304245ab789164c141c813";
-    var loop_select_id = "_anim_loop_select54fe15a9a9304245ab789164c141c813";
+    var img_id = "_anim_img1255f8e7c3874bd89a77424d6e7fa575";
+    var slider_id = "_anim_slider1255f8e7c3874bd89a77424d6e7fa575";
+    var loop_select_id = "_anim_loop_select1255f8e7c3874bd89a77424d6e7fa575";
     var frames = new Array(64);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABXgAAAH0CAYAAACHNkWHAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -29362,7 +29365,7 @@ AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim54fe15a9a9304245ab789164c141c813 = new Animation(frames, img_id, slider_id, 200.0,
+        anim1255f8e7c3874bd89a77424d6e7fa575 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -29374,7 +29377,7 @@ AAAAAElFTkSuQmCC\
 </div>
 </section>
 <section id="ndarray-example:-plot-spatial-average-recharge-by-stress-period">
-<h2><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> example: plot spatial average recharge by stress period<a class="headerlink" href="#ndarray-example:-plot-spatial-average-recharge-by-stress-period" title="Link to this heading">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> example: plot spatial average recharge by stress period<a class="headerlink" href="#ndarray-example:-plot-spatial-average-recharge-by-stress-period" title="Link to this heading"></a></h2>
 <p>To minimize extra typing, it often makes sense to reassign the numpy array to a new variable to work with it further.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
@@ -29427,7 +29430,7 @@ array([ 34681.345768  ,   3936.71297726,   4173.97054668,  32372.63194945,
 </div>
 </section>
 <section id="Tabular-data-example:-plot-pumping-by-stress-period">
-<h2>Tabular data example: plot pumping by stress period<a class="headerlink" href="#Tabular-data-example:-plot-pumping-by-stress-period" title="Link to this heading">¶</a></h2>
+<h2>Tabular data example: plot pumping by stress period<a class="headerlink" href="#Tabular-data-example:-plot-pumping-by-stress-period" title="Link to this heading"></a></h2>
 <p>Most tabular input for the ‘basic’ stress packages (Constant Head, Drain, General Head, RIV, WEL, etc) are accessible via a <code class="docutils literal notranslate"><span class="pre">stress_period_data</span></code> attribute.</p>
 <ul class="simple">
 <li><p>To access the data, we have to call another <code class="docutils literal notranslate"><span class="pre">.data</span></code> attribute, which gives us a dictionary of <code class="docutils literal notranslate"><span class="pre">recarray</span></code>s by stress period.</p></li>
@@ -29583,7 +29586,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 </div>
 </section>
 <section id="Solution:">
-<h2>Solution:<a class="headerlink" href="#Solution:" title="Link to this heading">¶</a></h2>
+<h2>Solution:<a class="headerlink" href="#Solution:" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>get the pumping rates by stress period</p></li>
 </ol>
@@ -29863,7 +29866,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 </div>
 </section>
 <section id="Run-the-model-first-to-get-the-output">
-<h2>Run the model first to get the output<a class="headerlink" href="#Run-the-model-first-to-get-the-output" title="Link to this heading">¶</a></h2>
+<h2>Run the model first to get the output<a class="headerlink" href="#Run-the-model-first-to-get-the-output" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
@@ -29902,7 +29905,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/22 13:38:00
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:09:25
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -29921,8 +29924,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/22 13:38:03
- Elapsed run time:  2.411 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:09:27
+ Elapsed run time:  2.416 Seconds
 
 
 WARNING REPORT:
@@ -30009,7 +30012,7 @@ WARNING REPORT:
 </div>
 </section>
 <section id="Zoom-in-on-the-lake">
-<h2>Zoom in on the lake<a class="headerlink" href="#Zoom-in-on-the-lake" title="Link to this heading">¶</a></h2>
+<h2>Zoom in on the lake<a class="headerlink" href="#Zoom-in-on-the-lake" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
@@ -30066,7 +30069,7 @@ WARNING REPORT:
 </ol>
 </section>
 <section id="Solution">
-<h2>Solution<a class="headerlink" href="#Solution" title="Link to this heading">¶</a></h2>
+<h2>Solution<a class="headerlink" href="#Solution" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Make a numpy array of overpressurization and get the max and min values</p></li>
 </ol>
@@ -30105,7 +30108,7 @@ WARNING REPORT:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7f2d2a1efad0&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7f64fff7cf50&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -30796,7 +30799,7 @@ WARNING REPORT:
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/tmp/ipykernel_11893/614846193.py:1: FutureWarning: The &#39;delim_whitespace&#39; keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep=&#39;\s+&#39;`` instead
+/tmp/ipykernel_12618/614846193.py:1: FutureWarning: The &#39;delim_whitespace&#39; keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep=&#39;\s+&#39;`` instead
   pd.read_csv(sim_ws / &#39;external/chd_001.dat&#39;, delim_whitespace=True)
 </pre></div></div>
 </div>
@@ -31307,7 +31310,7 @@ Text(0, 0.5, &#39;Simulated Flux, in $m^3/d$&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

@@ -13,6 +13,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -71,6 +73,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#plotting">Plotting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#automatic-docstring-generation">Automatic docstring generation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#code-navigation">Code navigation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#code-search">Code search</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#liveshare">Liveshare</a></li>
 </ul>
 </li>
@@ -79,7 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -121,8 +125,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="b-vscode-tutorial">
-<h1>07b: VSCode Tutorial<a class="headerlink" href="#b-vscode-tutorial" title="Link to this heading">¶</a></h1>
+  <p><img alt="" src="notebooks/part0_python_intro/data/code-stable.png" /></p>
+<section id="b-vscode-tutorial">
+<h1>07b: VSCode Tutorial<a class="headerlink" href="#b-vscode-tutorial" title="Link to this heading"></a></h1>
 <p>In this tutorial we will explore using an integrated development environment (IDE) for python programming. IDEs offer many advantages over Jupyter Notebooks, particularly for developing production code that will be reused many times and shared with others. The advantages of IDEs include:</p>
 <ul class="simple">
 <li><p><em>Linting</em> to catch errors, dead code, and other code quality issues</p></li>
@@ -130,23 +135,24 @@
 <li><p>code navigation (jumping to function definitions, etc.)</p></li>
 <li><p>interactive debugging (including plotting)</p></li>
 <li><p>support for automated testing and version control</p></li>
-<li><p>unlike Notebooks, code is always executed in the same order (as it would be by another user), thereby increasing the chances for reproducibility.</p></li>
+<li><p>unlike Notebooks, code is always executed from start to finish (as it would be by another user), thereby increasing the chances for reproducibility.</p></li>
 </ul>
 <p>VSCode offers the above advantages, and many other features through Extensions (plugins) that can be created by anyone. VSCode is also free and works well with large files (GB in size). The Live Share plugin allows for real-time code collaboration and debugging with multiple people.</p>
 <section id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
 <p>If you haven’t yet, install VS Code <a class="reference external" href="https://code.visualstudio.com/download">here</a>.</p>
 <section id="converting-the-theis-exercise-notebook-to-a-python-script">
-<h3>Converting the Theis exercise notebook to a Python script<a class="headerlink" href="#converting-the-theis-exercise-notebook-to-a-python-script" title="Link to this heading">¶</a></h3>
+<h3>Converting the Theis exercise notebook to a Python script<a class="headerlink" href="#converting-the-theis-exercise-notebook-to-a-python-script" title="Link to this heading"></a></h3>
 <p>Once VSCode is installed,</p>
 <ul class="simple">
 <li><p>Open <code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb</span></code> in Jupyter</p></li>
 <li><p>From the <code class="docutils literal notranslate"><span class="pre">File</span></code> menu, select <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">and</span> <span class="pre">Export</span> <span class="pre">Notebook</span> <span class="pre">as</span></code> and then <code class="docutils literal notranslate"><span class="pre">Executable</span> <span class="pre">Script</span></code>. This will create a python script version of the notebook (<code class="docutils literal notranslate"><span class="pre">07a_Theis-exercise-solution.py</span></code>)</p></li>
-<li><p>Save <code class="docutils literal notranslate"><span class="pre">07a_Theis-exercise-solution.py</span></code> to the <code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro</span></code> folder (or copy it there from your Downloads folder).</p></li>
+<li><p>Rename this file to <code class="docutils literal notranslate"><span class="pre">my_07a_Theis-exercise-solution.py</span></code></p></li>
+<li><p>Save <code class="docutils literal notranslate"><span class="pre">my_07a_Theis-exercise-solution.py</span></code> to the <code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro</span></code> folder (or copy it there from your Downloads folder).</p></li>
 </ul>
 </section>
 <section id="launching-vscode">
-<h3>Launching VSCode<a class="headerlink" href="#launching-vscode" title="Link to this heading">¶</a></h3>
+<h3>Launching VSCode<a class="headerlink" href="#launching-vscode" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Open a fresh Miniforge prompt from the Start menu and navigate to the root folder for the class (containing the <code class="docutils literal notranslate"><span class="pre">AGENDA.md</span></code> file).</p></li>
 <li><p>Activate the class python environment (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">pyclass</span></code>) if needed.</p></li>
@@ -155,9 +161,9 @@
 </ul>
 </section>
 <section id="id1">
-<h3>Getting started<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3>Getting started<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>See <a class="reference external" href="https://code.visualstudio.com/docs/getstarted/userinterface">here</a> for an overview of the VSCode user interface.</p>
-<p>Once VSCode is launched, click on <a class="reference external" href="https://code.visualstudio.com/docs/editor/extension-marketplace">the Extensions icon</a> on the activity bar on the left. Install the following extensions:</p>
+<p>Once VSCode is launched, click on <a class="reference external" href="https://code.visualstudio.com/docs/editor/extension-marketplace">the Extensions icon</a> on the Activity Bar on the left. Install the following extensions:</p>
 <ul class="simple">
 <li><p>Python</p></li>
 <li><p>Python indent</p></li>
@@ -166,19 +172,20 @@
 <li><p>Jupyter</p></li>
 <li><p>Code spell checker</p></li>
 <li><p>autoDocstring</p></li>
+<li><p>Rainbow CSV</p></li>
 </ul>
 <p>You may find other cool extensions that you want too. A key indicator of an extension’s quality is the number of downloads.</p>
 </section>
 <section id="linting">
-<h3>Linting<a class="headerlink" href="#linting" title="Link to this heading">¶</a></h3>
-<p>Now let’s open the script we copied earlier (<code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro/07a_Theis-exercise-solution.py</span></code>). You can do this from the File Explorer on the left side of the screen.</p>
+<h3>Linting<a class="headerlink" href="#linting" title="Link to this heading"></a></h3>
+<p>Now let’s open the script we copied earlier (<code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro/my_07a_Theis-exercise-solution.py</span></code>). You can do this from the File Explorer on the left side of the screen.</p>
 <ul class="simple">
-<li><p>as you scroll down through the script, note that “ts” is grayed out in the statement <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">ts</span> <span class="pre">in</span> <span class="pre">t:</span></code> on line 213. This is the linter telling us that this variable is declared but never used. This is “dead code” that we want remove by refactoring.</p></li>
-<li><p>similarly, note further down that the variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are underlined on lines 253 and 254. The linter is warning us that these variables were never declared. This is because their declarations were wrapped in the <code class="docutils literal notranslate"><span class="pre">get_ipython().run_cell_magic</span></code> statement on line 232, in translation of the notebook to a script.</p></li>
+<li><p>as you scroll down through the script, note that “ts” is grayed out in the statement <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">ts</span> <span class="pre">in</span> <span class="pre">t:</span></code> near line 213. This is the linter telling us that this variable is declared but never used. This is “dead code” that we want remove by refactoring.</p></li>
+<li><p>similarly, note further down that the variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are underlined near lines 253 and 254. The linter is warning us that these variables were never declared. This is because their declarations were wrapped in the <code class="docutils literal notranslate"><span class="pre">get_ipython().run_cell_magic</span></code> statement near line 232, in translation of the notebook to a script.</p></li>
 </ul>
 </section>
 <section id="cleaning-up-the-script">
-<h3>Cleaning up the script<a class="headerlink" href="#cleaning-up-the-script" title="Link to this heading">¶</a></h3>
+<h3>Cleaning up the script<a class="headerlink" href="#cleaning-up-the-script" title="Link to this heading"></a></h3>
 <p>Let’s clean up the script so that</p>
 <ul class="simple">
 <li><p>the initial background information is within a docstring (bracketed by triple quotes), instead of commented line by line. We can quickly do this with <a class="reference external" href="https://code.visualstudio.com/docs/editor/codebasics#_column-box-selection">column selection</a>.</p></li>
@@ -189,7 +196,7 @@
 <p>To make the script easier to work with, you may want to also turn on Word Wrap (from the <code class="docutils literal notranslate"><span class="pre">View</span></code> menu) and <a class="reference external" href="https://code.visualstudio.com/docs/editor/codebasics#_folding">fold all of the code</a> (control + k + 0).</p>
 </section>
 <section id="using-the-partial-diff-plugin-to-compare-two-pieces-of-code">
-<h3>Using the Partial Diff plugin to compare two pieces of code<a class="headerlink" href="#using-the-partial-diff-plugin-to-compare-two-pieces-of-code" title="Link to this heading">¶</a></h3>
+<h3>Using the Partial Diff plugin to compare two pieces of code<a class="headerlink" href="#using-the-partial-diff-plugin-to-compare-two-pieces-of-code" title="Link to this heading"></a></h3>
 <p>Let’s use Partial Diff to compare our script to the class solution. Assuming the Partial Diff Extension was installed earlier,</p>
 <ul class="simple">
 <li><p>open the class solution (<code class="docutils literal notranslate"><span class="pre">notebooks/part0_python_intro/solutions/07a_Theis-exercise-solution.py</span></code>)</p></li>
@@ -199,14 +206,16 @@
 </ul>
 </section>
 <section id="debugging">
-<h3>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">¶</a></h3>
+<h3>Debugging<a class="headerlink" href="#debugging" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Place a break point anywhere below the first <code class="docutils literal notranslate"><span class="pre">theis()</span></code> call in the <code class="docutils literal notranslate"><span class="pre">__main__</span></code> part of the script.</p></li>
+<li><p>Place a break point anywhere below the first <code class="docutils literal notranslate"><span class="pre">theis()</span></code> call in the <code class="docutils literal notranslate"><span class="pre">__main__</span></code> part of the script, by clicking to the left of a line number (you should see a red dot).</p></li>
+<li><p>If needed, select the <code class="docutils literal notranslate"><span class="pre">pyclass`</span> <span class="pre">environment</span> <span class="pre">as</span> <span class="pre">the</span> <span class="pre">Python</span> <span class="pre">interpreter.</span> <span class="pre">Go</span> <span class="pre">to</span> </code>View –&gt; Command Palette<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">then</span> <span class="pre">type</span> </code>Python: Select Interpreter<code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">Choose</span> <span class="pre">the</span> <span class="pre">option</span> <span class="pre">with</span> </code>(pyclass)`` from the dropdown menu.</p></li>
+<li><p>With the Python script (e.g.<code class="docutils literal notranslate"><span class="pre">07a_Theis-exercise-solution.py</span></code>) tab selected, you should see some version numbers followed by <code class="docutils literal notranslate"><span class="pre">(pyclass)</span></code> in the bottom right of the VS Code window. Note that you can also click here to change the Python environment.</p></li>
 <li><p>Then go to either <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">--&gt;</span> <span class="pre">Start</span> <span class="pre">Debugging</span></code> or click on the debug icon in the Activity Bar and choose <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">and</span> <span class="pre">Debug</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">File</span></code> if prompted for a configuration. The debugger should run to the break point.</p></li>
 </ul>
 <p>Often it is prudent to include internal checks in code, regardless of the context. There are a number of ways to do this; a simple one is an <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement that checks a condition.</p>
 <ul>
-<li><p>Add an <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> </code> in front of the first <code class="docutils literal notranslate"><span class="pre">theis()</span></code> call to assign the results to a variable, and then right below, the following <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement:</p>
+<li><p>Add an <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> </code> in front of the first <code class="docutils literal notranslate"><span class="pre">theis()</span></code> call to assign the results to a variable, and then in the line below, the following <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">1.40636669</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -215,27 +224,26 @@
 <li><p>try pasting the above assert statement into the debug console at the bottom of your screen. You can also highlight it, right click and <code class="docutils literal notranslate"><span class="pre">Evaluate</span> <span class="pre">in</span> <span class="pre">Debug</span> <span class="pre">Console</span></code>.</p></li>
 </ul>
 <section id="the-debug-working-directory">
-<h4>The debug working directory<a class="headerlink" href="#the-debug-working-directory" title="Link to this heading">¶</a></h4>
+<h4>The debug working directory<a class="headerlink" href="#the-debug-working-directory" title="Link to this heading"></a></h4>
 <p>Import <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> and type <code class="docutils literal notranslate"><span class="pre">pathlib.Path.cwd()</span></code> in the debug console. Note that the current directory is the root folder for the class (where we launched VSCode). VSCode is structured around projects, which include everything in a folder that was opened (and any subfolders). By default, the working directory for debugging is set at the root level for the project. We can change this (and other debugging settings), by creating a configuration file called <code class="docutils literal notranslate"><span class="pre">launch.json</span></code>, which lives inside of a <code class="docutils literal notranslate"><span class="pre">.vscode/</span></code> folder at the root level of the project.</p>
 <ul>
-<li><p>After stopping the debugging session, make a default <code class="docutils literal notranslate"><span class="pre">launch.json</span></code> by clicking on the debug icon in the Activity Bar and then <code class="docutils literal notranslate"><span class="pre">create</span> <span class="pre">a</span> <span class="pre">launch.json</span> <span class="pre">file</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">File</span></code> if prompted for a configuration. A new tab will open up with <code class="docutils literal notranslate"><span class="pre">launch.json</span></code>. Add <code class="docutils literal notranslate"><span class="pre">&quot;cwd&quot;:</span> <span class="pre">&quot;${fileDirname}&quot;</span></code> at the bottom (don’t forget the preceding comma!) so that the file looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    &quot;version&quot;: &quot;0.2.0&quot;,
-    &quot;configurations&quot;: [
-        {
-            &quot;name&quot;: &quot;Python: Current File&quot;,
-            &quot;type&quot;: &quot;python&quot;,
-            &quot;request&quot;: &quot;launch&quot;,
-            &quot;program&quot;: &quot;${file}&quot;,
-            &quot;console&quot;: &quot;integratedTerminal&quot;,
-            &quot;cwd&quot;: &quot;${fileDirname}&quot;
-        }
-    ]
-}
-
+<li><p>After stopping the debugging session, make a default <code class="docutils literal notranslate"><span class="pre">launch.json</span></code> by clicking on the debug icon in the Activity Bar and then <code class="docutils literal notranslate"><span class="pre">create</span> <span class="pre">a</span> <span class="pre">launch.json</span> <span class="pre">file</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Debugger</span></code> and then <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">File</span></code> if prompted for a configuration. A new tab will open up with <code class="docutils literal notranslate"><span class="pre">launch.json</span></code>. Add <code class="docutils literal notranslate"><span class="pre">&quot;cwd&quot;:</span> <span class="pre">&quot;${fileDirname}&quot;</span></code> at the bottom (don’t forget the preceding comma!) so that the file looks like this:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Use IntelliSense to learn about possible attributes.</span>
+<span class="w">    </span><span class="c1">// Hover to view descriptions of existing attributes.</span>
+<span class="w">    </span><span class="c1">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Python: Current File&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;program&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${file}&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;console&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integratedTerminal&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${fileDirname}&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -243,7 +251,7 @@
 </ul>
 </section>
 <section id="the-run-and-debug-view">
-<h4>The Run and Debug view<a class="headerlink" href="#the-run-and-debug-view" title="Link to this heading">¶</a></h4>
+<h4>The Run and Debug view<a class="headerlink" href="#the-run-and-debug-view" title="Link to this heading"></a></h4>
 <p>The Run and Debug view on the left (available via the Activity Bar) shows the current variables in the namespace, and an additional “Watch” panel where we can add specific variables that we want to observe as the script executes.</p>
 <ul class="simple">
 <li><p>Add a watch for the <code class="docutils literal notranslate"><span class="pre">s</span></code> variable by clicking the <code class="docutils literal notranslate"><span class="pre">+</span></code> sign on the upper right part of the panel.</p></li>
@@ -254,20 +262,32 @@
 </section>
 </section>
 <section id="plotting">
-<h3>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">¶</a></h3>
+<h3>Plotting<a class="headerlink" href="#plotting" title="Link to this heading"></a></h3>
 <p>During a debug session, as long as matplotlib has been imported, one can make plots via the Debug Console or by putting plotting code in the script.</p>
 </section>
 <section id="automatic-docstring-generation">
-<h3>Automatic docstring generation<a class="headerlink" href="#automatic-docstring-generation" title="Link to this heading">¶</a></h3>
-<p>Right click at the beginning of the first line <em>below</em> the <code class="docutils literal notranslate"><span class="pre">def</span></code> statement for any of the functions and choose <code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">docstring</span></code>. The autoDocstring extension should make a new template for a numpy docstring that includes all of the parameters listed in the function signature.</p>
+<h3>Automatic docstring generation<a class="headerlink" href="#automatic-docstring-generation" title="Link to this heading"></a></h3>
+<p>Right click at the beginning of the first line <em>below</em> the <code class="docutils literal notranslate"><span class="pre">def</span></code> statement for any of the functions and choose <code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">docstring</span></code>. The autoDocstring extension should make a new template for a docstring that includes all of the parameters listed in the function signature.</p>
+<p>Note the format of the docstring, which may be different than the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">Numpy-style docstrings</a> in the class solution (the most widely-used format for scientific Python). To generate Numpy-style docstrings by default, click on <a class="reference external" href="https://code.visualstudio.com/docs/editor/extension-marketplace">the Extensions icon</a> on the Activity Bar on the left. Find the autoDocstring extension, right click and select <code class="docutils literal notranslate"><span class="pre">Settings</span></code>. In the <code class="docutils literal notranslate"><span class="pre">Auto</span> <span class="pre">Docstring:</span> <span class="pre">Docstring</span> <span class="pre">Format</span></code> drop-down, select <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
 </section>
 <section id="code-navigation">
-<h3><a class="reference external" href="https://code.visualstudio.com/docs/editor/editingevolved">Code navigation</a><a class="headerlink" href="#code-navigation" title="Link to this heading">¶</a></h3>
+<h3><a class="reference external" href="https://code.visualstudio.com/docs/editor/editingevolved">Code navigation</a><a class="headerlink" href="#code-navigation" title="Link to this heading"></a></h3>
 <p>In the main part of the script, right click on one of the function calls (e.g. <code class="docutils literal notranslate"><span class="pre">theis</span></code>) and choose <code class="docutils literal notranslate"><span class="pre">Go</span> <span class="pre">to</span> <span class="pre">Definition</span></code>. VSCode should take you to where the function is defined. Right clicking on <code class="docutils literal notranslate"><span class="pre">theis</span></code> after the <code class="docutils literal notranslate"><span class="pre">def</span></code> and then <code class="docutils literal notranslate"><span class="pre">Go</span> <span class="pre">to</span> <span class="pre">References</span></code> opens a “peek” window with a list of all of the times <code class="docutils literal notranslate"><span class="pre">theis()</span></code> is called. Clicking on one of them takes you to that location in the script.</p>
 <p>Navigation works across modules and packages too. If you right click on <code class="docutils literal notranslate"><span class="pre">np.meshgrid</span></code> in the main part of the script and <code class="docutils literal notranslate"><span class="pre">Go</span> <span class="pre">to</span> <span class="pre">Definition</span></code>, VSCode takes you to the relevant code in <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
 </section>
+<section id="code-search">
+<h3>Code search<a class="headerlink" href="#code-search" title="Link to this heading"></a></h3>
+<p>VS Code’s powerful search capabilities are another key feature.</p>
+<ul class="simple">
+<li><p>To search for text within a script (for example, the <code class="docutils literal notranslate"><span class="pre">theis_xy</span></code> function name), select <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">--&gt;</span> <span class="pre">Find</span></code> or press <code class="docutils literal notranslate"><span class="pre">Ctrl+F</span></code>.</p></li>
+<li><p>You can also highlight text and press <code class="docutils literal notranslate"><span class="pre">Ctrl+F</span></code> to auto-fill the search bar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">--&gt;</span> <span class="pre">Find</span> <span class="pre">in</span> <span class="pre">Files</span></code> will quickly search across all files in a project (i.e., everything within the root folder for the class, which we launched VS Code from earlier).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">--&gt;</span> <span class="pre">Replace</span> <span class="pre">in</span> <span class="pre">Files</span></code> can be used to quickly refactor variable names across multiple code modules.</p></li>
+<li><p>In complex scripts or workflows, <strong>ease of search is a key reason to choose meaningful and unique variable names!</strong></p></li>
+</ul>
+</section>
 <section id="liveshare">
-<h3>Liveshare<a class="headerlink" href="#liveshare" title="Link to this heading">¶</a></h3>
+<h3>Liveshare<a class="headerlink" href="#liveshare" title="Link to this heading"></a></h3>
 <p>We will demo the Live Share extension during the class. In the meantime, you can learn more about it <a class="reference external" href="https://code.visualstudio.com/learn/collaboration/live-share">here</a>.</p>
 </section>
 </section>
@@ -285,7 +305,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

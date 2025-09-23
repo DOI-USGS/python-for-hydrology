@@ -1,0 +1,1652 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10b: Particle tracking with MODPATH &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Bonus examples" href="../../bonus_examples.html" />
+    <link rel="prev" title="10a: Particle tracking with MODFLOW 6 PRT" href="10a_prt_particle_tracking-demo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01-Flopy-intro.html">01: Introduction to FloPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_Unstructured_Grid_generation.html">05: Unstructured grid and general mesh generation with FloPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10b: Particle tracking with MODPATH</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Define-the-workspace-and-model-names.">Define the workspace and model names.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Load-the-MODFLOW-6-Model">Load the MODFLOW 6 Model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-groundwater-flow-model">Load the groundwater flow model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Change-the-workspace">Change the workspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Write-the-model-files">Write the model files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Create-and-Run-the-MODPATH-model">Create and Run the MODPATH model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch.">Lets plot the model grid and the location of the contamination patch.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-the-MODPATH-particle-data">Create the MODPATH particle data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-the-MODPATH-7-files">Create the MODPATH 7 files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Write-MODPATH-7-files-and-run-the-model">Write MODPATH 7 files and run the model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Post-Process-the-MODFLOW-and-MODPATH-Results">Post-Process the MODFLOW and MODPATH Results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files">Load MODFLOW and MODPATH results from the heads and pathline files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-heads-and-pathlines">Plot the heads and pathlines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Export-the-pathlines-to-a-shapefile">Export the pathlines to a shapefile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-shapefile-into-geopandas">Load the shapefile into geopandas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Show-the-dataframe">Show the dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-geopandas-dataframe-on-the-modelgrid">Plot the geopandas dataframe on the modelgrid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Export-the-data-to-VTK-(Visualization-ToolKit)-format-for-a-3d-representation">Export the data to VTK (Visualization ToolKit) format for a 3d representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista.-To-activate-these-cells,-set-plotvtk=True">Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code>. To activate these cells, set <code class="docutils literal notranslate"><span class="pre">plotvtk=True</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
+      <li class="breadcrumb-item active">10b: Particle tracking with MODPATH</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/part1_flopy/10b_modpath_particle_tracking-demo.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="10b:-Particle-tracking-with-MODPATH">
+<h1>10b: Particle tracking with MODPATH<a class="headerlink" href="#10b:-Particle-tracking-with-MODPATH" title="Link to this heading"></a></h1>
+<p>In this exercise, we will use MODPATH to simulate advective transport with the Freyberg flow model.</p>
+<p>MODPATH is a particle tracking software that simulates the advective transport of particles using the output from a MODFLOW groundwater flow model. The MODPATH user guide, documentation, and executable can be found <a class="reference external" href="https://www.usgs.gov/software/modpath-particle-tracking-model-modflow">here</a>. The MODPATH executable is downloaded with the stack of modflow related programs when <code class="docutils literal notranslate"><span class="pre">get_modflow()</span></code> was run in setup for this course. Students should already have this program on their machines.</p>
+<p>For this exercise, we will use a quadtree version of the Freyberg model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils.gridintersect</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridIntersect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flopy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<p>The location of the contamination patch and the nodes that the define bounding cells of the patch are calculated below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># patch upper left and lower right</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mf">250.</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">250.</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="p">(</span><span class="mi">40</span> <span class="o">-</span> <span class="mi">14</span><span class="p">)</span> <span class="o">*</span> <span class="mf">250.</span><span class="p">,</span> <span class="p">(</span><span class="mi">40</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)</span> <span class="o">*</span> <span class="mf">250.</span>
+
+<span class="n">csx</span><span class="p">,</span> <span class="n">csy</span> <span class="o">=</span> <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">],</span> <span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]</span>
+<span class="n">polygon</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">))]</span>
+<span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">),</span> <span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((250.0, 7250.0), (750.0, 6500.0))
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<section id="Define-the-workspace-and-model-names.">
+<h2>Define the workspace and model names.<a class="headerlink" href="#Define-the-workspace-and-model-names." title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_ws</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data/quadtree&#39;</span><span class="p">)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;temp/ex10a&quot;</span><span class="p">)</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span>
+<span class="n">name_mp</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_mp&quot;</span>
+<span class="n">exe_name</span> <span class="o">=</span> <span class="s1">&#39;mf6&#39;</span>
+</pre></div>
+</div>
+</div>
+<section id="Load-the-MODFLOW-6-Model">
+<h3>Load the MODFLOW 6 Model<a class="headerlink" href="#Load-the-MODFLOW-6-Model" title="Link to this heading"></a></h3>
+<p>Load a simulation object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.MFSimulation().load()</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">exe_name</span><span class="o">=</span><span class="n">exe_name</span><span class="p">,</span>
+                                    <span class="n">sim_ws</span><span class="o">=</span><span class="n">load_ws</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Load-the-groundwater-flow-model">
+<h2>Load the groundwater flow model<a class="headerlink" href="#Load-the-groundwater-flow-model" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
+</pre></div></div>
+</div>
+</section>
+<section id="Change-the-workspace">
+<h2>Change the workspace<a class="headerlink" href="#Change-the-workspace" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">set_sim_path</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Write-the-model-files">
+<h2>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Run the simulation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[8]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">sim</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">run_simulation</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/miniforge3/envs/pyclass/lib/python3.12/site-packages/flopy/mf6/mfsimbase.py:1820</span>, in <span class="ansi-cyan-fg">MFSimulationBase.run_simulation</span><span class="ansi-blue-fg">(self, silent, pause, report, processors, normal_msg, use_async, cargs, custom_print)</span>
+<span class="ansi-green-fg">   1818</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">   1819</span>         silent = <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1820</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">run_model</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   1821</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">exe_name</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1822</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">None</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1823</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">simulation_data</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">mfpath</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get_sim_path</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1824</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">silent</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">silent</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1825</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">pause</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">pause</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1826</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">report</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">report</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1827</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">processors</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">processors</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1828</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">normal_msg</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">normal_msg</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1829</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">use_async</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_async</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1830</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">cargs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">cargs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1831</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">custom_print</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">custom_print</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1832</span> <span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/miniforge3/envs/pyclass/lib/python3.12/site-packages/flopy/mbase.py:1692</span>, in <span class="ansi-cyan-fg">run_model</span><span class="ansi-blue-fg">(exe_name, namefile, model_ws, silent, pause, report, processors, normal_msg, use_async, cargs, custom_print)</span>
+<span class="ansi-green-fg">   1690</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> exe_name <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-fg">   1691</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">An executable name or path must be provided</span><span class="ansi-yellow-fg">&#34;</span>)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1692</span> exe_path = <span class="ansi-yellow-bg">resolve_exe</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">exe_name</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1693</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> silent:
+<span class="ansi-green-fg">   1694</span>     <span style="color: rgb(0,135,0)">print</span>(
+<span class="ansi-green-fg">   1695</span>         <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">FloPy is using the following executable to run the model: </span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">   1696</span>         + flopy_io.relpath_safe(exe_path, model_ws)
+<span class="ansi-green-fg">   1697</span>     )
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/miniforge3/envs/pyclass/lib/python3.12/site-packages/flopy/mbase.py:110</span>, in <span class="ansi-cyan-fg">resolve_exe</span><span class="ansi-blue-fg">(exe_name, forgive)</span>
+<span class="ansi-green-fg">    104</span>     warn(
+<span class="ansi-green-fg">    105</span>         <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">The program </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>exe_name<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> does not exist or is not executable.</span><span class="ansi-yellow-fg">&#34;</span>,
+<span class="ansi-green-fg">    106</span>         category=<span class="ansi-bold" style="color: rgb(215,95,95)">UserWarning</span>,
+<span class="ansi-green-fg">    107</span>     )
+<span class="ansi-green-fg">    108</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">110</span> <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">FileNotFoundError</span>(
+<span class="ansi-green-fg">    111</span>     <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">The program </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>exe_name<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> does not exist or is not executable.</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">    112</span> )
+
+<span class="ansi-red-fg">FileNotFoundError</span>: The program mf6 does not exist or is not executable.
+</pre></div></div>
+</div>
+<section id="Create-and-Run-the-MODPATH-model">
+<h3>Create and Run the MODPATH model<a class="headerlink" href="#Create-and-Run-the-MODPATH-model" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch.">
+<h2>Lets plot the model grid and the location of the contamination patch.<a class="headerlink" href="#Lets-plot-the-model-grid-and-the-location-of-the-contamination-patch." title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_inactive</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e534eb&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_17_0.png" src="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_17_0.png" />
+</div>
+</div>
+<p>Find the node numbers of the contamination patch using the groundwater model grid object and the <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility. The <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility has an <code class="docutils literal notranslate"><span class="pre">intersect</span></code> method that can be used to identified cellids from points, lines, and polygons.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gx</span> <span class="o">=</span> <span class="n">GridIntersect</span><span class="p">(</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">gx</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">)</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">cellids</span>
+<span class="n">nodes</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1352, 1353, 1459, 1460, 1581, 1582], dtype=object)
+</pre></div></div>
+</div>
+</section>
+<section id="Create-the-MODPATH-particle-data">
+<h2>Create the MODPATH particle data<a class="headerlink" href="#Create-the-MODPATH-particle-data" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">CellDataType</span><span class="p">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">NodeParticleData</span><span class="p">(</span><span class="n">subdivisiondata</span><span class="o">=</span><span class="p">[</span><span class="n">sd</span><span class="p">],</span>
+                                   <span class="n">nodes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">nodes</span><span class="p">))</span>
+<span class="c1"># create forward particle group</span>
+<span class="n">fpth</span> <span class="o">=</span> <span class="n">name_mp</span> <span class="o">+</span> <span class="s1">&#39;.sloc&#39;</span>
+<span class="n">pg</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">ParticleGroupNodeTemplate</span><span class="p">(</span><span class="n">particlegroupname</span><span class="o">=</span><span class="s1">&#39;contaminant&#39;</span><span class="p">,</span>
+                                             <span class="n">particledata</span><span class="o">=</span><span class="n">p</span><span class="p">,</span>
+                                             <span class="n">filename</span><span class="o">=</span><span class="n">fpth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[25]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">sd</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">data</span>
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;CellDataType&#39; object has no attribute &#39;data&#39;
+</pre></div></div>
+</div>
+</section>
+<section id="Create-the-MODPATH-7-files">
+<h2>Create the MODPATH 7 files<a class="headerlink" href="#Create-the-MODPATH-7-files" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create modpath files</span>
+<span class="n">mp</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7</span><span class="p">(</span><span class="n">modelname</span><span class="o">=</span><span class="n">name_mp</span><span class="p">,</span> <span class="n">flowmodel</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span>
+                            <span class="n">exe_name</span><span class="o">=</span><span class="s1">&#39;mp7&#39;</span><span class="p">,</span> <span class="n">model_ws</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
+<span class="n">mpbas</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7Bas</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">porosity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">mpsim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7Sim</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span> <span class="n">simulationtype</span><span class="o">=</span><span class="s1">&#39;pathline&#39;</span><span class="p">,</span>
+                                  <span class="n">trackingdirection</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span>
+                                  <span class="n">weaksinkoption</span><span class="o">=</span><span class="s1">&#39;pass_through&#39;</span><span class="p">,</span>
+                                  <span class="n">weaksourceoption</span><span class="o">=</span><span class="s1">&#39;pass_through&#39;</span><span class="p">,</span>
+                                  <span class="n">referencetime</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+                                  <span class="n">stoptimeoption</span><span class="o">=</span><span class="s1">&#39;extend&#39;</span><span class="p">,</span>
+                                  <span class="n">particlegroups</span><span class="o">=</span><span class="n">pg</span><span class="p">)</span>
+<span class="n">help</span><span class="p">(</span><span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">Modpath7Sim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on class Modpath7Sim in module flopy.modpath.mp7sim:
+
+class Modpath7Sim(flopy.pakbase.Package)
+ |  Modpath7Sim(model, mpnamefilename=None, listingfilename=None, endpointfilename=None, pathlinefilename=None, timeseriesfilename=None, tracefilename=None, simulationtype=&#39;pathline&#39;, trackingdirection=&#39;forward&#39;, weaksinkoption=&#39;stop_at&#39;, weaksourceoption=&#39;stop_at&#39;, budgetoutputoption=&#39;no&#39;, traceparticledata=None, budgetcellnumbers=None, referencetime=None, stoptimeoption=&#39;extend&#39;, stoptime=None, timepointdata=None, zonedataoption=&#39;off&#39;, stopzone=None, zones=0, retardationfactoroption=&#39;off&#39;, retardation=1.0, particlegroups=None, extension=&#39;mpsim&#39;)
+ |
+ |  MODPATH Simulation File Package Class.
+ |
+ |  Parameters
+ |  ----------
+ |  model : model object
+ |      The model object (of type :class:`flopy.modpath.Modpath7`) to
+ |      which this package will be added.
+ |  mpnamefilename : str
+ |      Filename of the MODPATH 7 name file. If mpnamefilename is not
+ |      defined it will be generated from the model name
+ |      (default is None).
+ |  listingfilename : str
+ |      Filename of the MODPATH 7 listing file. If listingfilename is not
+ |      defined it will be generated from the model name
+ |      (default is None).
+ |  endpointfilename : str
+ |      Filename of the MODPATH 7 endpoint file. If endpointfilename is
+ |      not defined it will be generated from the model name
+ |      (default is None).
+ |  pathlinefilename : str
+ |      Filename of the MODPATH 7 pathline file. If pathlinefilename is
+ |      not defined it will be generated from the model name
+ |      (default is None).
+ |  timeseriesfilename : str
+ |      Filename of the MODPATH 7 timeseries file. If timeseriesfilename
+ |      is not defined it will be generated from the model name
+ |      (default is None).
+ |  tracefilename : str
+ |      Filename of the MODPATH 7 tracefile file. If tracefilename is not
+ |      defined it will be generated from the model name
+ |      (default is None).
+ |  simulationtype : str
+ |      MODPATH 7 simulation type. Valid simulation types are &#39;endpoint&#39;,
+ |      &#39;pathline&#39;, &#39;timeseries&#39;, or &#39;combined&#39; (default is &#39;pathline&#39;).
+ |  trackingdirection : str
+ |      MODPATH 7 tracking direction. Valid tracking directions are
+ |      &#39;forward&#39; or &#39;backward&#39; (default os &#39;forward&#39;).
+ |  weaksinkoption : str
+ |      MODPATH 7 weak sink option. Valid weak sink options are
+ |      &#39;pass_through&#39; or &#39;stop_at&#39; (default value is &#39;stop_at&#39;).
+ |  weaksourceoption : str
+ |      MODPATH 7 weak source option. Valid weak source options are
+ |      &#39;pass_through&#39; or &#39;stop_at&#39; (default value is &#39;stop_at&#39;).
+ |  budgetoutputoption : str
+ |      MODPATH 7 budget output option. Valid budget output options are
+ |      &#39;no&#39; - individual cell water balance errors are not computed
+ |      and budget record headers are not printed, &#39;summary&#39; - a summary
+ |      of individual cell water balance errors for each time step is
+ |      printed in the listing file without record headers, or
+ |      &#39;record_summary&#39; -  a summary of individual cell water balance
+ |      errors for each time step is printed in the listing file with
+ |      record headers (default is &#39;summary&#39;).
+ |  traceparticledata : list or tuple
+ |      List or tuple with two ints that define the particle group and
+ |      particle id (zero-based) of the specified particle that is
+ |      followed in detail. If traceparticledata is None, trace mode is
+ |      off (default is None).
+ |  budgetcellnumbers : int, list of ints, tuple of ints, or np.ndarray
+ |      Cell numbers (zero-based) for which detailed water budgets are
+ |      computed. If budgetcellnumbers is None, detailed water budgets are
+ |      not calculated (default is None).
+ |  referencetime : float, list, or tuple
+ |      Specified reference time if a float or a list/tuple with a single
+ |      float value is provided (reference time option 1). Otherwise a
+ |      list or tuple with a zero-based stress period (int) and time
+ |      step (int) and a float defining the relative time position in the
+ |      time step is provided (reference time option 2). If referencetime
+ |      is None, reference time is set to 0 (default is None).
+ |  stoptimeoption : str
+ |      String indicating how a particle tracking simulation is
+ |      terminated based on time. If stop time option is &#39;total&#39;, particles
+ |      will be stopped at the end of the final time step if &#39;forward&#39;
+ |      tracking is simulated or at the beginning of the first time step
+ |      if backward tracking. If stop time option is &#39;extend&#39;, initial or
+ |      final steady-state time steps will be extended and all particles
+ |      will be tracked until they reach a termination location. If stop
+ |      time option is &#39;specified&#39;, particles will be tracked until they
+ |      reach a termination location or the specified stop time is reached
+ |      (default is &#39;extend&#39;).
+ |  stoptime : float
+ |      User-specified value of tracking time at which to stop a particle
+ |      tracking simulation. Stop time is only used if the stop time option
+ |      is &#39;specified&#39;. If stoptime is None and the stop time option is
+ |      &#39;specified&#39; particles will be terminated at the end of the last
+ |      time step if &#39;forward&#39; tracking or the beginning of the first time
+ |      step if &#39;backward&#39; tracking (default is None).
+ |  timepointdata : list or tuple
+ |      List or tuple with 2 items that is only used if simulationtype is
+ |      &#39;timeseries&#39; or &#39;combined&#39;. If the second item is a float then the
+ |      timepoint data corresponds to time point option 1 and the first
+ |      entry is the number of time points (timepointcount) and the second
+ |      entry is the time point interval. If the second item is a list,
+ |      tuple, or np.ndarray then the timepoint data corresponds to time
+ |      point option 2 and the number of time points entries
+ |      (timepointcount) in the second item and the second item is an
+ |      list, tuple, or array of user-defined time points. If Timepointdata
+ |      is None, time point option 1 is specified and the total simulation
+ |      time is split into 100 intervals (default is None).
+ |  zonedataoption : str
+ |      If zonedataoption is &#39;off&#39;, zone array data are not read and a zone
+ |      value of 1 is applied to all cells. If zonedataoption is &#39;on&#39;,
+ |      zone array data are read (default is &#39;off&#39;).
+ |  stopzone : int
+ |      A zero-based specified integer zone value that indicates an
+ |      automatic stopping location for particles and is only used if
+ |      zonedataoption is &#39;on&#39;. A value of -1 indicates no automatic stop
+ |      zone is used.  Stopzone values less than -1 are not allowed. If
+ |      stopzone is None, stopzone is set to -1 (default is None).
+ |  zones : float or array of floats (nlay, nrow, ncol)
+ |      Array of zero-based positive integer zones that are only used if
+ |      zonedataoption is &#39;on&#39; (default is 0).
+ |  retardationfactoroption : str
+ |      If retardationfactoroption is &#39;off&#39;, retardation array data are not
+ |      read and a retardation factor of 1 is applied to all cells. If
+ |      retardationfactoroption is &#39;on&#39;, retardation factor array data are
+ |      read (default is &#39;off&#39;).
+ |  retardation : float or array of floats (nlay, nrow, ncol)
+ |      Array of retardation factors that are only used if
+ |      retardationfactoroption is &#39;on&#39; (default is 1).
+ |  particlegroups : ParticleGroup or list of ParticleGroups
+ |      ParticleGroup or list of ParticlesGroups that contain data for
+ |      individual particle groups. If None is specified, a
+ |      particle in the center of node 0 will be created (default is None).
+ |  extension : string
+ |      Filename extension (default is &#39;mpsim&#39;)
+ |
+ |  Examples
+ |  --------
+ |
+ |  &gt;&gt;&gt; import flopy
+ |  &gt;&gt;&gt; m = flopy.modflow.Modflow.load(&#39;mf2005.nam&#39;)
+ |  &gt;&gt;&gt; mp = flopy.modpath.Modpath7(&#39;mf2005_mp&#39;, flowmodel=m)
+ |  &gt;&gt;&gt; mpsim = flopy.modpath.Modpath7Sim(mp)
+ |
+ |  Method resolution order:
+ |      Modpath7Sim
+ |      flopy.pakbase.Package
+ |      flopy.pakbase.PackageInterface
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  __init__(self, model, mpnamefilename=None, listingfilename=None, endpointfilename=None, pathlinefilename=None, timeseriesfilename=None, tracefilename=None, simulationtype=&#39;pathline&#39;, trackingdirection=&#39;forward&#39;, weaksinkoption=&#39;stop_at&#39;, weaksourceoption=&#39;stop_at&#39;, budgetoutputoption=&#39;no&#39;, traceparticledata=None, budgetcellnumbers=None, referencetime=None, stoptimeoption=&#39;extend&#39;, stoptime=None, timepointdata=None, zonedataoption=&#39;off&#39;, stopzone=None, zones=0, retardationfactoroption=&#39;off&#39;, retardation=1.0, particlegroups=None, extension=&#39;mpsim&#39;)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |
+ |  write_file(self, check=False)
+ |      Write the package file
+ |
+ |      Parameters
+ |      ----------
+ |      check : boolean
+ |          Check package data for common errors. (default False)
+ |
+ |      Returns
+ |      -------
+ |      None
+ |
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from flopy.pakbase.Package:
+ |
+ |  __getitem__(self, item)
+ |
+ |  __repr__(self)
+ |      Return repr(self).
+ |
+ |  __setattr__(self, key, value)
+ |      Implement setattr(self, name, value).
+ |
+ |  __setitem__(self, key, value)
+ |
+ |  export(self, f, **kwargs)
+ |      Method to export a package to netcdf or shapefile based on the
+ |      extension of the file name (.shp for shapefile, .nc for netcdf)
+ |
+ |      Parameters
+ |      ----------
+ |      f : str
+ |          filename
+ |      kwargs : keyword arguments
+ |          modelgrid : flopy.discretization.Grid instance
+ |              user supplied modelgrid which can be used for exporting
+ |              in lieu of the modelgrid associated with the model object
+ |
+ |      Returns
+ |      -------
+ |          None or Netcdf object
+ |
+ |  level1_arraylist(self, idx, v, name, txt)
+ |
+ |  plot(self, **kwargs)
+ |      Plot 2-D, 3-D, transient 2-D, and stress period list (MfList)
+ |      package input data
+ |
+ |      Parameters
+ |      ----------
+ |      **kwargs : dict
+ |          filename_base : str
+ |              Base file name that will be used to automatically generate file
+ |              names for output image files. Plots will be exported as image
+ |              files if file_name_base is not None. (default is None)
+ |          file_extension : str
+ |              Valid matplotlib.pyplot file extension for savefig(). Only used
+ |              if filename_base is not None. (default is &#39;png&#39;)
+ |          mflay : int
+ |              MODFLOW zero-based layer number to return.  If None, then all
+ |              all layers will be included. (default is None)
+ |          kper : int
+ |              MODFLOW zero-based stress period number to return. (default is
+ |              zero)
+ |          key : str
+ |              MfList dictionary key. (default is None)
+ |
+ |      Returns
+ |      -------
+ |      axes : list
+ |          Empty list is returned if filename_base is not None. Otherwise
+ |          a list of matplotlib.pyplot.axis are returned.
+ |
+ |      See Also
+ |      --------
+ |
+ |      Notes
+ |      -----
+ |
+ |      Examples
+ |      --------
+ |      &gt;&gt;&gt; import flopy
+ |      &gt;&gt;&gt; ml = flopy.modflow.Modflow.load(&#39;test.nam&#39;)
+ |      &gt;&gt;&gt; ml.dis.plot()
+ |
+ |  set_cbc_output_file(self, ipakcb, model, fname)
+ |
+ |  to_shapefile(self, *args, **kwargs)
+ |      Raises AttributeError, use :meth:`export`.
+ |
+ |  webdoc(self)
+ |      Open the web documentation.
+ |
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from flopy.pakbase.Package:
+ |
+ |  add_to_dtype(dtype, field_names, field_types)
+ |      Add one or more fields to a structured array data type
+ |
+ |      Parameters
+ |      ----------
+ |      dtype : numpy.dtype
+ |          Input structured array datatype to add to.
+ |      field_names : str or list
+ |          One or more field names.
+ |      field_types : numpy.dtype or list
+ |          One or more data types. If one data type is supplied, it is
+ |          repeated for each field name.
+ |
+ |  load(f: Union[str, bytes, os.PathLike], model, pak_type, ext_unit_dict=None, **kwargs)
+ |      Default load method for standard boundary packages.
+ |
+ |  ----------------------------------------------------------------------
+ |  Readonly properties inherited from flopy.pakbase.Package:
+ |
+ |  data_list
+ |
+ |  package_type
+ |
+ |  plottable
+ |
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from flopy.pakbase.Package:
+ |
+ |  name
+ |
+ |  parent
+ |
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from flopy.pakbase.PackageInterface:
+ |
+ |  check(self, f=None, verbose=True, level=1, checktype=None)
+ |      Check package data for common errors.
+ |
+ |      Parameters
+ |      ----------
+ |      f : str or file handle
+ |          String defining file name or file handle for summary file
+ |          of check method output. If a string is passed a file handle
+ |          is created. If f is None, check method does not write
+ |          results to a summary file. (default is None)
+ |      verbose : bool
+ |          Boolean flag used to determine if check method results are
+ |          written to the screen
+ |      level : int
+ |          Check method analysis level. If level=0, summary checks are
+ |          performed. If level=1, full checks are performed.
+ |      checktype : check
+ |          Checker type to be used. By default class check is used from
+ |          check.py.
+ |
+ |      Returns
+ |      -------
+ |      None
+ |
+ |      Examples
+ |      --------
+ |
+ |      &gt;&gt;&gt; import flopy
+ |      &gt;&gt;&gt; m = flopy.modflow.Modflow.load(&#39;model.nam&#39;)
+ |      &gt;&gt;&gt; m.dis.check()
+ |
+ |  ----------------------------------------------------------------------
+ |  Readonly properties inherited from flopy.pakbase.PackageInterface:
+ |
+ |  has_stress_period_data
+ |
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from flopy.pakbase.PackageInterface:
+ |
+ |  __dict__
+ |      dictionary for instance variables
+ |
+ |  __weakref__
+ |      list of weak references to the object
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/aleaf/miniforge3/envs/pyclass/lib/python3.12/site-packages/flopy/mbase.py:104: UserWarning: The program mp7 does not exist or is not executable.
+  warn(
+</pre></div></div>
+</div>
+</section>
+<section id="Write-MODPATH-7-files-and-run-the-model">
+<h2>Write MODPATH 7 files and run the model<a class="headerlink" href="#Write-MODPATH-7-files-and-run-the-model" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write modpath datasets</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">write_input</span><span class="p">()</span>
+
+<span class="c1"># run modpath</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">run_model</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[16]</span><span class="ansi-green-fg">, line 5</span>
+<span class="ansi-green-fg">      2</span> mp.write_input()
+<span class="ansi-green-fg">      4</span> <span style="color: rgb(95,135,135)"># run modpath</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> <span class="ansi-yellow-bg">mp</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">run_model</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/miniforge3/envs/pyclass/lib/python3.12/site-packages/flopy/mbase.py:1382</span>, in <span class="ansi-cyan-fg">BaseModel.run_model</span><span class="ansi-blue-fg">(self, silent, pause, report, normal_msg)</span>
+<span class="ansi-green-fg">   1352</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">run_model</span>(
+<span class="ansi-green-fg">   1353</span>     <span style="color: rgb(0,135,0)">self</span>,
+<span class="ansi-green-fg">   1354</span>     silent=<span class="ansi-bold" style="color: rgb(0,135,0)">False</span>,
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1357</span>     normal_msg=<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">normal termination</span><span class="ansi-yellow-fg">&#34;</span>,
+<span class="ansi-green-fg">   1358</span> ) -&gt; <span style="color: rgb(0,135,0)">tuple</span>[<span style="color: rgb(0,135,0)">bool</span>, <span style="color: rgb(0,135,0)">list</span>[<span style="color: rgb(0,135,0)">str</span>]]:
+<span class="ansi-green-fg">   1359</span> <span style="color: rgb(188,188,188)">    </span><span class="ansi-yellow-fg">&#34;&#34;&#34;</span>
+<span class="ansi-green-fg">   1360</span> <span class="ansi-yellow-fg">    This method will run the model using subprocess.Popen.</span>
+<span class="ansi-green-fg">   1361</span>
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1379</span>
+<span class="ansi-green-fg">   1380</span> <span class="ansi-yellow-fg">    &#34;&#34;&#34;</span>
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1382</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">run_model</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   1383</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">exe_name</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1384</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">namefile</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1385</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">model_ws</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">model_ws</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1386</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">silent</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">silent</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1387</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">pause</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">pause</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1388</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">report</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">report</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1389</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">normal_msg</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">normal_msg</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1390</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/miniforge3/envs/pyclass/lib/python3.12/site-packages/flopy/mbase.py:1691</span>, in <span class="ansi-cyan-fg">run_model</span><span class="ansi-blue-fg">(exe_name, namefile, model_ws, silent, pause, report, processors, normal_msg, use_async, cargs, custom_print)</span>
+<span class="ansi-green-fg">   1689</span> <span style="color: rgb(95,135,135)"># make sure executable exists</span>
+<span class="ansi-green-fg">   1690</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> exe_name <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1691</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">An executable name or path must be provided</span><span class="ansi-yellow-fg">&#34;</span>)
+<span class="ansi-green-fg">   1692</span> exe_path = resolve_exe(exe_name)
+<span class="ansi-green-fg">   1693</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> silent:
+
+<span class="ansi-red-fg">ValueError</span>: An executable name or path must be provided
+</pre></div></div>
+</div>
+<section id="Post-Process-the-MODFLOW-and-MODPATH-Results">
+<h3>Post-Process the MODFLOW and MODPATH Results<a class="headerlink" href="#Post-Process-the-MODFLOW-and-MODPATH-Results" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files">
+<h2>Load MODFLOW and MODPATH results from the heads and pathline files<a class="headerlink" href="#Load-MODFLOW-and-MODPATH-results-from-the-heads-and-pathline-files" title="Link to this heading"></a></h2>
+<p>Load the MODFLOW heads</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hobj</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hds</span> <span class="o">=</span> <span class="n">hobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Load the pathline file</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppth</span> <span class="o">=</span><span class="n">ws</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_mp</span><span class="si">}</span><span class="s2">.mppth&quot;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PathlineFile</span><span class="p">(</span><span class="n">ppth</span><span class="p">)</span>
+<span class="n">p0</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_alldata</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[array([(0, 0, 0, 0,     0.   ,  291.66666, 7041.6665, 25.157747 , 0,  1352, 0.16666667, 0.16666667, 1.6666667e-01, 1, 1),
+        (0, 0, 0, 0,  1066.425,  292.2685 , 7053.4917, 24.259151 , 0,  1352, 0.16907398, 0.21396767, 0.0000000e+00, 1, 1),
+        (0, 0, 0, 0,  9177.14 ,  296.90045, 7187.993 , 18.867577 , 1,  6460, 0.18760175, 0.7519722 , 0.0000000e+00, 1, 1),
+        (0, 0, 0, 0, 11623.706,  298.3129 , 7250.    , 17.850622 , 2, 11568, 0.19325161, 1.        , 8.1138092e-01, 1, 1),
+        (0, 0, 0, 0, 17445.506,  327.38663, 7500.    , 17.049046 , 2, 11413, 0.3095466 , 1.        , 4.6866903e-01, 1, 1),
+        (0, 0, 0, 0, 21365.98 ,  351.95578, 7750.    , 14.893128 , 2, 11258, 0.40782306, 1.        , 3.3380401e-01, 1, 1),
+        (0, 0, 0, 0, 24204.107,  384.25403, 8000.    , 14.742931 , 2, 11103, 0.53701615, 1.        , 2.5803149e-01, 1, 1),
+        (0, 0, 0, 0, 26379.746,  437.96545, 8250.    , 15.481973 , 2, 11002, 0.7518618 , 1.        , 2.0690233e-01, 1, 1),
+        (0, 0, 0, 0, 27073.143,  500.     , 8325.333 , 14.168972 , 2, 10883, 1.        , 0.3013334 , 1.9355534e-01, 1, 1),
+        (0, 0, 0, 0, 28262.705,  692.84955, 8500.    , 15.88128  , 2, 10884, 0.7713981 , 1.        , 1.6877499e-01, 1, 1),
+        (0, 0, 0, 0, 28570.799,  750.     , 8540.788 , 17.17807  , 2, 10735, 1.        , 0.16315117, 1.6178566e-01, 1, 1),
+        (0, 0, 0, 0, 30038.275, 1000.     , 8630.954 , 14.299529 , 2, 10736, 1.        , 0.5238181 , 1.3712475e-01, 1, 1),
+        (0, 0, 0, 0, 31326.36 , 1250.     , 8669.666 , 14.059713 , 2, 10737, 1.        , 0.6786623 , 1.1771935e-01, 1, 1),
+        (0, 0, 0, 0, 32350.568, 1500.     , 8683.666 , 15.130941 , 2, 10738, 1.        , 0.73466474, 1.0161406e-01, 1, 1),
+        (0, 0, 0, 0, 33184.07 , 1750.     , 8649.0205, 15.428246 , 2, 10739, 1.        , 0.5960806 , 8.8422537e-02, 1, 1),
+        (0, 0, 0, 0, 34089.45 , 2000.     , 8599.658 , 13.063103 , 2, 10740, 1.        , 0.39863175, 7.7607140e-02, 1, 1),
+        (0, 0, 0, 0, 34740.848, 2250.     , 8531.887 , 14.424319 , 2, 10741, 1.        , 0.12754703, 6.8339482e-02, 1, 1),
+        (0, 0, 0, 0, 34987.312, 2322.559  , 8500.    , 10.878742 , 2, 10742, 0.290236  , 0.        , 6.5897785e-02, 1, 1),
+        (0, 0, 0, 0, 35640.72 , 2500.     , 8422.05  ,  9.153153 , 2, 10891, 1.        , 0.68819803, 6.0578957e-02, 1, 1),
+        (0, 0, 0, 0, 36104.54 , 2589.1863 , 8375.    ,  3.7617726, 2, 10892, 0.35674474, 0.5       , 5.8074813e-02, 1, 1),
+        (0, 0, 0, 0, 36279.742, 2625.     , 8357.09  ,  3.7571237, 2, 10892, 0.5       , 0.42836112, 5.7156086e-02, 1, 1),
+        (0, 0, 0, 0, 36847.414, 2750.     , 8296.136 ,  3.74256  , 2, 10892, 1.        , 0.1845447 , 5.4277979e-02, 1, 1),
+        (0, 0, 0, 0, 37268.14 , 2849.683  , 8250.    ,  3.6527355, 2, 10895, 0.79746544, 0.        , 5.2135389e-02, 1, 1),
+        (0, 0, 0, 0, 37389.89 , 2875.     , 8235.971 ,  3.6129007, 2, 11012, 1.        , 0.8877678 , 5.1527575e-02, 1, 1),
+        (0, 0, 0, 0, 37665.7  , 2937.5    , 8205.581 ,  3.7412417, 2, 11013, 0.5       , 0.64464676, 5.0115835e-02, 1, 1),
+        (0, 0, 0, 0, 37816.004, 2972.0994 , 8187.5   ,  3.7377973, 2, 11013, 0.77679414, 0.5       , 4.9362838e-02, 1, 1),
+        (0, 0, 0, 0, 37918.566, 3000.     , 8175.3057,  3.7354765, 2, 11013, 1.        , 0.4024466 , 4.8855513e-02, 1, 1),
+        (0, 0, 0, 0, 38132.367, 3062.5    , 8156.827 ,  3.9864547, 2, 11018, 1.        , 0.5092376 , 4.7761355e-02, 1, 1),
+        (0, 0, 0, 0, 38138.92 , 3064.4675 , 8156.25  ,  4.1631   , 2, 11019, 0.0314803 , 0.5       , 4.7726989e-02, 1, 1),
+        (0, 0, 0, 0, 38233.55 , 3093.75   , 8148.09  ,  4.161025 , 2, 11019, 0.5       , 0.36943898, 4.7233250e-02, 1, 1),
+        (0, 0, 0, 0, 38327.824, 3125.     , 8139.738 ,  4.15898  , 2, 11019, 1.        , 0.23580766, 4.6746470e-02, 1, 1),
+        (0, 0, 0, 0, 38372.035, 3140.625  , 8136.8047,  4.203094 , 2, 11039, 0.5       , 0.37775394, 4.6436224e-02, 1, 1),
+        (0, 0, 0, 0, 38415.336, 3156.25   , 8133.7593,  4.2018466, 2, 11039, 1.        , 0.28029665, 4.6134390e-02, 1, 1),
+        (0, 0, 0, 0, 38457.65 , 3171.875  , 8131.8296,  4.0527744, 2, 11042, 1.        , 0.43707943, 4.2602737e-02, 1, 1),
+        (0, 0, 0, 0, 38564.637, 3187.5    , 8128.147 ,  3.803116 , 2, 11043, 1.        , 0.2013962 , 1.2858289e-03, 1, 1),
+        (0, 0, 0, 0, 38660.48 , 3191.2632 , 8125.    ,  3.708662 , 2, 11049, 0.12042002, 0.        , 1.1944468e-03, 1, 1),
+        (0, 0, 0, 0, 38862.535, 3203.125  , 8118.368 ,  3.697433 , 2, 11065, 0.5       , 0.7877901 , 1.0352990e-03, 1, 1),
+        (0, 0, 0, 0, 39095.668, 3218.75   , 8110.9272,  3.6967647, 2, 11065, 1.        , 0.5496728 , 8.7783765e-04, 1, 1),
+        (0, 0, 0, 0, 39488.062, 3250.     , 8098.543 ,  3.5428562, 2, 11066, 1.        , 0.15338022, 8.3847297e-04, 1, 1),
+        (0, 0, 0, 0, 39600.6  , 3259.7537 , 8093.75  ,  3.3440962, 2, 11088, 0.1560589 , 0.5       , 8.2857930e-04, 1, 1),
+        (0, 0, 0, 0, 39877.094, 3281.25   , 8082.4824,  3.343992 , 2, 11088, 0.5       , 0.31971985, 8.0476422e-04, 1, 1),
+        (0, 0, 0, 0, 40233.7  , 3312.5    , 8070.1533,  3.3438623, 2, 11088, 1.        , 0.12245228, 7.7505718e-04, 1, 1),
+        (0, 0, 0, 0, 40460.684, 3333.9407 , 8062.5   ,  3.0362926, 2, 11089, 0.34305042, 0.        , 7.5718301e-04, 1, 1),
+        (0, 0, 0, 0, 40903.15 , 3375.     , 8047.6304,  3.1637266, 2, 11091, 1.        , 0.7620828 , 7.2312116e-04, 1, 1),
+        (0, 0, 0, 0, 41541.184, 3437.5    , 8013.1743,  2.95539  , 2, 11092, 0.5       , 0.10539599, 6.7761948e-04, 1, 1),
+        (0, 0, 0, 0, 41800.92 , 3465.193  , 8000.    ,  2.9553099, 2, 11092, 0.7215439 , 0.        , 6.5992685e-04, 1, 1),
+        (0, 0, 0, 0, 41982.45 , 3500.     , 7990.8164,  3.210435 , 2, 11191, 1.        , 0.9265324 , 6.4754800e-04, 1, 1),
+        (0, 0, 0, 0, 42502.145, 3625.     , 7968.0464,  3.2902412, 2, 11206, 1.        , 0.74437314, 6.1345613e-04, 1, 1),
+        (0, 0, 0, 0, 42670.46 , 3680.2456 , 7937.5   ,  3.2615755, 2, 11207, 0.4419644 , 0.5       , 6.0290669e-04, 1, 1),
+        (0, 0, 0, 0, 42686.645, 3687.5    , 7934.9727,  3.261571 , 2, 11207, 0.5       , 0.47978276, 6.0190214e-04, 1, 1),
+        (0, 0, 0, 0, 42795.89 , 3750.     , 7915.1133,  3.261541 , 2, 11207, 1.        , 0.32090622, 5.9516344e-04, 1, 1),
+        (0, 0, 0, 0, 42827.008, 3773.8174 , 7906.25  ,  3.237704 , 2, 11212, 0.38107696, 0.5       , 5.9033406e-04, 1, 1),
+        (0, 0, 0, 0, 42834.42 , 3781.25   , 7904.3936,  3.2376988, 2, 11212, 0.5       , 0.47029385, 5.8918889e-04, 1, 1),
+        (0, 0, 0, 0, 42858.8  , 3812.5    , 7896.461 ,  3.237682 , 2, 11212, 1.        , 0.34337416, 5.8543991e-04, 1, 1),
+        (0, 0, 0, 0, 42867.297, 3828.125  , 7891.5454,  3.2256145, 2, 11215, 0.5       , 0.5294564 , 5.5021694e-04, 1, 1),
+        (0, 0, 0, 0, 42868.305, 3830.3154 , 7890.625 ,  3.2255962, 2, 11215, 0.5700975 , 0.5       , 5.4618990e-04, 1, 1),
+        (0, 0, 0, 0, 42872.234, 3843.75   , 7887.5947,  3.225526 , 2, 11215, 1.        , 0.40302902, 5.3074013e-04, 1, 1),
+        (0, 0, 0, 0, 42874.312, 3859.375  , 7885.291 ,  3.2016647, 2, 11219, 0.        , 0.65862405, 3.6462079e-04, 1, 1),
+        (0, 0, 0, 0, 42874.312, 3859.375  , 7885.291 ,  3.2188168, 2, 11218, 1.        , 0.65862405, 3.6462079e-04, 1, 1)],
+       dtype=[(&#39;particleid&#39;, &#39;&lt;i4&#39;), (&#39;particlegroup&#39;, &#39;&lt;i4&#39;), (&#39;sequencenumber&#39;, &#39;&lt;i4&#39;), (&#39;particleidloc&#39;, &#39;&lt;i4&#39;), (&#39;time&#39;, &#39;&lt;f4&#39;), (&#39;x&#39;, &#39;&lt;f4&#39;), (&#39;y&#39;, &#39;&lt;f4&#39;), (&#39;z&#39;, &#39;&lt;f4&#39;), (&#39;k&#39;, &#39;&lt;i4&#39;), (&#39;node&#39;, &#39;&lt;i4&#39;), (&#39;xloc&#39;, &#39;&lt;f4&#39;), (&#39;yloc&#39;, &#39;&lt;f4&#39;), (&#39;zloc&#39;, &#39;&lt;f4&#39;), (&#39;stressperiod&#39;, &#39;&lt;i4&#39;), (&#39;timestep&#39;, &#39;&lt;i4&#39;)]),
+ array([(1, 0, 1, 1,     0.   ,  375.     , 7041.6665, 25.157747 , 0,  1352, 0.5       , 0.16666667, 0.16666667, 1, 1),
+        (1, 0, 1, 1,  1066.425,  375.7526 , 7053.4917, 24.259151 , 0,  1352, 0.50301033, 0.21396767, 0.        , 1, 1),
+        (1, 0, 1, 1,  9177.14 ,  381.53244, 7187.993 , 18.867577 , 1,  6460, 0.5261298 , 0.7519722 , 0.        , 1, 1),
+        (1, 0, 1, 1, 11623.706,  383.2931 , 7250.    , 17.850622 , 2, 11568, 0.5331724 , 1.        , 0.8113809 , 1, 1),
+        (1, 0, 1, 1, 17445.506,  406.1642 , 7500.    , 17.049046 , 2, 11413, 0.62465686, 1.        , 0.46866903, 1, 1),
+        (1, 0, 1, 1, 21365.98 ,  429.19812, 7750.    , 14.893128 , 2, 11258, 0.71679246, 1.        , 0.333804  , 1, 1),
+        (1, 0, 1, 1, 24204.107,  465.9783 , 8000.    , 14.742931 , 2, 11103, 0.86391324, 1.        , 0.2580315 , 1, 1),
+        (1, 0, 1, 1, 25402.314,  500.     , 8134.31  , 15.579909 , 2, 11002, 1.        , 0.5372406 , 0.22848248, 1, 1),
+        (1, 0, 1, 1, 26073.605,  518.39496, 8250.    , 15.031157 , 2, 11003, 0.07357987, 1.        , 0.21383499, 1, 1),
+        (1, 0, 1, 1, 27358.307,  750.     , 8465.95  , 15.943902 , 2, 10884, 1.        , 0.8638008 , 0.18442652, 1, 1),
+        (1, 0, 1, 1, 28116.188,  894.3324 , 8500.    , 12.073312 , 2, 10885, 0.5773297 , 1.        , 0.17199726, 1, 1),
+        (1, 0, 1, 1, 28714.22 , 1000.     , 8535.634 , 14.396254 , 2, 10736, 1.        , 0.14253446, 0.1607872 , 1, 1),
+        (1, 0, 1, 1, 30002.307, 1250.     , 8562.656 , 14.138697 , 2, 10737, 1.        , 0.2506236 , 0.13803317, 1, 1),
+        (1, 0, 1, 1, 31026.514, 1500.     , 8564.1875, 15.187186 , 2, 10738, 1.        , 0.2567515 , 0.11914873, 1, 1),
+        (1, 0, 1, 1, 31860.018, 1750.     , 8521.76  , 15.470393 , 2, 10739, 1.        , 0.08703894, 0.10368085, 1, 1),
+        (1, 0, 1, 1, 32197.521, 1841.701  , 8500.    , 13.130724 , 2, 10740, 0.36680412, 0.        , 0.09875897, 1, 1),
+        (1, 0, 1, 1, 32723.895, 2000.     , 8464.922 , 13.120698 , 2, 10889, 1.        , 0.8596867 , 0.09138791, 1, 1),
+        (1, 0, 1, 1, 33319.28 , 2250.     , 8386.608 , 14.194465 , 2, 10890, 1.        , 0.5464344 , 0.08128989, 1, 1),
+        (1, 0, 1, 1, 34236.707, 2500.     , 8257.554 ,  9.194842 , 2, 10891, 1.        , 0.0302132 , 0.07223024, 1, 1),
+        (1, 0, 1, 1, 34313.992, 2514.7893 , 8250.    ,  3.8308406, 2, 10892, 0.05915729, 0.        , 0.07172394, 1, 1),
+        (1, 0, 1, 1, 34992.023, 2625.     , 8182.07  ,  3.7971873, 2, 11011, 0.5       , 0.72828007, 0.06734534, 1, 1),
+        (1, 0, 1, 1, 35506.47 , 2710.23   , 8125.    ,  3.781605 , 2, 11011, 0.84092045, 0.5       , 0.06420238, 1, 1),
+        (1, 0, 1, 1, 35697.39 , 2750.     , 8103.5493,  3.776009 , 2, 11011, 1.        , 0.41419792, 0.06307365, 1, 1),
+        (1, 0, 1, 1, 36268.164, 2875.     , 8047.6475,  3.7971103, 2, 11014, 1.        , 0.38118196, 0.05963819, 1, 1),
+        (1, 0, 1, 1, 36544.617, 2937.5    , 8022.5825,  3.747776 , 2, 11015, 0.5       , 0.1806616 , 0.05799387, 1, 1),
+        (1, 0, 1, 1, 36797.656, 2999.5725 , 8000.    ,  3.7411008, 2, 11015, 0.9965789 , 0.        , 0.0565286 , 1, 1),
+        (1, 0, 1, 1, 36799.88 , 3000.     , 7999.8086,  3.719146 , 2, 11114, 1.        , 0.99846715, 0.05651587, 1, 1),
+        (1, 0, 1, 1, 37093.63 , 3062.5    , 7979.1167,  3.706241 , 2, 11117, 1.        , 0.6658651 , 0.05481534, 1, 1),
+        (1, 0, 1, 1, 37227.023, 3093.75   , 7972.9053,  3.6043687, 2, 11118, 0.5       , 0.5664867 , 0.05405088, 1, 1),
+        (1, 0, 1, 1, 37310.426, 3113.6023 , 7968.75  ,  3.6022983, 2, 11118, 0.81763643, 0.5       , 0.05357835, 1, 1),
+        (1, 0, 1, 1, 37355.496, 3125.     , 7966.5186,  3.6011868, 2, 11118, 1.        , 0.4642958 , 0.05332471, 1, 1),
+        (1, 0, 1, 1, 37416.727, 3140.625  , 7964.9746,  3.5058205, 2, 11126, 0.5       , 0.8791891 , 0.05288708, 1, 1),
+        (1, 0, 1, 1, 37478.727, 3156.25   , 7963.331 ,  3.5038984, 2, 11126, 1.        , 0.8265902 , 0.05244757, 1, 1),
+        (1, 0, 1, 1, 37537.65 , 3171.875  , 7961.9463,  3.5626056, 2, 11127, 1.        , 0.5645512 , 0.0483855 , 1, 1),
+        (1, 0, 1, 1, 37646.598, 3187.5    , 7959.6675,  3.3983364, 2, 11128, 1.        , 0.41871217, 0.0042506 , 1, 1),
+        (1, 0, 1, 1, 37893.9  , 3203.125  , 7954.166 ,  3.4010422, 2, 11133, 0.5       , 0.5333076 , 0.00369481, 1, 1),
+        (1, 0, 1, 1, 37946.367, 3206.6306 , 7953.125 ,  3.400573 , 2, 11133, 0.6121834 , 0.5       , 0.00358658, 1, 1),
+        (1, 0, 1, 1, 38120.16 , 3218.75   , 7949.732 ,  3.3991148, 2, 11133, 1.        , 0.39142844, 0.00325021, 1, 1),
+        (1, 0, 1, 1, 38526.08 , 3250.     , 7943.0986,  3.4536526, 2, 11134, 1.        , 0.17915015, 0.00310237, 1, 1),
+        (1, 0, 1, 1, 38884.27 , 3281.25   , 7937.916 ,  3.6084507, 2, 11187, 0.5       , 0.00665233, 0.00298445, 1, 1),
+        (1, 0, 1, 1, 38915.113, 3284.1855 , 7937.5   ,  3.6084082, 2, 11187, 0.5469703 , 0.        , 0.00297451, 1, 1),
+        (1, 0, 1, 1, 39204.26 , 3312.5    , 7933.8066,  3.3178751, 2, 11189, 1.        , 0.9409047 , 0.00288494, 1, 1),
+        (1, 0, 1, 1, 39746.887, 3375.     , 7927.907 ,  3.42754  , 2, 11190, 1.        , 0.84651566, 0.00272271, 1, 1),
+        (1, 0, 1, 1, 40144.082, 3437.5    , 7925.4526,  3.2191124, 2, 11191, 0.5       , 0.403621  , 0.00261221, 1, 1),
+        (1, 0, 1, 1, 40462.62 , 3500.     , 7913.7847,  3.2187355, 2, 11191, 1.        , 0.3102781 , 0.00252683, 1, 1),
+        (1, 0, 1, 1, 40982.32 , 3625.     , 7912.5156,  3.2981243, 2, 11206, 1.        , 0.30012494, 0.0023938 , 1, 1),
+        (1, 0, 1, 1, 41153.348, 3687.5    , 7899.7046,  3.26941  , 2, 11207, 0.5       , 0.19763616, 0.00235198, 1, 1),
+        (1, 0, 1, 1, 41262.594, 3750.     , 7891.862 ,  3.2692919, 2, 11207, 1.        , 0.13489589, 0.00232565, 1, 1),
+        (1, 0, 1, 1, 41298.973, 3781.25   , 7888.7163,  3.245443 , 2, 11212, 0.5       , 0.21946454, 0.0023036 , 1, 1),
+        (1, 0, 1, 1, 41323.348, 3812.5    , 7885.8555,  3.2453768, 2, 11212, 1.        , 0.17368884, 0.00228894, 1, 1),
+        (1, 0, 1, 1, 41331.047, 3828.125  , 7884.7173,  3.232934 , 2, 11215, 0.5       , 0.31095538, 0.00216386, 1, 1),
+        (1, 0, 1, 1, 41335.785, 3843.75   , 7883.209 ,  3.2326002, 2, 11215, 1.        , 0.2626827 , 0.00209027, 1, 1),
+        (1, 0, 1, 1, 41337.863, 3859.375  , 7883.1943,  3.206547 , 2, 11219, 0.        , 0.52444786, 0.00143603, 1, 1),
+        (1, 0, 1, 1, 41337.863, 3859.375  , 7883.1943,  3.223687 , 2, 11218, 1.        , 0.52444786, 0.00143603, 1, 1)],
+       dtype=[(&#39;particleid&#39;, &#39;&lt;i4&#39;), (&#39;particlegroup&#39;, &#39;&lt;i4&#39;), (&#39;sequencenumber&#39;, &#39;&lt;i4&#39;), (&#39;particleidloc&#39;, &#39;&lt;i4&#39;), (&#39;time&#39;, &#39;&lt;f4&#39;), (&#39;x&#39;, &#39;&lt;f4&#39;), (&#39;y&#39;, &#39;&lt;f4&#39;), (&#39;z&#39;, &#39;&lt;f4&#39;), (&#39;k&#39;, &#39;&lt;i4&#39;), (&#39;node&#39;, &#39;&lt;i4&#39;), (&#39;xloc&#39;, &#39;&lt;f4&#39;), (&#39;yloc&#39;, &#39;&lt;f4&#39;), (&#39;zloc&#39;, &#39;&lt;f4&#39;), (&#39;stressperiod&#39;, &#39;&lt;i4&#39;), (&#39;timestep&#39;, &#39;&lt;i4&#39;)])]
+</pre></div></div>
+</div>
+</section>
+<section id="Plot-the-heads-and-pathlines">
+<h2>Plot the heads and pathlines<a class="headerlink" href="#Plot-the-heads-and-pathlines" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_pathline</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e534eb&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_34_0.png" src="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_34_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PathlineFile</span><span class="p">(</span><span class="n">ppth</span><span class="p">)</span>
+<span class="n">p0</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_alldata</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">recarray</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p0</span><span class="p">):</span>
+    <span class="n">dft</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">recarray</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df</span><span class="p">,</span> <span class="n">dft</span><span class="p">),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">74001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)):</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">times</span><span class="p">[</span><span class="n">ix</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="p">])]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">tmp</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;magma&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="si">}</span><span class="s2"> days&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ix</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;particle travel time from source&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_35_0.png" src="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_35_0.png" />
+</div>
+</div>
+</section>
+<section id="Export-the-pathlines-to-a-shapefile">
+<h2>Export the pathlines to a shapefile<a class="headerlink" href="#Export-the-pathlines-to-a-shapefile" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spth</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">ws</span> <span class="o">/</span> <span class="s1">&#39;pathline.shp&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">write_shapefile</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">mg</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="n">one_per_particle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shpname</span><span class="o">=</span><span class="n">spth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[(&#39;particleid&#39;, &#39;&lt;i4&#39;), (&#39;particlegroup&#39;, &#39;&lt;i4&#39;), (&#39;sequencenumber&#39;, &#39;&lt;i4&#39;), (&#39;particleidloc&#39;, &#39;&lt;i4&#39;), (&#39;time&#39;, &#39;&lt;f4&#39;), (&#39;x&#39;, &#39;&lt;f4&#39;), (&#39;y&#39;, &#39;&lt;f4&#39;), (&#39;z&#39;, &#39;&lt;f4&#39;), (&#39;k&#39;, &#39;&lt;i4&#39;), (&#39;node&#39;, &#39;&lt;i4&#39;), (&#39;xloc&#39;, &#39;&lt;f4&#39;), (&#39;yloc&#39;, &#39;&lt;f4&#39;), (&#39;zloc&#39;, &#39;&lt;f4&#39;), (&#39;stressperiod&#39;, &#39;&lt;i4&#39;), (&#39;timestep&#39;, &#39;&lt;i4&#39;)]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+C:\Users\jlarsen\Documents\anaconda3\envs\pyclass3\Lib\site-packages\flopy\export\shapefile_utils.py:496: UserWarning: Truncating shapefile fieldname particlegroup to partiroup_
+  warn(f&#34;Truncating shapefile fieldname {s} to {name}&#34;)
+C:\Users\jlarsen\Documents\anaconda3\envs\pyclass3\Lib\site-packages\flopy\export\shapefile_utils.py:496: UserWarning: Truncating shapefile fieldname sequencenumber to sequember_
+  warn(f&#34;Truncating shapefile fieldname {s} to {name}&#34;)
+C:\Users\jlarsen\Documents\anaconda3\envs\pyclass3\Lib\site-packages\flopy\export\shapefile_utils.py:496: UserWarning: Truncating shapefile fieldname particleidloc to partidloc_
+  warn(f&#34;Truncating shapefile fieldname {s} to {name}&#34;)
+C:\Users\jlarsen\Documents\anaconda3\envs\pyclass3\Lib\site-packages\flopy\export\shapefile_utils.py:496: UserWarning: Truncating shapefile fieldname stressperiod to stresriod_
+  warn(f&#34;Truncating shapefile fieldname {s} to {name}&#34;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+No CRS information for writing a .prj file.
+Supply an valid coordinate system reference to the attached modelgrid object or .export() method.
+</pre></div></div>
+</div>
+</section>
+<section id="Load-the-shapefile-into-geopandas">
+<h2>Load the shapefile into geopandas<a class="headerlink" href="#Load-the-shapefile-into-geopandas" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rshp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">spth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Show-the-dataframe">
+<h2>Show the dataframe<a class="headerlink" href="#Show-the-dataframe" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rshp</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>particleid</th>
+      <th>partiroup_</th>
+      <th>sequember_</th>
+      <th>partidloc_</th>
+      <th>time</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>k</th>
+      <th>node</th>
+      <th>xloc</th>
+      <th>yloc</th>
+      <th>zloc</th>
+      <th>stresriod_</th>
+      <th>timestep</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1066.444824</td>
+      <td>292.266235</td>
+      <td>7053.407715</td>
+      <td>24.259151</td>
+      <td>1</td>
+      <td>1353</td>
+      <td>0.169065</td>
+      <td>0.213630</td>
+      <td>0.000000</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (291.667 7041.667, 292.266 7053.408)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>9176.973633</td>
+      <td>296.880524</td>
+      <td>7186.960938</td>
+      <td>18.867577</td>
+      <td>2</td>
+      <td>6461</td>
+      <td>0.187522</td>
+      <td>0.747843</td>
+      <td>0.000000</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (292.266 7053.408, 296.881 7186.961)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>11675.894531</td>
+      <td>298.317780</td>
+      <td>7250.000000</td>
+      <td>17.831028</td>
+      <td>3</td>
+      <td>11569</td>
+      <td>0.193271</td>
+      <td>1.000000</td>
+      <td>0.807747</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (296.881 7186.961, 298.318 7250)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>17508.531250</td>
+      <td>327.402008</td>
+      <td>7500.000000</td>
+      <td>17.036358</td>
+      <td>3</td>
+      <td>11414</td>
+      <td>0.309608</td>
+      <td>1.000000</td>
+      <td>0.466072</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (298.318 7250, 327.402 7500)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>21433.228516</td>
+      <td>351.983856</td>
+      <td>7750.000000</td>
+      <td>14.882585</td>
+      <td>3</td>
+      <td>11259</td>
+      <td>0.407935</td>
+      <td>1.000000</td>
+      <td>0.331823</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (327.402 7500, 351.984 7750)</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7326</th>
+      <td>162</td>
+      <td>1</td>
+      <td>162</td>
+      <td>162</td>
+      <td>49935.636719</td>
+      <td>3312.500000</td>
+      <td>5125.286133</td>
+      <td>1.553995</td>
+      <td>3</td>
+      <td>12772</td>
+      <td>1.000000</td>
+      <td>0.004577</td>
+      <td>0.009084</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (3305.245 5125, 3312.5 5125.286)</td>
+    </tr>
+    <tr>
+      <th>7327</th>
+      <td>162</td>
+      <td>1</td>
+      <td>162</td>
+      <td>162</td>
+      <td>49954.375000</td>
+      <td>3328.125000</td>
+      <td>5128.049805</td>
+      <td>1.580439</td>
+      <td>3</td>
+      <td>12775</td>
+      <td>0.500000</td>
+      <td>0.097600</td>
+      <td>0.008830</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (3312.5 5125.286, 3328.125 5128.05)</td>
+    </tr>
+    <tr>
+      <th>7328</th>
+      <td>162</td>
+      <td>1</td>
+      <td>162</td>
+      <td>162</td>
+      <td>49966.113281</td>
+      <td>3343.750000</td>
+      <td>5128.823730</td>
+      <td>1.579678</td>
+      <td>3</td>
+      <td>12775</td>
+      <td>1.000000</td>
+      <td>0.122366</td>
+      <td>0.008674</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (3328.125 5128.05, 3343.75 5128.824)</td>
+    </tr>
+    <tr>
+      <th>7329</th>
+      <td>162</td>
+      <td>1</td>
+      <td>162</td>
+      <td>162</td>
+      <td>49971.105469</td>
+      <td>3359.375000</td>
+      <td>5131.083496</td>
+      <td>1.578258</td>
+      <td>3</td>
+      <td>12778</td>
+      <td>1.000000</td>
+      <td>0.389351</td>
+      <td>0.005555</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (3343.75 5128.824, 3359.375 5131.083)</td>
+    </tr>
+    <tr>
+      <th>7330</th>
+      <td>162</td>
+      <td>1</td>
+      <td>162</td>
+      <td>162</td>
+      <td>49971.105469</td>
+      <td>3359.375000</td>
+      <td>5131.083496</td>
+      <td>1.587265</td>
+      <td>3</td>
+      <td>12779</td>
+      <td>0.000000</td>
+      <td>0.389351</td>
+      <td>0.005555</td>
+      <td>1</td>
+      <td>1</td>
+      <td>LINESTRING (3359.375 5131.083, 3359.375 5131.083)</td>
+    </tr>
+  </tbody>
+</table>
+<p>7331 rows × 16 columns</p>
+</div></div>
+</div>
+</section>
+<section id="Plot-the-geopandas-dataframe-on-the-modelgrid">
+<h2>Plot the geopandas dataframe on the modelgrid<a class="headerlink" href="#Plot-the-geopandas-dataframe-on-the-modelgrid" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_shapes</span><span class="p">(</span><span class="n">rshp</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span> <span class="c1">#, edgecolor=&quot;b&quot;)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_43_0.png" src="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_43_0.png" />
+</div>
+</div>
+<section id="Export-the-data-to-VTK-(Visualization-ToolKit)-format-for-a-3d-representation">
+<h3>Export the data to VTK (Visualization ToolKit) format for a 3d representation<a class="headerlink" href="#Export-the-data-to-VTK-(Visualization-ToolKit)-format-for-a-3d-representation" title="Link to this heading"></a></h3>
+<p>FloPy’s <code class="docutils literal notranslate"><span class="pre">Vtk</span></code> module allows us to create Visualization ToolKit (VTK) files that can be opened and explored with pyVISTAs or external software such as ParaView.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flopy.export.vtk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vtk</span>
+
+<span class="n">vtk</span> <span class="o">=</span> <span class="n">Vtk</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vertical_exageration</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">vtk</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="n">gwf</span><span class="p">)</span>
+<span class="n">vtk</span><span class="o">.</span><span class="n">add_pathline_points</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Write VTK file for use in ParaView or other VTK software</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pth</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+<span class="n">pth</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">vtk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pth</span> <span class="o">/</span> <span class="s2">&quot;freyberg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Alternatively-we-can-visualize-the-VTK-representation-using-pyvista.-To-activate-these-cells,-set-plotvtk=True">
+<h3>Alternatively we can visualize the VTK representation using <code class="docutils literal notranslate"><span class="pre">pyvista</span></code>. To activate these cells, set <code class="docutils literal notranslate"><span class="pre">plotvtk=True</span></code><a class="headerlink" href="#Alternatively-we-can-visualize-the-VTK-representation-using-pyvista.-To-activate-these-cells,-set-plotvtk=True" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plotvtk</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pyvista</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pv</span>
+</pre></div>
+</div>
+</div>
+<p>Convert the VTK to pyvista meshes and rotate the meshes to match the orientation of our matplotlib plots</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">grid</span><span class="p">,</span> <span class="n">pathlines</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">to_pyvista</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="n">show_actor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">actor_scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">grid</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pathlines</span><span class="o">.</span><span class="n">rotate_z</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Select particle release locations and build a dictionary of particle tracks (pathlines). This will be used below for particle labelling, as well as for animation.</p>
+<p><em>Note</em>: while below we construct pathlines manually from data read from the exported VTK files, pathlines may also be read directly from the MODPATH 7 pathline output file (provided the simulation was run in pathline or combined mode, as this one was).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">tracks</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">particle_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">release_locs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]):</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pathlines</span><span class="p">[</span><span class="s2">&quot;particleid&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">])))</span>
+        <span class="n">loc</span> <span class="o">=</span> <span class="n">pathlines</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
+            <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">particle_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+            <span class="n">release_locs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+
+        <span class="c1"># store the particle location in the corresponding track</span>
+        <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loc</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
+
+    <span class="n">release_locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
+    <span class="n">tracks</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">max_track_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+<p>View the grid and pathlines with PyVista, with particle tracks/locations colored by time. Also add particle ID labels to a few particles’ release locations.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="n">pv</span><span class="o">.</span><span class="n">set_plot_theme</span><span class="p">(</span><span class="s2">&quot;document&quot;</span><span class="p">)</span>
+    <span class="n">pv</span><span class="o">.</span><span class="n">set_jupyter_backend</span><span class="p">(</span><span class="s2">&quot;static&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create the plot and add the grid and pathline meshes</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">pathlines</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+
+    <span class="c1"># add a particle ID label to each 20th particle&#39;s starting point</span>
+    <span class="n">label_coords</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start_labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pid</span><span class="p">,</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="o">%</span> <span class="mi">20</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">label_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">start_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Particle </span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">p</span><span class="o">.</span><span class="n">add_point_labels</span><span class="p">(</span>
+        <span class="n">label_coords</span><span class="p">,</span>
+        <span class="n">start_labels</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">point_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+        <span class="n">point_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># zoom in and show the plot</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_56_0.png" src="../../_images/notebooks_part1_flopy_10b_modpath_particle_tracking-demo_56_0.png" />
+</div>
+</div>
+<p>Create an animated GIF of the particles traveling along their pathlines, with particles colored by time.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="c1"># create plotter</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">off_screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># open GIF file</span>
+    <span class="n">gif_path</span> <span class="o">=</span> <span class="n">pth</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;freyberg_tracks.gif&quot;</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">open_gif</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gif_path</span><span class="p">))</span>
+
+    <span class="c1"># create mesh from release locations</span>
+    <span class="n">spls</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">release_locs</span><span class="p">)</span>
+    <span class="n">spls</span><span class="o">.</span><span class="n">point_data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spls</span><span class="o">.</span><span class="n">points</span><span class="p">))</span>
+
+    <span class="c1"># add the underlying grid mesh and particle data, then zoom in</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">spls</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.23e09</span><span class="p">])</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
+
+    <span class="c1"># cycle through time steps and update particle location</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_track_len</span><span class="p">):</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">particle_ids</span><span class="p">:</span>
+            <span class="n">track</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span>
+            <span class="n">npts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+            <span class="c1"># use last locn if particle has already terminated</span>
+            <span class="n">loc</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span> <span class="k">else</span> <span class="n">track</span><span class="p">[</span><span class="n">npts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+            <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npts</span><span class="p">:</span>
+                <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+
+        <span class="n">spls</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+        <span class="n">spls</span><span class="o">.</span><span class="n">point_data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">segments</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">write_frame</span><span class="p">()</span>  <span class="c1"># write frame to file</span>
+
+    <span class="c1"># close the plotter and the GIF file</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">plotvtk</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.core.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">gif_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;gif&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;IPython.core.display.Image object&gt;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="10a_prt_particle_tracking-demo.html" class="btn btn-neutral float-left" title="10a: Particle tracking with MODFLOW 6 PRT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../bonus_examples.html" class="btn btn-neutral float-right" title="Bonus examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

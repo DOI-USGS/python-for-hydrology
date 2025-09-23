@@ -1,0 +1,2176 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="11: Using Xarray to look at Daymet precipitation around Mt. Rainier" href="11_xarray_mt_rainier_precip.html" />
+    <link rel="prev" title="10a: Introduction to Rasterio for working with raster data" href="10a_Rasterio_intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="00_python_basics_review.html">00: Introduction to python for hydrologists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/01_functions_script__solution.html">01: Functions and scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/02_Namespace_objects_modules_packages__solution.html">02: Namespace, modules, packages, and objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_useful-std-library-modules.html">03: Useful standard library modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_useful-std-library-modules-solutions.html">03: Solutions to Useful standard library modules exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_files_and_strings.html">04: File input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_numpy.html">05: NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/05_numpy__solutions.html">05: NumPy exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06_matplotlib__solution.html">06: <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> — 2D and 3D plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06b_matplotlib_animation.html">06a: Using Matplotlib to Create Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07a_Theis-exercise-solution.html">07: Using functions to solve an equation– The Theis example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07b_VSCode.html">07b: VSCode Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/08_pandas.html">08: Working with tabular data in Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Key-takeaways:">Key takeaways:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#The-main-idea-is-to">The main idea is to</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Datasets:">Datasets:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Operations:">Operations:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#References:">References:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Define-out-input-data">Define out input data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Quickly-view-a-raster-with-rasterio">Quickly view a raster with rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Get-raster-values-at-point-locations">Get raster values at point locations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Now-let's-sample-elevations-at-these-points">Now let’s sample elevations at these points</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Viewing-the-3-rasters-side-by-side-as-subplots">Viewing the 3 rasters side by side as subplots</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Warp-the-1970-and-2008-rasters-onto-the-2015-grid">Warp the 1970 and 2008 rasters onto the 2015 grid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Now-let's-make-sure-all-three-are-on-the-same-grid">Now let’s make sure all three are on the same grid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Read-the-aligned-grids-into-a-new-set-of-masked-numpy-arrays">Read the aligned grids into a new set of masked numpy arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Assign-information-on-shared-raster-grid-to-variables-for-later-use">Assign information on shared raster grid to variables for later use</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Get-the-summit-elevation">Get the summit elevation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Compute-the-elevation-differences">Compute the elevation differences</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Average-rates-of-change">Average rates of change</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Map-the-shapefile-of-glacier-extents-onto-the-same-grid-as-the-rasters">Map the shapefile of glacier extents onto the same grid as the rasters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Use-rasterio-to-rasterize-the-glacier-extents">Use rasterio to rasterize the glacier extents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Clip-the-1970-2015-raster-to-get-an-estimate-of-total-volume-change-for-all-glaciers">Clip the 1970-2015 raster to get an estimate of total volume change for all glaciers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Get-volume-change-by-glacier,-see-if-it-relates-to-minimum-elevation">Get volume change by glacier, see if it relates to minimum elevation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Now-we-can-plot-the-volume-of-change-vs-minimum-elevation-'Zmin'">Now we can plot the volume of change vs minimum elevation <code class="docutils literal notranslate"><span class="pre">'Zmin'</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Writing-a-raster:-save-out-1970-2015-elevation-changes">Writing a raster: save out 1970-2015 elevation changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#What-if-we-want-to-reproject-to-a-different-CRS?">What if we want to reproject to a different CRS?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part0.html">Part 0: General Python Exercises</a></li>
+      <li class="breadcrumb-item active">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/part0_python_intro/10b_Rasterio_advanced.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="10b:-Using-Rasterio-and-Numpy-to-examine-ice-loss-on-Mt.-Rainier">
+<h1>10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier<a class="headerlink" href="#10b:-Using-Rasterio-and-Numpy-to-examine-ice-loss-on-Mt.-Rainier" title="Link to this heading"></a></h1>
+<p>This exercise focuses on working with <a class="reference external" href="https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/raster_data.html">GIS raster data</a>. It is based on a <a class="reference external" href="https://github.com/geohackweek/tutorial_contents/blob/master/raster/notebooks/rainier_dem_example.ipynb">GeoHackWeek tutorial</a>. We will use the <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> and <code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> libraries, along with <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to look changes in the surface elevations of mapped glaciers since 1970.</p>
+<section id="Key-takeaways:">
+<h2>Key takeaways:<a class="headerlink" href="#Key-takeaways:" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>raster formats such as GeoTiff map array data on a regular grid using a simple transform (offset, rotation and pixel size).</p></li>
+<li><p>working with raster data in python is inherently a little difficult, because the raster data model is designed to work efficiently with large datasets on disk (without loading whole thing into memory). Other available tools, such as the <a class="reference external" href="https://gdal.org/programs/index.html">gdal commandline tools</a> or ArcPy macros, tend to stay in this paradigm by taking files as input to functions that write files as output.</p></li>
+<li><p>conversely, when we work with arrays in-memory with <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, we typically think it terms of rows and columns</p></li>
+</ul>
+</section>
+<section id="The-main-idea-is-to">
+<h2>The main idea is to<a class="headerlink" href="#The-main-idea-is-to" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>use <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> (or another tool) to handle the files and any transformations needed to align the data. As we’ll see below, most of these operations aren’t especially intuitive or easy to remember. Thankfully, there are recipes available online that are easy to copy for performing common tasks. The <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/">rasterio manual</a> is a great place to start.</p></li>
+<li><p>once the data are in numpy, use <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and other tools in the scientific python stack (e.g. <code class="docutils literal notranslate"><span class="pre">scipy</span></code>) to do the computations</p></li>
+</ol>
+</section>
+<section id="Datasets:">
+<h2>Datasets:<a class="headerlink" href="#Datasets:" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>3 Digital Elevation Models (DEMs) of Mt. Rainier elevations in 1970, 2008 and 2015; each on a different grid.</p></li>
+<li><p>shapefile of glacier extents</p></li>
+</ul>
+</section>
+<section id="Operations:">
+<h2>Operations:<a class="headerlink" href="#Operations:" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>read and write rasters to/from <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays</p></li>
+<li><p>plotting raster data</p></li>
+<li><p>warping (resampling) raster data to different grids</p></li>
+<li><p>reprojecting raster data to different coordinate reference systems</p></li>
+<li><p>getting raster data at discrete points</p></li>
+<li><p>zonal statistics</p></li>
+<li><p>mapping vector features onto rasters (“rasterizing”)</p></li>
+</ul>
+</section>
+<section id="References:">
+<h2>References:<a class="headerlink" href="#References:" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/">rasterio manual</a></p></li>
+<li><p>The <a class="reference external" href="https://geohackweek.github.io/raster/">GeoHackWeek tutorials</a> for more information on working with raster data in the python</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rasterio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">show</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio</span><span class="w"> </span><span class="kn">import</span> <span class="n">features</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LightSource</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+
+<span class="c1"># for elevation hillshade if we want to use it</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="n">LightSource</span><span class="p">(</span><span class="n">azdeg</span><span class="o">=</span><span class="mi">315</span><span class="p">,</span> <span class="n">altdeg</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Define-out-input-data">
+<h3>Define out input data<a class="headerlink" href="#Define-out-input-data" title="Link to this heading"></a></h3>
+<p>We’ll be working with three rasters and a single shapefile for this exercise</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_path</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;data/rasterio&quot;</span><span class="p">)</span>
+
+<span class="n">dem_file_1970</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;19700901_ned1_2003_adj_warp.tif&quot;</span>
+<span class="n">dem_file_2008</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;20080901_rainierlidar_30m-adj.tif&quot;</span>
+<span class="n">dem_file_2015</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;20150818_rainier_summer-tile-30.tif&quot;</span>
+
+<span class="n">glaciers_shapefile</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;rgi60_glacierpoly_rainier.shp&quot;</span>
+
+<span class="n">input_rasters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1970</span><span class="p">:</span> <span class="n">dem_file_1970</span><span class="p">,</span>
+    <span class="mi">2008</span><span class="p">:</span> <span class="n">dem_file_2008</span><span class="p">,</span>
+    <span class="mi">2015</span><span class="p">:</span> <span class="n">dem_file_2015</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Quickly-view-a-raster-with-rasterio">
+<h3>Quickly view a raster with rasterio<a class="headerlink" href="#Quickly-view-a-raster-with-rasterio" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_rasters</span><span class="p">[</span><span class="mi">1970</span><span class="p">])</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_5_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_5_0.png" />
+</div>
+</div>
+</section>
+<section id="Get-raster-values-at-point-locations">
+<h3>Get raster values at point locations<a class="headerlink" href="#Get-raster-values-at-point-locations" title="Link to this heading"></a></h3>
+<p>if we have a list of (x, y) tuples, we can unpack it into two lists of x and y values: <code class="docutils literal notranslate"><span class="pre">zip(*points)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">zip(*points)</span></code> returns a tuple of the two lists</p>
+<p>First let’s define visualize our point locations on our raster</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">594508.70</span><span class="p">,</span> <span class="mf">5189550.08</span><span class="p">),</span> <span class="c1"># summit, in utm zone 10N</span>
+    <span class="p">(</span><span class="mi">596702</span><span class="p">,</span> <span class="mi">5187675</span><span class="p">)</span> <span class="c1"># camp muir</span>
+<span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_rasters</span><span class="p">[</span><span class="mi">2015</span><span class="p">])</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+     <span class="n">ax</span> <span class="o">=</span> <span class="n">show</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;plasma&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4500</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_8_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_8_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xpts</span><span class="p">,</span> <span class="n">ypts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">))</span>
+<span class="c1"># points</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Now-let's-sample-elevations-at-these-points">
+<h2>Now let’s sample elevations at these points<a class="headerlink" href="#Now-let's-sample-elevations-at-these-points" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_rasters</span><span class="p">[</span><span class="mi">2015</span><span class="p">])</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xpts</span><span class="p">)):</span>
+        <span class="n">ti</span><span class="p">,</span> <span class="n">tj</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">xpts</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span> <span class="n">ypts</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
+        <span class="n">i</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ti</span><span class="p">)</span>
+        <span class="n">j</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tj</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[4361.6406 3055.5547]
+</pre></div></div>
+</div>
+<section id="Viewing-the-3-rasters-side-by-side-as-subplots">
+<h3>Viewing the 3 rasters side by side as subplots<a class="headerlink" href="#Viewing-the-3-rasters-side-by-side-as-subplots" title="Link to this heading"></a></h3>
+<p>The data are all on different grids with varying extents and projections. Let’s plot them up to visualize this.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">meta</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">input_rasters</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+
+        <span class="c1"># get the metadata</span>
+        <span class="n">meta</span><span class="p">[</span><span class="n">year</span><span class="p">]</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span>
+
+        <span class="c1"># plot the data</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">show</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                     <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;elevation, m&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_13_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_13_0.png" />
+</div>
+</div>
+<p>We see what these are by fetching the metadata dictionary (<code class="docutils literal notranslate"><span class="pre">src.meta</span></code> attribute) for each one. Each grid is described in the metadata:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{1970: {&#39;driver&#39;: &#39;GTiff&#39;,
+  &#39;dtype&#39;: &#39;float32&#39;,
+  &#39;nodata&#39;: -9999.0,
+  &#39;width&#39;: 884,
+  &#39;height&#39;: 824,
+  &#39;count&#39;: 1,
+  &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;NAD83 / UTM zone 11N&#34;,GEOGCS[&#34;NAD83&#34;,DATUM[&#34;North_American_Datum_1983&#34;,SPHEROID[&#34;GRS 1980&#34;,6378137,298.257222101,AUTHORITY[&#34;EPSG&#34;,&#34;7019&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6269&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4269&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-117],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;26911&#34;]]&#39;),
+  &#39;transform&#39;: Affine(30.0, 0.0, 125349.01533479267,
+         0.0, -30.0, 5213641.54503958)},
+ 2008: {&#39;driver&#39;: &#39;GTiff&#39;,
+  &#39;dtype&#39;: &#39;float32&#39;,
+  &#39;nodata&#39;: -9999.0,
+  &#39;width&#39;: 1249,
+  &#39;height&#39;: 1093,
+  &#39;count&#39;: 1,
+  &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;WGS 84 / UTM zone 10N&#34;,GEOGCS[&#34;WGS 84&#34;,DATUM[&#34;WGS_1984&#34;,SPHEROID[&#34;WGS 84&#34;,6378137,298.257223563,AUTHORITY[&#34;EPSG&#34;,&#34;7030&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6326&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4326&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-123],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;32610&#34;]]&#39;),
+  &#39;transform&#39;: Affine(30.0, 0.0, 581379.9999992945,
+         0.0, -30.0, 5206284.00012134)},
+ 2015: {&#39;driver&#39;: &#39;GTiff&#39;,
+  &#39;dtype&#39;: &#39;float32&#39;,
+  &#39;nodata&#39;: 0.0,
+  &#39;width&#39;: 827,
+  &#39;height&#39;: 761,
+  &#39;count&#39;: 1,
+  &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;WGS 84 / UTM zone 10N&#34;,GEOGCS[&#34;WGS 84&#34;,DATUM[&#34;WGS_1984&#34;,SPHEROID[&#34;WGS 84&#34;,6378137,298.257223563,AUTHORITY[&#34;EPSG&#34;,&#34;7030&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6326&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4326&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-123],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;32610&#34;]]&#39;),
+  &#39;transform&#39;: Affine(30.0, 0.0, 583464.253406,
+         0.0, -30.0, 5202549.0989)}}
+</pre></div></div>
+</div>
+</section>
+<section id="Warp-the-1970-and-2008-rasters-onto-the-2015-grid">
+<h3>Warp the 1970 and 2008 rasters onto the 2015 grid<a class="headerlink" href="#Warp-the-1970-and-2008-rasters-onto-the-2015-grid" title="Link to this heading"></a></h3>
+<p>The code below was copied from the <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/topics/virtual-warping.html">rasterio manual</a>. The result is a new set of files aligned to the destination grid.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resampling</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.vrt</span><span class="w"> </span><span class="kn">import</span> <span class="n">WarpedVRT</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio</span><span class="w"> </span><span class="kn">import</span> <span class="n">shutil</span> <span class="k">as</span> <span class="n">rio_shutil</span>
+
+
+<span class="n">vrt_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;resampling&#39;</span><span class="p">:</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">cubic</span><span class="p">,</span>
+    <span class="s1">&#39;crs&#39;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="mi">2015</span><span class="p">][</span><span class="s1">&#39;crs&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;transform&#39;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="mi">2015</span><span class="p">][</span><span class="s1">&#39;transform&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="mi">2015</span><span class="p">][</span><span class="s1">&#39;height&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="mi">2015</span><span class="p">][</span><span class="s1">&#39;width&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">aligned_rasters</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">year</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">input_rasters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+
+        <span class="k">with</span> <span class="n">WarpedVRT</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="o">**</span><span class="n">vrt_options</span><span class="p">)</span> <span class="k">as</span> <span class="n">vrt</span><span class="p">:</span>
+
+            <span class="c1"># At this point &#39;vrt&#39; is a full dataset with dimensions,</span>
+            <span class="c1"># CRS, and spatial extent matching &#39;vrt_options&#39;.</span>
+
+            <span class="c1"># Read all data into memory.</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">vrt</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="c1"># Process the dataset in chunks.  Likely not very efficient.</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">vrt</span><span class="o">.</span><span class="n">block_windows</span><span class="p">():</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">vrt</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">)</span>
+
+            <span class="c1"># Dump the aligned data into a new file.  A VRT representing</span>
+            <span class="c1"># this transformation can also be produced by switching</span>
+            <span class="c1"># to the VRT driver.</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">outfile</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;aligned-</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">rio_shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">vrt</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;wrote </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outfile</span><span class="p">))</span>
+            <span class="n">aligned_rasters</span><span class="p">[</span><span class="n">year</span><span class="p">]</span> <span class="o">=</span> <span class="n">outfile</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+wrote data/rasterio/aligned-19700901_ned1_2003_adj_warp.tif
+wrote data/rasterio/aligned-20080901_rainierlidar_30m-adj.tif
+wrote data/rasterio/aligned-20150818_rainier_summer-tile-30.tif
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Now-let's-make-sure-all-three-are-on-the-same-grid">
+<h2>Now let’s make sure all three are on the same grid<a class="headerlink" href="#Now-let's-make-sure-all-three-are-on-the-same-grid" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">year</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">aligned_rasters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+        <span class="n">meta</span><span class="p">[</span><span class="n">year</span><span class="p">]</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span>
+<span class="n">meta</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{1970: {&#39;driver&#39;: &#39;GTiff&#39;,
+  &#39;dtype&#39;: &#39;float32&#39;,
+  &#39;nodata&#39;: -9999.0,
+  &#39;width&#39;: 827,
+  &#39;height&#39;: 761,
+  &#39;count&#39;: 1,
+  &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;WGS 84 / UTM zone 10N&#34;,GEOGCS[&#34;WGS 84&#34;,DATUM[&#34;WGS_1984&#34;,SPHEROID[&#34;WGS 84&#34;,6378137,298.257223563,AUTHORITY[&#34;EPSG&#34;,&#34;7030&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6326&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4326&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-123],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;32610&#34;]]&#39;),
+  &#39;transform&#39;: Affine(30.0, 0.0, 583464.253406,
+         0.0, -30.0, 5202549.0989)},
+ 2008: {&#39;driver&#39;: &#39;GTiff&#39;,
+  &#39;dtype&#39;: &#39;float32&#39;,
+  &#39;nodata&#39;: -9999.0,
+  &#39;width&#39;: 827,
+  &#39;height&#39;: 761,
+  &#39;count&#39;: 1,
+  &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;WGS 84 / UTM zone 10N&#34;,GEOGCS[&#34;WGS 84&#34;,DATUM[&#34;WGS_1984&#34;,SPHEROID[&#34;WGS 84&#34;,6378137,298.257223563,AUTHORITY[&#34;EPSG&#34;,&#34;7030&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6326&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4326&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-123],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;32610&#34;]]&#39;),
+  &#39;transform&#39;: Affine(30.0, 0.0, 583464.253406,
+         0.0, -30.0, 5202549.0989)},
+ 2015: {&#39;driver&#39;: &#39;GTiff&#39;,
+  &#39;dtype&#39;: &#39;float32&#39;,
+  &#39;nodata&#39;: 0.0,
+  &#39;width&#39;: 827,
+  &#39;height&#39;: 761,
+  &#39;count&#39;: 1,
+  &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;WGS 84 / UTM zone 10N&#34;,GEOGCS[&#34;WGS 84&#34;,DATUM[&#34;WGS_1984&#34;,SPHEROID[&#34;WGS 84&#34;,6378137,298.257223563,AUTHORITY[&#34;EPSG&#34;,&#34;7030&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6326&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4326&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-123],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;32610&#34;]]&#39;),
+  &#39;transform&#39;: Affine(30.0, 0.0, 583464.253406,
+         0.0, -30.0, 5202549.0989)}}
+</pre></div></div>
+</div>
+<p>Success!</p>
+<section id="Read-the-aligned-grids-into-a-new-set-of-masked-numpy-arrays">
+<h3>Read the aligned grids into a new set of masked numpy arrays<a class="headerlink" href="#Read-the-aligned-grids-into-a-new-set-of-masked-numpy-arrays" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">rasterio</span></code> can be used to construct masked numpy arrays based on the <code class="docutils literal notranslate"><span class="pre">'nodata'</span></code> value in the raster metadata</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aligned_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">year</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">aligned_rasters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">aligned_data</span><span class="p">[</span><span class="n">year</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aligned_data</span><span class="p">[</span><span class="mi">2015</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+masked_array(
+  data=[[--, --, --, ..., --, --, --],
+        [--, --, --, ..., --, --, --],
+        [--, --, --, ..., --, --, --],
+        ...,
+        [--, 1470.8792724609375, 1477.231201171875, ..., --, --, --],
+        [1451.615966796875, 1456.029296875, 1460.4559326171875, ..., --,
+         --, --],
+        [1429.700439453125, --, --, ..., --, --, --]],
+  mask=[[ True,  True,  True, ...,  True,  True,  True],
+        [ True,  True,  True, ...,  True,  True,  True],
+        [ True,  True,  True, ...,  True,  True,  True],
+        ...,
+        [ True, False, False, ...,  True,  True,  True],
+        [False, False, False, ...,  True,  True,  True],
+        [False,  True,  True, ...,  True,  True,  True]],
+  fill_value=0.0,
+  dtype=float32)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">aligned_data</span><span class="p">[</span><span class="mi">2015</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_24_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_24_0.png" />
+</div>
+</div>
+</section>
+<section id="Assign-information-on-shared-raster-grid-to-variables-for-later-use">
+<h3>Assign information on shared raster grid to variables for later use<a class="headerlink" href="#Assign-information-on-shared-raster-grid-to-variables-for-later-use" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epsg_32610</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="mi">2015</span><span class="p">][</span><span class="s1">&#39;crs&#39;</span><span class="p">]</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="mi">2015</span><span class="p">][</span><span class="s1">&#39;transform&#39;</span><span class="p">]</span>
+<span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">2015</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">cellsize</span> <span class="o">=</span> <span class="n">transform</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># extent for plotting (xmin, xmax, ymin, ymax)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Get-the-summit-elevation">
+<h3>Get the summit elevation<a class="headerlink" href="#Get-the-summit-elevation" title="Link to this heading"></a></h3>
+<p>Ss noted in the original GeoHackWeek example, the elevation values in these rasters are relative to the WGS84 datum, not a geoid model that approximate sea level. The geoid offset at Rainier is approximately 18.79 m, meaning that we have to add we have to add this to the values to get the <a class="reference external" href="https://en.wikipedia.org/wiki/Mount_Rainier">correct summit elevation of 14,411 ft</a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summit_ij</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">summit_ij</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(np.int64(433), np.int64(367))
+</pre></div></div>
+</div>
+<p>The corrected summit elevations being a little under 14,411 is a little unsatisfying, but one of the costs of downsampling the DEMs to a 30 m resolution to conserve space. At any rate, since we are interested in differences, the geoid offset doesn’t matter for the remainder of our analysis.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elevation_offset</span> <span class="o">=</span> <span class="mf">18.79</span>
+<span class="p">(</span><span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">][</span><span class="n">summit_ij</span><span class="p">]</span> <span class="o">+</span> <span class="n">elevation_offset</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.2084</span>  <span class="c1"># in feet</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float32(14085.793)
+</pre></div></div>
+</div>
+</section>
+<section id="Compute-the-elevation-differences">
+<h3>Compute the elevation differences<a class="headerlink" href="#Compute-the-elevation-differences" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elevation_diffs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2008&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">2008</span><span class="p">]</span> <span class="o">-</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">]</span>
+<span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;2008-2015&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">2015</span><span class="p">]</span> <span class="o">-</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">2008</span><span class="p">]</span>
+<span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2015&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">2015</span><span class="p">]</span> <span class="o">-</span> <span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">diffs</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elevation_diffs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">diffs</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">30</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;elevation change, m&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_32_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_32_0.png" />
+</div>
+</div>
+</section>
+<section id="Average-rates-of-change">
+<h3>Average rates of change<a class="headerlink" href="#Average-rates-of-change" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elevation_rates</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">dates</span><span class="p">,</span> <span class="n">diffs</span> <span class="ow">in</span> <span class="n">elevation_diffs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">yr0</span><span class="p">,</span> <span class="n">yr1</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">dates</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">))</span>
+    <span class="n">annual_rate</span> <span class="o">=</span> <span class="n">diffs</span><span class="o">/</span><span class="p">(</span><span class="n">yr1</span><span class="o">-</span><span class="n">yr0</span><span class="p">)</span>
+    <span class="n">elevation_rates</span><span class="p">[</span><span class="n">dates</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_rate</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">rates</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elevation_rates</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;average rate of change, m/yr&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_34_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_34_0.png" />
+</div>
+</div>
+<p>Notice the huge changes around the margins of the mountain. These are due to the 1970 and 2008 DEMs representing “bare ground”, while the 2015 DEM includes trees.</p>
+</section>
+<section id="Map-the-shapefile-of-glacier-extents-onto-the-same-grid-as-the-rasters">
+<h3>Map the shapefile of glacier extents onto the same grid as the rasters<a class="headerlink" href="#Map-the-shapefile-of-glacier-extents-onto-the-same-grid-as-the-rasters" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>first reproject the glacier features to the same crs as the rasters</p></li>
+<li><p>then make a column of unique identifiers (integers) for relating the features to raster pixels</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glaciers</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">glaciers_shapefile</span><span class="p">)</span>
+<span class="n">glaciers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RGIId</th>
+      <th>GLIMSId</th>
+      <th>BgnDate</th>
+      <th>EndDate</th>
+      <th>CenLon</th>
+      <th>CenLat</th>
+      <th>O1Region</th>
+      <th>O2Region</th>
+      <th>Area</th>
+      <th>Zmin</th>
+      <th>...</th>
+      <th>Aspect</th>
+      <th>Lmax</th>
+      <th>Status</th>
+      <th>Connect</th>
+      <th>Form</th>
+      <th>TermType</th>
+      <th>Surging</th>
+      <th>Linkages</th>
+      <th>Name</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>RGI60-02.14393</td>
+      <td>G238292E46809N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.70769</td>
+      <td>46.80930</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.126</td>
+      <td>2001</td>
+      <td>...</td>
+      <td>148</td>
+      <td>397</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>Williwakas Glacier WA</td>
+      <td>POLYGON ((-121.70642 46.80792, -121.7065 46.80...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>RGI60-02.14394</td>
+      <td>G238275E46811N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.72504</td>
+      <td>46.81055</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.010</td>
+      <td>2207</td>
+      <td>...</td>
+      <td>222</td>
+      <td>-9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>WA</td>
+      <td>POLYGON ((-121.72552 46.80985, -121.72561 46.8...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>RGI60-02.14395</td>
+      <td>G238235E46811N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.76535</td>
+      <td>46.81088</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.010</td>
+      <td>2103</td>
+      <td>...</td>
+      <td>165</td>
+      <td>-9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>WA</td>
+      <td>POLYGON ((-121.76498 46.81006, -121.76511 46.8...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RGI60-02.14396</td>
+      <td>G238243E46810N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.75702</td>
+      <td>46.80963</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.015</td>
+      <td>2186</td>
+      <td>...</td>
+      <td>153</td>
+      <td>182</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>WA</td>
+      <td>POLYGON ((-121.75659 46.80885, -121.75663 46.8...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>RGI60-02.14397</td>
+      <td>G238302E46809N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.69756</td>
+      <td>46.80850</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.012</td>
+      <td>1990</td>
+      <td>...</td>
+      <td>125</td>
+      <td>160</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>WA</td>
+      <td>POLYGON ((-121.69777 46.80903, -121.6976 46.80...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glaciers</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg_32610</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">glaciers</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">glaciers</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Use-rasterio-to-rasterize-the-glacier-extents">
+<h3>Use rasterio to rasterize the glacier extents<a class="headerlink" href="#Use-rasterio-to-rasterize-the-glacier-extents" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>input is a collection of the (feature geometry, unique value) tuples and an <a class="reference external" href="https://github.com/rasterio/affine">Affine transform</a>. Further reading on affine transforms can be found <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation">here</a>.</p></li>
+<li><p>output is a numpy array</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geoms</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">glaciers</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span> <span class="n">glaciers</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="n">glacier_footprints</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">(</span><span class="n">geoms</span><span class="p">,</span> <span class="n">out_shape</span><span class="o">=</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">glacier_footprints</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="n">masked_footprint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">glacier_footprints</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+
+<span class="c1"># plot footprints</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">masked_footprint</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_41_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_41_0.png" />
+</div>
+</div>
+</section>
+<section id="Clip-the-1970-2015-raster-to-get-an-estimate-of-total-volume-change-for-all-glaciers">
+<h3>Clip the 1970-2015 raster to get an estimate of total volume change for all glaciers<a class="headerlink" href="#Clip-the-1970-2015-raster-to-get-an-estimate-of-total-volume-change-for-all-glaciers" title="Link to this heading"></a></h3>
+<p>Using the mask we created before, we can clip the elevation difference arrays to estimate the total volume of change for all of the glaciers</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">masked_diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">elevation_diffs</span><span class="p">[</span><span class="s2">&quot;1970-2015&quot;</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_vol_change</span> <span class="o">=</span> <span class="n">masked_diffs</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">cellsize</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">1000</span><span class="o">**</span><span class="mi">3</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">masked_diffs</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">80</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="s2">&quot;Total volume change: </span><span class="si">{:.2f}</span><span class="s2"> km$^3$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_vol_change</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;change in m&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_44_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_44_0.png" />
+</div>
+</div>
+</section>
+<section id="Get-volume-change-by-glacier,-see-if-it-relates-to-minimum-elevation">
+<h3>Get volume change by glacier, see if it relates to minimum elevation<a class="headerlink" href="#Get-volume-change-by-glacier,-see-if-it-relates-to-minimum-elevation" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vol_change</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">glaciers</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+    <span class="c1"># compute total volume change</span>
+    <span class="n">change_1970_2015</span> <span class="o">=</span> <span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2015&#39;</span><span class="p">][</span><span class="n">glacier_footprints</span> <span class="o">==</span> <span class="n">n</span><span class="p">]</span>
+    <span class="n">vc</span> <span class="o">=</span> <span class="n">change_1970_2015</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">cellsize</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">1000</span><span class="o">**</span><span class="mi">3</span>
+    <span class="n">vol_change</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vc</span><span class="p">)</span>
+
+<span class="n">glaciers</span><span class="p">[</span><span class="s1">&#39;d_vol_km3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vol_change</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glaciers</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;d_vol_km3&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">glaciers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RGIId</th>
+      <th>GLIMSId</th>
+      <th>BgnDate</th>
+      <th>EndDate</th>
+      <th>CenLon</th>
+      <th>CenLat</th>
+      <th>O1Region</th>
+      <th>O2Region</th>
+      <th>Area</th>
+      <th>Zmin</th>
+      <th>...</th>
+      <th>Status</th>
+      <th>Connect</th>
+      <th>Form</th>
+      <th>TermType</th>
+      <th>Surging</th>
+      <th>Linkages</th>
+      <th>Name</th>
+      <th>geometry</th>
+      <th>id</th>
+      <th>d_vol_km3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>23</th>
+      <td>RGI60-02.14256</td>
+      <td>G238227E46901N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.77327</td>
+      <td>46.90137</td>
+      <td>2</td>
+      <td>4</td>
+      <td>8.004</td>
+      <td>1085</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>Carbon Glacier WA</td>
+      <td>POLYGON ((591944.474 5199551.542, 591934.849 5...</td>
+      <td>24</td>
+      <td>-0.112824</td>
+    </tr>
+    <tr>
+      <th>111</th>
+      <td>RGI60-02.14336</td>
+      <td>G238252E46825N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.74768</td>
+      <td>46.82481</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4.444</td>
+      <td>1425</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>Nisqually Glacier WA</td>
+      <td>POLYGON ((595661.797 5185442.136, 595671.895 5...</td>
+      <td>112</td>
+      <td>-0.071836</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>RGI60-02.14259</td>
+      <td>G238261E46885N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.73878</td>
+      <td>46.88511</td>
+      <td>2</td>
+      <td>4</td>
+      <td>9.195</td>
+      <td>1437</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>Winthrop Glacier WA</td>
+      <td>POLYGON ((596567.284 5191536.1, 596500.097 519...</td>
+      <td>27</td>
+      <td>-0.069640</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>RGI60-02.14297</td>
+      <td>G238286E46865N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.71401</td>
+      <td>46.86478</td>
+      <td>2</td>
+      <td>4</td>
+      <td>10.594</td>
+      <td>1605</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>Emmons Glacier WA</td>
+      <td>POLYGON ((600717.13 5192154.864, 600689.098 51...</td>
+      <td>65</td>
+      <td>-0.065486</td>
+    </tr>
+    <tr>
+      <th>103</th>
+      <td>RGI60-02.14329</td>
+      <td>G238173E46848N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.82670</td>
+      <td>46.84820</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4.017</td>
+      <td>1667</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>Puyallup Glacier WA</td>
+      <td>POLYGON ((590132.877 5189587.64, 590162.377 51...</td>
+      <td>104</td>
+      <td>-0.049973</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 25 columns</p>
+</div></div>
+</div>
+</section>
+</section>
+<section id="Now-we-can-plot-the-volume-of-change-vs-minimum-elevation-'Zmin'">
+<h2>Now we can plot the volume of change vs minimum elevation <code class="docutils literal notranslate"><span class="pre">'Zmin'</span></code><a class="headerlink" href="#Now-we-can-plot-the-volume-of-change-vs-minimum-elevation-'Zmin'" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">))</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">glaciers</span><span class="o">.</span><span class="n">Zmin</span><span class="p">,</span> <span class="n">glaciers</span><span class="o">.</span><span class="n">d_vol_km3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">glaciers</span><span class="o">.</span><span class="n">d_vol_km3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma_r&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">glaciers</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Zmin</span> <span class="o">*</span> <span class="mf">1.03</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">d_vol_km3</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Volume change, 1970-2015, km$^3$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Minimum elevation, in meters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;change in km$^3$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_49_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_49_0.png" />
+</div>
+</div>
+<p>We can also plot this relationship spatially using geopandas</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ls</span><span class="o">.</span><span class="n">hillshade</span><span class="p">(</span><span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">],</span> <span class="n">vert_exag</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">glaciers</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;d_vol_km3&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;plasma_r&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_51_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_51_0.png" />
+</div>
+</div>
+<p>If we regress by area, we see that volume change is coorelated to the original area of the glacier</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">))</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">glaciers</span><span class="o">.</span><span class="n">Area</span><span class="p">,</span> <span class="n">glaciers</span><span class="o">.</span><span class="n">d_vol_km3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">glaciers</span><span class="o">.</span><span class="n">d_vol_km3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma_r&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">glaciers</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Area</span> <span class="o">-</span> <span class="mf">2.03</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">d_vol_km3</span> <span class="o">-</span> <span class="mf">0.003</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">Name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Volume change, 1970-2015, km$^3$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Glacial area in km$^2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;change in km$^3$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_53_0.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_53_0.png" />
+</div>
+</div>
+<p>Lets plot only the elevation differences in glaciers now</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">just_glaciers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2015&#39;</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">ls</span><span class="o">.</span><span class="n">hillshade</span><span class="p">(</span>
+        <span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">],</span>
+        <span class="n">vert_exag</span><span class="o">=</span><span class="mf">0.2</span>
+    <span class="p">),</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+    <span class="n">zorder</span><span class="o">=-</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">just_glaciers</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">30</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Change in glacier elevation, 1970-2015, meters&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.colorbar.Colorbar at 0x7fe45c9ea090&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_55_1.png" src="../../_images/notebooks_part0_python_intro_10b_Rasterio_advanced_55_1.png" />
+</div>
+</div>
+<section id="Writing-a-raster:-save-out-1970-2015-elevation-changes">
+<h3>Writing a raster: save out 1970-2015 elevation changes<a class="headerlink" href="#Writing-a-raster:-save-out-1970-2015-elevation-changes" title="Link to this heading"></a></h3>
+<p>To do this, we need to provide rasterio with the same information we got when we read the metadata for the aligned rasters (the elevation changes are on the same grid).</p>
+<ul class="simple">
+<li><p>first reset the mask to include all areas outside of the glacier footprints</p></li>
+<li><p>to simplify things, we can just copy the metadata dict we already have, and feed it to <code class="docutils literal notranslate"><span class="pre">rasterio.open</span></code> as keyword arguments by unpacking it (<code class="docutils literal notranslate"><span class="pre">**</span></code> notation)</p>
+<ul>
+<li><p>let’s add compression though to reduce the file size</p></li>
+</ul>
+</li>
+<li><p>we can have rasterio write the mask as well</p></li>
+<li><p>Note that a raster can have more than one band. <cite>This code (see ``export_array`</cite> function) &lt;<a class="reference external" href="https://github.com/aleaf/modflow-export/blob/master/mfexport/array_export.py">https://github.com/aleaf/modflow-export/blob/master/mfexport/array_export.py</a>&gt;`__ illustrates writing a 3D raster with a 3D mask to a single GeoTiff with multiple bands.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2015&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2015&#39;</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_meta</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="mi">2015</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">out_meta</span><span class="p">[</span><span class="s1">&#39;compress&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;lzw&#39;</span>
+<span class="n">out_meta</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;driver&#39;: &#39;GTiff&#39;,
+ &#39;dtype&#39;: &#39;float32&#39;,
+ &#39;nodata&#39;: 0.0,
+ &#39;width&#39;: 827,
+ &#39;height&#39;: 761,
+ &#39;count&#39;: 1,
+ &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;WGS 84 / UTM zone 10N&#34;,GEOGCS[&#34;WGS 84&#34;,DATUM[&#34;WGS_1984&#34;,SPHEROID[&#34;WGS 84&#34;,6378137,298.257223563,AUTHORITY[&#34;EPSG&#34;,&#34;7030&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6326&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4326&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-123],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;32610&#34;]]&#39;),
+ &#39;transform&#39;: Affine(30.0, 0.0, 583464.253406,
+        0.0, -30.0, 5202549.0989),
+ &#39;compress&#39;: &#39;lzw&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">el_change_outfile</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;rainier_glaciers_1970-2015_el_change_m.tif&#39;</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">el_change_outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">out_meta</span><span class="p">)</span> <span class="k">as</span> <span class="n">dest</span><span class="p">:</span>
+
+    <span class="c1"># write the data to band 1</span>
+    <span class="n">dest</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2015&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># write the mask as well</span>
+    <span class="n">dest</span><span class="o">.</span><span class="n">write_mask</span><span class="p">(</span><span class="o">~</span><span class="n">elevation_diffs</span><span class="p">[</span><span class="s1">&#39;1970-2015&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="What-if-we-want-to-reproject-to-a-different-CRS?">
+<h3>What if we want to reproject to a different CRS?<a class="headerlink" href="#What-if-we-want-to-reproject-to-a-different-CRS?" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>We already have the information we need in memory, but it easiest to simply open a raster with the source grid and then read the metadata from the rasterio file instance</p></li>
+<li><p>We’ll then feed that information to the <code class="docutils literal notranslate"><span class="pre">rasterio.warp.calculate_default_transform</span></code> function, which will return a new orientation (transform instance) and dimensions for the raster in the destination CRS.</p></li>
+<li><p>We’ll use the new location information to update the metadata from the source grid</p></li>
+<li><p>The code below was taken from the <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/topics/reproject.html">rasterio manual</a> section on reprojection</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_meta</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;driver&#39;: &#39;GTiff&#39;,
+ &#39;dtype&#39;: &#39;float32&#39;,
+ &#39;nodata&#39;: 0.0,
+ &#39;width&#39;: 827,
+ &#39;height&#39;: 761,
+ &#39;count&#39;: 1,
+ &#39;crs&#39;: CRS.from_wkt(&#39;PROJCS[&#34;WGS 84 / UTM zone 10N&#34;,GEOGCS[&#34;WGS 84&#34;,DATUM[&#34;WGS_1984&#34;,SPHEROID[&#34;WGS 84&#34;,6378137,298.257223563,AUTHORITY[&#34;EPSG&#34;,&#34;7030&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;6326&#34;]],PRIMEM[&#34;Greenwich&#34;,0,AUTHORITY[&#34;EPSG&#34;,&#34;8901&#34;]],UNIT[&#34;degree&#34;,0.0174532925199433,AUTHORITY[&#34;EPSG&#34;,&#34;9122&#34;]],AUTHORITY[&#34;EPSG&#34;,&#34;4326&#34;]],PROJECTION[&#34;Transverse_Mercator&#34;],PARAMETER[&#34;latitude_of_origin&#34;,0],PARAMETER[&#34;central_meridian&#34;,-123],PARAMETER[&#34;scale_factor&#34;,0.9996],PARAMETER[&#34;false_easting&#34;,500000],PARAMETER[&#34;false_northing&#34;,0],UNIT[&#34;metre&#34;,1,AUTHORITY[&#34;EPSG&#34;,&#34;9001&#34;]],AXIS[&#34;Easting&#34;,EAST],AXIS[&#34;Northing&#34;,NORTH],AUTHORITY[&#34;EPSG&#34;,&#34;32610&#34;]]&#39;),
+ &#39;transform&#39;: Affine(30.0, 0.0, 583464.253406,
+        0.0, -30.0, 5202549.0989),
+ &#39;compress&#39;: &#39;lzw&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.crs</span><span class="w"> </span><span class="kn">import</span> <span class="n">CRS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.warp</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_default_transform</span><span class="p">,</span> <span class="n">reproject</span><span class="p">,</span> <span class="n">Resampling</span>
+
+<span class="n">dst_crs</span> <span class="o">=</span> <span class="s1">&#39;epsg:4269&#39;</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">el_change_outfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">transform</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">calculate_default_transform</span><span class="p">(</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+
+    <span class="c1"># copy the source metadata</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># update it with the new location information</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;crs&#39;</span><span class="p">:</span> <span class="n">dst_crs</span><span class="p">,</span>
+    <span class="s1">&#39;transform&#39;</span><span class="p">:</span> <span class="n">transform</span><span class="p">,</span>
+    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span>
+<span class="p">})</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">aligned_rasters</span><span class="p">[</span><span class="mi">1970</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;warp.tif&#39;</span><span class="p">,</span> <span class="s1">&#39;4269.tif&#39;</span><span class="p">)</span>
+<span class="n">outfile</span> <span class="o">=</span> <span class="n">aligned_rasters</span><span class="p">[</span><span class="mi">1970</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="n">name</span><span class="p">)</span>
+<span class="n">outfile</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PosixPath(&#39;data/rasterio/aligned-19700901_ned1_2003_adj_warp.tif&#39;)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="n">reproject</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">aligned_data</span><span class="p">[</span><span class="mi">1970</span><span class="p">],</span>
+        <span class="n">destination</span><span class="o">=</span><span class="n">rasterio</span><span class="o">.</span><span class="n">band</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">src_transform</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span>
+        <span class="n">src_crs</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+        <span class="n">dst_transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+        <span class="n">dst_crs</span><span class="o">=</span><span class="n">dst_crs</span><span class="p">,</span>
+        <span class="n">resampling</span><span class="o">=</span><span class="n">Resampling</span><span class="o">.</span><span class="n">bilinear</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Zonal-statistics-with-the-rasterstats-package">
+<h4>Zonal statistics with the <code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> package<a class="headerlink" href="#Zonal-statistics-with-the-rasterstats-package" title="Link to this heading"></a></h4>
+<p>(another way to reduce raster data by polygon features, as we did above in summing the elevation differences by glacier)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">zonal_stats</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">zonal_stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function zonal_stats in module rasterstats.main:
+
+zonal_stats(*args, **kwargs)
+    The primary zonal statistics entry point.
+
+    All arguments are passed directly to ``gen_zonal_stats``.
+    See its docstring for details.
+
+    The only difference is that ``zonal_stats`` will
+    return a list rather than a generator.
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rasterstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gen_zonal_stats</span>
+<span class="n">help</span><span class="p">(</span><span class="n">gen_zonal_stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function gen_zonal_stats in module rasterstats.main:
+
+gen_zonal_stats(vectors, raster, layer=0, band=1, nodata=None, affine=None, stats=None, all_touched=False, categorical=False, category_map=None, add_stats=None, zone_func=None, raster_out=False, prefix=None, geojson_out=False, boundless=True, **kwargs)
+    Zonal statistics of raster values aggregated to vector geometries.
+
+    Parameters
+    ----------
+    vectors: path to an vector source or geo-like python objects
+
+    raster: ndarray or path to a GDAL raster source
+        If ndarray is passed, the ``affine`` kwarg is required.
+
+    layer: int or string, optional
+        If `vectors` is a path to a fiona source,
+        specify the vector layer to use either by name or number.
+        defaults to 0
+
+    band: int, optional
+        If `raster` is a GDAL source, the band number to use (counting from 1).
+        defaults to 1.
+
+    nodata: float, optional
+        If `raster` is a GDAL source, this value overrides any NODATA value
+        specified in the file&#39;s metadata.
+        If `None`, the file&#39;s metadata&#39;s NODATA value (if any) will be used.
+        defaults to `None`.
+
+    affine: Affine instance
+        required only for ndarrays, otherwise it is read from src
+
+    stats:  list of str, or space-delimited str, optional
+        Which statistics to calculate for each zone.
+        All possible choices are listed in ``utils.VALID_STATS``.
+        defaults to ``DEFAULT_STATS``, a subset of these.
+
+    all_touched: bool, optional
+        Whether to include every raster cell touched by a geometry, or only
+        those having a center point within the polygon.
+        defaults to `False`
+
+    categorical: bool, optional
+
+    category_map: dict
+        A dictionary mapping raster values to human-readable categorical names.
+        Only applies when categorical is True
+
+    add_stats: dict
+        with names and functions of additional stats to compute, optional
+
+    zone_func: callable
+        function to apply to zone ndarray prior to computing stats
+
+    raster_out: boolean
+        Include the masked numpy array for each feature?, optional
+
+        Each feature dictionary will have the following additional keys:
+        mini_raster_array: The clipped and masked numpy array
+        mini_raster_affine: Affine transformation
+        mini_raster_nodata: NoData Value
+
+    prefix: string
+        add a prefix to the keys (default: None)
+
+    geojson_out: boolean
+        Return list of GeoJSON-like features (default: False)
+        Original feature geometry and properties will be retained
+        with zonal stats appended as additional properties.
+        Use with `prefix` to ensure unique and meaningful property names.
+
+    boundless: boolean
+        Allow features that extend beyond the raster dataset’s extent, default: True
+        Cells outside dataset extents are treated as nodata.
+
+    Returns
+    -------
+    generator of dicts (if geojson_out is False)
+        Each item corresponds to a single vector feature and
+        contains keys for each of the specified stats.
+
+    generator of geojson features (if geojson_out is True)
+        GeoJSON-like Feature as python dict
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">zonal_stats</span><span class="p">(</span><span class="n">glaciers</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">el_change_outfile</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/rasterstats/io.py:352: UserWarning: Setting masked to True because dataset mask has been detected
+  warnings.warn(
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[{&#39;mean&#39;: -14.126690331304935},
+ {&#39;mean&#39;: -16.196862951501622},
+ {&#39;mean&#39;: -7.582302639637432},
+ {&#39;mean&#39;: -6.186180868474749},
+ {&#39;mean&#39;: -12.480499480220274},
+ {&#39;mean&#39;: -6.864627997819768},
+ {&#39;mean&#39;: -10.582145560040363},
+ {&#39;mean&#39;: -8.181843650703586},
+ {&#39;mean&#39;: -9.408220589605067},
+ {&#39;mean&#39;: -14.84462573412123}]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glaciers</span><span class="p">[</span><span class="s2">&quot;mean_el_change_m&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glaciers</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;mean_el_change_m&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RGIId</th>
+      <th>GLIMSId</th>
+      <th>BgnDate</th>
+      <th>EndDate</th>
+      <th>CenLon</th>
+      <th>CenLat</th>
+      <th>O1Region</th>
+      <th>O2Region</th>
+      <th>Area</th>
+      <th>Zmin</th>
+      <th>...</th>
+      <th>Connect</th>
+      <th>Form</th>
+      <th>TermType</th>
+      <th>Surging</th>
+      <th>Linkages</th>
+      <th>Name</th>
+      <th>geometry</th>
+      <th>id</th>
+      <th>d_vol_km3</th>
+      <th>mean_el_change_m</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>94</th>
+      <td>RGI60-02.14579</td>
+      <td>G238389E46854N</td>
+      <td>19709999</td>
+      <td>-9999999</td>
+      <td>-121.61131</td>
+      <td>46.85395</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.023</td>
+      <td>2012</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>WA</td>
+      <td>POLYGON ((605930.559 5189945.894, 605935.655 5...</td>
+      <td>95</td>
+      <td>-0.001380</td>
+      <td>-61.327578</td>
+    </tr>
+    <tr>
+      <th>111</th>
+      <td>RGI60-02.14336</td>
+      <td>G238252E46825N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.74768</td>
+      <td>46.82481</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4.444</td>
+      <td>1425</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>Nisqually Glacier WA</td>
+      <td>POLYGON ((595661.797 5185442.136, 595671.895 5...</td>
+      <td>112</td>
+      <td>-0.071836</td>
+      <td>-16.196863</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>RGI60-02.14319</td>
+      <td>G238159E46860N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.84114</td>
+      <td>46.86014</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.088</td>
+      <td>1970</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>WA</td>
+      <td>POLYGON ((588067.776 5190318.647, 588049.276 5...</td>
+      <td>88</td>
+      <td>-0.001280</td>
+      <td>-14.974627</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>RGI60-02.18818</td>
+      <td>G238252E46825N</td>
+      <td>19709999</td>
+      <td>19949999</td>
+      <td>-121.74768</td>
+      <td>46.82481</td>
+      <td>2</td>
+      <td>4</td>
+      <td>1.551</td>
+      <td>2081</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>Wilson Glacier WA</td>
+      <td>POLYGON ((594772.409 5186608.63, 594809.347 51...</td>
+      <td>20</td>
+      <td>-0.023033</td>
+      <td>-14.844626</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>RGI60-02.14591</td>
+      <td>G238379E46854N</td>
+      <td>19709999</td>
+      <td>-9999999</td>
+      <td>-121.62056</td>
+      <td>46.85436</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.405</td>
+      <td>1867</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>Sarvant Glaciers WA</td>
+      <td>POLYGON ((605395.071 5190219.959, 605402.479 5...</td>
+      <td>110</td>
+      <td>-0.005892</td>
+      <td>-14.710493</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 26 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="10a_Rasterio_intro.html" class="btn btn-neutral float-left" title="10a: Introduction to Rasterio for working with raster data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="11_xarray_mt_rainier_precip.html" class="btn btn-neutral float-right" title="11: Using Xarray to look at Daymet precipitation around Mt. Rainier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

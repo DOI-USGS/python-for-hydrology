@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -64,7 +66,8 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -107,7 +110,7 @@
            <div itemprop="articleBody">
              
   <section id="06a:-Using-Matplotlib-to-Create-Animation">
-<h1>06a: Using Matplotlib to Create Animation<a class="headerlink" href="#06a:-Using-Matplotlib-to-Create-Animation" title="Link to this heading">¶</a></h1>
+<h1>06a: Using Matplotlib to Create Animation<a class="headerlink" href="#06a:-Using-Matplotlib-to-Create-Animation" title="Link to this heading"></a></h1>
 <p>This notebooks shows how to create an animation that will run and play inside a notebook. The animation can also be written to a video file.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -361,42 +364,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img3ac16f21fe2f4eacba108a226c506145">
+  <img id="_anim_img1b4aa6ba731c41a79a931ec35f32a578">
   <div class="anim-controls">
-    <input id="_anim_slider3ac16f21fe2f4eacba108a226c506145" type="range" class="anim-slider"
+    <input id="_anim_slider1b4aa6ba731c41a79a931ec35f32a578" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim3ac16f21fe2f4eacba108a226c506145.set_frame(parseInt(this.value));">
+           oninput="anim1b4aa6ba731c41a79a931ec35f32a578.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim3ac16f21fe2f4eacba108a226c506145.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim3ac16f21fe2f4eacba108a226c506145.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim3ac16f21fe2f4eacba108a226c506145.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim3ac16f21fe2f4eacba108a226c506145.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim3ac16f21fe2f4eacba108a226c506145.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim3ac16f21fe2f4eacba108a226c506145.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim3ac16f21fe2f4eacba108a226c506145.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim3ac16f21fe2f4eacba108a226c506145.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim3ac16f21fe2f4eacba108a226c506145.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim1b4aa6ba731c41a79a931ec35f32a578.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select3ac16f21fe2f4eacba108a226c506145"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1b4aa6ba731c41a79a931ec35f32a578"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_3ac16f21fe2f4eacba108a226c506145"
+      <input type="radio" name="state" value="once" id="_anim_radio1_1b4aa6ba731c41a79a931ec35f32a578"
              >
-      <label for="_anim_radio1_3ac16f21fe2f4eacba108a226c506145">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_3ac16f21fe2f4eacba108a226c506145"
+      <label for="_anim_radio1_1b4aa6ba731c41a79a931ec35f32a578">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_1b4aa6ba731c41a79a931ec35f32a578"
              checked>
-      <label for="_anim_radio2_3ac16f21fe2f4eacba108a226c506145">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_3ac16f21fe2f4eacba108a226c506145"
+      <label for="_anim_radio2_1b4aa6ba731c41a79a931ec35f32a578">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_1b4aa6ba731c41a79a931ec35f32a578"
              >
-      <label for="_anim_radio3_3ac16f21fe2f4eacba108a226c506145">Reflect</label>
+      <label for="_anim_radio3_1b4aa6ba731c41a79a931ec35f32a578">Reflect</label>
     </form>
   </div>
 </div>
@@ -406,9 +409,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img3ac16f21fe2f4eacba108a226c506145";
-    var slider_id = "_anim_slider3ac16f21fe2f4eacba108a226c506145";
-    var loop_select_id = "_anim_loop_select3ac16f21fe2f4eacba108a226c506145";
+    var img_id = "_anim_img1b4aa6ba731c41a79a931ec35f32a578";
+    var slider_id = "_anim_slider1b4aa6ba731c41a79a931ec35f32a578";
+    var loop_select_id = "_anim_loop_select1b4aa6ba731c41a79a931ec35f32a578";
     var frames = new Array(50);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -19985,7 +19988,7 @@ FBEREQkwKgBFREREAowKQBEREZEA83/F+42WhAZ+9AAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim3ac16f21fe2f4eacba108a226c506145 = new Animation(frames, img_id, slider_id, 200.0,
+        anim1b4aa6ba731c41a79a931ec35f32a578 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -20024,7 +20027,7 @@ FBEREQkwKgBFREREAowKQBEREZEA83/F+42WhAZ+9AAAAABJRU5ErkJggg==\
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

@@ -1,0 +1,834 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "88d27b1d-007e-44d4-9720-5fcfcaf83285",
+   "metadata": {},
+   "source": [
+    "# 10a: Introduction to Rasterio for working with raster data\n",
+    "\n",
+    "This exercise introduces [ratsterio](https://rasterio.readthedocs.io/en/stable/) for working with [GIS raster datasets](https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/raster_data.html). \n",
+    "\n",
+    "We will use the `rasterio` library, along with `numpy` and `matplotlib` to open, explore, and create raster datasets.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "68152cb2-c93c-4877-bcf2-f918e3fc1c97",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import rasterio\n",
+    "from rasterio.plot import show\n",
+    "import matplotlib.pyplot as plt\n",
+    "import pathlib as pl"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8cf83530-5e80-414e-9515-0762d8e473fc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_path = pl.Path(\"data/rasterio\")  # set path to raster data folder"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "57ed99b5-7eb6-4e8f-ae31-43a4c560bbfc",
+   "metadata": {},
+   "source": [
+    "## Opening and closing raster datasets using `rasterio`\n",
+    "We can open a GeoTIFF file containing a digital elevation model of Mt. Rainier (20150818_rainier_summer-tile-30.tif) using `rasterio.open`, in a way that's similar to using Python’s built-in `open` function for text files."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f751a767-ec29-4b58-8e1c-32e718c00042",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "raster_file = data_path / '20150818_rainier_summer-tile-30.tif'  # example raster data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fa7f71ed-0fc9-4007-8ca0-8ffb159528a5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset = rasterio.open(raster_file)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7e60a123-56ef-4a7e-b63d-d479d3ba1bf0",
+   "metadata": {},
+   "source": [
+    "This returns a rasterio `DatasetReader` object (in this case called \"dataset\"). This object provides methods and attributes for accessing raster properties. Let's explore some of these properties. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d2f45ef2-b1ca-465e-84a4-1cf24f250673",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.name  #  file name"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "efdaadde-d3e6-49a8-9ec5-2879979c8f81",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.driver  # The file format (`GTiff` is recommended)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "668b7b5d-6e0c-4370-8225-3688e90fcd74",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.mode  # Opening mode - 'r' for read mode by default"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5a9be403-6053-4473-b217-6fbfdc5a04e2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.count  # number of datasets or \"bands\" contained in the raster dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7a9de0eb-24d7-44bf-ae29-edb2bcb1f9b2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.dtypes  # The raster data type, one of `numpy` types supported by the driver"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "75edb566-ac7c-4ea8-bae5-5283af307883",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.width  # number of columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f93cc89b-464f-4635-824c-b73feab1e8c3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.height  # number of rows"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c25f8113-d46d-4f22-9890-2b4d9cb93a07",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.nodata  # The value which represents “No Data”, if any"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ef4f3d4c-b3fd-4610-b794-d1cd9f7354f7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.crs  # The coordinate reference system EPSG code"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0676da1f-90f2-4cd4-87ac-ff0c8efcabfb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.transform  # the transform matrix"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e366f763-8b2d-40dd-aa32-e11f0d7a015e",
+   "metadata": {},
+   "source": [
+    "More on the `transform` later..."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b9542b3e-f37d-495c-98b3-df383c823352",
+   "metadata": {},
+   "source": [
+    "Most of this information is contained within the dataset's metadata dictionary and can be accessed at once."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f9dfb43e-fd6e-4969-819a-3acf586e9a07",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.meta"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "51b98447-4589-4e39-b813-7389eabcc687",
+   "metadata": {},
+   "source": [
+    "## Plotting"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7ef7ac63-10ae-4521-8bb1-1953b2d5056a",
+   "metadata": {},
+   "source": [
+    "rasterio reads raster data into numpy arrays so plotting a single band as two dimensional data can be accomplished directly with `matplotlib.pyplot.imshow()`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8891c2b0-02d6-438c-a1dc-bb3639d418d6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "array = dataset.read(1)\n",
+    "type(array)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3056eb5d-8601-4f19-a56d-4b06ed2248cb",
+   "metadata": {},
+   "source": [
+    "using `plt.imshow()`, we can visualize the array data contained in the raster dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b2b7b8ad-7cd8-4487-9d47-9f8cd171e933",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.imshow(array, vmin=500, vmax=4500);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d789015e-2606-4bd9-b89b-b869afe5e72c",
+   "metadata": {},
+   "source": [
+    "rasterio also offers `rasterio.plot.show()` to display rasters images and label the axes with geo-referenced extents. It also masks \"nodata\" cells."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5ef87fd0-2df7-44c0-b611-f487506bf2cf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "show(dataset, vmin=500, vmax=4500);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c525184c-9489-442f-aa7a-a2b8b1bb59a4",
+   "metadata": {},
+   "source": [
+    "To plot a raster and a vector layers together, we need to initialize a plot object with `plt.subplots`, and pass the same ax argument to both plots. For example, let’s import the HUC12 polygon of the upper White River (see the GeoPandas notebooks for more information on working with geospatial vector data):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4543abed-41e9-4c95-9c6a-1df97129a467",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd\n",
+    "white_riv_huc12 = gpd.read_file('data/rasterio/white_river_huc12.shp')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "aa359b8e-59ae-4478-bdf8-0a553a6d9928",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "show(dataset, ax=ax, vmin=500, vmax=4500)\n",
+    "white_riv_huc12.plot(ax=ax, edgecolor='red', facecolor='None');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d9518f8a-778f-4891-8a9b-1d13ce0547a3",
+   "metadata": {},
+   "source": [
+    "### Close the dataset when we're done\n",
+    "\n",
+    "the `close()` method is used to close a dataset, releasing the underlying file handle and any associated resources. This is important for proper resource management, especially when dealing with many files or in long-running processes."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "65fcc1d3-ca57-406f-9e5e-8ceee558af48",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.closed"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bb7f5e6d-56e6-4f72-a012-c98dd61c6649",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f88be72a-2aa3-4fb4-bead-c9f78102985f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset.closed"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "id": "e45d86e9-875e-4ecb-a8d6-7848f9eb5001",
+   "metadata": {},
+   "source": [
+    "## Accessing and manipulating raster data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cd23df92-08d8-4f93-9b98-fed73616f49d",
+   "metadata": {},
+   "source": [
+    "It is best practice to use `rasterio.open()` within a `with` statement. This ensures proper closing of the dataset and resource management, even if errors occur. You might recognize this syntax from working with files in notebook `04_files_and_strings.ipynb`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1020d798-0e97-4051-b9bc-b1b31ec8111b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with rasterio.open(data_path / '20150818_rainier_summer-tile-30.tif') as dataset:\n",
+    "    array_m = dataset.read(1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3292d679-9279-450a-bfa5-8bbeed5e5e0d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "type(array_m)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d91e5d1f-3b57-468a-8ed3-734e64a06c38",
+   "metadata": {},
+   "source": [
+    "### Convert to units of feet"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4d10eeb5-210c-4ebb-9aa7-da0b589e9963",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "array_ft = array_m * 3.2084"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ae1ad0d8-e738-41d3-b84e-2049fa0aa236",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.imshow(array_m,  vmin=500, vmax=4500)\n",
+    "plt.colorbar();"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4a2fdc4b-868f-4eba-91ff-dab5fc7f7cbf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.imshow(array_ft,  vmin=1600, vmax=14450)\n",
+    "plt.colorbar();"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "88c7f772-9219-4be0-bbe6-791cfbb6ea0f",
+   "metadata": {},
+   "source": [
+    "### Make the data categorical\n",
+    "Bin the array data into three categories (1, 2, or 3) based on elevation values using numpy indexing"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "992361b0-9ee0-4d4b-afaa-549713c10722",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "array_classified = array_ft.copy()\n",
+    "\n",
+    "array_classified[array_classified < 6000] = 1                                 # Low elevation zone, less than 6,000 ft\n",
+    "array_classified[(array_classified < 10000) & (array_classified > 6000)] = 2  # Mid elevation zone, between 6,000 and 10,000 ft\n",
+    "array_classified[array_classified >= 10000] = 3                               # High elevation zone, greater than 10,000 ft"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2f3c69b8-7158-4eef-8398-5479fa067f2c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "\n",
+    "ct = show(array_classified, ax=ax, transform=dataset.transform)\n",
+    "\n",
+    "im = ct.get_images()[0]\n",
+    "cbar = fig.colorbar(im, ticks=[1, 2, 3], shrink=0.8)\n",
+    "cbar.ax.set_yticklabels(['Low Elev. ', 'Mid Elev.', 'High Elev.']);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "25d8b2e0-90b4-4a4c-b7b6-7cfa0fb8d01b",
+   "metadata": {},
+   "source": [
+    "**Looks the same! But notice the new units on the colobar scale.**\n",
+    "\n",
+    "Now let's save this raster to a new file."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "93db6aca-4edc-4f14-b673-dcd87d23844c",
+   "metadata": {},
+   "source": [
+    "## Writing Raster files\n",
+    "\n",
+    "Writing a file with `rasterio` involves defining the characteristics of the output raster and then writing your data array to it.\n",
+    "\n",
+    "The characteristics are provided in the form of metadata (or \"profile\") which takes the form of a dictionary containing parameters we looked at above, including:\n",
+    "- dimensions of the raster (height, width)\n",
+    "- data type (dtype)\n",
+    "- number of bands (count)\n",
+    "- coordinate reference system (crs), and;\n",
+    "- georeferencing transform (transform)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "55a916ce-8685-42f0-824f-768eeb0a2efb",
+   "metadata": {},
+   "source": [
+    "### A word on transforms\n",
+    "\n",
+    "In a raster dataset, an affine transformation is a mathematical mapping that relates the dataset's internal pixel coordinates to a real-world coordinate system. This process, known as georeferencing, allows software to correctly display, scale, and align the image with other spatial data. \n",
+    "\n",
+    "\n",
+    "### The affine matrix \n",
+    "A raster georeferencing transform can be expressed in mathematical terms using an affine matrix. This matrix defines a set of equations to convert a pixel's row and column coordinates into real-world x-y coordinates.\n",
+    "\n",
+    "Geospatial coordinate reference systems are typically defined on a cartesian plane with the 0,0 origin in the bottom left. Raster data uses a different referencing system. Rows and columns with the 0,0 origin in the upper left and rows increase and you move down while the columns increase as you go right.\n",
+    "\n",
+    "![title](data/rasterio/xyrowcol.png)\n",
+    "\n",
+    "Image from https://www.perrygeo.com/python-affine-transforms.html. More info on the Python [Affine](https://affine.readthedocs.io/en/latest/) library. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ca5061a5-5761-4b1a-a997-817588e5c6a7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with rasterio.open(data_path / '20150818_rainier_summer-tile-30.tif') as dataset:\n",
+    "    transform = dataset.transform\n",
+    "    meta = dataset.meta\n",
+    "\n",
+    "transform"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "470e77cc-cded-4876-8c7e-3423870a59f9",
+   "metadata": {},
+   "source": [
+    "### There are six elements in the affine transform (a, b, c, d, e, f)\n",
+    "\n",
+    "- a = width of a pixel\n",
+    "- b = row rotation (typically zero)\n",
+    "- c = x-coordinate of the upper-left corner of the upper-left pixel\n",
+    "- d = column rotation (typically zero)\n",
+    "- e = height of a pixel (typically negative)\n",
+    "- f = y-coordinate of the of the upper-left corner of the upper-left pixel\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2b8ba388-65e8-478b-a54f-16fb83c12d43",
+   "metadata": {},
+   "source": [
+    "rasterio provides an `rasterio.Affine` class, which can be used to create and manipulate new transforms"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ab8e259a-f469-4101-bbfc-1ed5e5a757a5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "transform = rasterio.Affine(\n",
+    "    a=30.0, \n",
+    "    b=0.0, \n",
+    "    c=583464.253406,\n",
+    "    d=0.0, \n",
+    "    e=-30.0, \n",
+    "    f=5202549.0989\n",
+    ")\n",
+    "\n",
+    "transform"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bb83f524-160f-4e43-94b9-8b3dbbc1707d",
+   "metadata": {},
+   "source": [
+    "### ... now back to writing that raster"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "57158966-765a-43c9-96a8-960107d12eae",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new_raster_file = data_path / '20150818_rainier_summer-tile-30_feet.tif'"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a07ff397-e096-4ff5-8b30-9d87018076ab",
+   "metadata": {},
+   "source": [
+    "The long way - specify metadata and close manually:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5ee58dca-7068-43b2-a09d-7abcaaf322e2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "out_dataset = rasterio.open(\n",
+    "    new_raster_file, \n",
+    "    mode='w',         # open file in write mode this time\n",
+    "    driver='GTiff',\n",
+    "    width=827,\n",
+    "    height=761,\n",
+    "    count=1,\n",
+    "    crs=32610,\n",
+    "    transform=transform,\n",
+    "    dtype='float32',\n",
+    "    nodata=0.0\n",
+    ")\n",
+    "    \n",
+    "out_dataset.write(array_ft, 1)\n",
+    "out_dataset.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "59ecda6f-28c0-4fd5-b780-19a0c2e7bc59",
+   "metadata": {},
+   "source": [
+    "The short way - use `with` and  the original file metadata, `meta`, using `**` to unpack the dictionary into arguments"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ce9a97fe-5e83-487b-bb58-18919f1d18c7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with rasterio.open(new_raster_file, 'w', **meta) as out_dataset:\n",
+    "    out_dataset.write(array_ft, 1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "76b88127-d745-4ef6-b102-b383aa28ecf6",
+   "metadata": {},
+   "source": [
+    "## Building a raster from scratch"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a43873ef-8686-4b68-9a6b-96a0f6cb40d1",
+   "metadata": {},
+   "source": [
+    "### Class activity\n",
+    "\n",
+    "Create and write your own raster. This raster should be:\n",
+    "1) 10 rows, 10 columns\n",
+    "3) The raster can contain any value(s) you want, but bonus points for a checkerboard pattern\n",
+    "4) Set upper left coordinates to:\n",
+    "   - xul: 569005.45\n",
+    "   - yul: 10746521.08\n",
+    "5) EPSG is 3070\n",
+    "\n",
+    "Use the completed code blocks above as a template. **Don't be ashamed to adapt code you got from someone else or on the internet to accomplish something useful.** "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e9fb4685-cd41-45d5-8bad-6292f34de4cb",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9daa9ab9-b962-4648-8624-c1ac130cf145",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c036fca7-8e0e-41a0-9397-0d08fbea8002",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "73854ad8-7a87-48b1-b6c9-5e83bc963b8d",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6d301eb8-5961-4989-b509-c01b8d5f8343",
+   "metadata": {},
+   "source": [
+    "## Masking (aka clipping) rasters using polygons"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "999ae747-e05c-4609-b09a-e80fdfce5cdd",
+   "metadata": {},
+   "source": [
+    "The rasterio `mask` function can be used to clip a raster to exclude areas outside of the polygon(s) defined in the shapefile. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e9e8b601-4ea4-41bf-b150-28e838b3a63a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from rasterio.mask import mask"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "93983ddb-fb6b-4b2d-8337-381b02f8580d",
+   "metadata": {},
+   "source": [
+    "As an example, we can use the geometry information contained in the shapefile we plotted earlier as the mask"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "989f5e6f-ab1f-4fd1-8fb0-12f846795323",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "white_riv_huc12.loc[0,'geometry']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "140a4a3c-fb29-4813-a0b7-df3a7339211d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "crop_shape = white_riv_huc12['geometry']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e8d066c9-62da-48dc-81de-f2455d8d7699",
+   "metadata": {},
+   "source": [
+    "A quick refersher - here's what we're working with:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "381004bd-9a72-4fa4-98c1-8f2088bf9032",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "with rasterio.open(raster_file) as dataset:\n",
+    "    show(dataset, ax=ax, vmin=500, vmax=4500)\n",
+    "    white_riv_huc12.plot(ax=ax, edgecolor='red', facecolor='None');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f09a966b-7461-40c5-8569-597d0c420213",
+   "metadata": {},
+   "source": [
+    "Now let's use the `mask` function to clip the raster data with the polygon.\n",
+    "\n",
+    "Set `crop=True` to crop the raster's extent to the bounding box of the polygon(s)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "65d51736-cdd2-4a79-9464-4a1658a7d5a6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with rasterio.open(raster_file) as dataset:\n",
+    "    mask_image, mask_transform = mask(\n",
+    "        dataset, \n",
+    "        crop_shape, \n",
+    "        crop=True\n",
+    "    )\n",
+    "    mask_meta = dataset.meta\n",
+    "\n",
+    "show(mask_image, transform=mask_transform);"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d22a5102-b9fe-4e7e-95f2-f4492b3394ad",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mask_meta.update({\"driver\": \"GTiff\",\n",
+    "                 \"height\": mask_image.shape[1],\n",
+    "                 \"width\": mask_image.shape[2],\n",
+    "                 \"transform\": mask_transform})\n",
+    "\n",
+    "masked_file = data_path / '20150818_rainier_summer-tile-30_masked.tif'\n",
+    "\n",
+    "with rasterio.open(masked_file, \"w\", **mask_meta) as out_dataset:\n",
+    "    out_dataset.write(mask_image)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dc3266d9-36a3-418f-9976-738712ee9684",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

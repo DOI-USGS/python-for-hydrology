@@ -14,4 +14,5 @@ Part 1 flopy
    notebooks/part1_flopy/solutions/07-stream_capture_voronoi.ipynb
    notebooks/part1_flopy/08_Modflow-setup-demo.ipynb
    notebooks/part1_flopy/09-gwt-voronoi-demo.ipynb
-   notebooks/part1_flopy/10_modpath_particle_tracking-demo.ipynb
+   notebooks/part1_flopy/10a_prt_particle_tracking-demo.ipynb
+   notebooks/part1_flopy/10b_modpath_particle_tracking-demo.ipynb

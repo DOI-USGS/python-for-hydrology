@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -76,7 +78,8 @@
 <li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -119,10 +122,10 @@
            <div itemprop="articleBody">
              
   <section id="07:-Using-functions-to-solve-an-equation---The-Theis-example">
-<h1>07: Using functions to solve an equation– The Theis example<a class="headerlink" href="#07:-Using-functions-to-solve-an-equation---The-Theis-example" title="Link to this heading">¶</a></h1>
+<h1>07: Using functions to solve an equation– The Theis example<a class="headerlink" href="#07:-Using-functions-to-solve-an-equation---The-Theis-example" title="Link to this heading"></a></h1>
 <p>In this exercise we will implement the Theis equation in Python using functions, to evaluate drawdown in hydraulic head from pumping at a well.</p>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Link to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Link to this heading"></a></h2>
 <p>The Theis (1935) equation is used to calculate drawdown for two-dimensional radial groundwater flow to a point source in an infinite, homogeneous aquifer. The Theis equation was derived from heat transfer literature (with the mathematical help of C.I. Lubin) and is defined as:</p>
 <p><span class="math">\begin{equation}
 s = \frac{Q}{4 \pi T} W(u)
@@ -156,7 +159,7 @@ S = S_s b
 </div>
 </section>
 <section id="imports">
-<h2>imports<a class="headerlink" href="#imports" title="Link to this heading">¶</a></h2>
+<h2>imports<a class="headerlink" href="#imports" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -169,7 +172,7 @@ S = S_s b
 </div>
 </section>
 <section id="Step-1)">
-<h2>Step 1)<a class="headerlink" href="#Step-1)" title="Link to this heading">¶</a></h2>
+<h2>Step 1)<a class="headerlink" href="#Step-1)" title="Link to this heading"></a></h2>
 <p>Make a function for the Theis equation. The function should include a <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">Numpy-style docstring</a> that documents the inputs and what the function returns.</p>
 <p><span class="math">\begin{equation}
 s = \frac{Q}{4 \pi T} W(u)
@@ -235,7 +238,7 @@ s = \frac{Q}{4 \pi T} W(u)
 </div>
 </section>
 <section id="Step-2)">
-<h2>Step 2)<a class="headerlink" href="#Step-2)" title="Link to this heading">¶</a></h2>
+<h2>Step 2)<a class="headerlink" href="#Step-2)" title="Link to this heading"></a></h2>
 <p>Use the eqn. from Step 1) to compute drawdown at a distance of 1,000m, at 10 days, assuming a pumping rate of 4,088 m/day, transmissivity (T) of 1,000 m/day, and a storativity (S) of 3 x 10<span class="math notranslate nohighlight">\(^{-4}\)</span></p>
 <p>hint: you should get <code class="docutils literal notranslate"><span class="pre">1.40636669</span></code></p>
 <div class="nbinput docutils container">
@@ -257,7 +260,7 @@ array([1.40636669])
 </div>
 </section>
 <section id="Step-3)">
-<h2>Step 3)<a class="headerlink" href="#Step-3)" title="Link to this heading">¶</a></h2>
+<h2>Step 3)<a class="headerlink" href="#Step-3)" title="Link to this heading"></a></h2>
 <p>Make a plot of drawdown over time for the same parameters as in Step 2)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -290,7 +293,7 @@ Text(0.5, 0, &#39;Time, in days&#39;)
 </div>
 </section>
 <section id="Step-4)">
-<h2>Step 4)<a class="headerlink" href="#Step-4)" title="Link to this heading">¶</a></h2>
+<h2>Step 4)<a class="headerlink" href="#Step-4)" title="Link to this heading"></a></h2>
 <p>Make a new function that accepts arrays of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> locations, and a pumping well location (<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>), and returns a corresponding array of <span class="math notranslate nohighlight">\(s\)</span> (drawdown) locations, for any number of times. This new function should call the function created in Step 1). To do this, you will need an additional function to compute the distance to the pumping well <span class="math notranslate nohighlight">\(r\)</span> for any <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> location.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -371,7 +374,7 @@ Text(0.5, 0, &#39;Time, in days&#39;)
 </div>
 </section>
 <section id="Step-5)">
-<h2>Step 5)<a class="headerlink" href="#Step-5)" title="Link to this heading">¶</a></h2>
+<h2>Step 5)<a class="headerlink" href="#Step-5)" title="Link to this heading"></a></h2>
 <p>Use the function from Step 4) to make a 2D plot of drawdown at 10 days, on a 2,000 x 2,000 meter grid (with an origin of 0, 0), with the pumping well located at 1000, 1000.</p>
 <p>hint: if the function is taking too long to run, try calling function from step 1) with <em>vectors</em> of x,y instead of <em>scalars</em>. It should run in less than a second.</p>
 <div class="nbinput docutils container">
@@ -391,8 +394,8 @@ Text(0.5, 0, &#39;Time, in days&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CPU times: user 129 ms, sys: 29.1 ms, total: 158 ms
-Wall time: 158 ms
+CPU times: user 131 ms, sys: 30 ms, total: 161 ms
+Wall time: 161 ms
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -426,7 +429,7 @@ Wall time: 158 ms
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f548e5fc090&gt;
+&lt;matplotlib.image.AxesImage at 0x7fa406673590&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -438,7 +441,7 @@ Wall time: 158 ms
 </div>
 </section>
 <section id="Step-6)">
-<h2>Step 6)<a class="headerlink" href="#Step-6)" title="Link to this heading">¶</a></h2>
+<h2>Step 6)<a class="headerlink" href="#Step-6)" title="Link to this heading"></a></h2>
 <p>With <span class="math notranslate nohighlight">\(s\)</span> returned as an array for a given set of x, y locations, we can now use <em>superposition</em> (adding drawdowns together) to evaluate the effects of multiple pumping wells. Try calling the function from Step 4) again with a well at 500, 500. The <span class="math notranslate nohighlight">\(s\)</span> output can be added to the results from Step 5) to get a composite map of drawdown with the two wells pumping.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -462,7 +465,7 @@ Wall time: 158 ms
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7f548e485f10&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7fa42c979510&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -495,7 +498,7 @@ Wall time: 158 ms
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

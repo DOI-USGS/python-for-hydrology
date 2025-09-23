@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -88,7 +90,8 @@
 <li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -131,10 +134,10 @@
            <div itemprop="articleBody">
              
   <section id="04:-File-input-and-output">
-<h1>04: File input and output<a class="headerlink" href="#04:-File-input-and-output" title="Link to this heading">¶</a></h1>
+<h1>04: File input and output<a class="headerlink" href="#04:-File-input-and-output" title="Link to this heading"></a></h1>
 <p>In this exercise we will be learning about using python to work with file input and output. We will also learn a little about reading and writing ascii files.</p>
 <section id="Initialization-of-Notebook">
-<h2>Initialization of Notebook<a class="headerlink" href="#Initialization-of-Notebook" title="Link to this heading">¶</a></h2>
+<h2>Initialization of Notebook<a class="headerlink" href="#Initialization-of-Notebook" title="Link to this heading"></a></h2>
 <p>Populate the interactive namespace with the python packages we will be using in this exercise</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -153,18 +156,18 @@
 </div>
 </section>
 <section id="Additional-reading-and-supporting-documentation">
-<h2>Additional reading and supporting documentation<a class="headerlink" href="#Additional-reading-and-supporting-documentation" title="Link to this heading">¶</a></h2>
+<h2>Additional reading and supporting documentation<a class="headerlink" href="#Additional-reading-and-supporting-documentation" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="http://openbookproject.net/thinkcs/python/english3e/files.html">http://openbookproject.net/thinkcs/python/english3e/files.html</a></p>
 </section>
 <section id="About-files">
-<h2>About files<a class="headerlink" href="#About-files" title="Link to this heading">¶</a></h2>
+<h2>About files<a class="headerlink" href="#About-files" title="Link to this heading"></a></h2>
 <p>While a program is running, its data is stored in random access memory (RAM). RAM is fast and inexpensive, but it is also <strong>volatile</strong>, which means that when the program ends, or the computer shuts down, data in RAM disappears. To make data available the next time the computer is turned on and the program is started, it has to be written to a non-volatile storage medium, such a hard drive, usb drive, or CD-RW.</p>
 <p>Data on <strong>non-volatile</strong> storage media is stored in named locations on the media called <strong>files</strong>. By reading and writing files, programs can save information between program runs.</p>
 <p>Working with files is a lot like working with a notebook. To use a notebook, it has to be opened. When done, it has to be closed. While the notebook is open, it can either be read from or written to. In either case, the notebook holder knows where they are. They can read the whole notebook in its natural order or they can skip around.</p>
 <p>All of this applies to files as well. To open a file, we specify its name and indicate whether we want to read or write.</p>
 </section>
 <section id="Writing-our-first-file">
-<h2>Writing our first file<a class="headerlink" href="#Writing-our-first-file" title="Link to this heading">¶</a></h2>
+<h2>Writing our first file<a class="headerlink" href="#Writing-our-first-file" title="Link to this heading"></a></h2>
 <p>Let’s begin with a simple program that writes three lines of text into a file:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -186,7 +189,7 @@
 <p>Closing the file handle (line 5) tells the system that we are done writing and makes the disk file available for reading by other programs (or by our own program).</p>
 </section>
 <section id="A-better-way-to-write-a-file,-with-with.">
-<h2>A better way to write a file, with <code class="docutils literal notranslate"><span class="pre">with</span></code>.<a class="headerlink" href="#A-better-way-to-write-a-file,-with-with." title="Link to this heading">¶</a></h2>
+<h2>A better way to write a file, with <code class="docutils literal notranslate"><span class="pre">with</span></code>.<a class="headerlink" href="#A-better-way-to-write-a-file,-with-with." title="Link to this heading"></a></h2>
 <p>The python <code class="docutils literal notranslate"><span class="pre">with</span></code> statement allows us to create a file handle that automatically closes after the code exits the with statement. This not only reduces the amount of code that exists, it also ensures that file handles are not not left open as the code progresses.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -226,7 +229,7 @@ myfile is closed: True
 </div>
 </section>
 <section id="Reading-a-file-one-line-at-a-time">
-<h2>Reading a file one line-at-a-time<a class="headerlink" href="#Reading-a-file-one-line-at-a-time" title="Link to this heading">¶</a></h2>
+<h2>Reading a file one line-at-a-time<a class="headerlink" href="#Reading-a-file-one-line-at-a-time" title="Link to this heading"></a></h2>
 <p>Now that the file exists on our disk, we can open it, this time for reading, and read all the lines in the file, one at a time. This time, the mode argument is <code class="docutils literal notranslate"><span class="pre">'r'</span></code> for reading:</p>
 <p>We can also use the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">open()</span> <span class="pre">as</span></code> convention for reading files:</p>
 <div class="nbinput docutils container">
@@ -259,7 +262,7 @@ Hello, world!
 <p>See <a class="reference external" href="https://docs.python.org/3.9/library/string.html">python’s string documentation</a> for more information on common string operations.</p>
 </section>
 <section id="A-second-way-to-read-file-input">
-<h2>A second way to read file input<a class="headerlink" href="#A-second-way-to-read-file-input" title="Link to this heading">¶</a></h2>
+<h2>A second way to read file input<a class="headerlink" href="#A-second-way-to-read-file-input" title="Link to this heading"></a></h2>
 <p>Instead of using the <code class="docutils literal notranslate"><span class="pre">readline()</span></code> method we can loop over the handle object read a file line by line.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -315,7 +318,7 @@ Is file closed? True
 <p>This approach is much easier, but both methods (looping over the object and <code class="docutils literal notranslate"><span class="pre">readline()</span></code>) have applications for reading input.</p>
 </section>
 <section id="What-if-we-open-a-file-that-does-not-exist">
-<h2>What if we open a file that does not exist<a class="headerlink" href="#What-if-we-open-a-file-that-does-not-exist" title="Link to this heading">¶</a></h2>
+<h2>What if we open a file that does not exist<a class="headerlink" href="#What-if-we-open-a-file-that-does-not-exist" title="Link to this heading"></a></h2>
 <p>If we try to open a file that does not exist, we get an error:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -338,7 +341,7 @@ Is file closed? True
 </div>
 </section>
 <section id="Class-Activity-1">
-<h2>Class Activity 1<a class="headerlink" href="#Class-Activity-1" title="Link to this heading">¶</a></h2>
+<h2>Class Activity 1<a class="headerlink" href="#Class-Activity-1" title="Link to this heading"></a></h2>
 <p>Write and read your own file. Use the completed code blocks above as a template. <strong>Don’t be ashamed to adapt code you got from someone else or on the internet to accomplish something useful.</strong></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -365,7 +368,7 @@ Is file closed? True
 </div>
 </section>
 <section id="File-paths">
-<h2>File paths<a class="headerlink" href="#File-paths" title="Link to this heading">¶</a></h2>
+<h2>File paths<a class="headerlink" href="#File-paths" title="Link to this heading"></a></h2>
 <p>Files on non-volatile storage media are organized by a set of rules known as a <strong>file system</strong>. File systems are made up of files and <strong>directories</strong>, which are containers for both files and other directories.</p>
 <p>By default, when we create a new file by opening it goes in the current directory (wherever we were when we ran the program). Similarly, when we open a file for reading, Python looks for it in the current directory. In the above example, we have used <code class="docutils literal notranslate"><span class="pre">os.path.join()</span></code> to write the file to a specific directory rather than the directory we are running this notebook from. If <code class="docutils literal notranslate"><span class="pre">'test.txt'</span></code> was used in the <code class="docutils literal notranslate"><span class="pre">open</span></code> statement, the file would have been written to the current working directory. The
 current working directory can be determined using:</p>
@@ -418,7 +421,7 @@ current working directory can be determined using:</p>
 <p>Take a look at <a class="reference external" href="https://docs.python.org/3.9/library/os.path.html">https://docs.python.org/3.9/library/os.path.html</a> for more information of <code class="docutils literal notranslate"><span class="pre">os.path</span></code> methods.</p>
 </section>
 <section id="Turning-a-file-into-a-list-of-lines">
-<h2>Turning a file into a list of lines<a class="headerlink" href="#Turning-a-file-into-a-list-of-lines" title="Link to this heading">¶</a></h2>
+<h2>Turning a file into a list of lines<a class="headerlink" href="#Turning-a-file-into-a-list-of-lines" title="Link to this heading"></a></h2>
 <p>It is often useful to fetch data from a disk file and turn it into a list of lines. Suppose we have a file containing our friends and their email addresses, one per line in the file. But we’d like the lines sorted into alphabetical order. A good plan is to read everything into a list of lines, then sort the list, then write the sorted list back to another file, and then read the sorted file and print the data from the file:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
@@ -466,7 +469,7 @@ van Schoonhoven, Linda, , vanschoonhoven@futurama.org
 </div>
 </section>
 <section id="Adding-data-from-a-file-to-a-list-of-select-data">
-<h2>Adding data from a file to a list of select data<a class="headerlink" href="#Adding-data-from-a-file-to-a-list-of-select-data" title="Link to this heading">¶</a></h2>
+<h2>Adding data from a file to a list of select data<a class="headerlink" href="#Adding-data-from-a-file-to-a-list-of-select-data" title="Link to this heading"></a></h2>
 <p>It is also useful to fetch data from a disk file, extracting the data from the lines read from the disk file, and add select data to a list. We will read the the names of our friends from the sorted file we just created, and add the last name, the first name and the email address to a list. We will then print the list:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
@@ -508,7 +511,7 @@ van Schoonhoven     , Linda      : vanschoonhoven@futurama.org
 </div>
 </section>
 <section id="Class-Activity-2">
-<h2>Class Activity 2<a class="headerlink" href="#Class-Activity-2" title="Link to this heading">¶</a></h2>
+<h2>Class Activity 2<a class="headerlink" href="#Class-Activity-2" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>What does the <code class="docutils literal notranslate"><span class="pre">split()</span></code> method do?</p></li>
 <li><p>What does <code class="docutils literal notranslate"><span class="pre">fn[0]</span></code> do? What would <code class="docutils literal notranslate"><span class="pre">fn[:2]</span></code> do? What is <code class="docutils literal notranslate"><span class="pre">mylist[2]</span></code>?</p></li>
@@ -543,7 +546,7 @@ van Schoonhoven     , Linda      : vanschoonhoven@futurama.org
 </div>
 </section>
 <section id="String-format-statements">
-<h2>String format statements<a class="headerlink" href="#String-format-statements" title="Link to this heading">¶</a></h2>
+<h2>String format statements<a class="headerlink" href="#String-format-statements" title="Link to this heading"></a></h2>
 <p>“Format specifications” are used within replacement fields contained within a format string “f-string” to define how individual values are presented. They can also be passed directly to the built-in <code class="docutils literal notranslate"><span class="pre">format()</span></code> function. Each formattable type may define how the format specification is to be interpreted.</p>
 <p>Most built-in types implement the following options for format specifications, although some of the formatting options are only supported by the numeric types.</p>
 <p>A general convention is that an empty format string (<code class="docutils literal notranslate"><span class="pre">''</span></code>) produces the same result as if you had called <code class="docutils literal notranslate"><span class="pre">str()</span></code> on the value. A non-empty format string typically modifies the result.</p>
@@ -576,7 +579,7 @@ van Schoonhoven     , Linda      : vanschoonhoven@futurama.org
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">','</span></code> option signals the use of a comma for a thousands separator.</p>
 <section id="Let's-look-at-the-str.format()-method-first">
-<h3>Let’s look at the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> method first<a class="headerlink" href="#Let's-look-at-the-str.format()-method-first" title="Link to this heading">¶</a></h3>
+<h3>Let’s look at the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> method first<a class="headerlink" href="#Let's-look-at-the-str.format()-method-first" title="Link to this heading"></a></h3>
 <p>A great explanation with examples for the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> and older formatting methods can be found at <a class="reference external" href="https://pyformat.info/">pyformat</a></p>
 <p>Accessing arguments by position:</p>
 <div class="nbinput docutils container">
@@ -642,7 +645,7 @@ X: 3;  Y: 5
 </div>
 </section>
 <section id="f-strings:-a-better-solution-in-most-cases">
-<h3>f-strings: a better solution in most cases<a class="headerlink" href="#f-strings:-a-better-solution-in-most-cases" title="Link to this heading">¶</a></h3>
+<h3>f-strings: a better solution in most cases<a class="headerlink" href="#f-strings:-a-better-solution-in-most-cases" title="Link to this heading"></a></h3>
 <p>f-strings are a relatively new, but powerful feature for string formatting.</p>
 <p>Construction of an f string is similar to the <code class="docutils literal notranslate"><span class="pre">str.format</span></code>, however we no longer need to add a <code class="docutils literal notranslate"><span class="pre">.format()</span></code> call to the end of the string.</p>
 <p>The call signature for f-strings is:</p>
@@ -826,7 +829,7 @@ correct_answers= 88.64%
 </pre></div></div>
 </div>
 <section id="Class-Activity-3">
-<h4>Class Activity 3<a class="headerlink" href="#Class-Activity-3" title="Link to this heading">¶</a></h4>
+<h4>Class Activity 3<a class="headerlink" href="#Class-Activity-3" title="Link to this heading"></a></h4>
 <p>Use the empty code blocks below to write the following:</p>
 <ol class="arabic simple">
 <li><p>print <code class="docutils literal notranslate"><span class="pre">'MODFLOW',</span> <span class="pre">1.,</span> <span class="pre">1999</span></code>. Enter them in this order in the <code class="docutils literal notranslate"><span class="pre">str.format</span></code> or <code class="docutils literal notranslate"><span class="pre">f-string</span></code> method but print them in reverse order.</p></li>
@@ -881,7 +884,7 @@ MODFLOW
 </section>
 </section>
 <section id="Reading-and-interpreting-fixed-format-data-from-a-string">
-<h2>Reading and interpreting fixed format data from a string<a class="headerlink" href="#Reading-and-interpreting-fixed-format-data-from-a-string" title="Link to this heading">¶</a></h2>
+<h2>Reading and interpreting fixed format data from a string<a class="headerlink" href="#Reading-and-interpreting-fixed-format-data-from-a-string" title="Link to this heading"></a></h2>
 <p>The following example shows how python can be used to parse a fixed format string with touching numbers. This can be difficult to do in other programming languages.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
@@ -911,7 +914,7 @@ MODFLOW
 </div>
 </section>
 <section id="Reading-the-whole-file-at-once">
-<h2>Reading the whole file at once<a class="headerlink" href="#Reading-the-whole-file-at-once" title="Link to this heading">¶</a></h2>
+<h2>Reading the whole file at once<a class="headerlink" href="#Reading-the-whole-file-at-once" title="Link to this heading"></a></h2>
 <p>Another way of working with text files is to read the complete contents of the file into a string, and then to use our string-processing skills to work with the contents.</p>
 <p>We’d normally use this method of processing files if we were not interested in the line structure of the file. Prior to the <code class="docutils literal notranslate"><span class="pre">split()</span></code>, we replace all commas (<code class="docutils literal notranslate"><span class="pre">','</span></code>) in the line with no space (<code class="docutils literal notranslate"><span class="pre">''</span></code>) and double spaces (<code class="docutils literal notranslate"><span class="pre">'</span>&#160; <span class="pre">'</span></code>) with a single space (<code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">'</span></code>). And finally, we replace the line termination string (<code class="docutils literal notranslate"><span class="pre">'\n'</span></code>) with a comma and a space (<code class="docutils literal notranslate"><span class="pre">',</span> <span class="pre">'</span></code>). So here is how we might count the number of words in a file:</p>
 <div class="nbinput docutils container">
@@ -948,7 +951,7 @@ Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Cla
 <p>Notice here that we left out the <code class="docutils literal notranslate"><span class="pre">'r'</span></code> mode in the <code class="docutils literal notranslate"><span class="pre">open()</span></code> statement. By default, if we don’t supply the mode, Python opens the file for reading.</p>
 </section>
 <section id="An-example">
-<h2>An example<a class="headerlink" href="#An-example" title="Link to this heading">¶</a></h2>
+<h2>An example<a class="headerlink" href="#An-example" title="Link to this heading"></a></h2>
 <p>Many useful line-processing programs will read a text file line-at-a-time and do some minor processing as they write the lines to an output file. They might number the lines in the output file, or insert extra blank lines after every 60 lines to make it convenient for printing on sheets of paper, or extract some specific columns only from each line in the source file, or only print lines that contain a specific substring. We call this kind of program a filter.</p>
 <p>Here is a filter that copies one file to another, omitting any lines that begin with #:</p>
 <div class="nbinput nblast docutils container">
@@ -972,7 +975,7 @@ Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Cla
 <p>Let’s consider one more case: suppose our original file contained empty lines. At the <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">len(text)</span> <span class="pre">==</span> <span class="pre">0</span></code> line, would this program do anything with the empty line? Yes! Recall that a blank line always includes the newline character in the string it returns.</p>
 </section>
 <section id="Class-Activity-4">
-<h2>Class Activity 4<a class="headerlink" href="#Class-Activity-4" title="Link to this heading">¶</a></h2>
+<h2>Class Activity 4<a class="headerlink" href="#Class-Activity-4" title="Link to this heading"></a></h2>
 <p>Let’s use the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function to remove the comment lines from <code class="docutils literal notranslate"><span class="pre">'FileWithComments.txt'</span></code> and create <code class="docutils literal notranslate"><span class="pre">'FileWithOutComments.txt'</span></code>. Use one of the approaches discussed above to open, read, and print data in both files after calling the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function. Remember to use the pl.Path() approach to access the file in the <code class="docutils literal notranslate"><span class="pre">pthnb</span></code> directory.</p>
 <p>Use the blank code block below to complete this activity.</p>
 <div class="nbinput nblast docutils container">
@@ -1006,7 +1009,7 @@ Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Cla
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

@@ -1,0 +1,1525 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10a: Particle tracking with MODFLOW 6 PRT &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=feab032e"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="10b: Particle tracking with MODPATH" href="10b_modpath_particle_tracking-demo.html" />
+    <link rel="prev" title="09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid" href="09-gwt-voronoi-demo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01-Flopy-intro.html">01: Introduction to FloPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_Unstructured_Grid_generation.html">05: Unstructured grid and general mesh generation with FloPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-structured_completed.html">06: FloPy class project: Structured grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-quadtree.html">06: FloPy class project: Quadtree grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/06-Project-voronoi.html">06: FloPy class project: Voronoi grid version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10a: Particle tracking with MODFLOW 6 PRT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Define-the-workspace,-model-names-and-key-options.">Define the workspace, model names and key options.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Load-the-MODFLOW-6-Model">Load the MODFLOW 6 Model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-groundwater-flow-model">Load the groundwater flow model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Change-the-workspace">Change the workspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Add-save_saturation-and-save_flows-to-the-NPF-Package">Add <code class="docutils literal notranslate"><span class="pre">save_saturation</span></code> and <code class="docutils literal notranslate"><span class="pre">save_flows</span></code> to the NPF Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Write-the-model-files">Write the model files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Create-and-Run-the-PRT-model">Create and Run the PRT model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-model-grid-and-the-location-of-the-contamination-patch">Plot the model grid and the location of the contamination patch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Get-the-model-cells-intersecting-the-contamination-patch">Get the model cells intersecting the contamination patch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Instantiate-the-MODFLOW-6-prt-model">Instantiate the MODFLOW 6 prt model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Instantiate-the-MODFLOW-6-PRT-Model-Input-Package.">Instantiate the MODFLOW 6 PRT Model Input Package.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Create-the-particle-start-data">Create the particle start data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Instantiate-the-MODFLOW-6-prt-particle-release-point-(PRP)-package">Instantiate the MODFLOW 6 prt particle release point (PRP) package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Instantiate-the-MODFLOW-6-PRT-output-control-package">Instantiate the MODFLOW 6 PRT output control package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Instantiate-the-PRT-Flow-Model-Interface-and-Explicit-Model-Solution-Packages">Instantiate the PRT Flow Model Interface and Explicit Model Solution Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Write-the-PRT-input-files-and-run-the-model">Write the PRT input files and run the model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Post-Process-the-MODFLOW-and-PRT-Results">Post-Process the MODFLOW and PRT Results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-MODFLOW-and-PRT-results-from-the-heads-and-pathline-files">Load MODFLOW and PRT results from the heads and pathline files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-heads-and-pathlines">Plot the heads and pathlines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Export-the-pathlines-to-a-GeoPackage">Export the pathlines to a GeoPackage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-pathlines-going-to-SFR-and-WEL-cells">Plot pathlines going to SFR and WEL cells</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part1.html">Part 1 flopy</a></li>
+      <li class="breadcrumb-item active">10a: Particle tracking with MODFLOW 6 PRT</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/part1_flopy/10a_prt_particle_tracking-demo.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="10a:-Particle-tracking-with-MODFLOW-6-PRT">
+<h1>10a: Particle tracking with MODFLOW 6 PRT<a class="headerlink" href="#10a:-Particle-tracking-with-MODFLOW-6-PRT" title="Link to this heading"></a></h1>
+<p>In this exercise, we will use the MODFLOW 6 Particle Tracking (PRT) Model to simulate advective transport with a quadtree version of the Freyberg flow model.</p>
+<p>The PRT Model calculates three-dimensional, advective particle trajectories in flowing groundwater. The PRT Model is designed to work with the MODFLOW 6 Groundwater Flow (GWF) Model and uses the same spatial discretization, which may be represented using either a structured (DIS) or an unstructured (DISV) grid. The PRT Model replicates much of the functionality of MODPATH 7 and offers support for a much broader class of unstructured grids. The PRT Model can be run in the same simulation as the
+associated GWF Model or in a separate simulation that reads previously calculated flows from a binary budget file. Currently, the PRT Model documented does not support grids of DISU type, tracking of particles through advanced stress package features such as lakes or streams reaches, or exchange of particles between PRT models.</p>
+<p>This exercise demonstrates setting up and running the PRT Model in a separate simulation contained in a subfolder of the groundwater flow model workspace. We will also do some basic post-processing- making plots and exporting results to a GeoPackage for visualization in a GIS environment.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils.gridintersect</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridIntersect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">flopy</span>
+<br/></pre></div>
+</div>
+</div>
+<p>The location of the contamination patch and the nodes that the define bounding cells of the patch are calculated below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># patch upper left and lower right</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mf">250.</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">250.</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="p">(</span><span class="mi">40</span> <span class="o">-</span> <span class="mi">14</span><span class="p">)</span> <span class="o">*</span> <span class="mf">250.</span><span class="p">,</span> <span class="p">(</span><span class="mi">40</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)</span> <span class="o">*</span> <span class="mf">250.</span>
+
+<span class="n">csx</span><span class="p">,</span> <span class="n">csy</span> <span class="o">=</span> <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">],</span> <span class="p">[</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">]</span>
+<span class="n">polygon</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">))]</span>
+<span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">),</span> <span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((250.0, 7250.0), (750.0, 6500.0))
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<section id="Define-the-workspace,-model-names-and-key-options.">
+<h2>Define the workspace, model names and key options.<a class="headerlink" href="#Define-the-workspace,-model-names-and-key-options." title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_ws</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data/quadtree&#39;</span><span class="p">)</span>
+<span class="n">gwf_ws</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;temp/ex10a&quot;</span><span class="p">)</span>
+<span class="n">gwf_name</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span>
+<span class="c1">#name_mp = f&quot;{name}_mp&quot;</span>
+<span class="n">exe_name</span> <span class="o">=</span> <span class="s1">&#39;mf6&#39;</span>
+
+<span class="c1"># flow model output files to use with PRT</span>
+<span class="n">headfile</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gwf_name</span><span class="si">}</span><span class="s2">.hds&quot;</span>
+<span class="n">budgetfile</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gwf_name</span><span class="si">}</span><span class="s2">.cbc&quot;</span>
+
+<span class="n">prt_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gwf_name</span><span class="si">}</span><span class="s2">-prt&quot;</span>
+<span class="n">prt_model_ws</span> <span class="o">=</span> <span class="n">gwf_ws</span> <span class="o">/</span> <span class="s1">&#39;prt&#39;</span>
+
+<span class="c1"># PRT output files</span>
+<span class="n">budgetfile_prt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prt_name</span><span class="si">}</span><span class="s2">.cbc&quot;</span>
+<span class="n">trackfile_prt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prt_name</span><span class="si">}</span><span class="s2">.trk&quot;</span>
+<span class="n">trackcsvfile_prt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prt_name</span><span class="si">}</span><span class="s2">.trk.csv&quot;</span>
+
+<span class="c1"># if using &quot;local_z&quot; option</span>
+<span class="c1"># 1=start particles at top of cell</span>
+<span class="c1"># 0=start particles at bottom of cell</span>
+<span class="c1"># 1 resulted in Error: release point (z=29.899951638778955) is above grid top 29.886768340000000</span>
+<span class="n">particle_release_zrpt</span> <span class="o">=</span> <span class="mf">.99</span>
+<br/></pre></div>
+</div>
+</div>
+<section id="Load-the-MODFLOW-6-Model">
+<h3>Load the MODFLOW 6 Model<a class="headerlink" href="#Load-the-MODFLOW-6-Model" title="Link to this heading"></a></h3>
+<p>Load a simulation object using <code class="docutils literal notranslate"><span class="pre">flopy.mf6.MFSimulation().load()</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">gwf_name</span><span class="p">,</span> <span class="n">exe_name</span><span class="o">=</span><span class="n">exe_name</span><span class="p">,</span>
+                                  <span class="n">sim_ws</span><span class="o">=</span><span class="n">load_ws</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Load-the-groundwater-flow-model">
+<h2>Load the groundwater flow model<a class="headerlink" href="#Load-the-groundwater-flow-model" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">gwf_name</span><span class="p">)</span>
+<span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
+</pre></div></div>
+</div>
+</section>
+<section id="Change-the-workspace">
+<h2>Change the workspace<a class="headerlink" href="#Change-the-workspace" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">set_sim_path</span><span class="p">(</span><span class="n">gwf_ws</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Add-save_saturation-and-save_flows-to-the-NPF-Package">
+<h2>Add <code class="docutils literal notranslate"><span class="pre">save_saturation</span></code> and <code class="docutils literal notranslate"><span class="pre">save_flows</span></code> to the NPF Package<a class="headerlink" href="#Add-save_saturation-and-save_flows-to-the-NPF-Package" title="Link to this heading"></a></h2>
+<p>(required for PRT)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">npf</span><span class="o">.</span><span class="n">save_saturation</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">gwf</span><span class="o">.</span><span class="n">npf</span><span class="o">.</span><span class="n">save_flows</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Write-the-model-files">
+<h2>Write the model files<a class="headerlink" href="#Write-the-model-files" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Run the simulation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                            VERSION 6.6.2 05/12/2025
+
+   MODFLOW 6 compiled May 24 2025 11:41:46 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
+                             Build 20220726_000000
+
+This software has been approved for release by the U.S. Geological
+Survey (USGS). Although the software has been subjected to rigorous
+review, the USGS reserves the right to update the software as needed
+pursuant to further analysis and review. No warranty, expressed or
+implied, is made by the USGS or the U.S. Government as to the
+functionality of the software and related material nor shall the
+fact of release constitute any such warranty. Furthermore, the
+software is released on condition that neither the USGS nor the U.S.
+Government shall be held liable for any damages resulting from its
+authorized or unauthorized use. Also refer to the USGS Water
+Resources Software User Rights Notice for complete use, copyright,
+and distribution information.
+
+
+ MODFLOW runs in SEQUENTIAL mode
+
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:08:37
+
+ Writing simulation list file: mfsim.lst
+ Using Simulation name file: mfsim.nam
+
+    Solving:  Stress period:     1    Time step:     1
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:08:37
+ Elapsed run time:  0.396 Seconds
+
+
+WARNING REPORT:
+
+  1. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;project.sfr&#39; WAS
+     DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
+ Normal termination of simulation.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(True, [])
+</pre></div></div>
+</div>
+<section id="Create-and-Run-the-PRT-model">
+<h3>Create and Run the PRT model<a class="headerlink" href="#Create-and-Run-the-PRT-model" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="Plot-the-model-grid-and-the-location-of-the-contamination-patch">
+<h2>Plot the model grid and the location of the contamination patch<a class="headerlink" href="#Plot-the-model-grid-and-the-location-of-the-contamination-patch" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_inactive</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e534eb&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_20_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_20_0.png" />
+</div>
+</div>
+</section>
+<section id="Get-the-model-cells-intersecting-the-contamination-patch">
+<h2>Get the model cells intersecting the contamination patch<a class="headerlink" href="#Get-the-model-cells-intersecting-the-contamination-patch" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility in Flopy has an <code class="docutils literal notranslate"><span class="pre">intersect</span></code> method that can find the model cells intersecting a set of points, lines, or polygons. Since this is a DISV grid, these will be <code class="docutils literal notranslate"><span class="pre">cell2d</span></code> values (that are the same across the model layers). Similarly, for a structured grid, <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> would return row, column locations.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gx</span> <span class="o">=</span> <span class="n">GridIntersect</span><span class="p">(</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">gx</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">)</span>
+<span class="n">particle_start_nodes</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">cellids</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">particle_start_nodes</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1352, 1353, 1459, 1460, 1581, 1582])
+</pre></div></div>
+</div>
+</section>
+<section id="Instantiate-the-MODFLOW-6-prt-model">
+<h2>Instantiate the MODFLOW 6 prt model<a class="headerlink" href="#Instantiate-the-MODFLOW-6-prt-model" title="Link to this heading"></a></h2>
+<p>and discretization packages</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prt_sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">prt_name</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="n">prt_model_ws</span><span class="p">)</span>
+
+<span class="c1"># Instantiate the MODFLOW 6 temporal discretization package</span>
+<span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">modflow</span><span class="o">.</span><span class="n">mftdis</span><span class="o">.</span><span class="n">ModflowTdis</span><span class="p">(</span>
+    <span class="n">prt_sim</span><span class="p">,</span>
+    <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;DAYS&quot;</span><span class="p">,</span>
+    <span class="n">nper</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">perioddata</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>  <span class="c1"># perlen, nstp, tsmult</span>
+<span class="p">)</span>
+<span class="n">prt</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowPrt</span><span class="p">(</span>
+    <span class="n">prt_sim</span><span class="p">,</span> <span class="n">modelname</span><span class="o">=</span><span class="n">prt_name</span><span class="p">,</span> <span class="n">model_nam_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prt_name</span><span class="si">}</span><span class="s2">.nam&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Instantiate the MODFLOW 6 prt discretization package</span>
+<span class="n">nlay</span><span class="p">,</span> <span class="n">ncells_per_layer</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">botm</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">disv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfdisv</span><span class="p">(</span>
+    <span class="n">prt</span><span class="p">,</span>
+    <span class="n">nlay</span><span class="o">=</span><span class="n">nlay</span><span class="p">,</span>
+    <span class="n">ncpl</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">ncpl</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">nvert</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">nvert</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">length_units</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">length_units</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">top</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">botm</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">botm</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">vertices</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">cell2d</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">cell2d</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">idomain</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">idomain</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">xorigin</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">xorigin</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+    <span class="n">yorigin</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">yorigin</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Instantiate-the-MODFLOW-6-PRT-Model-Input-Package.">
+<h2>Instantiate the MODFLOW 6 PRT Model Input Package.<a class="headerlink" href="#Instantiate-the-MODFLOW-6-PRT-Model-Input-Package." title="Link to this heading"></a></h2>
+<p><strong>First make an ``izone`` array</strong> with a zone number for each cell. The “izone” for the model cell will be reported in the PRT output, allowing us to more easily track where particles go, and where they ultimately discharge. For example, if we start particles at the water table, we can determine the contributing area for a stream or other boundary condition, by assigning an izone to those cells. One of the izone numbers can be designated as an <code class="docutils literal notranslate"><span class="pre">istopzone</span></code>; particles entering this zone will be
+terminated regardless of whether the zone is a strong sink or not.</p>
+<p>In this example, we’ll assign different izone numbers to SFR and Well Package cells.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># start with a default zone of 0</span>
+<span class="n">izone_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nlay</span><span class="p">,</span> <span class="n">ncells_per_layer</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># get the locations of SFR cells</span>
+<span class="n">sfr_k</span><span class="p">,</span> <span class="n">sfr_cellid</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">gwf</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">packagedata</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="s1">&#39;cellid&#39;</span><span class="p">])</span>
+<span class="n">sfr_k</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">sfr_cellid</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+
+<span class="n">izones</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;wel&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;sfr&#39;</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Assign SFR cells to zone 2</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">izone_array</span><span class="p">[</span><span class="n">sfr_k</span><span class="p">,</span> <span class="n">sfr_cellid</span><span class="p">]</span> <span class="o">=</span> <span class="n">izones</span><span class="p">[</span><span class="s1">&#39;sfr&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Assign wells to zone 1</strong> Using the stress period data. Note that in models with more than one stress period, different wells may be represented in different stress periods.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">well_k</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">well_cellid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">per</span><span class="p">,</span> <span class="n">recarray</span> <span class="ow">in</span> <span class="n">gwf</span><span class="o">.</span><span class="n">wel</span><span class="o">.</span><span class="n">stress_period_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">well_k_per</span><span class="p">,</span> <span class="n">well_cellid_per</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">recarray</span><span class="p">[</span><span class="s1">&#39;cellid&#39;</span><span class="p">])</span>
+    <span class="n">well_k</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">well_k_per</span><span class="p">)</span>
+    <span class="n">well_cellid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">well_cellid_per</span><span class="p">)</span>
+
+<span class="n">izone_array</span><span class="p">[</span><span class="n">well_k</span><span class="p">,</span> <span class="n">well_cellid</span><span class="p">]</span> <span class="o">=</span> <span class="n">izones</span><span class="p">[</span><span class="s1">&#39;wel&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Make the package</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowPrtmip</span><span class="p">(</span><span class="n">prt</span><span class="p">,</span>
+                        <span class="n">porosity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                        <span class="n">izone</span><span class="o">=</span><span class="n">izone_array</span>
+                        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+package_name = mip
+filename = project-prt.mip
+package_type = mip
+model_or_simulation_package = model
+model_name = project-prt
+
+Block griddata
+--------------------
+porosity
+{constant 0.1}
+
+izone
+Layer_1{internal}
+(array([0, 0, 0, ..., 0, 0, 0], shape=(5108,), dtype=int32))
+Layer_2{internal}
+(array([0, 0, 0, ..., 0, 0, 0], shape=(5108,), dtype=int32))
+Layer_3{internal}
+(array([0, 0, 0, ..., 0, 0, 0], shape=(5108,), dtype=int32))
+
+
+</pre></div></div>
+</div>
+</section>
+<section id="Create-the-particle-start-data">
+<h2>Create the particle start data<a class="headerlink" href="#Create-the-particle-start-data" title="Link to this heading"></a></h2>
+<p>From the nodes intersecting the polygon we made above, develop a DataFrame of particle start locations. For simplicity, we are just starting a single particle in each cell, but since the x and y are in local (model) coordinates, it would be fairly straightforward to start multiple particles in each cell on a finer spacing.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># release particles at each row, column location</span>
+<span class="n">prt_start_x</span><span class="p">,</span> <span class="n">prt_start_y</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">get_local_coords</span><span class="p">(</span>
+    <span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">xcellcenters</span><span class="p">[</span><span class="n">particle_start_nodes</span><span class="p">],</span>
+    <span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">ycellcenters</span><span class="p">[</span><span class="n">particle_start_nodes</span><span class="p">])</span>
+
+<span class="n">prt_start_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;irptno&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prt_start_x</span><span class="o">.</span><span class="n">ravel</span><span class="p">())),</span>
+    <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;cell2d&#39;</span><span class="p">:</span> <span class="n">particle_start_nodes</span><span class="p">,</span>
+    <span class="s1">&#39;xrpt&#39;</span><span class="p">:</span> <span class="n">prt_start_x</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="s1">&#39;yrpt&#39;</span><span class="p">:</span> <span class="n">prt_start_y</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="c1"># start particles near top of saturation in cell with local_z=True</span>
+    <span class="s1">&#39;zrpt&#39;</span><span class="p">:</span> <span class="n">particle_release_zrpt</span><span class="p">,</span> <span class="c1">#[1] * len(prt_i) ,</span>
+    <span class="c1"># generic boundname for now;</span>
+    <span class="c1"># could be used to differentiate source areas</span>
+    <span class="s1">&#39;boundname&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;prt_</span><span class="si">{</span><span class="n">cell2d</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">cell2d</span> <span class="ow">in</span> <span class="n">particle_start_nodes</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="c1">#prt_start_data = prt_particle_data</span>
+<span class="n">prt_start_data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>irptno</th>
+      <th>k</th>
+      <th>cell2d</th>
+      <th>xrpt</th>
+      <th>yrpt</th>
+      <th>zrpt</th>
+      <th>boundname</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1352</td>
+      <td>375.0</td>
+      <td>7125.0</td>
+      <td>0.99</td>
+      <td>prt_1352</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1353</td>
+      <td>625.0</td>
+      <td>7125.0</td>
+      <td>0.99</td>
+      <td>prt_1353</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>0</td>
+      <td>1459</td>
+      <td>375.0</td>
+      <td>6875.0</td>
+      <td>0.99</td>
+      <td>prt_1459</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>0</td>
+      <td>1460</td>
+      <td>625.0</td>
+      <td>6875.0</td>
+      <td>0.99</td>
+      <td>prt_1460</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>0</td>
+      <td>1581</td>
+      <td>375.0</td>
+      <td>6625.0</td>
+      <td>0.99</td>
+      <td>prt_1581</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>0</td>
+      <td>1582</td>
+      <td>625.0</td>
+      <td>6625.0</td>
+      <td>0.99</td>
+      <td>prt_1582</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Alternatively, the <a class="reference external" href="https://github.com/MODFLOW-ORG/modflow6-examples/blob/develop/scripts/ex-prt-mp7-p02.py">Modflow 6 Examples</a> illustrate functionality in Flopy to generate evenly spaced particles along cell faces for MODPATH models, and then convert the results to PRT format (if you can get it to work; search the MODFLOW 6 Examples repository for “<code class="docutils literal notranslate"><span class="pre">ModflowPrtprp</span></code>”)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">CellDataType</span><span class="p">()</span>
+<span class="n">mp7_particle_data</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">NodeParticleData</span><span class="p">(</span><span class="n">subdivisiondata</span><span class="o">=</span><span class="p">[</span><span class="n">sd</span><span class="p">],</span>
+                                   <span class="n">nodes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">particle_start_nodes</span><span class="p">))</span>
+<span class="n">prt_particle_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mp7_particle_data</span><span class="o">.</span><span class="n">to_prp</span><span class="p">(</span><span class="n">prt</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">))</span>
+<span class="n">prt_particle_data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[(0,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7041.666666666667),
+  np.float64(25.157748113333334)),
+ (1,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7041.666666666667),
+  np.float64(25.157748113333334)),
+ (2,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7041.666666666667),
+  np.float64(25.157748113333334)),
+ (3,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7125.0),
+  np.float64(25.157748113333334)),
+ (4,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7125.0),
+  np.float64(25.157748113333334)),
+ (5,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7125.0),
+  np.float64(25.157748113333334)),
+ (6,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7208.333333333334),
+  np.float64(25.157748113333334)),
+ (7,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7208.333333333334),
+  np.float64(25.157748113333334)),
+ (8,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7208.333333333334),
+  np.float64(25.157748113333334)),
+ (9,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7041.666666666667),
+  np.float64(26.95494016)),
+ (10,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7041.666666666667),
+  np.float64(26.95494016)),
+ (11,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7041.666666666667),
+  np.float64(26.95494016)),
+ (12,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7125.0),
+  np.float64(26.95494016)),
+ (13,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7125.0),
+  np.float64(26.95494016)),
+ (14,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7125.0),
+  np.float64(26.95494016)),
+ (15,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7208.333333333334),
+  np.float64(26.95494016)),
+ (16,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7208.333333333334),
+  np.float64(26.95494016)),
+ (17,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7208.333333333334),
+  np.float64(26.95494016)),
+ (18,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7041.666666666667),
+  np.float64(28.752132206666666)),
+ (19,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7041.666666666667),
+  np.float64(28.752132206666666)),
+ (20,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7041.666666666667),
+  np.float64(28.752132206666666)),
+ (21,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7125.0),
+  np.float64(28.752132206666666)),
+ (22,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7125.0),
+  np.float64(28.752132206666666)),
+ (23,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7125.0),
+  np.float64(28.752132206666666)),
+ (24,
+  (0, 1352),
+  np.float64(291.6666666666667),
+  np.float64(7208.333333333334),
+  np.float64(28.752132206666666)),
+ (25,
+  (0, 1352),
+  np.float64(375.0),
+  np.float64(7208.333333333334),
+  np.float64(28.752132206666666)),
+ (26,
+  (0, 1352),
+  np.float64(458.33333333333337),
+  np.float64(7208.333333333334),
+  np.float64(28.752132206666666))]
+</pre></div></div>
+</div>
+</section>
+<section id="Instantiate-the-MODFLOW-6-prt-particle-release-point-(PRP)-package">
+<h2>Instantiate the MODFLOW 6 prt particle release point (PRP) package<a class="headerlink" href="#Instantiate-the-MODFLOW-6-prt-particle-release-point-(PRP)-package" title="Link to this heading"></a></h2>
+<p><strong>Notes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">local_z</span></code>—indicates that “zrpt” [in the particle start data] defines the local z coordinate of the release point within the cell, with value of 0 at the bottom and 1 at the top of the cell. If the cell is partially saturated at release time, the top of the cell is considered to be the water table elevation (the head in the cell) rather than the top defined by the user.</p>
+<p><code class="docutils literal notranslate"><span class="pre">istopzone</span></code>—integer value defining the stop zone number. If cells have been assigned IZONE values in the GRIDDATA block, a particle terminates if it enters a cell whose IZONE value matches ISTOPZONE. An ISTOPZONE value of zero indicates that there is no stop zone. The default value is zero. This way we can allow weak sinks but have exceptions where the particles will stop anyways.</p>
+<p>See the MODFLOW 6 Description of Input and Output for more options</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowPrtprp</span><span class="p">(</span>
+    <span class="n">prt</span><span class="p">,</span>
+    <span class="n">nreleasepts</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">prt_start_data</span><span class="p">),</span>
+    <span class="n">packagedata</span><span class="o">=</span><span class="n">prt_start_data</span><span class="o">.</span><span class="n">to_records</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="n">local_z</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">boundnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">perioddata</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;FIRST&quot;</span><span class="p">]},</span>
+    <span class="n">exit_solve_tolerance</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">extend_tracking</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1">#istopzone=istopzone</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+package_name = prp_0
+filename = project-prt.prp
+package_type = prp
+model_or_simulation_package = model
+model_name = project-prt
+
+Block options
+--------------------
+boundnames
+{internal}
+(True)
+
+exit_solve_tolerance
+{internal}
+(1e-05)
+
+local_z
+{internal}
+(True)
+
+extend_tracking
+{internal}
+(True)
+
+
+Block dimensions
+--------------------
+nreleasepts
+{internal}
+(6)
+
+
+Block packagedata
+--------------------
+packagedata
+{internal}
+(rec.array([(0, (0, 1352), 375., 7125., 0.99, &#39;prt_1352&#39;),
+           (1, (0, 1353), 625., 7125., 0.99, &#39;prt_1353&#39;),
+           (2, (0, 1459), 375., 6875., 0.99, &#39;prt_1459&#39;),
+           (3, (0, 1460), 625., 6875., 0.99, &#39;prt_1460&#39;),
+           (4, (0, 1581), 375., 6625., 0.99, &#39;prt_1581&#39;),
+           (5, (0, 1582), 625., 6625., 0.99, &#39;prt_1582&#39;)],
+          dtype=[(&#39;irptno&#39;, &#39;&lt;i8&#39;), (&#39;cellid&#39;, &#39;O&#39;), (&#39;xrpt&#39;, &#39;&lt;f8&#39;), (&#39;yrpt&#39;, &#39;&lt;f8&#39;), (&#39;zrpt&#39;, &#39;&lt;f8&#39;), (&#39;boundname&#39;, &#39;O&#39;)]))
+
+
+Block period
+--------------------
+perioddata
+{internal}
+(rec.array([(&#39;FIRST&#39;, None)],
+          dtype=[(&#39;releasesetting&#39;, &#39;O&#39;), (&#39;releasesetting_data&#39;, &#39;O&#39;)]))
+
+
+</pre></div></div>
+</div>
+</section>
+<section id="Instantiate-the-MODFLOW-6-PRT-output-control-package">
+<h2>Instantiate the MODFLOW 6 PRT output control package<a class="headerlink" href="#Instantiate-the-MODFLOW-6-PRT-output-control-package" title="Link to this heading"></a></h2>
+<p><strong>Notes:</strong> PRT outputs a record each time a: 0: particle was released 1: particle exited a cell 2: time step ended 3: particle terminated 4: particle entered a weak sink cell 5: user-specified tracking time</p>
+<p>The code below shows how to input user-specified tracking times to Flopy. Depending on the problem, this may not be necessary in a real-world context, as there may already be many records from particles exiting cells. Therefore, <code class="docutils literal notranslate"><span class="pre">tracktimes=None</span></code> (no user-specified times) is ultimately input to Flopy.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">budget_record</span> <span class="o">=</span> <span class="p">[</span><span class="n">budgetfile_prt</span><span class="p">]</span>
+<span class="n">track_record</span> <span class="o">=</span> <span class="p">[</span><span class="n">trackfile_prt</span><span class="p">]</span>
+<span class="n">trackcsv_record</span> <span class="o">=</span> <span class="p">[</span><span class="n">trackcsvfile_prt</span><span class="p">]</span>
+<span class="c1"># track positions every year for 100 years</span>
+<span class="n">track_nyears</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">tracktimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">track_nyears</span><span class="o">*</span><span class="mf">365.25</span><span class="p">,</span> <span class="n">track_nyears</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowPrtoc</span><span class="p">(</span>
+    <span class="n">prt</span><span class="p">,</span>
+    <span class="n">budget_filerecord</span><span class="o">=</span><span class="n">budget_record</span><span class="p">,</span>
+    <span class="n">track_filerecord</span><span class="o">=</span><span class="n">track_record</span><span class="p">,</span>
+    <span class="n">trackcsv_filerecord</span><span class="o">=</span><span class="n">trackcsv_record</span><span class="p">,</span>
+    <span class="n">ntracktimes</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="c1">#len(tracktimes),</span>
+    <span class="n">tracktimes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="c1">#[(t,) for t in tracktimes],</span>
+    <span class="n">saverecord</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;BUDGET&quot;</span><span class="p">,</span> <span class="s2">&quot;ALL&quot;</span><span class="p">)],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+package_name = oc
+filename = project-prt.oc
+package_type = oc
+model_or_simulation_package = model
+model_name = project-prt
+
+Block options
+--------------------
+budget_filerecord
+{internal}
+(rec.array([(&#39;project-prt.cbc&#39;,)],
+          dtype=[(&#39;budgetfile&#39;, &#39;O&#39;)]))
+
+track_filerecord
+{internal}
+(rec.array([(&#39;project-prt.trk&#39;,)],
+          dtype=[(&#39;trackfile&#39;, &#39;O&#39;)]))
+
+trackcsv_filerecord
+{internal}
+(rec.array([(&#39;project-prt.trk.csv&#39;,)],
+          dtype=[(&#39;trackcsvfile&#39;, &#39;O&#39;)]))
+
+
+Block dimensions
+--------------------
+ntracktimes
+{internal}
+(0)
+
+
+Block period
+--------------------
+saverecord
+{internal}
+(rec.array([(&#39;BUDGET&#39;, &#39;ALL&#39;, None)],
+          dtype=[(&#39;rtype&#39;, &#39;O&#39;), (&#39;ocsetting&#39;, &#39;O&#39;), (&#39;ocsetting_data&#39;, &#39;O&#39;)]))
+
+printrecord
+None
+
+</pre></div></div>
+</div>
+</section>
+<section id="Instantiate-the-PRT-Flow-Model-Interface-and-Explicit-Model-Solution-Packages">
+<h2>Instantiate the PRT Flow Model Interface and Explicit Model Solution Packages<a class="headerlink" href="#Instantiate-the-PRT-Flow-Model-Interface-and-Explicit-Model-Solution-Packages" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmi_pd</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;GWFHEAD&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">gwf_ws</span> <span class="o">/</span> <span class="n">headfile</span><span class="p">,</span> <span class="n">prt_model_ws</span><span class="p">)),</span> <span class="c1">#Path(f&quot;../{gwf_ws.name}/{headfile}&quot;)),</span>
+    <span class="p">(</span><span class="s2">&quot;GWFBUDGET&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">gwf_ws</span> <span class="o">/</span> <span class="n">budgetfile</span><span class="p">,</span> <span class="n">prt_model_ws</span><span class="p">))</span> <span class="c1">#Path(f&quot;../{gwf_ws.name}/{budgetfile}&quot;)),</span>
+<span class="p">]</span>
+<span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowPrtfmi</span><span class="p">(</span><span class="n">prt</span><span class="p">,</span> <span class="n">packagedata</span><span class="o">=</span><span class="n">fmi_pd</span><span class="p">)</span>
+
+<span class="c1"># Create an explicit model solution (EMS) for the MODFLOW 6 prt model</span>
+<span class="n">ems</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowEms</span><span class="p">(</span>
+    <span class="n">prt_sim</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prt_name</span><span class="si">}</span><span class="s2">.ems&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">register_solution_package</span><span class="p">(</span><span class="n">ems</span><span class="p">,</span> <span class="p">[</span><span class="n">prt</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Write-the-PRT-input-files-and-run-the-model">
+<h2>Write the PRT input files and run the model<a class="headerlink" href="#Write-the-PRT-input-files-and-run-the-model" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prt_sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+writing simulation...
+  writing simulation name file...
+  writing simulation tdis package...
+  writing solution package ems_-1...
+  writing model project-prt...
+    writing model name file...
+    writing package disv...
+    writing package mip...
+    writing package prp_0...
+    writing package oc...
+    writing package fmi...
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prt_sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+FloPy is using the following executable to run the model: ../../../../../../../../../../.local/bin/mf6
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                            VERSION 6.6.2 05/12/2025
+
+   MODFLOW 6 compiled May 24 2025 11:41:46 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
+                             Build 20220726_000000
+
+This software has been approved for release by the U.S. Geological
+Survey (USGS). Although the software has been subjected to rigorous
+review, the USGS reserves the right to update the software as needed
+pursuant to further analysis and review. No warranty, expressed or
+implied, is made by the USGS or the U.S. Government as to the
+functionality of the software and related material nor shall the
+fact of release constitute any such warranty. Furthermore, the
+software is released on condition that neither the USGS nor the U.S.
+Government shall be held liable for any damages resulting from its
+authorized or unauthorized use. Also refer to the USGS Water
+Resources Software User Rights Notice for complete use, copyright,
+and distribution information.
+
+
+ MODFLOW runs in SEQUENTIAL mode
+
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:08:38
+
+ Writing simulation list file: mfsim.lst
+ Using Simulation name file: mfsim.nam
+
+    Solving:  Stress period:     1    Time step:     1
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:08:38
+ Elapsed run time:  0.100 Seconds
+
+ Normal termination of simulation.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(True, [])
+</pre></div></div>
+</div>
+<section id="Post-Process-the-MODFLOW-and-PRT-Results">
+<h3>Post-Process the MODFLOW and PRT Results<a class="headerlink" href="#Post-Process-the-MODFLOW-and-PRT-Results" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="Load-MODFLOW-and-PRT-results-from-the-heads-and-pathline-files">
+<h2>Load MODFLOW and PRT results from the heads and pathline files<a class="headerlink" href="#Load-MODFLOW-and-PRT-results-from-the-heads-and-pathline-files" title="Link to this heading"></a></h2>
+<p>Load the MODFLOW heads</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hobj</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hds</span> <span class="o">=</span> <span class="n">hobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Load the tracking CSV file</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">particle_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">prt_model_ws</span> <span class="o">/</span> <span class="n">trackcsvfile_prt</span><span class="p">)</span>
+<span class="n">particle_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>kper</th>
+      <th>kstp</th>
+      <th>imdl</th>
+      <th>iprp</th>
+      <th>irpt</th>
+      <th>ilay</th>
+      <th>icell</th>
+      <th>izone</th>
+      <th>istatus</th>
+      <th>ireason</th>
+      <th>trelease</th>
+      <th>t</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1353</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>375.000000</td>
+      <td>7125.0</td>
+      <td>29.843871</td>
+      <td>PRT_1352</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1353</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>375.000000</td>
+      <td>7125.0</td>
+      <td>29.650728</td>
+      <td>PRT_1352</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1353</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>5600.493437</td>
+      <td>378.953010</td>
+      <td>7250.0</td>
+      <td>29.650728</td>
+      <td>PRT_1352</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1198</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>11433.142331</td>
+      <td>402.113867</td>
+      <td>7500.0</td>
+      <td>29.417818</td>
+      <td>PRT_1352</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1043</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>15357.870522</td>
+      <td>425.233970</td>
+      <td>7750.0</td>
+      <td>29.079618</td>
+      <td>PRT_1352</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Plot-the-heads-and-pathlines">
+<h2>Plot the heads and pathlines<a class="headerlink" href="#Plot-the-heads-and-pathlines" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_pathline</span><span class="p">(</span><span class="n">particle_data</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">csx</span><span class="p">,</span> <span class="n">csy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e534eb&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_52_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_52_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="n">mm</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
+<span class="n">mm</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">particle_data</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">74001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)):</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">times</span><span class="p">[</span><span class="n">ix</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="p">])]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                   <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;magma&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="si">}</span><span class="s2"> days&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ix</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;particle travel time from source&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_53_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_53_0.png" />
+</div>
+</div>
+</section>
+<section id="Export-the-pathlines-to-a-GeoPackage">
+<h2>Export the pathlines to a GeoPackage<a class="headerlink" href="#Export-the-pathlines-to-a-GeoPackage" title="Link to this heading"></a></h2>
+<p>GeoPackages allow for subsequent adding of layers; delete any pre-existing version of this GeoPackage to clear any pre-existing layers (often good practice in real projects).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output_geopackage</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">prt_model_ws</span> <span class="o">/</span> <span class="s1">&#39;Pathlines.gpkg&#39;</span><span class="p">)</span>
+<span class="n">output_geopackage</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>In the real world, the model coordinates also need to be converted to real world coordinates.</p></li>
+<li><p>We may also want to convert the travel times from the typical model time units of days to years.</p></li>
+<li><p>We may want to decompose the <code class="docutils literal notranslate"><span class="pre">cellid</span></code> into model layer (<code class="docutils literal notranslate"><span class="pre">k</span></code>) and <code class="docutils literal notranslate"><span class="pre">cell2d</span></code> (location in each layer, in this case), or layer, row column if the model has a regular structured grid.</p></li>
+<li><p>Finally, the GeoDataFrame will need a coordinate reference (to write to the GeoPackage) defining the coordinate reference system for the real-world coordinates (for example, UTM zone 15 north, represented by EPSG code 29615).</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span> <span class="c1"># no CRS attached</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="mi">26915</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;t_years&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">325.25</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;icell&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">ncells_per_layer</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;cell2d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;icell&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">ncells_per_layer</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_crs</span><span class="p">,</span> <span class="n">y_crs</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">get_coords</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span>
+                       <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">x_crs</span><span class="p">,</span> <span class="n">y_crs</span><span class="p">),</span>
+                       <span class="n">crs</span><span class="o">=</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Write particles terminating in Well and SFR cells to separate layers</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">package</span><span class="p">,</span> <span class="n">izone</span> <span class="ow">in</span> <span class="n">izones</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">layer_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Particles going to </span><span class="si">{</span><span class="n">package</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span>
+    <span class="n">izone_df</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">izone</span><span class="p">]</span>
+    <span class="n">izone_df</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_geopackage</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer_name</span><span class="p">)</span>
+
+<span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span>
+    <span class="n">output_geopackage</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;All other particles&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/pyogrio/__init__.py:7: DeprecationWarning: The &#39;shapely.geos&#39; module is deprecated, and will be removed in a future version. All attributes of &#39;shapely.geos&#39; are available directly from the top-level &#39;shapely&#39; namespace (since shapely 2.0.0).
+  import shapely.geos  # noqa: F401
+</pre></div></div>
+</div>
+<p>The previous layers that we added to the GeoPackage were points representing particle locations at discrete points in time. We can also combine these in to pathlines (linestrings) to better visualize the paths taken by the particles. In real-world projects, for example where are particle is started in every cell of a large model, we may also have too many points to work with easily; showing a single pathline for each particle may be advantageous.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span>
+
+<span class="c1"># create set of pathlines with start and end information</span>
+<span class="c1"># first group by particle</span>
+<span class="n">by_particle</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;irpt&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;irpt&#39;</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">by_particle</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">crs</span>  <span class="c1"># CRS isn&#39;t retained in groupby</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="s1">&#39;end_k&#39;</span><span class="p">,</span> <span class="s1">&#39;cell2d&#39;</span><span class="p">:</span> <span class="s1">&#39;end_cell2d&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">line_starts</span> <span class="o">=</span> <span class="n">by_particle</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">lines</span><span class="p">[</span><span class="s1">&#39;start_k&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line_starts</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+<span class="n">lines</span><span class="p">[</span><span class="s1">&#39;start_cell2d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line_starts</span><span class="p">[</span><span class="s1">&#39;cell2d&#39;</span><span class="p">]</span>
+
+<span class="c1"># above we sorted the results by particle and then time</span>
+<span class="c1"># use the .agg method on the grouby object to create a LineString</span>
+<span class="c1"># from the (sorted) sequence of points defining each particle path</span>
+<span class="n">linestring_geoms</span> <span class="o">=</span> <span class="n">by_particle</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">LineString</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">lines</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">linestring_geoms</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">package</span><span class="p">,</span> <span class="n">izone</span> <span class="ow">in</span> <span class="n">izones</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">layer_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Pathlines going to </span><span class="si">{</span><span class="n">package</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span>
+    <span class="n">izone_df</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">izone</span><span class="p">]</span>
+    <span class="n">izone_df</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_geopackage</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Plot-pathlines-going-to-SFR-and-WEL-cells">
+<h2>Plot pathlines going to SFR and WEL cells<a class="headerlink" href="#Plot-pathlines-going-to-SFR-and-WEL-cells" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">line_colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;sfr&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;wel&#39;</span><span class="p">:</span> <span class="s1">&#39;r&#39;</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">package</span><span class="p">,</span> <span class="n">izone</span> <span class="ow">in</span> <span class="n">izones</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">izone_df</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">izone</span><span class="p">]</span>
+    <span class="n">izone_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="n">line_colors</span><span class="p">[</span><span class="n">package</span><span class="p">],</span>
+                  <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Pathlines going to </span><span class="si">{</span><span class="n">package</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1"> cells&#39;</span><span class="p">)</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
+<span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x7f2827456b50&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_67_1.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_67_1.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="09-gwt-voronoi-demo.html" class="btn btn-neutral float-left" title="09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="10b_modpath_particle_tracking-demo.html" class="btn btn-neutral float-right" title="10b: Particle tracking with MODPATH" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

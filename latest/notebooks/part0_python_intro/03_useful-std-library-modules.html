@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -107,7 +109,8 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -150,11 +153,11 @@
            <div itemprop="articleBody">
              
   <section id="03:-Useful-standard-library-modules">
-<h1>03: Useful standard library modules<a class="headerlink" href="#03:-Useful-standard-library-modules" title="Link to this heading">¶</a></h1>
+<h1>03: Useful standard library modules<a class="headerlink" href="#03:-Useful-standard-library-modules" title="Link to this heading"></a></h1>
 <p>(pathlib, shutil, sys, os, subprocess, zipfile, etc.)</p>
 <p>These packages are part of the standard python library and provide very useful functionality for working with your operating system and files. This notebook will provide these packages and demonstrate some of their functionality. Online documentation is at <a class="reference external" href="https://docs.python.org/3/library/">https://docs.python.org/3/library/</a>.</p>
 <section id="Topics-covered:">
-<h2>Topics covered:<a class="headerlink" href="#Topics-covered:" title="Link to this heading">¶</a></h2>
+<h2>Topics covered:<a class="headerlink" href="#Topics-covered:" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><strong>pathlib</strong>:</p>
 <ul>
@@ -209,7 +212,7 @@
 </div>
 </section>
 <section id="pathlib-—-Object-oriented-filesystem-paths">
-<h2><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> — Object-oriented filesystem paths<a class="headerlink" href="#pathlib-—-Object-oriented-filesystem-paths" title="Link to this heading">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> — Object-oriented filesystem paths<a class="headerlink" href="#pathlib-—-Object-oriented-filesystem-paths" title="Link to this heading"></a></h2>
 <p>Pathlib provides convenient “pathlike” objects for working with file paths across platforms (meaning paths or operations done with pathlib work the same on Windows or POSIX systems (Linux, OSX, etc)). The main entry point for users is the <code class="docutils literal notranslate"><span class="pre">Path()</span></code> class.</p>
 <div class="line-block">
 <div class="line">further reading:</div>
@@ -217,9 +220,9 @@
 <div class="line"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html">https://docs.python.org/3/library/pathlib.html</a></div>
 </div>
 <section id="Listing-files">
-<h3>Listing files<a class="headerlink" href="#Listing-files" title="Link to this heading">¶</a></h3>
+<h3>Listing files<a class="headerlink" href="#Listing-files" title="Link to this heading"></a></h3>
 <section id="Start-by-making-a-Path()-object-for-the-current-folder">
-<h4>Start by making a <code class="docutils literal notranslate"><span class="pre">Path()</span></code> object for the current folder<a class="headerlink" href="#Start-by-making-a-Path()-object-for-the-current-folder" title="Link to this heading">¶</a></h4>
+<h4>Start by making a <code class="docutils literal notranslate"><span class="pre">Path()</span></code> object for the current folder<a class="headerlink" href="#Start-by-making-a-Path()-object-for-the-current-folder" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -252,14 +255,15 @@ PosixPath(&#39;.&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+10b_Rasterio_advanced.ipynb
 00_python_basics_review.ipynb
 03_useful-std-library-modules.ipynb
 05_numpy.ipynb
 11_xarray_mt_rainier_precip.ipynb
+10a_Rasterio_intro.ipynb
 07b_VSCode.md
 09_b_Geopandas_ABQ.ipynb
 data
-10_Rasterio.ipynb
 06b_matplotlib_animation.ipynb
 solutions
 09_a_Geopandas.ipynb
@@ -267,7 +271,7 @@ solutions
 </div>
 </section>
 <section id="List-just-the-notebooks-using-the-.glob()-method">
-<h4>List just the notebooks using the <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> method<a class="headerlink" href="#List-just-the-notebooks-using-the-.glob()-method" title="Link to this heading">¶</a></h4>
+<h4>List just the notebooks using the <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> method<a class="headerlink" href="#List-just-the-notebooks-using-the-.glob()-method" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -282,19 +286,20 @@ solutions
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+10b_Rasterio_advanced.ipynb
 00_python_basics_review.ipynb
 03_useful-std-library-modules.ipynb
 05_numpy.ipynb
 11_xarray_mt_rainier_precip.ipynb
+10a_Rasterio_intro.ipynb
 09_b_Geopandas_ABQ.ipynb
-10_Rasterio.ipynb
 06b_matplotlib_animation.ipynb
 09_a_Geopandas.ipynb
 </pre></div></div>
 </div>
 </section>
 <section id="Note:-.glob()-works-across-folders-too">
-<h4>Note: <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> works across folders too<a class="headerlink" href="#Note:-.glob()-works-across-folders-too" title="Link to this heading">¶</a></h4>
+<h4>Note: <code class="docutils literal notranslate"><span class="pre">.glob()</span></code> works across folders too<a class="headerlink" href="#Note:-.glob()-works-across-folders-too" title="Link to this heading"></a></h4>
 <p>List all notebooks for both class components</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -310,24 +315,26 @@ solutions
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+../part0_python_intro/10b_Rasterio_advanced.ipynb
 ../part0_python_intro/00_python_basics_review.ipynb
 ../part0_python_intro/03_useful-std-library-modules.ipynb
 ../part0_python_intro/05_numpy.ipynb
 ../part0_python_intro/11_xarray_mt_rainier_precip.ipynb
+../part0_python_intro/10a_Rasterio_intro.ipynb
 ../part0_python_intro/09_b_Geopandas_ABQ.ipynb
-../part0_python_intro/10_Rasterio.ipynb
 ../part0_python_intro/06b_matplotlib_animation.ipynb
 ../part0_python_intro/09_a_Geopandas.ipynb
 ../part1_flopy/05_Unstructured_Grid_generation.ipynb
-../part1_flopy/10_modpath_particle_tracking-demo.ipynb
+../part1_flopy/10a_prt_particle_tracking-demo.ipynb
 ../part1_flopy/08_Modflow-setup-demo.ipynb
 ../part1_flopy/09-gwt-voronoi-demo.ipynb
+../part1_flopy/10b_modpath_particle_tracking-demo.ipynb
 ../part1_flopy/01-Flopy-intro.ipynb
 </pre></div></div>
 </div>
 </section>
 <section id="But-glob-results-aren't-sorted-alphabetically!">
-<h4>But <code class="docutils literal notranslate"><span class="pre">glob</span></code> results aren’t sorted alphabetically!<a class="headerlink" href="#But-glob-results-aren't-sorted-alphabetically!" title="Link to this heading">¶</a></h4>
+<h4>But <code class="docutils literal notranslate"><span class="pre">glob</span></code> results aren’t sorted alphabetically!<a class="headerlink" href="#But-glob-results-aren't-sorted-alphabetically!" title="Link to this heading"></a></h4>
 <p>(and the sorting is platform-dependent)</p>
 <p><a class="reference external" href="https://arstechnica.com/information-technology/2019/10/chemists-discover-cross-platform-python-scripts-not-so-cross-platform/?comments=1&amp;post=38113333">https://arstechnica.com/information-technology/2019/10/chemists-discover-cross-platform-python-scripts-not-so-cross-platform/?comments=1&amp;post=38113333</a></p>
 <p>we can easily sort them by casting the results to a list</p>
@@ -351,13 +358,15 @@ solutions
  PosixPath(&#39;../part0_python_intro/06b_matplotlib_animation.ipynb&#39;),
  PosixPath(&#39;../part0_python_intro/09_a_Geopandas.ipynb&#39;),
  PosixPath(&#39;../part0_python_intro/09_b_Geopandas_ABQ.ipynb&#39;),
- PosixPath(&#39;../part0_python_intro/10_Rasterio.ipynb&#39;),
+ PosixPath(&#39;../part0_python_intro/10a_Rasterio_intro.ipynb&#39;),
+ PosixPath(&#39;../part0_python_intro/10b_Rasterio_advanced.ipynb&#39;),
  PosixPath(&#39;../part0_python_intro/11_xarray_mt_rainier_precip.ipynb&#39;),
  PosixPath(&#39;../part1_flopy/01-Flopy-intro.ipynb&#39;),
  PosixPath(&#39;../part1_flopy/05_Unstructured_Grid_generation.ipynb&#39;),
  PosixPath(&#39;../part1_flopy/08_Modflow-setup-demo.ipynb&#39;),
  PosixPath(&#39;../part1_flopy/09-gwt-voronoi-demo.ipynb&#39;),
- PosixPath(&#39;../part1_flopy/10_modpath_particle_tracking-demo.ipynb&#39;)]
+ PosixPath(&#39;../part1_flopy/10a_prt_particle_tracking-demo.ipynb&#39;),
+ PosixPath(&#39;../part1_flopy/10b_modpath_particle_tracking-demo.ipynb&#39;)]
 </pre></div></div>
 </div>
 <p><strong>Note:</strong> There is also a glob module in the standard python library that works directly with string paths</p>
@@ -382,18 +391,20 @@ solutions
  &#39;../part0_python_intro/06b_matplotlib_animation.ipynb&#39;,
  &#39;../part0_python_intro/09_a_Geopandas.ipynb&#39;,
  &#39;../part0_python_intro/09_b_Geopandas_ABQ.ipynb&#39;,
- &#39;../part0_python_intro/10_Rasterio.ipynb&#39;,
+ &#39;../part0_python_intro/10a_Rasterio_intro.ipynb&#39;,
+ &#39;../part0_python_intro/10b_Rasterio_advanced.ipynb&#39;,
  &#39;../part0_python_intro/11_xarray_mt_rainier_precip.ipynb&#39;,
  &#39;../part1_flopy/01-Flopy-intro.ipynb&#39;,
  &#39;../part1_flopy/05_Unstructured_Grid_generation.ipynb&#39;,
  &#39;../part1_flopy/08_Modflow-setup-demo.ipynb&#39;,
  &#39;../part1_flopy/09-gwt-voronoi-demo.ipynb&#39;,
- &#39;../part1_flopy/10_modpath_particle_tracking-demo.ipynb&#39;]
+ &#39;../part1_flopy/10a_prt_particle_tracking-demo.ipynb&#39;,
+ &#39;../part1_flopy/10b_modpath_particle_tracking-demo.ipynb&#39;]
 </pre></div></div>
 </div>
 </section>
 <section id="List-just-the-subfolders">
-<h4>List just the subfolders<a class="headerlink" href="#List-just-the-subfolders" title="Link to this heading">¶</a></h4>
+<h4>List just the subfolders<a class="headerlink" href="#List-just-the-subfolders" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -414,9 +425,9 @@ solutions
 </section>
 </section>
 <section id="Creating-files-and-folders">
-<h3>Creating files and folders<a class="headerlink" href="#Creating-files-and-folders" title="Link to this heading">¶</a></h3>
+<h3>Creating files and folders<a class="headerlink" href="#Creating-files-and-folders" title="Link to this heading"></a></h3>
 <section id="make-a-Path-object-for-a-new-subdirectory">
-<h4>make a <code class="docutils literal notranslate"><span class="pre">Path</span></code> object for a new subdirectory<a class="headerlink" href="#make-a-Path-object-for-a-new-subdirectory" title="Link to this heading">¶</a></h4>
+<h4>make a <code class="docutils literal notranslate"><span class="pre">Path</span></code> object for a new subdirectory<a class="headerlink" href="#make-a-Path-object-for-a-new-subdirectory" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -437,7 +448,7 @@ PosixPath(&#39;more_files&#39;)
 </div>
 </section>
 <section id="or-an-individual-file">
-<h4>or an individual file<a class="headerlink" href="#or-an-individual-file" title="Link to this heading">¶</a></h4>
+<h4>or an individual file<a class="headerlink" href="#or-an-individual-file" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -458,7 +469,7 @@ PosixPath(&#39;00_python_basics_review.ipynb&#39;)
 </div>
 </section>
 <section id="check-if-it-exists,-or-if-it's-a-directory">
-<h4>check if it exists, or if it’s a directory<a class="headerlink" href="#check-if-it-exists,-or-if-it's-a-directory" title="Link to this heading">¶</a></h4>
+<h4>check if it exists, or if it’s a directory<a class="headerlink" href="#check-if-it-exists,-or-if-it's-a-directory" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -478,7 +489,7 @@ PosixPath(&#39;00_python_basics_review.ipynb&#39;)
 </div>
 </section>
 <section id="make-the-actual-folder">
-<h4>make the actual folder<a class="headerlink" href="#make-the-actual-folder" title="Link to this heading">¶</a></h4>
+<h4>make the actual folder<a class="headerlink" href="#make-the-actual-folder" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -507,7 +518,7 @@ True
 </div>
 </section>
 <section id="make-a-new-subfolder-within-a-new-subfolder">
-<h4>make a new subfolder within a new subfolder<a class="headerlink" href="#make-a-new-subfolder-within-a-new-subfolder" title="Link to this heading">¶</a></h4>
+<h4>make a new subfolder within a new subfolder<a class="headerlink" href="#make-a-new-subfolder-within-a-new-subfolder" title="Link to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">parents=True</span></code> argument allows for making subfolders within new subfolders</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
@@ -520,7 +531,7 @@ True
 </section>
 </section>
 <section id="absolute-vs.-relative-pathing">
-<h3>absolute vs. relative pathing<a class="headerlink" href="#absolute-vs.-relative-pathing" title="Link to this heading">¶</a></h3>
+<h3>absolute vs. relative pathing<a class="headerlink" href="#absolute-vs.-relative-pathing" title="Link to this heading"></a></h3>
 <p>Get the absolute location of the current working directory</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
@@ -673,7 +684,7 @@ True
 </div>
 </section>
 <section id="useful-attributes">
-<h3>useful attributes<a class="headerlink" href="#useful-attributes" title="Link to this heading">¶</a></h3>
+<h3>useful attributes<a class="headerlink" href="#useful-attributes" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
@@ -778,7 +789,7 @@ PosixPath(&#39;00_python_basics_review.junk&#39;)
 </div>
 </section>
 <section id="Moving-and-deleting-files">
-<h3>Moving and deleting files<a class="headerlink" href="#Moving-and-deleting-files" title="Link to this heading">¶</a></h3>
+<h3>Moving and deleting files<a class="headerlink" href="#Moving-and-deleting-files" title="Link to this heading"></a></h3>
 <p>Make a file</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
@@ -870,7 +881,7 @@ False
 </pre></div></div>
 </div>
 <section id="Delete-the-empty-folder-we-made-above">
-<h4>Delete the empty folder we made above<a class="headerlink" href="#Delete-the-empty-folder-we-made-above" title="Link to this heading">¶</a></h4>
+<h4>Delete the empty folder we made above<a class="headerlink" href="#Delete-the-empty-folder-we-made-above" title="Link to this heading"></a></h4>
 <p>Note: this only works for empty directories (use <code class="docutils literal notranslate"><span class="pre">shutil.rmtree()</span></code> very carefully for removing folders and all contents within)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
@@ -884,7 +895,7 @@ False
 </section>
 </section>
 <section id="shutil-—-High-level-file-operations">
-<h2><code class="docutils literal notranslate"><span class="pre">shutil</span></code> — High-level file operations<a class="headerlink" href="#shutil-—-High-level-file-operations" title="Link to this heading">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">shutil</span></code> — High-level file operations<a class="headerlink" href="#shutil-—-High-level-file-operations" title="Link to this heading"></a></h2>
 <p>module for copying, moving, and deleting files and directories.</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/shutil.html">https://docs.python.org/3/library/shutil.html</a></p>
 <p>The functions from shutil that you may find useful are:</p>
@@ -917,9 +928,9 @@ shutil.rmtree()  #obviously, you need to be careful with this one!
 </div>
 </section>
 <section id="sys-—-System-specific-parameters-and-functions">
-<h2><code class="docutils literal notranslate"><span class="pre">sys</span></code> — System-specific parameters and functions<a class="headerlink" href="#sys-—-System-specific-parameters-and-functions" title="Link to this heading">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">sys</span></code> — System-specific parameters and functions<a class="headerlink" href="#sys-—-System-specific-parameters-and-functions" title="Link to this heading"></a></h2>
 <section id="Getting-information-about-python-and-the-os">
-<h3>Getting information about python and the os<a class="headerlink" href="#Getting-information-about-python-and-the-os" title="Link to this heading">¶</a></h3>
+<h3>Getting information about python and the os<a class="headerlink" href="#Getting-information-about-python-and-the-os" title="Link to this heading"></a></h3>
 <p>where python is installed</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
@@ -972,7 +983,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 </section>
 <section id="Adding-command-line-arguments-to-a-script">
-<h3>Adding command line arguments to a script<a class="headerlink" href="#Adding-command-line-arguments-to-a-script" title="Link to this heading">¶</a></h3>
+<h3>Adding command line arguments to a script<a class="headerlink" href="#Adding-command-line-arguments-to-a-script" title="Link to this heading"></a></h3>
 <p>Here the command line arguments reflect that we’re running a Juptyer Notebook.</p>
 <p>In a python script, command line arguments are listed after the first item in the list.</p>
 <div class="nbinput docutils container">
@@ -991,13 +1002,13 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 <div class="highlight"><pre>
 [&#39;/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/ipykernel_launcher.py&#39;,
  &#39;-f&#39;,
- &#39;/tmp/tmpm3klwea0.json&#39;,
+ &#39;/tmp/tmpntuor45f.json&#39;,
  &#39;--HistoryManager.hist_file=:memory:&#39;]
 </pre></div></div>
 </div>
 </section>
 <section id="Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv">
-<h3>Exercise: Make a script with a command line argument using sys.argv<a class="headerlink" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv" title="Link to this heading">¶</a></h3>
+<h3>Exercise: Make a script with a command line argument using sys.argv<a class="headerlink" href="#Exercise:-Make-a-script-with-a-command-line-argument-using-sys.argv" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>Using a text editor such as VSCode, make a new <code class="docutils literal notranslate"><span class="pre">*.py</span></code> file with the following contents:</p></li>
 </ol>
@@ -1016,7 +1027,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </ol>
 </section>
 <section id="modifying-the-python-path">
-<h3>modifying the python path<a class="headerlink" href="#modifying-the-python-path" title="Link to this heading">¶</a></h3>
+<h3>modifying the python path<a class="headerlink" href="#modifying-the-python-path" title="Link to this heading"></a></h3>
 <p>If you haven’t seen <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> already mentioned in a python script, you will soon. <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> is a list of directories. This path list is used by python to search for python modules and packages. If for some reason, you want to use a python package or module that is not installed in the main python folder, you can add the directory containing your module to sys.path.</p>
 <p>Any packages installed by linking the source code in place (i.e. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> will also show up here.</p>
 <div class="nbinput docutils container">
@@ -1042,7 +1053,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </div>
 </section>
 <section id="Using-sys.path-to-import-code-from-an-arbitrary-location">
-<h3>Using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> to import code from an arbitrary location<a class="headerlink" href="#Using-sys.path-to-import-code-from-an-arbitrary-location" title="Link to this heading">¶</a></h3>
+<h3>Using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> to import code from an arbitrary location<a class="headerlink" href="#Using-sys.path-to-import-code-from-an-arbitrary-location" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>Using a text editor such as VSCode (or <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> and python) make a new <code class="docutils literal notranslate"><span class="pre">*.py</span></code> file in another folder (anything in the same folder as this notebook can already be imported). For example:</p></li>
 </ol>
@@ -1103,10 +1114,10 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 </section>
 </section>
 <section id="os-—-Miscellaneous-operating-system-interfaces¶">
-<h2><code class="docutils literal notranslate"><span class="pre">os</span></code> — Miscellaneous operating system interfaces¶<a class="headerlink" href="#os-—-Miscellaneous-operating-system-interfaces¶" title="Link to this heading">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">os</span></code> — Miscellaneous operating system interfaces¶<a class="headerlink" href="#os-—-Miscellaneous-operating-system-interfaces¶" title="Link to this heading"></a></h2>
 <p>Historically, the <code class="docutils literal notranslate"><span class="pre">os.path</span></code> module was the de facto standard for file and path manipulation. Since python 3.4 however, <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> is generally cleaner and easier to use for most of these operations. But there are some exceptions.</p>
 <section id="Changing-the-current-working-directory">
-<h3>Changing the current working directory<a class="headerlink" href="#Changing-the-current-working-directory" title="Link to this heading">¶</a></h3>
+<h3>Changing the current working directory<a class="headerlink" href="#Changing-the-current-working-directory" title="Link to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code> doesn’t do this.</div>
 <div class="line">Note: this can obviously lead to trouble in scripts, so should usually be avoided, but sometimes it is necessary. In groundwater modeling workflows, for example, this can help keep flow and transport model files organized in separate folders.</div>
@@ -1141,7 +1152,7 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 </section>
 <section id="os.walk">
-<h3>os.walk<a class="headerlink" href="#os.walk" title="Link to this heading">¶</a></h3>
+<h3>os.walk<a class="headerlink" href="#os.walk" title="Link to this heading"></a></h3>
 <p>os.walk() is a great way to recursively generate all the file names and folders in a directory. The following shows how it can be used to identify large directories.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
@@ -1162,13 +1173,14 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 [(&#39;..&#39;, [&#39;part0_python_intro&#39;, &#39;part1_flopy&#39;], []),
  (&#39;../part0_python_intro&#39;,
   [&#39;another_subfolder&#39;, &#39;data&#39;, &#39;solutions&#39;],
-  [&#39;00_python_basics_review.ipynb&#39;,
+  [&#39;10b_Rasterio_advanced.ipynb&#39;,
+   &#39;00_python_basics_review.ipynb&#39;,
    &#39;03_useful-std-library-modules.ipynb&#39;,
    &#39;05_numpy.ipynb&#39;,
    &#39;11_xarray_mt_rainier_precip.ipynb&#39;,
+   &#39;10a_Rasterio_intro.ipynb&#39;,
    &#39;07b_VSCode.md&#39;,
    &#39;09_b_Geopandas_ABQ.ipynb&#39;,
-   &#39;10_Rasterio.ipynb&#39;,
    &#39;06b_matplotlib_animation.ipynb&#39;,
    &#39;09_a_Geopandas.ipynb&#39;]),
  (&#39;../part0_python_intro/another_subfolder&#39;, [&#39;scripts&#39;], []),
@@ -1188,11 +1200,16 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
  (&#39;../part0_python_intro/data/rasterio&#39;,
   [],
   [&#39;20150818_rainier_summer-tile-30.tif&#39;,
+   &#39;white_river_huc12.dbf&#39;,
+   &#39;white_river_huc12.prj&#39;,
+   &#39;white_river_huc12.shx&#39;,
    &#39;rgi60_glacierpoly_rainier.shp&#39;,
+   &#39;white_river_huc12.shp&#39;,
    &#39;19700901_ned1_2003_adj_warp.tif&#39;,
    &#39;rgi60_glacierpoly_rainier.dbf&#39;,
    &#39;rgi60_glacierpoly_rainier.shx&#39;,
    &#39;20080901_rainierlidar_30m-adj.tif&#39;,
+   &#39;xyrowcol.png&#39;,
    &#39;rgi60_glacierpoly_rainier.prj&#39;]),
  (&#39;../part0_python_intro/data/pandas&#39;,
   [],
@@ -1237,9 +1254,10 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
   [&#39;data&#39;, &#39;data_project&#39;, &#39;solutions&#39;],
   [&#39;basin.py&#39;,
    &#39;05_Unstructured_Grid_generation.ipynb&#39;,
-   &#39;10_modpath_particle_tracking-demo.ipynb&#39;,
+   &#39;10a_prt_particle_tracking-demo.ipynb&#39;,
    &#39;08_Modflow-setup-demo.ipynb&#39;,
    &#39;09-gwt-voronoi-demo.ipynb&#39;,
+   &#39;10b_modpath_particle_tracking-demo.ipynb&#39;,
    &#39;01-Flopy-intro.ipynb&#39;]),
  (&#39;../part1_flopy/data&#39;,
   [&#39;modelgrid_intersection&#39;,
@@ -1549,7 +1567,7 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </pre></div></div>
 </div>
 <section id="Make-a-more-readable-list-of-just-the-jupyter-notebooks">
-<h4>Make a more readable list of just the jupyter notebooks<a class="headerlink" href="#Make-a-more-readable-list-of-just-the-jupyter-notebooks" title="Link to this heading">¶</a></h4>
+<h4>Make a more readable list of just the jupyter notebooks<a class="headerlink" href="#Make-a-more-readable-list-of-just-the-jupyter-notebooks" title="Link to this heading"></a></h4>
 <p>Note: the key advantage of <code class="docutils literal notranslate"><span class="pre">os.walk</span></code> over <code class="docutils literal notranslate"><span class="pre">glob</span></code> is the recursion– individual subfolder levels don’t need to be known or specified a priori.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
@@ -1568,12 +1586,13 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+../part0_python_intro/10b_Rasterio_advanced.ipynb
 ../part0_python_intro/00_python_basics_review.ipynb
 ../part0_python_intro/03_useful-std-library-modules.ipynb
 ../part0_python_intro/05_numpy.ipynb
 ../part0_python_intro/11_xarray_mt_rainier_precip.ipynb
+../part0_python_intro/10a_Rasterio_intro.ipynb
 ../part0_python_intro/09_b_Geopandas_ABQ.ipynb
-../part0_python_intro/10_Rasterio.ipynb
 ../part0_python_intro/06b_matplotlib_animation.ipynb
 ../part0_python_intro/09_a_Geopandas.ipynb
 ../part0_python_intro/solutions/01_functions_script__solution.ipynb
@@ -1586,9 +1605,10 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 ../part0_python_intro/solutions/06_matplotlib__solution.ipynb
 ../part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb
 ../part1_flopy/05_Unstructured_Grid_generation.ipynb
-../part1_flopy/10_modpath_particle_tracking-demo.ipynb
+../part1_flopy/10a_prt_particle_tracking-demo.ipynb
 ../part1_flopy/08_Modflow-setup-demo.ipynb
 ../part1_flopy/09-gwt-voronoi-demo.ipynb
+../part1_flopy/10b_modpath_particle_tracking-demo.ipynb
 ../part1_flopy/01-Flopy-intro.ipynb
 ../part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.ipynb
 ../part1_flopy/solutions/07-stream_capture_voronoi.ipynb
@@ -1602,7 +1622,7 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </section>
 </section>
 <section id="Accessing-environmental-variables">
-<h3>Accessing environmental variables<a class="headerlink" href="#Accessing-environmental-variables" title="Link to this heading">¶</a></h3>
+<h3>Accessing environmental variables<a class="headerlink" href="#Accessing-environmental-variables" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
@@ -1617,12 +1637,12 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_28e184ff-7ad2-46b7-8793-8114210d8bae&#39;,
+environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_27c116d9-3b9d-495a-be91-109b96f5ce30&#39;,
         &#39;CONDA_PROMPT_MODIFIER&#39;: &#39;(pyclass-docs) &#39;,
         &#39;DOTNET_NOLOGO&#39;: &#39;1&#39;,
         &#39;USER&#39;: &#39;runner&#39;,
         &#39;CI&#39;: &#39;true&#39;,
-        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_28e184ff-7ad2-46b7-8793-8114210d8bae&#39;,
+        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_27c116d9-3b9d-495a-be91-109b96f5ce30&#39;,
         &#39;PIPX_HOME&#39;: &#39;/opt/pipx&#39;,
         &#39;RUNNER_ENVIRONMENT&#39;: &#39;github-hosted&#39;,
         &#39;JAVA_HOME_8_X64&#39;: &#39;/usr/lib/jvm/temurin-8-jdk-amd64&#39;,
@@ -1644,7 +1664,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_REPOSITORY_OWNER_ID&#39;: &#39;65027635&#39;,
         &#39;AZURE_EXTENSION_DIR&#39;: &#39;/opt/az/azcliextensions&#39;,
         &#39;MAKEFLAGS&#39;: &#39;w&#39;,
-        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1880&#39;,
+        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1882&#39;,
         &#39;GITHUB_GRAPHQL_URL&#39;: &#39;https://api.github.com/graphql&#39;,
         &#39;NVM_DIR&#39;: &#39;/home/runner/.nvm&#39;,
         &#39;DOTNET_SKIP_FIRST_TIME_EXPERIENCE&#39;: &#39;1&#39;,
@@ -1658,14 +1678,14 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GOROOT_1_23_X64&#39;: &#39;/opt/hostedtoolcache/go/1.23.12/x64&#39;,
         &#39;CHROMEWEBDRIVER&#39;: &#39;/usr/local/share/chromedriver-linux64&#39;,
         &#39;_&#39;: &#39;/usr/bin/make&#39;,
-        &#39;JOURNAL_STREAM&#39;: &#39;9:14427&#39;,
+        &#39;JOURNAL_STREAM&#39;: &#39;9:10565&#39;,
         &#39;GITHUB_WORKFLOW&#39;: &#39;Publish Docs&#39;,
         &#39;MEMORY_PRESSURE_WATCH&#39;: &#39;/sys/fs/cgroup/system.slice/hosted-compute-agent.service/memory.pressure&#39;,
         &#39;GOROOT_1_24_X64&#39;: &#39;/opt/hostedtoolcache/go/1.24.7/x64&#39;,
         &#39;CONDARC&#39;: &#39;/home/runner/work/_temp/setup-micromamba/.condarc&#39;,
-        &#39;GITHUB_RUN_ID&#39;: &#39;17916956650&#39;,
+        &#39;GITHUB_RUN_ID&#39;: &#39;17948697662&#39;,
         &#39;ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE&#39;: &#39;/opt/actionarchivecache&#39;,
-        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;e84f4f4830f49088332829bca90d09f7bf792495&#39;,
+        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;4a151277adefd8147d03ea07fc97348b641ae167&#39;,
         &#39;MODFLOW_BIN_PATH&#39;: &#39;/home/runner/.local/bin&#39;,
         &#39;BOOTSTRAP_HASKELL_NONINTERACTIVE&#39;: &#39;1&#39;,
         &#39;GITHUB_REF_TYPE&#39;: &#39;branch&#39;,
@@ -1675,14 +1695,14 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;ENABLE_RUNNER_TRACING&#39;: &#39;true&#39;,
         &#39;GITHUB_WORKFLOW_REF&#39;: &#39;DOI-USGS/python-for-hydrology/.github/workflows/build_docs.yaml@refs/heads/main&#39;,
         &#39;PATH&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/bin:/home/runner/micromamba/condabin:/home/runner/.local/bin:/home/runner/work/_temp/setup-micromamba:/home/runner/micromamba-bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin&#39;,
-        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_1a9b8c0a-128a-4080-b4ff-8f7956c065db&#39;,
+        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_a8d3716c-a4c8-4019-bfa1-4cbdc5699335&#39;,
         &#39;DOTNET_MULTILEVEL_LOOKUP&#39;: &#39;0&#39;,
-        &#39;INVOCATION_ID&#39;: &#39;f40dd313687947d99bce109b5a072093&#39;,
+        &#39;INVOCATION_ID&#39;: &#39;61549ee43802445e8f012188b04e2b18&#39;,
         &#39;PROJ_NETWORK&#39;: &#39;ON&#39;,
         &#39;RUNNER_TOOL_CACHE&#39;: &#39;/opt/hostedtoolcache&#39;,
         &#39;ANT_HOME&#39;: &#39;/usr/share/ant&#39;,
         &#39;GITHUB_TRIGGERING_ACTOR&#39;: &#39;mnfienen&#39;,
-        &#39;GITHUB_RUN_NUMBER&#39;: &#39;58&#39;,
+        &#39;GITHUB_RUN_NUMBER&#39;: &#39;64&#39;,
         &#39;RUNNER_ARCH&#39;: &#39;X64&#39;,
         &#39;XDG_RUNTIME_DIR&#39;: &#39;/run/user/1001&#39;,
         &#39;AGENT_TOOLSDIRECTORY&#39;: &#39;/opt/hostedtoolcache&#39;,
@@ -1693,7 +1713,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;LANG&#39;: &#39;C.UTF-8&#39;,
         &#39;DOTNET_BUNDLE_EXTRACT_BASE_DIR&#39;: &#39;/home/runner/.cache/dotnet_bundle_extract&#39;,
         &#39;VCPKG_INSTALLATION_ROOT&#39;: &#39;/usr/local/share/vcpkg&#39;,
-        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000013339&#39;,
+        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000013558&#39;,
         &#39;GITHUB_REF_NAME&#39;: &#39;main&#39;,
         &#39;XDG_CONFIG_HOME&#39;: &#39;/home/runner/.config&#39;,
         &#39;CONDA&#39;: &#39;/usr/share/miniconda&#39;,
@@ -1712,7 +1732,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_JOB&#39;: &#39;docs&#39;,
         &#39;CONDA_DEFAULT_ENV&#39;: &#39;pyclass-docs&#39;,
         &#39;GITHUB_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology&#39;,
-        &#39;GITHUB_SHA&#39;: &#39;e84f4f4830f49088332829bca90d09f7bf792495&#39;,
+        &#39;GITHUB_SHA&#39;: &#39;4a151277adefd8147d03ea07fc97348b641ae167&#39;,
         &#39;GITHUB_RUN_ATTEMPT&#39;: &#39;1&#39;,
         &#39;GITHUB_REF&#39;: &#39;refs/heads/main&#39;,
         &#39;ANDROID_SDK_ROOT&#39;: &#39;/usr/local/lib/android/sdk&#39;,
@@ -1722,7 +1742,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;PWD&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs&#39;,
         &#39;RUNNER_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology&#39;,
         &#39;GITHUB_ACTOR_ID&#39;: &#39;1110827&#39;,
-        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_28e184ff-7ad2-46b7-8793-8114210d8bae&#39;,
+        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_27c116d9-3b9d-495a-be91-109b96f5ce30&#39;,
         &#39;GHCUP_INSTALL_BASE_PREFIX&#39;: &#39;/usr/local&#39;,
         &#39;GITHUB_EVENT_NAME&#39;: &#39;push&#39;,
         &#39;XDG_DATA_DIRS&#39;: &#39;/usr/local/share:/usr/share:/var/lib/snapd/desktop&#39;,
@@ -1731,7 +1751,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GECKOWEBDRIVER&#39;: &#39;/usr/local/share/gecko_driver&#39;,
         &#39;NVM_CD_FLAGS&#39;: &#39;&#39;,
         &#39;HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS&#39;: &#39;3650&#39;,
-        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_28e184ff-7ad2-46b7-8793-8114210d8bae&#39;,
+        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_27c116d9-3b9d-495a-be91-109b96f5ce30&#39;,
         &#39;HOMEBREW_NO_AUTO_UPDATE&#39;: &#39;1&#39;,
         &#39;EDGEWEBDRIVER&#39;: &#39;/usr/local/share/edge_driver&#39;,
         &#39;SGX_AESM_ADDR&#39;: &#39;1&#39;,
@@ -1744,9 +1764,9 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;SELENIUM_JAR_PATH&#39;: &#39;/usr/share/java/selenium-server.jar&#39;,
         &#39;ANDROID_NDK_HOME&#39;: &#39;/usr/local/lib/android/sdk/ndk/27.3.13750724&#39;,
         &#39;GDAL_DATA&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/share/gdal&#39;,
-        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_28e184ff-7ad2-46b7-8793-8114210d8bae&#39;,
+        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_27c116d9-3b9d-495a-be91-109b96f5ce30&#39;,
         &#39;DOCUTILSCONFIG&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/docutils.conf&#39;,
-        &#39;JPY_PARENT_PID&#39;: &#39;4342&#39;,
+        &#39;JPY_PARENT_PID&#39;: &#39;4339&#39;,
         &#39;PYDEVD_USE_FRAME_EVAL&#39;: &#39;NO&#39;,
         &#39;TERM&#39;: &#39;xterm-color&#39;,
         &#39;CLICOLOR&#39;: &#39;1&#39;,
@@ -1758,7 +1778,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
 </pre></div></div>
 </div>
 <section id="Example:-get-the-location-of-the-current-python-(Conda)-environment">
-<h4>Example: get the location of the current python (Conda) environment<a class="headerlink" href="#Example:-get-the-location-of-the-current-python-(Conda)-environment" title="Link to this heading">¶</a></h4>
+<h4>Example: get the location of the current python (Conda) environment<a class="headerlink" href="#Example:-get-the-location-of-the-current-python-(Conda)-environment" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
@@ -1779,7 +1799,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
 </section>
 </section>
 <section id="Running-system-commands">
-<h3>Running system commands<a class="headerlink" href="#Running-system-commands" title="Link to this heading">¶</a></h3>
+<h3>Running system commands<a class="headerlink" href="#Running-system-commands" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">os.system</span></code> provides a limited way to run system commands. For more flexibility, use <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> (below).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
@@ -1794,19 +1814,20 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-total 248
--rw-r--r-- 1 runner runner 32326 Sep 22 13:33 00_python_basics_review.ipynb
--rw-r--r-- 1 runner runner 31283 Sep 22 13:33 03_useful-std-library-modules.ipynb
--rw-r--r-- 1 runner runner 45695 Sep 22 13:33 05_numpy.ipynb
--rw-r--r-- 1 runner runner  2347 Sep 22 13:33 06b_matplotlib_animation.ipynb
--rw-r--r-- 1 runner runner  9928 Sep 22 13:33 07b_VSCode.md
--rw-r--r-- 1 runner runner 27756 Sep 22 13:33 09_a_Geopandas.ipynb
--rw-r--r-- 1 runner runner  9729 Sep 22 13:33 09_b_Geopandas_ABQ.ipynb
--rw-r--r-- 1 runner runner 29618 Sep 22 13:33 10_Rasterio.ipynb
--rw-r--r-- 1 runner runner 35014 Sep 22 13:33 11_xarray_mt_rainier_precip.ipynb
-drwxr-xr-x 3 runner runner  4096 Sep 22 13:33 another_subfolder
-drwxr-xr-x 8 runner runner  4096 Sep 22 13:31 data
-drwxr-xr-x 2 runner runner  4096 Sep 22 13:33 solutions
+total 272
+-rw-r--r-- 1 runner runner 32326 Sep 23 14:04 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31283 Sep 23 14:04 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Sep 23 14:04 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2347 Sep 23 14:04 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner 11852 Sep 23 14:04 07b_VSCode.md
+-rw-r--r-- 1 runner runner 27756 Sep 23 14:04 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9729 Sep 23 14:04 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 22960 Sep 23 14:04 10a_Rasterio_intro.ipynb
+-rw-r--r-- 1 runner runner 29887 Sep 23 14:04 10b_Rasterio_advanced.ipynb
+-rw-r--r-- 1 runner runner 35024 Sep 23 14:04 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Sep 23 14:04 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Sep 23 14:03 data
+drwxr-xr-x 2 runner runner  4096 Sep 23 14:04 solutions
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1832,12 +1853,13 @@ drwxr-xr-x 2 runner runner  4096 Sep 22 13:33 solutions
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-00_python_basics_review.ipynb        09_b_Geopandas_ABQ.ipynb
-03_useful-std-library-modules.ipynb  10_Rasterio.ipynb
+00_python_basics_review.ipynb        10a_Rasterio_intro.ipynb
+03_useful-std-library-modules.ipynb  10b_Rasterio_advanced.ipynb
 05_numpy.ipynb                       11_xarray_mt_rainier_precip.ipynb
 06b_matplotlib_animation.ipynb       another_subfolder
 07b_VSCode.md                        data
 09_a_Geopandas.ipynb                 solutions
+09_b_Geopandas_ABQ.ipynb
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1852,7 +1874,7 @@ drwxr-xr-x 2 runner runner  4096 Sep 22 13:33 solutions
 </section>
 </section>
 <section id="subprocess-—-Subprocess-management">
-<h2><code class="docutils literal notranslate"><span class="pre">subprocess</span></code> — Subprocess management<a class="headerlink" href="#subprocess-—-Subprocess-management" title="Link to this heading">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">subprocess</span></code> — Subprocess management<a class="headerlink" href="#subprocess-—-Subprocess-management" title="Link to this heading"></a></h2>
 <p>The subprocess module offers a way to execute system commands, for example MODFLOW, or any operating system command that you can type at the command line.</p>
 <p>The recommended approach to invoking subprocesses is to use the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function for all use cases it can handle. For more advanced use cases, the underlying <code class="docutils literal notranslate"><span class="pre">Popen</span></code> interface can be used directly.</p>
 <p>Take a look at the following help descriptions for <code class="docutils literal notranslate"><span class="pre">run</span></code>.</p>
@@ -1917,19 +1939,20 @@ run(*popenargs, input=None, capture_output=False, timeout=None, check=False, **k
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-total 248
--rw-r--r-- 1 runner runner 32326 Sep 22 13:33 00_python_basics_review.ipynb
--rw-r--r-- 1 runner runner 31283 Sep 22 13:33 03_useful-std-library-modules.ipynb
--rw-r--r-- 1 runner runner 45695 Sep 22 13:33 05_numpy.ipynb
--rw-r--r-- 1 runner runner  2347 Sep 22 13:33 06b_matplotlib_animation.ipynb
--rw-r--r-- 1 runner runner  9928 Sep 22 13:33 07b_VSCode.md
--rw-r--r-- 1 runner runner 27756 Sep 22 13:33 09_a_Geopandas.ipynb
--rw-r--r-- 1 runner runner  9729 Sep 22 13:33 09_b_Geopandas_ABQ.ipynb
--rw-r--r-- 1 runner runner 29618 Sep 22 13:33 10_Rasterio.ipynb
--rw-r--r-- 1 runner runner 35014 Sep 22 13:33 11_xarray_mt_rainier_precip.ipynb
-drwxr-xr-x 3 runner runner  4096 Sep 22 13:33 another_subfolder
-drwxr-xr-x 8 runner runner  4096 Sep 22 13:31 data
-drwxr-xr-x 2 runner runner  4096 Sep 22 13:33 solutions
+total 272
+-rw-r--r-- 1 runner runner 32326 Sep 23 14:04 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31283 Sep 23 14:04 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Sep 23 14:04 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2347 Sep 23 14:04 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner 11852 Sep 23 14:04 07b_VSCode.md
+-rw-r--r-- 1 runner runner 27756 Sep 23 14:04 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9729 Sep 23 14:04 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 22960 Sep 23 14:04 10a_Rasterio_intro.ipynb
+-rw-r--r-- 1 runner runner 29887 Sep 23 14:04 10b_Rasterio_advanced.ipynb
+-rw-r--r-- 1 runner runner 35024 Sep 23 14:04 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Sep 23 14:04 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Sep 23 14:03 data
+drwxr-xr-x 2 runner runner  4096 Sep 23 14:04 solutions
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -1948,8 +1971,8 @@ CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 total 8
-drwxr-xr-x 5 runner runner 4096 Sep 22 13:33 part0_python_intro
-drwxr-xr-x 5 runner runner 4096 Sep 22 13:33 part1_flopy
+drwxr-xr-x 5 runner runner 4096 Sep 23 14:04 part0_python_intro
+drwxr-xr-x 5 runner runner 4096 Sep 23 14:04 part1_flopy
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -1967,20 +1990,21 @@ CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-00_python_basics_review.ipynb        09_b_Geopandas_ABQ.ipynb
-03_useful-std-library-modules.ipynb  10_Rasterio.ipynb
+00_python_basics_review.ipynb        10a_Rasterio_intro.ipynb
+03_useful-std-library-modules.ipynb  10b_Rasterio_advanced.ipynb
 05_numpy.ipynb                       11_xarray_mt_rainier_precip.ipynb
 06b_matplotlib_animation.ipynb       another_subfolder
 07b_VSCode.md                        data
 09_a_Geopandas.ipynb                 solutions
+09_b_Geopandas_ABQ.ipynb
 CompletedProcess(args=[&#39;dir&#39;], returncode=0)
 </pre></div></div>
 </div>
 </section>
 <section id="zipfile-—-Work-with-ZIP-archives">
-<h2><code class="docutils literal notranslate"><span class="pre">zipfile</span></code> — Work with ZIP archives<a class="headerlink" href="#zipfile-—-Work-with-ZIP-archives" title="Link to this heading">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">zipfile</span></code> — Work with ZIP archives<a class="headerlink" href="#zipfile-—-Work-with-ZIP-archives" title="Link to this heading"></a></h2>
 <section id="zip-up-one-of-the-files-in-data/">
-<h3>zip up one of the files in data/<a class="headerlink" href="#zip-up-one-of-the-files-in-data/" title="Link to this heading">¶</a></h3>
+<h3>zip up one of the files in data/<a class="headerlink" href="#zip-up-one-of-the-files-in-data/" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
@@ -1992,7 +2016,7 @@ CompletedProcess(args=[&#39;dir&#39;], returncode=0)
 </div>
 </section>
 <section id="now-extract-it">
-<h3>now extract it<a class="headerlink" href="#now-extract-it" title="Link to this heading">¶</a></h3>
+<h3>now extract it<a class="headerlink" href="#now-extract-it" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
@@ -2005,9 +2029,9 @@ CompletedProcess(args=[&#39;dir&#39;], returncode=0)
 </section>
 </section>
 <section id="Testing-Your-Skills-with-a-truly-awful-example:">
-<h2>Testing Your Skills with a truly awful example:<a class="headerlink" href="#Testing-Your-Skills-with-a-truly-awful-example:" title="Link to this heading">¶</a></h2>
+<h2>Testing Your Skills with a truly awful example:<a class="headerlink" href="#Testing-Your-Skills-with-a-truly-awful-example:" title="Link to this heading"></a></h2>
 <section id="the-problem:">
-<h3>the problem:<a class="headerlink" href="#the-problem:" title="Link to this heading">¶</a></h3>
+<h3>the problem:<a class="headerlink" href="#the-problem:" title="Link to this heading"></a></h3>
 <p>Pretend that the file <code class="docutils literal notranslate"><span class="pre">data/fileio/netcdf_data.zip</span></code> contains some climate data (in the NetCDF format with the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> extension) that we downloaded. If you open <code class="docutils literal notranslate"><span class="pre">data/fileio/netcdf_data.zip</span></code>, you’ll see that within a subfolder <code class="docutils literal notranslate"><span class="pre">zipped</span></code> are a bunch of additional subfolders, each for a different year. Within each subfolder is another zipfile. Within each of these zipfiles is yet another subfolder, inside of which is the actual data file we want (<code class="docutils literal notranslate"><span class="pre">prcp.nc</span></code>).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
@@ -2038,7 +2062,7 @@ netcdf_data/zipped/zipped_1999/12270_1999.zip
 </div>
 </section>
 <section id="the-goal:">
-<h3>the goal:<a class="headerlink" href="#the-goal:" title="Link to this heading">¶</a></h3>
+<h3>the goal:<a class="headerlink" href="#the-goal:" title="Link to this heading"></a></h3>
 <p>To extract all of these <code class="docutils literal notranslate"><span class="pre">prcp.nc</span></code> files into a single folder, after renaming them with their respective years (obtained from their enclosing folders or zip files). e.g.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>prcp_1980.nc
 prcp_1981.nc
@@ -2048,7 +2072,7 @@ prcp_1981.nc
 <p>This will allow us to open them together as a dataset in <code class="docutils literal notranslate"><span class="pre">xarray</span></code> (more on that later). Does this sound awful? I’m not making this up. This is the kind of structure you get when downloading tiles of climate data with the <a class="reference external" href="https://daymet.ornl.gov/gridded/">Daymet Tile Selection Tool</a></p>
 </section>
 <section id="hint:">
-<h3>hint:<a class="headerlink" href="#hint:" title="Link to this heading">¶</a></h3>
+<h3>hint:<a class="headerlink" href="#hint:" title="Link to this heading"></a></h3>
 <p>you might find these functions helpful:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ZipFile.extractall
 ZipFile.extract
@@ -2063,7 +2087,7 @@ Path.rmdir()
 </div>
 </section>
 <section id="hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive">
-<h3>hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive<a class="headerlink" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive" title="Link to this heading">¶</a></h3>
+<h3>hint: start by using <code class="docutils literal notranslate"><span class="pre">ZipFile.extractall()</span></code> to extract all of the individual zip files from the main zip archive<a class="headerlink" href="#hint:-start-by-using-ZipFile.extractall()-to-extract-all-of-the-individual-zip-files-from-the-main-zip-archive" title="Link to this heading"></a></h3>
 <p>This extracts the entire contents of the zip file to a designated folder</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
@@ -2102,7 +2126,7 @@ Path.rmdir()
 </div>
 </section>
 <section id="Part-1:-extract-with-a-single-file">
-<h3>Part 1: extract with a single file<a class="headerlink" href="#Part-1:-extract-with-a-single-file" title="Link to this heading">¶</a></h3>
+<h3>Part 1: extract with a single file<a class="headerlink" href="#Part-1:-extract-with-a-single-file" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
@@ -2122,7 +2146,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </pre></div></div>
 </div>
 <section id="1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents">
-<h4>1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents<a class="headerlink" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents" title="Link to this heading">¶</a></h4>
+<h4>1a) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.namelist()</span></code> (as above) list the contents<a class="headerlink" href="#1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents" title="Link to this heading"></a></h4>
 <p>This will yield the name of the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file that we need to extract</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2134,7 +2158,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </div>
 </section>
 <section id="1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder">
-<h4>1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder<a class="headerlink" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder" title="Link to this heading">¶</a></h4>
+<h4>1b) Use <code class="docutils literal notranslate"><span class="pre">ZipFile.extract()</span></code> to extract the <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> file to the destination folder<a class="headerlink" href="#1b)-Use-ZipFile.extract()-to-extract-the-*.nc-file-to-the-destination-folder" title="Link to this heading"></a></h4>
 <p>(you may need to create the destination folder first)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2146,7 +2170,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </div>
 </section>
 <section id="1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_&lt;year&gt;.nc">
-<h4>1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code><a class="headerlink" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_<year>.nc" title="Link to this heading">¶</a></h4>
+<h4>1c) Move the extracted file out of any enclosing subfolders, and rename to <code class="docutils literal notranslate"><span class="pre">prcp_&lt;year&gt;.nc</span></code><a class="headerlink" href="#1c)-Move-the-extracted-file-out-of-any-enclosing-subfolders,-and-rename-to-prcp_<year>.nc" title="Link to this heading"></a></h4>
 <p>(so that if we repeat this for subsequent files, the extracted <code class="docutils literal notranslate"><span class="pre">*.nc</span></code> files will end up in the same place)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2158,7 +2182,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </div>
 </section>
 <section id="1d)-Remove-the-extra-subfolders-that-were-extracted">
-<h4>1d) Remove the extra subfolders that were extracted<a class="headerlink" href="#1d)-Remove-the-extra-subfolders-that-were-extracted" title="Link to this heading">¶</a></h4>
+<h4>1d) Remove the extra subfolders that were extracted<a class="headerlink" href="#1d)-Remove-the-extra-subfolders-that-were-extracted" title="Link to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -2170,7 +2194,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </section>
 </section>
 <section id="Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files">
-<h3>Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files<a class="headerlink" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files" title="Link to this heading">¶</a></h3>
+<h3>Part 2: put the above steps together into a loop to repeat the workflow for all of the NetCDF files<a class="headerlink" href="#Part-2:-put-the-above-steps-together-into-a-loop-to-repeat-the-workflow-for-all-of-the-NetCDF-files" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -2182,7 +2206,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 </section>
 </section>
 <section id="Bonus-Application----Using-os-to-find-the-location-of-an-executable">
-<h2>Bonus Application – Using <code class="docutils literal notranslate"><span class="pre">os</span></code> to find the location of an executable<a class="headerlink" href="#Bonus-Application----Using-os-to-find-the-location-of-an-executable" title="Link to this heading">¶</a></h2>
+<h2>Bonus Application – Using <code class="docutils literal notranslate"><span class="pre">os</span></code> to find the location of an executable<a class="headerlink" href="#Bonus-Application----Using-os-to-find-the-location-of-an-executable" title="Link to this heading"></a></h2>
 <p>There are often times that you run an executable that is nested somewhere deep within your system path. It can often be a good idea to know exactly where that executable is located. This might help you one day from accidentally using an older version of an executable, such as MODFLOW.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
@@ -2258,7 +2282,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

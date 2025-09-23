@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -93,7 +95,8 @@
 <li class="toctree-l2"><a class="reference internal" href="08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -136,7 +139,7 @@
            <div itemprop="articleBody">
              
   <section id="02:-Namespace,-modules,-packages,-and-objects">
-<h1>02: Namespace, modules, packages, and objects<a class="headerlink" href="#02:-Namespace,-modules,-packages,-and-objects" title="Link to this heading">¶</a></h1>
+<h1>02: Namespace, modules, packages, and objects<a class="headerlink" href="#02:-Namespace,-modules,-packages,-and-objects" title="Link to this heading"></a></h1>
 <p>There are a variety of ways to import existing code into a Python script or interactive session.</p>
 <p>There is a lot of flexibility in how this is done, but a few suggested practices will be covered here.</p>
 <div class="nbinput docutils container">
@@ -189,7 +192,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 <p>The goal of this notebook is to provide students with the skills needed to create resuable functions, objects, and python moduldes.</p>
 <p>By the end of this notebook the student will have the skills required to create a complex object in a seperate python script, import it’s functionality into this notebook, and be able to work with it here.</p>
 <section id="Namespaces">
-<h2>Namespaces<a class="headerlink" href="#Namespaces" title="Link to this heading">¶</a></h2>
+<h2>Namespaces<a class="headerlink" href="#Namespaces" title="Link to this heading"></a></h2>
 <p>There’s a nice explanation of namespaces <a class="reference external" href="https://realpython.com/python-namespaces-scope/">here</a>.</p>
 <p>First, we need to understand what is a <em>name</em> in Python. A name is a general container referencing something. Like in many languages, think of a variable:</p>
 <div class="nbinput docutils container">
@@ -391,7 +394,7 @@ b=[1.0, 2.0, 999, 4.9]
 </pre></div></div>
 </div>
 <section id="Namespaces:-Global-to-Local">
-<h3>Namespaces: Global to Local<a class="headerlink" href="#Namespaces:-Global-to-Local" title="Link to this heading">¶</a></h3>
+<h3>Namespaces: Global to Local<a class="headerlink" href="#Namespaces:-Global-to-Local" title="Link to this heading"></a></h3>
 <p>Python contains four common namespaces. We are going to investigate the behaviour of three of these:</p>
 <div class="line-block">
 <div class="line"><strong>The global namespace</strong> contains all variables that defined in the “main” level of the program</div>
@@ -471,7 +474,7 @@ global
 </section>
 </section>
 <section id="Objects">
-<h2>Objects<a class="headerlink" href="#Objects" title="Link to this heading">¶</a></h2>
+<h2>Objects<a class="headerlink" href="#Objects" title="Link to this heading"></a></h2>
 <p>Python supports object-oriented programming. This is, in fact, <em>awesome</em>! It can, however, be confusing at first. Let’s break it down…</p>
 <p>Staring with a few definitions. First of all, basically everything in Python is an object. You can think of the word “object” to mean “thing”. Any of these things–or objects–can have both <code class="docutils literal notranslate"><span class="pre">attributes</span></code> and <code class="docutils literal notranslate"><span class="pre">methods</span></code>.</p>
 <p><strong>Attributes</strong> are just data associated with (or stored by) an object</p>
@@ -630,7 +633,7 @@ Hi, I&#39;m Fredrick. I like beer
 </pre></div></div>
 </div>
 <section id="A-More-Useful-Class*">
-<h3>A More Useful Class*<a class="headerlink" href="#A-More-Useful-Class*" title="Link to this heading">¶</a></h3>
+<h3>A More Useful Class*<a class="headerlink" href="#A-More-Useful-Class*" title="Link to this heading"></a></h3>
 <p>*marginally more useful</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
@@ -753,7 +756,7 @@ dd
 </ul>
 </section>
 <section id="More-about-self">
-<h3>More about <code class="docutils literal notranslate"><span class="pre">self</span></code><a class="headerlink" href="#More-about-self" title="Link to this heading">¶</a></h3>
+<h3>More about <code class="docutils literal notranslate"><span class="pre">self</span></code><a class="headerlink" href="#More-about-self" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">self</span></code> is the instance of the class that is being operated on. One could use a different name, but it is convention (deeply seated!!) to use <code class="docutils literal notranslate"><span class="pre">self</span></code>. A nice explanation is found on <a class="reference external" href="http://stackoverflow.com/questions/2709821/python-self-explained">Stack Overflow</a> and Guido van Rossum wrote an essay on <a class="reference external" href="http://neopythonic.blogspot.com/2008/10/why-explicit-self-has-to-stay.html">why explicit self can’t go away</a>.</p>
 <p>Here’s one more explanation of the use and need for <code class="docutils literal notranslate"><span class="pre">self</span></code> <a class="reference external" href="https://docs.python.org/2/faq/design.html#why-must-self-be-used-explicitly-in-method-definitions-and-calls">self history</a>.</p>
 <p>Basically, it comes down to <code class="docutils literal notranslate"><span class="pre">Explicit</span> <span class="pre">is</span> <span class="pre">better</span> <span class="pre">then</span> <span class="pre">implicit</span></code>. We want to know explicitly that we are working on an a property of the object we are defining rather than some other function or variable that might be globally defined.</p>
@@ -818,7 +821,7 @@ rectangle one
 <p>We can use this set of attributes as a kind of database.</p>
 </section>
 <section id="Questions">
-<h3>Questions<a class="headerlink" href="#Questions" title="Link to this heading">¶</a></h3>
+<h3>Questions<a class="headerlink" href="#Questions" title="Link to this heading"></a></h3>
 <p>How could we make a group of rectangles of varying lengths and widths?</p>
 <ul class="simple">
 <li><p>We could make each attribute a list.</p></li>
@@ -890,7 +893,7 @@ rectangle one
 </div>
 </section>
 <section id="Test-your-skills">
-<h3>Test your skills<a class="headerlink" href="#Test-your-skills" title="Link to this heading">¶</a></h3>
+<h3>Test your skills<a class="headerlink" href="#Test-your-skills" title="Link to this heading"></a></h3>
 <p>Could we do this is a dictionary rather than a list?</p>
 <p>keys —&gt; ‘R1’ ‘R2’</p>
 <div class="nbinput nblast docutils container">
@@ -949,10 +952,10 @@ rectangle one
 </section>
 </section>
 <section id="Methods">
-<h2>Methods<a class="headerlink" href="#Methods" title="Link to this heading">¶</a></h2>
+<h2>Methods<a class="headerlink" href="#Methods" title="Link to this heading"></a></h2>
 <p>Now say we want to operate on these data, like to calculate the area of each rectangle.</p>
 <section id="id1">
-<h3>Test your skills<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3>Test your skills<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>In the blank code block below, calculate the areas for each rectangle using a loop.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
@@ -1156,7 +1159,7 @@ big dog area=150000
 <p>Uh oh! Length changes but the overall area of the rectangle doesn’t</p>
 </section>
 <section id="Properties-to-the-rescue!!!">
-<h3>Properties to the rescue!!!<a class="headerlink" href="#Properties-to-the-rescue!!!" title="Link to this heading">¶</a></h3>
+<h3>Properties to the rescue!!!<a class="headerlink" href="#Properties-to-the-rescue!!!" title="Link to this heading"></a></h3>
 <p>Properties are a special method that behaves similar to an attribute. These methods allow for on the fly (“dynamic”) calculations and variable construction among other things.</p>
 <p>Properties are defined with a special decorator (<code class="docutils literal notranslate"><span class="pre">&#64;property</span></code>). Decorators are an advanced topic and won’t be covered in this course. More information about decorators, how they are used, and how they work can be found <a class="reference external" href="https://betterprogramming.pub/decorators-in-python-72a1d578eac4">here</a>.</p>
 <div class="nbinput nblast docutils container">
@@ -1223,7 +1226,7 @@ ID=awesome rectangle, length=93, width=9, area=837
 </div>
 </section>
 <section id="Test-your-skills!!!">
-<h3>Test your skills!!!<a class="headerlink" href="#Test-your-skills!!!" title="Link to this heading">¶</a></h3>
+<h3>Test your skills!!!<a class="headerlink" href="#Test-your-skills!!!" title="Link to this heading"></a></h3>
 <p>build a <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> class that includes an <code class="docutils literal notranslate"><span class="pre">area</span></code> and <code class="docutils literal notranslate"><span class="pre">perimiter_length</span></code> property method.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
@@ -1274,7 +1277,7 @@ ID=awesome rectangle, length=93, width=9, area=837
 </section>
 </section>
 <section id="Operator-and-Special-Method-Overloading*">
-<h2>Operator and Special Method Overloading*<a class="headerlink" href="#Operator-and-Special-Method-Overloading*" title="Link to this heading">¶</a></h2>
+<h2>Operator and Special Method Overloading*<a class="headerlink" href="#Operator-and-Special-Method-Overloading*" title="Link to this heading"></a></h2>
 <p>One special thing we can do is overload operators. This means we can customize the behavior that an object (as an instance of a class) will exhibit when called. The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> constructor was an example of this which we have done something similar already. When an instance is made from a class, whatever is defined in <code class="docutils literal notranslate"><span class="pre">__init__</span></code> is performed as part of creating the instance which is effectively <em>overloading</em> the special method <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
 <p>Another really common example is <code class="docutils literal notranslate"><span class="pre">__str__</span></code>. This function provides a string for Python to display when <code class="docutils literal notranslate"><span class="pre">print</span></code> of <code class="docutils literal notranslate"><span class="pre">str</span></code> is called on an object.</p>
 <p>Looking at the example of <code class="docutils literal notranslate"><span class="pre">rectangle</span></code> objects we used above.</p>
@@ -1451,7 +1454,7 @@ what should we add today???
 </pre></div></div>
 </div>
 <section id="Test-your-skills----overload-__add__-so-that-adding-two-rectangles-adds-their-area">
-<h3>Test your skills – overload <code class="docutils literal notranslate"><span class="pre">__add__</span></code> so that adding two rectangles adds their area<a class="headerlink" href="#Test-your-skills----overload-__add__-so-that-adding-two-rectangles-adds-their-area" title="Link to this heading">¶</a></h3>
+<h3>Test your skills – overload <code class="docutils literal notranslate"><span class="pre">__add__</span></code> so that adding two rectangles adds their area<a class="headerlink" href="#Test-your-skills----overload-__add__-so-that-adding-two-rectangles-adds-their-area" title="Link to this heading"></a></h3>
 <p>Start with the definition we just made. HINT: you will need to represent the other object with <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
@@ -1493,11 +1496,11 @@ what should we add today???
 </section>
 </section>
 <section id="Object-oriented-programming-(OOP)">
-<h2>Object-oriented programming (OOP)<a class="headerlink" href="#Object-oriented-programming-(OOP)" title="Link to this heading">¶</a></h2>
+<h2>Object-oriented programming (OOP)<a class="headerlink" href="#Object-oriented-programming-(OOP)" title="Link to this heading"></a></h2>
 <p>In the O’Reilly book <em>Learning Python, 5th Edition</em> is a great discussion about Object-Oriented Programming. The author makes this distinction that much of what we are doing with Python is <em>object-based</em> but to truly be object-oriented, we need to also use something called inheritance.</p>
 </section>
 <section id="Inheritance">
-<h2>Inheritance<a class="headerlink" href="#Inheritance" title="Link to this heading">¶</a></h2>
+<h2>Inheritance<a class="headerlink" href="#Inheritance" title="Link to this heading"></a></h2>
 <p>Let’s revisit our class for rectangles without the overloading of <code class="docutils literal notranslate"><span class="pre">__add__</span></code></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
@@ -1594,7 +1597,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </section>
 <section id="Modules,-Packages,-and-the-Standard-Python-Library">
-<h2>Modules, Packages, and the Standard Python Library<a class="headerlink" href="#Modules,-Packages,-and-the-Standard-Python-Library" title="Link to this heading">¶</a></h2>
+<h2>Modules, Packages, and the Standard Python Library<a class="headerlink" href="#Modules,-Packages,-and-the-Standard-Python-Library" title="Link to this heading"></a></h2>
 <p>The <a class="reference external" href="https://docs.python.org/3/library/">Standard Python Library</a> is the set of functions that are part of Python by default.</p>
 <p>More technically, names point to “objects”. a “module” is a file (with extension <code class="docutils literal notranslate"><span class="pre">.py</span></code>) that contains python code. If there are functions in that code, they can be accessed using the name of the module and a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>).</p>
 <p>Packages are collections of modules and are often “installed” to be accessible to Python from anywhere. More on that at the end of the lesson.</p>
@@ -1644,7 +1647,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </section>
 <section id="Importing-code-and-handling-namespaces">
-<h2>Importing code and handling namespaces<a class="headerlink" href="#Importing-code-and-handling-namespaces" title="Link to this heading">¶</a></h2>
+<h2>Importing code and handling namespaces<a class="headerlink" href="#Importing-code-and-handling-namespaces" title="Link to this heading"></a></h2>
 <p>There are several main ways to import a module.</p>
 <p>The most straightforward way is to just use <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">&lt;somepackage&gt;</span></code> as we did above.</p>
 <div class="nbinput docutils container">
@@ -1859,7 +1862,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </div>
 </section>
 <section id="Paths-for-importing-and-installation">
-<h2>Paths for importing and installation<a class="headerlink" href="#Paths-for-importing-and-installation" title="Link to this heading">¶</a></h2>
+<h2>Paths for importing and installation<a class="headerlink" href="#Paths-for-importing-and-installation" title="Link to this heading"></a></h2>
 <p>From the official <a class="reference external" href="https://docs.python.org/3.9/tutorial/modules.html">documentation</a>, the hierarchy of searching for modules and packages is:</p>
 <ul class="simple">
 <li><p>the directory containing the input script (or the current directory).</p></li>
@@ -1893,7 +1896,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </div>
 </section>
 <section id="Exercise:-putting-it-all-together">
-<h2>Exercise: putting it all together<a class="headerlink" href="#Exercise:-putting-it-all-together" title="Link to this heading">¶</a></h2>
+<h2>Exercise: putting it all together<a class="headerlink" href="#Exercise:-putting-it-all-together" title="Link to this heading"></a></h2>
 <p>In this exercise we’ll create our first module and import it into this notebook.</p>
 <p>Open the python file “exercise_xx.py” in an IDE or text file and create a class called <code class="docutils literal notranslate"><span class="pre">Circle</span></code>. Inputs to circle should be a radius and ID. Include in the <code class="docutils literal notranslate"><span class="pre">Circle</span></code> class a way to the calculate area and the circumference. After building the class, try importing into this notebook and using the it.</p>
 <p><strong>Bonus exercise:</strong> Find a way to make the <code class="docutils literal notranslate"><span class="pre">Circle</span></code> objects divisible and compare the difference in area between a 12” and 14” pizza.</p>
@@ -1963,7 +1966,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

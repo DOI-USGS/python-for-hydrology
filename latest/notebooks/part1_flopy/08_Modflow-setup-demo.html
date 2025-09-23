@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -77,7 +79,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -118,28 +121,28 @@
            <div itemprop="articleBody">
              
   <section id="08:-Modflow-setup-demonstration">
-<h1>08: Modflow-setup demonstration<a class="headerlink" href="#08:-Modflow-setup-demonstration" title="Link to this heading">¶</a></h1>
+<h1>08: Modflow-setup demonstration<a class="headerlink" href="#08:-Modflow-setup-demonstration" title="Link to this heading"></a></h1>
 <p><a class="reference external" href="https://github.com/DOI-USGS/modflow-setup">Modflow-setup</a> is a Python package for rapid, automated construction of MODFLOW models. Often in modeling projects, construction of the basic model structure (discretization, boundary conditions, etc) consumes a lot of time that could be spent on effective history matching, uncertainty quantification and forecast scenario development. While scripting with Flopy can speed construction of the basic model in a way that is robust and repeatable, it
 still takes time—with each project, new code must be developed or re-worked, dependencies managed, the idiosyncrasies of various interfaces recalled, and inevitable mistakes checked for and debugged.</p>
 <p>Modflow-setup aims to speed up construction of the basic model in a way that is robust and repeatable. Grid-independent source data such as shapefiles and rasters are specified in a single configuration file, along with the desired packages and their options. Modflow-setup reads the configuration and the source data, and within a few minutes, produces an external array-based MODFLOW model that is amenable to parameter estimation and uncertainty quantification using PEST (e.g. <a class="reference external" href="https://doi.org/10.1016/j.envsoft.2021.105022">White et al,
 2021</a>). Detailed description of Modflow-setup is provided by <a class="reference external" href="https://www.frontiersin.org/articles/10.3389/feart.2022.903965">Leaf and Fienen (2022)</a> and in <a class="reference external" href="https://doi-usgs.github.io/modflow-setup/latest/">online documentation</a>.</p>
 <section id="Example-problem">
-<h2>Example problem<a class="headerlink" href="#Example-problem" title="Link to this heading">¶</a></h2>
+<h2>Example problem<a class="headerlink" href="#Example-problem" title="Link to this heading"></a></h2>
 <p>Here we demonstrate Modflow-setup with a simplified version of the Pleasant Lake model published by Fienen et al (2022), who used a multi-scale modeling approach to evaluate the effects of agricultural groundwater abstraction on the ecology of Pleasant Lake in central Wisconsin, USA. The original report and model files are available at the links below. Figure 1 shows the original published model, which included a coarse (200 meter resolution) “parent” model tightly coupled to a 20 meter
 resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl and others, 2006; Langevin and others, 2017). The parent model was designed to capture the transient effects of agricultural pumping; the inset model was created to simulate groundwater/lake interactions at a finer scale. To incorporate the effects of distant boundaries, the parent model was in turn loosely coupled to a larger transient regional model via specified head boundaries along the model parameter.</p>
 <section id="Some-advantages-of-this-multi-scale-approach-over-an-unstructured-grid-alternative-include:">
-<h3>Some advantages of this multi-scale approach over an unstructured grid alternative include:<a class="headerlink" href="#Some-advantages-of-this-multi-scale-approach-over-an-unstructured-grid-alternative-include:" title="Link to this heading">¶</a></h3>
+<h3>Some advantages of this multi-scale approach over an unstructured grid alternative include:<a class="headerlink" href="#Some-advantages-of-this-multi-scale-approach-over-an-unstructured-grid-alternative-include:" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>The large regional model, which consumes substantial disk space and carries a longer run time, can be managed independently of the parent and inset models. The perimeter of the parent model is sufficiently distant from the area of interest where two-way coupling is not needed.</p></li>
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="11f77848692b4d9c99f112ed6e243c3e" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="affbc8ba25234cfc85a3c1e264bd2fef" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
 <section id="Example-model-details">
-<h3>Example model details<a class="headerlink" href="#Example-model-details" title="Link to this heading">¶</a></h3>
+<h3>Example model details<a class="headerlink" href="#Example-model-details" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Transient MODFLOW-6 simulation with local grid refinement (LGR)</p></li>
 <li><p>“Parent” and LGR “inset” models are dynamically coupled via the Groundwater Flow Exchange Package at the MODFLOW 6 Simulation level</p></li>
@@ -170,7 +173,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 </section>
 </section>
 <section id="A-final-note-if-you-want-to-try-Modflow-setup-for-your-project">
-<h2>A final note if you want to try Modflow-setup for your project<a class="headerlink" href="#A-final-note-if-you-want-to-try-Modflow-setup-for-your-project" title="Link to this heading">¶</a></h2>
+<h2>A final note if you want to try Modflow-setup for your project<a class="headerlink" href="#A-final-note-if-you-want-to-try-Modflow-setup-for-your-project" title="Link to this heading"></a></h2>
 <p>The example here is presented in an interactive Jupyter Notebook format primarily for illustrative purposes. Typically, the best way to use Modflow-setup is within a python script (<code class="docutils literal notranslate"><span class="pre">*.py</span></code> file) that runs from start to finish. To get started with Modflow-setup on your project, see the <a class="reference external" href="https://doi-usgs.github.io/modflow-setup/latest/10min.html">10 Minutes to Modflow-setup</a> guide, which includes template configuration files and model build scripts that you can download.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -273,7 +276,7 @@ Bounds: (np.float64(554200.0), np.float64(557600.0), np.float64(388800.0), np.fl
 </div>
 </section>
 <section id="Working-directory-gottcha">
-<h2>Working directory gottcha<a class="headerlink" href="#Working-directory-gottcha" title="Link to this heading">¶</a></h2>
+<h2>Working directory gottcha<a class="headerlink" href="#Working-directory-gottcha" title="Link to this heading"></a></h2>
 <p>Currently, to simplify working with external files in Flopy, <strong>Modflow-setup changes the working directory to the model workspace</strong>. In the context of a flat script that only builds the model, this is fine, but in a notebook or other workflows, this can potentially cause confusion.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -318,7 +321,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </pre></div></div>
 </div>
 <section id="Change-the-working-directory-back-to-the-notebook-location">
-<h3>Change the working directory back to the notebook location<a class="headerlink" href="#Change-the-working-directory-back-to-the-notebook-location" title="Link to this heading">¶</a></h3>
+<h3>Change the working directory back to the notebook location<a class="headerlink" href="#Change-the-working-directory-back-to-the-notebook-location" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -328,7 +331,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 </div>
 <section id="Build-the-whole-model">
-<h4>Build the whole model<a class="headerlink" href="#Build-the-whole-model" title="Link to this heading">¶</a></h4>
+<h4>Build the whole model<a class="headerlink" href="#Build-the-whole-model" title="Link to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -353,7 +356,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post498+ge84f4f4
+Pleasant Lake test case version 0.1.post516+g4a15127
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -449,7 +452,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post498+ge84f4f4
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post516+g4a15127
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -472,7 +475,7 @@ defaultdict(dict,
 </section>
 </section>
 <section id="Plot-the-inset-and-parent-model-grids-with-Lake-Package-connections-by-layer">
-<h2>Plot the inset and parent model grids with Lake Package connections by layer<a class="headerlink" href="#Plot-the-inset-and-parent-model-grids-with-Lake-Package-connections-by-layer" title="Link to this heading">¶</a></h2>
+<h2>Plot the inset and parent model grids with Lake Package connections by layer<a class="headerlink" href="#Plot-the-inset-and-parent-model-grids-with-Lake-Package-connections-by-layer" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -748,7 +751,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/22 13:36:44
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:07:39
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -767,8 +770,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/22 13:36:49
- Elapsed run time:  5.051 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/23 14:07:44
+ Elapsed run time:  4.966 Seconds
 
 
 WARNING REPORT:
@@ -808,7 +811,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </section>
 <section id="Read-the-output-and-post-process-the-3D-head-results-into-2D-water-table(s)">
-<h2>Read the output and post-process the 3D head results into 2D water table(s)<a class="headerlink" href="#Read-the-output-and-post-process-the-3D-head-results-into-2D-water-table(s)" title="Link to this heading">¶</a></h2>
+<h2>Read the output and post-process the 3D head results into 2D water table(s)<a class="headerlink" href="#Read-the-output-and-post-process-the-3D-head-results-into-2D-water-table(s)" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -856,7 +859,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 </div>
 </section>
 <section id="Then-combine-the-parent-and-inset-model-head-results">
-<h2>Then combine the parent and inset model head results<a class="headerlink" href="#Then-combine-the-parent-and-inset-model-head-results" title="Link to this heading">¶</a></h2>
+<h2>Then combine the parent and inset model head results<a class="headerlink" href="#Then-combine-the-parent-and-inset-model-head-results" title="Link to this heading"></a></h2>
 <p>(into a single grid at the inset model resolution; for a nicer looking plot)</p>
 <p>Note: We could skip this step and simply work with the parent and inset models individually in the same plot (as we are doing below with the grids and boundary conditions). However, if we want to create continuous contours of the head solution, we need to first resample it to a single grid (usually at the finer inset model resolution) that spans the whole model domain.</p>
 <div class="nbinput nblast docutils container">
@@ -948,7 +951,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 </div>
 </section>
 <section id="References">
-<h2>References<a class="headerlink" href="#References" title="Link to this heading">¶</a></h2>
+<h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>
 <p>Fienen, M. N., Haserodt, M. J., Leaf, A. T., and Westenbroek, S. M. (2022). Simulation of regional groundwater flow and groundwater/lake interactions in the central Sands, Wisconsin. U.S. Geological Survey Scientific Investigations Report 2022-5046. doi:10.3133/sir20225046</p>
 <p>Langevin, C.D., Hughes, J.D., Banta, E.R., Niswonger, R.G., Panday, S., and Provost, A.M., 2017, Documentation for the MODFLOW 6 groundwater flow model: U.S. Geological Survey Techniques and Methods, book 6, chap. A55, 197 p., <a class="reference external" href="https://doi.org/">https://doi.org/</a> 10.3133/tm6A55.</p>
 <p>Leaf, A.T. and Fienen, M.N. (2022) Modflow-setup: Robust automation of groundwater model construction. Front. Earth Sci. 10:903965. doi: 10.3389/feart.2022.903965</p>
@@ -974,7 +977,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

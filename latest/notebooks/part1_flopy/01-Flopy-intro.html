@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -61,7 +63,8 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/07-stream_capture_voronoi.html">07: Evaluating stream capture with a Voronoi grid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="08_Modflow-setup-demo.html">08: Modflow-setup demonstration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09-gwt-voronoi-demo.html">09: Demonstration of MODFLOW 6 Groundwater Transport with a Voronoi Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_modpath_particle_tracking-demo.html">10: Particle tracking with MODPATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_prt_particle_tracking-demo.html">10a: Particle tracking with MODFLOW 6 PRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
 </ul>
 </li>
 </ul>
@@ -103,7 +106,7 @@
              
   <p><img alt="image1" src="../../_images/flopylogo_sm.png" /></p>
 <section id="01:-Introduction-to-FloPy">
-<h1>01: Introduction to FloPy<a class="headerlink" href="#01:-Introduction-to-FloPy" title="Link to this heading">¶</a></h1>
+<h1>01: Introduction to FloPy<a class="headerlink" href="#01:-Introduction-to-FloPy" title="Link to this heading"></a></h1>
 <p>The second part of this course focuses on <a class="reference external" href="https://github.com/modflowpy/flopy">FloPy</a>, a Python package for creating, running, and post-processing MODFLOW-based groundwater flow and transport models. Why would we want this? MODFLOW—especially older versions—has idiosyncratic input and output that can be difficult to work with directly. FloPy translates MODFLOW input and output into the general Python data structures we explored in the first part of the course, making it easier to script
 groundwater modeling workflows with the entire scientific Python ecosysem.</p>
 <p>FloPy was originally developed by <a class="reference external" href="https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.12413">Mark Bakker and others (2016)</a> for working with MODFLOW 2005 (including MODFLOW-NWT) and earlier versions of MODFLOW. <a class="reference external" href="https://doi.org/10.1111/gwat.13327">FloPy has since been expanded</a> to support <a class="reference external" href="https://github.com/MODFLOW-USGS/modflow6">MODFLOW 6</a>, the current version of MODFLOW that includes general support for structured and unstructured grids, tight coupling of multiple models within a
@@ -165,7 +168,7 @@ Arguments to the <code class="docutils literal notranslate"><span class="pre">Mo
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 

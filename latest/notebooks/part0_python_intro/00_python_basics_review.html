@@ -14,6 +14,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
   
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -91,7 +93,8 @@
 <li class="toctree-l2"><a class="reference internal" href="solutions/08_pandas.html">08: Working with tabular data in Pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_a_Geopandas.html">09: GeoPandas - DataFrames with geometry for GIS applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/09_Geopandas__solutions.html">09: Geopandas exercise solutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="10_Rasterio.html">10: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10a_Rasterio_intro.html">10a: Introduction to Rasterio for working with raster data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10b_Rasterio_advanced.html">10b: Using Rasterio and Numpy to examine ice loss on Mt. Rainier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_xarray_mt_rainier_precip.html">11: Using Xarray to look at Daymet precipitation around Mt. Rainier</a></li>
 </ul>
 </li>
@@ -134,7 +137,7 @@
            <div itemprop="articleBody">
              
   <section id="00:-Introduction-to-python-for-hydrologists">
-<h1>00: Introduction to python for hydrologists<a class="headerlink" href="#00:-Introduction-to-python-for-hydrologists" title="Link to this heading">¶</a></h1>
+<h1>00: Introduction to python for hydrologists<a class="headerlink" href="#00:-Introduction-to-python-for-hydrologists" title="Link to this heading"></a></h1>
 <p>In this background introduction, we will review concepts introduced in the <a class="reference external" href="https://cscircles.cemc.uwaterloo.ca/">University of Waterloo Python Background Tutorial</a></p>
 <p>This notebook is a general overview of Python. We will cover many of the basic aspects of Python that are distinct (and sometimes confusing) relative to other programming and scripting languages.</p>
 <p>First let’s consider three ways that we can interact with Python:</p>
@@ -160,7 +163,7 @@ hello world
 </pre></div></div>
 </div>
 <section id="Using-Python-as-a-Calculator">
-<h2>Using Python as a Calculator<a class="headerlink" href="#Using-Python-as-a-Calculator" title="Link to this heading">¶</a></h2>
+<h2>Using Python as a Calculator<a class="headerlink" href="#Using-Python-as-a-Calculator" title="Link to this heading"></a></h2>
 <p>Python can be used to simple perform arithmetic operations. (note: in an iPython notebook like this one, shift-ENTER evaluates the code)</p>
 <p>Spaces are fine</p>
 <div class="nbinput docutils container">
@@ -223,7 +226,7 @@ hello world
 </div>
 </div>
 <section id="What-if-you-want-to-do-more-than-basic-arithmetic?">
-<h3>What if you want to do more than basic arithmetic?<a class="headerlink" href="#What-if-you-want-to-do-more-than-basic-arithmetic?" title="Link to this heading">¶</a></h3>
+<h3>What if you want to do more than basic arithmetic?<a class="headerlink" href="#What-if-you-want-to-do-more-than-basic-arithmetic?" title="Link to this heading"></a></h3>
 <p>There are a couple ways to access more mathematical functions:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -273,7 +276,7 @@ np.float64(3.0)
 </section>
 </section>
 <section id="Data-Structures-and-a-few-definitions">
-<h2>Data Structures and a few definitions<a class="headerlink" href="#Data-Structures-and-a-few-definitions" title="Link to this heading">¶</a></h2>
+<h2>Data Structures and a few definitions<a class="headerlink" href="#Data-Structures-and-a-few-definitions" title="Link to this heading"></a></h2>
 <div class="line-block">
 <div class="line"><strong>data structure</strong> – A way to store and organize data in a computer.</div>
 <div class="line">In Python, there are a variety of data structures – some mutable, and others immutable</div>
@@ -338,9 +341,9 @@ float
 </div>
 </section>
 <section id="Variables-and-types">
-<h2>Variables and types<a class="headerlink" href="#Variables-and-types" title="Link to this heading">¶</a></h2>
+<h2>Variables and types<a class="headerlink" href="#Variables-and-types" title="Link to this heading"></a></h2>
 <section id="Symbol-names">
-<h3>Symbol names<a class="headerlink" href="#Symbol-names" title="Link to this heading">¶</a></h3>
+<h3>Symbol names<a class="headerlink" href="#Symbol-names" title="Link to this heading"></a></h3>
 <p>Variable names in Python can contain alphanumerical characters <code class="docutils literal notranslate"><span class="pre">a-z</span></code>, <code class="docutils literal notranslate"><span class="pre">A-Z</span></code>, <code class="docutils literal notranslate"><span class="pre">0-9</span></code> and some special characters such as <code class="docutils literal notranslate"><span class="pre">_</span></code>. Normal variable names must start with a letter.</p>
 <p>By convention, variable names start with a lower-case letter, and Class names start with a capital letter.</p>
 <p>In addition, there are a number of Python keywords that cannot be used as variable names. These keywords are:</p>
@@ -580,7 +583,7 @@ float
 </div>
 </section>
 <section id="Assignment">
-<h3>Assignment<a class="headerlink" href="#Assignment" title="Link to this heading">¶</a></h3>
+<h3>Assignment<a class="headerlink" href="#Assignment" title="Link to this heading"></a></h3>
 <p>The assignment operator in Python is <code class="docutils literal notranslate"><span class="pre">=</span></code>. Python is a dynamically typed language, so we do not need to specify the type of a variable when we create one.</p>
 <p>Assigning a value to a new variable creates the variable:</p>
 <div class="nbinput docutils container">
@@ -634,7 +637,7 @@ float
 </div>
 </section>
 <section id="Strings">
-<h3>Strings<a class="headerlink" href="#Strings" title="Link to this heading">¶</a></h3>
+<h3>Strings<a class="headerlink" href="#Strings" title="Link to this heading"></a></h3>
 <p>Grouping characters together creates strings.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
@@ -799,7 +802,7 @@ ab c ab c ab c ab c ab c
 </div>
 </section>
 <section id="Lists">
-<h3>Lists<a class="headerlink" href="#Lists" title="Link to this heading">¶</a></h3>
+<h3>Lists<a class="headerlink" href="#Lists" title="Link to this heading"></a></h3>
 <p>There are a few ways to group values in Python. The most basic way is a list, defined by square brackets(<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>) and comma-delimited</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
@@ -823,7 +826,7 @@ ab c ab c ab c ab c ab c
 </pre></div></div>
 </div>
 <section id="Important-Note!!!---&gt;">
-<h4>Important Note!!! –&gt;<a class="headerlink" href="#Important-Note!!!--->" title="Link to this heading">¶</a></h4>
+<h4>Important Note!!! –&gt;<a class="headerlink" href="#Important-Note!!!--->" title="Link to this heading"></a></h4>
 <p>Python uses zero-referencing (like C, but unlike MATLAB and FORTRAN). Using square brackets, look at the various values of <code class="docutils literal notranslate"><span class="pre">a</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">a[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">a[2]</span></code>). Also, see what you get with <code class="docutils literal notranslate"><span class="pre">a[-1]</span></code> and <code class="docutils literal notranslate"><span class="pre">a[-2]</span></code></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
@@ -845,7 +848,7 @@ ab c ab c ab c ab c ab c
 </section>
 </section>
 <section id="Lists-of-Lists">
-<h3>Lists of Lists<a class="headerlink" href="#Lists-of-Lists" title="Link to this heading">¶</a></h3>
+<h3>Lists of Lists<a class="headerlink" href="#Lists-of-Lists" title="Link to this heading"></a></h3>
 <p>You can make lists made up of anything (e.g. numbers, other lists, etc.)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
@@ -892,7 +895,7 @@ ab c ab c ab c ab c ab c
 </div>
 </section>
 <section id="append-versus-extend">
-<h3><code class="docutils literal notranslate"><span class="pre">append</span></code> versus <code class="docutils literal notranslate"><span class="pre">extend</span></code><a class="headerlink" href="#append-versus-extend" title="Link to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">append</span></code> versus <code class="docutils literal notranslate"><span class="pre">extend</span></code><a class="headerlink" href="#append-versus-extend" title="Link to this heading"></a></h3>
 <p>You can add to a list in two ways – using the <code class="docutils literal notranslate"><span class="pre">extend</span></code> or <code class="docutils literal notranslate"><span class="pre">append</span></code> methods. Let’s look at <code class="docutils literal notranslate"><span class="pre">append</span></code> first:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
@@ -1153,7 +1156,7 @@ ab c ab c ab c ab c ab c
 </div>
 </section>
 <section id="Tuples">
-<h3>Tuples<a class="headerlink" href="#Tuples" title="Link to this heading">¶</a></h3>
+<h3>Tuples<a class="headerlink" href="#Tuples" title="Link to this heading"></a></h3>
 <p>A similar construction to a <code class="docutils literal notranslate"><span class="pre">list</span></code> is a <code class="docutils literal notranslate"><span class="pre">tuple</span></code>. A <code class="docutils literal notranslate"><span class="pre">tuple</span></code> is defined using regular parentheses (<code class="docutils literal notranslate"><span class="pre">()</span></code>). The key differences is tuples are <em>immutable</em>.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
@@ -1257,7 +1260,7 @@ ab c ab c ab c ab c ab c
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;zip object at 0x7efe8407fb40&gt;
+&lt;zip object at 0x7f7f200671c0&gt;
 &lt;class &#39;zip&#39;&gt;
 (1, 11, 111)
 (2, 22, 222)
@@ -1312,7 +1315,7 @@ ab c ab c ab c ab c ab c
 </div>
 </section>
 <section id="Dictionaries">
-<h3>Dictionaries<a class="headerlink" href="#Dictionaries" title="Link to this heading">¶</a></h3>
+<h3>Dictionaries<a class="headerlink" href="#Dictionaries" title="Link to this heading"></a></h3>
 <p>Dictionaries are also like lists, except that each element is a key-value pair. The syntax for dictionaries is <code class="docutils literal notranslate"><span class="pre">{key1</span> <span class="pre">:</span> <span class="pre">value1,</span> <span class="pre">...}</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
@@ -1487,7 +1490,7 @@ parameter4 = D
 </pre></div></div>
 </div>
 <section id="A-trick-using-zip-and-dict">
-<h4>A trick using <code class="docutils literal notranslate"><span class="pre">zip</span></code> and <code class="docutils literal notranslate"><span class="pre">dict</span></code><a class="headerlink" href="#A-trick-using-zip-and-dict" title="Link to this heading">¶</a></h4>
+<h4>A trick using <code class="docutils literal notranslate"><span class="pre">zip</span></code> and <code class="docutils literal notranslate"><span class="pre">dict</span></code><a class="headerlink" href="#A-trick-using-zip-and-dict" title="Link to this heading"></a></h4>
 <p>Say we have two lists – one of which is a set of keys and another is accompanying values (like we read them in from two columns in a spreadsheet)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
@@ -1513,7 +1516,7 @@ parameter4 = D
 </section>
 </section>
 <section id="Process-Flow">
-<h2>Process Flow<a class="headerlink" href="#Process-Flow" title="Link to this heading">¶</a></h2>
+<h2>Process Flow<a class="headerlink" href="#Process-Flow" title="Link to this heading"></a></h2>
 <p>We will cover conditional statements and a variety of loop types. ### Conditional statements: if, elif, else</p>
 <p>The Python syntax for conditional execution of code use the keywords <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code> (else if), <code class="docutils literal notranslate"><span class="pre">else</span></code>:</p>
 <div class="nbinput docutils container">
@@ -1640,11 +1643,11 @@ wow - it worked?
 </pre></div></div>
 </div>
 <section id="An-aside-on-indentation">
-<h3>An aside on indentation<a class="headerlink" href="#An-aside-on-indentation" title="Link to this heading">¶</a></h3>
+<h3>An aside on indentation<a class="headerlink" href="#An-aside-on-indentation" title="Link to this heading"></a></h3>
 <p>Technically, tabs or any <em>consistent</em> number of spaces can be used to control indentation. A casual standard is using 4 spaces. Many editors replace tabs with spaces to be safe.</p>
 <p>The level of indentation defines blocks without requiring a symbol or word to close a block or loop.</p>
 <section id="few-examples-of-indentation-behavior:">
-<h4>few examples of indentation behavior:<a class="headerlink" href="#few-examples-of-indentation-behavior:" title="Link to this heading">¶</a></h4>
+<h4>few examples of indentation behavior:<a class="headerlink" href="#few-examples-of-indentation-behavior:" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
@@ -1737,7 +1740,7 @@ Statement 1 is false --- printed now outside the if block
 </section>
 </section>
 <section id="Loops">
-<h2>Loops<a class="headerlink" href="#Loops" title="Link to this heading">¶</a></h2>
+<h2>Loops<a class="headerlink" href="#Loops" title="Link to this heading"></a></h2>
 <p>In Python, loops can be programmed in a number of different ways. The most common is the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, which is used together with iterable objects, such as lists. The basic syntax is:</p>
 <p><strong>``for`` loops</strong>:</p>
 <div class="nbinput docutils container">
@@ -1961,7 +1964,7 @@ parameter4 = D
 </pre></div></div>
 </div>
 <section id="List-Comprehension">
-<h3>List Comprehension<a class="headerlink" href="#List-Comprehension" title="Link to this heading">¶</a></h3>
+<h3>List Comprehension<a class="headerlink" href="#List-Comprehension" title="Link to this heading"></a></h3>
 <p>A very Pythonic and compact way to build a list using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is using a <code class="docutils literal notranslate"><span class="pre">list</span> <span class="pre">comprehension</span></code></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
@@ -2128,7 +2131,7 @@ howdy again
 </section>
 </section>
 <section id="HEEEEEELP!">
-<h2>HEEEEEELP!<a class="headerlink" href="#HEEEEEELP!" title="Link to this heading">¶</a></h2>
+<h2>HEEEEEELP!<a class="headerlink" href="#HEEEEEELP!" title="Link to this heading"></a></h2>
 <p>You will always need help with Python. There are so many packages, modules, functions, datatypes, and everything else it takes a while to keep it all straight, and you will always need to update</p>
 <ol class="arabic simple">
 <li><p>Stackoverflow is amazing–it can be toxic at times, but the community often converges on useful answers. Here’s an <a class="reference external" href="http://stackoverflow.com/questions/5505380/most-efficient-way-to-pull-specified-rows-from-a-2-d-array">example</a>.</p></li>
@@ -2217,7 +2220,7 @@ howdy again
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 22, 2025.
+      <span class="lastupdated">Last updated on Sep 23, 2025.
       </span></p>
   </div>
 
