@@ -1,5 +1,5 @@
 import os
-import pathlib as pl
+from pathlib import Path
 import json
 import subprocess
 
@@ -20,7 +20,7 @@ skip_notebooks = [
     ]
 
 if __name__ == "__main__":
-    nbdir = pl.Path(".")
+    nbdir = Path(".")
     nbs = nbdir.rglob("*.ipynb")
     for nb in nbs:
         if ('solutions' not in str(nb) and 
