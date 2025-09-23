@@ -18,6 +18,6 @@ Part 0: General Python Exercises
    notebooks/part0_python_intro/solutions/08_pandas.ipynb
    notebooks/part0_python_intro/09_a_Geopandas.ipynb
    notebooks/part0_python_intro/solutions/09_Geopandas__solutions.ipynb
-   notebooks/part0_python_intro/10a_Rasterio_into.ipynb
+   notebooks/part0_python_intro/10a_Rasterio_intro.ipynb
    notebooks/part0_python_intro/10b_Rasterio_advanced.ipynb
    notebooks/part0_python_intro/11_xarray_mt_rainier_precip.ipynb
