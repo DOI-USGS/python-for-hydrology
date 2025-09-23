@@ -15,7 +15,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "import pathlib as pl\n",
+    "from pathlib import Path\n",
     "import numpy as np\n",
     "import matplotlib.pyplot as plt\n",
     "import geopandas as gpd\n",
@@ -36,9 +36,9 @@
    "source": [
     "model_ws = \"../temp/quadtree/\"\n",
     "grid_ws = f\"{model_ws}grid/\"\n",
-    "pl.Path(grid_ws).mkdir(parents=True, exist_ok=True)\n",
+    "Path(grid_ws).mkdir(parents=True, exist_ok=True)\n",
     "\n",
-    "output_folder = pl.Path('../figures')\n",
+    "output_folder = Path('../figures')\n",
     "output_folder.mkdir(parents=True, exist_ok=True)"
    ]
   },
@@ -259,8 +259,8 @@
     }
    ],
    "source": [
-    "river_pth = (pl.Path(\"../data_project\") / \"Flowline_river\").resolve()\n",
-    "well_pth = (pl.Path(\"../data_project\") / \"pumping_well_locations\").resolve()\n",
+    "river_pth = (Path(\"../data_project\") / \"Flowline_river\").resolve()\n",
+    "well_pth = (Path(\"../data_project\") / \"pumping_well_locations\").resolve()\n",
     "river_pth, well_pth"
    ]
   },
@@ -1540,7 +1540,7 @@
    ],
    "source": [
     "name = \"project\"\n",
-    "# exe_name = pl.Path(\"/Users/jdhughes/Documents/Training/python-for-hydrology/notebooks/part1_flopy/day0\").resolve() / \"mf6\"  #\"/Users/jdhughes/Documents/Development/modflow6/modflow6/bin/mf6\"\n",
+    "# exe_name = Path(\"/Users/jdhughes/Documents/Training/python-for-hydrology/notebooks/part1_flopy/day0\").resolve() / \"mf6\"  #\"/Users/jdhughes/Documents/Development/modflow6/modflow6/bin/mf6\"\n",
     "exe_name = \"mf6\"\n",
     "exe_name"
    ]

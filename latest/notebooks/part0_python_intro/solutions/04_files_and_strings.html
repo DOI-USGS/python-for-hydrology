@@ -144,12 +144,12 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># set up the path to our data</span>
-<span class="n">pthnb</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../data/fileio&#39;</span><span class="p">)</span>
+<span class="n">pthnb</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../data/fileio&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">pthnb</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -380,7 +380,7 @@ current working directory can be determined using:</p>
 <span class="c1"># the current working directory; now we use pathlib</span>
 <span class="c1"># os.getcwd()</span>
 
-<span class="n">cwd</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="n">cwd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -976,7 +976,7 @@ Annihilator Morbo morbo@futurama.org, Brannigan Zapp brannigan@futurama.org, Cla
 </section>
 <section id="Class-Activity-4">
 <h2>Class Activity 4<a class="headerlink" href="#Class-Activity-4" title="Link to this heading"></a></h2>
-<p>Let’s use the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function to remove the comment lines from <code class="docutils literal notranslate"><span class="pre">'FileWithComments.txt'</span></code> and create <code class="docutils literal notranslate"><span class="pre">'FileWithOutComments.txt'</span></code>. Use one of the approaches discussed above to open, read, and print data in both files after calling the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function. Remember to use the pl.Path() approach to access the file in the <code class="docutils literal notranslate"><span class="pre">pthnb</span></code> directory.</p>
+<p>Let’s use the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function to remove the comment lines from <code class="docutils literal notranslate"><span class="pre">'FileWithComments.txt'</span></code> and create <code class="docutils literal notranslate"><span class="pre">'FileWithOutComments.txt'</span></code>. Use one of the approaches discussed above to open, read, and print data in both files after calling the <code class="docutils literal notranslate"><span class="pre">file_filter</span></code> function. Remember to use the Path() approach to access the file in the <code class="docutils literal notranslate"><span class="pre">pthnb</span></code> directory.</p>
 <p>Use the blank code block below to complete this activity.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

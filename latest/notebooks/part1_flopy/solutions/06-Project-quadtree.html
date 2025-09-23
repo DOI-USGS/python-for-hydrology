@@ -131,7 +131,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
@@ -150,9 +150,9 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_ws</span> <span class="o">=</span> <span class="s2">&quot;../temp/quadtree/&quot;</span>
 <span class="n">grid_ws</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_ws</span><span class="si">}</span><span class="s2">grid/&quot;</span>
-<span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">grid_ws</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Path</span><span class="p">(</span><span class="n">grid_ws</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">output_folder</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../figures&#39;</span><span class="p">)</span>
+<span class="n">output_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../figures&#39;</span><span class="p">)</span>
 <span class="n">output_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -321,8 +321,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_pth</span> <span class="o">=</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data_project&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;Flowline_river&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-<span class="n">well_pth</span> <span class="o">=</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data_project&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;pumping_well_locations&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">river_pth</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data_project&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;Flowline_river&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">well_pth</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../data_project&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;pumping_well_locations&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
 <span class="n">river_pth</span><span class="p">,</span> <span class="n">well_pth</span>
 </pre></div>
 </div>
@@ -1343,7 +1343,7 @@ dict_keys([&#39;nlay&#39;, &#39;ncpl&#39;, &#39;top&#39;, &#39;botm&#39;, &#39;v
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span>
-<span class="c1"># exe_name = pl.Path(&quot;/Users/jdhughes/Documents/Training/python-for-hydrology/notebooks/part1_flopy/day0&quot;).resolve() / &quot;mf6&quot;  #&quot;/Users/jdhughes/Documents/Development/modflow6/modflow6/bin/mf6&quot;</span>
+<span class="c1"># exe_name = Path(&quot;/Users/jdhughes/Documents/Training/python-for-hydrology/notebooks/part1_flopy/day0&quot;).resolve() / &quot;mf6&quot;  #&quot;/Users/jdhughes/Documents/Development/modflow6/modflow6/bin/mf6&quot;</span>
 <span class="n">exe_name</span> <span class="o">=</span> <span class="s2">&quot;mf6&quot;</span>
 <span class="n">exe_name</span>
 </pre></div>
