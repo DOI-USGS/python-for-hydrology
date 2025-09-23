@@ -288,6 +288,7 @@ copy_notebooks = [
     source_path / 'part1_flopy/solutions/06-Project-voronoi.ipynb',
     source_path / 'part1_flopy/solutions/07-stream_capture_voronoi.ipynb',
     source_path / 'part1_flopy/08_Modflow-setup-demo.ipynb',
+    source_path / 'part1_flopy/08b_Modflow-setup-lgr-demo.ipynb',
     source_path / 'part1_flopy/09-gwt-voronoi-demo.ipynb',
     source_path / 'part1_flopy/10a_prt_particle_tracking-demo.ipynb',
     source_path / 'part1_flopy/10b_modpath_particle_tracking-demo.ipynb',
