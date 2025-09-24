@@ -1,0 +1,64 @@
+# Jupyter Lab
+
+Jupyter Lab will be used to view and interact with Python Notebooks.
+
+## Starting Jupyter
+
+### Windows
+
+1. Open Miniforge Prompt. Startup steps (2-4) are done within Miniforge.
+
+2. Navigate to the notebooks folder:
+
+For example:
+
+```shell
+cd python-for-hydrology/notebooks/part0_python_intro
+```
+
+3. Activate the pyclass environment (this assumes the installation steps were already performed).
+
+```shell
+conda activate pyclass
+```
+
+4. Launch JupyterLab with the command:
+
+```shell
+jupyter lab
+```
+
+A browser should open up:
+
+<img src="images/jupyter_launch.png" alt="Launch Jupyter" width="300"/>
+
+Choose Python 3 (ipykernal)
+
+5. Choose one of the .ipynb files
+
+## Using Jupyter
+
+* Individual code blocks can be run with "Shift + Enter".
+
+* You can pick a spot in the notebook and run all 
+the code up until that point. To do that, place your 
+cursor in the place you want the code to run to. Go 
+to the Run menu and choose "Run all above selected cell".
+
+<img src="images/run_to.png" alt="Run to a code block" width="300"/>
+
+* Text notes can be added by adding a cell and choosing "Markdown":
+
+<img src="images/take_notes.png" alt="Take notes" width="200"/>
+
+* Code cells that have been run will have a number in the [ ]:
+
+<img src="images/was_run.png" alt="Take notes" width="300"/>
+
+* Export the notebook to a Python script:
+
+File -> Save and Export Notebook As -> Executable Script
+
+
+
+

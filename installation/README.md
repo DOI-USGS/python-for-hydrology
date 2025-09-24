@@ -46,7 +46,7 @@ Move the the downloaded zip file (`python-for-hydrology-main.zip`) to the select
 
 # Test the class environment
 
-After successful installation of the class environment and downloading the class repository navigate to the `installation` directory in class repository.
+After successful installation of the class environment and downloading the class repository navigate to the `installation` directory in class repository. In Windows, this is done in Miniforge Prompt.
 
 ```shell
 cd python-for-hydrology/installation
