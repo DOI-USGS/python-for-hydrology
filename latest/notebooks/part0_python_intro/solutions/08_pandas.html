@@ -171,7 +171,7 @@
              
   <section id="08:-Working-with-tabular-data-in-Pandas">
 <h1>08: Working with tabular data in Pandas<a class="headerlink" href="#08:-Working-with-tabular-data-in-Pandas" title="Link to this heading"></a></h1>
-<p><img alt="6df38035a17a49ff8af6ca3c7e87ccbd" src="../../../_images/panda.jpg" /></p>
+<p><img alt="bdcc01b652914ba28fe7069b38d40e54" src="../../../_images/panda.jpg" /></p>
 <section id="Not-that-type-of-Panda----Python's-Pandas-package">
 <h2>Not that type of Panda – Python’s Pandas package<a class="headerlink" href="#Not-that-type-of-Panda----Python's-Pandas-package" title="Link to this heading"></a></h2>
 <p>Pandas is a powerful, flexible and easy to use open source data analysis and manipulation tool. Pandas is commonly used for operations that would normally be done in a spreadsheet environment and includes powerful data analysis and manipulation tools.</p>
@@ -197,7 +197,7 @@
 </section>
 <section id="Get-site-information-data-for-part-of-the-Russian-River-near-Guerneville,-CA-from-NWIS">
 <h2>Get site information data for part of the Russian River near Guerneville, CA from NWIS<a class="headerlink" href="#Get-site-information-data-for-part-of-the-Russian-River-near-Guerneville,-CA-from-NWIS" title="Link to this heading"></a></h2>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
@@ -209,6 +209,240 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">SSLEOFError</span>                               Traceback (most recent call last)
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:464</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool._make_request</span><span class="ansi-blue-fg">(self, conn, method, url, body, headers, retries, timeout, chunked, response_conn, preload_content, decode_content, enforce_content_length)</span>
+<span class="ansi-green-fg">    463</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">464</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_validate_conn</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    465</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> (SocketTimeout, BaseSSLError) <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:1093</span>, in <span class="ansi-cyan-fg">HTTPSConnectionPool._validate_conn</span><span class="ansi-blue-fg">(self, conn)</span>
+<span class="ansi-green-fg">   1092</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> conn.is_closed:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1093</span>     <span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">connect</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1095</span> <span style="color: rgb(95,135,135)"># TODO revise this, see https://github.com/urllib3/urllib3/issues/2791</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connection.py:790</span>, in <span class="ansi-cyan-fg">HTTPSConnection.connect</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-fg">    788</span> server_hostname_rm_dot = server_hostname.rstrip(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">.</span><span class="ansi-yellow-fg">&#34;</span>)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">790</span> sock_and_verified = <span class="ansi-yellow-bg">_ssl_wrap_socket_and_match_hostname</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    791</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    792</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">cert_reqs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">cert_reqs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    793</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_version</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    794</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_minimum_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_minimum_version</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    795</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_maximum_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_maximum_version</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    796</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    797</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    798</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    799</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">cert_file</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">cert_file</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    800</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">key_file</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">key_file</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    801</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    802</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname_rm_dot</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    803</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    804</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    805</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">assert_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">assert_hostname</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    806</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">assert_fingerprint</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">assert_fingerprint</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    807</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    808</span> <span style="color: rgb(0,135,0)">self</span>.sock = sock_and_verified.socket
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connection.py:969</span>, in <span class="ansi-cyan-fg">_ssl_wrap_socket_and_match_hostname</span><span class="ansi-blue-fg">(sock, cert_reqs, ssl_version, ssl_minimum_version, ssl_maximum_version, cert_file, key_file, key_password, ca_certs, ca_cert_dir, ca_cert_data, assert_hostname, assert_fingerprint, server_hostname, ssl_context, tls_in_tls)</span>
+<span class="ansi-green-fg">    967</span>         server_hostname = normalized
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">969</span> ssl_sock = <span class="ansi-yellow-bg">ssl_wrap_socket</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    970</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    971</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">keyfile</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">key_file</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    972</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">certfile</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">cert_file</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    973</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    974</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    975</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    976</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    977</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    978</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    979</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    980</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    982</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/util/ssl_.py:480</span>, in <span class="ansi-cyan-fg">ssl_wrap_socket</span><span class="ansi-blue-fg">(sock, keyfile, certfile, cert_reqs, ca_certs, server_hostname, ssl_version, ciphers, ssl_context, ca_cert_dir, key_password, ca_cert_data, tls_in_tls)</span>
+<span class="ansi-green-fg">    478</span> context.set_alpn_protocols(ALPN_PROTOCOLS)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">480</span> ssl_sock = <span class="ansi-yellow-bg">_ssl_wrap_socket_impl</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    481</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> ssl_sock
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/util/ssl_.py:524</span>, in <span class="ansi-cyan-fg">_ssl_wrap_socket_impl</span><span class="ansi-blue-fg">(sock, ssl_context, tls_in_tls, server_hostname)</span>
+<span class="ansi-green-fg">    522</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> SSLTransport(sock, ssl_context, server_hostname)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">524</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">wrap_socket</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/ssl.py:517</span>, in <span class="ansi-cyan-fg">SSLContext.wrap_socket</span><span class="ansi-blue-fg">(self, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, session)</span>
+<span class="ansi-green-fg">    511</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">wrap_socket</span>(<span style="color: rgb(0,135,0)">self</span>, sock, server_side=<span class="ansi-bold" style="color: rgb(0,135,0)">False</span>,
+<span class="ansi-green-fg">    512</span>                 do_handshake_on_connect=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>,
+<span class="ansi-green-fg">    513</span>                 suppress_ragged_eofs=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>,
+<span class="ansi-green-fg">    514</span>                 server_hostname=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, session=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>):
+<span class="ansi-green-fg">    515</span>     <span style="color: rgb(95,135,135)"># SSLSocket class handles server_hostname encoding before it calls</span>
+<span class="ansi-green-fg">    516</span>     <span style="color: rgb(95,135,135)"># ctx._wrap_socket()</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">517</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">sslsocket_class</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_create</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    518</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    519</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">server_side</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_side</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    520</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">do_handshake_on_connect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">do_handshake_on_connect</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    521</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">suppress_ragged_eofs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">suppress_ragged_eofs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    522</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    523</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    524</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">session</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">session</span>
+<span class="ansi-green-fg">    525</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/ssl.py:1104</span>, in <span class="ansi-cyan-fg">SSLSocket._create</span><span class="ansi-blue-fg">(cls, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, context, session)</span>
+<span class="ansi-green-fg">   1103</span>                 <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">do_handshake_on_connect should not be specified for non-blocking sockets</span><span class="ansi-yellow-fg">&#34;</span>)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1104</span>             <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">do_handshake</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1105</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span>:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/ssl.py:1382</span>, in <span class="ansi-cyan-fg">SSLSocket.do_handshake</span><span class="ansi-blue-fg">(self, block)</span>
+<span class="ansi-green-fg">   1381</span>         <span style="color: rgb(0,135,0)">self</span>.settimeout(<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1382</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_sslobj</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">do_handshake</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1383</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
+
+<span class="ansi-red-fg">SSLEOFError</span>: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">SSLError</span>                                  Traceback (most recent call last)
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:787</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool.urlopen</span><span class="ansi-blue-fg">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
+<span class="ansi-green-fg">    786</span> <span style="color: rgb(95,135,135)"># Make the request on the HTTPConnection object</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">787</span> response = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_make_request</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    788</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    789</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    790</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    791</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">timeout</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">timeout_obj</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    792</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    793</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    794</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    795</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    796</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">response_conn</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">response_conn</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    797</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">preload_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">preload_content</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    798</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">decode_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_content</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    799</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">response_kw</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    800</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    802</span> <span style="color: rgb(95,135,135)"># Everything went great!</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:488</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool._make_request</span><span class="ansi-blue-fg">(self, conn, method, url, body, headers, retries, timeout, chunked, response_conn, preload_content, decode_content, enforce_content_length)</span>
+<span class="ansi-green-fg">    487</span>         new_e = _wrap_proxy_error(new_e, conn.proxy.scheme)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">488</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> new_e
+<span class="ansi-green-fg">    490</span> <span style="color: rgb(95,135,135)"># conn.request() calls http.client.*.request, not the method in</span>
+<span class="ansi-green-fg">    491</span> <span style="color: rgb(95,135,135)"># urllib3.request. It also calls makefile (recv) on the socket.</span>
+
+<span class="ansi-red-fg">SSLError</span>: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)
+
+The above exception was the direct cause of the following exception:
+
+<span class="ansi-red-fg">MaxRetryError</span>                             Traceback (most recent call last)
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/adapters.py:644</span>, in <span class="ansi-cyan-fg">HTTPAdapter.send</span><span class="ansi-blue-fg">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="ansi-green-fg">    643</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">644</span>     resp = <span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">urlopen</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    645</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    646</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    647</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    648</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    649</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">redirect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    650</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">assert_same_host</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    651</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">preload_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    652</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    653</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">max_retries</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">timeout</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">timeout</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    655</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    656</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    658</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> (ProtocolError, <span class="ansi-bold" style="color: rgb(215,95,95)">OSError</span>) <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:841</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool.urlopen</span><span class="ansi-blue-fg">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
+<span class="ansi-green-fg">    839</span>     new_e = ProtocolError(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Connection aborted.</span><span class="ansi-yellow-fg">&#34;</span>, new_e)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">841</span> retries = <span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">increment</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    842</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">error</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">new_e</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">_pool</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">_stacktrace</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sys</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">exc_info</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">[</span><span class="ansi-green-fg ansi-yellow-bg">2</span><span class="ansi-yellow-bg">]</span>
+<span class="ansi-green-fg">    843</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    844</span> retries.sleep()
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/util/retry.py:519</span>, in <span class="ansi-cyan-fg">Retry.increment</span><span class="ansi-blue-fg">(self, method, url, response, error, _pool, _stacktrace)</span>
+<span class="ansi-green-fg">    518</span>     reason = error <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> ResponseError(cause)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">519</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MaxRetryError(_pool, url, reason) <span class="ansi-bold" style="color: rgb(0,135,0)">from</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">reason</span>  <span style="color: rgb(95,135,135)"># type: ignore[arg-type]</span>
+<span class="ansi-green-fg">    521</span> log.debug(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Incremented Retry for (url=</span><span class="ansi-yellow-fg">&#39;</span><span class="ansi-bold" style="color: rgb(175,95,135)">%s</span><span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">): </span><span class="ansi-bold" style="color: rgb(175,95,135)">%r</span><span class="ansi-yellow-fg">&#34;</span>, url, new_retry)
+
+<span class="ansi-red-fg">MaxRetryError</span>: HTTPSConnectionPool(host=&#39;waterservices.usgs.gov&#39;, port=443): Max retries exceeded with url: /nwis/site?bBox=-123.1%2C38.45%2C-122.9%2C38.55&amp;siteOutput=Expanded&amp;format=rdb (Caused by SSLError(SSLEOFError(8, &#39;[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)&#39;)))
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">SSLError</span>                                  Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> bbox = (-<span class="ansi-green-fg">123.10</span>, <span class="ansi-green-fg">38.45</span>, -<span class="ansi-green-fg">122.90</span>, <span class="ansi-green-fg">38.55</span>)
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> info, metadata = <span class="ansi-yellow-bg">nwis</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get_info</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">bBox</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">str</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">i</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">for</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">i</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(175,0,255)">in</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">      3</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">geometry</span><span class="ansi-yellow-fg">&#39;</span> <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">list</span>(info):
+<span class="ansi-green-fg">      4</span>     <span style="color: rgb(95,135,135)"># dataretreival now returns as geopandas dataframe, drop &#34;geometry&#34; column for this example</span>
+<span class="ansi-green-fg">      5</span>     info.drop(columns=[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">geometry</span><span class="ansi-yellow-fg">&#34;</span>], inplace=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/dataretrieval/nwis.py:816</span>, in <span class="ansi-cyan-fg">get_info</span><span class="ansi-blue-fg">(ssl_check, **kwargs)</span>
+<span class="ansi-green-fg">    812</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    813</span>     <span style="color: rgb(95,135,135)"># cannot have both seriesCatalogOutput and the expanded format</span>
+<span class="ansi-green-fg">    814</span>     kwargs[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">siteOutput</span><span class="ansi-yellow-fg">&#34;</span>] = <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Expanded</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">816</span> response = <span class="ansi-yellow-bg">query_waterservices</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">site</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    818</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> _read_rdb(response.text), NWIS_Metadata(response, **kwargs)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/dataretrieval/nwis.py:633</span>, in <span class="ansi-cyan-fg">query_waterservices</span><span class="ansi-blue-fg">(service, ssl_check, **kwargs)</span>
+<span class="ansi-green-fg">    629</span>     kwargs[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">format</span><span class="ansi-yellow-fg">&#34;</span>] = <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">rdb</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">    631</span> url = WATERSERVICE_URL + service
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">633</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">query</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">payload</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/dataretrieval/utils.py:190</span>, in <span class="ansi-cyan-fg">query</span><span class="ansi-blue-fg">(url, payload, delimiter, ssl_check)</span>
+<span class="ansi-green-fg">    183</span> <span style="color: rgb(95,135,135)"># for index in range(len(payload)):</span>
+<span class="ansi-green-fg">    184</span> <span style="color: rgb(95,135,135)">#    key, value = payload[index]</span>
+<span class="ansi-green-fg">    185</span> <span style="color: rgb(95,135,135)">#    payload[index] = (key, to_str(value))</span>
+<span class="ansi-green-fg">    186</span>
+<span class="ansi-green-fg">    187</span> <span style="color: rgb(95,135,135)"># define the user agent for the query</span>
+<span class="ansi-green-fg">    188</span> user_agent = {<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">user-agent</span><span class="ansi-yellow-fg">&#34;</span>: <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">python-dataretrieval/</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>dataretrieval.__version__<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg">&#34;</span>}
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">190</span> response = <span class="ansi-yellow-bg">requests</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">params</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">payload</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">user_agent</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">verify</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    192</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> response.status_code == <span class="ansi-green-fg">400</span>:
+<span class="ansi-green-fg">    193</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(
+<span class="ansi-green-fg">    194</span>         <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Bad Request, check that your parameters are correct. URL: </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>response.url<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">    195</span>     )
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/api.py:73</span>, in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(url, params, **kwargs)</span>
+<span class="ansi-green-fg">     62</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">get</span>(url, params=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, **kwargs):
+<span class="ansi-green-fg">     63</span> <span style="color: rgb(188,188,188)">    </span><span class="ansi-yellow-fg">r</span><span class="ansi-yellow-fg">&#34;&#34;&#34;Sends a GET request.</span>
+<span class="ansi-green-fg">     64</span>
+<span class="ansi-green-fg">     65</span> <span class="ansi-yellow-fg">    :param url: URL for the new :class:`Request` object.</span>
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">     70</span> <span class="ansi-yellow-fg">    :rtype: requests.Response</span>
+<span class="ansi-green-fg">     71</span> <span class="ansi-yellow-fg">    &#34;&#34;&#34;</span>
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">73</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">get</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">params</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">params</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/api.py:59</span>, in <span class="ansi-cyan-fg">request</span><span class="ansi-blue-fg">(method, url, **kwargs)</span>
+<span class="ansi-green-fg">     55</span> <span style="color: rgb(95,135,135)"># By using the &#39;with&#39; statement we are sure the session is closed, thus we</span>
+<span class="ansi-green-fg">     56</span> <span style="color: rgb(95,135,135)"># avoid leaving sockets open which can trigger a ResourceWarning in some</span>
+<span class="ansi-green-fg">     57</span> <span style="color: rgb(95,135,135)"># cases, and look like a memory leak in others.</span>
+<span class="ansi-green-fg">     58</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> sessions.Session() <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> session:
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">59</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">session</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/sessions.py:589</span>, in <span class="ansi-cyan-fg">Session.request</span><span class="ansi-blue-fg">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
+<span class="ansi-green-fg">    584</span> send_kwargs = {
+<span class="ansi-green-fg">    585</span>     <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">timeout</span><span class="ansi-yellow-fg">&#34;</span>: timeout,
+<span class="ansi-green-fg">    586</span>     <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">allow_redirects</span><span class="ansi-yellow-fg">&#34;</span>: allow_redirects,
+<span class="ansi-green-fg">    587</span> }
+<span class="ansi-green-fg">    588</span> send_kwargs.update(settings)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">589</span> resp = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">send</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">prep</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">send_kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    591</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> resp
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/sessions.py:703</span>, in <span class="ansi-cyan-fg">Session.send</span><span class="ansi-blue-fg">(self, request, **kwargs)</span>
+<span class="ansi-green-fg">    700</span> start = preferred_clock()
+<span class="ansi-green-fg">    702</span> <span style="color: rgb(95,135,135)"># Send the request</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">703</span> r = <span class="ansi-yellow-bg">adapter</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">send</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    705</span> <span style="color: rgb(95,135,135)"># Total elapsed time of the request (approximately)</span>
+<span class="ansi-green-fg">    706</span> elapsed = preferred_clock() - start
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/adapters.py:675</span>, in <span class="ansi-cyan-fg">HTTPAdapter.send</span><span class="ansi-blue-fg">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="ansi-green-fg">    671</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> ProxyError(e, request=request)
+<span class="ansi-green-fg">    673</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">isinstance</span>(e.reason, _SSLError):
+<span class="ansi-green-fg">    674</span>         <span style="color: rgb(95,135,135)"># This branch is for urllib3 v1.22 and later.</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">675</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> SSLError(e, request=request)
+<span class="ansi-green-fg">    677</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ConnectionError</span>(e, request=request)
+<span class="ansi-green-fg">    679</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> ClosedPoolError <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
+
+<span class="ansi-red-fg">SSLError</span>: HTTPSConnectionPool(host=&#39;waterservices.usgs.gov&#39;, port=443): Max retries exceeded with url: /nwis/site?bBox=-123.1%2C38.45%2C-122.9%2C38.55&amp;siteOutput=Expanded&amp;format=rdb (Caused by SSLError(SSLEOFError(8, &#39;[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)&#39;)))
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -219,176 +453,18 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">info</span>.to_csv(data_path / <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">site_info.csv</span><span class="ansi-yellow-fg">&#34;</span>, index=<span class="ansi-bold" style="color: rgb(0,135,0)">False</span>)
+<span class="ansi-green-fg">      2</span> info.head()
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>agency_cd</th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-      <th>coord_meth_cd</th>
-      <th>coord_acy_cd</th>
-      <th>...</th>
-      <th>local_time_fg</th>
-      <th>reliability_cd</th>
-      <th>gw_file_cd</th>
-      <th>nat_aqfr_cd</th>
-      <th>aqfr_cd</th>
-      <th>aqfr_type_cd</th>
-      <th>well_depth_va</th>
-      <th>hole_depth_va</th>
-      <th>depth_src_cd</th>
-      <th>project_no</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>USGS</td>
-      <td>11467000</td>
-      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>383031.0</td>
-      <td>1225536.0</td>
-      <td>38.508482</td>
-      <td>-122.927734</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>USGS</td>
-      <td>11467002</td>
-      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>382958.0</td>
-      <td>1225950.0</td>
-      <td>38.499358</td>
-      <td>-122.998333</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>USGS</td>
-      <td>11467006</td>
-      <td>RUSSIAN R A VACATION BEACH CA</td>
-      <td>ST</td>
-      <td>382903.0</td>
-      <td>1230041.0</td>
-      <td>38.484080</td>
-      <td>-123.012500</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>USGS</td>
-      <td>11467050</td>
-      <td>BIG AUSTIN C A CAZADERO CA</td>
-      <td>ST</td>
-      <td>383215.0</td>
-      <td>1230518.0</td>
-      <td>38.537413</td>
-      <td>-123.089447</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>USGS</td>
-      <td>11467200</td>
-      <td>AUSTIN C NR CAZADERO CA</td>
-      <td>ST</td>
-      <td>383024.0</td>
-      <td>1230407.0</td>
-      <td>38.506536</td>
-      <td>-123.069683</td>
-      <td>M</td>
-      <td>S</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967700102</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 42 columns</p>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 <p>Wow that’s a lot of gages in this location, let’s info on all of them and then use this data to learn about pandas</p>
 <p>The data returned to us from our NWIS query <code class="docutils literal notranslate"><span class="pre">info</span></code> was returned to us as pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We’ll be working with this to start learning about the basics of pandas.</p>
@@ -412,176 +488,17 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">info</span>.head()
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>agency_cd</th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-      <th>coord_meth_cd</th>
-      <th>coord_acy_cd</th>
-      <th>...</th>
-      <th>local_time_fg</th>
-      <th>reliability_cd</th>
-      <th>gw_file_cd</th>
-      <th>nat_aqfr_cd</th>
-      <th>aqfr_cd</th>
-      <th>aqfr_type_cd</th>
-      <th>well_depth_va</th>
-      <th>hole_depth_va</th>
-      <th>depth_src_cd</th>
-      <th>project_no</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>USGS</td>
-      <td>11467000</td>
-      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>383031.0</td>
-      <td>1225536.0</td>
-      <td>38.508482</td>
-      <td>-122.927734</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>USGS</td>
-      <td>11467002</td>
-      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>382958.0</td>
-      <td>1225950.0</td>
-      <td>38.499358</td>
-      <td>-122.998333</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>USGS</td>
-      <td>11467006</td>
-      <td>RUSSIAN R A VACATION BEACH CA</td>
-      <td>ST</td>
-      <td>382903.0</td>
-      <td>1230041.0</td>
-      <td>38.484080</td>
-      <td>-123.012500</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>USGS</td>
-      <td>11467050</td>
-      <td>BIG AUSTIN C A CAZADERO CA</td>
-      <td>ST</td>
-      <td>383215.0</td>
-      <td>1230518.0</td>
-      <td>38.537413</td>
-      <td>-123.089447</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>USGS</td>
-      <td>11467200</td>
-      <td>AUSTIN C NR CAZADERO CA</td>
-      <td>ST</td>
-      <td>383024.0</td>
-      <td>1230407.0</td>
-      <td>38.506536</td>
-      <td>-123.069683</td>
-      <td>M</td>
-      <td>S</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967700102</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 42 columns</p>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -592,176 +509,17 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[5]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">info</span>.tail()
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>agency_cd</th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-      <th>coord_meth_cd</th>
-      <th>coord_acy_cd</th>
-      <th>...</th>
-      <th>local_time_fg</th>
-      <th>reliability_cd</th>
-      <th>gw_file_cd</th>
-      <th>nat_aqfr_cd</th>
-      <th>aqfr_cd</th>
-      <th>aqfr_type_cd</th>
-      <th>well_depth_va</th>
-      <th>hole_depth_va</th>
-      <th>depth_src_cd</th>
-      <th>project_no</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>23</th>
-      <td>USGS</td>
-      <td>383012122574501</td>
-      <td>RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA</td>
-      <td>ST</td>
-      <td>383012.0</td>
-      <td>1225745.0</td>
-      <td>38.503333</td>
-      <td>-122.962500</td>
-      <td>G</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>USGS</td>
-      <td>383016123041101</td>
-      <td>008N011W27N001M</td>
-      <td>GW</td>
-      <td>383016.3</td>
-      <td>1230411.0</td>
-      <td>38.504528</td>
-      <td>-123.069722</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>30.0</td>
-      <td>30.0</td>
-      <td>D</td>
-      <td>00BHM8187</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>USGS</td>
-      <td>383017122580301</td>
-      <td>008N010W28RU01M</td>
-      <td>GW</td>
-      <td>383017.4</td>
-      <td>1225802.5</td>
-      <td>38.504833</td>
-      <td>-122.967361</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>98.0</td>
-      <td>107.0</td>
-      <td>D</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>USGS</td>
-      <td>383028122554501</td>
-      <td>HOBSON C NR HACIENDA CA</td>
-      <td>ST</td>
-      <td>383028.0</td>
-      <td>1225545.0</td>
-      <td>38.507778</td>
-      <td>-122.929167</td>
-      <td>G</td>
-      <td>U</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>USGS</td>
-      <td>383034122590701</td>
-      <td>008N010W29H004M</td>
-      <td>GW</td>
-      <td>383034.4</td>
-      <td>1225907.9</td>
-      <td>38.509556</td>
-      <td>-122.985528</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>99.0</td>
-      <td>110.0</td>
-      <td>D</td>
-      <td>9677BHM32</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 42 columns</p>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -777,7 +535,13 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-RangeIndex(start=0, stop=28, step=1)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># print the index names</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="color: rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">info</span>.index)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -797,18 +561,15 @@ RangeIndex(start=0, stop=28, step=1)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_tp_cd&#39;, &#39;lat_va&#39;, &#39;long_va&#39;,
-       &#39;dec_lat_va&#39;, &#39;dec_long_va&#39;, &#39;coord_meth_cd&#39;, &#39;coord_acy_cd&#39;,
-       &#39;coord_datum_cd&#39;, &#39;dec_coord_datum_cd&#39;, &#39;district_cd&#39;, &#39;state_cd&#39;,
-       &#39;county_cd&#39;, &#39;country_cd&#39;, &#39;land_net_ds&#39;, &#39;map_nm&#39;, &#39;map_scale_fc&#39;,
-       &#39;alt_va&#39;, &#39;alt_meth_cd&#39;, &#39;alt_acy_va&#39;, &#39;alt_datum_cd&#39;, &#39;huc_cd&#39;,
-       &#39;basin_cd&#39;, &#39;topo_cd&#39;, &#39;instruments_cd&#39;, &#39;construction_dt&#39;,
-       &#39;inventory_dt&#39;, &#39;drain_area_va&#39;, &#39;contrib_drain_area_va&#39;, &#39;tz_cd&#39;,
-       &#39;local_time_fg&#39;, &#39;reliability_cd&#39;, &#39;gw_file_cd&#39;, &#39;nat_aqfr_cd&#39;,
-       &#39;aqfr_cd&#39;, &#39;aqfr_type_cd&#39;, &#39;well_depth_va&#39;, &#39;hole_depth_va&#39;,
-       &#39;depth_src_cd&#39;, &#39;project_no&#39;],
-      dtype=&#39;object&#39;)
-[&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_tp_cd&#39;, &#39;lat_va&#39;, &#39;long_va&#39;, &#39;dec_lat_va&#39;, &#39;dec_long_va&#39;, &#39;coord_meth_cd&#39;, &#39;coord_acy_cd&#39;, &#39;coord_datum_cd&#39;, &#39;dec_coord_datum_cd&#39;, &#39;district_cd&#39;, &#39;state_cd&#39;, &#39;county_cd&#39;, &#39;country_cd&#39;, &#39;land_net_ds&#39;, &#39;map_nm&#39;, &#39;map_scale_fc&#39;, &#39;alt_va&#39;, &#39;alt_meth_cd&#39;, &#39;alt_acy_va&#39;, &#39;alt_datum_cd&#39;, &#39;huc_cd&#39;, &#39;basin_cd&#39;, &#39;topo_cd&#39;, &#39;instruments_cd&#39;, &#39;construction_dt&#39;, &#39;inventory_dt&#39;, &#39;drain_area_va&#39;, &#39;contrib_drain_area_va&#39;, &#39;tz_cd&#39;, &#39;local_time_fg&#39;, &#39;reliability_cd&#39;, &#39;gw_file_cd&#39;, &#39;nat_aqfr_cd&#39;, &#39;aqfr_cd&#39;, &#39;aqfr_type_cd&#39;, &#39;well_depth_va&#39;, &#39;hole_depth_va&#39;, &#39;depth_src_cd&#39;, &#39;project_no&#39;]
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># print the column names</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="color: rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">info</span>.columns)
+<span class="ansi-green-fg">      4</span> <span style="color: rgb(95,135,135)"># print the column names as a list</span>
+<span class="ansi-green-fg">      5</span> <span style="color: rgb(0,135,0)">print</span>(<span style="color: rgb(0,135,0)">list</span>(info))
+
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
 </pre></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">describe()</span></code> method is only useful for numerical data. This example is does not have a lot of useful data for <code class="docutils literal notranslate"><span class="pre">describe()</span></code>, however we’ll use it again later</p>
@@ -821,238 +582,17 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[8]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">info</span>.describe()
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-      <th>district_cd</th>
-      <th>state_cd</th>
-      <th>county_cd</th>
-      <th>map_scale_fc</th>
-      <th>alt_va</th>
-      <th>alt_acy_va</th>
-      <th>huc_cd</th>
-      <th>basin_cd</th>
-      <th>construction_dt</th>
-      <th>inventory_dt</th>
-      <th>drain_area_va</th>
-      <th>contrib_drain_area_va</th>
-      <th>aqfr_cd</th>
-      <th>aqfr_type_cd</th>
-      <th>well_depth_va</th>
-      <th>hole_depth_va</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>28.000000</td>
-      <td>2.800000e+01</td>
-      <td>28.000000</td>
-      <td>28.000000</td>
-      <td>28.0</td>
-      <td>28.0</td>
-      <td>28.0</td>
-      <td>25.0</td>
-      <td>26.000000</td>
-      <td>26.000000</td>
-      <td>2.800000e+01</td>
-      <td>0.0</td>
-      <td>6.000000e+00</td>
-      <td>1.100000e+01</td>
-      <td>6.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>9.000000</td>
-      <td>6.00000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>382918.225000</td>
-      <td>1.228085e+06</td>
-      <td>38.488771</td>
-      <td>-122.993363</td>
-      <td>6.0</td>
-      <td>6.0</td>
-      <td>97.0</td>
-      <td>24000.0</td>
-      <td>41.524615</td>
-      <td>10.235385</td>
-      <td>1.931263e+10</td>
-      <td>NaN</td>
-      <td>1.987590e+07</td>
-      <td>2.009075e+07</td>
-      <td>935.400000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>63.028889</td>
-      <td>76.50000</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>136.242381</td>
-      <td>2.339461e+03</td>
-      <td>0.022509</td>
-      <td>0.059290</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>40.057582</td>
-      <td>9.278299</td>
-      <td>5.672084e+10</td>
-      <td>NaN</td>
-      <td>5.148255e+04</td>
-      <td>5.980639e+04</td>
-      <td>691.350481</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>34.634297</td>
-      <td>40.79093</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>382701.000000</td>
-      <td>1.225404e+06</td>
-      <td>38.450278</td>
-      <td>-123.089447</td>
-      <td>6.0</td>
-      <td>6.0</td>
-      <td>97.0</td>
-      <td>24000.0</td>
-      <td>2.000000</td>
-      <td>0.100000</td>
-      <td>1.801011e+07</td>
-      <td>NaN</td>
-      <td>1.983093e+07</td>
-      <td>2.004091e+07</td>
-      <td>26.600000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.000000</td>
-      <td>22.00000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>382795.625000</td>
-      <td>1.225627e+06</td>
-      <td>38.468229</td>
-      <td>-123.049445</td>
-      <td>6.0</td>
-      <td>6.0</td>
-      <td>97.0</td>
-      <td>24000.0</td>
-      <td>14.582500</td>
-      <td>1.600000</td>
-      <td>1.801011e+07</td>
-      <td>NaN</td>
-      <td>1.984061e+07</td>
-      <td>2.004091e+07</td>
-      <td>381.600000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>30.000000</td>
-      <td>42.50000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>382979.950000</td>
-      <td>1.230018e+06</td>
-      <td>38.499943</td>
-      <td>-123.004861</td>
-      <td>6.0</td>
-      <td>6.0</td>
-      <td>97.0</td>
-      <td>24000.0</td>
-      <td>43.260000</td>
-      <td>4.300000</td>
-      <td>1.801011e+07</td>
-      <td>NaN</td>
-      <td>1.985078e+07</td>
-      <td>2.004092e+07</td>
-      <td>1345.500000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>80.000000</td>
-      <td>93.50000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>383013.075000</td>
-      <td>1.230255e+06</td>
-      <td>38.503632</td>
-      <td>-122.943583</td>
-      <td>6.0</td>
-      <td>6.0</td>
-      <td>97.0</td>
-      <td>24000.0</td>
-      <td>48.000000</td>
-      <td>20.000000</td>
-      <td>1.801011e+07</td>
-      <td>NaN</td>
-      <td>1.992106e+07</td>
-      <td>2.014561e+07</td>
-      <td>1366.500000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>98.000000</td>
-      <td>109.25000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>383215.000000</td>
-      <td>1.230518e+06</td>
-      <td>38.537413</td>
-      <td>-122.901222</td>
-      <td>6.0</td>
-      <td>6.0</td>
-      <td>97.0</td>
-      <td>24000.0</td>
-      <td>211.000000</td>
-      <td>20.000000</td>
-      <td>1.801011e+11</td>
-      <td>NaN</td>
-      <td>1.994120e+07</td>
-      <td>2.017050e+07</td>
-      <td>1461.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>99.000000</td>
-      <td>110.00000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Getting-data-from-a-pandas-dataframe">
@@ -1069,40 +609,17 @@ Index([&#39;agency_cd&#39;, &#39;site_no&#39;, &#39;station_nm&#39;, &#39;site_t
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0            11467000
-1            11467002
-2            11467006
-3            11467050
-4            11467200
-5            11467210
-6     382701123025801
-7     382713123030401
-8     382713123030403
-9     382752123003401
-10    382754123030501
-11    382757123003801
-12    382808122565401
-13    382815123024601
-14    382819123010001
-15    382944123002901
-16    382955122594101
-17    383001122540701
-18    383003122540401
-19    383003122540402
-20    383003122540403
-21    383006123000601
-22    383009122543001
-23    383012122574501
-24    383016123041101
-25    383017122580301
-26    383028122554501
-27    383034122590701
-Name: site_no, dtype: object
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[9]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># get a series of site numbers by key</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span class="ansi-yellow-bg">info</span>[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">site_no</span><span class="ansi-yellow-fg">&#34;</span>]
+
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1115,40 +632,17 @@ Name: site_no, dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0     RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA
-1       RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA
-2                     RUSSIAN R A VACATION BEACH CA
-3                        BIG AUSTIN C A CAZADERO CA
-4                           AUSTIN C NR CAZADERO CA
-5                      RUSSIAN R A DUNCANS MILLS CA
-6                   FREEZEOUT C NR DUNCANS MILLS CA
-7                                   007N011W14NU01M
-8                                   007N011W14NU03M
-9                       DUTCH BILL C A MONTE RIO CA
-10     RUSSIAN R A CASINI RANCH NR DUNCANS MILLS CA
-11                         RUSSIAN R A MONTE RIO CA
-12                                  007N010W10H001M
-13                     AUSTIN C NR DUNCANS MILLS CA
-14                                  007N010W07D001M
-15                      HULBERT C NR GUERNEVILLE CA
-16                    POCKET CYN C A GUERNEVILLE CA
-17                                  008N009W31C002M
-18                                  008N009W31C003M
-19                                  008N009W31C004M
-20                                  008N009W31C005M
-21                          FIFE C A GUERNEVILLE CA
-22             GREEN VALLEY C NR MIRABEL HEIGHTS CA
-23      RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA
-24                                  008N011W27N001M
-25                                  008N010W28RU01M
-26                          HOBSON C NR HACIENDA CA
-27                                  008N010W29H004M
-Name: station_nm, dtype: object
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[10]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># get station names by attribute</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span class="ansi-yellow-bg">info</span>.station_nm
+
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
 </pre></div></div>
 </div>
 <p>getting data from a dataframe as a numpy array can be accomplished by using <code class="docutils literal notranslate"><span class="pre">.values</span></code></p>
@@ -1161,27 +655,16 @@ Name: station_nm, dtype: object
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
-       &#39;RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA&#39;,
-       &#39;RUSSIAN R A VACATION BEACH CA&#39;, &#39;BIG AUSTIN C A CAZADERO CA&#39;,
-       &#39;AUSTIN C NR CAZADERO CA&#39;, &#39;RUSSIAN R A DUNCANS MILLS CA&#39;,
-       &#39;FREEZEOUT C NR DUNCANS MILLS CA&#39;, &#39;007N011W14NU01M&#39;,
-       &#39;007N011W14NU03M&#39;, &#39;DUTCH BILL C A MONTE RIO CA&#39;,
-       &#39;RUSSIAN R A CASINI RANCH NR DUNCANS MILLS CA&#39;,
-       &#39;RUSSIAN R A MONTE RIO CA&#39;, &#39;007N010W10H001M&#39;,
-       &#39;AUSTIN C NR DUNCANS MILLS CA&#39;, &#39;007N010W07D001M&#39;,
-       &#39;HULBERT C NR GUERNEVILLE CA&#39;, &#39;POCKET CYN C A GUERNEVILLE CA&#39;,
-       &#39;008N009W31C002M&#39;, &#39;008N009W31C003M&#39;, &#39;008N009W31C004M&#39;,
-       &#39;008N009W31C005M&#39;, &#39;FIFE C A GUERNEVILLE CA&#39;,
-       &#39;GREEN VALLEY C NR MIRABEL HEIGHTS CA&#39;,
-       &#39;RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA&#39;, &#39;008N011W27N001M&#39;,
-       &#39;008N010W28RU01M&#39;, &#39;HOBSON C NR HACIENDA CA&#39;, &#39;008N010W29H004M&#39;],
-      dtype=object)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">info</span>.station_nm.values
+
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
 </pre></div></div>
 </div>
 <section id="Selection-by-position">
@@ -1196,49 +679,17 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[12]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">info</span>.iloc[<span class="ansi-green-fg">0</span>:<span class="ansi-green-fg">2</span>, <span class="ansi-green-fg">1</span>:<span class="ansi-green-fg">4</span>]
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>11467000</td>
-      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
-      <td>ST</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>11467002</td>
-      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
-      <td>ST</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Selection-by-label">
@@ -1253,61 +704,17 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[13]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-bg">info</span>.loc[<span class="ansi-green-fg">0</span>:<span class="ansi-green-fg">3</span>, [<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">site_no</span><span class="ansi-yellow-fg">&#34;</span>, <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">station_nm</span><span class="ansi-yellow-fg">&#34;</span>, <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">site_tp_cd</span><span class="ansi-yellow-fg">&#34;</span>]]
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>11467000</td>
-      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
-      <td>ST</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>11467002</td>
-      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
-      <td>ST</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>11467006</td>
-      <td>RUSSIAN R A VACATION BEACH CA</td>
-      <td>ST</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>11467050</td>
-      <td>BIG AUSTIN C A CAZADERO CA</td>
-      <td>ST</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Boolean-indexing">
@@ -1324,320 +731,18 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[14]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> dfgw = <span class="ansi-yellow-bg">info</span>[info[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">site_tp_cd</span><span class="ansi-yellow-fg">&#34;</span>] == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">GW</span><span class="ansi-yellow-fg">&#34;</span>]
+<span class="ansi-green-fg">      2</span> dfgw
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>agency_cd</th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-      <th>coord_meth_cd</th>
-      <th>coord_acy_cd</th>
-      <th>...</th>
-      <th>local_time_fg</th>
-      <th>reliability_cd</th>
-      <th>gw_file_cd</th>
-      <th>nat_aqfr_cd</th>
-      <th>aqfr_cd</th>
-      <th>aqfr_type_cd</th>
-      <th>well_depth_va</th>
-      <th>hole_depth_va</th>
-      <th>depth_src_cd</th>
-      <th>project_no</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>7</th>
-      <td>USGS</td>
-      <td>382713123030401</td>
-      <td>007N011W14NU01M</td>
-      <td>GW</td>
-      <td>382712.5</td>
-      <td>1230303.5</td>
-      <td>38.453472</td>
-      <td>-123.050972</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>81.70</td>
-      <td>NaN</td>
-      <td>S</td>
-      <td>GGMC200</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>USGS</td>
-      <td>382713123030403</td>
-      <td>007N011W14NU03M</td>
-      <td>GW</td>
-      <td>382712.5</td>
-      <td>1230303.5</td>
-      <td>38.453472</td>
-      <td>-123.050972</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>32.56</td>
-      <td>NaN</td>
-      <td>S</td>
-      <td>GGMC200</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>USGS</td>
-      <td>382808122565401</td>
-      <td>007N010W10H001M</td>
-      <td>GW</td>
-      <td>382808.5</td>
-      <td>1225654.2</td>
-      <td>38.469028</td>
-      <td>-122.948389</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.00</td>
-      <td>22.0</td>
-      <td>D</td>
-      <td>00BHM8187</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>USGS</td>
-      <td>382819123010001</td>
-      <td>007N010W07D001M</td>
-      <td>GW</td>
-      <td>382819.9</td>
-      <td>1230100.8</td>
-      <td>38.472194</td>
-      <td>-123.016889</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>99.00</td>
-      <td>110.0</td>
-      <td>D</td>
-      <td>9677BHM32</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>USGS</td>
-      <td>383001122540701</td>
-      <td>008N009W31C002M</td>
-      <td>GW</td>
-      <td>383001.9</td>
-      <td>1225407.7</td>
-      <td>38.500528</td>
-      <td>-122.902139</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>80.00</td>
-      <td>80.0</td>
-      <td>D</td>
-      <td>9677BHM32</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>USGS</td>
-      <td>383003122540401</td>
-      <td>008N009W31C003M</td>
-      <td>GW</td>
-      <td>383003.3</td>
-      <td>1225404.4</td>
-      <td>38.500917</td>
-      <td>-122.901222</td>
-      <td>G</td>
-      <td>1</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>USGS</td>
-      <td>383003122540402</td>
-      <td>008N009W31C004M</td>
-      <td>GW</td>
-      <td>383003.3</td>
-      <td>1225404.4</td>
-      <td>38.500917</td>
-      <td>-122.901222</td>
-      <td>G</td>
-      <td>1</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>USGS</td>
-      <td>383003122540403</td>
-      <td>008N009W31C005M</td>
-      <td>GW</td>
-      <td>383003.3</td>
-      <td>1225404.4</td>
-      <td>38.500917</td>
-      <td>-122.901222</td>
-      <td>G</td>
-      <td>1</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25.00</td>
-      <td>NaN</td>
-      <td>S</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>USGS</td>
-      <td>383016123041101</td>
-      <td>008N011W27N001M</td>
-      <td>GW</td>
-      <td>383016.3</td>
-      <td>1230411.0</td>
-      <td>38.504528</td>
-      <td>-123.069722</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>30.00</td>
-      <td>30.0</td>
-      <td>D</td>
-      <td>00BHM8187</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>USGS</td>
-      <td>383017122580301</td>
-      <td>008N010W28RU01M</td>
-      <td>GW</td>
-      <td>383017.4</td>
-      <td>1225802.5</td>
-      <td>38.504833</td>
-      <td>-122.967361</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>98.00</td>
-      <td>107.0</td>
-      <td>D</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>USGS</td>
-      <td>383034122590701</td>
-      <td>008N010W29H004M</td>
-      <td>GW</td>
-      <td>383034.4</td>
-      <td>1225907.9</td>
-      <td>38.509556</td>
-      <td>-122.985528</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>99.00</td>
-      <td>110.0</td>
-      <td>D</td>
-      <td>9677BHM32</td>
-    </tr>
-  </tbody>
-</table>
-<p>11 rows × 42 columns</p>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Reading-and-writing-data-to-.csv-files">
@@ -1645,7 +750,7 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <p>Pandas has support to both read and write many types of files. For this example we are focusing on <code class="docutils literal notranslate"><span class="pre">.csv</span></code> files. For information on other file types that are supported see the <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html#importing-and-exporting-data">ten minutes to pandas</a> tutorial documentation</p>
 <p>For this part we’ll write a new <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file of the groundwater sites that we found in NWIS using <code class="docutils literal notranslate"><span class="pre">to_csv()</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">to_csv()</span></code> has a bunch of handy options for writing to file. For this example, I’m going to drop the index column while writing by passing <code class="docutils literal notranslate"><span class="pre">index=False</span></code></p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
@@ -1653,6 +758,20 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <span class="n">dfgw</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[15]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> csv_file = data_path / <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">RussianRiverGWsites.csv</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span class="ansi-yellow-bg">dfgw</span>.to_csv(csv_file, index=<span class="ansi-bold" style="color: rgb(0,135,0)">False</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;dfgw&#39; is not defined
+</pre></div></div>
 </div>
 <p>Now we can load the csv file back into a pandas dataframe with the <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> method.</p>
 <div class="nbinput docutils container">
@@ -1999,176 +1118,20 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[17]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> csv_name = data_path / <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">RussianRiverSWsites.csv</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> dfsw = <span class="ansi-yellow-bg">info</span>[info.site_tp_cd == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">ST</span><span class="ansi-yellow-fg">&#34;</span>]
+<span class="ansi-green-fg">      3</span> dfsw.to_csv(csv_name, index=<span class="ansi-bold" style="color: rgb(0,135,0)">False</span>)
+<span class="ansi-green-fg">      5</span> dfsw = pd.read_csv(csv_name)
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>agency_cd</th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-      <th>coord_meth_cd</th>
-      <th>coord_acy_cd</th>
-      <th>...</th>
-      <th>local_time_fg</th>
-      <th>reliability_cd</th>
-      <th>gw_file_cd</th>
-      <th>nat_aqfr_cd</th>
-      <th>aqfr_cd</th>
-      <th>aqfr_type_cd</th>
-      <th>well_depth_va</th>
-      <th>hole_depth_va</th>
-      <th>depth_src_cd</th>
-      <th>project_no</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>USGS</td>
-      <td>11467000</td>
-      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>383031.0</td>
-      <td>1225536.0</td>
-      <td>38.508482</td>
-      <td>-122.927734</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>USGS</td>
-      <td>11467002</td>
-      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>382958.0</td>
-      <td>1225950.0</td>
-      <td>38.499358</td>
-      <td>-122.998333</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>USGS</td>
-      <td>11467006</td>
-      <td>RUSSIAN R A VACATION BEACH CA</td>
-      <td>ST</td>
-      <td>382903.0</td>
-      <td>1230041.0</td>
-      <td>38.484080</td>
-      <td>-123.012500</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>USGS</td>
-      <td>11467050</td>
-      <td>BIG AUSTIN C A CAZADERO CA</td>
-      <td>ST</td>
-      <td>383215.0</td>
-      <td>1230518.0</td>
-      <td>38.537413</td>
-      <td>-123.089447</td>
-      <td>M</td>
-      <td>F</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>USGS</td>
-      <td>11467200</td>
-      <td>AUSTIN C NR CAZADERO CA</td>
-      <td>ST</td>
-      <td>383024.0</td>
-      <td>1230407.0</td>
-      <td>38.506536</td>
-      <td>-123.069683</td>
-      <td>M</td>
-      <td>S</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>NaN</td>
-      <td>NNNNNNNN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967700102.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 42 columns</p>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Get-timeseries-data-from-NWIS-for-surface-water-sites">
@@ -2204,237 +1167,14 @@ array([&#39;RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA&#39;,
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">SSLEOFError</span>                               Traceback (most recent call last)
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:464</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool._make_request</span><span class="ansi-blue-fg">(self, conn, method, url, body, headers, retries, timeout, chunked, response_conn, preload_content, decode_content, enforce_content_length)</span>
-<span class="ansi-green-fg">    463</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">464</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_validate_conn</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    465</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> (SocketTimeout, BaseSSLError) <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[18]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># filter for only SW sites</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> dfsw = <span class="ansi-yellow-bg">info</span>[info.site_tp_cd == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">ST</span><span class="ansi-yellow-fg">&#34;</span>]
+<span class="ansi-green-fg">      4</span> <span style="color: rgb(95,135,135)"># create query</span>
+<span class="ansi-green-fg">      5</span> sites = dfsw.site_no.to_list()
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:1093</span>, in <span class="ansi-cyan-fg">HTTPSConnectionPool._validate_conn</span><span class="ansi-blue-fg">(self, conn)</span>
-<span class="ansi-green-fg">   1092</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> conn.is_closed:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1093</span>     <span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">connect</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1095</span> <span style="color: rgb(95,135,135)"># TODO revise this, see https://github.com/urllib3/urllib3/issues/2791</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connection.py:790</span>, in <span class="ansi-cyan-fg">HTTPSConnection.connect</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-fg">    788</span> server_hostname_rm_dot = server_hostname.rstrip(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">.</span><span class="ansi-yellow-fg">&#34;</span>)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">790</span> sock_and_verified = <span class="ansi-yellow-bg">_ssl_wrap_socket_and_match_hostname</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    791</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    792</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">cert_reqs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">cert_reqs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    793</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    794</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_minimum_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_minimum_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    795</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_maximum_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_maximum_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    796</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    797</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    798</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    799</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">cert_file</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">cert_file</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    800</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">key_file</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">key_file</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    801</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    802</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname_rm_dot</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    803</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    804</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    805</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">assert_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">assert_hostname</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    806</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">assert_fingerprint</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">assert_fingerprint</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    807</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    808</span> <span style="color: rgb(0,135,0)">self</span>.sock = sock_and_verified.socket
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connection.py:969</span>, in <span class="ansi-cyan-fg">_ssl_wrap_socket_and_match_hostname</span><span class="ansi-blue-fg">(sock, cert_reqs, ssl_version, ssl_minimum_version, ssl_maximum_version, cert_file, key_file, key_password, ca_certs, ca_cert_dir, ca_cert_data, assert_hostname, assert_fingerprint, server_hostname, ssl_context, tls_in_tls)</span>
-<span class="ansi-green-fg">    967</span>         server_hostname = normalized
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">969</span> ssl_sock = <span class="ansi-yellow-bg">ssl_wrap_socket</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    970</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    971</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">keyfile</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">key_file</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    972</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">certfile</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">cert_file</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    973</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">key_password</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    974</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ca_certs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    975</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ca_cert_dir</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    976</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ca_cert_data</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    977</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    978</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    979</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    980</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    982</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/util/ssl_.py:480</span>, in <span class="ansi-cyan-fg">ssl_wrap_socket</span><span class="ansi-blue-fg">(sock, keyfile, certfile, cert_reqs, ca_certs, server_hostname, ssl_version, ciphers, ssl_context, ca_cert_dir, key_password, ca_cert_data, tls_in_tls)</span>
-<span class="ansi-green-fg">    478</span> context.set_alpn_protocols(ALPN_PROTOCOLS)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">480</span> ssl_sock = <span class="ansi-yellow-bg">_ssl_wrap_socket_impl</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">tls_in_tls</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    481</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> ssl_sock
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/util/ssl_.py:524</span>, in <span class="ansi-cyan-fg">_ssl_wrap_socket_impl</span><span class="ansi-blue-fg">(sock, ssl_context, tls_in_tls, server_hostname)</span>
-<span class="ansi-green-fg">    522</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> SSLTransport(sock, ssl_context, server_hostname)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">524</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">ssl_context</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">wrap_socket</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">)</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/ssl.py:517</span>, in <span class="ansi-cyan-fg">SSLContext.wrap_socket</span><span class="ansi-blue-fg">(self, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, session)</span>
-<span class="ansi-green-fg">    511</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">wrap_socket</span>(<span style="color: rgb(0,135,0)">self</span>, sock, server_side=<span class="ansi-bold" style="color: rgb(0,135,0)">False</span>,
-<span class="ansi-green-fg">    512</span>                 do_handshake_on_connect=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>,
-<span class="ansi-green-fg">    513</span>                 suppress_ragged_eofs=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>,
-<span class="ansi-green-fg">    514</span>                 server_hostname=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, session=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>):
-<span class="ansi-green-fg">    515</span>     <span style="color: rgb(95,135,135)"># SSLSocket class handles server_hostname encoding before it calls</span>
-<span class="ansi-green-fg">    516</span>     <span style="color: rgb(95,135,135)"># ctx._wrap_socket()</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">517</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">sslsocket_class</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_create</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    518</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sock</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    519</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">server_side</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_side</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    520</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">do_handshake_on_connect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">do_handshake_on_connect</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    521</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">suppress_ragged_eofs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">suppress_ragged_eofs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    522</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">server_hostname</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    523</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    524</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">session</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">session</span>
-<span class="ansi-green-fg">    525</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/ssl.py:1104</span>, in <span class="ansi-cyan-fg">SSLSocket._create</span><span class="ansi-blue-fg">(cls, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, context, session)</span>
-<span class="ansi-green-fg">   1103</span>                 <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">do_handshake_on_connect should not be specified for non-blocking sockets</span><span class="ansi-yellow-fg">&#34;</span>)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1104</span>             <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">do_handshake</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1105</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span>:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/ssl.py:1382</span>, in <span class="ansi-cyan-fg">SSLSocket.do_handshake</span><span class="ansi-blue-fg">(self, block)</span>
-<span class="ansi-green-fg">   1381</span>         <span style="color: rgb(0,135,0)">self</span>.settimeout(<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1382</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_sslobj</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">do_handshake</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1383</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-
-<span class="ansi-red-fg">SSLEOFError</span>: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">SSLError</span>                                  Traceback (most recent call last)
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:787</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool.urlopen</span><span class="ansi-blue-fg">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
-<span class="ansi-green-fg">    786</span> <span style="color: rgb(95,135,135)"># Make the request on the HTTPConnection object</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">787</span> response = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_make_request</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    788</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    789</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    790</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    791</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">timeout</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">timeout_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    792</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    793</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    794</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    795</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    796</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">response_conn</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">response_conn</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    797</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">preload_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">preload_content</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    798</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">decode_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_content</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    799</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">response_kw</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    800</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    802</span> <span style="color: rgb(95,135,135)"># Everything went great!</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:488</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool._make_request</span><span class="ansi-blue-fg">(self, conn, method, url, body, headers, retries, timeout, chunked, response_conn, preload_content, decode_content, enforce_content_length)</span>
-<span class="ansi-green-fg">    487</span>         new_e = _wrap_proxy_error(new_e, conn.proxy.scheme)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">488</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> new_e
-<span class="ansi-green-fg">    490</span> <span style="color: rgb(95,135,135)"># conn.request() calls http.client.*.request, not the method in</span>
-<span class="ansi-green-fg">    491</span> <span style="color: rgb(95,135,135)"># urllib3.request. It also calls makefile (recv) on the socket.</span>
-
-<span class="ansi-red-fg">SSLError</span>: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansi-red-fg">MaxRetryError</span>                             Traceback (most recent call last)
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/adapters.py:644</span>, in <span class="ansi-cyan-fg">HTTPAdapter.send</span><span class="ansi-blue-fg">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="ansi-green-fg">    643</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">644</span>     resp = <span class="ansi-yellow-bg">conn</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">urlopen</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    645</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    646</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    647</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">body</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    648</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    649</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">redirect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    650</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">assert_same_host</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    651</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">preload_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    652</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_content</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    653</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">max_retries</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">timeout</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">timeout</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    655</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunked</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    656</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    658</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> (ProtocolError, <span class="ansi-bold" style="color: rgb(215,95,95)">OSError</span>) <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/connectionpool.py:841</span>, in <span class="ansi-cyan-fg">HTTPConnectionPool.urlopen</span><span class="ansi-blue-fg">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
-<span class="ansi-green-fg">    839</span>     new_e = ProtocolError(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Connection aborted.</span><span class="ansi-yellow-fg">&#34;</span>, new_e)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">841</span> retries = <span class="ansi-yellow-bg">retries</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">increment</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    842</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">error</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">new_e</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">_pool</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">_stacktrace</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sys</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">exc_info</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">[</span><span class="ansi-green-fg ansi-yellow-bg">2</span><span class="ansi-yellow-bg">]</span>
-<span class="ansi-green-fg">    843</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    844</span> retries.sleep()
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/urllib3/util/retry.py:519</span>, in <span class="ansi-cyan-fg">Retry.increment</span><span class="ansi-blue-fg">(self, method, url, response, error, _pool, _stacktrace)</span>
-<span class="ansi-green-fg">    518</span>     reason = error <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> ResponseError(cause)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">519</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MaxRetryError(_pool, url, reason) <span class="ansi-bold" style="color: rgb(0,135,0)">from</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">reason</span>  <span style="color: rgb(95,135,135)"># type: ignore[arg-type]</span>
-<span class="ansi-green-fg">    521</span> log.debug(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Incremented Retry for (url=</span><span class="ansi-yellow-fg">&#39;</span><span class="ansi-bold" style="color: rgb(175,95,135)">%s</span><span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">): </span><span class="ansi-bold" style="color: rgb(175,95,135)">%r</span><span class="ansi-yellow-fg">&#34;</span>, url, new_retry)
-
-<span class="ansi-red-fg">MaxRetryError</span>: HTTPSConnectionPool(host=&#39;waterservices.usgs.gov&#39;, port=443): Max retries exceeded with url: /nwis/dv?format=json&amp;parameterCd=00060&amp;startDT=1939-09-22&amp;endDT=2023-12-31&amp;sites=11467000%2C11467002%2C11467006%2C11467050%2C11467200%2C11467210%2C382701123025801%2C382752123003401%2C382754123030501%2C382757123003801%2C382815123024601%2C382944123002901%2C382955122594101%2C383006123000601%2C383009122543001%2C383012122574501%2C383028122554501 (Caused by SSLError(SSLEOFError(8, &#39;[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)&#39;)))
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">SSLError</span>                                  Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[18]</span><span class="ansi-green-fg">, line 9</span>
-<span class="ansi-green-fg">      7</span> start_date = <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">1939-09-22</span><span class="ansi-yellow-fg">&#34;</span>
-<span class="ansi-green-fg">      8</span> end_date = <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">2023-12-31</span><span class="ansi-yellow-fg">&#34;</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">9</span> df, metadata = <span class="ansi-yellow-bg">nwis</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get_dv</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">     10</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sites</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sites</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span>
-<span class="ansi-green-fg">     11</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">start</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">start_date</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span>
-<span class="ansi-green-fg">     12</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">end</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">end_date</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span>
-<span class="ansi-green-fg">     13</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">parameterCd</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">pcode</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span>
-<span class="ansi-green-fg">     14</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">multi_index</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span>
-<span class="ansi-green-fg">     15</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">     16</span> df.head()
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/dataretrieval/nwis.py:701</span>, in <span class="ansi-cyan-fg">get_dv</span><span class="ansi-blue-fg">(sites, start, end, multi_index, ssl_check, **kwargs)</span>
-<span class="ansi-green-fg">    698</span> kwargs[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">sites</span><span class="ansi-yellow-fg">&#34;</span>] = kwargs.pop(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">sites</span><span class="ansi-yellow-fg">&#34;</span>, sites)
-<span class="ansi-green-fg">    699</span> kwargs[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">multi_index</span><span class="ansi-yellow-fg">&#34;</span>] = multi_index
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">701</span> response = <span class="ansi-yellow-bg">query_waterservices</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">dv</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">json</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    702</span> df = _read_json(response.json())
-<span class="ansi-green-fg">    704</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> format_response(df, **kwargs), NWIS_Metadata(response, **kwargs)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/dataretrieval/nwis.py:633</span>, in <span class="ansi-cyan-fg">query_waterservices</span><span class="ansi-blue-fg">(service, ssl_check, **kwargs)</span>
-<span class="ansi-green-fg">    629</span>     kwargs[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">format</span><span class="ansi-yellow-fg">&#34;</span>] = <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">rdb</span><span class="ansi-yellow-fg">&#34;</span>
-<span class="ansi-green-fg">    631</span> url = WATERSERVICE_URL + service
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">633</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">query</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">payload</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">)</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/dataretrieval/utils.py:190</span>, in <span class="ansi-cyan-fg">query</span><span class="ansi-blue-fg">(url, payload, delimiter, ssl_check)</span>
-<span class="ansi-green-fg">    183</span> <span style="color: rgb(95,135,135)"># for index in range(len(payload)):</span>
-<span class="ansi-green-fg">    184</span> <span style="color: rgb(95,135,135)">#    key, value = payload[index]</span>
-<span class="ansi-green-fg">    185</span> <span style="color: rgb(95,135,135)">#    payload[index] = (key, to_str(value))</span>
-<span class="ansi-green-fg">    186</span>
-<span class="ansi-green-fg">    187</span> <span style="color: rgb(95,135,135)"># define the user agent for the query</span>
-<span class="ansi-green-fg">    188</span> user_agent = {<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">user-agent</span><span class="ansi-yellow-fg">&#34;</span>: <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">python-dataretrieval/</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>dataretrieval.__version__<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg">&#34;</span>}
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">190</span> response = <span class="ansi-yellow-bg">requests</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">params</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">payload</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">headers</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">user_agent</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">verify</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">ssl_check</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    192</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> response.status_code == <span class="ansi-green-fg">400</span>:
-<span class="ansi-green-fg">    193</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(
-<span class="ansi-green-fg">    194</span>         <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Bad Request, check that your parameters are correct. URL: </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>response.url<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg">&#34;</span>
-<span class="ansi-green-fg">    195</span>     )
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/api.py:73</span>, in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(url, params, **kwargs)</span>
-<span class="ansi-green-fg">     62</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">get</span>(url, params=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, **kwargs):
-<span class="ansi-green-fg">     63</span> <span style="color: rgb(188,188,188)">    </span><span class="ansi-yellow-fg">r</span><span class="ansi-yellow-fg">&#34;&#34;&#34;Sends a GET request.</span>
-<span class="ansi-green-fg">     64</span>
-<span class="ansi-green-fg">     65</span> <span class="ansi-yellow-fg">    :param url: URL for the new :class:`Request` object.</span>
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">     70</span> <span class="ansi-yellow-fg">    :rtype: requests.Response</span>
-<span class="ansi-green-fg">     71</span> <span class="ansi-yellow-fg">    &#34;&#34;&#34;</span>
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">73</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">get</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">params</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">params</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/api.py:59</span>, in <span class="ansi-cyan-fg">request</span><span class="ansi-blue-fg">(method, url, **kwargs)</span>
-<span class="ansi-green-fg">     55</span> <span style="color: rgb(95,135,135)"># By using the &#39;with&#39; statement we are sure the session is closed, thus we</span>
-<span class="ansi-green-fg">     56</span> <span style="color: rgb(95,135,135)"># avoid leaving sockets open which can trigger a ResourceWarning in some</span>
-<span class="ansi-green-fg">     57</span> <span style="color: rgb(95,135,135)"># cases, and look like a memory leak in others.</span>
-<span class="ansi-green-fg">     58</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> sessions.Session() <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> session:
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">59</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">session</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">method</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/sessions.py:589</span>, in <span class="ansi-cyan-fg">Session.request</span><span class="ansi-blue-fg">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
-<span class="ansi-green-fg">    584</span> send_kwargs = {
-<span class="ansi-green-fg">    585</span>     <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">timeout</span><span class="ansi-yellow-fg">&#34;</span>: timeout,
-<span class="ansi-green-fg">    586</span>     <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">allow_redirects</span><span class="ansi-yellow-fg">&#34;</span>: allow_redirects,
-<span class="ansi-green-fg">    587</span> }
-<span class="ansi-green-fg">    588</span> send_kwargs.update(settings)
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">589</span> resp = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">send</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">prep</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">send_kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    591</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> resp
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/sessions.py:703</span>, in <span class="ansi-cyan-fg">Session.send</span><span class="ansi-blue-fg">(self, request, **kwargs)</span>
-<span class="ansi-green-fg">    700</span> start = preferred_clock()
-<span class="ansi-green-fg">    702</span> <span style="color: rgb(95,135,135)"># Send the request</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">703</span> r = <span class="ansi-yellow-bg">adapter</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">send</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">request</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    705</span> <span style="color: rgb(95,135,135)"># Total elapsed time of the request (approximately)</span>
-<span class="ansi-green-fg">    706</span> elapsed = preferred_clock() - start
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/requests/adapters.py:675</span>, in <span class="ansi-cyan-fg">HTTPAdapter.send</span><span class="ansi-blue-fg">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="ansi-green-fg">    671</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> ProxyError(e, request=request)
-<span class="ansi-green-fg">    673</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">isinstance</span>(e.reason, _SSLError):
-<span class="ansi-green-fg">    674</span>         <span style="color: rgb(95,135,135)"># This branch is for urllib3 v1.22 and later.</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">675</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> SSLError(e, request=request)
-<span class="ansi-green-fg">    677</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ConnectionError</span>(e, request=request)
-<span class="ansi-green-fg">    679</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> ClosedPoolError <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> e:
-
-<span class="ansi-red-fg">SSLError</span>: HTTPSConnectionPool(host=&#39;waterservices.usgs.gov&#39;, port=443): Max retries exceeded with url: /nwis/dv?format=json&amp;parameterCd=00060&amp;startDT=1939-09-22&amp;endDT=2023-12-31&amp;sites=11467000%2C11467002%2C11467006%2C11467050%2C11467200%2C11467210%2C382701123025801%2C382752123003401%2C382754123030501%2C382757123003801%2C382815123024601%2C382944123002901%2C382955122594101%2C383006123000601%2C383009122543001%2C383012122574501%2C383028122554501 (Caused by SSLError(SSLEOFError(8, &#39;[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)&#39;)))
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
 </pre></div></div>
 </div>
 <p>Awesome! There are two gages in this study area that have daily discharge data!</p>
@@ -3231,97 +1971,19 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[33]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> gw = <span class="ansi-yellow-bg">info</span>[info.site_tp_cd == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">GW</span><span class="ansi-yellow-fg">&#34;</span>]
+<span class="ansi-green-fg">      2</span> sw = info[info.site_tp_cd == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">ST</span><span class="ansi-yellow-fg">&#34;</span>]
+<span class="ansi-green-fg">      3</span> sw = sw[<span style="color: rgb(0,135,0)">list</span>(sw)[<span class="ansi-green-fg">0</span>:<span class="ansi-green-fg">8</span>]]
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>agency_cd</th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>USGS</td>
-      <td>11467000</td>
-      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>383031.0</td>
-      <td>1225536.0</td>
-      <td>38.508482</td>
-      <td>-122.927734</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>USGS</td>
-      <td>11467002</td>
-      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>382958.0</td>
-      <td>1225950.0</td>
-      <td>38.499358</td>
-      <td>-122.998333</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>USGS</td>
-      <td>11467006</td>
-      <td>RUSSIAN R A VACATION BEACH CA</td>
-      <td>ST</td>
-      <td>382903.0</td>
-      <td>1230041.0</td>
-      <td>38.484080</td>
-      <td>-123.012500</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>USGS</td>
-      <td>11467050</td>
-      <td>BIG AUSTIN C A CAZADERO CA</td>
-      <td>ST</td>
-      <td>383215.0</td>
-      <td>1230518.0</td>
-      <td>38.537413</td>
-      <td>-123.089447</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>USGS</td>
-      <td>11467200</td>
-      <td>AUSTIN C NR CAZADERO CA</td>
-      <td>ST</td>
-      <td>383024.0</td>
-      <td>1230407.0</td>
-      <td>38.506536</td>
-      <td>-123.069683</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
@@ -3333,728 +1995,18 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[34]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> newdf = pd.concat((<span class="ansi-yellow-bg">gw</span>, sw), ignore_index=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-fg">      2</span> newdf
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>agency_cd</th>
-      <th>site_no</th>
-      <th>station_nm</th>
-      <th>site_tp_cd</th>
-      <th>lat_va</th>
-      <th>long_va</th>
-      <th>dec_lat_va</th>
-      <th>dec_long_va</th>
-      <th>coord_meth_cd</th>
-      <th>coord_acy_cd</th>
-      <th>...</th>
-      <th>local_time_fg</th>
-      <th>reliability_cd</th>
-      <th>gw_file_cd</th>
-      <th>nat_aqfr_cd</th>
-      <th>aqfr_cd</th>
-      <th>aqfr_type_cd</th>
-      <th>well_depth_va</th>
-      <th>hole_depth_va</th>
-      <th>depth_src_cd</th>
-      <th>project_no</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>USGS</td>
-      <td>382713123030401</td>
-      <td>007N011W14NU01M</td>
-      <td>GW</td>
-      <td>382712.5</td>
-      <td>1230303.5</td>
-      <td>38.453472</td>
-      <td>-123.050972</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>81.70</td>
-      <td>NaN</td>
-      <td>S</td>
-      <td>GGMC200</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>USGS</td>
-      <td>382713123030403</td>
-      <td>007N011W14NU03M</td>
-      <td>GW</td>
-      <td>382712.5</td>
-      <td>1230303.5</td>
-      <td>38.453472</td>
-      <td>-123.050972</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>32.56</td>
-      <td>NaN</td>
-      <td>S</td>
-      <td>GGMC200</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>USGS</td>
-      <td>382808122565401</td>
-      <td>007N010W10H001M</td>
-      <td>GW</td>
-      <td>382808.5</td>
-      <td>1225654.2</td>
-      <td>38.469028</td>
-      <td>-122.948389</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.00</td>
-      <td>22.0</td>
-      <td>D</td>
-      <td>00BHM8187</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>USGS</td>
-      <td>382819123010001</td>
-      <td>007N010W07D001M</td>
-      <td>GW</td>
-      <td>382819.9</td>
-      <td>1230100.8</td>
-      <td>38.472194</td>
-      <td>-123.016889</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>99.00</td>
-      <td>110.0</td>
-      <td>D</td>
-      <td>9677BHM32</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>USGS</td>
-      <td>383001122540701</td>
-      <td>008N009W31C002M</td>
-      <td>GW</td>
-      <td>383001.9</td>
-      <td>1225407.7</td>
-      <td>38.500528</td>
-      <td>-122.902139</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>80.00</td>
-      <td>80.0</td>
-      <td>D</td>
-      <td>9677BHM32</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>USGS</td>
-      <td>383003122540401</td>
-      <td>008N009W31C003M</td>
-      <td>GW</td>
-      <td>383003.3</td>
-      <td>1225404.4</td>
-      <td>38.500917</td>
-      <td>-122.901222</td>
-      <td>G</td>
-      <td>1</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>USGS</td>
-      <td>383003122540402</td>
-      <td>008N009W31C004M</td>
-      <td>GW</td>
-      <td>383003.3</td>
-      <td>1225404.4</td>
-      <td>38.500917</td>
-      <td>-122.901222</td>
-      <td>G</td>
-      <td>1</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>USGS</td>
-      <td>383003122540403</td>
-      <td>008N009W31C005M</td>
-      <td>GW</td>
-      <td>383003.3</td>
-      <td>1225404.4</td>
-      <td>38.500917</td>
-      <td>-122.901222</td>
-      <td>G</td>
-      <td>1</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25.00</td>
-      <td>NaN</td>
-      <td>S</td>
-      <td>967760420</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>USGS</td>
-      <td>383016123041101</td>
-      <td>008N011W27N001M</td>
-      <td>GW</td>
-      <td>383016.3</td>
-      <td>1230411.0</td>
-      <td>38.504528</td>
-      <td>-123.069722</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>30.00</td>
-      <td>30.0</td>
-      <td>D</td>
-      <td>00BHM8187</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>USGS</td>
-      <td>383017122580301</td>
-      <td>008N010W28RU01M</td>
-      <td>GW</td>
-      <td>383017.4</td>
-      <td>1225802.5</td>
-      <td>38.504833</td>
-      <td>-122.967361</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>98.00</td>
-      <td>107.0</td>
-      <td>D</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>USGS</td>
-      <td>383034122590701</td>
-      <td>008N010W29H004M</td>
-      <td>GW</td>
-      <td>383034.4</td>
-      <td>1225907.9</td>
-      <td>38.509556</td>
-      <td>-122.985528</td>
-      <td>G</td>
-      <td>5</td>
-      <td>...</td>
-      <td>Y</td>
-      <td>C</td>
-      <td>YY   Y</td>
-      <td>N100CACSTL</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>99.00</td>
-      <td>110.0</td>
-      <td>D</td>
-      <td>9677BHM32</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>USGS</td>
-      <td>11467000</td>
-      <td>RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>383031.0</td>
-      <td>1225536.0</td>
-      <td>38.508482</td>
-      <td>-122.927734</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>USGS</td>
-      <td>11467002</td>
-      <td>RUSSIAN R A JOHNSONS BEACH A GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>382958.0</td>
-      <td>1225950.0</td>
-      <td>38.499358</td>
-      <td>-122.998333</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>USGS</td>
-      <td>11467006</td>
-      <td>RUSSIAN R A VACATION BEACH CA</td>
-      <td>ST</td>
-      <td>382903.0</td>
-      <td>1230041.0</td>
-      <td>38.484080</td>
-      <td>-123.012500</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>USGS</td>
-      <td>11467050</td>
-      <td>BIG AUSTIN C A CAZADERO CA</td>
-      <td>ST</td>
-      <td>383215.0</td>
-      <td>1230518.0</td>
-      <td>38.537413</td>
-      <td>-123.089447</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>USGS</td>
-      <td>11467200</td>
-      <td>AUSTIN C NR CAZADERO CA</td>
-      <td>ST</td>
-      <td>383024.0</td>
-      <td>1230407.0</td>
-      <td>38.506536</td>
-      <td>-123.069683</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>USGS</td>
-      <td>11467210</td>
-      <td>RUSSIAN R A DUNCANS MILLS CA</td>
-      <td>ST</td>
-      <td>382713.0</td>
-      <td>1230254.0</td>
-      <td>38.453525</td>
-      <td>-123.049446</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>USGS</td>
-      <td>382701123025801</td>
-      <td>FREEZEOUT C NR DUNCANS MILLS CA</td>
-      <td>ST</td>
-      <td>382701.0</td>
-      <td>1230258.0</td>
-      <td>38.450278</td>
-      <td>-123.049444</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>USGS</td>
-      <td>382752123003401</td>
-      <td>DUTCH BILL C A MONTE RIO CA</td>
-      <td>ST</td>
-      <td>382752.0</td>
-      <td>1230034.0</td>
-      <td>38.464444</td>
-      <td>-123.009444</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>USGS</td>
-      <td>382754123030501</td>
-      <td>RUSSIAN R A CASINI RANCH NR DUNCANS MILLS CA</td>
-      <td>ST</td>
-      <td>382754.0</td>
-      <td>1230305.0</td>
-      <td>38.465000</td>
-      <td>-123.051389</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>USGS</td>
-      <td>382757123003801</td>
-      <td>RUSSIAN R A MONTE RIO CA</td>
-      <td>ST</td>
-      <td>382757.0</td>
-      <td>1230038.0</td>
-      <td>38.465833</td>
-      <td>-123.010556</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>USGS</td>
-      <td>382815123024601</td>
-      <td>AUSTIN C NR DUNCANS MILLS CA</td>
-      <td>ST</td>
-      <td>382815.0</td>
-      <td>1230246.0</td>
-      <td>38.470833</td>
-      <td>-123.046111</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>USGS</td>
-      <td>382944123002901</td>
-      <td>HULBERT C NR GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>382944.0</td>
-      <td>1230029.0</td>
-      <td>38.495556</td>
-      <td>-123.008056</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>USGS</td>
-      <td>382955122594101</td>
-      <td>POCKET CYN C A GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>382955.0</td>
-      <td>1225941.0</td>
-      <td>38.498611</td>
-      <td>-122.994722</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>USGS</td>
-      <td>383006123000601</td>
-      <td>FIFE C A GUERNEVILLE CA</td>
-      <td>ST</td>
-      <td>383006.0</td>
-      <td>1230006.0</td>
-      <td>38.501667</td>
-      <td>-123.001667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>USGS</td>
-      <td>383009122543001</td>
-      <td>GREEN VALLEY C NR MIRABEL HEIGHTS CA</td>
-      <td>ST</td>
-      <td>383009.0</td>
-      <td>1225430.0</td>
-      <td>38.502500</td>
-      <td>-122.908333</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>USGS</td>
-      <td>383012122574501</td>
-      <td>RUSSIAN R A ODD FELLOWS PARK NR RIO NIDO CA</td>
-      <td>ST</td>
-      <td>383012.0</td>
-      <td>1225745.0</td>
-      <td>38.503333</td>
-      <td>-122.962500</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>USGS</td>
-      <td>383028122554501</td>
-      <td>HOBSON C NR HACIENDA CA</td>
-      <td>ST</td>
-      <td>383028.0</td>
-      <td>1225545.0</td>
-      <td>38.507778</td>
-      <td>-122.929167</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>28 rows × 42 columns</p>
-</div></div>
+<span class="ansi-red-fg">NameError</span>: name &#39;gw&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 </section>
@@ -5041,7 +2993,7 @@ During handling of the above exception, another exception occurred:
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 23, 2025.
+      <span class="lastupdated">Last updated on Sep 24, 2025.
       </span></p>
   </div>
 

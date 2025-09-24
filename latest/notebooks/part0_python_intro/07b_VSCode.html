@@ -264,6 +264,13 @@
 <section id="plotting">
 <h3>Plotting<a class="headerlink" href="#plotting" title="Link to this heading"></a></h3>
 <p>During a debug session, as long as matplotlib has been imported, one can make plots via the Debug Console or by putting plotting code in the script.</p>
+<p><strong>If the plot isn’t showing up</strong></p>
+<ul class="simple">
+<li><p>Try making the plot by starting with <code class="docutils literal notranslate"><span class="pre">fig,</span> <span class="pre">ax</span> <span class="pre">=</span> <span class="pre">plt.subplots()</span></code> syntax (instead of <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code>)</p></li>
+<li><p>Then in the debug console enter <code class="docutils literal notranslate"><span class="pre">fig.show()</span></code> or <code class="docutils literal notranslate"><span class="pre">plt.draw()</span></code></p></li>
+<li><p>Alternativey, try <code class="docutils literal notranslate"><span class="pre">plt.pause(1)</span></code></p></li>
+<li><p>On Windows, look in the task bar for a matplotlib icon  <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg" alt="drawing" width="40"/> (or press Alt + Tab to show the open windows)</p></li>
+</ul>
 </section>
 <section id="automatic-docstring-generation">
 <h3>Automatic docstring generation<a class="headerlink" href="#automatic-docstring-generation" title="Link to this heading"></a></h3>
@@ -305,7 +312,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 23, 2025.
+      <span class="lastupdated">Last updated on Sep 24, 2025.
       </span></p>
   </div>
 
