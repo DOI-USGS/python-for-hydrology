@@ -38,21 +38,27 @@ Choose Python 3 (ipykernal)
 
 ## Using Jupyter
 
-Code blocks can be run with "Shift + Enter".
+* Individual code blocks can be run with "Shift + Enter".
 
-You can pick a spot in the notebook and run all 
+* You can pick a spot in the notebook and run all 
 the code up until that point. To do that, place your 
 cursor in the place you want the code to run to. Go 
 to the Run menu and choose "Run all above selected cell".
 
 <img src="images/run_to.png" alt="Run to a code block" width="300"/>
 
-Text notes can be added by adding a cell and choosing "Markdown":
-
-
-You could just use some HTML in your Markdown:
+* Text notes can be added by adding a cell and choosing "Markdown":
 
 <img src="images/take_notes.png" alt="Take notes" width="200"/>
+
+* Code cells that have been run will have a number in the [ ]:
+
+<img src="images/was_run.png" alt="Take notes" width="300"/>
+
+* Export the notebook to a Python script:
+
+File -> Save and Export Notebook As -> Executable Script
+
 
 
 
