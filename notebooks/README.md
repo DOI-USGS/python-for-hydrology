@@ -6,25 +6,25 @@ Jupyter Lab will be used to view and interact with Python Notebooks.
 
 ### Windows
 
-1. Open Miniforge Prompt
+1. Open Miniforge Prompt. Startup steps (2-4) are done within Miniforge.
 
 2. Navigate to the notebooks folder:
 
 For example:
 
-```
+```shell
 cd python-for-hydrology/notebooks/part0_python_intro
 ```
 
 3. Activate the pyclass environment (this assumes the installation steps were already performed).
 
-```
+```shell
 conda activate pyclass
 ```
 
 4. Launch JupyterLab with the command:
 
-```
+```shell
 jupyter lab
 ```
 
