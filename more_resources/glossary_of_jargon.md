@@ -29,6 +29,9 @@ A kludge or kluge (/klʌdʒ, kluːdʒ/) is a workaround or quick-and-dirty solut
  
 #### Lint
 Lint, or a linter, is a tool that analyzes source code to flag programming errors, bugs, stylistic errors, and suspicious constructs. The term originates from a Unix utility that examined C language source code.
+
+### large language model (LLM)
+AI agent that uses probability of what you might like to hear next as a method to communicate. Sometimes makes sense. Sometimes glitches. 
  
 #### lmgtfy
 Let me Google that for you. https://lmgtfy.com/
@@ -59,6 +62,9 @@ Technical debt (also known as design debt or code debt, but can be also related 
  
 #### Test-driven development (TDD)
 A software development process that relies on the repetition of a very short development cycle: requirements are turned into very specific test cases, then the code is improved so that the tests pass. This is opposed to software development that allows code to be added that is not proven to meet requirements. In the context of scientific programming, the idea is to start new code development with a test function that describes what needs to be done, and a small piece of test data that mimics the (large) real dataset that needs to be processed. The new code (usually a function) can then be written and tested rapidly against the test data set (via the test function). When the test finally passes, the new code can be run with the real dataset. This can greatly speed development (faster runtimes) and when the code is developed, a test is already in place to prevent future regressions to the code when new features are added.
+
+### Vibe Coding
+Using large language AI models to write code just by entering prompts and executing whatever the LLM returns without reading or scrutinizing the results. There's a continuum of LLM help in coding, but going just by vibe is the extreme endmember. https://en.wikipedia.org/wiki/Vibe_coding
  
 #### "You aren't gonna need it" (YAGNI)
 A principle of extreme programming (XP) that states a programmer should not add functionality until deemed necessary. XP co-founder Ron Jeffries has written: "Always implement things when you actually need them, never when you just foresee that you need them."
