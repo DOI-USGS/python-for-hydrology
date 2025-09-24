@@ -115,6 +115,12 @@ The Run and Debug view on the left (available via the Activity Bar) shows the cu
 ### Plotting
 During a debug session, as long as matplotlib has been imported, one can make plots via the Debug Console or by putting plotting code in the script.
 
+**If the plot isn't showing up**
+* Try making the plot by starting with `fig, ax = plt.subplots()` syntax (instead of `plt.plot()`)
+* Then in the debug console enter `fig.show()` or `plt.draw()`
+* Alternativey, try `plt.pause(1)`
+* On Windows, look in the task bar for a matplotlib icon  <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg" alt="drawing" width="40"/> (or press Alt + Tab to show the open windows)
+
 ### Automatic docstring generation
 Right click at the beginning of the first line *below* the ``def`` statement for any of the functions and choose ``Generate docstring``. The autoDocstring extension should make a new template for a docstring that includes all of the parameters listed in the function signature. 
 
