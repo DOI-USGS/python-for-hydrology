@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best practices for scientific programming &mdash; Python for Hydrology 1.0a documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=feab032e"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Packaging: the next level" href="packaging.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Python for Hydrology
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main Curriculum</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="part0.html">     Part 0: Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1: Flopy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bonus_examples.html">     General Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SOME_HELPFUL_LINKS.html"> Additional links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html"> Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary_of_jargon.html"> Glossary of jargon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html"> Making a Python package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"> Scientific programming best practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-should-we-care">Why should we care?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#technical-debt">Technical Debt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#software-craftsmanship">Software “Craftsmanship”</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a-disclaimer">A Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-for-writing-good-code">Tips for writing “Good Code”</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#variable-names">Variable names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#on-comments">On comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#on-ai-assistants">On AI assistants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-resources">Other Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Hydrology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Best practices for scientific programming</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/best_practices.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="best-practices-for-scientific-programming">
+<h1>Best practices for scientific programming<a class="headerlink" href="#best-practices-for-scientific-programming" title="Link to this heading"></a></h1>
+<section id="why-should-we-care">
+<h2>Why should we care?<a class="headerlink" href="#why-should-we-care" title="Link to this heading"></a></h2>
+<p>“programs must be written for people to read, and only incidentally for machines to execute”<a class="footnote-reference brackets" href="#id7" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> <div style="text-align: right">—Abelson and others (1996)</div></p>
+<p>“Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code. …[Therefore,] making it easy to read makes it easier to write.”<a class="footnote-reference brackets" href="#id8" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> <div style="text-align: right">—Robert Martin, in <em>Clean Code</em> (2008)</div></p>
+<p>Code is arguably just as much about communication—documenting methods for yourself, your co-workers or collaborators and others—as it is about successfully automating a process. Clean, succinct and readable code can help us work more efficiently, be more productive, and realize the “quality of life” benefits that were one of the motivations for coding in the first place. Messy, unreadable and redundant code takes longer to understand (if we can understand it at all), and can mire us in endless debugging. Work might have to be repeated because of inevitable mistakes. We might be better off just throwing it away and starting over, in which case the communication encapsulated in the original code is lost.</p>
+<section id="technical-debt">
+<h3>Technical Debt<a class="headerlink" href="#technical-debt" title="Link to this heading"></a></h3>
+<p>For scientists, time lost to bad code might translate to missed deadlines, blown budgets or extra hours. For companies that depend on a reliable codebase to turn a profit, bad code can snowball over time, eventually leading to bankruptcy. Software engineers have a term for this: “<a class="reference external" href="https://en.wikipedia.org/wiki/Technical_debt">technical debt</a>”. In short, expedient solutions and quick fixes to “get it to work” can accelerate code development in the short term, at the cost of slowing development over time by making the code harder to maintain, refactor and extend. The worse the code gets, the less people want to spend time maintaining and improving it.</p>
+</section>
+<section id="software-craftsmanship">
+<h3>Software “Craftsmanship”<a class="headerlink" href="#software-craftsmanship" title="Link to this heading"></a></h3>
+<p>As an antidote to this, software engineer and <a class="reference external" href="https://en.wikipedia.org/wiki/Agile_software_development#The_Agile_Manifesto">Agile Manifesto</a> coauthor Robert Martin argues for software craftsmanship—taking pride in your work and not just doing it right the first time, but continually refactoring code to improve it over time.<a class="footnote-reference brackets" href="#id8" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> While Martin’s core audience is probably software developers, scientists making scripts can also benefit from this advice. When you’re in the code to fix a bug or add a feature, and the code is in your head, there is never a better time to clean it up and refactor. Building code improvement and maintenance into your work pays dividends over time, allowing you to realize the full benefits of coding. Below are some best practices to strive for that can help you develop “good code”.</p>
+</section>
+</section>
+<section id="a-disclaimer">
+<h2>A Disclaimer<a class="headerlink" href="#a-disclaimer" title="Link to this heading"></a></h2>
+<p>The scientific coding universe is vast, and best practices are often application-specific. These “best practices” are especially focused on scientific Python. No workflow is perfect, and this isn’t an all-or-nothing proposition— any adoption of these practices will help!</p>
+</section>
+<section id="tips-for-writing-good-code">
+<h2>Tips for writing “Good Code”<a class="headerlink" href="#tips-for-writing-good-code" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Break programs up into functions that ideally do one thing</p></li>
+<li><p><strong>DRY:</strong> don’t repeat yourself!</p></li>
+<li><p>Strive to generalize each function, but not at the cost of
+simplicity</p></li>
+<li><p>Think about how you or someone else might want to use this in
+the future, perhaps for a different application</p></li>
+<li><p>Think about <strong>your collaborators</strong> (which <strong>include yourself 6 months from now!</strong>)</p></li>
+<li><p>but <strong>YAGNI:</strong> you aren’t gonna need it</p></li>
+<li><p>Work in small steps and use version control<a class="footnote-reference brackets" href="#id9" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> (usually Git)</p></li>
+<li><p>Take the extra time to write detailed docstrings for each function, or at least enough for your collaborator(s) to understand why it’s there and what it does.</p></li>
+<li><p>Plan for mistakes<a class="footnote-reference brackets" href="#id9" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>: add assertions and error traps to catch mistakes early</p></li>
+<li><p>Document your workflow so it can be re-run in the future. Even better; use a pipeline manager like <a class="reference external" href="https://snakemake.github.io/">snakemake</a>.</p></li>
+<li><p>Avoid writing object classes unless they are clearly needed</p></li>
+<li><p>Use a consistent organizational structure</p></li>
+<li><p>Put production code (that will be run repeatedly) in module files and scripts that can be run at the command line. Jupyter Notebooks are great for prototyping and illustration but can add to cognitive load in a production workflow.</p></li>
+<li><p>Remember the <a class="reference external" href="https://peps.python.org/pep-0020/#the-zen-of-python">Zen of Python</a></p></li>
+<li><p>Follow the community—when in doubt about how to do something, look at what others are doing online. What does Stack Overflow say? How are respected developers in mainstream Python packages approaching it?</p></li>
+<li><p>Don’t be afraid to refactor!</p></li>
+</ul>
+<section id="variable-names">
+<h3>Variable names<a class="headerlink" href="#variable-names" title="Link to this heading"></a></h3>
+<p>should be expressive and searchable.</p>
+<ul class="simple">
+<li><p>For example, avoid single characters like <code class="docutils literal notranslate"><span class="pre">d</span></code> (what does “d” represent, and good luck trying to find it in a search)</p></li>
+<li><p>Certainly avoid characters like <code class="docutils literal notranslate"><span class="pre">l</span></code> that can be confused with <code class="docutils literal notranslate"><span class="pre">1</span></code>, or <code class="docutils literal notranslate"><span class="pre">I</span></code></p></li>
+<li><p>Use nouns for objects and verbs for functions</p></li>
+<li><p>Avoid “Hungarian” names like <code class="docutils literal notranslate"><span class="pre">PARCHGLIM</span></code> or <code class="docutils literal notranslate"><span class="pre">KVANI</span></code><a class="footnote-reference brackets" href="#id8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></li>
+<li><p>In Python, avoid built-ins like <code class="docutils literal notranslate"><span class="pre">file</span></code> (if you are using an editor with syntax highlighting, these should be obviously flagged in a different color)</p></li>
+<li><p>In Python, follow <a class="reference external" href="https://peps.python.org/pep-0008/">PEP8</a>, which in most cases boils down to   lower case variable names with underscores if needed (CapWords for classes)</p></li>
+<li><p>Some exceptions to these rules in Python:</p>
+<ul>
+<li><p>Certainly universally followed conventions like <code class="docutils literal notranslate"><span class="pre">pd</span></code> for pandas</p></li>
+<li><p>Perhaps also common but less universal idioms like using <code class="docutils literal notranslate"><span class="pre">k</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> for iterating through dictionaries. People do this because the context is usually clear (working with keys and values), and using <code class="docutils literal notranslate"><span class="pre">k</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> can reduce clutter and improve readability. Ditto for using <code class="docutils literal notranslate"><span class="pre">f</span></code> for file instead of the built-in <code class="docutils literal notranslate"><span class="pre">file</span></code> in for-loops or list comprehensions.</p></li>
+</ul>
+</li>
+<li><p>While you’re in the code (and the code is in your head), take a little extra time to rename obtuse or unsearchable variables.</p></li>
+</ul>
+</section>
+<section id="on-comments">
+<h3>On comments<a class="headerlink" href="#on-comments" title="Link to this heading"></a></h3>
+<p>In the book “Clean Code”, Robert Martin argues forcefully that we should think critically about comments, and seek to minimize them. How many times have you copied and pasted, or refactored code, edited it until it works, and then moved on without touching the comments? We all do it, especially when we’re pressed for time. It’s quite easy to end up with a bunch of comments that are cryptic at best and at worse, misleading or irrelevant. These only serve to clutter up the code and increase the time needed understand it.</p>
+<ul>
+<li><p>If you’re thinking about writing a comment, ask why? Can whatever the comment is be communicated directly in the code? For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># aggregate daily results to monthly means</span>
+<span class="n">dfm</span> <span class="o">=</span> <span class="n">process_results</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>vs</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_means</span> <span class="o">=</span> <span class="n">get_monthly_means</span><span class="p">(</span><span class="n">daily_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which one makes more sense to you?</p>
+</li>
+<li><p>Use comments to document intent instead of repeating what the code is already saying. Sometimes, even with the most expressive code, the reason for a particular implementation choice isn’t always clear, especially at a cursory glance. Well-placed comments can help with this.</p></li>
+<li><p>While you’re in the code (and the code is in your head), take a little extra time to clean up stale or unnecessary comments.</p></li>
+</ul>
+</section>
+<section id="on-ai-assistants">
+<h3>On AI assistants<a class="headerlink" href="#on-ai-assistants" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Use AI assistants as tools if they’re helpful</p></li>
+<li><p>But recognize that there is no substitute for thinking</p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions">Stack Overflow</a>, which has consensus-based answers from real software developers with years of experience, might yield better results.</p></li>
+<li><p>For example, a chatbot like <em>Claude</em> might spit out 100 lines of correctly formatted, <a class="reference external" href="https://peps.python.org/pep-0008/">PEP8</a> compliant Python code that solves the problem, but the best solution might be 2 lines. Which code would you rather maintain?</p></li>
+<li><p>In other words, <a class="reference external" href="https://peps.python.org/pep-0020/">There should be one– and preferably only one –obvious way to do it.</a> The chatbot is unlikely to get this.</p></li>
+<li><p>This is a <a class="reference external" href="https://leaddev.com/technical-direction/how-ai-generated-code-accelerates-technical-debt">problem that real software engineers are currently grappling with</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="other-resources">
+<h2>Other Resources<a class="headerlink" href="#other-resources" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Does anyone have a favorite resource for learning Git?</p></li>
+<li><p><a class="reference internal" href="packaging.html"><span class="doc std std-doc">Making a Python package</span></a></p></li>
+<li><p>Are there any other resources that should be included here?</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+</section>
+</section>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id7" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Abelson, H., Sussman, G. J., with Julie Sussman (1996). Structure and Interpretation of Computer Programs. Cambridge: MIT Press/McGraw-Hill, 855 p.</p>
+</aside>
+<aside class="footnote brackets" id="id8" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
+<p>Robert C. Martin, Clean Code: A Handbook of Agile Software Craftsmanship.</p>
+</aside>
+<aside class="footnote brackets" id="id9" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>Wilson G, Aruliah DA, Brown CT, Chue Hong NP, Davis M, et al. (2014) Best Practices for Scientific Computing. PLoS Biol 12(1): e1001745. <a class="reference external" href="https://doi.org/10.1371/journal.pbio.1001745">doi:10.1371/journal.pbio.1001745</a></p>
+</aside>
+</aside>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="packaging.html" class="btn btn-neutral float-left" title="Packaging: the next level" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Sep 24, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

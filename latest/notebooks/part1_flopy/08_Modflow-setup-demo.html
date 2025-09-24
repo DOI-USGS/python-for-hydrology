@@ -93,6 +93,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../SOME_HELPFUL_LINKS.html"> Additional links</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html"> Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../glossary_of_jargon.html"> Glossary of jargon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packaging.html"> Making a Python package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../best_practices.html"> Scientific programming best practices</a></li>
 </ul>
 
         </div>
@@ -137,7 +139,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Uniform, rectilinear grids are used for the parent and inset models, which greatly simplifies model construction, diagnostics, postprocessing and visualization</p></li>
 <li><p>With the parent and inset models tightly coupled at the matrix (inner iteration) level, little or no model solution efficiency is lost vs. an unstructured discretization approach.</p></li>
 </ul>
-<p><img alt="888c84e527d3401481155d0190ba87b2" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="9a528780a4674bf18e7ef6af655b9f06" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -356,7 +358,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post531+g24574b5
+Pleasant Lake test case version 0.1.post534+g8607055
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -452,7 +454,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post531+g24574b5
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post534+g8607055
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -751,7 +753,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/24 18:54:36
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/24 19:03:28
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -770,8 +772,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/24 18:54:41
- Elapsed run time:  4.976 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/24 19:03:33
+ Elapsed run time:  5.014 Seconds
 
 
 WARNING REPORT:
