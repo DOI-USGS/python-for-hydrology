@@ -991,28 +991,10 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6c2a2109",
-   "metadata": {},
-   "source": [
-    "## TEST YOUR SKILLS _OPTIONAL_\n",
-    "We have an Excel file that contains a crosswalk between SPECIES number as provided and species name. Can we bring that into our dataset and evaluate some conclusions about tree species by neighborhood?\n",
-    "- start with the `trees_with_hoods` GeoDataFrame\n",
-    "- load up and join the data from datapath / 'Madison_Tree_Species_Lookup.xlsx'\n",
-    "- hint: check the dtypes before merging - if you are going to join on a column, the column must be the same dtype in both dataframes\n",
-    "- Make a multipage PDF with a page for each neighborhood showing a bar chart of the top ten tree species (by name) in each neighborhood\n",
-    "- Make a map (use explore, or save to SHP or geojson) showing the neighborhoods with a color-coded field showing the most common tree species for each neighborhood\n",
-    "\n",
-    "You will need a few pandas operations that we have only touched on a bit:  \n",
-    "\n",
-    "`groupby`, `count`, `merge`, `read_excel`, `sort_values`, `iloc`"
-   ]
-  },
-  {
-   "cell_type": "markdown",
    "id": "e63a1ab3",
    "metadata": {},
    "source": [
-    "#### As we've seen, spatial joins are powerful, but they really only gather data from multiple collections. What if we want to actually calculate the amount of overlap among shapes? Or create new shapes based on intersection or not intersection of shapes? [`overlay`](https://geopandas.org/en/stable/docs/user_guide/set_operations.html?highlight=overlay) does these things."
+    "### As we've seen, spatial joins are powerful, but they really only gather data from multiple collections. What if we want to actually calculate the amount of overlap among shapes? Or create new shapes based on intersection or not intersection of shapes? [`overlay`](https://geopandas.org/en/stable/docs/user_guide/set_operations.html?highlight=overlay) does these things."
    ]
   },
   {
@@ -1118,9 +1100,27 @@
    ]
   },
   {
+   "cell_type": "markdown",
+   "id": "12c97da3-b68d-48a3-8888-2c946ae366db",
+   "metadata": {},
+   "source": [
+    "## TEST YOUR SKILLS _OPTIONAL_\n",
+    "We have an Excel file that contains a crosswalk between SPECIES number as provided and species name. Can we bring that into our dataset and evaluate some conclusions about tree species by neighborhood?\n",
+    "- start with the `trees_with_hoods` GeoDataFrame\n",
+    "- load up and join the data from datapath / 'Madison_Tree_Species_Lookup.xlsx'\n",
+    "- hint: check the dtypes before merging - if you are going to join on a column, the column must be the same dtype in both dataframes\n",
+    "- Make a multipage PDF with a page for each neighborhood showing a bar chart of the top ten tree species (by name) in each neighborhood\n",
+    "- Make a map (use explore, or save to SHP or geojson) showing the neighborhoods with a color-coded field showing the most common tree species for each neighborhood\n",
+    "\n",
+    "You will need a few pandas operations that we have only touched on a bit:  \n",
+    "\n",
+    "`groupby`, `count`, `merge`, `read_excel`, `sort_values`, `iloc`"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": null,
-   "id": "109ad057",
+   "id": "a8707ab2-d53a-423c-b5df-1cde26464c98",
    "metadata": {},
    "outputs": [],
    "source": []
