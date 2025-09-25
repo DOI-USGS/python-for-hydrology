@@ -29,6 +29,11 @@
 * [Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/abs/10.1111/gwat.12413)
 * [Another Groundwater Paper](https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.13259)
 
+### Accessing USGS Data
+* [hyswap](https://doi-usgs.github.io/hyswap/) Statistical analysis for hydrologic data.
+* [dataretrieval](https://github.com/DOI-USGS/dataretrieval-python) Accessing and analyzing USGS data through NWIS.
+
+
 ### Modflow-setup and SFRmaker
 * [Modflow-setup code and docs](https://github.com/doi-usgs/modflow-setup)
 * [Modflow-setup paper](https://www.frontiersin.org/articles/10.3389/feart.2022.903965/full)
