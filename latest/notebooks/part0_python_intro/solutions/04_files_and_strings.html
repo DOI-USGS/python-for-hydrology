@@ -372,15 +372,13 @@ Is file closed? True
 <section id="File-paths">
 <h2>File paths<a class="headerlink" href="#File-paths" title="Link to this heading"></a></h2>
 <p>Files on non-volatile storage media are organized by a set of rules known as a <strong>file system</strong>. File systems are made up of files and <strong>directories</strong>, which are containers for both files and other directories.</p>
-<p>By default, when we create a new file by opening it goes in the current directory (wherever we were when we ran the program). Similarly, when we open a file for reading, Python looks for it in the current directory. In the above example, we have used <code class="docutils literal notranslate"><span class="pre">os.path.join()</span></code> to write the file to a specific directory rather than the directory we are running this notebook from. If <code class="docutils literal notranslate"><span class="pre">'test.txt'</span></code> was used in the <code class="docutils literal notranslate"><span class="pre">open</span></code> statement, the file would have been written to the current working directory. The
+<p>By default, when we create a new file by opening it goes in the current directory (wherever we were when we ran the program). Similarly, when we open a file for reading, Python looks for it in the current directory. In the above example, we have used <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code> to write the file to a specific directory rather than the directory we are running this notebook from. If <code class="docutils literal notranslate"><span class="pre">'test.txt'</span></code> was used in the <code class="docutils literal notranslate"><span class="pre">open</span></code> statement, the file would have been written to the current working directory. The
 current working directory can be determined using:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The os module used to be the preferred way to access</span>
-<span class="c1"># the current working directory; now we use pathlib</span>
-<span class="c1"># os.getcwd()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pathlib Path object can be used to find the current working directory</span>
 
 <span class="n">cwd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
@@ -395,13 +393,12 @@ current working directory can be determined using:</p>
 /Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part0_python_intro/solutions
 </pre></div></div>
 </div>
-<p>Determine the directory that we wrote <code class="docutils literal notranslate"><span class="pre">'test.txt'</span></code> (<code class="docutils literal notranslate"><span class="pre">fname</span></code>) to in the blank code block below using <code class="docutils literal notranslate"><span class="pre">os.path.abspath()</span></code>:</p>
+<p>Determine the directory that we wrote <code class="docutils literal notranslate"><span class="pre">'test.txt'</span></code> (<code class="docutils literal notranslate"><span class="pre">fname</span></code>) to in the blank code block below using <code class="docutils literal notranslate"><span class="pre">&lt;Path&gt;.resolve()</span></code> where <code class="docutils literal notranslate"><span class="pre">Path</span></code> indicates the <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code> object:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># os.path.abspath(fname)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 
 <span class="c1"># to get the absolute path using pathlib, we use .resolve()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">fname</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
@@ -420,7 +417,8 @@ current working directory can be determined using:</p>
 <p>On Windows, a full path could look like <code class="docutils literal notranslate"><span class="pre">'C:\\temp\\somefile.txt'</span></code>, while on MacOSX, Linux, and Unix systems the full path could be <code class="docutils literal notranslate"><span class="pre">'/home/jimmy/somefile.txt'</span></code>. Because backslashes are used to escape things like newlines and tabs, we need to write two backslashes in a literal string to get one! So the length of these two strings is the same!</p>
 <p>We cannot use <code class="docutils literal notranslate"><span class="pre">/</span></code> or <code class="docutils literal notranslate"><span class="pre">\</span></code> as part of a filename; they are reserved as a delimiter between directory and filenames.</p>
 <p><code class="docutils literal notranslate"><span class="pre">os.path</span></code> includes a number of useful methods for manipulating pathnames. For example, <code class="docutils literal notranslate"><span class="pre">os.path.normpath(path)</span></code> can be used to take Unix style paths into paths that can be used with Windows.</p>
-<p>Take a look at <a class="reference external" href="https://docs.python.org/3.9/library/os.path.html">https://docs.python.org/3.9/library/os.path.html</a> for more information of <code class="docutils literal notranslate"><span class="pre">os.path</span></code> methods.</p>
+<p>Take a look at <a class="reference external" href="https://docs.python.org/3.9/library/os.path.html">https://docs.python.org/3.9/library/os.path.html</a> for more information on <code class="docutils literal notranslate"><span class="pre">os.path</span></code> methods or <a class="reference external" href="https://docs.python.org/3/library/pathlib.html">https://docs.python.org/3/library/pathlib.html</a> for more information on <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code>.</p>
+<p>Alternatively, <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code> stores and operates on paths in a operating-system-agnostic way.</p>
 </section>
 <section id="Turning-a-file-into-a-list-of-lines">
 <h2>Turning a file into a list of lines<a class="headerlink" href="#Turning-a-file-into-a-list-of-lines" title="Link to this heading"></a></h2>
