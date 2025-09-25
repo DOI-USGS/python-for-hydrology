@@ -257,18 +257,18 @@ PosixPath(&#39;.&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-10b_Rasterio_advanced.ipynb
-00_python_basics_review.ipynb
 03_useful-std-library-modules.ipynb
-05_numpy.ipynb
-11_xarray_mt_rainier_precip.ipynb
-10a_Rasterio_intro.ipynb
 07b_VSCode.md
-09_b_Geopandas_ABQ.ipynb
-data
-06b_matplotlib_animation.ipynb
-solutions
+05_numpy.ipynb
+10a_Rasterio_intro.ipynb
+11_xarray_mt_rainier_precip.ipynb
 09_a_Geopandas.ipynb
+solutions
+00_python_basics_review.ipynb
+data
+10b_Rasterio_advanced.ipynb
+09_b_Geopandas_ABQ.ipynb
+06b_matplotlib_animation.ipynb
 </pre></div></div>
 </div>
 </section>
@@ -288,15 +288,15 @@ solutions
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-10b_Rasterio_advanced.ipynb
-00_python_basics_review.ipynb
 03_useful-std-library-modules.ipynb
 05_numpy.ipynb
-11_xarray_mt_rainier_precip.ipynb
 10a_Rasterio_intro.ipynb
+11_xarray_mt_rainier_precip.ipynb
+09_a_Geopandas.ipynb
+00_python_basics_review.ipynb
+10b_Rasterio_advanced.ipynb
 09_b_Geopandas_ABQ.ipynb
 06b_matplotlib_animation.ipynb
-09_a_Geopandas.ipynb
 </pre></div></div>
 </div>
 </section>
@@ -317,21 +317,21 @@ solutions
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-../part0_python_intro/10b_Rasterio_advanced.ipynb
-../part0_python_intro/00_python_basics_review.ipynb
+../part1_flopy/09-gwt-voronoi-demo.ipynb
+../part1_flopy/08_Modflow-setup-demo.ipynb
+../part1_flopy/01-Flopy-intro.ipynb
+../part1_flopy/05_Unstructured_Grid_generation.ipynb
+../part1_flopy/10b_modpath_particle_tracking-demo.ipynb
+../part1_flopy/10a_prt_particle_tracking-demo.ipynb
 ../part0_python_intro/03_useful-std-library-modules.ipynb
 ../part0_python_intro/05_numpy.ipynb
-../part0_python_intro/11_xarray_mt_rainier_precip.ipynb
 ../part0_python_intro/10a_Rasterio_intro.ipynb
+../part0_python_intro/11_xarray_mt_rainier_precip.ipynb
+../part0_python_intro/09_a_Geopandas.ipynb
+../part0_python_intro/00_python_basics_review.ipynb
+../part0_python_intro/10b_Rasterio_advanced.ipynb
 ../part0_python_intro/09_b_Geopandas_ABQ.ipynb
 ../part0_python_intro/06b_matplotlib_animation.ipynb
-../part0_python_intro/09_a_Geopandas.ipynb
-../part1_flopy/05_Unstructured_Grid_generation.ipynb
-../part1_flopy/10a_prt_particle_tracking-demo.ipynb
-../part1_flopy/08_Modflow-setup-demo.ipynb
-../part1_flopy/09-gwt-voronoi-demo.ipynb
-../part1_flopy/10b_modpath_particle_tracking-demo.ipynb
-../part1_flopy/01-Flopy-intro.ipynb
 </pre></div></div>
 </div>
 </section>
@@ -421,7 +421,7 @@ solutions
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[PosixPath(&#39;data&#39;), PosixPath(&#39;solutions&#39;)]
+[PosixPath(&#39;solutions&#39;), PosixPath(&#39;data&#39;)]
 </pre></div></div>
 </div>
 </section>
@@ -1004,7 +1004,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 <div class="highlight"><pre>
 [&#39;/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/ipykernel_launcher.py&#39;,
  &#39;-f&#39;,
- &#39;/tmp/tmpbro6oqh3.json&#39;,
+ &#39;/tmp/tmpcuvrhw58.json&#39;,
  &#39;--HistoryManager.hist_file=:memory:&#39;]
 </pre></div></div>
 </div>
@@ -1172,19 +1172,333 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[(&#39;..&#39;, [&#39;part0_python_intro&#39;, &#39;part1_flopy&#39;], []),
+[(&#39;..&#39;, [&#39;part1_flopy&#39;, &#39;part0_python_intro&#39;], []),
+ (&#39;../part1_flopy&#39;,
+  [&#39;data_project&#39;, &#39;solutions&#39;, &#39;data&#39;],
+  [&#39;09-gwt-voronoi-demo.ipynb&#39;,
+   &#39;08_Modflow-setup-demo.ipynb&#39;,
+   &#39;01-Flopy-intro.ipynb&#39;,
+   &#39;05_Unstructured_Grid_generation.ipynb&#39;,
+   &#39;10b_modpath_particle_tracking-demo.ipynb&#39;,
+   &#39;basin.py&#39;,
+   &#39;10a_prt_particle_tracking-demo.ipynb&#39;]),
+ (&#39;../part1_flopy/data_project&#39;,
+  [],
+  [&#39;aquifer_k.asc&#39;,
+   &#39;active_area.shp&#39;,
+   &#39;aquifer_top.asc&#39;,
+   &#39;pumping_well_locations.shx&#39;,
+   &#39;aquifer_bottom.asc&#39;,
+   &#39;Flowline_river.shp&#39;,
+   &#39;pumping_well_locations.shp&#39;,
+   &#39;Flowline_river.shx&#39;,
+   &#39;active_area.dbf&#39;,
+   &#39;inactive_area.shx&#39;,
+   &#39;inactive_area.shp&#39;,
+   &#39;Flowline_river.dbf&#39;,
+   &#39;pumping_well_locations.dbf&#39;,
+   &#39;Flowline_river.prj&#39;,
+   &#39;inactive_area.dbf&#39;,
+   &#39;active_area.shx&#39;]),
+ (&#39;../part1_flopy/solutions&#39;,
+  [],
+  [&#39;02-Building-Post-Processing-MODFLOW6__solutions.ipynb&#39;,
+   &#39;04_Modelgrid_and_intersection_solution.ipynb&#39;,
+   &#39;06-Project-voronoi.ipynb&#39;,
+   &#39;07-stream_capture_voronoi.ipynb&#39;,
+   &#39;03_Loading_and_visualizing_models-solutions.ipynb&#39;,
+   &#39;06-Project-structured_completed.ipynb&#39;,
+   &#39;06-Project-quadtree.ipynb&#39;]),
+ (&#39;../part1_flopy/data&#39;,
+  [&#39;quadtree&#39;,
+   &#39;voronoi&#39;,
+   &#39;modelgrid_intersection&#39;,
+   &#39;pleasant-lake&#39;,
+   &#39;depletion_results&#39;,
+   &#39;unstructured_grid_data&#39;],
+  [&#39;pleasant_lgr_parent.yml&#39;, &#39;flopylogo_sm.png&#39;, &#39;pleasant_lgr_inset.yml&#39;]),
+ (&#39;../part1_flopy/data/quadtree&#39;,
+  [&#39;grid&#39;],
+  [&#39;sfr_obs.csv&#39;,
+   &#39;project.ims&#39;,
+   &#39;project.hds&#39;,
+   &#39;project.chd&#39;,
+   &#39;mfsim.nam&#39;,
+   &#39;project.oc&#39;,
+   &#39;project.disv.grb&#39;,
+   &#39;project.lst&#39;,
+   &#39;project.wel&#39;,
+   &#39;project.tdis&#39;,
+   &#39;project.rcha&#39;,
+   &#39;project.nam&#39;,
+   &#39;project.npf&#39;,
+   &#39;project.sfr&#39;,
+   &#39;mfsim.lst&#39;,
+   &#39;project.cbc&#39;,
+   &#39;project.ic&#39;,
+   &#39;project.sfr.obs&#39;,
+   &#39;project.disv&#39;]),
+ (&#39;../part1_flopy/data/quadtree/grid&#39;,
+  [],
+  [&#39;qtg.fldr.dat&#39;,
+   &#39;quadtreegrid.tsf&#39;,
+   &#39;_gridgen_export.dfn&#39;,
+   &#39;qtg.area.dat&#39;,
+   &#39;qtg.vtu&#39;,
+   &#39;qtg.ia.dat&#39;,
+   &#39;qtg.gnc.dat&#39;,
+   &#39;qtg_sv.vtu&#39;,
+   &#39;qtg.ja.dat&#39;,
+   &#39;qtgrid.dbf&#39;,
+   &#39;qtg.nodesperlay.dat&#39;,
+   &#39;quadtreegrid.bot1.dat&#39;,
+   &#39;qtg.c1.dat&#39;,
+   &#39;qtgrid.shp&#39;,
+   &#39;qtg.fahl.dat&#39;,
+   &#39;qtgrid_pt.dbf&#39;,
+   &#39;qtgrid.shx&#39;,
+   &#39;_gridgen_build.dfn&#39;,
+   &#39;qtg.iac.dat&#39;,
+   &#39;qtg.nod&#39;,
+   &#39;qtg.c2.dat&#39;,
+   &#39;quadtreegrid.top1.dat&#39;,
+   &#39;qtgrid_pt.shp&#39;,
+   &#39;qtgrid_pt.shx&#39;,
+   &#39;quadtreegrid.dfn&#39;]),
+ (&#39;../part1_flopy/data/voronoi&#39;,
+  [&#39;grid&#39;],
+  [&#39;sfr_obs.csv&#39;,
+   &#39;project.ims&#39;,
+   &#39;project.hds&#39;,
+   &#39;project.chd&#39;,
+   &#39;mfsim.nam&#39;,
+   &#39;project.oc&#39;,
+   &#39;project.disv.grb&#39;,
+   &#39;project.lst&#39;,
+   &#39;project.wel&#39;,
+   &#39;project.tdis&#39;,
+   &#39;project.rcha&#39;,
+   &#39;project.nam&#39;,
+   &#39;project.npf&#39;,
+   &#39;project.sfr&#39;,
+   &#39;mfsim.lst&#39;,
+   &#39;project.cbc&#39;,
+   &#39;project.ic&#39;,
+   &#39;project.sfr.obs&#39;,
+   &#39;project.disv&#39;]),
+ (&#39;../part1_flopy/data/voronoi/grid&#39;,
+  [],
+  [&#39;_triangle.1.node&#39;,
+   &#39;_triangle.1.ele&#39;,
+   &#39;_triangle.0.poly&#39;,
+   &#39;_triangle.0.node&#39;,
+   &#39;_triangle.1.edge&#39;,
+   &#39;_triangle.1.neigh&#39;,
+   &#39;_triangle.1.poly&#39;]),
+ (&#39;../part1_flopy/data/modelgrid_intersection&#39;,
+  [],
+  [&#39;sagehen_basin.prj&#39;,
+   &#39;prcp.tif&#39;,
+   &#39;sagehen_basin.shp&#39;,
+   &#39;sagehen_nhd.cpg&#39;,
+   &#39;active_area.shp&#39;,
+   &#39;refined_area.prj&#39;,
+   &#39;sagehen_nhd.shp&#39;,
+   &#39;sagehen_main_nhd.dbf&#39;,
+   &#39;pet.tif&#39;,
+   &#39;sagehen_main_nhd.shx&#39;,
+   &#39;dem_30m.img&#39;,
+   &#39;sagehen_main_nhd.prj&#39;,
+   &#39;sagehen_basin.dbf&#39;,
+   &#39;ksat.img&#39;,
+   &#39;sagehen_nhd.shx&#39;,
+   &#39;sagehen_main_nhd.cpg&#39;,
+   &#39;sagehen_gage_data.csv&#39;,
+   &#39;trib_cells.txt&#39;,
+   &#39;sagehen_basin.shx&#39;,
+   &#39;refined_area.shx&#39;,
+   &#39;active_area.dbf&#39;,
+   &#39;sagehen_nhd.prj&#39;,
+   &#39;sagehen_basin.cpg&#39;,
+   &#39;active_area.prj&#39;,
+   &#39;refined_area.dbf&#39;,
+   &#39;sagehen_nhd.dbf&#39;,
+   &#39;refined_area.shp&#39;,
+   &#39;pet.txt&#39;,
+   &#39;active_area.shx&#39;,
+   &#39;sagehen_main_nhd.shp&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake&#39;,
+  [&#39;external&#39;, &#39;source_data&#39;],
+  [&#39;pleasant.chd.obs&#39;,
+   &#39;pleasant.chd&#39;,
+   &#39;pleasant.npf&#39;,
+   &#39;pleasant.sfr&#39;,
+   &#39;mfsim.nam&#39;,
+   &#39;pleasant.nam&#39;,
+   &#39;pleasant.dis&#39;,
+   &#39;pleasant.sto&#39;,
+   &#39;pleasant.sfr.obs&#39;,
+   &#39;pleasant.oc&#39;,
+   &#39;pleasant.lak.obs&#39;,
+   &#39;pleasant.lak&#39;,
+   &#39;pleasant.wel&#39;,
+   &#39;pleasant.ims&#39;,
+   &#39;pleasant.hds&#39;,
+   &#39;pleasant.ic&#39;,
+   &#39;pleasant.obs&#39;,
+   &#39;pleasant.tdis&#39;,
+   &#39;pleasant.rcha&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake/external&#39;,
+  [],
+  [&#39;ss_003.dat&#39;,
+   &#39;wel_004.dat&#39;,
+   &#39;chd_012.dat&#39;,
+   &#39;ss_000.dat&#39;,
+   &#39;ss_001.dat&#39;,
+   &#39;irch.dat&#39;,
+   &#39;botm_001.dat&#39;,
+   &#39;chd_005.dat&#39;,
+   &#39;k33_003.dat&#39;,
+   &#39;wel_005.dat&#39;,
+   &#39;chd_008.dat&#39;,
+   &#39;k33_000.dat&#39;,
+   &#39;chd_009.dat&#39;,
+   &#39;rch_002.dat&#39;,
+   &#39;botm_003.dat&#39;,
+   &#39;strt_003.dat&#39;,
+   &#39;sy_003.dat&#39;,
+   &#39;chd_003.dat&#39;,
+   &#39;rch_011.dat&#39;,
+   &#39;k_001.dat&#39;,
+   &#39;rch_003.dat&#39;,
+   &#39;chd_006.dat&#39;,
+   &#39;pleasant_packagedata.dat&#39;,
+   &#39;wel_007.dat&#39;,
+   &#39;wel_000.dat&#39;,
+   &#39;sy_002.dat&#39;,
+   &#39;rch_010.dat&#39;,
+   &#39;strt_001.dat&#39;,
+   &#39;k33_002.dat&#39;,
+   &#39;idomain_002.dat&#39;,
+   &#39;chd_002.dat&#39;,
+   &#39;rch_001.dat&#39;,
+   &#39;sy_001.dat&#39;,
+   &#39;rch_007.dat&#39;,
+   &#39;wel_009.dat&#39;,
+   &#39;wel_008.dat&#39;,
+   &#39;rch_006.dat&#39;,
+   &#39;sy_000.dat&#39;,
+   &#39;chd_001.dat&#39;,
+   &#39;chd_010.dat&#39;,
+   &#39;rch_004.dat&#39;,
+   &#39;rch_012.dat&#39;,
+   &#39;botm_000.dat&#39;,
+   &#39;rch_005.dat&#39;,
+   &#39;idomain_003.dat&#39;,
+   &#39;rch_000.dat&#39;,
+   &#39;chd_004.dat&#39;,
+   &#39;k_000.dat&#39;,
+   &#39;top.dat&#39;,
+   &#39;rch_008.dat&#39;,
+   &#39;k33_001.dat&#39;,
+   &#39;600059060_stage_area_volume.dat&#39;,
+   &#39;rch_009.dat&#39;,
+   &#39;wel_006.dat&#39;,
+   &#39;idomain_000.dat&#39;,
+   &#39;botm_002.dat&#39;,
+   &#39;pleasant_top.dat.original&#39;,
+   &#39;strt_000.dat&#39;,
+   &#39;wel_010.dat&#39;,
+   &#39;idomain_001.dat&#39;,
+   &#39;strt_002.dat&#39;,
+   &#39;wel_001.dat&#39;,
+   &#39;ss_002.dat&#39;,
+   &#39;k_003.dat&#39;,
+   &#39;chd_011.dat&#39;,
+   &#39;chd_000.dat&#39;,
+   &#39;chd_007.dat&#39;,
+   &#39;k_002.dat&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake/source_data&#39;,
+  [&#39;tables&#39;, &#39;rasters&#39;, &#39;shps&#39;],
+  [&#39;PRISM_ppt_tmean_stable_4km_189501_201901_43.9850_-89.5522.csv&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake/source_data/tables&#39;,
+  [],
+  [&#39;nwis_heads_info_file.csv&#39;,
+   &#39;area_stage_vol_Pleasant.csv&#39;,
+   &#39;gages.csv&#39;,
+   &#39;wgnhs_head_targets.csv&#39;,
+   &#39;uwsp_heads.csv&#39;,
+   &#39;lake_sites.csv&#39;,
+   &#39;wdnr_gw_sites.csv&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake/source_data/rasters&#39;,
+  [],
+  [&#39;botm2.tif&#39;,
+   &#39;dem40m.tif&#39;,
+   &#39;botm3.tif&#39;,
+   &#39;pleasant_bathymetry.tif&#39;,
+   &#39;botm0.tif&#39;,
+   &#39;botm1.tif&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake/source_data/shps&#39;,
+  [&#39;NHDSnapshot&#39;, &#39;NHDPlusAttributes&#39;],
+  [&#39;all_lakes.shp&#39;,
+   &#39;all_lakes.shx&#39;,
+   &#39;all_lakes.dbf&#39;,
+   &#39;all_lakes.cpg&#39;,
+   &#39;all_lakes.prj&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake/source_data/shps/NHDSnapshot&#39;,
+  [&#39;Hydrography&#39;],
+  []),
+ (&#39;../part1_flopy/data/pleasant-lake/source_data/shps/NHDSnapshot/Hydrography&#39;,
+  [],
+  [&#39;NHDFlowline.cpg&#39;,
+   &#39;NHDFlowline.prj&#39;,
+   &#39;NHDFlowline.dbf&#39;,
+   &#39;NHDFlowline.shp&#39;,
+   &#39;NHDFlowline.shx&#39;]),
+ (&#39;../part1_flopy/data/pleasant-lake/source_data/shps/NHDPlusAttributes&#39;,
+  [],
+  [&#39;PlusFlow.cpg&#39;,
+   &#39;PlusFlow.dbf&#39;,
+   &#39;elevslope.cpg&#39;,
+   &#39;PlusFlowlineVAA.cpg&#39;,
+   &#39;elevslope.dbf&#39;,
+   &#39;PlusFlowlineVAA.dbf&#39;]),
+ (&#39;../part1_flopy/data/depletion_results&#39;, [], [&#39;depletion_results.csv&#39;]),
+ (&#39;../part1_flopy/data/unstructured_grid_data&#39;,
+  [],
+  [&#39;gage_info.shp&#39;,
+   &#39;dem.img&#39;,
+   &#39;nhd_streams.dbf&#39;,
+   &#39;black_earth_creek_main.prj&#39;,
+   &#39;black_earth_basin.shx&#39;,
+   &#39;lgr_bound.shx&#39;,
+   &#39;lgr_bound.shp&#39;,
+   &#39;lgr_bound.prj&#39;,
+   &#39;black_earth_creek_main.dbf&#39;,
+   &#39;nhd_streams.shp&#39;,
+   &#39;gage_info.shx&#39;,
+   &#39;nhd_streams.shx&#39;,
+   &#39;black_earth_basin.dbf&#39;,
+   &#39;black_earth_creek_main.shp&#39;,
+   &#39;gage_info.dbf&#39;,
+   &#39;black_earth_basin.shp&#39;,
+   &#39;gage_info.prj&#39;,
+   &#39;lgr_bound.dbf&#39;,
+   &#39;nhd_streams.prj&#39;,
+   &#39;black_earth_creek_main.shx&#39;,
+   &#39;black_earth_basin.prj&#39;]),
  (&#39;../part0_python_intro&#39;,
-  [&#39;another_subfolder&#39;, &#39;data&#39;, &#39;solutions&#39;],
-  [&#39;10b_Rasterio_advanced.ipynb&#39;,
-   &#39;00_python_basics_review.ipynb&#39;,
-   &#39;03_useful-std-library-modules.ipynb&#39;,
-   &#39;05_numpy.ipynb&#39;,
-   &#39;11_xarray_mt_rainier_precip.ipynb&#39;,
-   &#39;10a_Rasterio_intro.ipynb&#39;,
+  [&#39;another_subfolder&#39;, &#39;solutions&#39;, &#39;data&#39;],
+  [&#39;03_useful-std-library-modules.ipynb&#39;,
    &#39;07b_VSCode.md&#39;,
+   &#39;05_numpy.ipynb&#39;,
+   &#39;10a_Rasterio_intro.ipynb&#39;,
+   &#39;11_xarray_mt_rainier_precip.ipynb&#39;,
+   &#39;09_a_Geopandas.ipynb&#39;,
+   &#39;00_python_basics_review.ipynb&#39;,
+   &#39;10b_Rasterio_advanced.ipynb&#39;,
    &#39;09_b_Geopandas_ABQ.ipynb&#39;,
-   &#39;06b_matplotlib_animation.ipynb&#39;,
-   &#39;09_a_Geopandas.ipynb&#39;]),
+   &#39;06b_matplotlib_animation.ipynb&#39;]),
  (&#39;../part0_python_intro/another_subfolder&#39;, [&#39;scripts&#39;], []),
  (&#39;../part0_python_intro/another_subfolder/scripts&#39;,
   [&#39;__pycache__&#39;],
@@ -1192,380 +1506,66 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
  (&#39;../part0_python_intro/another_subfolder/scripts/__pycache__&#39;,
   [],
   [&#39;mycode.cpython-311.pyc&#39;]),
+ (&#39;../part0_python_intro/solutions&#39;,
+  [],
+  [&#39;07a_Theis-exercise-solution.ipynb&#39;,
+   &#39;04_files_and_strings.ipynb&#39;,
+   &#39;09_Geopandas__solutions.ipynb&#39;,
+   &#39;01_functions_script__solution.ipynb&#39;,
+   &#39;03_useful-std-library-modules-solutions.ipynb&#39;,
+   &#39;06_matplotlib__solution.ipynb&#39;,
+   &#39;08_pandas.ipynb&#39;,
+   &#39;02_Namespace_objects_modules_packages__solution.ipynb&#39;,
+   &#39;05_numpy__solutions.ipynb&#39;]),
  (&#39;../part0_python_intro/data&#39;,
-  [&#39;xarray&#39;, &#39;rasterio&#39;, &#39;pandas&#39;, &#39;geopandas&#39;, &#39;numpy&#39;, &#39;fileio&#39;],
-  [&#39;dream.txt&#39;, &#39;theis_charles_vernon.jpg&#39;, &#39;netcdf_data.zip&#39;]),
+  [&#39;fileio&#39;, &#39;rasterio&#39;, &#39;pandas&#39;, &#39;numpy&#39;, &#39;xarray&#39;, &#39;geopandas&#39;],
+  [&#39;netcdf_data.zip&#39;, &#39;dream.txt&#39;, &#39;theis_charles_vernon.jpg&#39;]),
+ (&#39;../part0_python_intro/data/fileio&#39;,
+  [],
+  [&#39;FileWithComments.txt&#39;, &#39;friends.txt&#39;]),
+ (&#39;../part0_python_intro/data/rasterio&#39;,
+  [],
+  [&#39;rgi60_glacierpoly_rainier.shp&#39;,
+   &#39;rgi60_glacierpoly_rainier.shx&#39;,
+   &#39;white_river_huc12.dbf&#39;,
+   &#39;xyrowcol.png&#39;,
+   &#39;rgi60_glacierpoly_rainier.dbf&#39;,
+   &#39;20080901_rainierlidar_30m-adj.tif&#39;,
+   &#39;white_river_huc12.prj&#39;,
+   &#39;20150818_rainier_summer-tile-30.tif&#39;,
+   &#39;19700901_ned1_2003_adj_warp.tif&#39;,
+   &#39;white_river_huc12.shx&#39;,
+   &#39;white_river_huc12.shp&#39;,
+   &#39;rgi60_glacierpoly_rainier.prj&#39;]),
+ (&#39;../part0_python_intro/data/pandas&#39;,
+  [],
+  [&#39;RR_gage_data.csv&#39;,
+   &#39;panda.jpg&#39;,
+   &#39;santa_rosa_CIMIS_83.csv&#39;,
+   &#39;site_info.csv&#39;,
+   &#39;stock_russian.jpg&#39;,
+   &#39;RussianRiverGWsites.csv&#39;]),
+ (&#39;../part0_python_intro/data/numpy&#39;,
+  [],
+  [&#39;bottom.txt&#39;,
+   &#39;ahf.csv&#39;,
+   &#39;mt_st_helens_after.dat&#39;,
+   &#39;mt_st_helens_before.dat&#39;,
+   &#39;bottom.dat&#39;,
+   &#39;bottom_commented.dat&#39;]),
  (&#39;../part0_python_intro/data/xarray&#39;,
   [],
   [&#39;daymet_prcp_rainier_1980-2018.nc&#39;,
    &#39;aligned-19700901_ned1_2003_adj_4269.tif&#39;]),
- (&#39;../part0_python_intro/data/rasterio&#39;,
-  [],
-  [&#39;20150818_rainier_summer-tile-30.tif&#39;,
-   &#39;white_river_huc12.dbf&#39;,
-   &#39;white_river_huc12.prj&#39;,
-   &#39;white_river_huc12.shx&#39;,
-   &#39;rgi60_glacierpoly_rainier.shp&#39;,
-   &#39;white_river_huc12.shp&#39;,
-   &#39;19700901_ned1_2003_adj_warp.tif&#39;,
-   &#39;rgi60_glacierpoly_rainier.dbf&#39;,
-   &#39;rgi60_glacierpoly_rainier.shx&#39;,
-   &#39;20080901_rainierlidar_30m-adj.tif&#39;,
-   &#39;xyrowcol.png&#39;,
-   &#39;rgi60_glacierpoly_rainier.prj&#39;]),
- (&#39;../part0_python_intro/data/pandas&#39;,
-  [],
-  [&#39;site_info.csv&#39;,
-   &#39;RR_gage_data.csv&#39;,
-   &#39;RussianRiverGWsites.csv&#39;,
-   &#39;stock_russian.jpg&#39;,
-   &#39;santa_rosa_CIMIS_83.csv&#39;,
-   &#39;panda.jpg&#39;]),
  (&#39;../part0_python_intro/data/geopandas&#39;,
   [&#39;abq&#39;],
-  [&#39;Neighborhood_Associations.geojson&#39;,
+  [&#39;Madison_Parks.geojson&#39;,
+   &#39;Neighborhood_Associations.geojson&#39;,
    &#39;Madison_Tree_Species_Lookup.xlsx&#39;,
-   &#39;Street_Trees.geojson&#39;,
-   &#39;Madison_Parks.geojson&#39;]),
+   &#39;Street_Trees.geojson&#39;]),
  (&#39;../part0_python_intro/data/geopandas/abq&#39;,
   [],
-  [&#39;zoneatlaspagegrid.kmz&#39;, &#39;abq_films.geojson&#39;]),
- (&#39;../part0_python_intro/data/numpy&#39;,
-  [],
-  [&#39;mt_st_helens_after.dat&#39;,
-   &#39;bottom.dat&#39;,
-   &#39;mt_st_helens_before.dat&#39;,
-   &#39;bottom.txt&#39;,
-   &#39;bottom_commented.dat&#39;,
-   &#39;ahf.csv&#39;]),
- (&#39;../part0_python_intro/data/fileio&#39;,
-  [],
-  [&#39;friends.txt&#39;, &#39;FileWithComments.txt&#39;]),
- (&#39;../part0_python_intro/solutions&#39;,
-  [],
-  [&#39;01_functions_script__solution.ipynb&#39;,
-   &#39;09_Geopandas__solutions.ipynb&#39;,
-   &#39;08_pandas.ipynb&#39;,
-   &#39;02_Namespace_objects_modules_packages__solution.ipynb&#39;,
-   &#39;05_numpy__solutions.ipynb&#39;,
-   &#39;04_files_and_strings.ipynb&#39;,
-   &#39;03_useful-std-library-modules-solutions.ipynb&#39;,
-   &#39;06_matplotlib__solution.ipynb&#39;,
-   &#39;07a_Theis-exercise-solution.ipynb&#39;]),
- (&#39;../part1_flopy&#39;,
-  [&#39;data&#39;, &#39;data_project&#39;, &#39;solutions&#39;],
-  [&#39;basin.py&#39;,
-   &#39;05_Unstructured_Grid_generation.ipynb&#39;,
-   &#39;10a_prt_particle_tracking-demo.ipynb&#39;,
-   &#39;08_Modflow-setup-demo.ipynb&#39;,
-   &#39;09-gwt-voronoi-demo.ipynb&#39;,
-   &#39;10b_modpath_particle_tracking-demo.ipynb&#39;,
-   &#39;01-Flopy-intro.ipynb&#39;]),
- (&#39;../part1_flopy/data&#39;,
-  [&#39;modelgrid_intersection&#39;,
-   &#39;voronoi&#39;,
-   &#39;pleasant-lake&#39;,
-   &#39;quadtree&#39;,
-   &#39;depletion_results&#39;,
-   &#39;unstructured_grid_data&#39;],
-  [&#39;flopylogo_sm.png&#39;, &#39;pleasant_lgr_inset.yml&#39;, &#39;pleasant_lgr_parent.yml&#39;]),
- (&#39;../part1_flopy/data/modelgrid_intersection&#39;,
-  [],
-  [&#39;sagehen_main_nhd.shp&#39;,
-   &#39;prcp.tif&#39;,
-   &#39;sagehen_main_nhd.shx&#39;,
-   &#39;sagehen_nhd.dbf&#39;,
-   &#39;sagehen_basin.shp&#39;,
-   &#39;sagehen_main_nhd.dbf&#39;,
-   &#39;active_area.prj&#39;,
-   &#39;active_area.shp&#39;,
-   &#39;sagehen_gage_data.csv&#39;,
-   &#39;active_area.shx&#39;,
-   &#39;dem_30m.img&#39;,
-   &#39;sagehen_main_nhd.cpg&#39;,
-   &#39;sagehen_basin.shx&#39;,
-   &#39;sagehen_basin.prj&#39;,
-   &#39;refined_area.shx&#39;,
-   &#39;refined_area.dbf&#39;,
-   &#39;sagehen_nhd.shx&#39;,
-   &#39;refined_area.shp&#39;,
-   &#39;sagehen_basin.dbf&#39;,
-   &#39;trib_cells.txt&#39;,
-   &#39;sagehen_basin.cpg&#39;,
-   &#39;sagehen_nhd.shp&#39;,
-   &#39;active_area.dbf&#39;,
-   &#39;ksat.img&#39;,
-   &#39;sagehen_nhd.prj&#39;,
-   &#39;pet.txt&#39;,
-   &#39;sagehen_nhd.cpg&#39;,
-   &#39;refined_area.prj&#39;,
-   &#39;pet.tif&#39;,
-   &#39;sagehen_main_nhd.prj&#39;]),
- (&#39;../part1_flopy/data/voronoi&#39;,
-  [&#39;grid&#39;],
-  [&#39;mfsim.nam&#39;,
-   &#39;project.ic&#39;,
-   &#39;project.disv.grb&#39;,
-   &#39;project.disv&#39;,
-   &#39;project.npf&#39;,
-   &#39;mfsim.lst&#39;,
-   &#39;project.wel&#39;,
-   &#39;project.oc&#39;,
-   &#39;project.hds&#39;,
-   &#39;project.tdis&#39;,
-   &#39;sfr_obs.csv&#39;,
-   &#39;project.sfr.obs&#39;,
-   &#39;project.ims&#39;,
-   &#39;project.chd&#39;,
-   &#39;project.cbc&#39;,
-   &#39;project.rcha&#39;,
-   &#39;project.sfr&#39;,
-   &#39;project.lst&#39;,
-   &#39;project.nam&#39;]),
- (&#39;../part1_flopy/data/voronoi/grid&#39;,
-  [],
-  [&#39;_triangle.1.poly&#39;,
-   &#39;_triangle.0.node&#39;,
-   &#39;_triangle.1.ele&#39;,
-   &#39;_triangle.1.neigh&#39;,
-   &#39;_triangle.1.edge&#39;,
-   &#39;_triangle.0.poly&#39;,
-   &#39;_triangle.1.node&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake&#39;,
-  [&#39;external&#39;, &#39;source_data&#39;],
-  [&#39;pleasant.dis&#39;,
-   &#39;mfsim.nam&#39;,
-   &#39;pleasant.tdis&#39;,
-   &#39;pleasant.npf&#39;,
-   &#39;pleasant.ic&#39;,
-   &#39;pleasant.oc&#39;,
-   &#39;pleasant.sfr&#39;,
-   &#39;pleasant.obs&#39;,
-   &#39;pleasant.rcha&#39;,
-   &#39;pleasant.sfr.obs&#39;,
-   &#39;pleasant.hds&#39;,
-   &#39;pleasant.chd&#39;,
-   &#39;pleasant.wel&#39;,
-   &#39;pleasant.lak.obs&#39;,
-   &#39;pleasant.nam&#39;,
-   &#39;pleasant.ims&#39;,
-   &#39;pleasant.chd.obs&#39;,
-   &#39;pleasant.sto&#39;,
-   &#39;pleasant.lak&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake/external&#39;,
-  [],
-  [&#39;k33_002.dat&#39;,
-   &#39;chd_008.dat&#39;,
-   &#39;wel_000.dat&#39;,
-   &#39;k33_001.dat&#39;,
-   &#39;ss_002.dat&#39;,
-   &#39;strt_003.dat&#39;,
-   &#39;wel_006.dat&#39;,
-   &#39;chd_004.dat&#39;,
-   &#39;rch_008.dat&#39;,
-   &#39;rch_006.dat&#39;,
-   &#39;chd_002.dat&#39;,
-   &#39;chd_000.dat&#39;,
-   &#39;botm_002.dat&#39;,
-   &#39;k_002.dat&#39;,
-   &#39;sy_002.dat&#39;,
-   &#39;wel_010.dat&#39;,
-   &#39;strt_002.dat&#39;,
-   &#39;k_000.dat&#39;,
-   &#39;botm_003.dat&#39;,
-   &#39;chd_012.dat&#39;,
-   &#39;600059060_stage_area_volume.dat&#39;,
-   &#39;sy_000.dat&#39;,
-   &#39;k_003.dat&#39;,
-   &#39;rch_005.dat&#39;,
-   &#39;chd_010.dat&#39;,
-   &#39;sy_003.dat&#39;,
-   &#39;k33_000.dat&#39;,
-   &#39;strt_000.dat&#39;,
-   &#39;wel_004.dat&#39;,
-   &#39;rch_009.dat&#39;,
-   &#39;rch_010.dat&#39;,
-   &#39;chd_005.dat&#39;,
-   &#39;rch_001.dat&#39;,
-   &#39;k_001.dat&#39;,
-   &#39;ss_000.dat&#39;,
-   &#39;irch.dat&#39;,
-   &#39;wel_008.dat&#39;,
-   &#39;wel_009.dat&#39;,
-   &#39;sy_001.dat&#39;,
-   &#39;chd_003.dat&#39;,
-   &#39;rch_002.dat&#39;,
-   &#39;rch_004.dat&#39;,
-   &#39;chd_007.dat&#39;,
-   &#39;wel_001.dat&#39;,
-   &#39;wel_007.dat&#39;,
-   &#39;chd_009.dat&#39;,
-   &#39;chd_006.dat&#39;,
-   &#39;k33_003.dat&#39;,
-   &#39;ss_001.dat&#39;,
-   &#39;rch_003.dat&#39;,
-   &#39;idomain_003.dat&#39;,
-   &#39;top.dat&#39;,
-   &#39;ss_003.dat&#39;,
-   &#39;strt_001.dat&#39;,
-   &#39;rch_000.dat&#39;,
-   &#39;rch_007.dat&#39;,
-   &#39;chd_011.dat&#39;,
-   &#39;idomain_002.dat&#39;,
-   &#39;chd_001.dat&#39;,
-   &#39;pleasant_top.dat.original&#39;,
-   &#39;idomain_000.dat&#39;,
-   &#39;botm_001.dat&#39;,
-   &#39;pleasant_packagedata.dat&#39;,
-   &#39;botm_000.dat&#39;,
-   &#39;idomain_001.dat&#39;,
-   &#39;rch_012.dat&#39;,
-   &#39;wel_005.dat&#39;,
-   &#39;rch_011.dat&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake/source_data&#39;,
-  [&#39;rasters&#39;, &#39;tables&#39;, &#39;shps&#39;],
-  [&#39;PRISM_ppt_tmean_stable_4km_189501_201901_43.9850_-89.5522.csv&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake/source_data/rasters&#39;,
-  [],
-  [&#39;botm0.tif&#39;,
-   &#39;botm2.tif&#39;,
-   &#39;pleasant_bathymetry.tif&#39;,
-   &#39;botm1.tif&#39;,
-   &#39;dem40m.tif&#39;,
-   &#39;botm3.tif&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake/source_data/tables&#39;,
-  [],
-  [&#39;lake_sites.csv&#39;,
-   &#39;area_stage_vol_Pleasant.csv&#39;,
-   &#39;wdnr_gw_sites.csv&#39;,
-   &#39;nwis_heads_info_file.csv&#39;,
-   &#39;gages.csv&#39;,
-   &#39;wgnhs_head_targets.csv&#39;,
-   &#39;uwsp_heads.csv&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake/source_data/shps&#39;,
-  [&#39;NHDSnapshot&#39;, &#39;NHDPlusAttributes&#39;],
-  [&#39;all_lakes.dbf&#39;,
-   &#39;all_lakes.prj&#39;,
-   &#39;all_lakes.shp&#39;,
-   &#39;all_lakes.cpg&#39;,
-   &#39;all_lakes.shx&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake/source_data/shps/NHDSnapshot&#39;,
-  [&#39;Hydrography&#39;],
-  []),
- (&#39;../part1_flopy/data/pleasant-lake/source_data/shps/NHDSnapshot/Hydrography&#39;,
-  [],
-  [&#39;NHDFlowline.prj&#39;,
-   &#39;NHDFlowline.shp&#39;,
-   &#39;NHDFlowline.cpg&#39;,
-   &#39;NHDFlowline.shx&#39;,
-   &#39;NHDFlowline.dbf&#39;]),
- (&#39;../part1_flopy/data/pleasant-lake/source_data/shps/NHDPlusAttributes&#39;,
-  [],
-  [&#39;PlusFlow.cpg&#39;,
-   &#39;PlusFlow.dbf&#39;,
-   &#39;PlusFlowlineVAA.dbf&#39;,
-   &#39;PlusFlowlineVAA.cpg&#39;,
-   &#39;elevslope.cpg&#39;,
-   &#39;elevslope.dbf&#39;]),
- (&#39;../part1_flopy/data/quadtree&#39;,
-  [&#39;grid&#39;],
-  [&#39;mfsim.nam&#39;,
-   &#39;project.ic&#39;,
-   &#39;project.disv.grb&#39;,
-   &#39;project.disv&#39;,
-   &#39;project.npf&#39;,
-   &#39;mfsim.lst&#39;,
-   &#39;project.wel&#39;,
-   &#39;project.oc&#39;,
-   &#39;project.hds&#39;,
-   &#39;project.tdis&#39;,
-   &#39;sfr_obs.csv&#39;,
-   &#39;project.sfr.obs&#39;,
-   &#39;project.ims&#39;,
-   &#39;project.chd&#39;,
-   &#39;project.cbc&#39;,
-   &#39;project.rcha&#39;,
-   &#39;project.sfr&#39;,
-   &#39;project.lst&#39;,
-   &#39;project.nam&#39;]),
- (&#39;../part1_flopy/data/quadtree/grid&#39;,
-  [],
-  [&#39;quadtreegrid.bot1.dat&#39;,
-   &#39;qtgrid_pt.shx&#39;,
-   &#39;qtg.ia.dat&#39;,
-   &#39;qtg_sv.vtu&#39;,
-   &#39;qtg.fldr.dat&#39;,
-   &#39;qtg.ja.dat&#39;,
-   &#39;qtg.vtu&#39;,
-   &#39;qtg.area.dat&#39;,
-   &#39;quadtreegrid.dfn&#39;,
-   &#39;qtgrid_pt.dbf&#39;,
-   &#39;qtgrid_pt.shp&#39;,
-   &#39;quadtreegrid.top1.dat&#39;,
-   &#39;qtgrid.dbf&#39;,
-   &#39;_gridgen_export.dfn&#39;,
-   &#39;qtg.c1.dat&#39;,
-   &#39;quadtreegrid.tsf&#39;,
-   &#39;qtg.nod&#39;,
-   &#39;qtg.fahl.dat&#39;,
-   &#39;qtg.iac.dat&#39;,
-   &#39;qtg.c2.dat&#39;,
-   &#39;qtg.nodesperlay.dat&#39;,
-   &#39;qtgrid.shx&#39;,
-   &#39;qtg.gnc.dat&#39;,
-   &#39;qtgrid.shp&#39;,
-   &#39;_gridgen_build.dfn&#39;]),
- (&#39;../part1_flopy/data/depletion_results&#39;, [], [&#39;depletion_results.csv&#39;]),
- (&#39;../part1_flopy/data/unstructured_grid_data&#39;,
-  [],
-  [&#39;lgr_bound.prj&#39;,
-   &#39;black_earth_basin.dbf&#39;,
-   &#39;nhd_streams.dbf&#39;,
-   &#39;dem.img&#39;,
-   &#39;gage_info.shx&#39;,
-   &#39;gage_info.shp&#39;,
-   &#39;lgr_bound.shp&#39;,
-   &#39;nhd_streams.shx&#39;,
-   &#39;black_earth_creek_main.dbf&#39;,
-   &#39;black_earth_basin.prj&#39;,
-   &#39;lgr_bound.dbf&#39;,
-   &#39;black_earth_basin.shx&#39;,
-   &#39;black_earth_creek_main.prj&#39;,
-   &#39;black_earth_basin.shp&#39;,
-   &#39;black_earth_creek_main.shx&#39;,
-   &#39;gage_info.dbf&#39;,
-   &#39;nhd_streams.prj&#39;,
-   &#39;lgr_bound.shx&#39;,
-   &#39;black_earth_creek_main.shp&#39;,
-   &#39;nhd_streams.shp&#39;,
-   &#39;gage_info.prj&#39;]),
- (&#39;../part1_flopy/data_project&#39;,
-  [],
-  [&#39;pumping_well_locations.dbf&#39;,
-   &#39;Flowline_river.shx&#39;,
-   &#39;aquifer_bottom.asc&#39;,
-   &#39;active_area.shp&#39;,
-   &#39;aquifer_k.asc&#39;,
-   &#39;active_area.shx&#39;,
-   &#39;aquifer_top.asc&#39;,
-   &#39;Flowline_river.dbf&#39;,
-   &#39;inactive_area.dbf&#39;,
-   &#39;pumping_well_locations.shp&#39;,
-   &#39;inactive_area.shx&#39;,
-   &#39;pumping_well_locations.shx&#39;,
-   &#39;Flowline_river.shp&#39;,
-   &#39;active_area.dbf&#39;,
-   &#39;inactive_area.shp&#39;,
-   &#39;Flowline_river.prj&#39;]),
- (&#39;../part1_flopy/solutions&#39;,
-  [],
-  [&#39;03_Loading_and_visualizing_models-solutions.ipynb&#39;,
-   &#39;07-stream_capture_voronoi.ipynb&#39;,
-   &#39;06-Project-voronoi.ipynb&#39;,
-   &#39;02-Building-Post-Processing-MODFLOW6__solutions.ipynb&#39;,
-   &#39;06-Project-quadtree.ipynb&#39;,
-   &#39;04_Modelgrid_and_intersection_solution.ipynb&#39;,
-   &#39;06-Project-structured_completed.ipynb&#39;])]
+  [&#39;zoneatlaspagegrid.kmz&#39;, &#39;abq_films.geojson&#39;])]
 </pre></div></div>
 </div>
 <section id="Make-a-more-readable-list-of-just-the-jupyter-notebooks">
@@ -1588,37 +1588,37 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-../part0_python_intro/10b_Rasterio_advanced.ipynb
-../part0_python_intro/00_python_basics_review.ipynb
+../part1_flopy/09-gwt-voronoi-demo.ipynb
+../part1_flopy/08_Modflow-setup-demo.ipynb
+../part1_flopy/01-Flopy-intro.ipynb
+../part1_flopy/05_Unstructured_Grid_generation.ipynb
+../part1_flopy/10b_modpath_particle_tracking-demo.ipynb
+../part1_flopy/10a_prt_particle_tracking-demo.ipynb
+../part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.ipynb
+../part1_flopy/solutions/04_Modelgrid_and_intersection_solution.ipynb
+../part1_flopy/solutions/06-Project-voronoi.ipynb
+../part1_flopy/solutions/07-stream_capture_voronoi.ipynb
+../part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.ipynb
+../part1_flopy/solutions/06-Project-structured_completed.ipynb
+../part1_flopy/solutions/06-Project-quadtree.ipynb
 ../part0_python_intro/03_useful-std-library-modules.ipynb
 ../part0_python_intro/05_numpy.ipynb
-../part0_python_intro/11_xarray_mt_rainier_precip.ipynb
 ../part0_python_intro/10a_Rasterio_intro.ipynb
+../part0_python_intro/11_xarray_mt_rainier_precip.ipynb
+../part0_python_intro/09_a_Geopandas.ipynb
+../part0_python_intro/00_python_basics_review.ipynb
+../part0_python_intro/10b_Rasterio_advanced.ipynb
 ../part0_python_intro/09_b_Geopandas_ABQ.ipynb
 ../part0_python_intro/06b_matplotlib_animation.ipynb
-../part0_python_intro/09_a_Geopandas.ipynb
-../part0_python_intro/solutions/01_functions_script__solution.ipynb
+../part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb
+../part0_python_intro/solutions/04_files_and_strings.ipynb
 ../part0_python_intro/solutions/09_Geopandas__solutions.ipynb
+../part0_python_intro/solutions/01_functions_script__solution.ipynb
+../part0_python_intro/solutions/03_useful-std-library-modules-solutions.ipynb
+../part0_python_intro/solutions/06_matplotlib__solution.ipynb
 ../part0_python_intro/solutions/08_pandas.ipynb
 ../part0_python_intro/solutions/02_Namespace_objects_modules_packages__solution.ipynb
 ../part0_python_intro/solutions/05_numpy__solutions.ipynb
-../part0_python_intro/solutions/04_files_and_strings.ipynb
-../part0_python_intro/solutions/03_useful-std-library-modules-solutions.ipynb
-../part0_python_intro/solutions/06_matplotlib__solution.ipynb
-../part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb
-../part1_flopy/05_Unstructured_Grid_generation.ipynb
-../part1_flopy/10a_prt_particle_tracking-demo.ipynb
-../part1_flopy/08_Modflow-setup-demo.ipynb
-../part1_flopy/09-gwt-voronoi-demo.ipynb
-../part1_flopy/10b_modpath_particle_tracking-demo.ipynb
-../part1_flopy/01-Flopy-intro.ipynb
-../part1_flopy/solutions/03_Loading_and_visualizing_models-solutions.ipynb
-../part1_flopy/solutions/07-stream_capture_voronoi.ipynb
-../part1_flopy/solutions/06-Project-voronoi.ipynb
-../part1_flopy/solutions/02-Building-Post-Processing-MODFLOW6__solutions.ipynb
-../part1_flopy/solutions/06-Project-quadtree.ipynb
-../part1_flopy/solutions/04_Modelgrid_and_intersection_solution.ipynb
-../part1_flopy/solutions/06-Project-structured_completed.ipynb
 </pre></div></div>
 </div>
 </section>
@@ -1639,12 +1639,12 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_75c6d1ba-09ea-481b-b350-1ca21c3b504b&#39;,
+environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_349475a4-5dba-4ed2-a716-216e59737d90&#39;,
         &#39;CONDA_PROMPT_MODIFIER&#39;: &#39;(pyclass-docs) &#39;,
         &#39;DOTNET_NOLOGO&#39;: &#39;1&#39;,
         &#39;USER&#39;: &#39;runner&#39;,
         &#39;CI&#39;: &#39;true&#39;,
-        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_75c6d1ba-09ea-481b-b350-1ca21c3b504b&#39;,
+        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_349475a4-5dba-4ed2-a716-216e59737d90&#39;,
         &#39;PIPX_HOME&#39;: &#39;/opt/pipx&#39;,
         &#39;RUNNER_ENVIRONMENT&#39;: &#39;github-hosted&#39;,
         &#39;JAVA_HOME_8_X64&#39;: &#39;/usr/lib/jvm/temurin-8-jdk-amd64&#39;,
@@ -1657,7 +1657,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;JAVA_HOME_11_X64&#39;: &#39;/usr/lib/jvm/temurin-11-jdk-amd64&#39;,
         &#39;PIPX_BIN_DIR&#39;: &#39;/opt/pipx_bin&#39;,
         &#39;ANDROID_NDK_LATEST_HOME&#39;: &#39;/usr/local/lib/android/sdk/ndk/28.2.13676358&#39;,
-        &#39;GRADLE_HOME&#39;: &#39;/usr/share/gradle-9.0.0&#39;,
+        &#39;GRADLE_HOME&#39;: &#39;/usr/share/gradle-9.1.0&#39;,
         &#39;GITHUB_RETENTION_DAYS&#39;: &#39;80&#39;,
         &#39;JAVA_HOME_21_X64&#39;: &#39;/usr/lib/jvm/temurin-21-jdk-amd64&#39;,
         &#39;POWERSHELL_DISTRIBUTION_CHANNEL&#39;: &#39;GitHub-Actions-ubuntu24&#39;,
@@ -1666,12 +1666,12 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_REPOSITORY_OWNER_ID&#39;: &#39;65027635&#39;,
         &#39;AZURE_EXTENSION_DIR&#39;: &#39;/opt/az/azcliextensions&#39;,
         &#39;MAKEFLAGS&#39;: &#39;w&#39;,
-        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1935&#39;,
+        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1917&#39;,
         &#39;GITHUB_GRAPHQL_URL&#39;: &#39;https://api.github.com/graphql&#39;,
         &#39;NVM_DIR&#39;: &#39;/home/runner/.nvm&#39;,
         &#39;DOTNET_SKIP_FIRST_TIME_EXPERIENCE&#39;: &#39;1&#39;,
         &#39;JAVA_HOME_17_X64&#39;: &#39;/usr/lib/jvm/temurin-17-jdk-amd64&#39;,
-        &#39;ImageVersion&#39;: &#39;20250907.24.1&#39;,
+        &#39;ImageVersion&#39;: &#39;20250922.53.1&#39;,
         &#39;RUNNER_OS&#39;: &#39;Linux&#39;,
         &#39;GITHUB_API_URL&#39;: &#39;https://api.github.com&#39;,
         &#39;LOGNAME&#39;: &#39;runner&#39;,
@@ -1680,14 +1680,14 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GOROOT_1_23_X64&#39;: &#39;/opt/hostedtoolcache/go/1.23.12/x64&#39;,
         &#39;CHROMEWEBDRIVER&#39;: &#39;/usr/local/share/chromedriver-linux64&#39;,
         &#39;_&#39;: &#39;/usr/bin/make&#39;,
-        &#39;JOURNAL_STREAM&#39;: &#39;9:13529&#39;,
+        &#39;JOURNAL_STREAM&#39;: &#39;9:9155&#39;,
         &#39;GITHUB_WORKFLOW&#39;: &#39;Publish Docs&#39;,
         &#39;MEMORY_PRESSURE_WATCH&#39;: &#39;/sys/fs/cgroup/system.slice/hosted-compute-agent.service/memory.pressure&#39;,
         &#39;GOROOT_1_24_X64&#39;: &#39;/opt/hostedtoolcache/go/1.24.7/x64&#39;,
         &#39;CONDARC&#39;: &#39;/home/runner/work/_temp/setup-micromamba/.condarc&#39;,
-        &#39;GITHUB_RUN_ID&#39;: &#39;17988885716&#39;,
+        &#39;GITHUB_RUN_ID&#39;: &#39;18013327918&#39;,
         &#39;ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE&#39;: &#39;/opt/actionarchivecache&#39;,
-        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;ae854e02223bb5b25f1889e8c90cd9d9378c6086&#39;,
+        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;1b385371717cb5aa501e070afeb8a0e26a2c6481&#39;,
         &#39;MODFLOW_BIN_PATH&#39;: &#39;/home/runner/.local/bin&#39;,
         &#39;BOOTSTRAP_HASKELL_NONINTERACTIVE&#39;: &#39;1&#39;,
         &#39;GITHUB_REF_TYPE&#39;: &#39;branch&#39;,
@@ -1697,14 +1697,14 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;ENABLE_RUNNER_TRACING&#39;: &#39;true&#39;,
         &#39;GITHUB_WORKFLOW_REF&#39;: &#39;DOI-USGS/python-for-hydrology/.github/workflows/build_docs.yaml@refs/heads/main&#39;,
         &#39;PATH&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/bin:/home/runner/micromamba/condabin:/home/runner/.local/bin:/home/runner/work/_temp/setup-micromamba:/home/runner/micromamba-bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin&#39;,
-        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_8d0516ff-a6f0-4ecf-89f3-dbd90a7bb9dd&#39;,
+        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_a8b0afb2-466f-4756-afb0-18b13fc901db&#39;,
         &#39;DOTNET_MULTILEVEL_LOOKUP&#39;: &#39;0&#39;,
-        &#39;INVOCATION_ID&#39;: &#39;3755b5389ec340c588f520e1d3b7f6e6&#39;,
+        &#39;INVOCATION_ID&#39;: &#39;ddfcb1b576df4660aae7a3ba78721afd&#39;,
         &#39;PROJ_NETWORK&#39;: &#39;ON&#39;,
         &#39;RUNNER_TOOL_CACHE&#39;: &#39;/opt/hostedtoolcache&#39;,
         &#39;ANT_HOME&#39;: &#39;/usr/share/ant&#39;,
         &#39;GITHUB_TRIGGERING_ACTOR&#39;: &#39;mnfienen&#39;,
-        &#39;GITHUB_RUN_NUMBER&#39;: &#39;73&#39;,
+        &#39;GITHUB_RUN_NUMBER&#39;: &#39;74&#39;,
         &#39;RUNNER_ARCH&#39;: &#39;X64&#39;,
         &#39;XDG_RUNTIME_DIR&#39;: &#39;/run/user/1001&#39;,
         &#39;AGENT_TOOLSDIRECTORY&#39;: &#39;/opt/hostedtoolcache&#39;,
@@ -1713,9 +1713,8 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;MAKELEVEL&#39;: &#39;1&#39;,
         &#39;MAMBA_ROOT_PREFIX&#39;: &#39;/home/runner/micromamba&#39;,
         &#39;LANG&#39;: &#39;C.UTF-8&#39;,
-        &#39;DOTNET_BUNDLE_EXTRACT_BASE_DIR&#39;: &#39;/home/runner/.cache/dotnet_bundle_extract&#39;,
         &#39;VCPKG_INSTALLATION_ROOT&#39;: &#39;/usr/local/share/vcpkg&#39;,
-        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000013818&#39;,
+        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000013912&#39;,
         &#39;GITHUB_REF_NAME&#39;: &#39;main&#39;,
         &#39;XDG_CONFIG_HOME&#39;: &#39;/home/runner/.config&#39;,
         &#39;CONDA&#39;: &#39;/usr/share/miniconda&#39;,
@@ -1734,7 +1733,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_JOB&#39;: &#39;docs&#39;,
         &#39;CONDA_DEFAULT_ENV&#39;: &#39;pyclass-docs&#39;,
         &#39;GITHUB_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology&#39;,
-        &#39;GITHUB_SHA&#39;: &#39;ae854e02223bb5b25f1889e8c90cd9d9378c6086&#39;,
+        &#39;GITHUB_SHA&#39;: &#39;1b385371717cb5aa501e070afeb8a0e26a2c6481&#39;,
         &#39;GITHUB_RUN_ATTEMPT&#39;: &#39;1&#39;,
         &#39;GITHUB_REF&#39;: &#39;refs/heads/main&#39;,
         &#39;ANDROID_SDK_ROOT&#39;: &#39;/usr/local/lib/android/sdk&#39;,
@@ -1744,7 +1743,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;PWD&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs&#39;,
         &#39;RUNNER_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology&#39;,
         &#39;GITHUB_ACTOR_ID&#39;: &#39;1110827&#39;,
-        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_75c6d1ba-09ea-481b-b350-1ca21c3b504b&#39;,
+        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_349475a4-5dba-4ed2-a716-216e59737d90&#39;,
         &#39;GHCUP_INSTALL_BASE_PREFIX&#39;: &#39;/usr/local&#39;,
         &#39;GITHUB_EVENT_NAME&#39;: &#39;push&#39;,
         &#39;XDG_DATA_DIRS&#39;: &#39;/usr/local/share:/usr/share:/var/lib/snapd/desktop&#39;,
@@ -1753,7 +1752,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GECKOWEBDRIVER&#39;: &#39;/usr/local/share/gecko_driver&#39;,
         &#39;NVM_CD_FLAGS&#39;: &#39;&#39;,
         &#39;HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS&#39;: &#39;3650&#39;,
-        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_75c6d1ba-09ea-481b-b350-1ca21c3b504b&#39;,
+        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_349475a4-5dba-4ed2-a716-216e59737d90&#39;,
         &#39;HOMEBREW_NO_AUTO_UPDATE&#39;: &#39;1&#39;,
         &#39;EDGEWEBDRIVER&#39;: &#39;/usr/local/share/edge_driver&#39;,
         &#39;SGX_AESM_ADDR&#39;: &#39;1&#39;,
@@ -1766,9 +1765,9 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;SELENIUM_JAR_PATH&#39;: &#39;/usr/share/java/selenium-server.jar&#39;,
         &#39;ANDROID_NDK_HOME&#39;: &#39;/usr/local/lib/android/sdk/ndk/27.3.13750724&#39;,
         &#39;GDAL_DATA&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/share/gdal&#39;,
-        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_75c6d1ba-09ea-481b-b350-1ca21c3b504b&#39;,
+        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_349475a4-5dba-4ed2-a716-216e59737d90&#39;,
         &#39;DOCUTILSCONFIG&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/docutils.conf&#39;,
-        &#39;JPY_PARENT_PID&#39;: &#39;4489&#39;,
+        &#39;JPY_PARENT_PID&#39;: &#39;4367&#39;,
         &#39;PYDEVD_USE_FRAME_EVAL&#39;: &#39;NO&#39;,
         &#39;TERM&#39;: &#39;xterm-color&#39;,
         &#39;CLICOLOR&#39;: &#39;1&#39;,
@@ -1817,19 +1816,19 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 total 276
--rw-r--r-- 1 runner runner 32326 Sep 24 20:34 00_python_basics_review.ipynb
--rw-r--r-- 1 runner runner 31027 Sep 24 20:34 03_useful-std-library-modules.ipynb
--rw-r--r-- 1 runner runner 45695 Sep 24 20:34 05_numpy.ipynb
--rw-r--r-- 1 runner runner  2460 Sep 24 20:34 06b_matplotlib_animation.ipynb
--rw-r--r-- 1 runner runner 12297 Sep 24 20:34 07b_VSCode.md
--rw-r--r-- 1 runner runner 28153 Sep 24 20:34 09_a_Geopandas.ipynb
--rw-r--r-- 1 runner runner  9730 Sep 24 20:34 09_b_Geopandas_ABQ.ipynb
--rw-r--r-- 1 runner runner 22693 Sep 24 20:34 10a_Rasterio_intro.ipynb
--rw-r--r-- 1 runner runner 29620 Sep 24 20:34 10b_Rasterio_advanced.ipynb
--rw-r--r-- 1 runner runner 35369 Sep 24 20:34 11_xarray_mt_rainier_precip.ipynb
-drwxr-xr-x 3 runner runner  4096 Sep 24 20:35 another_subfolder
-drwxr-xr-x 8 runner runner  4096 Sep 24 20:33 data
-drwxr-xr-x 2 runner runner  4096 Sep 24 20:34 solutions
+-rw-r--r-- 1 runner runner 32326 Sep 25 15:59 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31027 Sep 25 15:59 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Sep 25 15:59 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2460 Sep 25 15:59 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner 12297 Sep 25 15:59 07b_VSCode.md
+-rw-r--r-- 1 runner runner 28153 Sep 25 15:59 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9730 Sep 25 15:59 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 22693 Sep 25 15:59 10a_Rasterio_intro.ipynb
+-rw-r--r-- 1 runner runner 29620 Sep 25 15:59 10b_Rasterio_advanced.ipynb
+-rw-r--r-- 1 runner runner 35369 Sep 25 15:59 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Sep 25 15:59 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Sep 25 15:57 data
+drwxr-xr-x 2 runner runner  4096 Sep 25 15:59 solutions
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1942,19 +1941,19 @@ run(*popenargs, input=None, capture_output=False, timeout=None, check=False, **k
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 total 276
--rw-r--r-- 1 runner runner 32326 Sep 24 20:34 00_python_basics_review.ipynb
--rw-r--r-- 1 runner runner 31027 Sep 24 20:34 03_useful-std-library-modules.ipynb
--rw-r--r-- 1 runner runner 45695 Sep 24 20:34 05_numpy.ipynb
--rw-r--r-- 1 runner runner  2460 Sep 24 20:34 06b_matplotlib_animation.ipynb
--rw-r--r-- 1 runner runner 12297 Sep 24 20:34 07b_VSCode.md
--rw-r--r-- 1 runner runner 28153 Sep 24 20:34 09_a_Geopandas.ipynb
--rw-r--r-- 1 runner runner  9730 Sep 24 20:34 09_b_Geopandas_ABQ.ipynb
--rw-r--r-- 1 runner runner 22693 Sep 24 20:34 10a_Rasterio_intro.ipynb
--rw-r--r-- 1 runner runner 29620 Sep 24 20:34 10b_Rasterio_advanced.ipynb
--rw-r--r-- 1 runner runner 35369 Sep 24 20:34 11_xarray_mt_rainier_precip.ipynb
-drwxr-xr-x 3 runner runner  4096 Sep 24 20:35 another_subfolder
-drwxr-xr-x 8 runner runner  4096 Sep 24 20:33 data
-drwxr-xr-x 2 runner runner  4096 Sep 24 20:34 solutions
+-rw-r--r-- 1 runner runner 32326 Sep 25 15:59 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31027 Sep 25 15:59 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Sep 25 15:59 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2460 Sep 25 15:59 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner 12297 Sep 25 15:59 07b_VSCode.md
+-rw-r--r-- 1 runner runner 28153 Sep 25 15:59 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9730 Sep 25 15:59 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 22693 Sep 25 15:59 10a_Rasterio_intro.ipynb
+-rw-r--r-- 1 runner runner 29620 Sep 25 15:59 10b_Rasterio_advanced.ipynb
+-rw-r--r-- 1 runner runner 35369 Sep 25 15:59 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Sep 25 15:59 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Sep 25 15:57 data
+drwxr-xr-x 2 runner runner  4096 Sep 25 15:59 solutions
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -1973,8 +1972,8 @@ CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 total 8
-drwxr-xr-x 5 runner runner 4096 Sep 24 20:35 part0_python_intro
-drwxr-xr-x 5 runner runner 4096 Sep 24 20:34 part1_flopy
+drwxr-xr-x 5 runner runner 4096 Sep 25 15:59 part0_python_intro
+drwxr-xr-x 5 runner runner 4096 Sep 25 15:59 part1_flopy
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -2119,11 +2118,11 @@ Path.rmdir()
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;),
- PosixPath(&#39;03-output/netcdf_data/zipped/zipped_1981/12270_1981.zip&#39;),
+[PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2001/12270_2001.zip&#39;),
  PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2011/12270_2011.zip&#39;),
- PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2004/12270_2004.zip&#39;),
- PosixPath(&#39;03-output/netcdf_data/zipped/zipped_1991/12270_1991.zip&#39;)]
+ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_1982/12270_1982.zip&#39;),
+ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_1996/12270_1996.zip&#39;),
+ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_1997/12270_1997.zip&#39;)]
 </pre></div></div>
 </div>
 </section>
@@ -2144,7 +2143,7 @@ Path.rmdir()
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
+PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2001/12270_2001.zip&#39;)
 </pre></div></div>
 </div>
 <section id="1a)-Use-ZipFile.namelist()-(as-above)-list-the-contents">
@@ -2284,7 +2283,7 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2000/12270_2000.zip&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 24, 2025.
+      <span class="lastupdated">Last updated on Sep 25, 2025.
       </span></p>
   </div>
 
