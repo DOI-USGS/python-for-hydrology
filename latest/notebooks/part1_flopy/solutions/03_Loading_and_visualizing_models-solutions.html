@@ -55,19 +55,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../01-Flopy-intro.html">01: Introduction to FloPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">03: Loading and visualizing groundwater models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Required-executables">Required executables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Operations">Operations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#The-Pleasant-Lake-example">The Pleasant Lake example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Example-model-details:">Example model details:</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#Add-row,-column-information-to-model-grid-GeoDataFrame">Add row, column information to model grid <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#By-row-or-column">By row or column</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Along-an-arbitrary-line">Along an arbitrary line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#What-if-we-want-to-look-at-cross-sections-for-each-row-or-column?">What if we want to look at cross sections for each row or column?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ndarray-example:-plot-spatial-average-recharge-by-stress-period"><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> example: plot spatial average recharge by stress period</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Tabular-data-example:-plot-pumping-by-stress-period">Tabular data example: plot pumping by stress period</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Solution:">Solution:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Run-the-model-first-to-get-the-output">Run the model first to get the output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Getting-MODFLOW-output-from-the-model-object">Getting MODFLOW output from the model object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Alternatively,-read-MODFLOW-binary-output-from-the-files">Alternatively, read MODFLOW binary output from the files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Zoom-in-on-the-lake">Zoom in on the lake</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Solution">Solution</a></li>
 </ul>
@@ -125,40 +125,23 @@
              
   <section id="03:-Loading-and-visualizing-groundwater-models">
 <h1>03: Loading and visualizing groundwater models<a class="headerlink" href="#03:-Loading-and-visualizing-groundwater-models" title="Link to this heading"></a></h1>
-<p>This exercise, we will load an existing model into Flopy, run the model and then use <a class="reference external" href="https://pandas.pydata.org/">pandas</a>, <a class="reference external" href="https://matplotlib.org/">matplotlib</a> and <a class="reference external" href="https://www.numpy.org/">numpy</a> to look at the results and compare them to observed data. We will also export model input and output to shapefiles and rasters.</p>
-<section id="Required-executables">
-<h2>Required executables<a class="headerlink" href="#Required-executables" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p>MODFLOW-6; available here: <a class="reference external" href="https://github.com/MODFLOW-USGS/executables">https://github.com/MODFLOW-USGS/executables</a></p></li>
-</ul>
-</section>
-<section id="Operations">
-<h2>Operations<a class="headerlink" href="#Operations" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p>reading tabular data from a file or url using the powerful <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">pandas.read_csv</a> method</p></li>
-<li><p>getting <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>s of Hydmod, SFR, and global mass balance output</p></li>
-<li><p>converting model times to real date-times to allow plotting against other temporally-referenced data</p></li>
-<li><p>quickly subsetting data by category, attribute values, times, index position, etc.</p></li>
-<li><p>computing quantiles and other basic statistics</p></li>
-<li><p>making plots using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and the built-in hooks to it in <code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></li>
-</ul>
-</section>
+<p>This exercise, we will load an existing model using Flopy, look at some of the inputs, run the model, and load and plot some of the results.</p>
 <section id="The-Pleasant-Lake-example">
 <h2>The Pleasant Lake example<a class="headerlink" href="#The-Pleasant-Lake-example" title="Link to this heading"></a></h2>
-<p>The example model is a simplified version of the MODFLOW-6 model published by Fienen et al (2022, 2021; Figure 1), who used a multi-scale modeling approach to evaluate the effects of agricultural groundwater abstraction on the ecology of Pleasant Lake in central Wisconsin, USA. The original report and model files are available at the links below.</p>
+<p>The example model is a simplified version of the MODFLOW-6 model published by Fienen and others (2022, 2021), of the area around Pleasant Lake in central Wisconsin, USA. The original report and model files are available at the links below.</p>
 <section id="Example-model-details:">
 <h3>Example model details:<a class="headerlink" href="#Example-model-details:" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Transient MODFLOW-6 simulation with monthly stress periods for calendar year 2012</p></li>
 <li><p>units of meters and days</p></li>
-<li><p>4 layers; 200 meter uniform grid spacing</p>
+<li><p>4 layers; 100 meter uniform grid spacing</p>
 <ul>
 <li><p>layers 1-3 represent surficial deposits</p></li>
 <li><p>layer 4 represents Paleozoic bedrock (sandstone)</p></li>
 </ul>
 </li>
 <li><p>Transient specified head perimeter boundary (CHD package) from a regional model solution</p></li>
-<li><p>Recharge specified with RCHa</p></li>
+<li><p>Transient recharge from a soil water balance model, specified with RCHA</p></li>
 <li><p>Streams specified with SFR</p></li>
 <li><p>Pleasant Lake simulated with the Lake Package</p></li>
 <li><p>Head observations specified with the OBS utility</p></li>
@@ -189,7 +172,7 @@
 <h4>load a preexisting MODFLOW 6 model<a class="headerlink" href="#load-a-preexisting-MODFLOW-6-model" title="Link to this heading"></a></h4>
 <p>Because this is MODFLOW 6, we need to load the simulation first, and then get the model.</p>
 <div class="line-block">
-<div class="line"><strong>Note:</strong> To avoid loading certain packages (that may be too slow) use the <code class="docutils literal notranslate"><span class="pre">load_only</span></code> argument to specify the packages that should be loaded.</div>
+<div class="line"><strong>Note:</strong> To avoid loading certain packages (that may be slow) use the <code class="docutils literal notranslate"><span class="pre">load_only</span></code> argument to specify the packages that should be loaded.</div>
 <div class="line">e.g. <code class="docutils literal notranslate"><span class="pre">load_only=['dis']</span></code></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -209,7 +192,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;pleasant&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;pleasant&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -220,7 +203,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">modelgrid</span>
 </pre></div>
 </div>
 </div>
@@ -237,7 +220,7 @@ xll:552400.0; yll:387200.0; rotation:0.0; units:meters; lenuni:2
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">get_package_list</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">get_package_list</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -264,12 +247,31 @@ xll:552400.0; yll:387200.0; rotation:0.0; units:meters; lenuni:2
  &#39;OBS_3&#39;]
 </pre></div></div>
 </div>
-<p>However, in order to write shapefiles with a <code class="docutils literal notranslate"><span class="pre">.prj</span></code> file that specifies the coordinate references system (CRS), we need to assign one to the grid (there currently is no CRS input for MODFLOW 6). We can do this by simply specifying an <a class="reference external" href="https://epsg.io/">EPSG code</a> to the <code class="docutils literal notranslate"><span class="pre">epsg</span></code> attribute (in this case 3070 for Wisconsin Transverse Mercator).</p>
-<div class="nbinput nblast docutils container">
+<p>However, in order to write shapefiles with a <code class="docutils literal notranslate"><span class="pre">.prj</span></code> file that specifies the coordinate references system (CRS), we need to assign one to the grid (there currently is no CRS input for MODFLOW 6). We can do this by simply specifying an <a class="reference external" href="https://epsg.io/">EPSG code</a> to the <code class="docutils literal notranslate"><span class="pre">crs</span></code> attribute (in this case 3070 for Wisconsin Transverse Mercator).</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="mi">3070</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="mi">3070</span>
+<span class="n">model</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;meters&#39;
+</pre></div></div>
+</div>
+<p>Let’s also assign the modelgrid to a variable so we don’t have to type <code class="docutils literal notranslate"><span class="pre">model.modelgrid</span></code> every time</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelgrid</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">modelgrid</span>
 </pre></div>
 </div>
 </div>
@@ -279,23 +281,23 @@ xll:552400.0; yll:387200.0; rotation:0.0; units:meters; lenuni:2
 <h4>On a map<a class="headerlink" href="#On-a-map" title="Link to this heading"></a></h4>
 <p>We can plot the model in the CRS using the <code class="docutils literal notranslate"><span class="pre">PlotMapView</span></code> object. More examples in the Flopy demo here (for unstructured grids too!): <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotMapView.ipynb</a></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">lc</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;WEL&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;LAK&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;SFR&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pmv</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;CHD&quot;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> easting, </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> northing, </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> easting, </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> northing, </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -307,24 +309,24 @@ Text(0, 0.5, &#39;Meters northing, NAD83 / Wisconsin Transverse Mercator&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_12_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_12_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_14_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_14_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">lc</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
-<span class="n">top</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> easting, </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> northing, </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> easting, </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1"> northing, </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -336,45 +338,260 @@ Text(0, 0.5, &#39;Meters northing, NAD83 / Wisconsin Transverse Mercator&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_13_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_13_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_15_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_15_1.png" />
 </div>
 </div>
 </section>
 <section id="Exporting-the-model-grid-to-a-shapefile">
 <h4>Exporting the model grid to a shapefile<a class="headerlink" href="#Exporting-the-model-grid-to-a-shapefile" title="Link to this heading"></a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">write_shapefile</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;pleasant_grid.shp&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelgrid</span><span class="o">.</span><span class="n">write_shapefile</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;pleasant_grid.shp&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </section>
-<section id="Making-a-cross-section-through-the-model">
-<h4>Making a cross section through the model<a class="headerlink" href="#Making-a-cross-section-through-the-model" title="Link to this heading"></a></h4>
+<section id="Get-the-model-grid-as-a-GeoPandas-GeoDataFrame">
+<h4>Get the model grid as a GeoPandas <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code><a class="headerlink" href="#Get-the-model-grid-as-a-GeoPandas-GeoDataFrame" title="Link to this heading"></a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelgrid_gdf</span> <span class="o">=</span> <span class="n">modelgrid</span><span class="o">.</span><span class="n">geo_dataframe</span>
+<span class="n">modelgrid_gdf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>POLYGON ((552400 393600, 552400 393500, 552500...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>POLYGON ((552500 393600, 552500 393500, 552600...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>POLYGON ((552600 393600, 552600 393500, 552700...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>POLYGON ((552700 393600, 552700 393500, 552800...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>POLYGON ((552800 393600, 552800 393500, 552900...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4347</th>
+      <td>POLYGON ((558700 387300, 558700 387200, 558800...</td>
+    </tr>
+    <tr>
+      <th>4348</th>
+      <td>POLYGON ((558800 387300, 558800 387200, 558900...</td>
+    </tr>
+    <tr>
+      <th>4349</th>
+      <td>POLYGON ((558900 387300, 558900 387200, 559000...</td>
+    </tr>
+    <tr>
+      <th>4350</th>
+      <td>POLYGON ((559000 387300, 559000 387200, 559100...</td>
+    </tr>
+    <tr>
+      <th>4351</th>
+      <td>POLYGON ((559100 387300, 559100 387200, 559200...</td>
+    </tr>
+  </tbody>
+</table>
+<p>4352 rows × 1 columns</p>
+</div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="Add-row,-column-information-to-model-grid-GeoDataFrame">
+<h2>Add row, column information to model grid <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code><a class="headerlink" href="#Add-row,-column-information-to-model-grid-GeoDataFrame" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelgrid</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(4, 64, 68)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelgrid_gdf</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modelgrid_gdf</span><span class="o">.</span><span class="n">index</span> <span class="o">//</span> <span class="n">modelgrid</span><span class="o">.</span><span class="n">ncol</span>
+<span class="n">modelgrid_gdf</span><span class="p">[</span><span class="s1">&#39;j&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modelgrid_gdf</span><span class="o">.</span><span class="n">index</span> <span class="o">%</span> <span class="n">modelgrid</span><span class="o">.</span><span class="n">ncol</span>
+<span class="n">modelgrid_gdf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry</th>
+      <th>i</th>
+      <th>j</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>POLYGON ((552400 393600, 552400 393500, 552500...</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>POLYGON ((552500 393600, 552500 393500, 552600...</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>POLYGON ((552600 393600, 552600 393500, 552700...</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>POLYGON ((552700 393600, 552700 393500, 552800...</td>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>POLYGON ((552800 393600, 552800 393500, 552900...</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4347</th>
+      <td>POLYGON ((558700 387300, 558700 387200, 558800...</td>
+      <td>63</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>4348</th>
+      <td>POLYGON ((558800 387300, 558800 387200, 558900...</td>
+      <td>63</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <th>4349</th>
+      <td>POLYGON ((558900 387300, 558900 387200, 559000...</td>
+      <td>63</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>4350</th>
+      <td>POLYGON ((559000 387300, 559000 387200, 559100...</td>
+      <td>63</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>4351</th>
+      <td>POLYGON ((559100 387300, 559100 387200, 559200...</td>
+      <td>63</td>
+      <td>67</td>
+    </tr>
+  </tbody>
+</table>
+<p>4352 rows × 3 columns</p>
+</div></div>
+</div>
 <p>more examples in the Flopy demo here: <a class="reference external" href="https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb">https://github.com/modflowpy/flopy/blob/develop/examples/Notebooks/flopy3.3_PlotCrossSection.ipynb</a></p>
-</section>
-</section>
 </section>
 <section id="By-row-or-column">
 <h2>By row or column<a class="headerlink" href="#By-row-or-column" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
 <span class="n">xs</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;LAK&quot;</span><span class="p">)</span>
 <span class="n">xs</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;SFR&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distance, in </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Elevation, in </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distance, in </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Elevation, in </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -386,7 +603,7 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_18_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_18_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_25_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_25_1.png" />
 </div>
 </div>
 </section>
@@ -394,35 +611,26 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 <h2>Along an arbitrary line<a class="headerlink" href="#Along-an-arbitrary-line" title="Link to this heading"></a></h2>
 <p>(and in Geographic Coordinates)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">xs_line</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">552400</span><span class="p">,</span> <span class="mi">393000</span><span class="p">),</span> <span class="p">(</span><span class="mi">552400</span> <span class="o">+</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">393000</span> <span class="o">-</span> <span class="mi">4000</span><span class="p">)]</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
                                  <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">xs_line</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                                  <span class="n">geographic_coords</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
-<span class="n">pc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">npf</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">pc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Hydraulic Conductivity, in m/day&#39;</span><span class="p">)</span>
+<span class="n">pc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">npf</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">pc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Hydraulic Conductivity, in m/day&#39;</span><span class="p">);</span>
 <br/></pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7fa4435b9510&gt;
-</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_20_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_20_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_27_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_27_0.png" />
 </div>
 </div>
 </section>
@@ -430,21 +638,21 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 <h2>What if we want to look at cross sections for each row or column?<a class="headerlink" href="#What-if-we-want-to-look-at-cross-sections-for-each-row-or-column?" title="Link to this heading"></a></h2>
 <p>This code allows for every row or column to be visualized in cross section within the Jupyter Notebook session.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">frames</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># set frames to number of rows</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="n">modelgrid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># set frames to number of rows</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
     <span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
     <span class="n">xs</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;LAK&quot;</span><span class="p">)</span>
     <span class="n">xs</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s2">&quot;SFR&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;row: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distance, in </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Elevation, in </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distance, in </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Elevation, in </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.animation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">animation</span>
@@ -457,7 +665,7 @@ Text(0, 0.5, &#39;Elevation, in Meters&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -645,42 +853,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img6a94453ece5a40ab9fc65b3c96876542">
+  <img id="_anim_imga67a12405e0a4fbfbdd3fab077562218">
   <div class="anim-controls">
-    <input id="_anim_slider6a94453ece5a40ab9fc65b3c96876542" type="range" class="anim-slider"
+    <input id="_anim_slidera67a12405e0a4fbfbdd3fab077562218" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim6a94453ece5a40ab9fc65b3c96876542.set_frame(parseInt(this.value));">
+           oninput="anima67a12405e0a4fbfbdd3fab077562218.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim6a94453ece5a40ab9fc65b3c96876542.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anima67a12405e0a4fbfbdd3fab077562218.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim6a94453ece5a40ab9fc65b3c96876542.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anima67a12405e0a4fbfbdd3fab077562218.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim6a94453ece5a40ab9fc65b3c96876542.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anima67a12405e0a4fbfbdd3fab077562218.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim6a94453ece5a40ab9fc65b3c96876542.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anima67a12405e0a4fbfbdd3fab077562218.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim6a94453ece5a40ab9fc65b3c96876542.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anima67a12405e0a4fbfbdd3fab077562218.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim6a94453ece5a40ab9fc65b3c96876542.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anima67a12405e0a4fbfbdd3fab077562218.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim6a94453ece5a40ab9fc65b3c96876542.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anima67a12405e0a4fbfbdd3fab077562218.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim6a94453ece5a40ab9fc65b3c96876542.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anima67a12405e0a4fbfbdd3fab077562218.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim6a94453ece5a40ab9fc65b3c96876542.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anima67a12405e0a4fbfbdd3fab077562218.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select6a94453ece5a40ab9fc65b3c96876542"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecta67a12405e0a4fbfbdd3fab077562218"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_6a94453ece5a40ab9fc65b3c96876542"
+      <input type="radio" name="state" value="once" id="_anim_radio1_a67a12405e0a4fbfbdd3fab077562218"
              >
-      <label for="_anim_radio1_6a94453ece5a40ab9fc65b3c96876542">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_6a94453ece5a40ab9fc65b3c96876542"
+      <label for="_anim_radio1_a67a12405e0a4fbfbdd3fab077562218">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_a67a12405e0a4fbfbdd3fab077562218"
              checked>
-      <label for="_anim_radio2_6a94453ece5a40ab9fc65b3c96876542">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_6a94453ece5a40ab9fc65b3c96876542"
+      <label for="_anim_radio2_a67a12405e0a4fbfbdd3fab077562218">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_a67a12405e0a4fbfbdd3fab077562218"
              >
-      <label for="_anim_radio3_6a94453ece5a40ab9fc65b3c96876542">Reflect</label>
+      <label for="_anim_radio3_a67a12405e0a4fbfbdd3fab077562218">Reflect</label>
     </form>
   </div>
 </div>
@@ -690,9 +898,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img6a94453ece5a40ab9fc65b3c96876542";
-    var slider_id = "_anim_slider6a94453ece5a40ab9fc65b3c96876542";
-    var loop_select_id = "_anim_loop_select6a94453ece5a40ab9fc65b3c96876542";
+    var img_id = "_anim_imga67a12405e0a4fbfbdd3fab077562218";
+    var slider_id = "_anim_slidera67a12405e0a4fbfbdd3fab077562218";
+    var loop_select_id = "_anim_loop_selecta67a12405e0a4fbfbdd3fab077562218";
     var frames = new Array(64);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABXgAAAH0CAYAAACHNkWHAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -29367,14 +29575,14 @@ AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim6a94453ece5a40ab9fc65b3c96876542 = new Animation(frames, img_id, slider_id, 200.0,
+        anima67a12405e0a4fbfbdd3fab077562218 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
 </script></div>
 </div>
 <p>Every input to MODFOW is attached to a Flopy object (with the attribute name of the variable) as a numpy <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> (for ndarray-type data) or a <code class="docutils literal notranslate"><span class="pre">recarray</span></code> for tabular or list-type data. For example, we can access the recharge array (4D– nper x nlay x nrow x ncol) with:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>m.rcha.recharge.array
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>model.rcha.recharge.array
 </pre></div>
 </div>
 </section>
@@ -29382,10 +29590,10 @@ AAAAAElFTkSuQmCC\
 <h2><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> example: plot spatial average recharge by stress period<a class="headerlink" href="#ndarray-example:-plot-spatial-average-recharge-by-stress-period" title="Link to this heading"></a></h2>
 <p>To minimize extra typing, it often makes sense to reassign the numpy array to a new variable to work with it further.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rch_inches</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">rcha</span><span class="o">.</span><span class="n">recharge</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">30.4</span> <span class="o">/</span> <span class="mf">.3048</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rch_inches</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">rcha</span><span class="o">.</span><span class="n">recharge</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">30.4</span> <span class="o">/</span> <span class="mf">.3048</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rch_inches</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">rch_inches</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
@@ -29395,7 +29603,7 @@ AAAAAElFTkSuQmCC\
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -29407,28 +29615,8 @@ Text(0.5, 0, &#39;Model stress period&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_25_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_25_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_32_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_32_1.png" />
 </div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">rcha</span><span class="o">.</span><span class="n">recharge</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="o">**</span><span class="mi">2</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([ 34681.345768  ,   3936.71297726,   4173.97054668,  32372.63194945,
-        67273.4195892 , 111815.619908  ,    857.271577  ,    564.02517632,
-         1314.61455638,    504.22246896,   9767.05138672,   4700.137398  ,
-         3202.62911   ])
-</pre></div></div>
 </div>
 </section>
 <section id="Tabular-data-example:-plot-pumping-by-stress-period">
@@ -29439,11 +29627,11 @@ array([ 34681.345768  ,   3936.71297726,   4173.97054668,  32372.63194945,
 <li><p>Any one of these can be converted to a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> individually, or we can make a dataframe of all of them with a simple loop.</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">kper</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">wel</span><span class="o">.</span><span class="n">stress_period_data</span><span class="o">.</span><span class="n">get_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="k">for</span> <span class="n">kper</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">wel</span><span class="o">.</span><span class="n">stress_period_data</span><span class="o">.</span><span class="n">get_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;per&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kper</span>
     <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
@@ -29452,7 +29640,7 @@ array([ 34681.345768  ,   3936.71297726,   4173.97054668,  32372.63194945,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -29534,7 +29722,7 @@ array([ 34681.345768  ,   3936.71297726,   4173.97054668,  32372.63194945,
 </div>
 <p>Now we can sum by stress period, or plot individual wells across stress periods</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;per&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="s1">&#39;q&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -29545,7 +29733,7 @@ array([ 34681.345768  ,   3936.71297726,   4173.97054668,  32372.63194945,
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -29557,12 +29745,12 @@ Text(0.5, 0, &#39;Model stress period&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_30_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_30_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_36_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_36_1.png" />
 </div>
 </div>
 <p>About many gallons did this well pump in stress periods 1 through 12?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;boundname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;pleasant_2-13-2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;per&#39;</span><span class="p">)</span>
@@ -29571,7 +29759,7 @@ Text(0.5, 0, &#39;Model stress period&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -29583,7 +29771,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_32_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_32_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_38_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_38_1.png" />
 </div>
 </div>
 </section>
@@ -29593,7 +29781,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 <li><p>get the pumping rates by stress period</p></li>
 </ol>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;boundname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;pleasant_2-13-2&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
@@ -29602,7 +29790,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -29713,7 +29901,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 <li><p>Google “python get days in month” or similar (simply using 30.4 would be fine too for an approximate answer)</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">calendar</span>
@@ -29725,7 +29913,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 <li><p>multiply the days by the daily pumping rate to get the totals; convert units and sum</p></li>
 </ol>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates</span>
@@ -29733,7 +29921,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -29850,7 +30038,7 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates</span><span class="p">[</span><span class="s1">&#39;gallons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">rates</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">264.172</span>
@@ -29866,11 +30054,8 @@ Text(0, 0.5, &#39;$m^3$/day&#39;)
 -98,557,525.66559602
 </pre></div></div>
 </div>
-</section>
-<section id="Run-the-model-first-to-get-the-output">
-<h2>Run the model first to get the output<a class="headerlink" href="#Run-the-model-first-to-get-the-output" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
@@ -29907,7 +30092,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/25 16:52:35
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/25 21:18:04
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -29926,8 +30111,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/25 16:52:37
- Elapsed run time:  2.405 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/25 21:18:07
+ Elapsed run time:  2.432 Seconds
 
 
 WARNING REPORT:
@@ -29938,7 +30123,7 @@ WARNING REPORT:
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -29946,7 +30131,508 @@ WARNING REPORT:
 (True, [])
 </pre></div></div>
 </div>
-<p>With MODFLOW 6 models, we can get the output from the model object, without having to reference additional files. Sometimes though, it may be easier to read the file directly.</p>
+</section>
+<section id="Getting-MODFLOW-output-from-the-model-object">
+<h2>Getting MODFLOW output from the model object<a class="headerlink" href="#Getting-MODFLOW-output-from-the-model-object" title="Link to this heading"></a></h2>
+<p>With MODFLOW 6 models, we can get the output from the model object, without having to reference the output files.</p>
+<div class="alert alert-block alert-info"><p>NOTE This approach only works if you ran the model using Flopy, as above. If the model was run separately at the command line, or in a previous Python session, the output needs to be read from the files (as below).</p>
+</div><p>In Flopy, MODFLOW binary output is read using objects that represent the various file types.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">headfile_object</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">headfile_object</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;flopy.utils.binaryfile.HeadFile at 0x7f5583252f10&gt;
+</pre></div></div>
+</div>
+<p>The output file objects include various methods and attributes with information about the output. For example, the elapsed simulation times with output recrods.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">headfile_object</span><span class="o">.</span><span class="n">get_times</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[np.float64(1.0),
+ np.float64(32.0),
+ np.float64(61.0),
+ np.float64(92.0),
+ np.float64(122.0),
+ np.float64(153.0),
+ np.float64(183.0),
+ np.float64(214.0),
+ np.float64(245.0),
+ np.float64(275.0),
+ np.float64(306.0),
+ np.float64(336.0),
+ np.float64(367.0)]
+</pre></div></div>
+</div>
+<p>Including a <code class="docutils literal notranslate"><span class="pre">get_data()</span></code> method to get the output values:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heads</span> <span class="o">=</span> <span class="n">headfile_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">kstpkper</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sfr_output_object</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">output</span>
+<span class="n">sfr_output_object</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MF6Output Class for sfr_0
+Available output methods include:
+.zonebudget()
+.budget()
+.budgetcsv()
+.package_convergence()
+.obs()
+.stage()
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sfr_stage</span> <span class="o">=</span> <span class="n">sfr_output_object</span><span class="o">.</span><span class="n">stage</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<p>Cell Budget output works the same way.</p>
+<p>In this case, we specified <code class="docutils literal notranslate"><span class="pre">save_flows</span></code> as an option in the various packages to save flux output for those packages, include fluxes to and from the Lake and SFR Packages.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbc_file_object</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
+<span class="n">cbc_file_object</span><span class="o">.</span><span class="n">get_unique_record_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[np.bytes_(b&#39;          STO-SS&#39;),
+ np.bytes_(b&#39;          STO-SY&#39;),
+ np.bytes_(b&#39;    FLOW-JA-FACE&#39;),
+ np.bytes_(b&#39;             WEL&#39;),
+ np.bytes_(b&#39;            RCHA&#39;),
+ np.bytes_(b&#39;             CHD&#39;),
+ np.bytes_(b&#39;             SFR&#39;),
+ np.bytes_(b&#39;             LAK&#39;)]
+</pre></div></div>
+</div>
+<p>Cell Budget results are returned in a list that allows for auxilliary information besides the output to be included in subsequent items.</p>
+<p>The values are the first item.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lake_fluxes</span> <span class="o">=</span> <span class="n">cbc_file_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;lak&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Especially for structured (layer, row, column) grids, we usually want to specify <code class="docutils literal notranslate"><span class="pre">full3D=True</span></code>. This returns the results in a 3D Numpy array.</p>
+<p>Otherwise, results are returned in a Numpy <code class="docutils literal notranslate"><span class="pre">recarray</span></code>, referenced by unique node numbers.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbc_file_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;lak&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+rec.array([(6560, 1, -163.5854572 ), (6566, 1,   85.47697217),
+           (6763, 1, -201.692521  ), (6633, 1,   53.84431952),
+           (6563, 1,   -8.88752784)],
+          dtype=[(&#39;node&#39;, &#39;&lt;i4&#39;), (&#39;node2&#39;, &#39;&lt;i4&#39;), (&#39;q&#39;, &#39;&lt;f8&#39;)])
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbc_file_object</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
+<span class="n">lake_fluxes</span> <span class="o">=</span> <span class="n">cbc_file_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;lak&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sfr_fluxes</span> <span class="o">=</span> <span class="n">cbc_file_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;sfr&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Alternatively,-read-MODFLOW-binary-output-from-the-files">
+<h2>Alternatively, read MODFLOW binary output from the files<a class="headerlink" href="#Alternatively,-read-MODFLOW-binary-output-from-the-files" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">binaryfile</span> <span class="k">as</span> <span class="n">bf</span>
+
+<span class="n">headfile_object</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">HeadFile</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.hds&quot;</span><span class="p">)</span>
+<span class="n">heads_from_the_file</span> <span class="o">=</span> <span class="n">headfile_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">kstpkper</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbc_file_object</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">CellBudgetFile</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.cbc&quot;</span><span class="p">)</span>
+<span class="n">cbc_fluxes_from_the_file</span> <span class="o">=</span> <span class="n">cbc_file_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">kstpkper</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>MODFLOW 6 CSV observation output can also be easily read using <code class="docutils literal notranslate"><span class="pre">pandas</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lak_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;lake1.obs.csv&#39;</span><span class="p">)</span>
+<span class="n">lak_output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>STAGE</th>
+      <th>INFLOW</th>
+      <th>RAINFALL</th>
+      <th>RUNOFF</th>
+      <th>LAK</th>
+      <th>WITHDRAWAL</th>
+      <th>EVAPORATION</th>
+      <th>STORAGE</th>
+      <th>VOLUME</th>
+      <th>SURFACE-AREA</th>
+      <th>WETTED-AREA</th>
+      <th>CONDUCTANCE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>302.000818</td>
+      <td>0.0</td>
+      <td>2048.465617</td>
+      <td>0.0</td>
+      <td>1432.796191</td>
+      <td>0.0</td>
+      <td>-480.872306</td>
+      <td>0.000000</td>
+      <td>4820408.264</td>
+      <td>763500.0</td>
+      <td>540000.0</td>
+      <td>13694.60149</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>32.0</td>
+      <td>301.950066</td>
+      <td>0.0</td>
+      <td>494.206161</td>
+      <td>0.0</td>
+      <td>1499.121637</td>
+      <td>0.0</td>
+      <td>-196.705306</td>
+      <td>1249.989555</td>
+      <td>4781658.588</td>
+      <td>763500.0</td>
+      <td>540000.0</td>
+      <td>13694.60149</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>61.0</td>
+      <td>301.903708</td>
+      <td>0.0</td>
+      <td>668.720690</td>
+      <td>0.0</td>
+      <td>1511.548756</td>
+      <td>0.0</td>
+      <td>-311.952356</td>
+      <td>1220.489893</td>
+      <td>4746264.381</td>
+      <td>763500.0</td>
+      <td>540000.0</td>
+      <td>13694.60149</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>92.0</td>
+      <td>301.884950</td>
+      <td>0.0</td>
+      <td>1851.709161</td>
+      <td>0.0</td>
+      <td>1368.143521</td>
+      <td>0.0</td>
+      <td>-873.164663</td>
+      <td>461.989594</td>
+      <td>4731942.704</td>
+      <td>763500.0</td>
+      <td>540000.0</td>
+      <td>13694.60149</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>122.0</td>
+      <td>301.889281</td>
+      <td>0.0</td>
+      <td>2333.612300</td>
+      <td>0.0</td>
+      <td>1096.265713</td>
+      <td>0.0</td>
+      <td>-1055.726856</td>
+      <td>-110.223034</td>
+      <td>4735249.395</td>
+      <td>763500.0</td>
+      <td>540000.0</td>
+      <td>13694.60149</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head_obs_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.head.obs&quot;</span><span class="p">)</span>
+<span class="n">head_obs_output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>00400037_UWSP</th>
+      <th>00400037_UWSP.1</th>
+      <th>00400037_UWSP.2</th>
+      <th>00400037_UWSP.3</th>
+      <th>00400041_UWSP</th>
+      <th>00400041_UWSP.1</th>
+      <th>00400041_UWSP.2</th>
+      <th>00400041_UWSP.3</th>
+      <th>10019264_LK</th>
+      <th>...</th>
+      <th>YH229.2</th>
+      <th>YH229.3</th>
+      <th>YQ987</th>
+      <th>YQ987.1</th>
+      <th>YQ987.2</th>
+      <th>YQ987.3</th>
+      <th>YS864</th>
+      <th>YS864.1</th>
+      <th>YS864.2</th>
+      <th>YS864.3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>310.161509</td>
+      <td>310.152440</td>
+      <td>310.146632</td>
+      <td>309.972583</td>
+      <td>294.571188</td>
+      <td>294.533753</td>
+      <td>294.507520</td>
+      <td>294.460828</td>
+      <td>287.057064</td>
+      <td>...</td>
+      <td>301.671867</td>
+      <td>301.833545</td>
+      <td>302.314533</td>
+      <td>302.324774</td>
+      <td>302.335628</td>
+      <td>302.712518</td>
+      <td>312.448733</td>
+      <td>312.427510</td>
+      <td>312.400785</td>
+      <td>312.395162</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>32.0</td>
+      <td>310.114717</td>
+      <td>310.114717</td>
+      <td>310.108406</td>
+      <td>309.932164</td>
+      <td>294.496467</td>
+      <td>294.460880</td>
+      <td>294.436082</td>
+      <td>294.403306</td>
+      <td>287.002266</td>
+      <td>...</td>
+      <td>301.609129</td>
+      <td>301.772555</td>
+      <td>302.230838</td>
+      <td>302.244670</td>
+      <td>302.258673</td>
+      <td>302.652591</td>
+      <td>312.387007</td>
+      <td>312.383407</td>
+      <td>312.353905</td>
+      <td>312.348160</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>61.0</td>
+      <td>310.078745</td>
+      <td>310.078745</td>
+      <td>310.072239</td>
+      <td>309.894409</td>
+      <td>294.432037</td>
+      <td>294.396652</td>
+      <td>294.372019</td>
+      <td>294.340104</td>
+      <td>286.969376</td>
+      <td>...</td>
+      <td>301.559509</td>
+      <td>301.721138</td>
+      <td>302.179090</td>
+      <td>302.193726</td>
+      <td>302.208416</td>
+      <td>302.605806</td>
+      <td>312.345221</td>
+      <td>312.339465</td>
+      <td>312.307319</td>
+      <td>312.299521</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>92.0</td>
+      <td>310.051664</td>
+      <td>310.051664</td>
+      <td>310.048010</td>
+      <td>309.878756</td>
+      <td>294.459305</td>
+      <td>294.424027</td>
+      <td>294.399453</td>
+      <td>294.367593</td>
+      <td>287.008239</td>
+      <td>...</td>
+      <td>301.576502</td>
+      <td>301.736277</td>
+      <td>302.211276</td>
+      <td>302.221966</td>
+      <td>302.233239</td>
+      <td>302.614153</td>
+      <td>312.367330</td>
+      <td>312.340335</td>
+      <td>312.309477</td>
+      <td>312.304597</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>122.0</td>
+      <td>310.100468</td>
+      <td>310.085611</td>
+      <td>310.082751</td>
+      <td>309.915603</td>
+      <td>294.568056</td>
+      <td>294.532587</td>
+      <td>294.507949</td>
+      <td>294.476668</td>
+      <td>287.084117</td>
+      <td>...</td>
+      <td>301.647729</td>
+      <td>301.809016</td>
+      <td>302.261779</td>
+      <td>302.269823</td>
+      <td>302.278917</td>
+      <td>302.655915</td>
+      <td>312.416061</td>
+      <td>312.379106</td>
+      <td>312.355470</td>
+      <td>312.358140</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 550 columns</p>
+</div></div>
+</div>
 <p>The head solution is reported for each layer.</p>
 <ul class="simple">
 <li><p>We can use the <code class="docutils literal notranslate"><span class="pre">get_water_table</span></code> utility to get a 2D surface of the water table position in each cell.</p></li>
@@ -29955,49 +30641,41 @@ WARNING REPORT:
 <li><p>In this case, we are getting the solution from the initial steady-state period</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils.postprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_water_table</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mfexport.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_water_table</span>
 
-<span class="n">hds</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">kstpkper</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">wt</span> <span class="o">=</span> <span class="n">get_water_table</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=-</span><span class="mf">1e30</span><span class="p">)</span>
+<span class="n">water_table</span> <span class="o">=</span> <span class="n">get_water_table</span><span class="p">(</span><span class="n">heads</span><span class="p">)</span>
 
 <span class="c1"># add the lake stage to the water table</span>
-<span class="n">lak_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;lake1.obs.csv&#39;</span><span class="p">)</span>
 <span class="n">stage</span> <span class="o">=</span> <span class="n">lak_output</span><span class="p">[</span><span class="s1">&#39;STAGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">cnd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">lak</span><span class="o">.</span><span class="n">connectiondata</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+<span class="n">cnd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">lak</span><span class="o">.</span><span class="n">connectiondata</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
 <span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cnd</span><span class="p">[</span><span class="s1">&#39;cellid&#39;</span><span class="p">])</span>
-<span class="n">wt</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage</span>
+<span class="n">water_table</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage</span>
 <span class="c1"># add the SFR stage as well</span>
-<span class="n">sfr_stage</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">stage</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
 <span class="c1"># get the SFR cell i, j locations</span>
 <span class="c1"># by unpacking the cellid tuples in the packagedata</span>
-<span class="n">sfr_k</span><span class="p">,</span> <span class="n">sfr_i</span><span class="p">,</span> <span class="n">sfr_j</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">packagedata</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="s1">&#39;cellid&#39;</span><span class="p">])</span>
-<span class="n">wt</span><span class="p">[</span><span class="n">sfr_i</span><span class="p">,</span> <span class="n">sfr_j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sfr_stage</span>
-
-<span class="n">cbc</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">budget</span><span class="p">()</span>
-<span class="n">lak</span> <span class="o">=</span> <span class="n">cbc</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;lak&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">sfr</span> <span class="o">=</span> <span class="n">cbc</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;sfr&#39;</span><span class="p">,</span> <span class="n">full3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sfr_k</span><span class="p">,</span> <span class="n">sfr_i</span><span class="p">,</span> <span class="n">sfr_j</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">packagedata</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="s1">&#39;cellid&#39;</span><span class="p">])</span>
+<span class="n">water_table</span><span class="p">[</span><span class="n">sfr_i</span><span class="p">,</span> <span class="n">sfr_j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sfr_stage</span>
 </pre></div>
 </div>
 </div>
 <p>We can add output to a PlotMapView instance as arrays</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">280</span><span class="p">,</span> <span class="mi">315</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">ctr</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">wt</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ctr</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">water_table</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
                         <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">ctr</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline_spacing</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lak</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">sfr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lake_fluxes</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">sfr_fluxes</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
 <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Leakage, in m$^3$/day&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Northing, WTM meters&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Easting, WTM meters&quot;</span><span class="p">)</span>
@@ -30009,26 +30687,27 @@ WARNING REPORT:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_45_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_45_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_72_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_72_0.png" />
 </div>
 </div>
 </section>
 <section id="Zoom-in-on-the-lake">
 <h2>Zoom in on the lake<a class="headerlink" href="#Zoom-in-on-the-lake" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">280</span><span class="p">,</span> <span class="mi">315</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">new_extent</span> <span class="o">=</span> <span class="p">(</span><span class="mi">554500</span><span class="p">,</span> <span class="mi">557500</span><span class="p">,</span> <span class="mi">388500</span><span class="p">,</span> <span class="mi">392000</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="mi">554500</span><span class="p">,</span> <span class="mi">557500</span><span class="p">,</span> <span class="mi">388500</span><span class="p">,</span> <span class="mi">392000</span><span class="p">))</span>
-<span class="n">ctr</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">wt</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
+<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">new_extent</span><span class="p">)</span>
+<span class="n">ctr</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">water_table</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
                         <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">ctr</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline_spacing</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lak</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">sfr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">lake_fluxes</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">sfr_fluxes</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
 <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Leakage, in m$^3$/day&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Northing, WTM meters&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Easting, WTM meters&quot;</span><span class="p">)</span>
@@ -30040,17 +30719,17 @@ WARNING REPORT:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_47_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_47_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_74_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_74_0.png" />
 </div>
 </div>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">export_array</span></code> utility to make a GeoTIFF of any 2D array on a structured grid. For example, make a raster of the simulated water table.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flopy.export.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_array</span>
 
-<span class="n">export_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;water_table.tif&#39;</span><span class="p">),</span> <span class="n">wt</span><span class="p">)</span>
+<span class="n">export_array</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;water_table.tif&#39;</span><span class="p">),</span> <span class="n">water_table</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -30076,16 +30755,16 @@ WARNING REPORT:
 <li><p>Make a numpy array of overpressurization and get the max and min values</p></li>
 </ol>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="n">wt</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="n">water_table</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">array</span>
 <span class="n">op</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">op</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -30097,7 +30776,7 @@ WARNING REPORT:
 <li><p>Plot it</p></li>
 </ol>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">op</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
@@ -30105,40 +30784,40 @@ WARNING REPORT:
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.colorbar.Colorbar at 0x7fa432aa30d0&gt;
+&lt;matplotlib.colorbar.Colorbar at 0x7f5572e54a90&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_54_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_54_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_81_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_81_1.png" />
 </div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>Export a raster of overpressurization so we can compare it against air photos (or mapped wetlands if we have them!)</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">export_array</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;op.tif&#39;</span><span class="p">),</span> <span class="n">op</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">export_array</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_folder</span> <span class="o">/</span> <span class="s1">&#39;op.tif&#39;</span><span class="p">),</span> <span class="n">op</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>The highest levels of overpressurization correspond to Pleasant Lake, where the model top represents the lake bottom. Other areas of <em>OP</em> appear to correspond to lakes or wetlands, especially the spring complex south of Pleasant Lake, where Tagatz Creek originates.</p>
 <p>The greatest depths to water correspond to a topographic high in the southwest part of the model domain. A cross section through the area confirms that it is a bedrock high that rises more than 50 meters above the surrounding topography, so a depth to water of 76 meters in this area seems reasonable.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">62</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">62</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -30147,43 +30826,55 @@ WARNING REPORT:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_58_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_58_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_85_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_85_0.png" />
 </div>
 </div>
 <p>We can also view output in cross section. In this case, <code class="docutils literal notranslate"><span class="pre">PlotMatView</span></code> plots the head solution where the model is saturated. We can add the water table we created above that includes the lake surface.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">xs_line</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">552400</span><span class="p">,</span> <span class="mi">393000</span><span class="p">),</span> <span class="p">(</span><span class="mi">552400</span> <span class="o">+</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">393000</span> <span class="o">-</span> <span class="mi">4000</span><span class="p">)]</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotCrossSection</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
                                  <span class="n">line</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">xs_line</span><span class="p">},</span>
                                  <span class="c1">#line={&quot;row&quot;: 32},</span>
                                  <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                                  <span class="n">geographic_coords</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">()</span>
-<span class="n">pc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">hds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
-<span class="n">ctr</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">hds</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">hds</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">wt</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">pc</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">heads</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">heads</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+<span class="n">ctr</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">contour_array</span><span class="p">(</span><span class="n">heads</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">heads</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">])</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">water_table</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mf">1e30</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">labels</span> <span class="o">=</span> <span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span>
     <span class="n">ctr</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline_spacing</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distance, in </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Elevation, in </span><span class="si">{</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0, 0.5, &#39;Elevation, in Meters&#39;)
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_60_0.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_60_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_87_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_87_1.png" />
 </div>
 </div>
 <p>In this model, head “observations” were specified at various locations using the MODFLOW 6 Observation Utility. MODFLOW reports simulated values of head at these locations, which can then be compared with equivalent field observations for model parameter estimation.</p>
 <p>Earlier we obtained a DataFrame of Lake Package observation output for pleasant lake by reading in ‘lake1.obs.csv’ with pandas. We can read the head observation output with pandas too.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">headobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;pleasant.head.obs&#39;</span><span class="p">)</span>
@@ -30192,7 +30883,7 @@ WARNING REPORT:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -30365,15 +31056,15 @@ WARNING REPORT:
 </div>
 <p>Head observations can also be accessed via the <code class="docutils literal notranslate"><span class="pre">.output</span></code> attribute for their respective package. First we have to find the name associated with that package though. We can get this by calling <code class="docutils literal notranslate"><span class="pre">get_package_list()</span></code>. Looks like <code class="docutils literal notranslate"><span class="pre">&quot;OBS_3&quot;</span></code> is it (since the only <code class="docutils literal notranslate"><span class="pre">OBS</span></code> packages in the model is for heads).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">get_package_list</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">get_package_list</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -30397,15 +31088,15 @@ WARNING REPORT:
 </div>
 <p>Next let’s query the available output methods:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">obs_3</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">methods</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">obs_3</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">methods</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -30415,15 +31106,15 @@ WARNING REPORT:
 </div>
 <p>Now get the output. It comes back as a Numpy recarray be default, but we can easily cast it to a DataFrame.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">obs_3</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">obs</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">())</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">obs_3</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">obs</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -30786,10 +31477,10 @@ WARNING REPORT:
 <p>13 rows × 550 columns</p>
 </div></div>
 </div>
-<p>In MODFLOW 6, we can use boundnames to create observations for groups of cells. For example, in this model, each head value specified in the Constant Head Package has a <code class="docutils literal notranslate"><span class="pre">boundname</span></code> of east, west, north or south, to indicate the side of the model perimeter it’s on.</p>
+<p>In MODFLOW 6, we can use boundnames to create observations for groups of cells. For example, in this model, each head value specified in the Constant Head (CHD) Package has a <code class="docutils literal notranslate"><span class="pre">boundname</span></code> of east, west, north or south, to indicate the side of the model perimeter it’s on.</p>
 <p>Example of boundnames specified in an external input file for the CHD Package:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;external/chd_001.dat&#39;</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -30801,12 +31492,12 @@ WARNING REPORT:
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/tmp/ipykernel_12561/614846193.py:1: FutureWarning: The &#39;delim_whitespace&#39; keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep=&#39;\s+&#39;`` instead
+/tmp/ipykernel_12560/614846193.py:1: FutureWarning: The &#39;delim_whitespace&#39; keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep=&#39;\s+&#39;`` instead
   pd.read_csv(sim_ws / &#39;external/chd_001.dat&#39;, delim_whitespace=True)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -30944,7 +31635,7 @@ END continuous  FILEOUT  pleasant.chd.obs.output.csv
 </div>
 <p>The resulting observation output (net flow across the boundary faces in model units of cubic meters per day) can be found in <code class="docutils literal notranslate"><span class="pre">pleasant.chd.obs.output.csv</span></code>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;pleasant.chd.obs.output.csv&#39;</span><span class="p">)</span>
@@ -30954,7 +31645,7 @@ END continuous  FILEOUT  pleasant.chd.obs.output.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -31039,7 +31730,7 @@ END continuous  FILEOUT  pleasant.chd.obs.output.csv
 <p>The <code class="docutils literal notranslate"><span class="pre">Mf6ListBudget</span></code> and <code class="docutils literal notranslate"><span class="pre">MfListBudget</span></code> (for earlier MODFLOW versions) utilities can assemble the global mass balance output (printed in the Listing file) into a DataFrame. A <code class="docutils literal notranslate"><span class="pre">start_datetime</span></code> can be added to convert the MODFLOW time to actual dates.</p>
 <p><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">start_datetime</span></code> functionality is unaware of steady-state periods, so if we put in the actual model start date of 2012-01-01, the 1-day initial steady-state will be included, resulting in the stress periods being offset by one day. Also note that the dates here represent the <em>end</em> of each stress period.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mf6ListBudget</span>
@@ -31047,7 +31738,7 @@ END continuous  FILEOUT  pleasant.chd.obs.output.csv
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mfl</span> <span class="o">=</span> <span class="n">Mf6ListBudget</span><span class="p">(</span><span class="n">sim_ws</span> <span class="o">/</span> <span class="s1">&#39;pleasant.list&#39;</span><span class="p">)</span>
@@ -31057,7 +31748,7 @@ END continuous  FILEOUT  pleasant.chd.obs.output.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -31210,7 +31901,7 @@ END continuous  FILEOUT  pleasant.chd.obs.output.csv
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flux</span><span class="o">.</span><span class="n">columns</span>
@@ -31218,7 +31909,7 @@ END continuous  FILEOUT  pleasant.chd.obs.output.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -31231,33 +31922,33 @@ Index([&#39;STO-SS_IN&#39;, &#39;STO-SY_IN&#39;, &#39;WEL_IN&#39;, &#39;RCHA_IN&
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flux</span><span class="p">[</span><span class="s1">&#39;PERCENT_DISCREPANCY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">flux</span><span class="p">[</span><span class="s1">&#39;PERCENT_DISCREPANCY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percent mass balance error&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Text(4.444444444444452, 0.5, &#39;Percent mass balance error&#39;)
+Text(0, 0.5, &#39;Percent mass balance error&#39;)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_80_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_80_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_105_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_105_1.png" />
 </div>
 </div>
 <p>Note: This works best if the in and out columns are aligned, such that <code class="docutils literal notranslate"><span class="pre">STO-SY_IN</span></code> and <code class="docutils literal notranslate"><span class="pre">STO-SY_OUT</span></code> are both colored orange, for example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -31272,7 +31963,7 @@ Text(4.444444444444452, 0.5, &#39;Percent mass balance error&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -31284,7 +31975,7 @@ Text(0, 0.5, &#39;Simulated Flux, in $m^3/d$&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_82_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_82_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_107_1.png" src="../../../_images/notebooks_part1_flopy_solutions_03_Loading_and_visualizing_models-solutions_107_1.png" />
 </div>
 </div>
 <p>Fienen, M. N., Haserodt, M. J., Leaf, A. T., and Westenbroek, S. M. (2022). Simulation of regional groundwater flow and groundwater/lake interactions in the central Sands, Wisconsin. U.S. Geological Survey Scientific Investigations Report 2022-5046. doi:10.3133/sir20225046</p>
