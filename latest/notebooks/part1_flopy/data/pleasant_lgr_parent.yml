@@ -1,0 +1,234 @@
+# starting version number for the project (optional)
+# version reported by modflow-setup will then be
+# the start_version appended by the remaining information
+# in a pep440-post style version tag
+# (e.g. most recent git commit hash for the model repository
+# + "dirty" if the model repository has uncommitted changes)
+# see https://github.com/warner/python-versioneer/blob/master/details.md
+metadata:
+  start_version: 0.1
+  longname: 'Pleasant Lake test case'
+
+# input for MODFLOW 6 simulation
+simulation:
+  sim_name: 'pleasant-lgr'
+  version: 'mf6'
+  sim_ws: 'pleasant-lgr/'
+
+# input for MODFLOW 6 model
+model:
+  simulation: 'pleasant-lgr'
+  modelname: 'plsnt-lgr-parent'
+  options:
+    print_input: True
+    save_flows: True
+    newton: True
+    newton_under_relaxation: True
+  # packages to build
+  # (any packages not listed or commented out will not be built,
+  #  event if they have an input block below)
+  packages: ['dis',
+             'ic',
+             'npf',
+             'oc',
+             'sto',
+             'rch', # Note: with no recharge block below and default_source_data=True, recharge is regridded from parent model
+             'sfr',
+             'lak',
+             'obs',
+             'wel',
+             'ims',
+             'chd'
+  ]
+
+# Regional model to extract boundary conditions,
+# property arrays, and pumping data from
+parent:
+  # arguments to flopy.modflow.Modflow.load for parent model
+  namefile: 'pleasant.nam'
+  model_ws: 'pleasant-lake/'
+  version: 'mf6'
+  # information for modflow-setup
+  # note: parent model is geo-located in namfile header
+  # (only works if length_units='meters')
+  #hiKlakes_value: 1.e4 # unfortunately python yaml currently requires a dot to parse exp notation as float
+  default_source_data: True  # if True, packages and variables that are omitted will be pulled from this model
+  copy_stress_periods: 'all'
+  inset_layer_mapping:  # mapping between inset and parent model layers
+    0: 0  # inset: parent  (inset layers 1 and 0 copied from parent layer 0)
+    1: 0
+    2: 1
+    3: 2
+    4: 3
+  start_date_time: '2012-01-01'
+  length_units: 'meters'
+  time_units: 'days'
+  SpatialReference:
+    xoff: 552400
+    yoff: 387200
+    epsg: 3070
+
+# parameters for setting up the horizontal configuration of the grid
+# in the context of a coordinate reference system
+setup_grid:
+  #remake: True
+  xoff: 553200 # lower left x-coordinate
+  yoff: 387800 # lower left y-coordinate
+  rotation: 0.
+  dxy: 200  # in CRS units of meters
+  epsg: 3070  # CRS (Wisconsin Transverse Mercator)
+  # local-grid refinement area
+  # specified in another configuration file
+  # is set up in tandem and connected in the same MODFLOW 6 simulation
+  lgr:
+    pleasant_lgr_inset:
+      filename: 'pleasant_lgr_inset.yml'
+      layer_refinement: 1  # number of lgr model layers per parent model layer
+
+# Structured Discretization Package
+dis:
+  options:
+    length_units: 'meters'
+  dimensions:
+    # if nrow and ncol are not specified here, the entries above in setup_grid are used
+    nlay: 5
+    nrow: 25
+    ncol: 27
+  # griddata:
+  # delr and delc are developed from information above in setup_grid
+  # top and botm arrays are sampled from GeoTIFF files
+  # idomain is developed from layer pinch-outs and boundary condition locations
+  source_data:
+    top:
+      filename: 'pleasant-lake/source_data/rasters/dem40m.tif' # DEM file; path relative to setup script
+      elevation_units: 'meters'
+    botm:
+      filenames:
+        1: 'pleasant-lake/source_data/rasters/botm0.tif'  # preprocessed surface for parent model layer 0 bottom
+        2: 'pleasant-lake/source_data/rasters/botm1.tif'  # preprocessed surface for parent model layer 1 bottom
+        3: 'pleasant-lake/source_data/rasters/botm2.tif'  # preprocessed surface for parent model layer 2 bottom
+        4: 'pleasant-lake/source_data/rasters/botm3.tif'  # preprocessed surface for parent model layer 3 bottom
+
+# Temporal Discretization Package
+tdis:
+  options:
+    time_units: 'days'
+    start_date_time: '2012-01-01'
+  perioddata:
+    # time discretization info can be specified directly under the perioddata key
+    # or in groups of stress periods that are discretized in a similar way
+    group 1: # initial steady-state period (steady specified under sto package)
+      #perlen: 1 # Specify perlen as an int or list of lengths in model units, or perlen=None and 3 of start_date, end_date, nper and/or freq."
+      nper: 1
+      nstp: 1
+      tsmult: 1
+      steady: True  # "steady" can be entered here; otherwise the global entry specified in the sto package is used as the default
+      # oc_saverecord: can also be specified by group here; otherwise the global entry specified in the oc package is used as the default
+    group 2: # monthly stress periods
+      start_date_time: '2012-01-01'  # can be specified by group, otherwise start_date_time for the model (under tdis: options) will be used.
+      end_date_time: '2013-01-01'  # model ends at midnight on this date (2007-03-31 would be the last day simulated)
+      freq: '1MS' # same as argument to pandas.date_range; (see "Offset Aliases" at https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#timeseries-offset-aliases)
+      nstp: 1
+      tsmult: 1.5
+      steady: False
+
+# Initial Conditions Package
+ic:
+  # starting heads sampled from parent model
+  source_data:
+    strt:
+      from_parent:
+        binaryfile: 'pleasant-lake/pleasant.hds'
+        stress_period: 0
+
+# Node Property Flow Package
+npf:
+  options:
+    save_flows: True
+  griddata:
+    icelltype: 1 # variable sat. thickness in all layers
+  # with parent: default_source_data: True,
+  # unspecified variables such as "k" and "k33" are resampled from parent model
+
+# Storage Package
+sto:
+  options:
+    save_flows: True
+  griddata:
+    iconvert: 1  # convertible layers
+  # with parent: default_source_data: True,
+  # unspecified variables such as "sy" and "ss" are resampled from parent model
+
+# Well Package
+wel:
+  options:
+    print_input: True
+    print_flows: True
+    save_flows: True
+  # with parent: default_source_data: True,
+  # unspecified well fluxes are resampled from parent model
+
+# Streamflow Routing Package
+# SFR input is created using SFRmaker
+# https://github.com/doi-usgs/sfrmaker
+sfr:
+  options:
+    save_flows: True
+  source_data:
+    flowlines:
+      # path to NHDPlus version 2 dataset
+      nhdplus_paths: ['pleasant-lake/source_data/shps']
+    # if a DEM is included, streambed top elevations will be sampled
+    # from the minimum DEM values within a 100 meter buffer around each stream reach
+    dem:
+      filename: 'pleasant-lake/source_data/rasters/dem40m.tif'
+      elevation_units: 'meters'
+    # SFR observations can be automatically setup from a CSV file
+    # of x, y locations and fluxes
+    observations:  # see sfrmaker.observations.add_observations for arguments
+      filename: 'pleasant-lake/source_data/tables/gages.csv'
+      obstype: 'downstream-flow'  # modflow-6 observation type
+      x_location_column: 'x'
+      y_location_column: 'y'
+      obsname_column: 'site_no'
+  sfrmaker_options:
+    # the sfrmaker_options: block can include arguments to the Lines.to_sfr method in SFRmaker
+    # (see https://doi-usgs.github.io/sfrmaker/api/sfrmaker.lines.html#sfrmaker.lines.Lines.to_sfr)
+    # or other options such as set_streambed_top_elevations_from_dem (see pleasant examples)
+    # or to_riv (shellmound_tmr example)
+    set_streambed_top_elevations_from_dem: True
+
+# Iterative model solution
+ims:
+  options:
+    complexity: 'moderate'
+  nonlinear:
+    outer_dvclose: 1.e-2
+    outer_maximum: 200
+  linear:
+    inner_maximum: 100
+    inner_dvclose: 1.e-4
+    rcloserecord: [0.0001, 'relative_rclose']
+
+# Observation (OBS) Utility
+obs:
+  source_data:
+    # Head observations are supplied via csv files with x, y locations and observation names
+    # an observation is generated in each model layer;
+    # observations at each location can subsequently be processed
+    # to represent a given screened interval
+    # for example, using modflow-obs (https://github.com/aleaf/modflow-obs)
+    filenames: ['pleasant-lake/source_data/tables/nwis_heads_info_file.csv',
+                'pleasant-lake/source_data/tables/lake_sites.csv',  # some lakes are high-k; obs need to be in hydmod
+                'pleasant-lake/source_data/tables/wdnr_gw_sites.csv',
+                'pleasant-lake/source_data/tables/uwsp_heads.csv',
+                'pleasant-lake/source_data/tables/wgnhs_head_targets.csv'
+                     ]
+    column_mappings:
+      obsname: ['obsprefix', 'obsnme', 'common_name']
+  drop_observations: ['10019209_lk'  # pleasant lake; monitored via Lake Package observations
+  ]
+
+chd:
+  perimeter_boundary:
+    parent_head_file: 'pleasant-lake/pleasant.hds'  # needed for the perimeter boundary setup
