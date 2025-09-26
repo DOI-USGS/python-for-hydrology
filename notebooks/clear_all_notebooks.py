@@ -14,7 +14,6 @@ skip_notebooks = [
     #'03_Loading_and_visualizing_models-solutions.ipynb',
     #'05-unstructured-grids.ipynb',
     #'07-stream_capture_voronoi.ipynb',
-    #'08_Modflow-setup-demo.ipynb',
     #'09-gwt-voronoi-demo.ipynb',
     '10b_modpath_particle_tracking-demo.ipynb'
     ]

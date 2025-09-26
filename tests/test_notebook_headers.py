@@ -73,27 +73,31 @@ def test_notebook_header(notebook):
                 in_header = False
             elif item['cell_type'] == 'markdown':
                 if in_header:
+                    in_code_cell = False
                     for line in item['source']:
                         line = line.strip()
-                        if not has_number and line.startswith('#'):
-                            current_level = line.split()[0]
-                            assert current_level == '#',\
-                                (f"\n{notebook}\nheader line {line}:\n"
-                                f"{error_instructions}")
-                            header_level = current_level
-                            header_number = line.split()[1].strip()
-                            assert header_number[:2].isdigit(),\
-                                (f"\n{notebook}\nheader line {line}:\n"
+                        if line.startswith('```'):
+                            in_code_cell = not in_code_cell
+                        if not in_code_cell:
+                            if not has_number and line.startswith('#'):
+                                current_level = line.split()[0]
+                                assert current_level == '#',\
+                                    (f"\n{notebook}\nheader line {line}:\n"
                                     f"{error_instructions}")
-                            assert header_number[-1] == ':',\
-                                (f"\n{notebook}\nheader line {line}:\n"
+                                header_level = current_level
+                                header_number = line.split()[1].strip()
+                                assert header_number[:2].isdigit(),\
+                                    (f"\n{notebook}\nheader line {line}:\n"
+                                        f"{error_instructions}")
+                                assert header_number[-1] == ':',\
+                                    (f"\n{notebook}\nheader line {line}:\n"
+                                        f"{error_instructions}")
+                                has_number = True
+                            elif line.strip().startswith('#'):
+                                current_level = line.split()[0]
+                                assert len(current_level) > 1,\
+                                    (f"\n{notebook}\nline {line}:\n"
                                     f"{error_instructions}")
-                            has_number = True
-                        elif line.strip().startswith('#'):
-                            current_level = line.split()[0]
-                            assert len(current_level) > 1,\
-                                (f"\n{notebook}\nline {line}:\n"
-                                f"{error_instructions}")
                 else:
                     in_code_cell = False
                     for line in item['source']:
@@ -105,4 +109,4 @@ def test_notebook_header(notebook):
                             assert len(current_level) > 1,\
                                 (f"\n{notebook}\nline {line}:\n"
                                 f"{error_instructions}")
-                            
+
