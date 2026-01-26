@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>03: Useful standard library modules &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -22,6 +22,8 @@
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -967,7 +969,7 @@ shutil.rmtree()  #obviously, you need to be careful with this one!
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, serial=0)
+sys.version_info(major=3, minor=11, micro=14, releaselevel=&#39;final&#39;, serial=0)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1008,7 +1010,7 @@ sys.version_info(major=3, minor=11, micro=13, releaselevel=&#39;final&#39;, seri
 <div class="highlight"><pre>
 [&#39;/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/ipykernel_launcher.py&#39;,
  &#39;-f&#39;,
- &#39;/tmp/tmp_puw1v9c.json&#39;,
+ &#39;/tmp/tmpjlbgj8ur.json&#39;,
  &#39;--HistoryManager.hist_file=:memory:&#39;]
 </pre></div></div>
 </div>
@@ -1648,12 +1650,12 @@ Switched back to:  /home/runner/work/python-for-hydrology/python-for-hydrology/d
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_83cbcde5-f07e-4c2b-8995-057fc82c03ae&#39;,
+environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/save_state_c71a5d2a-5c65-42d7-8075-a6bcdaadb2c3&#39;,
         &#39;CONDA_PROMPT_MODIFIER&#39;: &#39;(pyclass-docs) &#39;,
         &#39;DOTNET_NOLOGO&#39;: &#39;1&#39;,
         &#39;USER&#39;: &#39;runner&#39;,
         &#39;CI&#39;: &#39;true&#39;,
-        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_83cbcde5-f07e-4c2b-8995-057fc82c03ae&#39;,
+        &#39;GITHUB_ENV&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_env_c71a5d2a-5c65-42d7-8075-a6bcdaadb2c3&#39;,
         &#39;PIPX_HOME&#39;: &#39;/opt/pipx&#39;,
         &#39;RUNNER_ENVIRONMENT&#39;: &#39;github-hosted&#39;,
         &#39;JAVA_HOME_8_X64&#39;: &#39;/usr/lib/jvm/temurin-8-jdk-amd64&#39;,
@@ -1665,8 +1667,8 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_REPOSITORY_OWNER&#39;: &#39;DOI-USGS&#39;,
         &#39;JAVA_HOME_11_X64&#39;: &#39;/usr/lib/jvm/temurin-11-jdk-amd64&#39;,
         &#39;PIPX_BIN_DIR&#39;: &#39;/opt/pipx_bin&#39;,
-        &#39;ANDROID_NDK_LATEST_HOME&#39;: &#39;/usr/local/lib/android/sdk/ndk/28.2.13676358&#39;,
-        &#39;GRADLE_HOME&#39;: &#39;/usr/share/gradle-9.1.0&#39;,
+        &#39;ANDROID_NDK_LATEST_HOME&#39;: &#39;/usr/local/lib/android/sdk/ndk/29.0.14206865&#39;,
+        &#39;GRADLE_HOME&#39;: &#39;/usr/share/gradle-9.3.0&#39;,
         &#39;GITHUB_RETENTION_DAYS&#39;: &#39;80&#39;,
         &#39;JAVA_HOME_21_X64&#39;: &#39;/usr/lib/jvm/temurin-21-jdk-amd64&#39;,
         &#39;POWERSHELL_DISTRIBUTION_CHANNEL&#39;: &#39;GitHub-Actions-ubuntu24&#39;,
@@ -1674,13 +1676,15 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_HEAD_REF&#39;: &#39;&#39;,
         &#39;GITHUB_REPOSITORY_OWNER_ID&#39;: &#39;65027635&#39;,
         &#39;AZURE_EXTENSION_DIR&#39;: &#39;/opt/az/azcliextensions&#39;,
+        &#39;ACTIONS_ORCHESTRATION_ID&#39;: &#39;4b4bf129-e3d0-42ef-b9b9-4f9aef54367f.docs.__default&#39;,
         &#39;MAKEFLAGS&#39;: &#39;w&#39;,
-        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1876&#39;,
+        &#39;SYSTEMD_EXEC_PID&#39;: &#39;1989&#39;,
         &#39;GITHUB_GRAPHQL_URL&#39;: &#39;https://api.github.com/graphql&#39;,
         &#39;NVM_DIR&#39;: &#39;/home/runner/.nvm&#39;,
+        &#39;JAVA_HOME_25_X64&#39;: &#39;/usr/lib/jvm/temurin-25-jdk-amd64&#39;,
         &#39;DOTNET_SKIP_FIRST_TIME_EXPERIENCE&#39;: &#39;1&#39;,
         &#39;JAVA_HOME_17_X64&#39;: &#39;/usr/lib/jvm/temurin-17-jdk-amd64&#39;,
-        &#39;ImageVersion&#39;: &#39;20250922.53.1&#39;,
+        &#39;ImageVersion&#39;: &#39;20260119.4.1&#39;,
         &#39;RUNNER_OS&#39;: &#39;Linux&#39;,
         &#39;GITHUB_API_URL&#39;: &#39;https://api.github.com&#39;,
         &#39;LOGNAME&#39;: &#39;runner&#39;,
@@ -1689,14 +1693,15 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GOROOT_1_23_X64&#39;: &#39;/opt/hostedtoolcache/go/1.23.12/x64&#39;,
         &#39;CHROMEWEBDRIVER&#39;: &#39;/usr/local/share/chromedriver-linux64&#39;,
         &#39;_&#39;: &#39;/usr/bin/make&#39;,
-        &#39;JOURNAL_STREAM&#39;: &#39;9:14227&#39;,
+        &#39;JOURNAL_STREAM&#39;: &#39;9:11889&#39;,
         &#39;GITHUB_WORKFLOW&#39;: &#39;Publish Docs&#39;,
         &#39;MEMORY_PRESSURE_WATCH&#39;: &#39;/sys/fs/cgroup/system.slice/hosted-compute-agent.service/memory.pressure&#39;,
-        &#39;GOROOT_1_24_X64&#39;: &#39;/opt/hostedtoolcache/go/1.24.7/x64&#39;,
+        &#39;GOROOT_1_24_X64&#39;: &#39;/opt/hostedtoolcache/go/1.24.12/x64&#39;,
         &#39;CONDARC&#39;: &#39;/home/runner/work/_temp/setup-micromamba/.condarc&#39;,
-        &#39;GITHUB_RUN_ID&#39;: &#39;18040432089&#39;,
+        &#39;GITHUB_RUN_ID&#39;: &#39;21366852011&#39;,
         &#39;ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE&#39;: &#39;/opt/actionarchivecache&#39;,
-        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;4aedfab077745037037f45904b6f55fc2bf5af85&#39;,
+        &#39;GOROOT_1_25_X64&#39;: &#39;/opt/hostedtoolcache/go/1.25.6/x64&#39;,
+        &#39;GITHUB_WORKFLOW_SHA&#39;: &#39;97bd77b66c4a0c52cee62b143852172e84813f12&#39;,
         &#39;MODFLOW_BIN_PATH&#39;: &#39;/home/runner/.local/bin&#39;,
         &#39;BOOTSTRAP_HASKELL_NONINTERACTIVE&#39;: &#39;1&#39;,
         &#39;GITHUB_REF_TYPE&#39;: &#39;branch&#39;,
@@ -1706,14 +1711,14 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;ENABLE_RUNNER_TRACING&#39;: &#39;true&#39;,
         &#39;GITHUB_WORKFLOW_REF&#39;: &#39;DOI-USGS/python-for-hydrology/.github/workflows/build_docs.yaml@refs/heads/main&#39;,
         &#39;PATH&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/bin:/home/runner/micromamba/condabin:/home/runner/.local/bin:/home/runner/work/_temp/setup-micromamba:/home/runner/micromamba-bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin&#39;,
-        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_1900b6d7-173d-429b-8b26-1e783411b36c&#39;,
+        &#39;RUNNER_TRACKING_ID&#39;: &#39;github_0576dd64-18fc-4c78-b312-1e2d03671780&#39;,
         &#39;DOTNET_MULTILEVEL_LOOKUP&#39;: &#39;0&#39;,
-        &#39;INVOCATION_ID&#39;: &#39;2aaf3d94a4604fa5b37827936b12fe64&#39;,
+        &#39;INVOCATION_ID&#39;: &#39;803e0b434e5e443895879714d224f1c8&#39;,
         &#39;PROJ_NETWORK&#39;: &#39;ON&#39;,
         &#39;RUNNER_TOOL_CACHE&#39;: &#39;/opt/hostedtoolcache&#39;,
         &#39;ANT_HOME&#39;: &#39;/usr/share/ant&#39;,
         &#39;GITHUB_TRIGGERING_ACTOR&#39;: &#39;mnfienen&#39;,
-        &#39;GITHUB_RUN_NUMBER&#39;: &#39;80&#39;,
+        &#39;GITHUB_RUN_NUMBER&#39;: &#39;81&#39;,
         &#39;RUNNER_ARCH&#39;: &#39;X64&#39;,
         &#39;XDG_RUNTIME_DIR&#39;: &#39;/run/user/1001&#39;,
         &#39;AGENT_TOOLSDIRECTORY&#39;: &#39;/opt/hostedtoolcache&#39;,
@@ -1723,7 +1728,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;MAMBA_ROOT_PREFIX&#39;: &#39;/home/runner/micromamba&#39;,
         &#39;LANG&#39;: &#39;C.UTF-8&#39;,
         &#39;VCPKG_INSTALLATION_ROOT&#39;: &#39;/usr/local/share/vcpkg&#39;,
-        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000014054&#39;,
+        &#39;RUNNER_NAME&#39;: &#39;GitHub Actions 1000022615&#39;,
         &#39;GITHUB_REF_NAME&#39;: &#39;main&#39;,
         &#39;XDG_CONFIG_HOME&#39;: &#39;/home/runner/.config&#39;,
         &#39;CONDA&#39;: &#39;/usr/share/miniconda&#39;,
@@ -1742,7 +1747,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GITHUB_JOB&#39;: &#39;docs&#39;,
         &#39;CONDA_DEFAULT_ENV&#39;: &#39;pyclass-docs&#39;,
         &#39;GITHUB_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology&#39;,
-        &#39;GITHUB_SHA&#39;: &#39;4aedfab077745037037f45904b6f55fc2bf5af85&#39;,
+        &#39;GITHUB_SHA&#39;: &#39;97bd77b66c4a0c52cee62b143852172e84813f12&#39;,
         &#39;GITHUB_RUN_ATTEMPT&#39;: &#39;1&#39;,
         &#39;GITHUB_REF&#39;: &#39;refs/heads/main&#39;,
         &#39;ANDROID_SDK_ROOT&#39;: &#39;/usr/local/lib/android/sdk&#39;,
@@ -1752,7 +1757,7 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;PWD&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs&#39;,
         &#39;RUNNER_WORKSPACE&#39;: &#39;/home/runner/work/python-for-hydrology&#39;,
         &#39;GITHUB_ACTOR_ID&#39;: &#39;1110827&#39;,
-        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_83cbcde5-f07e-4c2b-8995-057fc82c03ae&#39;,
+        &#39;GITHUB_PATH&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/add_path_c71a5d2a-5c65-42d7-8075-a6bcdaadb2c3&#39;,
         &#39;GHCUP_INSTALL_BASE_PREFIX&#39;: &#39;/usr/local&#39;,
         &#39;GITHUB_EVENT_NAME&#39;: &#39;push&#39;,
         &#39;XDG_DATA_DIRS&#39;: &#39;/usr/local/share:/usr/share:/var/lib/snapd/desktop&#39;,
@@ -1761,12 +1766,13 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;GECKOWEBDRIVER&#39;: &#39;/usr/local/share/gecko_driver&#39;,
         &#39;NVM_CD_FLAGS&#39;: &#39;&#39;,
         &#39;HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS&#39;: &#39;3650&#39;,
-        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_83cbcde5-f07e-4c2b-8995-057fc82c03ae&#39;,
+        &#39;GITHUB_OUTPUT&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/set_output_c71a5d2a-5c65-42d7-8075-a6bcdaadb2c3&#39;,
         &#39;HOMEBREW_NO_AUTO_UPDATE&#39;: &#39;1&#39;,
         &#39;EDGEWEBDRIVER&#39;: &#39;/usr/local/share/edge_driver&#39;,
         &#39;SGX_AESM_ADDR&#39;: &#39;1&#39;,
         &#39;CHROME_BIN&#39;: &#39;/usr/bin/google-chrome&#39;,
         &#39;MFLAGS&#39;: &#39;-w&#39;,
+        &#39;PSModulePath&#39;: &#39;/root/.local/share/powershell/Modules:/usr/local/share/powershell/Modules:/opt/microsoft/powershell/7/Modules:/usr/share/az_12.5.0&#39;,
         &#39;CONDA_PREFIX&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs&#39;,
         &#39;ANDROID_NDK&#39;: &#39;/usr/local/lib/android/sdk/ndk/27.3.13750724&#39;,
         &#39;GSETTINGS_SCHEMA_DIR_CONDA_BACKUP&#39;: &#39;&#39;,
@@ -1774,9 +1780,9 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
         &#39;SELENIUM_JAR_PATH&#39;: &#39;/usr/share/java/selenium-server.jar&#39;,
         &#39;ANDROID_NDK_HOME&#39;: &#39;/usr/local/lib/android/sdk/ndk/27.3.13750724&#39;,
         &#39;GDAL_DATA&#39;: &#39;/home/runner/micromamba/envs/pyclass-docs/share/gdal&#39;,
-        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_83cbcde5-f07e-4c2b-8995-057fc82c03ae&#39;,
+        &#39;GITHUB_STEP_SUMMARY&#39;: &#39;/home/runner/work/_temp/_runner_file_commands/step_summary_c71a5d2a-5c65-42d7-8075-a6bcdaadb2c3&#39;,
         &#39;DOCUTILSCONFIG&#39;: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/docutils.conf&#39;,
-        &#39;JPY_PARENT_PID&#39;: &#39;4671&#39;,
+        &#39;JPY_PARENT_PID&#39;: &#39;4553&#39;,
         &#39;PYDEVD_USE_FRAME_EVAL&#39;: &#39;NO&#39;,
         &#39;TERM&#39;: &#39;xterm-color&#39;,
         &#39;CLICOLOR&#39;: &#39;1&#39;,
@@ -1825,19 +1831,19 @@ environ{&#39;GITHUB_STATE&#39;: &#39;/home/runner/work/_temp/_runner_file_comman
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 total 276
--rw-r--r-- 1 runner runner 32326 Sep 26 14:21 00_python_basics_review.ipynb
--rw-r--r-- 1 runner runner 31027 Sep 26 14:21 03_useful-std-library-modules.ipynb
--rw-r--r-- 1 runner runner 45695 Sep 26 14:21 05_numpy.ipynb
--rw-r--r-- 1 runner runner  2460 Sep 26 14:21 06b_matplotlib_animation.ipynb
--rw-r--r-- 1 runner runner 12297 Sep 26 14:21 07b_VSCode.md
--rw-r--r-- 1 runner runner 28153 Sep 26 14:21 09_a_Geopandas.ipynb
--rw-r--r-- 1 runner runner  9730 Sep 26 14:21 09_b_Geopandas_ABQ.ipynb
--rw-r--r-- 1 runner runner 22693 Sep 26 14:21 10a_Rasterio_intro.ipynb
--rw-r--r-- 1 runner runner 29620 Sep 26 14:21 10b_Rasterio_advanced.ipynb
--rw-r--r-- 1 runner runner 35369 Sep 26 14:21 11_xarray_mt_rainier_precip.ipynb
-drwxr-xr-x 3 runner runner  4096 Sep 26 14:21 another_subfolder
-drwxr-xr-x 8 runner runner  4096 Sep 26 14:19 data
-drwxr-xr-x 2 runner runner  4096 Sep 26 14:21 solutions
+-rw-r--r-- 1 runner runner 32326 Jan 26 17:16 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31027 Jan 26 17:16 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Jan 26 17:16 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2460 Jan 26 17:16 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner 12297 Jan 26 17:16 07b_VSCode.md
+-rw-r--r-- 1 runner runner 28153 Jan 26 17:16 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9730 Jan 26 17:16 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 22693 Jan 26 17:16 10a_Rasterio_intro.ipynb
+-rw-r--r-- 1 runner runner 29620 Jan 26 17:16 10b_Rasterio_advanced.ipynb
+-rw-r--r-- 1 runner runner 35369 Jan 26 17:16 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Jan 26 17:16 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Jan 26 17:14 data
+drwxr-xr-x 2 runner runner  4096 Jan 26 17:16 solutions
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1950,19 +1956,19 @@ run(*popenargs, input=None, capture_output=False, timeout=None, check=False, **k
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 total 276
--rw-r--r-- 1 runner runner 32326 Sep 26 14:21 00_python_basics_review.ipynb
--rw-r--r-- 1 runner runner 31027 Sep 26 14:21 03_useful-std-library-modules.ipynb
--rw-r--r-- 1 runner runner 45695 Sep 26 14:21 05_numpy.ipynb
--rw-r--r-- 1 runner runner  2460 Sep 26 14:21 06b_matplotlib_animation.ipynb
--rw-r--r-- 1 runner runner 12297 Sep 26 14:21 07b_VSCode.md
--rw-r--r-- 1 runner runner 28153 Sep 26 14:21 09_a_Geopandas.ipynb
--rw-r--r-- 1 runner runner  9730 Sep 26 14:21 09_b_Geopandas_ABQ.ipynb
--rw-r--r-- 1 runner runner 22693 Sep 26 14:21 10a_Rasterio_intro.ipynb
--rw-r--r-- 1 runner runner 29620 Sep 26 14:21 10b_Rasterio_advanced.ipynb
--rw-r--r-- 1 runner runner 35369 Sep 26 14:21 11_xarray_mt_rainier_precip.ipynb
-drwxr-xr-x 3 runner runner  4096 Sep 26 14:21 another_subfolder
-drwxr-xr-x 8 runner runner  4096 Sep 26 14:19 data
-drwxr-xr-x 2 runner runner  4096 Sep 26 14:21 solutions
+-rw-r--r-- 1 runner runner 32326 Jan 26 17:16 00_python_basics_review.ipynb
+-rw-r--r-- 1 runner runner 31027 Jan 26 17:16 03_useful-std-library-modules.ipynb
+-rw-r--r-- 1 runner runner 45695 Jan 26 17:16 05_numpy.ipynb
+-rw-r--r-- 1 runner runner  2460 Jan 26 17:16 06b_matplotlib_animation.ipynb
+-rw-r--r-- 1 runner runner 12297 Jan 26 17:16 07b_VSCode.md
+-rw-r--r-- 1 runner runner 28153 Jan 26 17:16 09_a_Geopandas.ipynb
+-rw-r--r-- 1 runner runner  9730 Jan 26 17:16 09_b_Geopandas_ABQ.ipynb
+-rw-r--r-- 1 runner runner 22693 Jan 26 17:16 10a_Rasterio_intro.ipynb
+-rw-r--r-- 1 runner runner 29620 Jan 26 17:16 10b_Rasterio_advanced.ipynb
+-rw-r--r-- 1 runner runner 35369 Jan 26 17:16 11_xarray_mt_rainier_precip.ipynb
+drwxr-xr-x 3 runner runner  4096 Jan 26 17:16 another_subfolder
+drwxr-xr-x 8 runner runner  4096 Jan 26 17:14 data
+drwxr-xr-x 2 runner runner  4096 Jan 26 17:16 solutions
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -1981,8 +1987,8 @@ CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 total 8
-drwxr-xr-x 5 runner runner 4096 Sep 26 14:21 part0_python_intro
-drwxr-xr-x 5 runner runner 4096 Sep 26 14:21 part1_flopy
+drwxr-xr-x 5 runner runner 4096 Jan 26 17:16 part0_python_intro
+drwxr-xr-x 5 runner runner 4096 Jan 26 17:16 part1_flopy
 CompletedProcess(args=[&#39;ls&#39;, &#39;-l&#39;], returncode=0)
 </pre></div></div>
 </div>
@@ -2291,8 +2297,8 @@ PosixPath(&#39;03-output/netcdf_data/zipped/zipped_2001/12270_2001.zip&#39;)
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 26, 2025.
+    <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Jan 26, 2026.
       </span></p>
   </div>
 

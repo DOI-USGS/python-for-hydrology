@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>05: Unstructured grid and general mesh generation with FloPy &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -22,6 +22,8 @@
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -521,15 +523,6 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/pyogrio/__init__.py:7: DeprecationWarning: The &#39;shapely.geos&#39; module is deprecated, and will be removed in a future version. All attributes of &#39;shapely.geos&#39; are available directly from the top-level &#39;shapely&#39; namespace (since shapely 2.0.0).
-  import shapely.geos  # noqa: F401
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
@@ -560,63 +553,66 @@
 <span class="ansi-green-fg">    574</span>     kwargs[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">columns</span><span class="ansi-yellow-fg">&#34;</span>] = kwargs.pop(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">include_fields</span><span class="ansi-yellow-fg">&#34;</span>)
 <span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">576</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">pyogrio</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">read_dataframe</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">path_or_bytes</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/pyogrio/geopandas.py:275</span>, in <span class="ansi-cyan-fg">read_dataframe</span><span class="ansi-blue-fg">(path_or_buffer, layer, encoding, columns, read_geometry, force_2d, skip_features, max_features, where, bbox, mask, fids, sql, sql_dialect, fid_as_index, use_arrow, on_invalid, arrow_to_pandas_kwargs, **kwargs)</span>
-<span class="ansi-green-fg">    270</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> use_arrow:
-<span class="ansi-green-fg">    271</span>     <span style="color: rgb(95,135,135)"># For arrow, datetimes are read as is.</span>
-<span class="ansi-green-fg">    272</span>     <span style="color: rgb(95,135,135)"># For numpy IO, datetimes are read as string values to preserve timezone info</span>
-<span class="ansi-green-fg">    273</span>     <span style="color: rgb(95,135,135)"># as numpy does not directly support timezones.</span>
-<span class="ansi-green-fg">    274</span>     kwargs[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">datetime_as_string</span><span class="ansi-yellow-fg">&#34;</span>] = <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">275</span> result = <span class="ansi-yellow-bg">read_func</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    276</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">path_or_buffer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    277</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    278</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    279</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    280</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    281</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">force_2d</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">gdal_force_2d</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    282</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    283</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    284</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    285</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    286</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    287</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    288</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    289</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    290</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">return_fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fid_as_index</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    291</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    292</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    294</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> use_arrow:
-<span class="ansi-green-fg">    295</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">import</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">pyarrow</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-bold" style="color: rgb(0,135,0)">as</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">pa</span>
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/pyogrio/geopandas.py:382</span>, in <span class="ansi-cyan-fg">read_dataframe</span><span class="ansi-blue-fg">(path_or_buffer, layer, encoding, columns, read_geometry, force_2d, skip_features, max_features, where, bbox, mask, fids, sql, sql_dialect, fid_as_index, use_arrow, on_invalid, arrow_to_pandas_kwargs, datetime_as_string, mixed_offsets_as_utc, **kwargs)</span>
+<span class="ansi-green-fg">    374</span> gdal_force_2d = <span class="ansi-bold" style="color: rgb(0,135,0)">False</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> use_arrow <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> force_2d
+<span class="ansi-green-fg">    376</span> <span style="color: rgb(95,135,135)"># Always read datetimes as string values to preserve (mixed) time zone info</span>
+<span class="ansi-green-fg">    377</span> <span style="color: rgb(95,135,135)"># correctly. If arrow is not used, it is needed because numpy does not</span>
+<span class="ansi-green-fg">    378</span> <span style="color: rgb(95,135,135)"># directly support time zones + performance is also a lot better. If arrow</span>
+<span class="ansi-green-fg">    379</span> <span style="color: rgb(95,135,135)"># is used, needed because datetime columns don&#39;t support mixed time zone</span>
+<span class="ansi-green-fg">    380</span> <span style="color: rgb(95,135,135)"># offsets + e.g. for .fgb files time zone info isn&#39;t handled correctly even</span>
+<span class="ansi-green-fg">    381</span> <span style="color: rgb(95,135,135)"># for unique time zone offsets if datetimes are not read as string.</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">382</span> result = <span class="ansi-yellow-bg">read_func</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    383</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">path_or_buffer</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    384</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    385</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    386</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    387</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    388</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">force_2d</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">gdal_force_2d</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    389</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    390</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    391</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    392</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    393</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    394</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    395</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    396</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    397</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">return_fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fid_as_index</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    398</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">datetime_as_string</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    399</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    400</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    402</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> use_arrow:
+<span class="ansi-green-fg">    403</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">import</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">pyarrow</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-bold" style="color: rgb(0,135,0)">as</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">pa</span>
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/pyogrio/raw.py:198</span>, in <span class="ansi-cyan-fg">read</span><span class="ansi-blue-fg">(path_or_buffer, layer, encoding, columns, read_geometry, force_2d, skip_features, max_features, where, bbox, mask, fids, sql, sql_dialect, return_fids, datetime_as_string, **kwargs)</span>
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/pyogrio/raw.py:200</span>, in <span class="ansi-cyan-fg">read</span><span class="ansi-blue-fg">(path_or_buffer, layer, encoding, columns, read_geometry, force_2d, skip_features, max_features, where, bbox, mask, fids, sql, sql_dialect, return_fids, datetime_as_string, **kwargs)</span>
 <span class="ansi-green-fg">     59</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;Read OGR data source into numpy arrays.</span>
 <span class="ansi-green-fg">     60</span>
 <span class="ansi-green-fg">     61</span> <span class="ansi-yellow-fg">IMPORTANT: non-linear geometry types (e.g., MultiSurface) are converted</span>
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    194</span>
-<span class="ansi-green-fg">    195</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;</span>
-<span class="ansi-green-fg">    196</span> dataset_kwargs = _preprocess_options_key_value(kwargs) <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> kwargs <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> {}
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">198</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">ogr_read</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    199</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">get_vsi_path_or_buffer</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">path_or_buffer</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    200</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    201</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    202</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    203</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    204</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">force_2d</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">force_2d</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    205</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    206</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(175,0,255)">or</span><span class="ansi-yellow-bg"> </span><span class="ansi-green-fg ansi-yellow-bg">0</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    207</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    208</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    209</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">_mask_to_wkb</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    210</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    211</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    212</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    213</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">return_fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">return_fids</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    214</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">dataset_kwargs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">dataset_kwargs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    215</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">datetime_as_string</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">datetime_as_string</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    216</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    196</span>
+<span class="ansi-green-fg">    197</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;</span>
+<span class="ansi-green-fg">    198</span> dataset_kwargs = _preprocess_options_key_value(kwargs) <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> kwargs <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> {}
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">200</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">ogr_read</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    201</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">get_vsi_path_or_buffer</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">path_or_buffer</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    202</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    203</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    204</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    205</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">read_geometry</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    206</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">force_2d</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">force_2d</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    207</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">skip_features</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    208</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">max_features</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(175,0,255)">or</span><span class="ansi-yellow-bg"> </span><span class="ansi-green-fg ansi-yellow-bg">0</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    209</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">where</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    210</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    211</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">_mask_to_wkb</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">mask</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    212</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">fids</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    213</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    214</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">sql_dialect</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    215</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">return_fids</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">return_fids</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    216</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">dataset_kwargs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">dataset_kwargs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    217</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">datetime_as_string</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">datetime_as_string</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    218</span> <span class="ansi-yellow-bg">)</span>
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">pyogrio/_io.pyx:1293</span>, in <span class="ansi-cyan-fg">pyogrio._io.ogr_read</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">pyogrio/_io.pyx:1412</span>, in <span class="ansi-cyan-fg">pyogrio._io.ogr_read</span><span class="ansi-blue-fg">()</span>
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">pyogrio/_io.pyx:232</span>, in <span class="ansi-cyan-fg">pyogrio._io.ogr_open</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">pyogrio/_io.pyx:262</span>, in <span class="ansi-cyan-fg">pyogrio._io.ogr_open</span><span class="ansi-blue-fg">()</span>
 
 <span class="ansi-red-fg">DataSourceError</span>: data/unstructured_grid_data/basin_boundary.shp: No such file or directory
 </pre></div></div>
@@ -2601,8 +2597,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 26, 2025.
+    <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Jan 26, 2026.
       </span></p>
   </div>
 

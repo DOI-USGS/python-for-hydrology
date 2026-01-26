@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>08: Modflow-setup demonstration &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -22,6 +22,8 @@
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -556,7 +558,7 @@ configuration file. An external array-based Flopy model instance with the desire
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.17s
+finished in 0.06s
 
 writing data/pleasant-inset/postproc/shps/regional_model_grid.shp... Done
 </pre></div></div>
@@ -564,7 +566,7 @@ writing data/pleasant-inset/postproc/shps/regional_model_grid.shp... Done
 </section>
 <section id="Build-the-whole-model">
 <h3>Build the whole model<a class="headerlink" href="#Build-the-whole-model" title="Link to this heading"></a></h3>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
@@ -572,6 +574,94 @@ writing data/pleasant-inset/postproc/shps/regional_model_grid.shp... Done
 <span class="n">model</span> <span class="o">=</span> <span class="n">setup_model</span><span class="p">(</span><span class="s1">&#39;data/pleasant.yml&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[9]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> model = <span class="ansi-yellow-bg">setup_model</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-fg ansi-yellow-bg">data/pleasant.yml</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 4</span>, in <span class="ansi-cyan-fg">setup_model</span><span class="ansi-blue-fg">(configuration_file)</span>
+<span class="ansi-green-fg">      2</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;Set up the whole model.&#34;&#34;&#34;</span>
+<span class="ansi-green-fg">      3</span> cwd = os.getcwd()
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span> model = <span class="ansi-yellow-bg">MF6model</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">setup_from_yaml</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">configuration_file</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">      5</span> model.write_input()
+<span class="ansi-green-fg">      6</span> os.chdir(cwd)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/mfmodel.py:1819</span>, in <span class="ansi-cyan-fg">MFsetupMixin.setup_from_yaml</span><span class="ansi-blue-fg">(cls, yamlfile, verbose)</span>
+<span class="ansi-green-fg">   1806</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;Make a model from scratch, using information in a yamlfile.</span>
+<span class="ansi-green-fg">   1807</span>
+<span class="ansi-green-fg">   1808</span> <span class="ansi-yellow-fg">Parameters</span>
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1816</span> <span class="ansi-yellow-fg">m : model instance</span>
+<span class="ansi-green-fg">   1817</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;</span>
+<span class="ansi-green-fg">   1818</span> cfg = <span style="color: rgb(0,135,0)">cls</span>.load_cfg(yamlfile, verbose=verbose)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1819</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">cls</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">setup_from_cfg</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">cfg</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">verbose</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">verbose</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/mfmodel.py:1855</span>, in <span class="ansi-cyan-fg">MFsetupMixin.setup_from_cfg</span><span class="ansi-blue-fg">(cls, cfg, verbose)</span>
+<span class="ansi-green-fg">   1852</span> m.setup_solver()
+<span class="ansi-green-fg">   1854</span> <span style="color: rgb(95,135,135)"># set up all of the packages specified in the config file</span>
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1855</span> <span class="ansi-yellow-bg">m</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">setup_packages</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">reset_existing</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1857</span> <span style="color: rgb(95,135,135)"># LGR inset model(s)</span>
+<span class="ansi-green-fg">   1858</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> m.inset <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/mfmodel.py:1784</span>, in <span class="ansi-cyan-fg">MFsetupMixin.setup_packages</span><span class="ansi-blue-fg">(self, reset_existing)</span>
+<span class="ansi-green-fg">   1782</span> <span style="color: rgb(95,135,135)"># avoid multiple package instances for now, except for obs</span>
+<span class="ansi-green-fg">   1783</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span>.version != <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">mf6</span><span class="ansi-yellow-fg">&#39;</span> <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> pkg == <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">obs</span><span class="ansi-yellow-fg">&#39;</span> <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">hasattr</span>(<span style="color: rgb(0,135,0)">self</span>, pkg):
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1784</span>     <span class="ansi-yellow-bg">package_setup</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">cfg</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">pkg</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">cfg</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">pkg</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-fg ansi-yellow-bg">mfsetup_options</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/mf6model.py:543</span>, in <span class="ansi-cyan-fg">MF6model.setup_dis</span><span class="ansi-blue-fg">(self, **kwargs)</span>
+<span class="ansi-green-fg">    538</span>     <span style="color: rgb(0,135,0)">self</span>._setup_array(package, <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">top</span><span class="ansi-yellow-fg">&#39;</span>, datatype=<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">array2d</span><span class="ansi-yellow-fg">&#39;</span>,
+<span class="ansi-green-fg">    539</span>                       resample_method=<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">linear</span><span class="ansi-yellow-fg">&#39;</span>,
+<span class="ansi-green-fg">    540</span>                       write_fmt=<span class="ansi-yellow-fg">&#39;</span><span class="ansi-bold" style="color: rgb(175,95,135)">%.2f</span><span class="ansi-yellow-fg">&#39;</span>)
+<span class="ansi-green-fg">    542</span> <span style="color: rgb(95,135,135)"># make the botm array</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">543</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_setup_array</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">package</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-fg ansi-yellow-bg">botm</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">datatype</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-fg ansi-yellow-bg">array3d</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    544</span> <span class="ansi-yellow-bg">                  </span><span class="ansi-yellow-bg">resample_method</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-fg ansi-yellow-bg">linear</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    545</span> <span class="ansi-yellow-bg">                  </span><span class="ansi-yellow-bg">write_fmt</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(175,95,135)">%.2f</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    547</span> <span style="color: rgb(95,135,135)"># set number of layers to length of the created bottom array</span>
+<span class="ansi-green-fg">    548</span> <span style="color: rgb(95,135,135)"># this needs to be set prior to setting up the idomain,</span>
+<span class="ansi-green-fg">    549</span> <span style="color: rgb(95,135,135)"># otherwise idomain may have wrong number of layers</span>
+<span class="ansi-green-fg">    550</span> <span style="color: rgb(0,135,0)">self</span>.cfg[<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">dis</span><span class="ansi-yellow-fg">&#39;</span>][<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">dimensions</span><span class="ansi-yellow-fg">&#39;</span>][<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">nlay</span><span class="ansi-yellow-fg">&#39;</span>] = <span style="color: rgb(0,135,0)">len</span>(<span style="color: rgb(0,135,0)">self</span>.cfg[<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">dis</span><span class="ansi-yellow-fg">&#39;</span>][<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">griddata</span><span class="ansi-yellow-fg">&#39;</span>][<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">botm</span><span class="ansi-yellow-fg">&#39;</span>])
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/mfmodel.py:1251</span>, in <span class="ansi-cyan-fg">MFsetupMixin._setup_array</span><span class="ansi-blue-fg">(self, package, var, vmin, vmax, source_model, source_package, **kwargs)</span>
+<span class="ansi-green-fg">   1248</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">_setup_array</span>(<span style="color: rgb(0,135,0)">self</span>, package, var, vmin=-<span class="ansi-green-fg">1e30</span>, vmax=<span class="ansi-green-fg">1e30</span>,
+<span class="ansi-green-fg">   1249</span>                   source_model=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, source_package=<span class="ansi-bold" style="color: rgb(0,135,0)">None</span>,
+<span class="ansi-green-fg">   1250</span>                   **kwargs):
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1251</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">setup_array</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">package</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">var</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">vmin</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">vmin</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">vmax</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">vmax</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1252</span> <span class="ansi-yellow-bg">                       </span><span class="ansi-yellow-bg">source_model</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">source_model</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">source_package</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">source_package</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1253</span> <span class="ansi-yellow-bg">                       </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/sourcedata.py:1424</span>, in <span class="ansi-cyan-fg">setup_array</span><span class="ansi-blue-fg">(model, package, var, data, vmin, vmax, datatype, source_model, source_package, write_fmt, write_nodata, **kwargs)</span>
+<span class="ansi-green-fg">   1421</span>     <span style="color: rgb(95,135,135)"># copy the preexisting top file</span>
+<span class="ansi-green-fg">   1422</span>     shutil.copy(model.cfg[<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">intermediate_data</span><span class="ansi-yellow-fg">&#39;</span>][<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">top</span><span class="ansi-yellow-fg">&#39;</span>][<span class="ansi-green-fg">0</span>],
+<span class="ansi-green-fg">   1423</span>                 original_top_file)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1424</span>     top = <span class="ansi-yellow-bg">model</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">load_array</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">original_top_file</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1425</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> model.version == <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">mf6</span><span class="ansi-yellow-fg">&#39;</span>:
+<span class="ansi-green-fg">   1426</span>     <span style="color: rgb(95,135,135)"># reset the model top to the lake bottom</span>
+<span class="ansi-green-fg">   1427</span>     top[bathy != <span class="ansi-green-fg">0</span>] -= bathy[bathy != <span class="ansi-green-fg">0</span>]
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/mfmodel.py:560</span>, in <span class="ansi-cyan-fg">MFsetupMixin.load_array</span><span class="ansi-blue-fg">(self, filename)</span>
+<span class="ansi-green-fg">    554</span>         arrays.append(load_array(f,
+<span class="ansi-green-fg">    555</span>                                  shape=(<span style="color: rgb(0,135,0)">self</span>.nrow, <span style="color: rgb(0,135,0)">self</span>.ncol),
+<span class="ansi-green-fg">    556</span>                                  nodata=<span style="color: rgb(0,135,0)">self</span>._nodata_value
+<span class="ansi-green-fg">    557</span>                                  )
+<span class="ansi-green-fg">    558</span>                       )
+<span class="ansi-green-fg">    559</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> np.array(arrays)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">560</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">load_array</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">filename</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">shape</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">nrow</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ncol</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/mfsetup/fileio.py:127</span>, in <span class="ansi-cyan-fg">load_array</span><span class="ansi-blue-fg">(filename, shape, nodata)</span>
+<span class="ansi-green-fg">    124</span> <span style="color: rgb(0,135,0)">print</span>(txt, end=<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">, </span><span class="ansi-yellow-fg">&#39;</span>)
+<span class="ansi-green-fg">    125</span> <span style="color: rgb(95,135,135)"># arr = np.loadtxt</span>
+<span class="ansi-green-fg">    126</span> <span style="color: rgb(95,135,135)"># pd.read_csv is &gt;3x faster than np.load_txt</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">127</span> arr = <span class="ansi-yellow-bg">pd</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">read_csv</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">f</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">delim_whitespace</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">header</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">None</span><span class="ansi-yellow-bg">)</span>.values
+<span class="ansi-green-fg">    128</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> shape2d <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-fg">    129</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> arr.shape != shape2d:
+
+<span class="ansi-red-fg">TypeError</span>: read_csv() got an unexpected keyword argument &#39;delim_whitespace&#39;
+</pre></div></div>
 </div>
 <p>a <code class="docutils literal notranslate"><span class="pre">MF6model</span></code> instance (subclass of <code class="docutils literal notranslate"><span class="pre">flopy.mf6.ModflowGwf</span></code>) is returned</p>
 <div class="nbinput docutils container">
@@ -582,22 +672,30 @@ writing data/pleasant-inset/postproc/shps/regional_model_grid.shp... Done
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-inset
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post561.dev0+g4aedfab
+Pleasant Lake test case version 0.1.post562.dev0+g97bd77b
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
-5 layer(s), 100 row(s), 108 column(s)
+100 row(s), 108 column(s)
 delr: [50.00...50.00] undefined
 delc: [50.00...50.00] undefined
 CRS: EPSG:3070
 length units: meters
 xll: 553200.0; yll: 387800.0; rotation: 0.0
 Bounds: (np.float64(553200.0), np.float64(558600.0), np.float64(387800.0), np.float64(392800.0))
-Packages: dis ic npf sto rcha_0 oc chd_0 obs_0 sfr_0 lak_0 obs_1 wel_0 obs_2 obs_3
+Packages:
 13 period(s):
  per start_datetime end_datetime  perlen  steady  nstp
    0     2012-01-01   2012-01-01     1.0    True     1
@@ -644,17 +742,7 @@ defaultdict(dict,
             {&#39;remake_top&#39;: True,
              &#39;options&#39;: {&#39;length_units&#39;: &#39;meters&#39;},
              &#39;dimensions&#39;: {&#39;nlay&#39;: 5, &#39;nrow&#39;: 100, &#39;ncol&#39;: 108},
-             &#39;griddata&#39;: {&#39;top&#39;: [{&#39;filename&#39;: &#39;./external/top.dat&#39;}],
-              &#39;botm&#39;: [{&#39;filename&#39;: &#39;./external/botm_000.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/botm_001.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/botm_002.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/botm_003.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/botm_004.dat&#39;}],
-              &#39;idomain&#39;: [{&#39;filename&#39;: &#39;./external/idomain_000.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/idomain_001.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/idomain_002.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/idomain_003.dat&#39;},
-               {&#39;filename&#39;: &#39;./external/idomain_004.dat&#39;}]},
+             &#39;griddata&#39;: {},
              &#39;top_filename_fmt&#39;: &#39;top.dat&#39;,
              &#39;botm_filename_fmt&#39;: &#39;botm_{:03d}.dat&#39;,
              &#39;idomain_filename_fmt&#39;: &#39;idomain_{:03d}.dat&#39;,
@@ -666,8 +754,7 @@ defaultdict(dict,
                 2: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/botm1.tif&#39;,
                 3: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/botm2.tif&#39;,
                 4: &#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake/source_data/rasters/botm3.tif&#39;}}},
-             &#39;nlay&#39;: 4,
-             &#39;mfsetup_options&#39;: {}})
+             &#39;nlay&#39;: 4})
 </pre></div></div>
 </div>
 <section id="Plot-the-model-grid-with-Lake-Package-connections-by-layer">
@@ -706,12 +793,27 @@ defaultdict(dict,
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Text(0, 0.5, &#39;Northing, in WTM meters (epsg: 3070)&#39;)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[12]</span><span class="ansi-green-fg">, line 9</span>
+<span class="ansi-green-fg">      7</span> fig, ax = plt.subplots(figsize=(<span class="ansi-green-fg">10</span>, <span class="ansi-green-fg">10</span>))
+<span class="ansi-green-fg">      8</span> mv = flopy.plot.PlotMapView(model=model, ax=ax)
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">9</span> <span class="ansi-yellow-bg">mv</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">plot_bc</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">SFR</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">plotAll</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">     10</span> lcp = mv.plot_grid(lw=<span class="ansi-green-fg">0.5</span>, ax=ax)
+<span class="ansi-green-fg">     12</span> <span style="color: rgb(95,135,135)"># Get the lake connections</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/plot/map.py:494</span>, in <span class="ansi-cyan-fg">PlotMapView.plot_bc</span><span class="ansi-blue-fg">(self, name, package, kper, color, plotAll, boundname, **kwargs)</span>
+<span class="ansi-green-fg">    491</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">Exception</span>(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Cannot find package to plot</span><span class="ansi-yellow-fg">&#34;</span>)
+<span class="ansi-green-fg">    493</span> <span style="color: rgb(95,135,135)"># trap for mf6 &#39;cellid&#39; vs mf2005 &#39;k&#39;, &#39;i&#39;, &#39;j&#39; convention</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">494</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">isinstance</span>(p, <span style="color: rgb(0,135,0)">list</span>) <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-yellow-bg">p</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">parent</span>.version == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">mf6</span><span class="ansi-yellow-fg">&#34;</span>:
+<span class="ansi-green-fg">    495</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">isinstance</span>(p, <span style="color: rgb(0,135,0)">list</span>):
+<span class="ansi-green-fg">    496</span>         p = [p]
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;NoneType&#39; object has no attribute &#39;parent&#39;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -744,58 +846,10 @@ This example assumes that a MODFLOW 6 executable with the name “mf6” either 
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
-                                   MODFLOW 6
-                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.6.2 05/12/2025
 
-   MODFLOW 6 compiled May 24 2025 11:41:46 with Intel(R) Fortran Intel(R) 64
-   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
-                             Build 20220726_000000
+ERROR REPORT:
 
-This software has been approved for release by the U.S. Geological
-Survey (USGS). Although the software has been subjected to rigorous
-review, the USGS reserves the right to update the software as needed
-pursuant to further analysis and review. No warranty, expressed or
-implied, is made by the USGS or the U.S. Government as to the
-functionality of the software and related material nor shall the
-fact of release constitute any such warranty. Furthermore, the
-software is released on condition that neither the USGS nor the U.S.
-Government shall be held liable for any damages resulting from its
-authorized or unauthorized use. Also refer to the USGS Water
-Resources Software User Rights Notice for complete use, copyright,
-and distribution information.
-
-
- MODFLOW runs in SEQUENTIAL mode
-
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:24:37
-
- Writing simulation list file: mfsim.lst
- Using Simulation name file: mfsim.nam
-
-    Solving:  Stress period:     1    Time step:     1
-    Solving:  Stress period:     2    Time step:     1
-    Solving:  Stress period:     3    Time step:     1
-    Solving:  Stress period:     4    Time step:     1
-    Solving:  Stress period:     5    Time step:     1
-    Solving:  Stress period:     6    Time step:     1
-    Solving:  Stress period:     7    Time step:     1
-    Solving:  Stress period:     8    Time step:     1
-    Solving:  Stress period:     9    Time step:     1
-    Solving:  Stress period:    10    Time step:     1
-    Solving:  Stress period:    11    Time step:     1
-    Solving:  Stress period:    12    Time step:     1
-    Solving:  Stress period:    13    Time step:     1
-
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:24:44
- Elapsed run time:  6.766 Seconds
-
-
-WARNING REPORT:
-
-  1. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;pleasant-inset.sfr&#39;
-     WAS DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
- Normal termination of simulation.
+  1. mf6: mfsim.nam is not present in working directory.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -804,7 +858,7 @@ WARNING REPORT:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(True, [])
+(False, [])
 </pre></div></div>
 </div>
 </section>
@@ -812,7 +866,7 @@ WARNING REPORT:
 <h3>Plot the results<a class="headerlink" href="#Plot-the-results" title="Link to this heading"></a></h3>
 <section id="Read-the-output-and-post-process-the-3D-head-results-into-a-2D-water-table">
 <h4>Read the output and post-process the 3D head results into a 2D water table<a class="headerlink" href="#Read-the-output-and-post-process-the-3D-head-results-into-a-2D-water-table" title="Link to this heading"></a></h4>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
@@ -850,6 +904,37 @@ WARNING REPORT:
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[14]</span><span class="ansi-green-fg">, line 4</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">flopy</span><span class="ansi-blue-intense-fg ansi-bold">.</span><span class="ansi-blue-intense-fg ansi-bold">utils</span><span class="ansi-blue-intense-fg ansi-bold">.</span><span class="ansi-blue-intense-fg ansi-bold">binaryfile</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-bold" style="color: rgb(0,135,0)">as</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">bf</span>
+<span class="ansi-green-fg">      2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">flopy</span><span class="ansi-blue-intense-fg ansi-bold">.</span><span class="ansi-blue-intense-fg ansi-bold">utils</span><span class="ansi-blue-intense-fg ansi-bold">.</span><span class="ansi-blue-intense-fg ansi-bold">postprocessing</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-bold" style="color: rgb(0,135,0)">import</span> get_water_table
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span> headfile_object = <span class="ansi-yellow-bg">bf</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">HeadFile</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">sim_ws</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">/</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-fg ansi-yellow-bg">pleasant-inset.hds</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">      6</span> <span style="color: rgb(95,135,135)"># read the head results for the last stress period</span>
+<span class="ansi-green-fg">      7</span> kper = <span class="ansi-green-fg">12</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/binaryfile/__init__.py:504</span>, in <span class="ansi-cyan-fg">HeadFile.__init__</span><span class="ansi-blue-fg">(self, filename, text, precision, verbose, **kwargs)</span>
+<span class="ansi-green-fg">    502</span> <span style="color: rgb(0,135,0)">self</span>.text = text.encode()
+<span class="ansi-green-fg">    503</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> precision == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">auto</span><span class="ansi-yellow-fg">&#34;</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">504</span>     precision = <span class="ansi-yellow-bg">get_headfile_precision</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">filename</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    505</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> precision == <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">unknown</span><span class="ansi-yellow-fg">&#34;</span>:
+<span class="ansi-green-fg">    506</span>         s = <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Error. Precision could not be determined for </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>filename<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg">&#34;</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/utils/binaryfile/__init__.py:249</span>, in <span class="ansi-cyan-fg">get_headfile_precision</span><span class="ansi-blue-fg">(filename)</span>
+<span class="ansi-green-fg">    246</span> result = <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">unknown</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">    248</span> <span style="color: rgb(95,135,135)"># Open file, and check filesize to ensure this is not an empty file</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">249</span> f = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">open</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">filename</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">rb</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    250</span> f.seek(<span class="ansi-green-fg">0</span>, <span class="ansi-green-fg">2</span>)
+<span class="ansi-green-fg">    251</span> totalbytes = f.tell()
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;data/pleasant-inset/pleasant-inset.hds&#39;
+</pre></div></div>
+</div>
 </section>
 </section>
 <section id="Make-the-plot">
@@ -878,11 +963,29 @@ WARNING REPORT:
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[15]</span><span class="ansi-green-fg">, line 5</span>
+<span class="ansi-green-fg">      3</span> fig, ax = plt.subplots(figsize=(<span class="ansi-green-fg">8</span>, <span class="ansi-green-fg">8</span>))
+<span class="ansi-green-fg">      4</span> pmv = flopy.plot.PlotMapView(model, ax=ax)
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> ctr = pmv.contour_array(<span class="ansi-yellow-bg">water_table</span>, levels=levels,
+<span class="ansi-green-fg">      6</span>                         linewidths=<span class="ansi-green-fg">.5</span>, colors=<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">b</span><span class="ansi-yellow-fg">&#39;</span>)
+<span class="ansi-green-fg">      7</span> labels = pmv.ax.clabel(ctr, inline=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>, fontsize=<span class="ansi-green-fg">8</span>, inline_spacing=<span class="ansi-green-fg">1</span>)
+<span class="ansi-green-fg">      8</span> vmin, vmax = -<span class="ansi-green-fg">100</span>, <span class="ansi-green-fg">100</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;water_table&#39; is not defined
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_30_0.png" src="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_30_0.png" />
+<img alt="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_30_1.png" src="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_30_1.png" />
 </div>
 </div>
 </section>
@@ -910,7 +1013,7 @@ WARNING REPORT:
 </pre></div></div>
 </div>
 <p>Set up the MAW Package</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
@@ -936,6 +1039,229 @@ WARNING REPORT:
     <span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatalist.py:396</span>, in <span class="ansi-cyan-fg">MFList._set_data</span><span class="ansi-blue-fg">(self, data, autofill, check_data, preserve_record)</span>
+<span class="ansi-green-fg">    395</span>     <span style="color: rgb(95,135,135)"># store data</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">396</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_get_storage_obj</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">set_data</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    397</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    398</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">autofill</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">autofill</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    399</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">check_data</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">check_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    400</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">preserve_record</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">preserve_record</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    401</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    402</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">Exception</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> ex:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatastorage.py:923</span>, in <span class="ansi-cyan-fg">DataStorage.set_data</span><span class="ansi-blue-fg">(self, data, layer, multiplier, key, autofill, check_data, preserve_record)</span>
+<span class="ansi-green-fg">    919</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> (
+<span class="ansi-green-fg">    920</span>     <span style="color: rgb(0,135,0)">self</span>.data_structure_type == DataStructureType.recarray
+<span class="ansi-green-fg">    921</span>     <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span style="color: rgb(0,135,0)">self</span>.data_structure_type == DataStructureType.scalar
+<span class="ansi-green-fg">    922</span> ):
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">923</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_set_list</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    924</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    925</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    926</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">multiplier</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    927</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">key</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    928</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">autofill</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    929</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">check_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    930</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">preserve_record</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    931</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    932</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatastorage.py:995</span>, in <span class="ansi-cyan-fg">DataStorage._set_list</span><span class="ansi-blue-fg">(self, data, layer, multiplier, key, autofill, check_data, preserve_record)</span>
+<span class="ansi-green-fg">    994</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">return</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">995</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">store_internal</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    996</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    997</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">layer</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    998</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">False</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    999</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">multiplier</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1000</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">key</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">key</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1001</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">autofill</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">autofill</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1002</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">check_data</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">check_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1003</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">preserve_record</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">preserve_record</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1004</span> <span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatastorage.py:1374</span>, in <span class="ansi-cyan-fg">DataStorage.store_internal</span><span class="ansi-blue-fg">(self, data, layer, const, multiplier, key, autofill, print_format, check_data, preserve_record)</span>
+<span class="ansi-green-fg">   1373</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> data <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1374</span>     new_data = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_build_recarray</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">key</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">autofill</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1375</span>     <span style="color: rgb(0,135,0)">self</span>.layer_storage.first_item().internal_data = (
+<span class="ansi-green-fg">   1376</span>         new_data
+<span class="ansi-green-fg">   1377</span>     )
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatastorage.py:1598</span>, in <span class="ansi-cyan-fg">DataStorage._build_recarray</span><span class="ansi-blue-fg">(self, data, key, autofill)</span>
+<span class="ansi-green-fg">   1597</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span>._simulation_data.verify_data:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1598</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_verify_list</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">new_data</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1599</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> new_data
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatastorage.py:2277</span>, in <span class="ansi-cyan-fg">DataStorage._verify_list</span><span class="ansi-blue-fg">(self, data)</span>
+<span class="ansi-green-fg">   2272</span>     cellid_size = <span style="color: rgb(0,135,0)">self</span>.data_dimensions.get_cellid_size(
+<span class="ansi-green-fg">   2273</span>         <span style="color: rgb(0,135,0)">self</span>._recarray_type_list[index][<span class="ansi-green-fg">0</span>]
+<span class="ansi-green-fg">   2274</span>     )
+<span class="ansi-green-fg">   2275</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> (
+<span class="ansi-green-fg">   2276</span>     cellid_size != <span class="ansi-green-fg">1</span>
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">2277</span>     <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> <span style="color: rgb(0,135,0)">len</span>(data_line[index]) != cellid_size
+<span class="ansi-green-fg">   2278</span>     <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> <span style="color: rgb(0,135,0)">isinstance</span>(data_line[index], <span style="color: rgb(0,135,0)">int</span>)
+<span class="ansi-green-fg">   2279</span> ):
+<span class="ansi-green-fg">   2280</span>     message = (
+<span class="ansi-green-fg">   2281</span>         <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">Cellid </span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg"> contains </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span class="ansi-yellow-fg"> integer(s). </span><span class="ansi-yellow-fg">&#39;</span>
+<span class="ansi-green-fg">   2282</span>         <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Expected a cellid containing </span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span class="ansi-yellow-fg"> </span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   2289</span>         )
+<span class="ansi-green-fg">   2290</span>     )
+
+<span class="ansi-red-fg">TypeError</span>: object of type &#39;int&#39; has no len()
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">MFDataException</span>                           Traceback (most recent call last)
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatalist.py:85</span>, in <span class="ansi-cyan-fg">MFList.__init__</span><span class="ansi-blue-fg">(self, sim_data, model_or_sim, structure, data, enable, path, dimensions, package, block)</span>
+<span class="ansi-green-fg">     84</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">85</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">set_data</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">     86</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">Exception</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> ex:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatalist.py:571</span>, in <span class="ansi-cyan-fg">MFList.set_data</span><span class="ansi-blue-fg">(self, data, autofill, check_data)</span>
+<span class="ansi-green-fg">    551</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;Sets the contents of the data to &#34;data&#34;.  Data can have the</span>
+<span class="ansi-green-fg">    552</span> <span class="ansi-yellow-fg">following formats:</span>
+<span class="ansi-green-fg">    553</span> <span class="ansi-yellow-fg">    1) recarray - recarray containing the datalist</span>
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    569</span>
+<span class="ansi-green-fg">    570</span> <span class="ansi-yellow-fg">&#34;&#34;&#34;</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">571</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_set_data</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">autofill</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">check_data</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">check_data</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatalist.py:404</span>, in <span class="ansi-cyan-fg">MFList._set_data</span><span class="ansi-blue-fg">(self, data, autofill, check_data, preserve_record)</span>
+<span class="ansi-green-fg">    403</span>     type_, value_, traceback_ = sys.exc_info()
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">404</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MFDataException(
+<span class="ansi-green-fg">    405</span>         <span style="color: rgb(0,135,0)">self</span>.structure.get_model(),
+<span class="ansi-green-fg">    406</span>         <span style="color: rgb(0,135,0)">self</span>.structure.get_package(),
+<span class="ansi-green-fg">    407</span>         <span style="color: rgb(0,135,0)">self</span>._path,
+<span class="ansi-green-fg">    408</span>         <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">setting data</span><span class="ansi-yellow-fg">&#34;</span>,
+<span class="ansi-green-fg">    409</span>         <span style="color: rgb(0,135,0)">self</span>.structure.name,
+<span class="ansi-green-fg">    410</span>         inspect.stack()[<span class="ansi-green-fg">0</span>][<span class="ansi-green-fg">3</span>],
+<span class="ansi-green-fg">    411</span>         type_,
+<span class="ansi-green-fg">    412</span>         value_,
+<span class="ansi-green-fg">    413</span>         traceback_,
+<span class="ansi-green-fg">    414</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>,
+<span class="ansi-green-fg">    415</span>         <span style="color: rgb(0,135,0)">self</span>._simulation_data.debug,
+<span class="ansi-green-fg">    416</span>         ex,
+<span class="ansi-green-fg">    417</span>     )
+<span class="ansi-green-fg">    418</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> check_data <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> <span style="color: rgb(0,135,0)">self</span>._simulation_data.verify_data:
+<span class="ansi-green-fg">    419</span>     <span style="color: rgb(95,135,135)"># verify cellids</span>
+
+<span class="ansi-red-fg">MFDataException</span>: An error occurred in data element &#34;connectiondata&#34; model &#34;gwf6&#34; package &#34;maw&#34;. The error occurred while setting data in the &#34;_set_data&#34; method.
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">MFDataException</span>                           Traceback (most recent call last)
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:622</span>, in <span class="ansi-cyan-fg">MFBlock.add_dataset</span><span class="ansi-blue-fg">(self, dataset_struct, data, var_path)</span>
+<span class="ansi-green-fg">    621</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">622</span>     <span style="color: rgb(0,135,0)">self</span>.datasets[var_path[-<span class="ansi-green-fg">1</span>]] = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">data_factory</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    623</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_simulation_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    624</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_model_or_sim</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    625</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">dataset_struct</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    626</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    627</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">var_path</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    628</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_dimensions</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    629</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    630</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_container_package</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    631</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    632</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> MFDataException <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> mfde:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:494</span>, in <span class="ansi-cyan-fg">MFBlock.data_factory</span><span class="ansi-blue-fg">(self, sim_data, model_or_sim, structure, enable, path, dimensions, data, package)</span>
+<span class="ansi-green-fg">    493</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">494</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">mfdatalist</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">MFList</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    495</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">sim_data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    496</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">model_or_sim</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    497</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">structure</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    498</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    499</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">enable</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    500</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    501</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">dimensions</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    502</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">package</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    503</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    504</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    505</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> data_type == mfstructure.DataType.list_transient:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/data/mfdatalist.py:88</span>, in <span class="ansi-cyan-fg">MFList.__init__</span><span class="ansi-blue-fg">(self, sim_data, model_or_sim, structure, data, enable, path, dimensions, package, block)</span>
+<span class="ansi-green-fg">     87</span> type_, value_, traceback_ = sys.exc_info()
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">88</span> <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MFDataException(
+<span class="ansi-green-fg">     89</span>     structure.get_model(),
+<span class="ansi-green-fg">     90</span>     structure.get_package(),
+<span class="ansi-green-fg">     91</span>     path,
+<span class="ansi-green-fg">     92</span>     <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">setting data</span><span class="ansi-yellow-fg">&#34;</span>,
+<span class="ansi-green-fg">     93</span>     structure.name,
+<span class="ansi-green-fg">     94</span>     inspect.stack()[<span class="ansi-green-fg">0</span>][<span class="ansi-green-fg">3</span>],
+<span class="ansi-green-fg">     95</span>     type_,
+<span class="ansi-green-fg">     96</span>     value_,
+<span class="ansi-green-fg">     97</span>     traceback_,
+<span class="ansi-green-fg">     98</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>,
+<span class="ansi-green-fg">     99</span>     sim_data.debug,
+<span class="ansi-green-fg">    100</span>     ex,
+<span class="ansi-green-fg">    101</span> )
+
+<span class="ansi-red-fg">MFDataException</span>: An error occurred in data element &#34;connectiondata&#34; model &#34;gwf6&#34; package &#34;maw&#34;. The error occurred while setting data in the &#34;__init__&#34; method.
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">MFDataException</span>                           Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[17]</span><span class="ansi-green-fg">, line 12</span>
+<span class="ansi-green-fg">      4</span> connectiondata = [
+<span class="ansi-green-fg">      5</span>     [<span class="ansi-green-fg">0</span>, <span class="ansi-green-fg">0</span>, <span class="ansi-green-fg">0</span>, well_i, well_j, <span class="ansi-green-fg">299</span>, <span class="ansi-green-fg">274</span>, <span class="ansi-green-fg">100.0</span>, <span class="ansi-green-fg">0.7</span>],
+<span class="ansi-green-fg">      6</span>     [<span class="ansi-green-fg">0</span>, <span class="ansi-green-fg">1</span>, <span class="ansi-green-fg">1</span>, well_i, well_j, <span class="ansi-green-fg">299</span>, <span class="ansi-green-fg">274</span>, <span class="ansi-green-fg">100.0</span>, <span class="ansi-green-fg">0.7</span>],
+<span class="ansi-green-fg">      7</span>     [<span class="ansi-green-fg">0</span>, <span class="ansi-green-fg">2</span>, <span class="ansi-green-fg">2</span>, well_i, well_j, <span class="ansi-green-fg">299</span>, <span class="ansi-green-fg">274</span>, <span class="ansi-green-fg">100.0</span>, <span class="ansi-green-fg">0.7</span>],
+<span class="ansi-green-fg">      8</span>     [<span class="ansi-green-fg">0</span>, <span class="ansi-green-fg">3</span>, <span class="ansi-green-fg">3</span>, well_i, well_j, <span class="ansi-green-fg">299</span>, <span class="ansi-green-fg">274</span>, <span class="ansi-green-fg">100.0</span>, <span class="ansi-green-fg">0.7</span>]
+<span class="ansi-green-fg">      9</span>     ]
+<span class="ansi-green-fg">     10</span> perioddata_input = [[<span class="ansi-green-fg">0</span>, <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">rate</span><span class="ansi-yellow-fg">&#34;</span>, -<span class="ansi-green-fg">2000</span>*<span class="ansi-green-fg">1440</span>/<span class="ansi-green-fg">264.17</span>]]
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">12</span> maw = <span class="ansi-yellow-bg">flopy</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">mf6</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">ModflowGwfmaw</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">     13</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">model</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">     14</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">boundnames</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">     15</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">save_flows</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">     16</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">packagedata</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">packagedata</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">     17</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">connectiondata</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">connectiondata</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">     18</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">perioddata</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">perioddata_input</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">     19</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">pname</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span><span class="ansi-yellow-fg ansi-yellow-bg">maw</span><span class="ansi-yellow-fg ansi-yellow-bg">&#39;</span>
+<span class="ansi-green-fg">     20</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/modflow/mfgwfmaw.py:1142</span>, in <span class="ansi-cyan-fg">ModflowGwfmaw.__init__</span><span class="ansi-blue-fg">(self, model, loading_package, auxiliary, boundnames, print_input, print_head, print_flows, save_flows, head_filerecord, budget_filerecord, budgetcsv_filerecord, no_well_storage, flow_correction, flowing_wells, shutdown_theta, shutdown_kappa, mfrcsv_filerecord, timeseries, observations, mover, nmawwells, packagedata, connectiondata, perioddata, filename, pname, **kwargs)</span>
+<span class="ansi-green-fg">   1140</span> <span style="color: rgb(0,135,0)">self</span>.nmawwells = <span style="color: rgb(0,135,0)">self</span>.build_mfdata(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">nmawwells</span><span class="ansi-yellow-fg">&#34;</span>, nmawwells)
+<span class="ansi-green-fg">   1141</span> <span style="color: rgb(0,135,0)">self</span>.packagedata = <span style="color: rgb(0,135,0)">self</span>.build_mfdata(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">packagedata</span><span class="ansi-yellow-fg">&#34;</span>, packagedata)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1142</span> <span style="color: rgb(0,135,0)">self</span>.connectiondata = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">build_mfdata</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">connectiondata</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">connectiondata</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1143</span> <span style="color: rgb(0,135,0)">self</span>.perioddata = <span style="color: rgb(0,135,0)">self</span>.build_mfdata(<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">perioddata</span><span class="ansi-yellow-fg">&#34;</span>, perioddata)
+<span class="ansi-green-fg">   1145</span> <span style="color: rgb(0,135,0)">self</span>._init_complete = <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:2803</span>, in <span class="ansi-cyan-fg">MFPackage.build_mfdata</span><span class="ansi-blue-fg">(self, var_name, data)</span>
+<span class="ansi-green-fg">   2801</span> dataset_struct = block.data_structures[var_name]
+<span class="ansi-green-fg">   2802</span> var_path = <span style="color: rgb(0,135,0)">self</span>.path + (key, var_name)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">2803</span> ds = <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">blocks</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">block</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">name</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">add_dataset</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   2804</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">dataset_struct</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">var_path</span>
+<span class="ansi-green-fg">   2805</span> <span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   2806</span> <span style="color: rgb(0,135,0)">self</span>._data_list.append(ds)
+<span class="ansi-green-fg">   2807</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> ds
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/mf6/mfpackage.py:633</span>, in <span class="ansi-cyan-fg">MFBlock.add_dataset</span><span class="ansi-blue-fg">(self, dataset_struct, data, var_path)</span>
+<span class="ansi-green-fg">    622</span>     <span style="color: rgb(0,135,0)">self</span>.datasets[var_path[-<span class="ansi-green-fg">1</span>]] = <span style="color: rgb(0,135,0)">self</span>.data_factory(
+<span class="ansi-green-fg">    623</span>         <span style="color: rgb(0,135,0)">self</span>._simulation_data,
+<span class="ansi-green-fg">    624</span>         <span style="color: rgb(0,135,0)">self</span>._model_or_sim,
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    630</span>         <span style="color: rgb(0,135,0)">self</span>._container_package,
+<span class="ansi-green-fg">    631</span>     )
+<span class="ansi-green-fg">    632</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> MFDataException <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> mfde:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">633</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> MFDataException(
+<span class="ansi-green-fg">    634</span>         mfdata_except=mfde,
+<span class="ansi-green-fg">    635</span>         model=<span style="color: rgb(0,135,0)">self</span>._container_package.model_name,
+<span class="ansi-green-fg">    636</span>         package=<span style="color: rgb(0,135,0)">self</span>._container_package._get_pname(),
+<span class="ansi-green-fg">    637</span>         message=<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">Error occurred while adding</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">    638</span>         <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg"> dataset </span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg"> to block </span><span class="ansi-yellow-fg">&#39;</span>
+<span class="ansi-green-fg">    639</span>         <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{}</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">&#39;</span>.format(dataset_struct.name, <span style="color: rgb(0,135,0)">self</span>.structure.name),
+<span class="ansi-green-fg">    640</span>     )
+<span class="ansi-green-fg">    642</span> <span style="color: rgb(0,135,0)">self</span>._simulation_data.mfdata[var_path] = <span style="color: rgb(0,135,0)">self</span>.datasets[var_path[-<span class="ansi-green-fg">1</span>]]
+<span class="ansi-green-fg">    643</span> dtype = dataset_struct.get_datatype()
+
+<span class="ansi-red-fg">MFDataException</span>: An error occurred in data element &#34;connectiondata&#34; model &#34;pleasant-inset&#34; package &#34;maw&#34;. The error occurred while setting data in the &#34;__init__&#34; method.
+Additional Information:
+(1) Error occurred while adding dataset &#34;connectiondata&#34; to block &#34;connectiondata&#34;
+</pre></div></div>
 </div>
 <p>Write the MAW Package input file;</p>
 <p>Refresh the Name file to include the MAW Package</p>
@@ -971,62 +1297,10 @@ INFORMATION: nmawwells in (&#39;gwf6&#39;, &#39;maw&#39;, &#39;dimensions&#39;) 
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
-                                   MODFLOW 6
-                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.6.2 05/12/2025
 
-   MODFLOW 6 compiled May 24 2025 11:41:46 with Intel(R) Fortran Intel(R) 64
-   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
-                             Build 20220726_000000
+ERROR REPORT:
 
-This software has been approved for release by the U.S. Geological
-Survey (USGS). Although the software has been subjected to rigorous
-review, the USGS reserves the right to update the software as needed
-pursuant to further analysis and review. No warranty, expressed or
-implied, is made by the USGS or the U.S. Government as to the
-functionality of the software and related material nor shall the
-fact of release constitute any such warranty. Furthermore, the
-software is released on condition that neither the USGS nor the U.S.
-Government shall be held liable for any damages resulting from its
-authorized or unauthorized use. Also refer to the USGS Water
-Resources Software User Rights Notice for complete use, copyright,
-and distribution information.
-
-
- MODFLOW runs in SEQUENTIAL mode
-
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:24:44
-
- Writing simulation list file: mfsim.lst
- Using Simulation name file: mfsim.nam
-
-    Solving:  Stress period:     1    Time step:     1
-    Solving:  Stress period:     2    Time step:     1
-    Solving:  Stress period:     3    Time step:     1
-    Solving:  Stress period:     4    Time step:     1
-    Solving:  Stress period:     5    Time step:     1
-    Solving:  Stress period:     6    Time step:     1
-    Solving:  Stress period:     7    Time step:     1
-    Solving:  Stress period:     8    Time step:     1
-    Solving:  Stress period:     9    Time step:     1
-    Solving:  Stress period:    10    Time step:     1
-    Solving:  Stress period:    11    Time step:     1
-    Solving:  Stress period:    12    Time step:     1
-    Solving:  Stress period:    13    Time step:     1
-
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:24:52
- Elapsed run time:  7.846 Seconds
-
-
-WARNING REPORT:
-
-  1. The screen tops in multi-aquifer well package MAW were reset to the top
-     of the connected cell 3 times.
-  2. The screen bottoms in multi-aquifer well package MAW were reset to the
-     bottom of the connected cell 3 times.
-  3. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;pleasant-inset.sfr&#39;
-     WAS DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
- Normal termination of simulation.
+  1. mf6: mfsim.nam is not present in working directory.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1035,7 +1309,7 @@ WARNING REPORT:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(True, [])
+(False, [])
 </pre></div></div>
 </div>
 </section>
@@ -1086,8 +1360,16 @@ WARNING REPORT:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_39_0.png" src="../../_images/notebooks_part1_flopy_08_Modflow-setup-demo_39_0.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[20]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> heads2 = <span class="ansi-yellow-bg">headfile_object</span>.get_data(kstpkper=(<span class="ansi-green-fg">0</span>, kper))
+<span class="ansi-green-fg">      4</span> water_table2 = get_water_table(heads2)
+<span class="ansi-green-fg">      5</span> lake_results = pd.read_csv(sim_ws / <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">lake1.obs.csv</span><span class="ansi-yellow-fg">&#39;</span>)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;headfile_object&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 </section>
@@ -1104,8 +1386,8 @@ WARNING REPORT:
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 26, 2025.
+    <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Jan 26, 2026.
       </span></p>
   </div>
 

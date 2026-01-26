@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>10a: Particle tracking with MODFLOW 6 PRT &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
@@ -22,6 +22,8 @@
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -304,9 +306,9 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.6.2 05/12/2025
+                            VERSION 6.6.3 09/29/2025
 
-   MODFLOW 6 compiled May 24 2025 11:41:46 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled Oct 07 2025 22:51:46 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -326,15 +328,15 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:26:11
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/01/26 17:19:41
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
     Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:26:11
- Elapsed run time:  0.396 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/01/26 17:19:41
+ Elapsed run time:  0.400 Seconds
 
 
 WARNING REPORT:
@@ -1048,9 +1050,9 @@ writing simulation...
 FloPy is using the following executable to run the model: ../../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.6.2 05/12/2025
+                            VERSION 6.6.3 09/29/2025
 
-   MODFLOW 6 compiled May 24 2025 11:41:46 with Intel(R) Fortran Intel(R) 64
+   MODFLOW 6 compiled Oct 07 2025 22:51:46 with Intel(R) Fortran Intel(R) 64
    Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
                              Build 20220726_000000
 
@@ -1070,15 +1072,15 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:26:12
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/01/26 17:19:42
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
     Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/09/26 14:26:12
- Elapsed run time:  0.101 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/01/26 17:19:43
+ Elapsed run time:  0.103 Seconds
 
  Normal termination of simulation.
 </pre></div></div>
@@ -1197,7 +1199,7 @@ and distribution information.
       <td>1353</td>
       <td>0</td>
       <td>1</td>
-      <td>1</td>
+      <td>6</td>
       <td>0.0</td>
       <td>0.000000</td>
       <td>375.000000</td>
@@ -1378,7 +1380,7 @@ and distribution information.
 <br/></pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
@@ -1390,8 +1392,19 @@ and distribution information.
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/discretization/grid.py:973: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+  x, y = x.astype(float, copy=True), y.astype(float, copy=True)
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/discretization/grid.py:973: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+  x, y = x.astype(float, copy=True), y.astype(float, copy=True)
+</pre></div></div>
+</div>
 <p>Write particles terminating in Well and SFR cells to separate layers</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
@@ -1404,15 +1417,6 @@ and distribution information.
     <span class="n">output_geopackage</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;All other particles&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/pyogrio/__init__.py:7: DeprecationWarning: The &#39;shapely.geos&#39; module is deprecated, and will be removed in a future version. All attributes of &#39;shapely.geos&#39; are available directly from the top-level &#39;shapely&#39; namespace (since shapely 2.0.0).
-  import shapely.geos  # noqa: F401
-</pre></div></div>
 </div>
 <p>The previous layers that we added to the GeoPackage were points representing particle locations at discrete points in time. We can also combine these in to pathlines (linestrings) to better visualize the paths taken by the particles. In real-world projects, for example where are particle is started in every cell of a large model, we may also have too many points to work with easily; showing a single pathline for each particle may be advantageous.</p>
 <div class="nbinput nblast docutils container">
@@ -1479,7 +1483,7 @@ and distribution information.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f6dfb37a7d0&gt;
+&lt;matplotlib.legend.Legend at 0x7f858ead8bd0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1503,8 +1507,8 @@ and distribution information.
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2025, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Sep 26, 2025.
+    <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
+      <span class="lastupdated">Last updated on Jan 26, 2026.
       </span></p>
   </div>
 
