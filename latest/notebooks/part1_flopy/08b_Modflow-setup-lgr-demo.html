@@ -114,7 +114,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Any code for visualizing the whole model must iterate through the models in the simulation; additional complexity is often needed to stitch the two models together, for example in making the seamless water table contours here. This also makes it harder to re-use code between the LGR simulation and other single-model simulations.</p></li>
 <li><p>Particles and mass transport can’t be simulated across the boundary between the parent model and local grid refinement area.</p></li>
 </ul>
-<p><img alt="756fa3ec68c547f9a41d1d300637c554" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="966a886882fe4fbfab36c92f8be578aa" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -293,7 +293,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.19s
+finished in 0.06s
 
 writing postproc/shps/regional_model_grid.shp... Done
 </pre></div></div>
@@ -555,7 +555,7 @@ writing postproc/shps/plsnt-lgr-parent_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post562.dev0+g97bd77b
+Pleasant Lake test case version 0.1.post563.dev0+gf048b35
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -783,7 +783,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/01/26 17:18:48
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/03/13 18:29:30
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -1049,7 +1049,7 @@ PosixPath(&#39;/home/runner/work/python-for-hydrology/python-for-hydrology/docs/
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Jan 26, 2026.
+      <span class="lastupdated">Last updated on Mar 13, 2026.
       </span></p>
   </div>
 
