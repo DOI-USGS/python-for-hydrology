@@ -29,7 +29,7 @@ jobs:
       run: git fetch --prune --unshallow --tags
 
     - name: Setup Micromamba
-      uses: mamba-org/setup-micromamba@main
+      uses: mamba-org/setup-micromamba@v2
       with:
         environment-file: installation/environment.yml
         cache-environment: false
@@ -42,7 +42,8 @@ jobs:
         init-shell: >-
           bash
           powershell
-
+        generate-run-shell: false
+        post-cleanup: none
     - name: Conda info
       shell: bash -l {0}
       run: micromamba info
