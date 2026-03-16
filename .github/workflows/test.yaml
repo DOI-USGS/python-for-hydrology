@@ -19,7 +19,7 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
         env:
           - installation/environment.yml
-          - ci/pandas3_env.yml
+          - ci/pandas2_env.yml
 
     steps:
     - name: Checkout source
@@ -54,6 +54,7 @@ jobs:
         path: ~/.local/bin
         github_token: ${{ secrets.GITHUB_TOKEN }}
         repo: modflow6
+        cache: false
     - name: Modflow version
       shell: bash -l {0}
       run: mf6 --version
