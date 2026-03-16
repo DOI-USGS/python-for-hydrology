@@ -39,6 +39,7 @@ jobs:
       with:
         path: ~/.local/bin
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        repo: modflow6
     - name: Modflow version
       shell: bash -l {0}
       run: mf6 --version

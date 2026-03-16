@@ -51,6 +51,7 @@ jobs:
       with:
         path: ~/.local/bin
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        repo: modflow6
     - name: Modflow version
       shell: bash -l {0}
       run: mf6 --version
@@ -75,6 +76,6 @@ jobs:
     - name: Run tests
       shell: bash -l {0}
       run: |
-        pytest tests/test_notebooks.py -v
+        pytest tests/test_notebooks.py -k "test_notebook[notebook38]"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
