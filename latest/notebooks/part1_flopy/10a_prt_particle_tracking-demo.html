@@ -73,7 +73,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#Load-the-groundwater-flow-model">Load the groundwater flow model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Change-the-workspace">Change the workspace</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Add-save_saturation-and-save_flows-to-the-NPF-Package">Add <code class="docutils literal notranslate"><span class="pre">save_saturation</span></code> and <code class="docutils literal notranslate"><span class="pre">save_flows</span></code> to the NPF Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Write-the-model-files">Write the model files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Write-the-model-files">Write the model files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Add-IFLOWFACE=6-information-to-the-SFR-Package">Add <code class="docutils literal notranslate"><span class="pre">IFLOWFACE=6</span></code> information to the SFR Package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Create-and-Run-the-PRT-model">Create and Run the PRT model</a></li>
 </ul>
 </li>
@@ -93,6 +94,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#Plot-the-heads-and-pathlines">Plot the heads and pathlines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Export-the-pathlines-to-a-GeoPackage">Export the pathlines to a GeoPackage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Plot-pathlines-going-to-SFR-and-WEL-cells">Plot pathlines going to SFR and WEL cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#References">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="10b_modpath_particle_tracking-demo.html">10b: Particle tracking with MODPATH</a></li>
@@ -256,6 +258,7 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 </section>
 <section id="Change-the-workspace">
 <h2>Change the workspace<a class="headerlink" href="#Change-the-workspace" title="Link to this heading"></a></h2>
+<p>(so that we don’t modify the original flow model)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -289,9 +292,161 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 </pre></div>
 </div>
 </div>
+</section>
+<section id="Add-IFLOWFACE=6-information-to-the-SFR-Package">
+<h2>Add <code class="docutils literal notranslate"><span class="pre">IFLOWFACE=6</span></code> information to the SFR Package<a class="headerlink" href="#Add-IFLOWFACE=6-information-to-the-SFR-Package" title="Link to this heading"></a></h2>
+<p>This may not be necessary here because of the quadtree grid (that is refined in the stream cells), but it is often best practice.</p>
+<p>Particle tracking with numerical models is prone to the problem of weak sinks, where a sink (flux of water leaving a cell) is not strong enough to capture all of the flow through that cell. In other words, one or more cell faces still has outward flow, allowing water to pass through the cell. By default, PRT and MODPATH assume that sinks are distributed uniformly throughout a cell (<code class="docutils literal notranslate"><span class="pre">IFLOWFACE=0</span></code> or <code class="docutils literal notranslate"><span class="pre">IFACE=0</span></code>; see below). This setting is appropriate for wells, but for surface water features
+(especially small streams), this often prevents particles from discharging, leading to unrealistic pathlines and travel times. Some possible solutions:</p>
+<ul class="simple">
+<li><p>reduce the grid size until all cells of interest are strong sinks</p></li>
+<li><p>set <code class="docutils literal notranslate"><span class="pre">STOP_AT_WEAK_SINK=True</span></code> in the PRT Particle Release (PRP) input (or the equivalent setting in MODPATH), causing all particles to terminate at weak sinks. This option is often not appropriate for small streams, which in many cases should act as weak sinks (only capturing the shallowest particles).</p></li>
+<li><p>set <code class="docutils literal notranslate"><span class="pre">IFLOWFACE=-1</span></code> or <code class="docutils literal notranslate"><span class="pre">IFACE=6</span></code> for cells with surface water boundary conditions, to instruct PRT or MODPATH to apply the sink discharge to the top face. In cells with small (weak) streams, assuming the stream bottom corresponds to the cell top, shallow particles that are near the top of the cell will discharge, while deeper particles will be allowed to pass through realistically. Abrams and others (2013) discuss this concept in more detail.</p></li>
+</ul>
+<p><strong>From the MODFLOW 6 I/O guide:</strong> By default, flows associated with stress packages are assumed to be distributed uniformly over the volume of a cell. Distributed external inflows and outflows are reflected in the cell-cell flows calculated by the GWF Model, but they are not directly involved in determining the normal face velocities used to track a particle through the cell. The user can optionally assign a flow associated with a stress package to any face of the cell. Assignment of external
+flows is done by setting the value of an auxiliary package variable called IFLOWFACE to a value that corresponds to one of the cell faces. To accommodate non-rectangular cells, the IFLOWFACE numbering scheme in the PRT Model is based on clockwise ordering of the lateral cell faces. For a DIS-grid cell, IFLOWFACE = 1 corresponds to the “western” face, i.e., the face parallel to the y axis that has the lesser x coordinate. For a DISV-grid cell, IFLOWFACE = 1 corresponds to the face that extends in
+the clockwise direction from the first vertex listed for that cell in the CELL2D input block. IFLOWFACE numbering of lateral cell faces proceeds in clockwise direction. IFLOWFACE = -2 corresponds to the cell bottom, and IFLOWFACE = -1 corresponds to the cell top.</p>
+<p><strong>In MODPATH 7</strong> (and earlier) <code class="docutils literal notranslate"><span class="pre">IFACE</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">IFLOWFACE</span></code> in MODFLOW 6 PRT. Default <code class="docutils literal notranslate"><span class="pre">IFACE</span></code> values can be specified by package, or <code class="docutils literal notranslate"><span class="pre">IFACE</span></code> can be specified by cell (see the docs). A key difference is that <code class="docutils literal notranslate"><span class="pre">IFACE=6</span></code> corresponds to the top of the cell, and <code class="docutils literal notranslate"><span class="pre">IFACE=5</span></code> corresponds to the bottom.</p>
+<p><strong>1) Using Flopy</strong></p>
+<p>Add an auxiliary column named <code class="docutils literal notranslate"><span class="pre">'iflowface'</span></code> to the Options block</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="n">gwf2</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">gwf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf2</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">auxiliary</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;iflowface&#39;</span><span class="p">]</span>
+<span class="n">gwf2</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">auxiliary</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{internal}
+(rec.array([(&#39;auxiliary&#39;, &#39;iflowface&#39;)],
+          dtype=[(&#39;auxiliary_0&#39;, &#39;O&#39;), (&#39;auxiliary_1&#39;, &#39;O&#39;)]))
+</pre></div></div>
+</div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">iflowface</span></code> to the package data</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">packagedata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gwf2</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">packagedata</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+<span class="c1"># insert the auxiliary column before the existing boundname column</span>
+<span class="c1"># (so that the boundname column is still last)</span>
+<span class="n">packagedata</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">packagedata</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;iflowface&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># make sure the iflowface column is an integer!</span>
+<span class="n">packagedata</span><span class="p">[</span><span class="s1">&#39;iflowface&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">packagedata</span><span class="p">[</span><span class="s1">&#39;iflowface&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1"># cast packagedata back to a recarray (required by Flopy)</span>
+<span class="c1"># Note: index=False is needed here,</span>
+<span class="c1"># otherwise the extra index column inserted by pandas edges out the boundnames column</span>
+<span class="c1"># resulting in no boundnames being passed to Flopy</span>
+<span class="n">gwf2</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">packagedata</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">packagedata</span><span class="o">.</span><span class="n">to_records</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf2</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">packagedata</span><span class="o">.</span><span class="n">array</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+rec.array([(0, (2, 18), 15.65968373, 5.00315229, 0.00016104, 16.49873908, 0.50063046, 3.5, &#39;0.035&#39;, 1, 1., 0, -1, &#39;upstream&#39;),
+           (1, (2, 20), 15.65968373, 5.00945687, 0.00016104, 16.49621725, 0.50189137, 3.5, &#39;0.035&#39;, 2, 1., 0, -1, &#39;upstream&#39;),
+           (2, (2, 23), 15.65968373, 5.01576145, 0.00016104, 16.49369542, 0.50315229, 3.5, &#39;0.035&#39;, 2, 1., 0, -1, &#39;upstream&#39;),
+           (3, (2, 25), 15.65968373, 5.02206603, 0.00016104, 16.49117359, 0.50441321, 3.5, &#39;0.035&#39;, 2, 1., 0, -1, &#39;upstream&#39;),
+           (4, (2, 29), 15.65968373, 5.02837061, 0.00016104, 16.48865175, 0.50567412, 3.5, &#39;0.035&#39;, 2, 1., 0, -1, &#39;upstream&#39;)],
+          dtype=[(&#39;ifno&#39;, &#39;&lt;i8&#39;), (&#39;cellid&#39;, &#39;O&#39;), (&#39;rlen&#39;, &#39;&lt;f8&#39;), (&#39;rwid&#39;, &#39;&lt;f8&#39;), (&#39;rgrd&#39;, &#39;&lt;f8&#39;), (&#39;rtp&#39;, &#39;&lt;f8&#39;), (&#39;rbth&#39;, &#39;&lt;f8&#39;), (&#39;rhk&#39;, &#39;&lt;f8&#39;), (&#39;man&#39;, &#39;O&#39;), (&#39;ncon&#39;, &#39;&lt;i8&#39;), (&#39;ustrf&#39;, &#39;&lt;f8&#39;), (&#39;ndv&#39;, &#39;&lt;i8&#39;), (&#39;iflowface&#39;, &#39;&lt;i8&#39;), (&#39;boundname&#39;, &#39;O&#39;)])
+</pre></div></div>
+</div>
+<p><strong>Alternatively, we can write the model files, and then edit the SFR Package file directly.</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">write_iflowface</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">set_iflowface</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="c1">#original_sfr_filename = load_ws / gwf.sfr.filename</span>
+<span class="n">sfr_filename</span> <span class="o">=</span> <span class="n">gwf_ws</span> <span class="o">/</span> <span class="n">gwf</span><span class="o">.</span><span class="n">sfr</span><span class="o">.</span><span class="n">filename</span>
+<span class="n">original_sfr_filename</span> <span class="o">=</span> <span class="n">sfr_filename</span>
+<span class="n">new_sfr_lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">package_already_has_iflowface</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">aux_entry_added</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">boundnames</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">original_sfr_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">src</span><span class="p">:</span>
+        <span class="n">normalized_line</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">&#39;begin options&#39;</span> <span class="ow">in</span> <span class="n">normalized_line</span><span class="p">:</span>
+            <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">src</span><span class="p">:</span>
+                <span class="n">normalized_line</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="s1">&#39;boundnames&#39;</span> <span class="ow">in</span> <span class="n">normalized_line</span><span class="p">:</span>
+                    <span class="n">boundnames</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="s1">&#39;auxiliary&#39;</span> <span class="ow">in</span> <span class="n">normalized_line</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;iflowface&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">normalized_line</span><span class="p">:</span>
+                        <span class="n">items</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;iflowface&#39;</span><span class="p">)</span>
+                        <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                        <span class="n">package_already_has_iflowface</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">aux_entry_added</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="n">aux_entry_added</span> <span class="ow">and</span> <span class="s1">&#39;end options&#39;</span> <span class="ow">in</span> <span class="n">normalized_line</span><span class="p">:</span>
+                    <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  auxiliary iflowface</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                    <span class="n">aux_entry_added</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="s1">&#39;end options&#39;</span> <span class="ow">in</span> <span class="n">normalized_line</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;begin packagedata&#39;</span> <span class="ow">in</span> <span class="n">normalized_line</span><span class="p">:</span>
+            <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">src</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;end packagedata&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                    <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="n">items</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="c1"># if there&#39;s a boundname column, it needs to be last</span>
+                <span class="k">if</span> <span class="n">boundnames</span><span class="p">:</span>
+                    <span class="n">items</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">set_iflowface</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_iflowface</span><span class="p">)</span>
+                <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_sfr_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">write_iflowface</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">package_already_has_iflowface</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sfr_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dest</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">new_sfr_lines</span><span class="p">:</span>
+            <span class="n">dest</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <p>Run the simulation.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
@@ -306,11 +461,11 @@ xll:0.0; yll:0.0; rotation:0.0; units:meters; lenuni:2
 FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.6.3 09/29/2025
+                            VERSION 6.7.0 02/05/2026
 
-   MODFLOW 6 compiled Oct 07 2025 22:51:46 with Intel(R) Fortran Intel(R) 64
-   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
-                             Build 20220726_000000
+   MODFLOW 6 compiled Feb 05 2026 22:38:38 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.6.0
+                             Build 20220226_000000
 
 This software has been approved for release by the U.S. Geological
 Survey (USGS). Although the software has been subjected to rigorous
@@ -328,15 +483,15 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/03/16 18:19:07
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/06/18 20:06:40
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
     Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/03/16 18:19:07
- Elapsed run time:  0.420 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/06/18 20:06:40
+ Elapsed run time:  0.390 Seconds
 
 
 WARNING REPORT:
@@ -347,7 +502,7 @@ WARNING REPORT:
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -362,7 +517,7 @@ WARNING REPORT:
 <section id="Plot-the-model-grid-and-the-location-of-the-contamination-patch">
 <h2>Plot the model grid and the location of the contamination patch<a class="headerlink" href="#Plot-the-model-grid-and-the-location-of-the-contamination-patch" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
@@ -382,7 +537,7 @@ WARNING REPORT:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_20_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_20_0.png" />
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_29_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_29_0.png" />
 </div>
 </div>
 </section>
@@ -390,7 +545,7 @@ WARNING REPORT:
 <h2>Get the model cells intersecting the contamination patch<a class="headerlink" href="#Get-the-model-cells-intersecting-the-contamination-patch" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> utility in Flopy has an <code class="docutils literal notranslate"><span class="pre">intersect</span></code> method that can find the model cells intersecting a set of points, lines, or polygons. Since this is a DISV grid, these will be <code class="docutils literal notranslate"><span class="pre">cell2d</span></code> values (that are the same across the model layers). Similarly, for a structured grid, <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> would return row, column locations.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gx</span> <span class="o">=</span> <span class="n">GridIntersect</span><span class="p">(</span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">)</span>
@@ -401,7 +556,7 @@ WARNING REPORT:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -414,7 +569,7 @@ array([1352, 1353, 1459, 1460, 1581, 1582])
 <h2>Instantiate the MODFLOW 6 prt model<a class="headerlink" href="#Instantiate-the-MODFLOW-6-prt-model" title="Link to this heading"></a></h2>
 <p>and discretization packages</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prt_sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="n">sim_name</span><span class="o">=</span><span class="n">prt_name</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="n">prt_model_ws</span><span class="p">)</span>
@@ -456,7 +611,7 @@ array([1352, 1353, 1459, 1460, 1581, 1582])
 terminated regardless of whether the zone is a strong sink or not.</p>
 <p>In this example, we’ll assign different izone numbers to SFR and Well Package cells.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># start with a default zone of 0</span>
@@ -475,7 +630,7 @@ terminated regardless of whether the zone is a strong sink or not.</p>
 </div>
 <p><strong>Assign SFR cells to zone 2</strong></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">izone_array</span><span class="p">[</span><span class="n">sfr_k</span><span class="p">,</span> <span class="n">sfr_cellid</span><span class="p">]</span> <span class="o">=</span> <span class="n">izones</span><span class="p">[</span><span class="s1">&#39;sfr&#39;</span><span class="p">]</span>
@@ -484,7 +639,7 @@ terminated regardless of whether the zone is a strong sink or not.</p>
 </div>
 <p><strong>Assign wells to zone 1</strong> Using the stress period data. Note that in models with more than one stress period, different wells may be represented in different stress periods.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">well_k</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
@@ -500,7 +655,7 @@ terminated regardless of whether the zone is a strong sink or not.</p>
 </div>
 <p><strong>Make the package</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowPrtmip</span><span class="p">(</span><span class="n">prt</span><span class="p">,</span>
@@ -511,7 +666,7 @@ terminated regardless of whether the zone is a strong sink or not.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -543,7 +698,7 @@ Layer_3{internal}
 <h2>Create the particle start data<a class="headerlink" href="#Create-the-particle-start-data" title="Link to this heading"></a></h2>
 <p>From the nodes intersecting the polygon we made above, develop a DataFrame of particle start locations. For simplicity, we are just starting a single particle in each cell, but since the x and y are in local (model) coordinates, it would be fairly straightforward to start multiple particles in each cell on a finer spacing.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># release particles at each row, column location</span>
@@ -569,7 +724,7 @@ Layer_3{internal}
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -667,19 +822,19 @@ Layer_3{internal}
 </div>
 <p>Alternatively, the <a class="reference external" href="https://github.com/MODFLOW-ORG/modflow6-examples/blob/develop/scripts/ex-prt-mp7-p02.py">Modflow 6 Examples</a> illustrate functionality in Flopy to generate evenly spaced particles along cell faces for MODPATH models, and then convert the results to PRT format (if you can get it to work; search the MODFLOW 6 Examples repository for “<code class="docutils literal notranslate"><span class="pre">ModflowPrtprp</span></code>”)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">CellDataType</span><span class="p">()</span>
-<span class="n">mp7_particle_data</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">NodeParticleData</span><span class="p">(</span><span class="n">subdivisiondata</span><span class="o">=</span><span class="p">[</span><span class="n">sd</span><span class="p">],</span>
-                                   <span class="n">nodes</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">particle_start_nodes</span><span class="p">))</span>
-<span class="n">prt_particle_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mp7_particle_data</span><span class="o">.</span><span class="n">to_prp</span><span class="p">(</span><span class="n">prt</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">))</span>
+<span class="n">mp7_particle_data</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modpath</span><span class="o">.</span><span class="n">NodeParticleData</span><span class="p">(</span><span class="n">subdivisiondata</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span>
+                                   <span class="n">nodes</span><span class="o">=</span><span class="p">[</span><span class="n">cell2d</span> <span class="k">for</span> <span class="n">cell2d</span> <span class="ow">in</span> <span class="n">particle_start_nodes</span><span class="p">])</span>
+<span class="n">prt_particle_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mp7_particle_data</span><span class="o">.</span><span class="n">to_prp</span><span class="p">(</span><span class="n">prt</span><span class="o">.</span><span class="n">modelgrid</span><span class="p">,</span> <span class="n">localz</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="n">prt_particle_data</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -688,137 +843,109 @@ Layer_3{internal}
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7041.666666666667),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
  (1,
   (0, 1352),
   np.float64(375.0),
   np.float64(7041.666666666667),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
  (2,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7041.666666666667),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
  (3,
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7125.0),
-  np.float64(25.157748113333334)),
- (4,
-  (0, 1352),
-  np.float64(375.0),
-  np.float64(7125.0),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
+ (4, (0, 1352), np.float64(375.0), np.float64(7125.0), 0.16666666666666666),
  (5,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7125.0),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
  (6,
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7208.333333333334),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
  (7,
   (0, 1352),
   np.float64(375.0),
   np.float64(7208.333333333334),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
  (8,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7208.333333333334),
-  np.float64(25.157748113333334)),
+  0.16666666666666666),
  (9,
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7041.666666666667),
-  np.float64(26.95494016)),
- (10,
-  (0, 1352),
-  np.float64(375.0),
-  np.float64(7041.666666666667),
-  np.float64(26.95494016)),
+  0.5),
+ (10, (0, 1352), np.float64(375.0), np.float64(7041.666666666667), 0.5),
  (11,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7041.666666666667),
-  np.float64(26.95494016)),
- (12,
-  (0, 1352),
-  np.float64(291.6666666666667),
-  np.float64(7125.0),
-  np.float64(26.95494016)),
- (13,
-  (0, 1352),
-  np.float64(375.0),
-  np.float64(7125.0),
-  np.float64(26.95494016)),
- (14,
-  (0, 1352),
-  np.float64(458.33333333333337),
-  np.float64(7125.0),
-  np.float64(26.95494016)),
+  0.5),
+ (12, (0, 1352), np.float64(291.6666666666667), np.float64(7125.0), 0.5),
+ (13, (0, 1352), np.float64(375.0), np.float64(7125.0), 0.5),
+ (14, (0, 1352), np.float64(458.33333333333337), np.float64(7125.0), 0.5),
  (15,
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7208.333333333334),
-  np.float64(26.95494016)),
- (16,
-  (0, 1352),
-  np.float64(375.0),
-  np.float64(7208.333333333334),
-  np.float64(26.95494016)),
+  0.5),
+ (16, (0, 1352), np.float64(375.0), np.float64(7208.333333333334), 0.5),
  (17,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7208.333333333334),
-  np.float64(26.95494016)),
+  0.5),
  (18,
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7041.666666666667),
-  np.float64(28.752132206666666)),
+  0.8333333333333333),
  (19,
   (0, 1352),
   np.float64(375.0),
   np.float64(7041.666666666667),
-  np.float64(28.752132206666666)),
+  0.8333333333333333),
  (20,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7041.666666666667),
-  np.float64(28.752132206666666)),
+  0.8333333333333333),
  (21,
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7125.0),
-  np.float64(28.752132206666666)),
- (22,
-  (0, 1352),
-  np.float64(375.0),
-  np.float64(7125.0),
-  np.float64(28.752132206666666)),
+  0.8333333333333333),
+ (22, (0, 1352), np.float64(375.0), np.float64(7125.0), 0.8333333333333333),
  (23,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7125.0),
-  np.float64(28.752132206666666)),
+  0.8333333333333333),
  (24,
   (0, 1352),
   np.float64(291.6666666666667),
   np.float64(7208.333333333334),
-  np.float64(28.752132206666666)),
+  0.8333333333333333),
  (25,
   (0, 1352),
   np.float64(375.0),
   np.float64(7208.333333333334),
-  np.float64(28.752132206666666)),
+  0.8333333333333333),
  (26,
   (0, 1352),
   np.float64(458.33333333333337),
   np.float64(7208.333333333334),
-  np.float64(28.752132206666666))]
+  0.8333333333333333)]
 </pre></div></div>
 </div>
 </section>
@@ -829,12 +956,13 @@ Layer_3{internal}
 <p><code class="docutils literal notranslate"><span class="pre">istopzone</span></code>—integer value defining the stop zone number. If cells have been assigned IZONE values in the GRIDDATA block, a particle terminates if it enters a cell whose IZONE value matches ISTOPZONE. An ISTOPZONE value of zero indicates that there is no stop zone. The default value is zero. This way we can allow weak sinks but have exceptions where the particles will stop anyways.</p>
 <p>See the MODFLOW 6 Description of Input and Output for more options</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowPrtprp</span><span class="p">(</span>
     <span class="n">prt</span><span class="p">,</span>
     <span class="n">nreleasepts</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">prt_start_data</span><span class="p">),</span>
+    <span class="c1">#packagedata=prt_particle_data,</span>
     <span class="n">packagedata</span><span class="o">=</span><span class="n">prt_start_data</span><span class="o">.</span><span class="n">to_records</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
     <span class="n">local_z</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">boundnames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -847,7 +975,7 @@ Layer_3{internal}
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -910,10 +1038,18 @@ perioddata
 </section>
 <section id="Instantiate-the-MODFLOW-6-PRT-output-control-package">
 <h2>Instantiate the MODFLOW 6 PRT output control package<a class="headerlink" href="#Instantiate-the-MODFLOW-6-PRT-output-control-package" title="Link to this heading"></a></h2>
-<p><strong>Notes:</strong> PRT outputs a record each time a: 0: particle was released 1: particle exited a cell 2: time step ended 3: particle terminated 4: particle entered a weak sink cell 5: user-specified tracking time</p>
+<p><strong>Notes:</strong> PRT outputs a record each time a:</p>
+<ol class="arabic simple" start="0">
+<li><p>particle was released</p></li>
+<li><p>particle exited a cell</p></li>
+<li><p>time step ended</p></li>
+<li><p>particle terminated</p></li>
+<li><p>particle entered a weak sink cell</p></li>
+<li><p>user-specified tracking time</p></li>
+</ol>
 <p>The code below shows how to input user-specified tracking times to Flopy. Depending on the problem, this may not be necessary in a real-world context, as there may already be many records from particles exiting cells. Therefore, <code class="docutils literal notranslate"><span class="pre">tracktimes=None</span></code> (no user-specified times) is ultimately input to Flopy.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">budget_record</span> <span class="o">=</span> <span class="p">[</span><span class="n">budgetfile_prt</span><span class="p">]</span>
@@ -935,7 +1071,7 @@ perioddata
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -987,7 +1123,7 @@ None
 <section id="Instantiate-the-PRT-Flow-Model-Interface-and-Explicit-Model-Solution-Packages">
 <h2>Instantiate the PRT Flow Model Interface and Explicit Model Solution Packages<a class="headerlink" href="#Instantiate-the-PRT-Flow-Model-Interface-and-Explicit-Model-Solution-Packages" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmi_pd</span> <span class="o">=</span> <span class="p">[</span>
@@ -1001,7 +1137,7 @@ None
     <span class="n">prt_sim</span><span class="p">,</span>
     <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prt_name</span><span class="si">}</span><span class="s2">.ems&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">register_solution_package</span><span class="p">(</span><span class="n">ems</span><span class="p">,</span> <span class="p">[</span><span class="n">prt</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+<span class="n">prt_sim</span><span class="o">.</span><span class="n">register_solution_package</span><span class="p">(</span><span class="n">ems</span><span class="p">,</span> <span class="p">[</span><span class="n">prt</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1009,7 +1145,7 @@ None
 <section id="Write-the-PRT-input-files-and-run-the-model">
 <h2>Write the PRT input files and run the model<a class="headerlink" href="#Write-the-PRT-input-files-and-run-the-model" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prt_sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
@@ -1035,7 +1171,7 @@ writing simulation...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prt_sim</span><span class="o">.</span><span class="n">run_simulation</span><span class="p">()</span>
@@ -1050,11 +1186,11 @@ writing simulation...
 FloPy is using the following executable to run the model: ../../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.6.3 09/29/2025
+                            VERSION 6.7.0 02/05/2026
 
-   MODFLOW 6 compiled Oct 07 2025 22:51:46 with Intel(R) Fortran Intel(R) 64
-   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
-                             Build 20220726_000000
+   MODFLOW 6 compiled Feb 05 2026 22:38:38 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.6.0
+                             Build 20220226_000000
 
 This software has been approved for release by the U.S. Geological
 Survey (USGS). Although the software has been subjected to rigorous
@@ -1072,26 +1208,28 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/03/16 18:19:08
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/06/18 20:06:41
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
 
     Solving:  Stress period:     1    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/03/16 18:19:08
- Elapsed run time:  0.105 Seconds
+ERROR REPORT:
 
- Normal termination of simulation.
+  1. Error in              PRP: Flow model interface does not contain
+     ICELLTYPE. ICELLTYPE is required for PRT to distinguish convertible
+     cells from confined cells if LOCAL_Z release coordinates are provided.
+     Make sure a GWFGRID entry is configured in the PRT FMI package.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(True, [])
+(False, [])
 </pre></div></div>
 </div>
 <section id="Post-Process-the-MODFLOW-and-PRT-Results">
@@ -1102,7 +1240,7 @@ and distribution information.
 <h2>Load MODFLOW and PRT results from the heads and pathline files<a class="headerlink" href="#Load-MODFLOW-and-PRT-results-from-the-heads-and-pathline-files" title="Link to this heading"></a></h2>
 <p>Load the MODFLOW heads</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hobj</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1110,7 +1248,7 @@ and distribution information.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hds</span> <span class="o">=</span> <span class="n">hobj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
@@ -1119,7 +1257,7 @@ and distribution information.
 </div>
 <p>Load the tracking CSV file</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">particle_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">prt_model_ws</span> <span class="o">/</span> <span class="n">trackcsvfile_prt</span><span class="p">)</span>
@@ -1128,7 +1266,7 @@ and distribution information.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1169,101 +1307,6 @@ and distribution information.
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1353</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>375.000000</td>
-      <td>7125.0</td>
-      <td>29.843871</td>
-      <td>PRT_1352</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1353</td>
-      <td>0</td>
-      <td>1</td>
-      <td>6</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>375.000000</td>
-      <td>7125.0</td>
-      <td>29.650728</td>
-      <td>PRT_1352</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1353</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>5600.493437</td>
-      <td>378.953010</td>
-      <td>7250.0</td>
-      <td>29.650728</td>
-      <td>PRT_1352</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1198</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>11433.142331</td>
-      <td>402.113867</td>
-      <td>7500.0</td>
-      <td>29.417818</td>
-      <td>PRT_1352</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1043</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>15357.870522</td>
-      <td>425.233970</td>
-      <td>7750.0</td>
-      <td>29.079618</td>
-      <td>PRT_1352</td>
-    </tr>
   </tbody>
 </table>
 </div></div>
@@ -1272,7 +1315,7 @@ and distribution information.
 <section id="Plot-the-heads-and-pathlines">
 <h2>Plot the heads and pathlines<a class="headerlink" href="#Plot-the-heads-and-pathlines" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
@@ -1294,11 +1337,11 @@ and distribution information.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_52_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_52_0.png" />
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_61_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_61_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
@@ -1332,7 +1375,7 @@ and distribution information.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_53_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_53_0.png" />
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_62_0.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_62_0.png" />
 </div>
 </div>
 </section>
@@ -1340,7 +1383,7 @@ and distribution information.
 <h2>Export the pathlines to a GeoPackage<a class="headerlink" href="#Export-the-pathlines-to-a-GeoPackage" title="Link to this heading"></a></h2>
 <p>GeoPackages allow for subsequent adding of layers; delete any pre-existing version of this GeoPackage to clear any pre-existing layers (often good practice in real projects).</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output_geopackage</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">prt_model_ws</span> <span class="o">/</span> <span class="s1">&#39;Pathlines.gpkg&#39;</span><span class="p">)</span>
@@ -1355,7 +1398,7 @@ and distribution information.
 <li><p>Finally, the GeoDataFrame will need a coordinate reference (to write to the GeoPackage) defining the coordinate reference system for the real-world coordinates (for example, UTM zone 15 north, represented by EPSG code 29615).</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span> <span class="c1"># no CRS attached</span>
@@ -1363,7 +1406,7 @@ and distribution information.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="mi">26915</span>
@@ -1371,17 +1414,17 @@ and distribution information.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;t_years&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">325.25</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;icell&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">ncells_per_layer</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;cell2d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;icell&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">ncells_per_layer</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;t_years&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">325.25</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;icell&#39;</span><span class="p">]</span> <span class="o">//</span> <span class="n">ncells_per_layer</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;cell2d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;icell&#39;</span><span class="p">]</span> <span class="o">%</span> <span class="n">ncells_per_layer</span>
 <br/></pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_crs</span><span class="p">,</span> <span class="n">y_crs</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span><span class="o">.</span><span class="n">get_coords</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
@@ -1397,15 +1440,15 @@ and distribution information.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/discretization/grid.py:973: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/discretization/grid.py:973: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
   x, y = x.astype(float, copy=True), y.astype(float, copy=True)
-/home/runner/micromamba/envs/pyclass-docs/lib/python3.11/site-packages/flopy/discretization/grid.py:973: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/discretization/grid.py:973: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
   x, y = x.astype(float, copy=True), y.astype(float, copy=True)
 </pre></div></div>
 </div>
 <p>Write particles terminating in Well and SFR cells to separate layers</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">package</span><span class="p">,</span> <span class="n">izone</span> <span class="ow">in</span> <span class="n">izones</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1420,7 +1463,7 @@ and distribution information.
 </div>
 <p>The previous layers that we added to the GeoPackage were points representing particle locations at discrete points in time. We can also combine these in to pathlines (linestrings) to better visualize the paths taken by the particles. In real-world projects, for example where are particle is started in every cell of a large model, we may also have too many points to work with easily; showing a single pathline for each particle may be advantageous.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span>
@@ -1444,13 +1487,15 @@ and distribution information.
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">package</span><span class="p">,</span> <span class="n">izone</span> <span class="ow">in</span> <span class="n">izones</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">layer_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Pathlines going to </span><span class="si">{</span><span class="n">package</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> cells&quot;</span>
     <span class="n">izone_df</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">izone</span><span class="p">]</span>
     <span class="n">izone_df</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_geopackage</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer_name</span><span class="p">)</span>
+<span class="n">izone_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">izone_df</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span>
+    <span class="n">output_geopackage</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;All other pathlines&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1458,7 +1503,7 @@ and distribution information.
 <section id="Plot-pathlines-going-to-SFR-and-WEL-cells">
 <h2>Plot pathlines going to SFR and WEL cells<a class="headerlink" href="#Plot-pathlines-going-to-SFR-and-WEL-cells" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -1472,27 +1517,131 @@ and distribution information.
     <span class="n">izone_df</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">izone</span><span class="p">]</span>
     <span class="n">izone_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="n">line_colors</span><span class="p">[</span><span class="n">package</span><span class="p">],</span>
                   <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Pathlines going to </span><span class="si">{</span><span class="n">package</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1"> cells&#39;</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;izone&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;All other pathlines&#39;</span><span class="p">)</span>
 <span class="n">pmv</span><span class="o">.</span><span class="n">plot_ibound</span><span class="p">()</span>
 <span class="n">pmv</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipykernel_12697/3686669298.py:10: UserWarning: The GeoDataFrame you are attempting to plot is empty. Nothing has been displayed.
+  izone_df.plot(ax=ax, ec=line_colors[package],
+/tmp/ipykernel_12697/3686669298.py:12: UserWarning: The GeoDataFrame you are attempting to plot is empty. Nothing has been displayed.
+  lines.loc[lines[&#39;izone&#39;] == 0].plot(
+/tmp/ipykernel_12697/3686669298.py:16: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  pmv.ax.legend()
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f51f20e1650&gt;
+&lt;matplotlib.legend.Legend at 0x7fe2fe4a0440&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_67_1.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_67_1.png" />
+<img alt="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_76_2.png" src="../../_images/notebooks_part1_flopy_10a_prt_particle_tracking-demo_76_2.png" />
 </div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>kper</th>
+      <th>kstp</th>
+      <th>imdl</th>
+      <th>iprp</th>
+      <th>ilay</th>
+      <th>icell</th>
+      <th>izone</th>
+      <th>istatus</th>
+      <th>ireason</th>
+      <th>trelease</th>
+      <th>...</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>name</th>
+      <th>t_years</th>
+      <th>end_k</th>
+      <th>end_cell2d</th>
+      <th>geometry</th>
+      <th>start_k</th>
+      <th>start_cell2d</th>
+    </tr>
+    <tr>
+      <th>irpt</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<p>0 rows × 21 columns</p>
+</div></div>
+</div>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading"></a></h2>
+<p>Abrams, D., Haitjema, H. and Kauffman, L. (2013), On Modeling Weak Sinks in MODPATH. Groundwater, 51: 597-602. <a class="reference external" href="https://doi.org/10.1111/j.1745-6584.2012.00995.x">https://doi.org/10.1111/j.1745-6584.2012.00995.x</a></p>
 </section>
 </section>
 
@@ -1508,7 +1657,7 @@ and distribution information.
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 16, 2026.
+      <span class="lastupdated">Last updated on Jun 18, 2026.
       </span></p>
   </div>
 

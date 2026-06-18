@@ -12904,7 +12904,7 @@ continuous
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -12913,8 +12913,8 @@ continuous
 <span class="k">for</span> <span class="n">gage_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">lay_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
         <span class="n">cax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="n">ax_num</span><span class="p">]</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">drf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lay_num</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;Gage</span><span class="si">{</span><span class="n">gage_num</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span><span class="mi">0</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">drf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lay_num</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;Gage</span><span class="si">{</span><span class="n">gage_num</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">mm</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span> <span class="n">base_m</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
         <span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;SFR&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
         <span class="n">mm</span><span class="o">.</span><span class="n">plot_bc</span><span class="p">(</span><span class="s1">&#39;WEL&#39;</span><span class="p">,</span> <span class="n">plotAll</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -12975,7 +12975,7 @@ continuous
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 16, 2026.
+      <span class="lastupdated">Last updated on Jun 18, 2026.
       </span></p>
   </div>
 

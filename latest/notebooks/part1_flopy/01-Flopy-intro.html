@@ -117,7 +117,7 @@ groundwater modeling workflows with the entire scientific Python ecosysem.</p>
 <p>FloPy was originally developed by <a class="reference external" href="https://ngwa.onlinelibrary.wiley.com/doi/10.1111/gwat.12413">Mark Bakker and others (2016)</a> for working with MODFLOW 2005 (including MODFLOW-NWT) and earlier versions of MODFLOW. <a class="reference external" href="https://doi.org/10.1111/gwat.13327">FloPy has since been expanded</a> to support <a class="reference external" href="https://github.com/MODFLOW-USGS/modflow6">MODFLOW 6</a>, the current version of MODFLOW that includes general support for structured and unstructured grids, tight coupling of multiple models within a
 simulation, and a redesigned input structure that is meant to be more intuitive and human readable. FloPy support for MODFLOW 6 is tightly coupled to the MODFLOW 6 code, in that the relevant FloPy code is auto-generated from text files (<em>definition files</em>) that describe MODFLOW 6 models and packages. As a result, MODFLOW 2005-style and MODFLOW 6 functionality within FloPy is accessed through different subpackages—<code class="docutils literal notranslate"><span class="pre">flopy.modflow</span></code> and <code class="docutils literal notranslate"><span class="pre">flopy.mf6</span></code> respectively.</p>
 <p>For example, to instantiate a MODFLOW-NWT model instance, one would enter:</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -126,6 +126,15 @@ simulation, and a redesigned input structure that is meant to be more intuitive 
 <span class="n">model</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">modflow</span><span class="o">.</span><span class="n">Modflow</span><span class="p">(</span><span class="n">modelname</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;mfnwt&#39;</span><span class="p">)</span>  <span class="c1"># or &#39;mf2005&#39; for MODFLOW 2005 (the default)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/mbase.py:105: UserWarning: The program mf2005 does not exist or is not executable.
+  warn(
+</pre></div></div>
 </div>
 <p>For MODFLOW 6, we first have to create a simulation, which we then assign the model to:</p>
 <div class="nbinput nblast docutils container">
@@ -173,7 +182,7 @@ Arguments to the <code class="docutils literal notranslate"><span class="pre">Mo
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Mar 16, 2026.
+      <span class="lastupdated">Last updated on Jun 18, 2026.
       </span></p>
   </div>
 
