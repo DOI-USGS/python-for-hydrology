@@ -57,6 +57,6 @@ Monday
 - 1500-1515: break
 - 1515-1545: 08 Modflow-setup demo (Andy) 
 - 1545-1600: break
-- 1600-1630: 09 Run and process MF6T (Kalle) 
+- 1600-1630: 09 Run and process MF6 GWT (Kalle) 
 - 1630-1700: 10 Run and process MODPATH/MF6-PRT models (Andy) 
 - 1700: Wrap up

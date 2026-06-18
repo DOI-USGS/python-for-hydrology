@@ -11,13 +11,15 @@ on:
 
 jobs:
   build:
-    name: ${{ matrix.python-version }}, ${{ matrix.os }}
+    name: ${{ matrix.env }}, ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        python-version: ['3.12']
+        env:
+          - installation/environment.yml
+          - ci/pandas2_env.yml
 
     steps:
     - name: Checkout source
@@ -31,7 +33,7 @@ jobs:
     - name: Setup Micromamba
       uses: mamba-org/setup-micromamba@v2
       with:
-        environment-file: installation/environment.yml
+        environment-file: ${{ matrix.env }}
         cache-environment: false
         cache-downloads: false
         # persist on the same day.
@@ -52,6 +54,8 @@ jobs:
       with:
         path: ~/.local/bin
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        repo: modflow6
+        cache: false
     - name: Modflow version
       shell: bash -l {0}
       run: mf6 --version
@@ -76,6 +80,6 @@ jobs:
     - name: Run tests
       shell: bash -l {0}
       run: |
-        pytest tests/test_notebooks.py -v
+        pytest tests/test_notebooks.py
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
