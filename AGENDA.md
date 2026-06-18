@@ -18,9 +18,9 @@ Monday
 - 900-930:  04 Working with files, string formatting (Nick) (continued)
 - 930-1130: 05 Numpy (where, slicing, indexing)(A: Mt. St. Helens) (Mike)
 - 1130-1230: lunch
-- 1230-1430: 06 Matplotlib (A: make a semi-complex plot, animation, PdfPages, USGS Style) (Kalle)
+- 1230-1430: 06 Matplotlib intro (1 hour) and agentic examples (A: make a semi-complex plot, animation, PdfPages, USGS Style) (Kalle)
 - 1430-1445: break
-- 1445-1615: 07 Theis exercise + VSCode IDE debugging, liveshare (Andy) 
+- 1445-1615: Debugging in VSCode and agentic tools (Andy) 
 - 1615-1630: break
 - 1630-1730: 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (dataretrieval) (Josh) 
 - 1730: Class Adjourn
