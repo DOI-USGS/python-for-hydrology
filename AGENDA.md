@@ -34,7 +34,7 @@ Monday
 - 1430-1445: break
 - 1445-1615: 11 Xarray/rioxarray (Andy) 
 - 1615-1630: break
-- 1630-1730: Code style/quality, testing, version control (Andy and all)
+- 1630-1730: Code style/quality, testing (assertions to pytest range), version control (Andy and all)
 - 1730: class adjourn
 
 # Part 1: Application of Python and Flopy to Groundwater Modeling 
