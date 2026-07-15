@@ -1,4 +1,4 @@
-# Python USGS Training Agenda - September 2025 Edition
+# Python USGS Training Agenda - August 2026 Edition
  
 ## Part 0: Introduction to python for hydrologists
 Monday
@@ -20,7 +20,7 @@ Monday
 - 1130-1230: lunch
 - 1230-1430: 06 Matplotlib intro (1 hour) and agentic examples (A: make a semi-complex plot, animation, PdfPages, USGS Style) (Kalle)
 - 1430-1445: break
-- 1445-1615: Debugging in VSCode and agentic tools (Andy) 
+- 1445-1615: Debugging in VSCode and agentic tools discussion (Andy) 
 - 1615-1630: break
 - 1630-1730: 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (dataretrieval) (Josh) 
 - 1730: Class Adjourn

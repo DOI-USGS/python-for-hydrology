@@ -4,7 +4,6 @@ import shutil
 import platform
 import pytest
 
-
 # Notebooks that we don't expect to execute successfully
 # Notebook: reason
 xfail_notebooks = {
