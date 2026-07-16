@@ -393,6 +393,16 @@ Affine(30.0, 0.0, 583464.253406,
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipykernel_7302/3344488412.py:1: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  array = dataset.read(1)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
@@ -511,7 +521,7 @@ True
 <section id="Accessing-and-manipulating-raster-data">
 <h2>Accessing and manipulating raster data<a class="headerlink" href="#Accessing-and-manipulating-raster-data" title="Link to this heading"></a></h2>
 <p>It is best practice to use <code class="docutils literal notranslate"><span class="pre">rasterio.open()</span></code> within a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. This ensures proper closing of the dataset and resource management, even if errors occur. You might recognize this syntax from working with files in notebook <code class="docutils literal notranslate"><span class="pre">04_files_and_strings.ipynb</span></code></p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
@@ -519,6 +529,16 @@ True
     <span class="n">array_m</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipykernel_7302/3173709603.py:2: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  array_m = dataset.read(1)
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
@@ -918,7 +938,7 @@ Affine(30.0, 0.0, 583464.253406,
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Jun 18, 2026.
+      <span class="lastupdated">Last updated on Jul 16, 2026.
       </span></p>
   </div>
 
