@@ -17,13 +17,13 @@
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=feab032e"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -114,7 +114,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Any code for visualizing the whole model must iterate through the models in the simulation; additional complexity is often needed to stitch the two models together, for example in making the seamless water table contours here. This also makes it harder to re-use code between the LGR simulation and other single-model simulations.</p></li>
 <li><p>Particles and mass transport can’t be simulated across the boundary between the parent model and local grid refinement area.</p></li>
 </ul>
-<p><img alt="e447207835d24c63a2b4eb33873e297e" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="299e1efc9883413195f53a1708b27246" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -199,7 +199,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.06s
+finished in 0.05s
 
 writing postproc/shps/regional_model_grid.shp... Done
 </pre></div></div>
@@ -295,7 +295,7 @@ finished in 0.01s
 
 writing postproc/shps/plsnt-lgr-parent_grid.shp... Done
 creating shapely Polygons of grid cells...
-finished in 0.08s
+finished in 0.07s
 
 writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </pre></div></div>
@@ -336,7 +336,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post583.dev0+ge1cf4d2
+Pleasant Lake test case version 0.1.post587.dev0+gb5e33cc
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -432,7 +432,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post583.dev0+ge1cf4d2
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post587.dev0+gb5e33cc
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -749,7 +749,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/07/19 16:29:09
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/08/03 21:51:49
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -768,8 +768,8 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/07/19 16:29:13
- Elapsed run time:  4.397 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/08/03 21:51:52
+ Elapsed run time:  2.717 Seconds
 
 
 WARNING REPORT:
@@ -972,7 +972,7 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Jul 19, 2026.
+      <span class="lastupdated">Last updated on Aug 03, 2026.
       </span></p>
   </div>
 

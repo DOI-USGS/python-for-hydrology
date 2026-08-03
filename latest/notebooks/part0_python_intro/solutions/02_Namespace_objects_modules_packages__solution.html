@@ -17,13 +17,13 @@
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=feab032e"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -63,22 +63,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#Objects">Objects</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#A-More-Useful-Class*">A More Useful Class*</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#More-about-self">More about <code class="docutils literal notranslate"><span class="pre">self</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Questions">Questions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Test-your-skills">Test your skills</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#Methods">Methods</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">Test your skills</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Properties-to-the-rescue!!!">Properties to the rescue!!!</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Test-your-skills!!!">Test your skills!!!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#A-note-on-property-methods">A note on property methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Just-for-funsies,-let's-extend-the-class-to-check-if-we-made-a-golden-rectangle">Just for funsies, let’s extend the class to check if we made a golden rectangle</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Operator-and-Special-Method-Overloading*">Operator and Special Method Overloading*</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Test-your-skills----overload-__add__-so-that-adding-two-rectangles-adds-their-area">Test your skills – overload <code class="docutils literal notranslate"><span class="pre">__add__</span></code> so that adding two rectangles adds their area</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#Object-oriented-programming-(OOP)">Object-oriented programming (OOP)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Inheritance">Inheritance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Modules,-Packages,-and-the-Standard-Python-Library">Modules, Packages, and the Standard Python Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Importing-code-and-handling-namespaces">Importing code and handling namespaces</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Paths-for-importing-and-installation">Paths for importing and installation</a></li>
@@ -187,7 +180,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 <p>Also, by importing <code class="docutils literal notranslate"><span class="pre">this</span></code>, it actually executed some code (printing out the Zen of Python). This means Python knew where to find a module called <code class="docutils literal notranslate"><span class="pre">this</span></code> and executed it upon import.</p>
 <p>Let’s try another easter egg, just for fun.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">antigravity</span>
@@ -201,7 +194,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 <p>There’s a nice explanation of namespaces <a class="reference external" href="https://realpython.com/python-namespaces-scope/">here</a>.</p>
 <p>First, we need to understand what is a <em>name</em> in Python. A name is a general container referencing something. Like in many languages, think of a variable:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
@@ -210,7 +203,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -220,7 +213,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </div>
 <p>In python, we can also use a name for a function.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">funky</span><span class="p">(</span><span class="n">description</span><span class="p">):</span>
@@ -229,7 +222,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funky</span>
@@ -237,7 +230,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -246,7 +239,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funky</span><span class="p">(</span><span class="s1">&#39;Town&#39;</span><span class="p">)</span>
@@ -262,7 +255,7 @@ this Town function is funky!
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">funky</span>
@@ -271,7 +264,7 @@ this Town function is funky!
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -280,7 +273,7 @@ this Town function is funky!
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="s2">&quot;Skunk&quot;</span><span class="p">)</span>
@@ -298,7 +291,7 @@ this Skunk function is funky!
 <p>So, we assigned f to, in a sense, point to the function <code class="docutils literal notranslate"><span class="pre">funky</span></code>.</p>
 <p>Names (and therefore variables) can assume various types and get reused without definition.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
@@ -325,7 +318,7 @@ stuff in quotes
 <p>Since you can think of a name of a variable as a tag, there is a special behavior related to lists that can cause massive grief!</p>
 <p>First, what happens when a single value is associated with a name (like a variable)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
@@ -347,7 +340,7 @@ a=5, b=6
 </div>
 <p>Now what happens when we have a list and change an element in <code class="docutils literal notranslate"><span class="pre">b</span></code>…</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">]</span>
@@ -377,7 +370,7 @@ b=[1.0, 2.0, 999, 4.9]
 <p>The reason for this is that <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are both pointing to the same memory location that’s storing the information (in this case, starting with the list <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0,</span> <span class="pre">3.5,</span> <span class="pre">4.9]</span></code> and later becoming the list <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0,</span> <span class="pre">999,</span> <span class="pre">4.9]</span></code>). This same behavior happens when using <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays.</p>
 <p>The way around this is to make a full copy of the information (by value rather than by reference). In typical Python, this means importing a module called <code class="docutils literal notranslate"><span class="pre">copy</span></code> and using either the function <code class="docutils literal notranslate"><span class="pre">copy.copy</span></code> or <code class="docutils literal notranslate"><span class="pre">copy.deepcopy</span></code>. In <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, copy is built-in.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
@@ -407,7 +400,7 @@ b=[1.0, 2.0, 999, 4.9]
 <div class="line"><strong>The local namespace</strong> contains variables that are only accessible to the method that they are defined in</div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span>
@@ -443,7 +436,7 @@ global
 </div>
 <p>Now remove <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">&quot;enclosing&quot;</span></code> and/or <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">&quot;local&quot;</span></code> and run the code. What’s happening here?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span>
@@ -489,7 +482,7 @@ global
 <p>An <strong>instance</strong> is an object using the definitions of a class. You can think of this as a building made from the blueprint.</p>
 <p>Let’s try out some examples.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">hola</span><span class="p">():</span>
@@ -499,7 +492,7 @@ global
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hola</span>
@@ -507,7 +500,7 @@ global
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -516,7 +509,7 @@ global
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meaning_of_life</span><span class="p">,</span> <span class="n">sparrow_velocity</span> <span class="o">=</span> <span class="n">hola</span><span class="p">()</span>
@@ -532,7 +525,7 @@ hello world
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">meaning_of_life</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">sparrow_velocity</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -556,7 +549,7 @@ meaning_of_life=42, sparrow_velocity=&#39;african or european?&#39;
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
@@ -570,7 +563,7 @@ meaning_of_life=42, sparrow_velocity=&#39;african or european?&#39;
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Person</span>
@@ -578,7 +571,7 @@ meaning_of_life=42, sparrow_velocity=&#39;african or european?&#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -587,7 +580,7 @@ __main__.Person
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Fred</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s1">&#39;Fredrick&#39;</span><span class="p">,</span> <span class="s1">&#39;beer&#39;</span><span class="p">)</span>
@@ -596,7 +589,7 @@ __main__.Person
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -605,7 +598,7 @@ __main__.Person
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Fred</span>
@@ -613,16 +606,16 @@ __main__.Person
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;__main__.Person at 0x1106c4b50&gt;
+&lt;__main__.Person at 0x20f3be6cc20&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Fred</span><span class="o">.</span><span class="n">introduce_yourself</span><span class="p">()</span>
@@ -641,7 +634,7 @@ Hi, I&#39;m Fredrick. I like beer
 <h3>A More Useful Class*<a class="headerlink" href="#A-More-Useful-Class*" title="Link to this heading"></a></h3>
 <p>*marginally more useful</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -657,7 +650,7 @@ Hi, I&#39;m Fredrick. I like beer
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">)</span>
@@ -673,7 +666,7 @@ Hi, I&#39;m Fredrick. I like beer
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
@@ -693,7 +686,7 @@ f
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r2</span><span class="o">.</span><span class="n">length</span>
@@ -701,7 +694,7 @@ f
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -710,7 +703,7 @@ f
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_my_rectangles</span> <span class="o">=</span> <span class="p">[</span><span class="n">r1</span><span class="p">,</span><span class="n">r2</span><span class="p">]</span>
@@ -718,7 +711,7 @@ f
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_my_rectangles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">length</span>
@@ -726,7 +719,7 @@ f
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -735,7 +728,7 @@ f
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">rect</span> <span class="ow">in</span> <span class="n">all_my_rectangles</span><span class="p">:</span>
@@ -767,7 +760,7 @@ dd
 <p>Basically, it comes down to <code class="docutils literal notranslate"><span class="pre">Explicit</span> <span class="pre">is</span> <span class="pre">better</span> <span class="pre">then</span> <span class="pre">implicit</span></code>. We want to know explicitly that we are working on an a property of the object we are defining rather than some other function or variable that might be globally defined.</p>
 <p>Now let’s make an instance and try all this out.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big_rectangle</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;rectangle one&#39;</span><span class="p">)</span>
@@ -777,7 +770,7 @@ dd
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -786,7 +779,7 @@ dd
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big_rectangle</span><span class="o">.</span><span class="n">length</span>
@@ -794,7 +787,7 @@ dd
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -804,7 +797,7 @@ dd
 </div>
 <p>We see now that we’ve made an instance and it is of the type <code class="docutils literal notranslate"><span class="pre">rectangle</span></code>. We can check out the attributes using a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">big_rectangle</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
@@ -823,135 +816,85 @@ dd
 rectangle one
 </pre></div></div>
 </div>
-<p>We can use this set of attributes as a kind of database.</p>
 </section>
-<section id="Questions">
-<h3>Questions<a class="headerlink" href="#Questions" title="Link to this heading"></a></h3>
-<p>How could we make a group of rectangles of varying lengths and widths?</p>
-<ul class="simple">
-<li><p>We could make each attribute a list.</p></li>
-<li><p>We could make a list of instances with a member for each rectangle.</p></li>
-</ul>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<section id="Test-your-skills">
+<h3>Test your skills<a class="headerlink" href="#Test-your-skills" title="Link to this heading"></a></h3>
+<p>Can we create a list or dictionary of Rectangle objects?</p>
+<p>keys —&gt; ‘R1’ ‘R2’</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myrectangles</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">78</span><span class="p">],</span> <span class="p">[</span><span class="mi">44</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">myrectangles</span><span class="p">)</span>
-<span class="n">myrectangles</span><span class="o">.</span><span class="n">width</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<br/></pre></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">]</span>
+<span class="n">heights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r1&quot;</span><span class="p">,</span> <span class="s2">&quot;r2&quot;</span><span class="p">,</span> <span class="s2">&quot;r3&quot;</span><span class="p">]</span>
+</pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># list</span>
+<span class="n">rects</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">widths</span><span class="p">,</span> <span class="n">heights</span><span class="p">):</span>
+    <span class="n">rects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">lbl</span><span class="p">))</span>
+<span class="n">rects</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;__main__.Rectangle at 0x20f3be34fc0&gt;,
+ &lt;__main__.Rectangle at 0x20f3be350f0&gt;,
+ &lt;__main__.Rectangle at 0x20f3bdf5b50&gt;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dict</span>
+<span class="n">rdict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">widths</span><span class="p">,</span> <span class="n">heights</span><span class="p">):</span>
+    <span class="n">rdict</span><span class="p">[</span><span class="n">lbl</span><span class="p">]</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">rdict</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;r1&#39;: &lt;__main__.Rectangle at 0x20f3be4caf0&gt;,
+ &#39;r2&#39;: &lt;__main__.Rectangle at 0x20f3be4d150&gt;,
+ &#39;r3&#39;: &lt;__main__.Rectangle at 0x20f3bc15750&gt;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rdict</span><span class="p">[</span><span class="s2">&quot;r2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;__main__.Rectangle object at 0x111a111d0&gt;
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-44
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myrectangles_better</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="n">myrectangles_better</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="s1">&#39;r1&#39;</span><span class="p">))</span>
-<span class="n">myrectangles_better</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">))</span>
-<span class="n">myrectangles_better</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;__main__.Rectangle at 0x111a1b050&gt;, &lt;__main__.Rectangle at 0x111a1afd0&gt;]
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myrectangles_better</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">length</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-78
-</pre></div></div>
-</div>
-</section>
-<section id="Test-your-skills">
-<h3>Test your skills<a class="headerlink" href="#Test-your-skills" title="Link to this heading"></a></h3>
-<p>Could we do this is a dictionary rather than a list?</p>
-<p>keys —&gt; ‘R1’ ‘R2’</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="n">d</span><span class="p">[</span><span class="s2">&quot;R1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;rect1&#39;</span><span class="p">)</span>
-<span class="n">d</span><span class="p">[</span><span class="s2">&quot;R2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="s2">&quot;rect2&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;R1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
 3
+21
 </pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;R2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">width</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-99
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 <p>There are advantages to both approaches. It would also be possible to define each attribute as a list or dictionary and make a single class. This is a bit more cumbersome, though, and part of the flexibility of dynamic lists and dictionaries is the ability to define multiple objects within them on the fly.</p>
 </section>
@@ -959,216 +902,109 @@ rectangle one
 <section id="Methods">
 <h2>Methods<a class="headerlink" href="#Methods" title="Link to this heading"></a></h2>
 <p>Now say we want to operate on these data, like to calculate the area of each rectangle.</p>
-<section id="id1">
-<h3>Test your skills<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
-<p>In the blank code block below, calculate the areas for each rectangle using a loop.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">area</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">val</span><span class="o">.</span><span class="n">width</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-12
-495
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<p>Is there a more efficient way do this if we know, for example, that area will be of interest?</p>
-<p>We can create a method at definition of the class that uses the attributes of <code class="docutils literal notranslate"><span class="pre">length</span></code> and <code class="docutils literal notranslate"><span class="pre">width</span></code> to derive area if called and store it as an additional attribute.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this is a doc string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#this is just a comment</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
 
+    <span class="c1"># live code methods</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">calc_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># we only pass self because there are no additional attributes of concern</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;this&#39;</span><span class="p">)</span>
-<span class="nb">vars</span><span class="p">(</span><span class="n">rr</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;length&#39;: 3, &#39;width&#39;: 4, &#39;ID&#39;: &#39;this&#39;}
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">calc_area</span><span class="p">()</span>
-<span class="n">rr</span><span class="o">.</span><span class="vm">__dict__</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r8</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="s2">&quot;r8&quot;</span><span class="p">)</span>
+<span class="n">r8</span><span class="o">.</span><span class="n">calc_area</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;length&#39;: 3, &#39;width&#39;: 4, &#39;ID&#39;: &#39;this&#39;, &#39;area&#39;: 12}
-</pre></div></div>
-</div>
-<p>Let’s make our list of <code class="docutils literal notranslate"><span class="pre">rectangle</span></code> objects again, but use a method to calculate the areas.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_rectangles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="n">all_rectangles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="s1">&#39;rectangle one&#39;</span><span class="p">))</span>
-<span class="n">all_rectangles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;big dog&#39;</span><span class="p">))</span>
-<span class="nb">vars</span><span class="p">(</span><span class="n">all_rectangles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">all_rectangles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;length&#39;: 35, &#39;width&#39;: 25, &#39;ID&#39;: &#39;rectangle one&#39;}
+24.8
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">csqr</span> <span class="ow">in</span> <span class="n">all_rectangles</span><span class="p">:</span>
-    <span class="n">csqr</span><span class="o">.</span><span class="n">calc_area</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<section id="Test-your-skills!!!">
+<h3>Test your skills!!!<a class="headerlink" href="#Test-your-skills!!!" title="Link to this heading"></a></h3>
+<p>build an even better <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> class that includes an <code class="docutils literal notranslate"><span class="pre">area</span></code> and <code class="docutils literal notranslate"><span class="pre">perimeter</span></code> method.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    this is a doc string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#this is just a comment</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
+
+    <span class="c1"># live code methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_perimeter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r34</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">4.345</span><span class="p">,</span> <span class="s2">&quot;another_one&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s loop over again to show the area</span>
-<span class="k">for</span> <span class="n">csqr</span> <span class="ow">in</span> <span class="n">all_rectangles</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">csqr</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> area=</span><span class="si">{</span><span class="n">csqr</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">vars</span><span class="p">(</span><span class="n">all_rectangles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;area=</span><span class="si">{</span><span class="n">r34</span><span class="o">.</span><span class="n">calc_area</span><span class="p">()</span><span class="si">}</span><span class="s2">, perimeter=</span><span class="si">{</span><span class="n">r34</span><span class="o">.</span><span class="n">calc_perimeter</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-rectangle one area=875
-big dog area=150000
+area=13.035, perimeter=14.69
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;length&#39;: 35, &#39;width&#39;: 25, &#39;ID&#39;: &#39;rectangle one&#39;, &#39;area&#39;: 875}
-</pre></div></div>
-</div>
-<p>We could even incorporate calculations into the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> constructor so the area is calculated on instantiation.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;bummer&#39;</span><span class="p">)</span>
-<span class="n">rr</span><span class="o">.</span><span class="vm">__dict__</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;length&#39;: 4, &#39;width&#39;: 5, &#39;area&#39;: 20, &#39;ID&#39;: &#39;bummer&#39;}
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">rr</span><span class="o">.</span><span class="vm">__dict__</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;length&#39;: 100, &#39;width&#39;: 5, &#39;area&#39;: 20, &#39;ID&#39;: &#39;bummer&#39;}
-</pre></div></div>
-</div>
-<p>Uh oh! Length changes but the overall area of the rectangle doesn’t</p>
 </section>
-<section id="Properties-to-the-rescue!!!">
-<h3>Properties to the rescue!!!<a class="headerlink" href="#Properties-to-the-rescue!!!" title="Link to this heading"></a></h3>
+<section id="A-note-on-property-methods">
+<h3>A note on property methods<a class="headerlink" href="#A-note-on-property-methods" title="Link to this heading"></a></h3>
 <p>Properties are a special method that behaves similar to an attribute. These methods allow for on the fly (“dynamic”) calculations and variable construction among other things.</p>
 <p>Properties are defined with a special decorator (<code class="docutils literal notranslate"><span class="pre">&#64;property</span></code>). Decorators are an advanced topic and won’t be covered in this course. More information about decorators, how they are used, and how they work can be found <a class="reference external" href="https://betterprogramming.pub/decorators-in-python-72a1d578eac4">here</a>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1183,58 +1019,34 @@ big dog area=150000
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="s2">&quot;awesome rectangle&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-{&#39;length&#39;: 5, &#39;width&#39;: 9, &#39;ID&#39;: &#39;awesome rectangle&#39;}
-45
-</pre></div></div>
-</div>
-<p>what happens if the length of the rectangle grows?</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">new_length</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
-    <span class="n">rect</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">new_length</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ID=</span><span class="si">{</span><span class="n">rect</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">, length=</span><span class="si">{</span><span class="n">rect</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">, width=</span><span class="si">{</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2">, area=</span><span class="si">{</span><span class="n">rect</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-ID=awesome rectangle, length=5, width=9, area=45
-ID=awesome rectangle, length=16, width=9, area=144
-ID=awesome rectangle, length=27, width=9, area=243
-ID=awesome rectangle, length=38, width=9, area=342
-ID=awesome rectangle, length=49, width=9, area=441
-ID=awesome rectangle, length=60, width=9, area=540
-ID=awesome rectangle, length=71, width=9, area=639
-ID=awesome rectangle, length=82, width=9, area=738
-ID=awesome rectangle, length=93, width=9, area=837
-</pre></div></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </section>
-<section id="Test-your-skills!!!">
-<h3>Test your skills!!!<a class="headerlink" href="#Test-your-skills!!!" title="Link to this heading"></a></h3>
-<p>build a <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> class that includes an <code class="docutils literal notranslate"><span class="pre">area</span></code> and <code class="docutils literal notranslate"><span class="pre">perimiter_length</span></code> property method.</p>
+<section id="Just-for-funsies,-let's-extend-the-class-to-check-if-we-made-a-golden-rectangle">
+<h3>Just for funsies, let’s extend the class to check if we made a golden rectangle<a class="headerlink" href="#Just-for-funsies,-let's-extend-the-class-to-check-if-we-made-a-golden-rectangle" title="Link to this heading"></a></h3>
+<p>In mathematics, the golden ratio between two values occurs if their ratio is the same as the ratio of their sum over the larger of the two quantities. We can represent that as:</p>
+<p><span class="math notranslate nohighlight">\(\frac{a + b}{a} = \frac{a}{b}\)</span></p>
+<p>For a rectangle:</p>
+<ul class="simple">
+<li><p>a = shorter side</p></li>
+<li><p>b = longer side - shorter side</p></li>
+</ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1250,25 +1062,39 @@ ID=awesome rectangle, length=93, width=9, area=837
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">perimeter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_golden</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">)</span>
-<span class="n">r</span><span class="o">.</span><span class="n">perimeter</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">golden</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mf">18.52</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;is_it_golden?&quot;</span><span class="p">)</span>
+<span class="n">golden</span><span class="o">.</span><span class="n">is_golden</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-22
+True
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1280,335 +1106,15 @@ ID=awesome rectangle, length=93, width=9, area=837
 </div>
 </div>
 </section>
-</section>
-<section id="Operator-and-Special-Method-Overloading*">
-<h2>Operator and Special Method Overloading*<a class="headerlink" href="#Operator-and-Special-Method-Overloading*" title="Link to this heading"></a></h2>
-<p>One special thing we can do is overload operators. This means we can customize the behavior that an object (as an instance of a class) will exhibit when called. The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> constructor was an example of this which we have done something similar already. When an instance is made from a class, whatever is defined in <code class="docutils literal notranslate"><span class="pre">__init__</span></code> is performed as part of creating the instance which is effectively <em>overloading</em> the special method <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
-<p>Another really common example is <code class="docutils literal notranslate"><span class="pre">__str__</span></code>. This function provides a string for Python to display when <code class="docutils literal notranslate"><span class="pre">print</span></code> of <code class="docutils literal notranslate"><span class="pre">str</span></code> is called on an object.</p>
-<p>Looking at the example of <code class="docutils literal notranslate"><span class="pre">rectangle</span></code> objects we used above.</p>
-<p>*N.B. –&gt; The concept of <code class="docutils literal notranslate"><span class="pre">overloading</span></code> is different in Python than in FORTRAN. Also, there appears to be a lack of precision about the use of the terms <code class="docutils literal notranslate"><span class="pre">overload</span></code> and <code class="docutils literal notranslate"><span class="pre">override</span></code>. I’m using the terminology from the <em>O’ Reilly</em> book here, but note that you might find other people using <code class="docutils literal notranslate"><span class="pre">override</span></code> instead. The concept in this case is the same.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;I&#39;m a Rectangle and my name is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">, &quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;length=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">, width=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2">, area=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;super_awesome_rectangle&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;__main__.Rectangle at 0x111a3f990&gt;
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-I&#39;m a Rectangle and my name is super_awesome_rectangle, length=3, width=4, area=12
-</pre></div></div>
-</div>
-<p>Notice that this prints out a default string telling us the <code class="docutils literal notranslate"><span class="pre">rectangle</span></code> is an object in this code (e.g. under <code class="docutils literal notranslate"><span class="pre">__main__</span></code>). But, we can <em>overload</em> and provide a more useful return string using <code class="docutils literal notranslate"><span class="pre">__repr__</span></code>. This serves the same purpose as <code class="docutils literal notranslate"><span class="pre">__str__</span></code> but also returns the string in other circumstances.</p>
-<p>What’s the difference between <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> and <code class="docutils literal notranslate"><span class="pre">__str__</span></code>? The Diet Mountain Dew crew has discussed this <a class="reference external" href="http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python">here</a></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;I&#39;m a Rectangle and my name is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">, &quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;length=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">, width=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2">, area=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;super_awesome_rectangle&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-I&#39;m a Rectangle and my name is super_awesome_rectangle, length=3, width=4, area=12
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> <span class="nb">print</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-I&#39;m a Rectangle and my name is super_awesome_rectangle, length=3, width=4, area=12
-</pre></div></div>
-</div>
-<p>We can even overload other operators like <code class="docutils literal notranslate"><span class="pre">__add__</span></code> which will control what happens when this object is added to another.</p>
-<p>A complete list of which special methods and operators can be overloaded is found <a class="reference external" href="https://docs.python.org/3.9/reference/datamodel.html#special-method-names">here</a>.</p>
-<p>A short list of standard operators for mathematical functions can be found <a class="reference external" href="https://docs.python.org/3/library/operator.html">here</a>.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;what should we add today???&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Small rect&quot;</span><span class="p">)</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;bigger one&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-what should we add today???
-</pre></div></div>
-</div>
-<section id="Test-your-skills----overload-__add__-so-that-adding-two-rectangles-adds-their-area">
-<h3>Test your skills – overload <code class="docutils literal notranslate"><span class="pre">__add__</span></code> so that adding two rectangles adds their area<a class="headerlink" href="#Test-your-skills----overload-__add__-so-that-adding-two-rectangles-adds-their-area" title="Link to this heading"></a></h3>
-<p>Start with the definition we just made. HINT: you will need to represent the other object with <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">add</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">add</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<p>Operator overloading is very powerful, but with great power comes great responsibility. Use with caution.</p>
-</section>
-</section>
-<section id="Object-oriented-programming-(OOP)">
-<h2>Object-oriented programming (OOP)<a class="headerlink" href="#Object-oriented-programming-(OOP)" title="Link to this heading"></a></h2>
-<p>In the O’Reilly book <em>Learning Python, 5th Edition</em> is a great discussion about Object-Oriented Programming. The author makes this distinction that much of what we are doing with Python is <em>object-based</em> but to truly be object-oriented, we need to also use something called inheritance.</p>
-</section>
-<section id="Inheritance">
-<h2>Inheritance<a class="headerlink" href="#Inheritance" title="Link to this heading"></a></h2>
-<p>Let’s revisit our class for rectangles without the overloading of <code class="docutils literal notranslate"><span class="pre">__add__</span></code></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ID</span> <span class="o">=</span> <span class="n">ID</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_type</span> <span class="o">=</span> <span class="s2">&quot;Rectangle&quot;</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;I&#39;m a </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_type</span><span class="si">}</span><span class="s2"> and my name is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">, &quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;length=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">, width=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2">, area=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span>
-</pre></div>
-</div>
-</div>
-<p>We can <em>inherit</em> these characteristics (the methods and properties) in a new kind of class that has a custom bit of functionality. Say we would like to create a second class that is specifically for representing squares.</p>
-<p>We can redefine a new class <em>inheriting</em> the rectangle attributes and methods. We can even add the new functionality on top of it.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rectangle is the parent class</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Square</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Doc strings for Square</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">ID</span><span class="p">):</span>
-        <span class="c1"># initialize the parent class using the super().__init__ call</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">ID</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_type</span> <span class="o">=</span> <span class="s2">&quot;Square&quot;</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">perimiter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># get the __repr__ from Rectangle using super()</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
-        <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;, perimiter=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">perimiter</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="n">s</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># live code example</span>
-<span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;Tony&quot;</span><span class="p">)</span>
-<span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;Ravioli&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-I&#39;m a Rectangle and my name is Tony, length=2, width=4, area=8
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=20
-</pre></div></div>
-</div>
 </section>
 <section id="Modules,-Packages,-and-the-Standard-Python-Library">
 <h2>Modules, Packages, and the Standard Python Library<a class="headerlink" href="#Modules,-Packages,-and-the-Standard-Python-Library" title="Link to this heading"></a></h2>
 <p>The <a class="reference external" href="https://docs.python.org/3/library/">Standard Python Library</a> is the set of functions that are part of Python by default.</p>
 <p>More technically, names point to “objects”. a “module” is a file (with extension <code class="docutils literal notranslate"><span class="pre">.py</span></code>) that contains python code. If there are functions in that code, they can be accessed using the name of the module and a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>).</p>
 <p>Packages are collections of modules and are often “installed” to be accessible to Python from anywhere. More on that at the end of the lesson.</p>
-<p>Let’s import a module and find a function within it.</p>
+<p>Let’s import a module like <code class="docutils literal notranslate"><span class="pre">random</span></code> and find a function within it.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># live code example</span>
@@ -1617,7 +1123,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random</span><span class="o">.</span><span class="n">random</span>
@@ -1625,7 +1131,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1634,7 +1140,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
@@ -1642,12 +1148,12 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.8012558485047404
+0.28743741543767465
 </pre></div></div>
 </div>
 </section>
@@ -1656,7 +1162,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 <p>There are several main ways to import a module.</p>
 <p>The most straightforward way is to just use <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">&lt;somepackage&gt;</span></code> as we did above.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
@@ -1665,18 +1171,18 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;module &#39;math&#39; from &#39;/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/lib-dynload/math.cpython-311-darwin.so&#39;&gt;
+&lt;module &#39;math&#39; (built-in)&gt;
 </pre></div></div>
 </div>
 <p>This then shows that <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a module. Whenever you want to use a function from numpy, you just use the dot like <code class="docutils literal notranslate"><span class="pre">math.sqrt</span></code>.</p>
 <p>The main advantage to this approach is you always know the provenance of any function. Also, you could (bad idea!) make your own functions called <code class="docutils literal notranslate"><span class="pre">sqrt</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">numb</span><span class="p">):</span>
@@ -1699,7 +1205,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># live code example</span>
@@ -1708,7 +1214,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1717,7 +1223,7 @@ I&#39;m a Square and my name is Ravioli, length=5, width=5, area=25, perimiter=2
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1733,7 +1239,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1741,7 +1247,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1751,7 +1257,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </div>
 <p>Another option is to import only some function you need from a module like <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">math</span> <span class="pre">import</span> <span class="pre">sqrt</span></code>. The problem here is, we don’t necessarily know where this came from. Whichever was either imported or created most recently gets that name in the namespace. DANGER!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
@@ -1760,7 +1266,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1770,7 +1276,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </div>
 <p>You can also use an alias to import a specific function like <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">math</span> <span class="pre">import</span> <span class="pre">sqrt</span> <span class="pre">as</span> <span class="pre">math_sqrt</span></code>. In this case, and in the case above, you can get the provenance from the import statements at the top of the code, but if the code gets really long, this can be hard to keep track of.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span> <span class="k">as</span> <span class="n">math_sqrt</span>
@@ -1779,7 +1285,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1789,7 +1295,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </div>
 <p>Living really dangerously, you can import all functions from a module like <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">math</span> <span class="pre">import</span> <span class="pre">*</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
@@ -1798,7 +1304,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[81]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1813,7 +1319,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 <p>The problem here is, you now have access to all these functions, but you also don’t know provenance at all. Some modules, like <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, which will be covered later in this class, are large and have many functions (many of which may have common names that you might use yourself and that you might not be aware of).</p>
 <p>So…..really, the safest way is like the first way, but that can get long (for example, if you use <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib</span></code>, then every time you use a function from the module you have to type <code class="docutils literal notranslate"><span class="pre">matplotlib.&lt;some</span> <span class="pre">function&gt;</span></code> and that gets verbose. A compromise is importing an entire module but assigning it an alias like <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[82]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1829,7 +1335,7 @@ my complicated function estimates sqrt as--&gt; 2.2360688956433634!
 </ul>
 <p>In addition to keeping the provenance straight, adopting this protocol helps make your code more readable by other people. Remember the Zen of Python!!!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[83]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">this</span>
@@ -1875,8 +1381,8 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 <li><p>the installation-dependent default.</p></li>
 </ul>
 <p>The PYTHONPATH variable is a system variable on Windows and thus requires an administrative account to change/add to. You can see your search path using the built-in <code class="docutils literal notranslate"><span class="pre">sys</span></code> module.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
@@ -1884,29 +1390,14 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[84]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;/Users/mnfienen/Documents/GIT/python-for-hydrology/notebooks/part0_python_intro/solutions&#39;,
- &#39;/usr/local/condor/lib/python3&#39;,
- &#39;/Users/mnfienen/miniforge3/envs/pyclass/lib/python311.zip&#39;,
- &#39;/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11&#39;,
- &#39;/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/lib-dynload&#39;,
- &#39;&#39;,
- &#39;/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/site-packages&#39;]
-</pre></div></div>
-</div>
 </section>
 <section id="Exercise:-putting-it-all-together">
 <h2>Exercise: putting it all together<a class="headerlink" href="#Exercise:-putting-it-all-together" title="Link to this heading"></a></h2>
 <p>In this exercise we’ll create our first module and import it into this notebook.</p>
-<p>Open the python file “exercise_xx.py” in an IDE or text file and create a class called <code class="docutils literal notranslate"><span class="pre">Circle</span></code>. Inputs to circle should be a radius and ID. Include in the <code class="docutils literal notranslate"><span class="pre">Circle</span></code> class a way to the calculate area and the circumference. After building the class, try importing into this notebook and using the it.</p>
+<p>Open the python file “circle_module.py” in an IDE or text file and create a class called <code class="docutils literal notranslate"><span class="pre">Circle</span></code>. Inputs to circle should be a radius and ID. Include in the <code class="docutils literal notranslate"><span class="pre">Circle</span></code> class a way to the calculate area and the circumference. After building the class, try importing into this notebook and using the it.</p>
 <p><strong>Bonus exercise:</strong> Find a way to make the <code class="docutils literal notranslate"><span class="pre">Circle</span></code> objects divisible and compare the difference in area between a 12” and 14” pizza.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[85]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">circle_module</span><span class="w"> </span><span class="kn">import</span> <span class="n">Circle</span>
@@ -1914,7 +1405,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[86]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">med</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;medium&#39;</span><span class="p">)</span>
@@ -1971,7 +1462,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Jul 19, 2026.
+      <span class="lastupdated">Last updated on Aug 03, 2026.
       </span></p>
   </div>
 
