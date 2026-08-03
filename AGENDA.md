@@ -1,26 +1,26 @@
-# Python USGS Training Agenda - September 2025 Edition
+# Python USGS Training Agenda - August 2026 Edition
  
 ## Part 0: Introduction to python for hydrologists
 Monday
 - 900-930: Introductions and getting started  (Mike) 
 - 930-1000: Python overview and Quick orientation to jupyter, environments, and mamba/conda (Andy) 
-- 1000-1130: 00 Python basics review and AI overlords: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (A: word counting ) (Mike) 
+- 1000-1130: 00 Python basics review: Q&A and discussion https://cscircles.cemc.uwaterloo.ca/  (A: word counting ) (Mike) 
 - 1130-1230: lunch
 - 1230-1330: 01 Functions and Scripts  (A: build a function) (Kalle) 
 - 1330-1345: break
 - 1345-1545: 02 Namespace, Modules, Packages, Objects (A: import and use own functions, etc) (Josh) 
 - 1545-1600: break
 - 1600-1700: 03 Useful Standard Library modules (Andy) 
-- 1700-1730: 04 Working with files, string formatting (Nick) 
+- 1700-1730: 04 Working with files, string formatting (Kalle) 
 - 1730: Class Adjourn 
  
 ## Tuesday
-- 900-930:  04 Working with files, string formatting (Nick) (continued)
+- 900-930:  04 Working with files, string formatting (Kalle) (continued)
 - 930-1130: 05 Numpy (where, slicing, indexing)(A: Mt. St. Helens) (Mike)
 - 1130-1230: lunch
-- 1230-1430: 06 Matplotlib (A: make a semi-complex plot, animation, PdfPages, USGS Style) (Kalle)
+- 1230-1430: 06 Matplotlib intro (1 hour) and agentic examples (A: make a semi-complex plot, animation, PdfPages, USGS Style) (Kalle)
 - 1430-1445: break
-- 1445-1615: 07 Theis exercise + VSCode IDE debugging, liveshare (Andy) 
+- 1445-1615: Debugging in VSCode and agentic tools discussion (Andy) 
 - 1615-1630: break
 - 1630-1730: 08 Pandas (interesting data, viz, excel, apply correction to data, indexing, grouping, retrieving data from NWIS (dataretrieval) (Josh) 
 - 1730: Class Adjourn
@@ -30,17 +30,17 @@ Monday
 - 1000-1130: 09 GeoPandas for open-source GIS and viz (Mike)
 - 1130-1230: lunch
 - 1230-1300: 09 GeoPandas for open-source GIS and viz (Mike) (A: working with open-source city data) (continued)
-- 1300-1430: 10 Rasterio (Nick) 
+- 1300-1430: 10 Rasterio (Josh) 
 - 1430-1445: break
 - 1445-1615: 11 Xarray/rioxarray (Andy) 
 - 1615-1630: break
-- 1630-1730: Code style/quality, testing, version control (Andy and all)
+- 1630-1730: Code style/quality, testing (assertions to pytest range), version control (Andy and all)
 - 1730: class adjourn
 
 # Part 1: Application of Python and Flopy to Groundwater Modeling 
 ## Thursday
 - 900-1000: 01 Introductions and IT sorting (Mike)
-- 1000-1100: 02 Build your first model with FloPy (Nick)
+- 1000-1100: 02 Build your first model with FloPy (Kalle)
 - 1100-1115: break
 - 1115-1245: 03 Loading and visualizing models with FloPy (Andy) 
 - 1245-1345: lunch
