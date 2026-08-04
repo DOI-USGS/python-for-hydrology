@@ -174,7 +174,7 @@
              
   <section id="08:-Working-with-tabular-data-in-Pandas">
 <h1>08: Working with tabular data in Pandas<a class="headerlink" href="#08:-Working-with-tabular-data-in-Pandas" title="Link to this heading"></a></h1>
-<p><img alt="43a0eb224f024d32b62190dd786a9057" src="../../../_images/panda.jpg" /></p>
+<p><img alt="a9dcafd97fd447ce82af5eb6afa6f31f" src="../../../_images/panda.jpg" /></p>
 <section id="Not-that-type-of-Panda----Python's-Pandas-package">
 <h2>Not that type of Panda – Python’s Pandas package<a class="headerlink" href="#Not-that-type-of-Panda----Python's-Pandas-package" title="Link to this heading"></a></h2>
 <p>Pandas is a powerful, flexible and easy to use open source data analysis and manipulation tool. Pandas is commonly used for operations that would normally be done in a spreadsheet environment and includes powerful data analysis and manipulation tools.</p>
@@ -217,7 +217,7 @@
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/tmp/ipykernel_9802/1777507504.py:2: DeprecationWarning: `nwis.get_info` is deprecated and will be removed from `dataretrieval` on or after 2027-05-06; use `waterdata.get_monitoring_locations()` instead.
+/tmp/ipykernel_10029/1777507504.py:2: DeprecationWarning: `nwis.get_info` is deprecated and will be removed from `dataretrieval` on or after 2027-05-06; use `waterdata.get_monitoring_locations()` instead.
   info, metadata = nwis.get_info(bBox=[str(i) for i in bbox])
 </pre></div></div>
 </div>
@@ -2229,7 +2229,7 @@ Length: 28, dtype: str
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/tmp/ipykernel_9802/912741710.py:9: DeprecationWarning: `nwis.get_dv` is deprecated and will be removed from `dataretrieval` on or after 2027-05-06; use `waterdata.get_daily()` instead.
+/tmp/ipykernel_10029/912741710.py:9: DeprecationWarning: `nwis.get_dv` is deprecated and will be removed from `dataretrieval` on or after 2027-05-06; use `waterdata.get_daily()` instead.
   df, metadata = nwis.get_dv(
 </pre></div></div>
 </div>
@@ -2715,320 +2715,58 @@ Length: 28, dtype: str
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[28]</span><span class="ansi-green-fg">, line 4</span>
+<span class="ansi-green-fg">      1</span> cimis_file = data_path / <span class="ansi-yellow-fg">&#34;santa_rosa_CIMIS_83.csv&#34;</span>
+<span class="ansi-green-fg">      2</span> df_cimis = pd.read_csv(cimis_file)
+<span class="ansi-green-fg">      3</span> drop_list = [<span class="ansi-yellow-fg">&#34;qc&#34;</span>] + [f&#34;qc.{i}&#34; <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> i <span class="ansi-bold" style="color: rgb(0,135,0)">in</span> range(<span class="ansi-green-fg">1</span>, <span class="ansi-green-fg">22</span>)]
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span> df_cimis.drop(columns=drop_list, inplace=<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-fg">      5</span> df_cimis
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/pandas/core/frame.py:6302</span>, in <span class="ansi-cyan-fg">DataFrame.drop</span><span class="ansi-blue-fg">(self, labels, axis, index, columns, level, inplace, errors)</span>
+<span class="ansi-green-fg">   6298</span>                 weight  <span class="ansi-green-fg">250.0</span>   <span class="ansi-green-fg">150.0</span>
+<span class="ansi-green-fg">   6299</span>         falcon  speed   <span class="ansi-green-fg">320.0</span>   <span class="ansi-green-fg">250.0</span>
+<span class="ansi-green-fg">   6300</span>                 weight  <span class="ansi-green-fg">1.0</span>     <span class="ansi-green-fg">0.8</span>
+<span class="ansi-green-fg">   6301</span>         &#34;&#34;&#34;
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">6302</span>         return super().drop(
+<span class="ansi-green-fg">   6303</span>             labels=labels,
+<span class="ansi-green-fg">   6304</span>             axis=axis,
+<span class="ansi-green-fg">   6305</span>             index=index,
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Stn Id</th>
-      <th>Stn Name</th>
-      <th>CIMIS Region</th>
-      <th>Date</th>
-      <th>Jul</th>
-      <th>ETo (in)</th>
-      <th>Precip (in)</th>
-      <th>Sol Rad (Ly/day)</th>
-      <th>Avg Vap Pres (mBars)</th>
-      <th>Max Air Temp (F)</th>
-      <th>...</th>
-      <th>Rose NNE</th>
-      <th>Rose ENE</th>
-      <th>Rose ESE</th>
-      <th>Rose SSE</th>
-      <th>Rose SSW</th>
-      <th>Rose WSW</th>
-      <th>Rose WNW</th>
-      <th>Rose NNW</th>
-      <th>Wind Run (miles)</th>
-      <th>Avg Soil Temp (F)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>1/1/1990</td>
-      <td>1</td>
-      <td>0.00</td>
-      <td>0.30</td>
-      <td>42.0</td>
-      <td>7.7</td>
-      <td>48.7</td>
-      <td>...</td>
-      <td>0.03</td>
-      <td>0.02</td>
-      <td>0.06</td>
-      <td>0.06</td>
-      <td>0.04</td>
-      <td>0.10</td>
-      <td>0.15</td>
-      <td>0.14</td>
-      <td>32.1</td>
-      <td>46.3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>1/2/1990</td>
-      <td>2</td>
-      <td>0.06</td>
-      <td>0.00</td>
-      <td>236.0</td>
-      <td>6.1</td>
-      <td>58.4</td>
-      <td>...</td>
-      <td>0.06</td>
-      <td>0.01</td>
-      <td>0.04</td>
-      <td>0.03</td>
-      <td>0.03</td>
-      <td>0.06</td>
-      <td>0.45</td>
-      <td>1.53</td>
-      <td>121.0</td>
-      <td>44.9</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>1/3/1990</td>
-      <td>3</td>
-      <td>0.04</td>
-      <td>0.00</td>
-      <td>225.0</td>
-      <td>5.8</td>
-      <td>63.0</td>
-      <td>...</td>
-      <td>0.08</td>
-      <td>0.04</td>
-      <td>0.10</td>
-      <td>0.04</td>
-      <td>0.06</td>
-      <td>0.05</td>
-      <td>0.21</td>
-      <td>0.23</td>
-      <td>44.5</td>
-      <td>43.3</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>1/4/1990</td>
-      <td>4</td>
-      <td>0.03</td>
-      <td>0.01</td>
-      <td>190.0</td>
-      <td>6.3</td>
-      <td>56.7</td>
-      <td>...</td>
-      <td>0.07</td>
-      <td>0.07</td>
-      <td>0.11</td>
-      <td>0.07</td>
-      <td>0.03</td>
-      <td>0.03</td>
-      <td>0.08</td>
-      <td>0.09</td>
-      <td>30.2</td>
-      <td>42.8</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>1/5/1990</td>
-      <td>5</td>
-      <td>0.04</td>
-      <td>0.00</td>
-      <td>192.0</td>
-      <td>7.2</td>
-      <td>59.1</td>
-      <td>...</td>
-      <td>0.08</td>
-      <td>0.13</td>
-      <td>0.33</td>
-      <td>0.08</td>
-      <td>0.04</td>
-      <td>0.08</td>
-      <td>0.07</td>
-      <td>0.05</td>
-      <td>45.2</td>
-      <td>43.7</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>11948</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>9/18/2022</td>
-      <td>261</td>
-      <td>0.03</td>
-      <td>0.77</td>
-      <td>113.0</td>
-      <td>16.4</td>
-      <td>66.8</td>
-      <td>...</td>
-      <td>0.01</td>
-      <td>0.04</td>
-      <td>0.29</td>
-      <td>0.51</td>
-      <td>0.14</td>
-      <td>0.01</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>197.4</td>
-      <td>65.2</td>
-    </tr>
-    <tr>
-      <th>11949</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>9/19/2022</td>
-      <td>262</td>
-      <td>0.14</td>
-      <td>0.02</td>
-      <td>424.0</td>
-      <td>15.6</td>
-      <td>73.9</td>
-      <td>...</td>
-      <td>0.09</td>
-      <td>0.07</td>
-      <td>0.08</td>
-      <td>0.17</td>
-      <td>0.09</td>
-      <td>0.28</td>
-      <td>0.15</td>
-      <td>0.07</td>
-      <td>108.9</td>
-      <td>65.9</td>
-    </tr>
-    <tr>
-      <th>11950</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>9/20/2022</td>
-      <td>263</td>
-      <td>0.10</td>
-      <td>0.00</td>
-      <td>330.0</td>
-      <td>13.9</td>
-      <td>72.6</td>
-      <td>...</td>
-      <td>0.08</td>
-      <td>0.04</td>
-      <td>0.10</td>
-      <td>0.11</td>
-      <td>0.18</td>
-      <td>0.25</td>
-      <td>0.15</td>
-      <td>0.10</td>
-      <td>79.6</td>
-      <td>65.8</td>
-    </tr>
-    <tr>
-      <th>11951</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>9/21/2022</td>
-      <td>264</td>
-      <td>0.15</td>
-      <td>0.07</td>
-      <td>458.0</td>
-      <td>14.8</td>
-      <td>75.5</td>
-      <td>...</td>
-      <td>0.09</td>
-      <td>0.05</td>
-      <td>0.13</td>
-      <td>0.16</td>
-      <td>0.18</td>
-      <td>0.22</td>
-      <td>0.08</td>
-      <td>0.09</td>
-      <td>103.3</td>
-      <td>66.7</td>
-    </tr>
-    <tr>
-      <th>11952</th>
-      <td>83</td>
-      <td>Santa Rosa</td>
-      <td>North Coast Valleys</td>
-      <td>9/22/2022</td>
-      <td>265</td>
-      <td>0.17</td>
-      <td>0.00</td>
-      <td>494.0</td>
-      <td>13.1</td>
-      <td>82.9</td>
-      <td>...</td>
-      <td>0.14</td>
-      <td>0.06</td>
-      <td>0.09</td>
-      <td>0.10</td>
-      <td>0.11</td>
-      <td>0.20</td>
-      <td>0.12</td>
-      <td>0.19</td>
-      <td>83.7</td>
-      <td>66.3</td>
-    </tr>
-  </tbody>
-</table>
-<p>11953 rows × 27 columns</p>
-</div></div>
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/pandas/core/generic.py:4632</span>, in <span class="ansi-cyan-fg">NDFrame.drop</span><span class="ansi-blue-fg">(self, labels, axis, index, columns, level, inplace, errors)</span>
+<span class="ansi-green-fg">   4628</span>         obj = self
+<span class="ansi-green-fg">   4629</span>
+<span class="ansi-green-fg">   4630</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> axis, labels <span class="ansi-bold" style="color: rgb(0,135,0)">in</span> axes.items():
+<span class="ansi-green-fg">   4631</span>             <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> labels <span class="ansi-bold" style="color: rgb(0,135,0)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">4632</span>                 obj = obj._drop_axis(labels, axis, level=level, errors=errors)
+<span class="ansi-green-fg">   4633</span>
+<span class="ansi-green-fg">   4634</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> inplace:
+<span class="ansi-green-fg">   4635</span>             self._update_inplace(obj)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/pandas/core/generic.py:4674</span>, in <span class="ansi-cyan-fg">NDFrame._drop_axis</span><span class="ansi-blue-fg">(self, labels, axis, level, errors, only_slice)</span>
+<span class="ansi-green-fg">   4670</span>                 <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(0,135,0)">not</span> isinstance(axis, MultiIndex):
+<span class="ansi-green-fg">   4671</span>                     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> AssertionError(<span class="ansi-yellow-fg">&#34;axis must be a MultiIndex&#34;</span>)
+<span class="ansi-green-fg">   4672</span>                 new_axis = axis.drop(labels, level=level, errors=errors)
+<span class="ansi-green-fg">   4673</span>             <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">4674</span>                 new_axis = axis.drop(labels, errors=errors)
+<span class="ansi-green-fg">   4675</span>             indexer = axis.get_indexer(new_axis)
+<span class="ansi-green-fg">   4676</span>
+<span class="ansi-green-fg">   4677</span>         <span style="color: rgb(95,135,135)"># Case for non-unique axis</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/pandas/core/indexes/base.py:7268</span>, in <span class="ansi-cyan-fg">Index.drop</span><span class="ansi-blue-fg">(self, labels, errors)</span>
+<span class="ansi-green-fg">   7266</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> mask.any():
+<span class="ansi-green-fg">   7267</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> errors != <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">ignore</span><span class="ansi-yellow-fg">&#34;</span>:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">7268</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">KeyError</span>(<span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>labels[mask].tolist()<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> not found in axis</span><span class="ansi-yellow-fg">&#34;</span>)
+<span class="ansi-green-fg">   7269</span>     indexer = indexer[~mask]
+<span class="ansi-green-fg">   7270</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span style="color: rgb(0,135,0)">self</span>.delete(indexer)
+
+<span class="ansi-red-fg">KeyError</span>: &#34;[&#39;qc.14&#39;, &#39;qc.15&#39;, &#39;qc.16&#39;, &#39;qc.17&#39;, &#39;qc.18&#39;, &#39;qc.19&#39;, &#39;qc.20&#39;, &#39;qc.21&#39;] not found in axis&#34;
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
@@ -3072,32 +2810,32 @@ Length: 28, dtype: str
     <tr>
       <th>0</th>
       <td>1</td>
-      <td>0.031212</td>
-      <td>0.335455</td>
+      <td>0.031081</td>
+      <td>0.316486</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2</td>
-      <td>0.031212</td>
-      <td>0.155152</td>
+      <td>0.030270</td>
+      <td>0.190541</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
-      <td>0.030303</td>
-      <td>0.195484</td>
+      <td>0.030541</td>
+      <td>0.199714</td>
     </tr>
     <tr>
       <th>3</th>
       <td>4</td>
-      <td>0.030909</td>
-      <td>0.190303</td>
+      <td>0.030811</td>
+      <td>0.218919</td>
     </tr>
     <tr>
       <th>4</th>
       <td>5</td>
-      <td>0.034242</td>
-      <td>0.150000</td>
+      <td>0.034054</td>
+      <td>0.190270</td>
     </tr>
   </tbody>
 </table>
@@ -3153,40 +2891,40 @@ Length: 28, dtype: str
       <td>1</td>
       <td>11169.447129</td>
       <td>982.247985</td>
-      <td>0.031212</td>
-      <td>0.335455</td>
+      <td>0.031081</td>
+      <td>0.316486</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2</td>
       <td>10601.346651</td>
       <td>648.518661</td>
-      <td>0.031212</td>
-      <td>0.155152</td>
+      <td>0.030270</td>
+      <td>0.190541</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
       <td>8662.758966</td>
       <td>777.478369</td>
-      <td>0.030303</td>
-      <td>0.195484</td>
+      <td>0.030541</td>
+      <td>0.199714</td>
     </tr>
     <tr>
       <th>3</th>
       <td>4</td>
       <td>9604.154280</td>
       <td>1831.494379</td>
-      <td>0.030909</td>
-      <td>0.190303</td>
+      <td>0.030811</td>
+      <td>0.218919</td>
     </tr>
     <tr>
       <th>4</th>
       <td>5</td>
       <td>11811.951556</td>
       <td>1508.267191</td>
-      <td>0.034242</td>
-      <td>0.150000</td>
+      <td>0.034054</td>
+      <td>0.190270</td>
     </tr>
   </tbody>
 </table>
@@ -4155,20 +3893,20 @@ Length: 28, dtype: str
       <th>Date</th>
       <th>Jul</th>
       <th>ETo (in)</th>
+      <th>qc</th>
       <th>Precip (in)</th>
+      <th>qc.1</th>
       <th>Sol Rad (Ly/day)</th>
-      <th>Avg Vap Pres (mBars)</th>
-      <th>Max Air Temp (F)</th>
       <th>...</th>
-      <th>Rose ENE</th>
-      <th>Rose ESE</th>
-      <th>Rose SSE</th>
-      <th>Rose SSW</th>
-      <th>Rose WSW</th>
-      <th>Rose WNW</th>
-      <th>Rose NNW</th>
+      <th>qc.9</th>
+      <th>Dew Point (F)</th>
+      <th>qc.10</th>
+      <th>Avg Wind Speed (mph)</th>
+      <th>qc.11</th>
       <th>Wind Run (miles)</th>
+      <th>qc.12</th>
       <th>Avg Soil Temp (F)</th>
+      <th>qc.13</th>
       <th>year</th>
     </tr>
   </thead>
@@ -4181,20 +3919,20 @@ Length: 28, dtype: str
       <td>1/1/1990</td>
       <td>1</td>
       <td>0.00</td>
+      <td></td>
       <td>0.30</td>
+      <td>Y</td>
       <td>42.0</td>
-      <td>7.7</td>
-      <td>48.7</td>
       <td>...</td>
-      <td>0.02</td>
-      <td>0.06</td>
-      <td>0.06</td>
-      <td>0.04</td>
-      <td>0.10</td>
-      <td>0.15</td>
-      <td>0.14</td>
+      <td></td>
+      <td>37.9</td>
+      <td></td>
+      <td>1.3</td>
+      <td></td>
       <td>32.1</td>
+      <td></td>
       <td>46.3</td>
+      <td></td>
       <td>1989</td>
     </tr>
     <tr>
@@ -4205,20 +3943,20 @@ Length: 28, dtype: str
       <td>1/2/1990</td>
       <td>2</td>
       <td>0.06</td>
+      <td></td>
       <td>0.00</td>
+      <td></td>
       <td>236.0</td>
-      <td>6.1</td>
-      <td>58.4</td>
       <td>...</td>
-      <td>0.01</td>
-      <td>0.04</td>
-      <td>0.03</td>
-      <td>0.03</td>
-      <td>0.06</td>
-      <td>0.45</td>
-      <td>1.53</td>
+      <td></td>
+      <td>31.8</td>
+      <td></td>
+      <td>5.0</td>
+      <td></td>
       <td>121.0</td>
+      <td></td>
       <td>44.9</td>
+      <td></td>
       <td>1989</td>
     </tr>
     <tr>
@@ -4229,20 +3967,20 @@ Length: 28, dtype: str
       <td>1/3/1990</td>
       <td>3</td>
       <td>0.04</td>
+      <td></td>
       <td>0.00</td>
+      <td></td>
       <td>225.0</td>
-      <td>5.8</td>
-      <td>63.0</td>
       <td>...</td>
-      <td>0.04</td>
-      <td>0.10</td>
-      <td>0.04</td>
-      <td>0.06</td>
-      <td>0.05</td>
-      <td>0.21</td>
-      <td>0.23</td>
+      <td></td>
+      <td>30.6</td>
+      <td></td>
+      <td>1.9</td>
+      <td></td>
       <td>44.5</td>
+      <td></td>
       <td>43.3</td>
+      <td></td>
       <td>1989</td>
     </tr>
     <tr>
@@ -4253,20 +3991,20 @@ Length: 28, dtype: str
       <td>1/4/1990</td>
       <td>4</td>
       <td>0.03</td>
+      <td></td>
       <td>0.01</td>
+      <td></td>
       <td>190.0</td>
-      <td>6.3</td>
-      <td>56.7</td>
       <td>...</td>
-      <td>0.07</td>
-      <td>0.11</td>
-      <td>0.07</td>
-      <td>0.03</td>
-      <td>0.03</td>
-      <td>0.08</td>
-      <td>0.09</td>
+      <td></td>
+      <td>32.8</td>
+      <td></td>
+      <td>1.3</td>
+      <td></td>
       <td>30.2</td>
+      <td></td>
       <td>42.8</td>
+      <td></td>
       <td>1989</td>
     </tr>
     <tr>
@@ -4277,25 +4015,25 @@ Length: 28, dtype: str
       <td>1/5/1990</td>
       <td>5</td>
       <td>0.04</td>
+      <td></td>
       <td>0.00</td>
+      <td></td>
       <td>192.0</td>
-      <td>7.2</td>
-      <td>59.1</td>
       <td>...</td>
-      <td>0.13</td>
-      <td>0.33</td>
-      <td>0.08</td>
-      <td>0.04</td>
-      <td>0.08</td>
-      <td>0.07</td>
-      <td>0.05</td>
+      <td></td>
+      <td>36.2</td>
+      <td></td>
+      <td>1.9</td>
+      <td></td>
       <td>45.2</td>
+      <td></td>
       <td>43.7</td>
+      <td></td>
       <td>1989</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 28 columns</p>
+<p>5 rows × 34 columns</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
@@ -4804,10 +4542,30 @@ Length: 28, dtype: str
       <td>2021</td>
       <td>1435.621183</td>
       <td>3601.895852</td>
-      <td>0.134090</td>
-      <td>0.077279</td>
-      <td>0.078627</td>
-      <td>0.411521</td>
+      <td>0.134493</td>
+      <td>0.076568</td>
+      <td>0.077041</td>
+      <td>0.407114</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>2022</td>
+      <td>5138.936466</td>
+      <td>11403.692737</td>
+      <td>0.120603</td>
+      <td>0.067954</td>
+      <td>0.104247</td>
+      <td>0.320957</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>2023</td>
+      <td>1268.044593</td>
+      <td>2473.603747</td>
+      <td>0.129317</td>
+      <td>0.078673</td>
+      <td>0.078388</td>
+      <td>0.247507</td>
     </tr>
   </tbody>
 </table>
@@ -5070,7 +4828,7 @@ Length: 28, dtype: str
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/tmp/ipykernel_9802/1871956059.py:4: UserWarning: This axis already has a converter set and is updating to a potentially incompatible converter
+/tmp/ipykernel_10029/1871956059.py:4: UserWarning: This axis already has a converter set and is updating to a potentially incompatible converter
   ax.plot(decomposition.trend.index, decomposition.trend, &#34;r-&#34;, lw=1.5)
 </pre></div></div>
 </div>
@@ -5765,7 +5523,7 @@ Length: 28, dtype: str
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/tmp/ipykernel_9802/608845639.py:1: Pandas4Warning: &#39;d&#39; is deprecated and will be removed in a future version, please use &#39;D&#39; instead.
+/tmp/ipykernel_10029/608845639.py:1: Pandas4Warning: &#39;d&#39; is deprecated and will be removed in a future version, please use &#39;D&#39; instead.
   df_data[&#39;water_year&#39;] = df_data.index.shift(30+31+31,freq=&#39;d&#39;).year
 </pre></div></div>
 </div>
@@ -5915,7 +5673,7 @@ Length: 28, dtype: str
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 03, 2026.
+      <span class="lastupdated">Last updated on Aug 04, 2026.
       </span></p>
   </div>
 
