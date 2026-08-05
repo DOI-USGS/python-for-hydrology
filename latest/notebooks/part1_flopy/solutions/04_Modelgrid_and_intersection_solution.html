@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>04: Modelgrid and intersection &mdash; Python for Hydrology 1.0a documentation</title>
+  <title>Modelgrid and intersection &mdash; Python for Hydrology 1.0a documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
@@ -57,7 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../01-Flopy-intro.html">01: Introduction to FloPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">04: Modelgrid and intersection</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Modelgrid and intersection</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Grids">Grids</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#StructuredGrid">StructuredGrid</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#First-we'll-build-one-from-scratch">First we’ll build one from scratch</a></li>
@@ -68,7 +68,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#Create-a-vertex-model-grid-from-the-results">Create a vertex model grid from the results</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Class-Exercise-2:">Class Exercise 2:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#UnstructuredGrid">UnstructuredGrid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Intersecting-geospatial-data">Intersecting geospatial data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Now-that-the-raster-is-loaded-we-can-resample-it">Now that the raster is loaded we can resample it</a></li>
@@ -126,7 +125,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../part1.html">Part 1 flopy</a></li>
-      <li class="breadcrumb-item active">04: Modelgrid and intersection</li>
+      <li class="breadcrumb-item active">Modelgrid and intersection</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/notebooks/part1_flopy/solutions/04_Modelgrid_and_intersection_solution.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -136,9 +135,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="04:-Modelgrid-and-intersection">
-<h1>04: Modelgrid and intersection<a class="headerlink" href="#04:-Modelgrid-and-intersection" title="Link to this heading"></a></h1>
-<p>The first part of this notebook is focused on the <code class="docutils literal notranslate"><span class="pre">flopy.discretization.Grid</span></code> (modelgrid) object(s). The modelgrid object(s) are a relatively new addition to FloPy’s capabilities and are the backbone of plotting, exporting, and GIS data processing within FloPy. These objects are automatically created when a model is loaded. Alternatively they can also be created as a stand alone object.</p>
+  <section id="Modelgrid-and-intersection">
+<h1>Modelgrid and intersection<a class="headerlink" href="#Modelgrid-and-intersection" title="Link to this heading"></a></h1>
+<p>The first part of this notebook is focused on the <code class="docutils literal notranslate"><span class="pre">flopy.discretization.Grid</span></code> (modelgrid) object(s). The modelgrid object(s) are core to FloPy’s capabilities and are the backbone of plotting, exporting, and GIS data processing within FloPy. These objects are automatically created when a model is loaded. Alternatively they can also be created as a stand alone object.</p>
 <p>There are three types of modelgrids:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">StructuredGrid</span></code>: the StructuredGrid object is created for rectilinear grids. i.e. models that use a DIS file for discretization</p></li>
@@ -644,7 +643,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_28_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_28_0.png" />
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
@@ -653,6 +652,38 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[15]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> g = Gridgen(modelgrid, model_ws=data_path)
+<span class="ansi-green-fg">      2</span> g.add_refinement_features(refined.geometry.to_list(), <span class="ansi-yellow-fg">&#34;polygon&#34;</span>, <span class="ansi-green-fg">1</span>, [<span class="ansi-green-fg">0</span>,])
+<span class="ansi-green-fg">      3</span> g.build(verbose=<span class="ansi-bold" style="color: rgb(0,135,0)">False</span>)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/gridgen.py:244</span>, in <span class="ansi-cyan-fg">Gridgen.__init__</span><span class="ansi-blue-fg">(self, modelgrid, model_ws, exe_name, surface_interpolation, vertical_pass_through, **kwargs)</span>
+<span class="ansi-green-fg">    242</span> <span style="color: rgb(0,135,0)">self</span>._vertdict = {}
+<span class="ansi-green-fg">    243</span> <span style="color: rgb(0,135,0)">self</span>.model_ws = Path(model_ws).expanduser().absolute()
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">244</span> <span style="color: rgb(0,135,0)">self</span>.exe_name = <span class="ansi-black-fg ansi-yellow-bg">resolve_exe</span><span class="ansi-black-fg ansi-yellow-bg">(</span><span class="ansi-black-fg ansi-yellow-bg">exe_name</span><span class="ansi-black-fg ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    246</span> <span style="color: rgb(95,135,135)"># Set default surface interpolation for all surfaces (nlay + 1)</span>
+<span class="ansi-green-fg">    247</span> surface_interpolation = surface_interpolation.upper()
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/mbase.py:111</span>, in <span class="ansi-cyan-fg">resolve_exe</span><span class="ansi-blue-fg">(exe_name, forgive)</span>
+<span class="ansi-green-fg">    105</span>     warn(
+<span class="ansi-green-fg">    106</span>         <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">The program </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>exe_name<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> does not exist or is not executable.</span><span class="ansi-yellow-fg">&#34;</span>,
+<span class="ansi-green-fg">    107</span>         category=<span class="ansi-bold" style="color: rgb(215,95,95)">UserWarning</span>,
+<span class="ansi-green-fg">    108</span>     )
+<span class="ansi-green-fg">    109</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">111</span> <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">FileNotFoundError</span>(
+<span class="ansi-green-fg">    112</span>     <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">The program </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>exe_name<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> does not exist or is not executable.</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">    113</span> )
+
+<span class="ansi-red-fg">FileNotFoundError</span>: The program gridgen does not exist or is not executable.
+</pre></div></div>
 </div>
 <section id="Create-a-vertex-model-grid-from-the-results">
 <h3>Create a vertex model grid from the results<a class="headerlink" href="#Create-a-vertex-model-grid-from-the-results" title="Link to this heading"></a></h3>
@@ -670,8 +701,16 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_32_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_32_0.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[16]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> gridprops = g.get_gridprops_vertexgrid()
+<span class="ansi-green-fg">      2</span> vertexgrid = flopy.discretization.VertexGrid(**gridprops)
+<span class="ansi-green-fg">      3</span> vertexgrid.plot();
+
+<span class="ansi-red-fg">NameError</span>: name &#39;g&#39; is not defined
+</pre></div></div>
 </div>
 <section id="Getting-the-modelgrid's-shape">
 <h4>Getting the modelgrid’s shape<a class="headerlink" href="#Getting-the-modelgrid's-shape" title="Link to this heading"></a></h4>
@@ -685,49 +724,27 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(1, 510)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[17]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> shape = vertexgrid.shape
+<span class="ansi-green-fg">      2</span> shape
+
+<span class="ansi-red-fg">NameError</span>: name &#39;vertexgrid&#39; is not defined
 </pre></div></div>
 </div>
 </section>
 </section>
 </section>
-<section id="Class-Exercise-2:">
-<h2>Class Exercise 2:<a class="headerlink" href="#Class-Exercise-2:" title="Link to this heading"></a></h2>
-<p>Find and plot all of the nearest neighbors at node 79 on the vertex modelgrid.</p>
-<p><strong>Hint</strong>: Use <code class="docutils literal notranslate"><span class="pre">flopy.plot.PlotMapView</span></code> for your plotting, and plot a boolean (1, 0) array with the cells that are not neighbors masked out.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">neighbors</span> <span class="o">=</span> <span class="n">vertexgrid</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
-<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">vertexgrid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">arr</span><span class="p">[</span><span class="n">neighbors</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">pmv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">PlotMapView</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">modelgrid</span><span class="o">=</span><span class="n">vertexgrid</span><span class="p">)</span>
-<span class="n">pmv</span><span class="o">.</span><span class="n">plot_grid</span><span class="p">(</span><span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">pmv</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">masked_values</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,]);</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_36_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_36_0.png" />
-</div>
-</div>
-</section>
 <section id="UnstructuredGrid">
 <h2>UnstructuredGrid<a class="headerlink" href="#UnstructuredGrid" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">UnstructuredGrid</span></code> class is used with MODFLOW-USG and MODFLOW-6 DISU type discretizations. We can also create an <code class="docutils literal notranslate"><span class="pre">UnstructuredGrid</span></code> object from the <code class="docutils literal notranslate"><span class="pre">Gridgen</span></code> results</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gridprops</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_gridprops_unstructuredgrid</span><span class="p">()</span>
@@ -738,17 +755,23 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(xll:0.0; yll:0.0; rotation:0.0; units:undefined; lenuni:0,
- flopy.discretization.unstructuredgrid.UnstructuredGrid)
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[18]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> gridprops = g.get_gridprops_unstructuredgrid()
+<span class="ansi-green-fg">      2</span>
+<span class="ansi-green-fg">      3</span> ugrid = flopy.discretization.UnstructuredGrid(**gridprops)
+<span class="ansi-green-fg">      4</span> ugrid, type(ugrid)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;g&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ugrid</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
@@ -759,11 +782,17 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_39_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_39_0.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[19]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> ugrid.plot();
+
+<span class="ansi-red-fg">NameError</span>: name &#39;ugrid&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">neighbors</span> <span class="o">=</span> <span class="n">ugrid</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="mi">79</span><span class="p">)</span>
@@ -782,8 +811,17 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_40_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_40_0.png" />
-</div>
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[20]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> neighbors = ugrid.neighbors(<span class="ansi-green-fg">79</span>)
+<span class="ansi-green-fg">      2</span> arr = np.zeros(ugrid.shape, dtype=int)
+<span class="ansi-green-fg">      3</span> arr[neighbors] = <span class="ansi-green-fg">1</span>
+<span class="ansi-green-fg">      4</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;ugrid&#39; is not defined
+</pre></div></div>
 </div>
 </section>
 <section id="Intersecting-geospatial-data">
@@ -791,7 +829,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <p>In this part of the lesson we will intersect geospatial data with a modelgrid and begin building a simple adaptation of the Sagehen Creek model, near Truckee, CA. While building this model, we’ll work with shapefile and raster data. As we build the model FloPy’s intersection capabilities will be presented.</p>
 <p>Let’s start by getting the basin boundary. For the Sagehen Creek model, we’re interested in the contributing area for <a class="reference external" href="https://waterdata.usgs.gov/ca/nwis/uv/?site_no=10343500&amp;PARAmeter_cd=00065,00060">USGS gage 10343500</a></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_id</span> <span class="o">=</span> <span class="s2">&quot;10343500&quot;</span>
@@ -802,7 +840,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -842,7 +880,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 <p>First thing that we notice is that the basin polygon is projected in decimal degrees, which is not good for modeling. An equal area projection would be better suited for this application</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epsg</span> <span class="o">=</span> <span class="mi">26911</span>  <span class="c1"># NAD83 utm zone 11 N, epsg: 26911</span>
@@ -852,7 +890,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -891,7 +929,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basin</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -899,7 +937,7 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -911,12 +949,12 @@ xll:7695794.20952; yll:4050416.79628; rotation:-15; units:undefined; lenuni:0
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_45_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_45_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_43_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_43_1.png" />
 </div>
 </div>
 <p>We can now get our basin’s bounding box using <code class="docutils literal notranslate"><span class="pre">.bounds</span></code>, buffer it, and then begin creating a modelgrid based on the basin boundary.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cellsize</span> <span class="o">=</span> <span class="mi">90</span>  <span class="c1"># 90 m grid</span>
@@ -941,7 +979,7 @@ identifier
 </div>
 <p>Calculate the number of rows and columns the model will have and then create a delc and delr array.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dx</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span>
@@ -961,7 +999,7 @@ identifier
 </div>
 <p>Now we can create a minimal modelgrid from the information we have</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelgrid</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">discretization</span><span class="o">.</span><span class="n">StructuredGrid</span><span class="p">(</span>
@@ -989,7 +1027,7 @@ False
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -1003,14 +1041,14 @@ False
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_52_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_52_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_50_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_50_0.png" />
 </div>
 </div>
 <p>Fantastic! The modelgrid has been created and it completely overlays the contributing area.</p>
 <p>FloPy has a utility named <code class="docutils literal notranslate"><span class="pre">GridIntersect</span></code> that allows the user to intersect points, polygons, and polylines with modelgrid objects.</p>
 <p>In this example, the basin boundary will be intersected with the modelgrid to create the active and inactive extents of the model. The <code class="docutils literal notranslate"><span class="pre">.intersect()</span></code> method returns a numpy recarry with cellids, vertices, cell areas, and shapely polygon objects.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gx</span> <span class="o">=</span> <span class="n">GridIntersect</span><span class="p">(</span><span class="n">modelgrid</span><span class="p">)</span>
@@ -1025,12 +1063,12 @@ False
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
   warnings.warn(
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1041,7 +1079,7 @@ array([(1, 52), (1, 53), (1, 54), ..., (73, 64), (73, 65), (73, 66)],
 </div>
 <p>create the ibound/idomain array (active and inactive model cells)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ibound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nlay</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">))</span>
@@ -1056,25 +1094,25 @@ array([(1, 52), (1, 53), (1, 54), ..., (73, 64), (73, 65), (73, 66)],
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x165463290&gt;
+&lt;matplotlib.collections.QuadMesh at 0x7f17667087d0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_57_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_57_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_55_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_55_1.png" />
 </div>
 </div>
 <p>FloPy’s <code class="docutils literal notranslate"><span class="pre">Raster</span></code> class allows us to intersect and resample raster data to the model grid. This class is useful for resampling a number of gridded products such as: Digital Elevation Model data, land cover data, and gridded climate data.</p>
 <p>The first example of using the <code class="docutils literal notranslate"><span class="pre">Raster</span></code> class will be to resample Digital Elevation Model (DEM) data to define the land surface of the Sagehen model</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem_file</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;dem_30m.img&quot;</span>
@@ -1087,7 +1125,7 @@ array([(1, 52), (1, 53), (1, 54), ..., (73, 64), (73, 65), (73, 66)],
 <h3>Now that the raster is loaded we can resample it<a class="headerlink" href="#Now-that-the-raster-is-loaded-we-can-resample-it" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">resample_to_grid()</span></code> method performs geostatistics and returns an array in the shape of the modelgrid. Options for resampling include <code class="docutils literal notranslate"><span class="pre">&quot;nearest&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> (bilinear), <code class="docutils literal notranslate"><span class="pre">&quot;cubic&quot;</span></code> (bicubic), <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;mode&quot;</span></code> (most common value).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s get the nearest neighbor elevations</span>
@@ -1100,8 +1138,18 @@ array([(1, 52), (1, 53), (1, 54), ..., (73, 64), (73, 65), (73, 66)],
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1122,7 +1170,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now let&#39;s plot it up and see what we have</span>
@@ -1140,7 +1188,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_62_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_62_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_60_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_60_0.png" />
 </div>
 </div>
 <section id="Start-creating-model-files-from-the-data-we've-gathered-so-far.">
@@ -1148,7 +1196,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
 <p>At this point we have almost everything we need to begin creating a model discretization package. The only thing left to calculate is the model bottom. Let’s assume bedrock 150 m below land surface throughout the basin and begin creating our model.</p>
 <p>We’ll first start by creating our simulation object and adding a solver and the time discretization. This model will be a year long with 12 stress periods and a daily time step</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">MFSimulation</span><span class="p">(</span><span class="s2">&quot;sagehen&quot;</span><span class="p">,</span> <span class="n">sim_ws</span><span class="o">=</span><span class="n">data_path</span><span class="p">)</span>
@@ -1167,7 +1215,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
 </div>
 <p>Now to create the Groundwater flow model object and add the dis file to it</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gwf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwf</span><span class="p">(</span>
@@ -1194,7 +1242,7 @@ array([[2288.88427734, 2273.79296875, 2263.59692383, ..., 2035.27868652,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1219,7 +1267,7 @@ model_name = sagehen
 </div>
 <p>We can also add an initial conditions file to the model. Let’s assume water level begins at 5 meters below land surface</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ic</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfic</span><span class="p">(</span><span class="n">gwf</span><span class="p">,</span> <span class="n">strt</span><span class="o">=</span><span class="n">dem_data</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span>
@@ -1228,7 +1276,7 @@ model_name = sagehen
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1264,7 +1312,7 @@ model_name = sagehen
 </div>
 <p>And we can create our NPF and STO packages using values from literature</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">npf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfnpf</span><span class="p">(</span>
@@ -1286,7 +1334,7 @@ model_name = sagehen
 </div>
 <p>We can also add a OC package now</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># build output control package</span>
@@ -1316,7 +1364,7 @@ model_name = sagehen
 <li><p>Finally no data values should be converted to 0 value. The <code class="docutils literal notranslate"><span class="pre">Raster</span></code> class has a <code class="docutils literal notranslate"><span class="pre">.nodatavals</span></code> attribute that returns a list of no data values. There is only one in this list; use numpy’s boolean indexing or <code class="docutils literal notranslate"><span class="pre">np.where()</span></code> to replace all of the no data entries with 0.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pet_raster</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;pet.tif&quot;</span>
@@ -1325,7 +1373,7 @@ model_name = sagehen
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rstr</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Raster</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pet_raster</span><span class="p">)</span>
@@ -1333,7 +1381,7 @@ model_name = sagehen
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pet_monthly</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1350,8 +1398,51 @@ model_name = sagehen
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1516,7 +1607,7 @@ model_name = sagehen
 </div>
 <p>Let’s load the saved version of this data, it should be identical to the data that was produced in the exercise.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;pet.txt&quot;</span><span class="p">)</span>
@@ -1526,8 +1617,18 @@ model_name = sagehen
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipykernel_13585/2878387340.py:2: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  arr.shape = (12, modelgrid.nrow, modelgrid.ncol)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1692,7 +1793,7 @@ model_name = sagehen
 </div>
 <p>And resample the precipitation raster we saved earlier</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rstr</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Raster</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">prcp_raster</span><span class="p">)</span>
@@ -1710,8 +1811,51 @@ model_name = sagehen
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1876,7 +2020,7 @@ model_name = sagehen
 </div>
 <p>Potetial evapotranspiration and Precipitation data from daymet are in mm/day, however our discretization is meters/day.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prcp_monthly</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="o">*</span> <span class="mf">0.001</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">prcp_monthly</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
@@ -1886,7 +2030,7 @@ model_name = sagehen
 </div>
 <p>Finally we can load a saved soil hydraulic conductivity array, and we have the information we need to create a Unsaturated Zone Flow (UZF) package for this model</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ksat_raster</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;ksat.img&quot;</span>
@@ -1905,11 +2049,21 @@ model_name = sagehen
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/rasters.py:588: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+  data.shape = data_shape
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_85_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_85_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_83_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_83_1.png" />
 </div>
 </div>
 <section id="Creating-a-UZF-package">
@@ -1917,7 +2071,7 @@ model_name = sagehen
 <p>Now that we have some climate and soils data we can create a UZF package from it and add it to the model!</p>
 <p>Create the package data and the stress period data info for flopy</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelgrid</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">modelgrid</span>
@@ -1949,7 +2103,7 @@ model_name = sagehen
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uzf</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfuzf</span><span class="p">(</span>
@@ -1971,7 +2125,7 @@ model_name = sagehen
 <p>We can use the intersection routines that have been presented thus far to create a river package for the sagehen model.</p>
 <p>The first step is load the NHD flowlines for the basin</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow_lines</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;sagehen_nhd.shp&quot;</span>
@@ -1984,12 +2138,12 @@ model_name = sagehen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_89_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_89_0.png" />
 </div>
 </div>
 <p>Excellent! Now we have all of the flow lines for the Sagehen watershed. But what if we want to identify the main stem?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow_lines</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;sagehen_main_nhd.shp&quot;</span>
@@ -2000,7 +2154,7 @@ model_name = sagehen
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2075,12 +2229,12 @@ model_name = sagehen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_93_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_93_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_91_1.png" />
 </div>
 </div>
 <p>Great! Now we can start processing data to create a river package. We can first identify our main stem cells.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">main_stem</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2097,12 +2251,12 @@ model_name = sagehen
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
   warnings.warn(
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2118,7 +2272,7 @@ model_name = sagehen
 <p>Use GridIntersect to create a list of tributary cells from the <code class="docutils literal notranslate"><span class="pre">flw_all</span></code> geodataframe.</p>
 <p><strong>Hint</strong> Use the <code class="docutils literal notranslate"><span class="pre">main_stem</span></code> list to filter out cells that are associated with the main stem of the river and only store the cells that are associated with tributaries to the main stem.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tributaries</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2143,13 +2297,13 @@ model_name = sagehen
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/Users/mnfienen/miniforge3/envs/pyclass/lib/python3.11/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
+/home/runner/micromamba/envs/pyclass-docs/lib/python3.14/site-packages/flopy/utils/gridintersect.py:123: DeprecationWarning: Note `method=&#34;structured&#34;` is deprecated. Pass `method=&#34;vertex&#34;` to silence this warning. This will be the new default in a future release and this keyword argument will be removed.
   warnings.warn(
 </pre></div></div>
 </div>
 <p>The cellids for tributaries have been stored previously, so we’ll load those up and continue on.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tributaries</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2163,36 +2317,37 @@ model_name = sagehen
 <section id="We-can-also-get-daily-discharge-data-to-help-calculate-average-monthly-stages-for-the-RIV-package">
 <h3>We can also get daily discharge data to help calculate average monthly stages for the RIV package<a class="headerlink" href="#We-can-also-get-daily-discharge-data-to-help-calculate-average-monthly-stages-for-the-RIV-package" title="Link to this heading"></a></h3>
 <p>We’ll use the <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> package to get stage information for our model</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dataretrieval.nwis</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nwis</span>
-
-
-<span class="n">gage</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_record</span><span class="p">(</span><span class="n">sites</span><span class="o">=</span><span class="n">station_id</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="s1">&#39;iv&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2023-12-31&quot;</span><span class="p">,</span> <span class="n">parameterCd</span><span class="o">=</span><span class="s2">&quot;00065&quot;</span><span class="p">)</span>
-<span class="n">gage</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;sagehen_gage_data.csv&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gage</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;sagehen_gage_data.csv&quot;</span><span class="p">)</span>
-<span class="n">gage</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">gage</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">])</span>
-<span class="n">gage</span> <span class="o">=</span> <span class="n">gage</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;datetime&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dataretrieval</span><span class="w"> </span><span class="kn">import</span> <span class="n">waterdata</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">dataretrieval.nwis</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nwis</span>
+    <span class="n">gage</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">waterdata</span><span class="o">.</span><span class="n">get_continuous</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;USGS-</span><span class="si">{</span><span class="n">station_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">parameter_code</span><span class="o">=</span><span class="s2">&quot;00065&quot;</span><span class="p">,</span>
+        <span class="n">time</span><span class="o">=</span><span class="s2">&quot;2024-01-01/2024-12-31&quot;</span>
+    <span class="p">)</span>
+    <span class="n">gage</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;sagehen_gage_data.csv&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">):</span>
+    <span class="n">gage</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;sagehen_gage_data.csv&quot;</span><span class="p">)</span>
 
-<span class="n">gage</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;00065&quot;</span><span class="p">:</span> <span class="s2">&quot;stage&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">gage</span><span class="o">.</span><span class="n">stage</span> <span class="o">*=</span> <span class="mf">0.3284</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">gage</span><span class="o">.</span><span class="n">stage</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;stage, in feet&quot;</span><span class="p">)</span>
 <span class="n">gage</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Retrieving: continuous · 1 page · 35,039 rows
+No API key detected — register for higher rate limits at https://api.waterdata.usgs.gov/signup/
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -2214,12 +2369,162 @@ model_name = sagehen
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>site_no</th>
+      <th>geometry</th>
+      <th>time_series_id</th>
+      <th>monitoring_location_id</th>
+      <th>parameter_code</th>
+      <th>statistic_id</th>
+      <th>time</th>
+      <th>value</th>
+      <th>unit_of_measure</th>
+      <th>approval_status</th>
+      <th>qualifier</th>
+      <th>last_modified</th>
+      <th>continuous_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:00:00+00:00</td>
+      <td>1.68</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>74a9c4fb-11ba-47b0-a32f-fba3b215343d</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:15:00+00:00</td>
+      <td>1.68</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>d393d4e9-a3b9-4ada-87db-e51d4b5b156a</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:30:00+00:00</td>
+      <td>1.67</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>5a53d23c-794b-431f-af0e-fcd55e59b4ce</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:45:00+00:00</td>
+      <td>1.67</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>8fe8e6da-b9e0-46c1-8915-a0dfc32779de</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 01:00:00+00:00</td>
+      <td>1.67</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>4ce89650-7c0d-4612-9599-490dca0e4b0c</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gage</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">gage</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+<span class="n">gage</span> <span class="o">=</span> <span class="n">gage</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;datetime&quot;</span><span class="p">)</span>
+
+<span class="n">gage</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;stage&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gage</span><span class="o">.</span><span class="n">stage</span> <span class="o">*=</span> <span class="mf">0.3284</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">gage</span><span class="o">.</span><span class="n">stage</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;stage, in feet&quot;</span><span class="p">)</span>
+<span class="n">gage</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry</th>
+      <th>time_series_id</th>
+      <th>monitoring_location_id</th>
+      <th>parameter_code</th>
+      <th>statistic_id</th>
+      <th>time</th>
       <th>stage</th>
-      <th>00065_cd</th>
+      <th>unit_of_measure</th>
+      <th>approval_status</th>
+      <th>qualifier</th>
+      <th>last_modified</th>
+      <th>continuous_id</th>
     </tr>
     <tr>
       <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -2227,34 +2532,79 @@ model_name = sagehen
   </thead>
   <tbody>
     <tr>
-      <th>2023-01-01 08:00:00+00:00</th>
-      <td>10343500</td>
-      <td>0.748752</td>
-      <td>A</td>
+      <th>2024-01-01 00:00:00+00:00</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:00:00+00:00</td>
+      <td>0.551712</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>74a9c4fb-11ba-47b0-a32f-fba3b215343d</td>
     </tr>
     <tr>
-      <th>2023-01-01 08:15:00+00:00</th>
-      <td>10343500</td>
-      <td>0.748752</td>
-      <td>A</td>
+      <th>2024-01-01 00:15:00+00:00</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:15:00+00:00</td>
+      <td>0.551712</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>d393d4e9-a3b9-4ada-87db-e51d4b5b156a</td>
     </tr>
     <tr>
-      <th>2023-01-01 08:30:00+00:00</th>
-      <td>10343500</td>
-      <td>0.748752</td>
-      <td>A</td>
+      <th>2024-01-01 00:30:00+00:00</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:30:00+00:00</td>
+      <td>0.548428</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>5a53d23c-794b-431f-af0e-fcd55e59b4ce</td>
     </tr>
     <tr>
-      <th>2023-01-01 08:45:00+00:00</th>
-      <td>10343500</td>
-      <td>0.748752</td>
-      <td>A</td>
+      <th>2024-01-01 00:45:00+00:00</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 00:45:00+00:00</td>
+      <td>0.548428</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>8fe8e6da-b9e0-46c1-8915-a0dfc32779de</td>
     </tr>
     <tr>
-      <th>2023-01-01 09:00:00+00:00</th>
-      <td>10343500</td>
-      <td>0.748752</td>
-      <td>A</td>
+      <th>2024-01-01 01:00:00+00:00</th>
+      <td>POINT (-120.23795 39.43155)</td>
+      <td>7871c70edae741be9ca91417a80ebfdc</td>
+      <td>USGS-10343500</td>
+      <td>00065</td>
+      <td>00011</td>
+      <td>2024-01-01 01:00:00+00:00</td>
+      <td>0.548428</td>
+      <td>ft</td>
+      <td>Approved</td>
+      <td>None</td>
+      <td>2025-08-12 08:35:37.360979+00:00</td>
+      <td>4ce89650-7c0d-4612-9599-490dca0e4b0c</td>
     </tr>
   </tbody>
 </table>
@@ -2264,12 +2614,12 @@ model_name = sagehen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_102_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_102_1.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_100_1.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_100_1.png" />
 </div>
 </div>
 <p>Now we can aggregate to a mean monthly stage from 15 minute instantaneous values</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gage</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gage</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span>
@@ -2283,13 +2633,13 @@ model_name = sagehen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_104_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_104_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_102_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_102_0.png" />
 </div>
 </div>
 <section id="Now-to-create-the-RIV-package">
 <h4>Now to create the RIV package<a class="headerlink" href="#Now-to-create-the-RIV-package" title="Link to this heading"></a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cond</span> <span class="o">=</span> <span class="mi">10</span>
@@ -2317,29 +2667,35 @@ model_name = sagehen
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 [((0, 42, 75),
-  np.float64(1936.8217418655074),
+  np.float64(1936.7883247378193),
   10,
   np.float64(1936.2347412109375)),
- ((0, 42, 76), np.float64(1935.65633659207), 10, np.float64(1935.0693359375)),
+ ((0, 42, 76),
+  np.float64(1935.6229194643818),
+  10,
+  np.float64(1935.0693359375)),
  ((0, 41, 76),
-  np.float64(1932.400721357695),
+  np.float64(1932.3673042300068),
   10,
   np.float64(1931.813720703125)),
  ((0, 41, 77),
-  np.float64(1930.8251598342574),
+  np.float64(1930.7917427065693),
   10,
   np.float64(1930.2381591796875)),
- ((0, 41, 78), np.float64(1928.34823112332), 10, np.float64(1927.76123046875))]
+ ((0, 41, 78),
+  np.float64(1928.3148139956318),
+  10,
+  np.float64(1927.76123046875))]
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riv</span> <span class="o">=</span> <span class="n">flopy</span><span class="o">.</span><span class="n">mf6</span><span class="o">.</span><span class="n">ModflowGwfriv</span><span class="p">(</span>
@@ -2357,7 +2713,7 @@ model_name = sagehen
 <section id="Testing-the-model">
 <h2>Testing the model<a class="headerlink" href="#Testing-the-model" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_simulation</span><span class="p">()</span>
@@ -2384,14 +2740,14 @@ writing simulation...
     writing package uzf_0...
 INFORMATION: nuzfcells in (&#39;gwf6&#39;, &#39;uzf&#39;, &#39;dimensions&#39;) changed to 3587 based on size of packagedata
     writing package riv_0...
-FloPy is using the following executable to run the model: ../../../../../../../.local/share/flopy/bin/mf6
+FloPy is using the following executable to run the model: ../../../../../../../../../.local/bin/mf6
                                    MODFLOW 6
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
-                            VERSION 6.4.2 06/28/2023
+                            VERSION 6.7.0 02/05/2026
 
-   MODFLOW 6 compiled Jul 05 2023 20:29:14 with Intel(R) Fortran Intel(R) 64
-   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
-                             Build 20220726_000000
+   MODFLOW 6 compiled Feb 05 2026 22:38:38 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.6.0
+                             Build 20220226_000000
 
 This software has been approved for release by the U.S. Geological
 Survey (USGS). Although the software has been subjected to rigorous
@@ -2407,7 +2763,9 @@ Resources Software User Rights Notice for complete use, copyright,
 and distribution information.
 
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 10:59:44
+ MODFLOW runs in SEQUENTIAL mode
+
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/08/05 14:24:54
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -2778,14 +3136,20 @@ and distribution information.
     Solving:  Stress period:    12    Time step:    30
     Solving:  Stress period:    12    Time step:    31
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2025/04/27 11:00:56
- Elapsed run time:  1 Minutes, 11.569 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/08/05 14:25:29
+ Elapsed run time: 34.489 Seconds
 
+
+WARNING REPORT:
+
+  1. OPTIONS BLOCK VARIABLE &#39;SIMULATE_GWSEEP&#39; IN FILE &#39;sagehen.uzf&#39; WAS
+     DEPRECATED IN VERSION 6.5.0. USE DRN PACKAGE TO SIMULATE GROUNDWATER
+     DISCHARGE TO LAND SURFACE INSTEAD.
  Normal termination of simulation.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hds</span> <span class="o">=</span> <span class="n">gwf</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -2805,11 +3169,11 @@ and distribution information.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_110_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_110_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_108_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_108_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -2827,7 +3191,7 @@ and distribution information.
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_111_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_111_0.png" />
+<img alt="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_109_0.png" src="../../../_images/notebooks_part1_flopy_solutions_04_Modelgrid_and_intersection_solution_109_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -2853,7 +3217,7 @@ and distribution information.
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 04, 2026.
+      <span class="lastupdated">Last updated on Aug 05, 2026.
       </span></p>
   </div>
 

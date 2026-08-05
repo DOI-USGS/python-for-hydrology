@@ -28,7 +28,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="06: FloPy class project: Structured grid version" href="solutions/06-Project-structured_completed.html" />
-    <link rel="prev" title="04: Modelgrid and intersection" href="solutions/04_Modelgrid_and_intersection_solution.html" /> 
+    <link rel="prev" title="Modelgrid and intersection" href="solutions/04_Modelgrid_and_intersection_solution.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,7 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="01-Flopy-intro.html">01: Introduction to FloPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/02-Building-Post-Processing-MODFLOW6__solutions.html">02: Building and post-processing a MODFLOW 6 model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solutions/03_Loading_and_visualizing_models-solutions.html">03: Loading and visualizing groundwater models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">04: Modelgrid and intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solutions/04_Modelgrid_and_intersection_solution.html">Modelgrid and intersection</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">05: Unstructured grid and general mesh generation with FloPy</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Creating-a-regular-structured-(rectilinear)-grid">Creating a regular structured (rectilinear) grid</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Resampling-data-to-finish-creating-our-initial-grid.">Resampling data to finish creating our initial grid.</a></li>
@@ -152,7 +152,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ctx</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">dataretrieval</span><span class="w"> </span><span class="kn">import</span> <span class="n">nldi</span><span class="p">,</span> <span class="n">nwis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataretrieval</span><span class="w"> </span><span class="kn">import</span> <span class="n">nldi</span><span class="p">,</span> <span class="n">waterdata</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flopy.discretization</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructuredGrid</span><span class="p">,</span> <span class="n">VertexGrid</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flopy.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlotMapView</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flopy.utils.gridgen</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gridgen</span>
@@ -181,7 +181,7 @@
 <span class="ansi-green-fg">      7</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> numpy <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> np
 <span class="ansi-green-fg">      8</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> pandas <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> pd
 <span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">9</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> contextily <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> ctx
-<span class="ansi-green-fg">     10</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> dataretrieval <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> nldi, nwis
+<span class="ansi-green-fg">     10</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> dataretrieval <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> nldi, waterdata
 <span class="ansi-green-fg">     11</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> flopy.discretization <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> StructuredGrid, VertexGrid
 <span class="ansi-green-fg">     12</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> flopy.plot <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> PlotMapView
 
@@ -256,7 +256,6 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># live code modelgrid creation</span>
-<span class="n">cellsize</span> <span class="o">=</span> <span class="mi">200</span>
 <br/></pre></div>
 </div>
 </div>
@@ -395,14 +394,16 @@
 <span class="n">griddf</span> <span class="o">=</span> <span class="n">sgrid</span><span class="o">.</span><span class="n">geo_dataframe</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">26911</span><span class="p">)</span>
 <span class="n">grid_wgs</span> <span class="o">=</span> <span class="n">griddf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
 
-<span class="n">wxmin</span><span class="p">,</span> <span class="n">wxmax</span><span class="p">,</span> <span class="n">wymin</span><span class="p">,</span> <span class="n">wymax</span> <span class="o">=</span> <span class="n">grid_wgs</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">wxmin</span><span class="p">,</span> <span class="n">wymin</span><span class="p">,</span> <span class="n">wxmax</span><span class="p">,</span> <span class="n">wymax</span> <span class="o">=</span> <span class="n">grid_wgs</span><span class="o">.</span><span class="n">total_bounds</span>
 <span class="n">wgs_bounds</span> <span class="o">=</span> <span class="p">[</span><span class="n">wxmin</span><span class="p">,</span> <span class="n">wymin</span><span class="p">,</span> <span class="n">wxmax</span><span class="p">,</span> <span class="n">wymax</span><span class="p">]</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">info</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">bBox</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">wgs_bounds</span><span class="p">])</span>
+    <span class="n">info</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">waterdata</span><span class="o">.</span><span class="n">get_monitoring_locations</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">wgs_bounds</span><span class="p">)</span>
+    <span class="c1"># info.to_file(geospatial_ws / &quot;gage_info.geojson&quot;, driver=&quot;GeoJSON&quot;)</span>
 <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">):</span>
-    <span class="n">info</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;gage_info.shp&quot;</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;gage_info.geojson&quot;</span><span class="p">)</span>
 
+<span class="n">info</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">grid_wgs</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
 <span class="n">info</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -419,7 +420,7 @@
 <span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> griddf = sgrid.geo_dataframe.set_crs(epsg=<span class="ansi-green-fg">26911</span>)
 <span class="ansi-green-fg">      3</span> grid_wgs = griddf.to_crs(epsg=<span class="ansi-green-fg">4326</span>)
 <span class="ansi-green-fg">      4</span>
-<span class="ansi-green-fg">      5</span> wxmin, wxmax, wymin, wymax = grid_wgs.total_bounds
+<span class="ansi-green-fg">      5</span> wxmin, wymin, wxmax, wymax = grid_wgs.total_bounds
 
 <span class="ansi-red-fg">NameError</span>: name &#39;sgrid&#39; is not defined
 </pre></div></div>
@@ -455,7 +456,7 @@
 
 <span class="n">rstr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">info</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;site_no&quot;</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;monitoring_location_number&quot;</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -476,7 +477,7 @@
 <span class="ansi-green-fg">      2</span>
 <span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> rstr.plot(ax=ax)
 <span class="ansi-green-fg">      4</span> info.plot(
-<span class="ansi-green-fg">      5</span>     column=<span class="ansi-yellow-fg">&#34;site_no&#34;</span>,
+<span class="ansi-green-fg">      5</span>     column=<span class="ansi-yellow-fg">&#34;monitoring_location_number&#34;</span>,
 <span class="ansi-green-fg">      6</span>     ax=ax,
 
 <span class="ansi-red-fg">NameError</span>: name &#39;rstr&#39; is not defined
@@ -494,7 +495,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sitedf</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">site_no</span> <span class="o">==</span> <span class="s2">&quot;10343500&quot;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sitedf</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">monitoring_location_number</span> <span class="o">==</span> <span class="s2">&quot;10343500&quot;</span><span class="p">]</span>
 <span class="n">sitedf</span>
 </pre></div>
 </div>
@@ -507,7 +508,7 @@
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
 <span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[13]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sitedf = info.loc[info.site_no == <span class="ansi-yellow-fg">&#34;10343500&#34;</span>]
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sitedf = info.loc[info.monitoring_location_number == <span class="ansi-yellow-fg">&#34;10343500&#34;</span>]
 <span class="ansi-green-fg">      2</span> sitedf
 
 <span class="ansi-red-fg">NameError</span>: name &#39;info&#39; is not defined
@@ -521,7 +522,7 @@
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">basindf</span> <span class="o">=</span> <span class="n">nldi</span><span class="o">.</span><span class="n">get_basin</span><span class="p">(</span>
         <span class="n">feature_source</span><span class="o">=</span><span class="s2">&quot;nwissite&quot;</span><span class="p">,</span>
-        <span class="n">feature_id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;USGS-</span><span class="si">{</span><span class="n">sitedf</span><span class="o">.</span><span class="n">site_no</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">feature_id</span><span class="o">=</span><span class="n">sitedf</span><span class="o">.</span><span class="n">monitoring_location_id</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">basindf</span> <span class="o">=</span> <span class="n">basindf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="n">epsg</span><span class="p">)</span>
 <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">):</span>
@@ -537,7 +538,7 @@
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">DataSourceError</span>                           Traceback (most recent call last)
 <span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[14]</span><span class="ansi-green-fg">, line 8</span>
-<span class="ansi-green-fg">      4</span>         feature_id=f&#34;USGS-{sitedf.site_no.values[<span class="ansi-green-fg">0</span>]}&#34;,
+<span class="ansi-green-fg">      4</span>         feature_id=sitedf.monitoring_location_id.values[<span class="ansi-green-fg">0</span>],
 <span class="ansi-green-fg">      5</span>     )
 <span class="ansi-green-fg">      6</span>     basindf = basindf.to_crs(epsg=epsg)
 <span class="ansi-green-fg">      7</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> (ValueError, ConnectionError, NameError):
@@ -636,7 +637,7 @@
 <span class="n">rstr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">basindf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">info</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;site_no&quot;</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;monitoring_location_number&quot;</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -657,7 +658,7 @@
 <span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> rstr.plot(ax=ax)
 <span class="ansi-green-fg">      3</span> basindf.plot(ax=ax, facecolor=<span class="ansi-yellow-fg">&#34;None&#34;</span>, edgecolor=<span class="ansi-yellow-fg">&#34;k&#34;</span>, lw=<span class="ansi-green-fg">1.5</span>)
 <span class="ansi-green-fg">      4</span> info.plot(
-<span class="ansi-green-fg">      5</span>     column=<span class="ansi-yellow-fg">&#34;site_no&#34;</span>,
+<span class="ansi-green-fg">      5</span>     column=<span class="ansi-yellow-fg">&#34;monitoring_location_number&#34;</span>,
 
 <span class="ansi-red-fg">NameError</span>: name &#39;rstr&#39; is not defined
 </pre></div></div>
@@ -793,7 +794,7 @@
 
 <span class="n">basindf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">sitedf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;site_no&quot;</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;monitoring_location_number&quot;</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -838,7 +839,7 @@
         <span class="n">navigation_mode</span><span class="o">=</span><span class="s2">&quot;UT&quot;</span><span class="p">,</span>
         <span class="n">distance</span><span class="o">=</span><span class="mi">999</span><span class="p">,</span>
         <span class="n">feature_source</span><span class="o">=</span><span class="s2">&quot;nwissite&quot;</span><span class="p">,</span>
-        <span class="n">feature_id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;USGS-</span><span class="si">{</span><span class="n">sitedf</span><span class="o">.</span><span class="n">site_no</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">feature_id</span><span class="o">=</span><span class="n">sitedf</span><span class="o">.</span><span class="n">monitoring_location_id</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">nhddf</span> <span class="o">=</span> <span class="n">nhddf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="n">epsg</span><span class="p">)</span>
 <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">):</span>
@@ -1161,7 +1162,7 @@
 
 <span class="n">basindf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">sitedf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;site_no&quot;</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">&quot;monitoring_location_number&quot;</span><span class="p">,</span>
     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;tab20&quot;</span><span class="p">,</span>
     <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2433,46 +2434,25 @@
 </section>
 <section id="Activity-(If-time-permits);-Build-a-Voronoi-mesh/Vertex-Grid:">
 <h2>Activity (If time permits); Build a Voronoi mesh/Vertex Grid:<a class="headerlink" href="#Activity-(If-time-permits);-Build-a-Voronoi-mesh/Vertex-Grid:" title="Link to this heading"></a></h2>
-<p>Define a voronoi grid for the basin upstream of the Black Earth Creek streamgauge near Cross Plains, WI. The upstream basin information is supplied by NLDI and has been saved to the class repo in case of internet connectivity or NLDI service issues.</p>
+<p>Define a voronoi grid for the basin upstream of the Little Sandy River streamgauge near Bull Run, OR. The upstream basin information is supplied by NLDI and has been saved to the class repo in case of internet connectivity or NLDI service issues.</p>
 <p>Some of the previous code can be re-used to create a voronoi mesh and subsequent <code class="docutils literal notranslate"><span class="pre">VertexGrid</span></code> representation of the basin. See the Triangular and Voronoi grid sections of the notebook.</p>
-<p><strong>Optional</strong>, use the Upstream Main segment of Black Earth Creek to refine the voronoi mesh around the stream location. Refinement control points have been pre-defined below.</p>
-<div class="nbinput docutils container">
+<p><strong>Optional</strong>, use the Upstream Main segment of the Little Sandy River to refine the voronoi mesh around the stream location. Refinement control points have been pre-defined below.</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epsg</span> <span class="o">=</span> <span class="mi">5070</span>  <span class="c1"># NAD83 CONUS Albers</span>
-<span class="c1"># try:</span>
-    <span class="c1"># todo: update this for black earth creek near cross plains WI site-no 05406479</span>
-<span class="n">be_cr_nr_cp</span> <span class="o">=</span> <span class="s2">&quot;05406479&quot;</span>
-<span class="n">basindf</span> <span class="o">=</span> <span class="n">nldi</span><span class="o">.</span><span class="n">get_basin</span><span class="p">(</span>
-    <span class="n">feature_source</span><span class="o">=</span><span class="s2">&quot;nwissite&quot;</span><span class="p">,</span> <span class="n">feature_id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;USGS-</span><span class="si">{</span><span class="n">be_cr_nr_cp</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-<span class="n">basindf</span> <span class="o">=</span> <span class="n">basindf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="n">epsg</span><span class="p">)</span>
-<span class="n">basindf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;black_earth_basin.shp&quot;</span><span class="p">)</span>
-<span class="c1"># except (ValueError, ConnectionError, NameError):</span>
-<span class="c1">#     basindf = gpd.read_file(geospatial_ws / &quot;black_earth_basin.shp&quot;)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">lsr_gauge_id</span> <span class="o">=</span> <span class="s2">&quot;USGS-14141500&quot;</span>
+    <span class="n">basindf</span> <span class="o">=</span> <span class="n">nldi</span><span class="o">.</span><span class="n">get_basin</span><span class="p">(</span>
+        <span class="n">feature_source</span><span class="o">=</span><span class="s2">&quot;nwissite&quot;</span><span class="p">,</span> <span class="n">feature_id</span><span class="o">=</span><span class="n">lsr_gauge_id</span>
+    <span class="p">)</span>
+    <span class="n">basindf</span> <span class="o">=</span> <span class="n">basindf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="n">epsg</span><span class="p">)</span>
+    <span class="n">basindf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;little_sandy_basin.shp&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">):</span>
+    <span class="n">basindf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;little_sandy_basin.shp&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[68]</span><span class="ansi-green-fg">, line 5</span>
-<span class="ansi-green-fg">      1</span> epsg = <span class="ansi-green-fg">5070</span>  <span style="color: rgb(95,135,135)"># NAD83 CONUS Albers</span>
-<span class="ansi-green-fg">      2</span> <span style="color: rgb(95,135,135)"># try:</span>
-<span class="ansi-green-fg">      3</span>     <span style="color: rgb(95,135,135)"># todo: update this for black earth creek near cross plains WI site-no 05406479</span>
-<span class="ansi-green-fg">      4</span> be_cr_nr_cp = <span class="ansi-yellow-fg">&#34;05406479&#34;</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> basindf = nldi.get_basin(
-<span class="ansi-green-fg">      6</span>     feature_source=<span class="ansi-yellow-fg">&#34;nwissite&#34;</span>, feature_id=f&#34;USGS-{be_cr_nr_cp}&#34;
-<span class="ansi-green-fg">      7</span> )
-<span class="ansi-green-fg">      8</span> basindf = basindf.to_crs(epsg=epsg)
-
-<span class="ansi-red-fg">NameError</span>: name &#39;nldi&#39; is not defined
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
@@ -2483,12 +2463,12 @@
         <span class="n">navigation_mode</span><span class="o">=</span><span class="s2">&quot;UM&quot;</span><span class="p">,</span>
         <span class="n">distance</span><span class="o">=</span><span class="mi">9999</span><span class="p">,</span>
         <span class="n">feature_source</span><span class="o">=</span><span class="s2">&quot;nwissite&quot;</span><span class="p">,</span>
-        <span class="n">feature_id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;USGS-</span><span class="si">{</span><span class="n">be_cr_nr_cp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">feature_id</span><span class="o">=</span><span class="n">lsr_gauge_id</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">nhddf</span> <span class="o">=</span> <span class="n">nhddf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="n">epsg</span><span class="p">)</span>
-    <span class="n">nhddf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;black_earth_creek_main.shp&quot;</span><span class="p">)</span>
+    <span class="n">nhddf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;little_sandy_river_main.shp&quot;</span><span class="p">)</span>
 <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">):</span>
-    <span class="n">nhddf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;black_earth_creek_main.shp&quot;</span><span class="p">)</span>
+    <span class="n">nhddf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geospatial_ws</span> <span class="o">/</span> <span class="s2">&quot;little_sandy_river_main.shp&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2516,15 +2496,17 @@
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[70]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[70]</span><span class="ansi-green-fg">, line 5</span>
 <span class="ansi-green-fg">      1</span> fig, ax = plt.subplots()
 <span class="ansi-green-fg">      2</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> basindf.plot(ax=ax, facecolor=<span class="ansi-yellow-fg">&#34;None&#34;</span>, edgecolor=<span class="ansi-yellow-fg">&#34;k&#34;</span>)
+<span class="ansi-green-fg">      3</span> basindf.plot(ax=ax, facecolor=<span class="ansi-yellow-fg">&#34;None&#34;</span>, edgecolor=<span class="ansi-yellow-fg">&#34;k&#34;</span>)
 <span class="ansi-green-fg">      4</span> nhddf.plot(ax=ax)
-<span class="ansi-green-fg">      5</span> ctx.add_basemap(
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> ctx.add_basemap(
 <span class="ansi-green-fg">      6</span>     ax=ax,
+<span class="ansi-green-fg">      7</span>     crs=basindf.crs,
+<span class="ansi-green-fg">      8</span>     source=ctx.providers.USGS.USTopo
 
-<span class="ansi-red-fg">NameError</span>: name &#39;basindf&#39; is not defined
+<span class="ansi-red-fg">NameError</span>: name &#39;ctx&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2535,28 +2517,14 @@
 </div>
 </div>
 <p>Grid refinement control points are defined here for the optional part of this exercise</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wsloc</span> <span class="o">=</span> <span class="n">basindf</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">stloc</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">nhddf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">stloc</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">nhddf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[71]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> wsloc = basindf.centroid.values[<span class="ansi-green-fg">0</span>]
-<span class="ansi-green-fg">      2</span> stloc = list(zip(*nhddf.geometry.values[<span class="ansi-green-fg">10</span>].xy))[<span class="ansi-green-fg">0</span>]
-
-<span class="ansi-red-fg">NameError</span>: name &#39;basindf&#39; is not defined
-</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2589,7 +2557,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="solutions/04_Modelgrid_and_intersection_solution.html" class="btn btn-neutral float-left" title="04: Modelgrid and intersection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="solutions/04_Modelgrid_and_intersection_solution.html" class="btn btn-neutral float-left" title="Modelgrid and intersection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="solutions/06-Project-structured_completed.html" class="btn btn-neutral float-right" title="06: FloPy class project: Structured grid version" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -2597,7 +2565,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 04, 2026.
+      <span class="lastupdated">Last updated on Aug 05, 2026.
       </span></p>
   </div>
 
