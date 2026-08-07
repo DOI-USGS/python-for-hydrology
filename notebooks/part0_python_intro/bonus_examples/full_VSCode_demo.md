@@ -1,6 +1,6 @@
 ![](data/code-stable.png)
 
-# 07b: VSCode Tutorial
+# Full VSCode Tutorial
 In this tutorial we will explore using an integrated development environment (IDE) for python programming. IDEs offer many advantages over Jupyter Notebooks, particularly for developing production code that will be reused many times and shared with others. The advantages of IDEs include:  
 * *Linting* to catch errors, dead code, and other code quality issues
 * automatic docstring generation and other auto completion

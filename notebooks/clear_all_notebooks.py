@@ -15,7 +15,7 @@ skip_notebooks = [
     #'05-unstructured-grids.ipynb',
     #'07-stream_capture_voronoi.ipynb',
     #'09-gwt-voronoi-demo.ipynb',
-    '10b_modpath_particle_tracking-demo.ipynb'
+    'Modpath_particle_tracking-demo.ipynb'
     ]
 
 if __name__ == "__main__":

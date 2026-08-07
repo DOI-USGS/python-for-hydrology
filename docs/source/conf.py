@@ -265,8 +265,9 @@ copy_notebooks = [
     source_path / 'part0_python_intro/solutions/05_numpy__solutions.ipynb',
     source_path / 'part0_python_intro/solutions/06_matplotlib__solution.ipynb',
     source_path / 'part0_python_intro/06b_matplotlib_animation.ipynb',
-    source_path / 'part0_python_intro/solutions/07a_Theis-exercise-solution.ipynb',
-    source_path / 'part0_python_intro/07b_VSCode.md',
+    source_path / 'part0_python_intro/bonus_examples/solutions/Theis-exercise-solution.ipynb',
+    source_path / 'part0_python_intro/07_VSCode.md',
+    source_path / 'part0_python_intro/bonus_examples/full_VSCode_demo.md',
     source_path / 'part0_python_intro/solutions/08_pandas.ipynb',
     source_path / 'part0_python_intro/data/',
     source_path / 'part0_python_intro/09_a_Geopandas.ipynb',
@@ -290,10 +291,10 @@ copy_notebooks = [
     source_path / 'part1_flopy/08_Modflow-setup-demo.ipynb',
     source_path / 'part1_flopy/08b_Modflow-setup-lgr-demo.ipynb',
     source_path / 'part1_flopy/09-gwt-voronoi-demo.ipynb',
-    source_path / 'part1_flopy/10a_prt_particle_tracking-demo.ipynb',
-    source_path / 'part1_flopy/10b_modpath_particle_tracking-demo.ipynb',
+    source_path / 'part1_flopy/10_prt_particle_tracking-demo.ipynb',
+    source_path / 'part1_flopy/bonus_examples/Modpath_particle_tracking-demo.ipynb',
     # "bonus" notebooks
-    source_path / 'part0_python_intro/09_b_Geopandas_ABQ.ipynb'
+    source_path / 'part0_python_intro/bonus_examples/Geopandas_ABQ.ipynb'
 ]
 # copy the notebooks
 for f in copy_notebooks:
