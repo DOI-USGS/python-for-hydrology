@@ -294,7 +294,7 @@ copy_notebooks = [
     source_path / 'part1_flopy/10_prt_particle_tracking-demo.ipynb',
     source_path / 'part1_flopy/bonus_examples/Modpath_particle_tracking-demo.ipynb',
     # "bonus" notebooks
-    source_path / 'part0_python_intro/09_b_Geopandas_ABQ.ipynb'
+    source_path / 'part0_python_intro/bonus_examples/Geopandas_ABQ.ipynb'
 ]
 # copy the notebooks
 for f in copy_notebooks:
