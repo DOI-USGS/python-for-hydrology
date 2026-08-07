@@ -18,7 +18,7 @@ We encourage students to explore these materials for their own study or to reach
    :caption: Bonus Examples
 
 	General Python <part0_bonus_examples.rst>
-   Flopy <part0_bonus_examples.rst>
+   Flopy <part1_bonus_examples.rst>
 
 .. toctree::
   :maxdepth: 1

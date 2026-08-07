@@ -26,7 +26,9 @@
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Particle tracking with MODPATH" href="bonus_examples/Modpath_particle_tracking-demo.html" />
+    <link rel="prev" title="Flopy bonus examples" href="../../part1_bonus_examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,9 +56,29 @@
 <li class="toctree-l1"><a class="reference internal" href="../../part1.html">Part 1: Flopy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Bonus Examples</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../part0_bonus_examples.html">     General Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../part0_bonus_examples.html">Flopy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../part1_bonus_examples.html">Flopy</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">08b: Modflow-setup local grid refinement (LGR) demonstration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Example-problem">Example problem</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Some-advantages-of-this-multi-scale-approach-over-an-unstructured-grid-alternative-include:">Some advantages of this multi-scale approach over an unstructured grid alternative include:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Disadvantages">Disadvantages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Example-model-details">Example model details</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Working-directory-gottcha">Working directory gottcha</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Change-the-working-directory-back-to-the-notebook-location">Change the working directory back to the notebook location</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Plot-the-inset-and-parent-model-grids-with-Lake-Package-connections-by-layer">Plot the inset and parent model grids with Lake Package connections by layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Read-the-output-and-post-process-the-3D-head-results-into-2D-water-table(s)">Read the output and post-process the 3D head results into 2D water table(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Then-combine-the-parent-and-inset-model-head-results">Then combine the parent and inset model head results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#References">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bonus_examples/Modpath_particle_tracking-demo.html">Particle tracking with MODPATH</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -81,6 +103,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../part1_bonus_examples.html">Flopy bonus examples</a></li>
       <li class="breadcrumb-item active">08b: Modflow-setup local grid refinement (LGR) demonstration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/notebooks/part1_flopy/08b_Modflow-setup-lgr-demo.ipynb.txt" rel="nofollow"> View page source</a>
@@ -114,7 +137,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <li><p>Any code for visualizing the whole model must iterate through the models in the simulation; additional complexity is often needed to stitch the two models together, for example in making the seamless water table contours here. This also makes it harder to re-use code between the LGR simulation and other single-model simulations.</p></li>
 <li><p>Particles and mass transport can’t be simulated across the boundary between the parent model and local grid refinement area.</p></li>
 </ul>
-<p><img alt="c5c28440e2ff45588e2487332042b3fd" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
+<p><img alt="f6af24e4572f43cb9d55880d12ae7cb4" src="https://github.com/doi-usgs/modflow-setup/blob/develop/docs/source/_static/fig1_pleasant_lake_model.jpg?raw=true" /></p>
 <p><strong>Figure 1</strong>: The full Pleasant Lake model domain with location map, showing the relationship between the regional, parent and LGR inset models, as well as the irrigation wells considered.</p>
 <p>Most details of the Fienen et al (2022) model are included here, but to reduce file sizes and execution time, a smaller parent model domain is used, and the inset model spacing is increased to 40 meters. The example model here is for illustrative purposes only, and is not intended to be adequate for representing pumping impacts or providing a sufficient distance to the perimeter boundaries.</p>
 </section>
@@ -199,7 +222,7 @@ resolution local grid refinement (LGR) inset (sub)model (see for example, Mehl a
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 creating shapely Polygons of grid cells...
-finished in 0.07s
+finished in 0.06s
 
 writing postproc/shps/regional_model_grid.shp... Done
 </pre></div></div>
@@ -295,7 +318,7 @@ finished in 0.01s
 
 writing postproc/shps/plsnt-lgr-parent_grid.shp... Done
 creating shapely Polygons of grid cells...
-finished in 0.10s
+finished in 0.08s
 
 writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </pre></div></div>
@@ -336,7 +359,7 @@ writing postproc/shps/plsnt-lgr-inset_grid.shp... Done
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Pleasant Lake test case version 0.1.post608.dev0+gc905efe
+Pleasant Lake test case version 0.1.post612.dev0+g2607a22
 Parent model: /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lake//pleasant
 5 layer(s), 25 row(s), 27 column(s)
 delr: [200.00...200.00] undefined
@@ -432,7 +455,7 @@ defaultdict(dict,
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post608.dev0+gc905efe
+{&#39;plsnt-lgr-inset&#39;: plsnt-lgr-inset model version 0.post612.dev0+g2607a22
  Parent model: ./plsnt-lgr-parent
  5 layer(s), 75 row(s), 85 column(s)
  delr: [40.00...40.00] undefined
@@ -557,7 +580,7 @@ INFORMATION: maxbound in (&#39;gwf6&#39;, &#39;wel&#39;, &#39;dimensions&#39;) c
     writing package lak_0...
     writing package obs_0...
     writing package obs_1...
-SFRmaker v. 0.13.2
+SFRmaker v. 0.14.0
 
 Running Flopy v. 3.9.5 diagnostics...
 passed.
@@ -572,13 +595,13 @@ Checking for circular routing...
 passed.
 
 Checking reach connections for proximity...
-2 segments with non-adjacent reaches found.
+0 segments with non-adjacent reaches found.
 At segments:
-1 2
 
-2 segments with non-adjacent reaches found.
+
+0 segments with non-adjacent reaches found.
 At segments:
-1 2
+
 
 
 Checking for model cells with multiple non-zero SFR conductances...
@@ -595,17 +618,7 @@ Segment elevup and elevdn not specified for nstrm=-17 and isfropt=1
 passed.
 
 Checking reach_data for downstream rises in streambed elevation...
-7 reaches encountered with strtop &lt; strtop of downstream reach.
-Elevation rises:
-k i j iseg ireach strtop strtopdn d_strtop reachID diff
-4 20 16 2 1 290.62847900390625 292.9230651855469 2.294586181640625 6 -2.294586181640625
-1 24 22 2 11 288.60980224609375 290.6103210449219 2.000518798828125 16 -2.000518798828125
-4 21 16 2 2 290.62847900390625 292.60821533203125 1.979736328125 7 -1.979736328125
-1 24 21 2 10 288.9635314941406 290.62847900390625 1.664947509765625 15 -1.664947509765625
-2 24 20 2 9 289.3415832519531 290.62847900390625 1.286895751953125 14 -1.286895751953125
-2 24 19 2 8 289.4857482910156 290.62847900390625 1.142730712890625 13 -1.142730712890625
-4 23 19 2 7 290.6103210449219 290.62847900390625 0.018157958984375 12 -0.018157958984375
-
+passed.
 
 Checking reach_data for inconsistencies between streambed elevations and the model grid...
 passed.
@@ -634,7 +647,7 @@ writing /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/
 No period data to export!
 writing /home/runner/work/python-for-hydrology/python-for-hydrology/docs/source/notebooks/part1_flopy/data/pleasant-lgr/postproc/shps/plsnt-lgr-parent_sfr_observations.shp... Done
 No non-zero values of flow to export!
-SFRmaker v. 0.13.2
+SFRmaker v. 0.14.0
 
 Running Flopy v. 3.9.5 diagnostics...
 passed.
@@ -663,16 +676,14 @@ Checking for model cells with multiple non-zero SFR conductances...
 This may lead to circular routing between collocated reaches.
 Nodes with overlapping conductances:
 k       i       j       iseg    ireach  rchlen  strthick        strhc1
-0       27      71      1       12      13.225701332092285      1.0     1.0
-0       27      71      1       13      26.684703826904297      1.0     1.0
+0       27      71      2       12      13.225701332092285      1.0     1.0
+0       27      71      2       13      26.684703826904297      1.0     1.0
 
 Checking for streambed tops of less than -10...
-isfropt setting of 1,2 or 3 requires strtop information!
-
+passed.
 
 Checking for streambed tops of greater than 15000...
-isfropt setting of 1,2 or 3 requires strtop information!
-
+passed.
 
 Checking segment_data for downstream rises in streambed elevation...
 Segment elevup and elevdn not specified for nstrm=-41 and isfropt=1
@@ -749,7 +760,7 @@ and distribution information.
 
  MODFLOW runs in SEQUENTIAL mode
 
- Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/08/05 15:17:13
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2026/08/07 23:19:14
 
  Writing simulation list file: mfsim.lst
  Using Simulation name file: mfsim.nam
@@ -768,16 +779,9 @@ and distribution information.
     Solving:  Stress period:    12    Time step:     1
     Solving:  Stress period:    13    Time step:     1
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/08/05 15:17:18
- Elapsed run time:  4.233 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2026/08/07 23:19:19
+ Elapsed run time:  4.426 Seconds
 
-
-WARNING REPORT:
-
-  1. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;plsnt-lgr-parent.sfr&#39;
-     WAS DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
-  2. OPTIONS BLOCK VARIABLE &#39;UNIT_CONVERSION&#39; IN FILE &#39;plsnt-lgr-inset.sfr&#39;
-     WAS DEPRECATED IN VERSION 6.4.2. SETTING UNIT_CONVERSION DIRECTLY.
  Normal termination of simulation.
 </pre></div></div>
 </div>
@@ -966,13 +970,16 @@ Text(0.5, 0, &#39;Easting, in Wisconsin Transverse Mercator (meters)&#39;)
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../part1_bonus_examples.html" class="btn btn-neutral float-left" title="Flopy bonus examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bonus_examples/Modpath_particle_tracking-demo.html" class="btn btn-neutral float-right" title="Particle tracking with MODPATH" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2022-2026, USGS Python for Hydrology instructors.
-      <span class="lastupdated">Last updated on Aug 05, 2026.
+      <span class="lastupdated">Last updated on Aug 07, 2026.
       </span></p>
   </div>
 
