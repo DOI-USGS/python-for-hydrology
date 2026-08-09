@@ -42,7 +42,7 @@ Monday
 - 900-1000: 01 Introductions and IT sorting (Mike)
 - 1000-1100: 02 Build your first model with FloPy (Kalle)
 - 1100-1115: break
-- 1115-1245: 03 Loading and visualizing models with FloPy (Andy) 
+- 1115-1245: 03 Loading and visualizing models with FloPy (Josh) 
 - 1245-1345: lunch
 - 1345-1615: 04 Intersection Capabilities, modelgrid, time wrangling (Josh) 
 - 1615-1630: break
@@ -55,8 +55,8 @@ Monday
 - 1230-1330: lunch
 - 1330-1500: 07 Streamflow Capture Analysis with FloPy – using Voronoi (Mike) 
 - 1500-1515: break
-- 1515-1545: 08 Modflow-setup demo (Andy) 
+- 1515-1545: 08 Modflow-setup demo (Mike) 
 - 1545-1600: break
 - 1600-1630: 09 Run and process MF6 GWT (Kalle) 
-- 1630-1700: 10 Run and process MODPATH/MF6-PRT models (Andy) 
+- 1630-1700: 10 Run and process MODPATH/MF6-PRT models (Josh) 
 - 1700: Wrap up
