@@ -13,7 +13,7 @@ on:
 jobs:
   docs:
     name: Publish Docs
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout source
@@ -52,11 +52,15 @@ jobs:
       run: micromamba list
     - name: Run tests
       shell: bash -l {0}
+      env:
+        PYTHONUTF8: 1
       run: |
         pytest tests/test_notebook_output.py
 
     - name: Build docs
       shell: bash -l {0}
+      env:
+        PYTHONUTF8: 1
       run: |
         set -e
         make -C docs html
