@@ -43,6 +43,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "import warnings\n",
+    "\n",
     "import numpy as np\n",
     "import geopandas as gp\n",
     "import rasterio\n",
@@ -51,6 +53,8 @@
     "import matplotlib.pyplot as plt\n",
     "from matplotlib.colors import LightSource\n",
     "from pathlib import Path\n",
+    "\n",
+    "warnings.filterwarnings('ignore')\n",
     "\n",
     "# for elevation hillshade if we want to use it\n",
     "ls = LightSource(azdeg=315, altdeg=45)"
@@ -142,7 +146,7 @@
     "x, y = zip(*points)\n",
     "fig, ax = plt.subplots(figsize=(8, 8))\n",
     "with rasterio.open(input_rasters[2015]) as src:\n",
-    "     ax = show(src, ax=ax, zorder=1, cmap=\"plasma\", vmin=500, vmax=4500)\n",
+    "     ax = show(src, ax=ax, zorder=1, cmap=\"plasma\", vmin=500, vmax=4500, adjust=False)\n",
     "\n",
     "ax.scatter(x, y, c=\"k\", s=50, zorder=5)\n",
     "ax.set_facecolor(\"lightgrey\")\n",
@@ -217,7 +221,7 @@
     "            data = src.read(1)\n",
     "            vmin, vmax = data.min(), data.max()\n",
     "        ax=axes.flat[i]\n",
-    "        show(src, ax=ax, vmin=vmin, vmax=vmax)\n",
+    "        show(src, ax=ax, vmin=vmin, vmax=vmax, adjust=False)\n",
     "        ax.set_title(year)\n",
     "        ax.set_facecolor(\"lightgrey\")\n",
     "        plt.colorbar(ax.images[0], ax=ax, \n",
@@ -960,22 +964,6 @@
    "source": [
     "glaciers.sort_values(by=\"mean_el_change_m\").head()"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "4ca0883e",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "d3b23f72",
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
